@@ -1,0 +1,30 @@
+name: Sync Mirror
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "0 6,13 * * *"
+
+permissions:
+  contents: write
+  
+jobs:
+  sync-mirror:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout mirror
+        uses: actions/checkout@v4
+        with:
+          ref: mirror
+      - name: Setup git
+        run: |
+          git config --global user.name ${{ secrets.GIT_USER_NAME }}
+          git config --global user.email ${{ secrets.GIT_USER_EMAIL }}
+      - name: Set upstream
+        run: git remote add -t ${{ secrets.REMOTE_UPSTREAM_BRANCH }} upstream ${{ secrets.REMOTE_UPSTREAM }}
+      - name: Sync local mirror
+        run: git fetch --all && git reset --hard upstream/${{ secrets.REMOTE_UPSTREAM_BRANCH }}
+      - name: Push to origin
+        run: git push -f origin mirror
+      - name: Diff
+        run: git diff origin/develop
