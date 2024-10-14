@@ -47,7 +47,7 @@ jobs:
           retention-days: 3
   
   deploy-dev:
-    if: github.ref_name == 'develop'
+    if: github.ref_name == 'develop' || github.ref_name == 'ci/pipeline-integration'
     runs-on: [self-hosted, prod]
     needs: build
     env:
