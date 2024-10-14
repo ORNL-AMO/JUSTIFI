@@ -60,9 +60,9 @@ jobs:
            name: dist
       - name: Deploy
         run: |
-          tar -czf $BACKUP_DIR/justifi-dev_$(printf '%(%Y-%m-%d)T\n' -1)_${GITHUB_SHA::7}.tar.gz $APACHE_DIR/justifi-dev
-          rm -rf $APACHE_DIR/justifi-dev/*
-          mv -v ./browser/* $APACHE_DIR/justifi-dev/
+          tar -czf $BACKUP_DIR/justifi-dev_$(printf '%(%Y-%m-%d)T\n' -1)_${GITHUB_SHA::7}.tar.gz $APACHE_DIR/justifi-dev &&
+          rm -rf $APACHE_DIR/justifi-dev/* && 
+          ls -lah && pwd
 
   deploy-prod:
     if: github.ref_name == 'master'
