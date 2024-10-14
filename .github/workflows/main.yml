@@ -9,15 +9,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ci:
-  #   uses: ./.github/workflows/ci.yml
-
   web:
-    # needs: ci
     uses: ./.github/workflows/web.yml
 
   # NOTE: To be implemented at a later date
   # desktop:
-  #   # needs: ci
   #   uses: ./.github/workflows/desktop.yml
   #   secrets: inherit

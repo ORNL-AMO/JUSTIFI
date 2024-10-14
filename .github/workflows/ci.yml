@@ -5,7 +5,6 @@ on:
     branches:
       - 'develop'
       - 'master'
-  # workflow_call:
 
 jobs:
   test:
@@ -29,4 +28,3 @@ jobs:
         run: npm run build --if-present
       - name: Test
         run: npm run test-ci
-        
