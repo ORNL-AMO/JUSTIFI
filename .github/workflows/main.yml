@@ -5,7 +5,6 @@ on:
     branches:
       - 'develop'
       - 'master'
-      - 'ci/pipeline-integration' # Testing
   workflow_dispatch:
 
 jobs:

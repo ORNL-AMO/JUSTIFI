@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: ${{ env.BUILD_NODE_VER }}
       - name: Attach SHA to build
-        if: github.ref_name == 'develop' || github.ref_name == 'ci/pipeline-integration'
+        if: github.ref_name == 'develop'
         run: |
           BUILD_VERSION=$(grep -o -P -m 1 '(?<=version":\s").*(?=")' package.json)
           sed -i "s/$BUILD_VERSION/$BUILD_VERSION-${GITHUB_SHA::7}/g" package.json
@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build [DEV]
-        if: github.ref_name == 'develop' || github.ref_name == 'ci/pipeline-integration'
+        if: github.ref_name == 'develop'
         run: npm run build
       - name: Build [PROD]
         if: github.ref_name == 'master'
@@ -47,7 +47,7 @@ jobs:
           retention-days: 3
   
   deploy-dev:
-    if: github.ref_name == 'develop' || github.ref_name == 'ci/pipeline-integration'
+    if: github.ref_name == 'develop'
     runs-on: [self-hosted, prod]
     needs: build
     env:
