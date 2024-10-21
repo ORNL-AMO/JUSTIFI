@@ -40,7 +40,6 @@ export class AssessmentEnergyOpportunitiesFormService {
       let utilityTypes: Array<UtilityType> = utilityEnergyUses
         .filter(use => use.include)
         .map(use => use.utilityType);
-      energyOpportunity.utilityTypes = utilityTypes;
 
       let utilityType: UtilityType;
       let energyUnit: string = 'MMBtu';

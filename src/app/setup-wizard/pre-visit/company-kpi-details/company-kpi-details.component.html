@@ -62,8 +62,7 @@
                             </ng-template>
                             <ng-template #indicatorDescription>
                                 <p>
-                                    Lorem ipsum odor amet, consectetuer adipiscing elit. Ex consequat nulla vestibulum
-                                    dapibus lectus vestibulum. Ex nisi phasellus tempus himenaeos erat.
+                                    <span [innerHTML]="keyPerformanceIndicator.optionValue | kpiDescription"></span>
                                 </p>
                             </ng-template>
                         </div>
@@ -104,7 +103,8 @@
                         </div>
                     </h6>
                     <p class="fw-light small">
-                        The below associated key performance metrics (<fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>)
+                        The below associated key performance metrics (<fa-icon
+                            [icon]="faScaleUnbalancedFlip"></fa-icon>)
                         will be used later on during an assessment to tie Non-Energy Benefits found back to company Key
                         Performance Indicators. This information can be added to and modified at a later time if not all
                         of the details are currently known.
@@ -156,8 +156,7 @@
                                     </div>
                                 </ng-template>
                                 <app-kpm-details-form [keyPerformanceMetric]="keyPerformanceMetric"
-                                    (emitSave)="saveChanges()"
-                                    (emitCalculate)="calculateCost(keyPerformanceMetric)"
+                                    (emitSave)="saveChanges()" (emitCalculate)="calculateCost(keyPerformanceMetric)"
                                     [context]="'preVisit'"></app-kpm-details-form>
                                 <ng-template
                                     [ngIf]="(keyPerformanceMetricImpacts | keyPerformanceMetricImpactsList: keyPerformanceMetric.guid).length">

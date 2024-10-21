@@ -73,7 +73,7 @@
                 && !(use.utilityType | isStandardUnit :use.energyUnit : 'Energy')">
                 <div class="col-4">
                     <div class="input-group">
-                        <input type="text" class="disabled-input-label-secondary" [disabled]="true"
+                        <input type="text" class="form-control disabled-input-label-secondary" [disabled]="true"
                         value="{{use.utilityType | utilityHhvDisplay}}">
                     </div>
                 </div>
@@ -150,7 +150,9 @@
             <div class="input-group">
                 <input name="energySavings" type="number" class="form-control" [(ngModel)]="assessment.energySavings"
                     (input)="saveChanges()" id="energySavings">
-                <span class="input-group-text" [innerHTML]="(companyEnergyUnit | unitsDisplay) + '/yr'"></span>
+                <span *ngIf="numberOfTrackedUtilities !== 1" 
+                    class="input-group-text" [innerHTML]="numberOfTrackedUtilities === 1?
+                     (trackedEnergyUnit | unitsDisplay) + '/yr': (companyEnergyUnit | unitsDisplay) + '/yr'"></span>
             </div>
         </div>
     </div>

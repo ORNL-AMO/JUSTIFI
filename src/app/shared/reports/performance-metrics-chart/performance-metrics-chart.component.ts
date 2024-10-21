@@ -29,7 +29,9 @@ export class PerformanceMetricsChartComponent {
   }
 
   drawChart() {
-    let kpiReportItems: Array<KeyPerformanceIndicatorReportItem> = this.keyPerformanceIndicatorReport.kpiReportItems;
+    let kpiReportItems: Array<KeyPerformanceIndicatorReportItem> = this.keyPerformanceIndicatorReport.kpiReportItems.filter(kpiReportItem => {
+      return kpiReportItem.keyPerformanceMetric.isQuantitative
+    });
     kpiReportItems = _.orderBy(kpiReportItems, (reportItem: KeyPerformanceIndicatorReportItem) => {
       return reportItem.keyPerformanceMetric.baselineCost;
     }, 'desc')

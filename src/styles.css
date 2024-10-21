@@ -9,7 +9,7 @@
 
 
 
-.btn.btn-outline-neb{
+.btn.btn-outline-neb {
     font-weight: bolder;
     --bs-btn-color: var(--neb-color);
     --bs-btn-border-color: var(--neb-color);
@@ -27,7 +27,7 @@
     --bs-gradient: none;
 }
 
-.btn.btn-outline-metric{
+.btn.btn-outline-metric {
     font-weight: bolder;
     --bs-btn-color: var(--metric-color);
     --bs-btn-border-color: var(--metric-color);
@@ -45,7 +45,7 @@
     --bs-gradient: none;
 }
 
-.btn.btn-outline-energy-opp{
+.btn.btn-outline-energy-opp {
     font-weight: bolder;
     --bs-btn-color: var(--energy-opp-color);
     --bs-btn-border-color: var(--energy-opp-color);
@@ -66,7 +66,7 @@
 
 
 
-.neb-button{
+.neb-button {
     background-color: var(--neb-color);
 }
 
@@ -75,16 +75,34 @@
     cursor: pointer;
 }
 
-.overflow-scroll{
-    overflow-y: auto;
+.neb-container .overflow-scroll {
+    overflow-y: auto !important;
 }
 
-.bold{
+.neb-container ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+}
+
+.neb-container ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    /*background-color: rgba(0, 0, 0, 0.3);*/
+    background-color: rgb(0 0 0 / 15%);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.neb-container ::-webkit-scrollbar-button {
+    display:none;
+}
+
+
+.bold {
     font-weight: bold;
 }
 
 
-a.click-link:hover{
+a.click-link:hover {
     cursor: pointer;
 }
 

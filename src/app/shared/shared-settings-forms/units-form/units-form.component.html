@@ -187,8 +187,8 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="waterHHV"
-                        name="waterHHV" (change)="saveChanges()">
-                    <select class="input-group-text" formControlName="waterEnergyUnit" (change)="saveChanges()">
+                        name="waterHHV" (change)="savePriceChanges()">
+                    <select class="input-group-text" formControlName="waterEnergyUnit" (change)="savePriceChanges()">
                         <option *ngFor="let energyUnitOption of energyUnitOptions"
                             [ngValue]="energyUnitOption.value">
                             <span [innerHTML]="energyUnitOption.value | unitsDisplay">
@@ -250,8 +250,8 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="wasteWaterHHV"
-                        name="wasteWaterHHV" (change)="saveChanges()">
-                    <select class="input-group-text" formControlName="wasteWaterEnergyUnit" (change)="saveChanges()">
+                        name="wasteWaterHHV" (change)="savePriceChanges()">
+                    <select class="input-group-text" formControlName="wasteWaterEnergyUnit" (change)="savePriceChanges()">
                         <option *ngFor="let energyUnitOption of energyUnitOptions"
                             [ngValue]="energyUnitOption.value">
                             <span [innerHTML]="energyUnitOption.value | unitsDisplay">
@@ -315,8 +315,8 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="steamHHV"
-                        name="steamHHV" (change)="saveChanges()">
-                    <select class="input-group-text" formControlName="steamEnergyUnit" (change)="saveChanges()">
+                        name="steamHHV" (change)="savePriceChanges()">
+                    <select class="input-group-text" formControlName="steamEnergyUnit" (change)="savePriceChanges()">
                         <option *ngFor="let energyUnitOption of energyUnitOptions"
                             [ngValue]="energyUnitOption.value">
                             <span [innerHTML]="energyUnitOption.value | unitsDisplay">
@@ -380,8 +380,8 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="compressedAirHHV"
-                        name="compressedAirHHV" (change)="saveChanges()">
-                    <select class="input-group-text" formControlName="compressedAirEnergyUnit" (change)="saveChanges()">
+                        name="compressedAirHHV" (change)="savePriceChanges()">
+                    <select class="input-group-text" formControlName="compressedAirEnergyUnit" (change)="savePriceChanges()">
                         <option *ngFor="let energyUnitOption of energyUnitOptions"
                             [ngValue]="energyUnitOption.value">
                             <span [innerHTML]="energyUnitOption.value | unitsDisplay">

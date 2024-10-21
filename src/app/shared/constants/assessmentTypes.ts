@@ -16,8 +16,8 @@ export const AssessmentOptions: Array<AssessmentOption> = [
     {assessmentType: "Pump", utilityTypes: ['Electricity']},
     {assessmentType: "Fan", utilityTypes: ['Electricity']},
     {assessmentType: "Process heating", utilityTypes: ['Natural Gas', 'Other Fuels', 'Electricity']},
-    {assessmentType: "Steam", utilityTypes: ['Natural Gas', "Other Fuels", 'Electricity']},
-    {assessmentType: "Compressed Air", utilityTypes: ['Electricity']},
+    {assessmentType: "Steam", utilityTypes: ['Natural Gas', "Other Fuels", 'Electricity', 'Steam']},
+    {assessmentType: "Compressed Air", utilityTypes: ['Electricity', 'Compressed Air']},
     // {assessmentType: "Water", utilityTypes: ['Water']},
     {assessmentType: "Treasure Hunt", utilityTypes: UtilityTypes},
     {assessmentType: "Other", utilityTypes: UtilityTypes}

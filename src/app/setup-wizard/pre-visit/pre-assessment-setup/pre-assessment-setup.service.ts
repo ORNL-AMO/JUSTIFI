@@ -22,8 +22,6 @@ export class PreAssessmentSetupService {
           _energyUse => _energyUse.utilityType == utilityType);
         if (utilityEnergyUse.include) {
           // calculate use
-          let trimmedType = utilityType.replace(/\s+/g, ''); // Remove spaces
-          let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
           let convertedUse = 0;
           let selectedUtilityOption = UtilityOptions.find(
             _option => _option.utilityType == utilityType);
@@ -63,18 +61,47 @@ export class PreAssessmentSetupService {
 
   async updateAssessmentEnergyCost(assessments: Array<IdbAssessment>, facilityUnitSettings: UnitSettings) {
     for (const assessment of assessments) {
-      let use = 0, cost = 0;
+      let cost = 0;
       assessment.utilityTypes.forEach(utilityType => {
         let utilityEnergyUse: UtilityEnergyUse = assessment.utilityEnergyUses.find(
           _energyUse => _energyUse.utilityType == utilityType);
         if (utilityEnergyUse.include) {
           // calculate cost
-          let trimmedType = utilityType.replace(/\s+/g, ''); // Remove spaces
+          let trimmedType = utilityType.replace(/\s+/g, '');
           let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
-          let convertedCost = this.convertValue.convertValue(
-            utilityEnergyUse.energyUse,
-            utilityEnergyUse.energyUnit,
-            facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
+          let convertedCost = 0;
+          let hasError = this.convertValue.convertValue(
+            1, utilityEnergyUse.energyUnit, facilityUnitSettings[`${camelCaseType}Unit`]).hasError;
+          if (hasError) {
+            // facility unit and assessment unit are not compatible
+            // convert to standard energy unit
+            let selectedUtilityOption = UtilityOptions.find(
+              _option => _option.utilityType == utilityType);
+            let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
+              _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
+            if (selectedUtilityOption.isStandardEnergyUnit 
+              && selectedUnitOption.isStandard !== false) {
+              convertedCost = this.convertValue.convertValue(
+                utilityEnergyUse.energyUse / (facilityUnitSettings[`${camelCaseType}HHV`]),
+                utilityEnergyUse.energyUnit,
+                facilityUnitSettings[`${camelCaseType}EnergyUnit`]).convertedValue;
+            } else {
+              convertedCost = this.convertValue.convertValue(
+                utilityEnergyUse.energyUse * utilityEnergyUse.energyHHV,
+                utilityEnergyUse.energyUnitStandard,
+                facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
+            }
+          } else {
+            // facility unit and assessment unit are compatible
+            // convert to facility unit
+            convertedCost = this.convertValue.convertValue(
+              utilityEnergyUse.energyUse,
+              utilityEnergyUse.energyUnit,
+              facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
+          }
+          if (convertedCost === Infinity || convertedCost === undefined) {
+            convertedCost = 0;
+          }
           cost += convertedCost * facilityUnitSettings[`${camelCaseType}Price`];
         }
       });

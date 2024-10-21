@@ -25,7 +25,7 @@ export interface KeyPerformanceIndicatorOption {
     primaryKPI: PrimaryKPI,
     label: string,
     htmlLabel: string,
-    optionValue: KeyPerformanceIndicatorValue,
+    optionValue: KeyPerformanceIndicatorValue
 };
 
 export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = [
