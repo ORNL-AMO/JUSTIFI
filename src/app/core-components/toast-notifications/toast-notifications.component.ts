@@ -17,7 +17,6 @@ export class ToastNotificationsComponent {
   toastNotification: ToastNotification;
   toastNotificationSub: Subscription;
   constructor(private toastNotificationService: ToastNotificationsService) {
-
   }
 
   ngOnInit(): void {
@@ -28,10 +27,17 @@ export class ToastNotificationsComponent {
   }
 
   ngAfterViewInit() {
-    //Bootstrap tooltip initialization
+    //Bootstrap toast initialization
     if (bootstrap) {
       this.toast = new bootstrap.Toast(this.toastItem.nativeElement);
       this.showToast();
+    }
+  }
+
+  ngOnDestroy() {
+    this.toastNotificationSub.unsubscribe();
+    if (this.toast) {
+      this.toast.dispose();
     }
   }
 
@@ -42,12 +48,6 @@ export class ToastNotificationsComponent {
   }
 
 
-  ngOnDestroy() {
-    this.toastNotificationSub.unsubscribe();
-    if (this.toast) {
-      this.toast.dispose();
-    }
-  }
 
   closeToast() {
     this.toast.hide();

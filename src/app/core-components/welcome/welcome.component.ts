@@ -11,7 +11,6 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { IdbUser } from 'src/app/models/user';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 import * as _ from 'lodash';
-import { ToastNotificationsService } from '../toast-notifications/toast-notifications.service';
 
 @Component({
   selector: 'app-welcome',
@@ -68,7 +67,7 @@ export class WelcomeComponent {
 
     this.companiesSub = this.companyIdbService.companies.subscribe(companies => {
       this.companies = companies;
-    });
+    })
   }
 
   ngOnDestroy(){
