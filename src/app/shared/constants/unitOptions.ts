@@ -178,7 +178,7 @@ export const VolumeGasOptions: Array<UnitOption> = [
     },
 ]
 
-export const EnergySteamUnitOptions: Array<UnitOption> = [
+export const EnergySteamMixedUnitOptions: Array<UnitOption> = [
     {
         display: 'Pounds (lb)',
         value: 'lb',

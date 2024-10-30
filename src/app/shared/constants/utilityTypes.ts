@@ -1,4 +1,4 @@
-import { EnergyUnitOptions, MassUnitOptions, PowerUnitOptions, EnergySteamUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from "./unitOptions";
+import { EnergyUnitOptions, MassUnitOptions, PowerUnitOptions, EnergySteamMixedUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from "./unitOptions";
 
 // export type UtilityType = 'Electricity' | 'Natural Gas' | 'Other Fuels' | 'Water' | 'Waste Water' | 'Steam' | 'Compressed Air';
 // export const UtilityTypes: Array<UtilityType> = ['Electricity', 'Natural Gas', 'Other Fuels', 'Water', 'Waste Water', 'Steam', 'Compressed Air'];
@@ -65,7 +65,7 @@ export const UtilityOptions: Array<UtilityOption> = [
     // },
     {
         utilityType: 'Steam',
-        energyUnitOptions: EnergySteamUnitOptions,
+        energyUnitOptions: EnergySteamMixedUnitOptions,
         isStandardEnergyUnit: true,
         powerUnitOptions: PowerUnitOptions,
         energyDefaultUnit: klb,
