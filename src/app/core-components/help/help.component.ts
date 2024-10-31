@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faQuestionCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-help',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class HelpComponent {
 
+  faQuestionCircle: IconDefinition = faQuestionCircle;
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faCircleInfo, faInfo, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-about',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AboutComponent {
 
+  faCircleInfo: IconDefinition = faCircleInfo;
 }
