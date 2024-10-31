@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faBug, faDownload, faInbox, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -7,6 +7,8 @@ import { faBug, faDownload, faInbox, IconDefinition } from '@fortawesome/free-so
   styleUrl: './feedback-page.component.css'
 })
 export class FeedbackPageComponent {
+  @Input()
+  inModal: boolean;
 
   faInbox: IconDefinition = faInbox;
   faBug: IconDefinition = faBug;

@@ -1,6 +1,6 @@
 <div class="row g-0 justify-content-center">
-    <div class="col-lg-9 col-md-10 col-sm-11 static-content">
-        <div class="ps-3 pt-2 pe-3 pb-2">
+    <div [ngClass]="{'col-lg-9 col-md-10 col-sm-11 static-content': !inModal, 'col-12': inModal}">
+        <div [ngClass]="{'ps-3 pt-2 pe-3 pb-2': !inModal}">
             <h4>
                 <fa-icon [icon]="faInbox" class="pe-1"></fa-icon>
                 Feedback

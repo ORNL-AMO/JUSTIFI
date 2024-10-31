@@ -1,7 +1,21 @@
 .navbar{
     background-color:#0079c2;
+    flex-wrap: nowrap;
+}
+
+.no-wrap{
+    flex-wrap: nowrap;
 }
 
 nav.navbar{
     height: 4rem;
+}
+
+.popup-lg{
+    width: 800px;
+    left: calc(50% - 400px);
+}
+
+.btn:hover .d-md-none{
+    display: inline !important;
 }
