@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedbackPageComponent } from './feedback-page.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('FeedbackPageComponent', () => {
   let component: FeedbackPageComponent;
@@ -8,6 +9,7 @@ describe('FeedbackPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [FontAwesomeModule],
       declarations: [FeedbackPageComponent]
     })
     .compileComponents();

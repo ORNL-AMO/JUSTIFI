@@ -8,6 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BackupDataService } from 'src/app/shared/shared-services/backup-data.service';
 import { ImportBackupModalComponent } from '../import-backup-modal/import-backup-modal.component';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
+import { FeedbackPageComponent } from '../feedback-page/feedback-page.component';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -20,7 +21,7 @@ describe('NavbarComponent', () => {
     let dbChangesService: Partial<DbChangesService> = {};
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, FontAwesomeModule],
-      declarations: [NavbarComponent, ImportBackupModalComponent],
+      declarations: [NavbarComponent, ImportBackupModalComponent, FeedbackPageComponent],
       providers: [
         { provide: UserIdbService, useValue: userDbService },
         { provide: LoadingService, useValue: loadingService },

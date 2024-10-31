@@ -33,6 +33,7 @@ import { ProcessEquipmentIdbService } from './indexed-db/process-equipment-idb.s
 import { IdbProcessEquipment } from './models/processEquipment';
 import { IdbKeyPerformanceMetricImpact } from './models/keyPerformanceMetricImpact';
 import { KeyPerformanceMetricImpactsIdbService } from './indexed-db/key-performance-metric-impacts-idb.service';
+import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
 
 describe('AppComponent', () => {
 
@@ -92,7 +93,7 @@ describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, FontAwesomeModule],
-      declarations: [AppComponent, NavbarComponent, WelcomeComponent, LoadingComponent, SetupWizardModalComponent, ImportBackupModalComponent],
+      declarations: [AppComponent, NavbarComponent, WelcomeComponent, LoadingComponent, SetupWizardModalComponent, ImportBackupModalComponent, FeedbackPageComponent],
       providers: [
         { provide: CompanyIdbService, useValue: companyIdbService },
         { provide: FacilityIdbService, useValue: facilityIdbService },
