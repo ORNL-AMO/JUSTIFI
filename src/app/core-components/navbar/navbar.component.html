@@ -1,38 +1,36 @@
 <nav class="navbar">
-    <!-- <div class="container-fluid"> -->
-        <div class="no-wrap">
-            <button class="navbar-toggler" type="button" aria-label="Toggle navigation" (click)="openSidebar()">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a [style]="{'color': 'white'}" class="navbar-brand ms-2" routerLink="/welcome">
-                <fa-icon [icon]="faHome" [style]="{'color': 'white'}"></fa-icon>
-                JUSTIFI</a>
-            <span class="badge bg-secondary">v{{version}}</span>
-        </div>
-        <div class="no-wrap">
-            <button class="btn btn-dark btn-sm me-2" (click)="openFeedbackModal()">
-                <fa-icon [icon]="faInbox"></fa-icon>
-                <span class="d-sm-none d-md-none d-lg-inline">
-                    Provide Feedback
-                </span>
-            </button>
-            <button class="btn btn-dark btn-sm me-2" (click)="openImportDataModal()">
-                <fa-icon [icon]="faUpload"></fa-icon>
-                <span class="d-sm-none d-md-none d-lg-inline">
-                    Import Data
-                </span>
-            </button>
-            <button class="btn btn-dark btn-sm me-2" (click)="openBackupDataModal()">
-                <fa-icon [icon]="faDownload"></fa-icon>
-                <span class="d-sm-none d-md-none d-lg-inline">
-                    Download Data
-                </span>
-            </button>
-            <button class="btn btn-danger btn-sm" (click)="openResetDatabaseModal()">
-                Reset Database
-            </button>
-        </div>
-    <!-- </div> -->
+    <div>
+        <button class="navbar-toggler" type="button" aria-label="Toggle navigation" (click)="openSidebar()">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a [style]="{'color': 'white'}" class="navbar-brand ms-2" routerLink="/welcome">
+            <fa-icon [icon]="faHome" [style]="{'color': 'white'}"></fa-icon>
+            JUSTIFI</a>
+        <span class="badge bg-secondary">v{{version}}</span>
+    </div>
+    <div>
+        <button class="btn btn-dark btn-sm me-2" (click)="openFeedbackModal()">
+            <fa-icon [icon]="faInbox"></fa-icon>
+            <span class="d-sm-none d-md-none d-lg-inline">
+                Provide Feedback
+            </span>
+        </button>
+        <button class="btn btn-dark btn-sm me-2" (click)="openImportDataModal()">
+            <fa-icon [icon]="faUpload"></fa-icon>
+            <span class="d-sm-none d-md-none d-lg-inline">
+                Import Data
+            </span>
+        </button>
+        <button class="btn btn-dark btn-sm me-2" (click)="openBackupDataModal()">
+            <fa-icon [icon]="faDownload"></fa-icon>
+            <span class="d-sm-none d-md-none d-lg-inline">
+                Download Data
+            </span>
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="openResetDatabaseModal()">
+            Reset Database
+        </button>
+    </div>
 </nav>
 
 

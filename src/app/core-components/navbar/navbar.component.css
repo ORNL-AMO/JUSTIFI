@@ -3,10 +3,6 @@
     flex-wrap: nowrap;
 }
 
-.no-wrap{
-    flex-wrap: nowrap;
-}
-
 nav.navbar{
     height: 4rem;
 }
