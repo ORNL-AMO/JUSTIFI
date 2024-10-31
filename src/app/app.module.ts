@@ -20,6 +20,10 @@ import { AssessmentDashboardModule } from './assessment-dashboard/assessment-das
 import { SetupWizardModalComponent } from './core-components/setup-wizard-modal/setup-wizard-modal.component';
 import { ImportBackupModalComponent } from './core-components/import-backup-modal/import-backup-modal.component';
 import { PlotlyViaWindowModule } from 'angular-plotly.js';
+import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
+import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
+import { AboutComponent } from './core-components/about/about.component';
+import { HelpComponent } from './core-components/help/help.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
     LoadingComponent,
     SidebarComponent,
     SetupWizardModalComponent,
-    ImportBackupModalComponent
+    ImportBackupModalComponent,
+    FeedbackPageComponent,
+    AcknowledgmentsComponent,
+    AboutComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,

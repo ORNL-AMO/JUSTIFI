@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IconDefinition, faBuilding, faChevronDown, faChevronRight, faCircleInfo, faFileLines, faFolder, faFolderOpen, faInbox, faIndustry, faMinusSquare, faPlusSquare, faQuestionCircle, faTrophy, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faBuilding, faChevronDown, faChevronRight, faCircleInfo, faFileLines, faFolder, faFolderOpen, faHome, faInbox, faIndustry, faMinusSquare, faPlusSquare, faQuestionCircle, faTrophy, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
@@ -30,6 +30,7 @@ export class SidebarComponent {
   faInbox: IconDefinition = faInbox;
   faQuestionCircle: IconDefinition = faQuestionCircle;
   faWandMagicSparkles: IconDefinition = faWandMagicSparkles;
+  faHome: IconDefinition = faHome;
 
   companies: Array<IdbCompany>;
   companiesSub: Subscription;
