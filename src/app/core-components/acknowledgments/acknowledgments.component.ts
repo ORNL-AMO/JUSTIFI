@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faTrophy, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-acknowledgments',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AcknowledgmentsComponent {
 
+  faTrophy: IconDefinition = faTrophy;
 }
