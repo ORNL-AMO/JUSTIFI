@@ -24,6 +24,8 @@ import { FeedbackPageComponent } from './core-components/feedback-page/feedback-
 import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
 import { AboutComponent } from './core-components/about/about.component';
 import { HelpComponent } from './core-components/help/help.component';
+import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
+import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { HelpComponent } from './core-components/help/help.component';
     FeedbackPageComponent,
     AcknowledgmentsComponent,
     AboutComponent,
-    HelpComponent
+    HelpComponent,
+    AlphaDisclaimerComponent,
+    ToastNotificationsComponent
   ],
   imports: [
     BrowserModule,
