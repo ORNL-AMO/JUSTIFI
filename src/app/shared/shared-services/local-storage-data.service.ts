@@ -13,6 +13,7 @@ export class LocalStorageDataService {
   energyEquipmentAccordionGuid: string;
   processEquipmentAccordionGuid: string;
   assessmentAccordionGuid: string;
+  disableAlphaDisclaimer: boolean;
   constructor(private localStorageService: LocalStorageService) {
     this.setupHelpPanelCollapsed = this.localStorageService.retrieve("setupHelpPanelCollapsed");
     if (this.setupHelpPanelCollapsed == undefined) {
@@ -30,6 +31,7 @@ export class LocalStorageDataService {
     this.energyEquipmentAccordionGuid = this.localStorageService.retrieve("energyEquipmentAccordionGuid");
     this.processEquipmentAccordionGuid = this.localStorageService.retrieve("processEquipmentAccordionGuid");
     this.assessmentAccordionGuid = this.localStorageService.retrieve("assessmentAccordionGuid");
+    this.disableAlphaDisclaimer = this.localStorageService.retrieve("disableAlphaDisclaimer");
   }
 
   setSetupPanelCollapsed(val: boolean) {
@@ -65,5 +67,10 @@ export class LocalStorageDataService {
   setAssessmentAccordionGuid(assessmentAccordionGuid: string) {
     this.assessmentAccordionGuid = assessmentAccordionGuid;
     this.localStorageService.store('assessmentAccordionGuid', this.assessmentAccordionGuid);
+  }
+
+  setDisableAlphaDisclaimer(disableAlphaDisclaimer: boolean) {
+    this.disableAlphaDisclaimer = disableAlphaDisclaimer;
+    this.localStorageService.store('disableAlphaDisclaimer', this.disableAlphaDisclaimer);
   }
 }
