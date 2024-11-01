@@ -21,6 +21,7 @@ import { SetupWizardModalComponent } from './core-components/setup-wizard-modal/
 import { ImportBackupModalComponent } from './core-components/import-backup-modal/import-backup-modal.component';
 import { PlotlyViaWindowModule } from 'angular-plotly.js';
 import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
+import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alp
     SidebarComponent,
     SetupWizardModalComponent,
     ImportBackupModalComponent,
-    AlphaDisclaimerComponent
+    AlphaDisclaimerComponent,
+    ToastNotificationsComponent
   ],
   imports: [
     BrowserModule,
