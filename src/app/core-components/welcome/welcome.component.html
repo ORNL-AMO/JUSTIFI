@@ -7,7 +7,8 @@
                         Welcome to JUSTIFI!
                     </div>
                     <p class="card-text fw-light">
-                        Use this tool to identify, estimate potential and report on non-energy benefits (NEBs) that can be
+                        Use this tool to identify, estimate potential and report on non-energy benefits (NEBs) that can
+                        be
                         found while conducting energy assessments.
                     </p>
                 </div>
@@ -124,6 +125,20 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <div>
+                                    <fa-icon [icon]="faFileCirclePlus"></fa-icon>
+                                    <a class="click-link" (click)="openAddExampleModal();">
+                                        Cocoa Co. Example Data
+                                    </a>
+                                    <p class="card-text fw-light">
+                                        Click to above link to add an example company to your portfolio. This will allow
+                                        you to view a completed example visit of a fictional chocolate company's
+                                        candy bar facility.
+                                    </p>
+                                </div>
+                                <div class="col-12">
+                                    <hr>
+                                </div>
+                                <div>
                                     <!-- <a [href]="'https://www.nrel.gov/'" target="_blank">
                                         <fa-icon [icon]="faExternalLink"></fa-icon>
                                         NEBs Knowledge Library
@@ -173,5 +188,28 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+<div [ngClass]="{'window-overlay': showAddExampleModal}"></div>
+<div class="popup" [ngClass]="{'open': showAddExampleModal }">
+    <div class="popup-header">Add Example Data
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeAddExampleModal()"></button>
+    </div>
+    <div class="popup-body">
+        <p>
+            We created an example chocolate company and facilities for you to use to explore the JUSTIFI application. In
+            the example you can see some of the potential NEBs associated with a few energy projects...
+
+            <!--
+            TODO: a full description of the example would be good here once it's full flushed out.
+            -->
+        </p>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary btn-sm me-2" (click)="closeAddExampleModal()">Cancel</button>
+        <button class="btn btn-success btn-sm" (click)="addExample()">Add Example</button>
     </div>
 </div>

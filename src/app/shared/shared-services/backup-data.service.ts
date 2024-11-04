@@ -92,7 +92,7 @@ export class BackupDataService {
   }
 
   // Add backup file data to the userGuid
-  async importUserBackupFile(backupFile: BackupFile, userGuid: string): Promise<void> {
+  async importUserBackupFile(backupFile: BackupFile, userGuid: string): Promise<BackupFile> {
     // Overwrite backup user guid with input guid
     this.loadingService.setLoadingMessage('Adding Backup Data to User: ' + userGuid + '...');
     let userGUIDs: { oldId: string, newId: string } = {
@@ -324,7 +324,8 @@ export class BackupDataService {
 
       await firstValueFrom(this.keyPerformanceMetricImpactIdbService.addWithObservable(keyPerformanceMetricImpact));
     }
-
+    console.log(backupFile);
+    return backupFile;
   }
 
   backupFileVersionCheck(fileVersion: string, appVersion: string): boolean {
