@@ -324,7 +324,6 @@ export class BackupDataService {
 
       await firstValueFrom(this.keyPerformanceMetricImpactIdbService.addWithObservable(keyPerformanceMetricImpact));
     }
-    console.log(backupFile);
     return backupFile;
   }
 

@@ -15,6 +15,7 @@ import { LoadingService } from '../loading/loading.service';
 import { BackupDataService, BackupFile } from 'src/app/shared/shared-services/backup-data.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { Router } from '@angular/router';
+import { ToastNotificationsService } from '../toast-notifications/toast-notifications.service';
 
 @Component({
   selector: 'app-welcome',
@@ -57,6 +58,7 @@ export class WelcomeComponent {
     private loadingService: LoadingService,
     private backupDataService: BackupDataService,
     private dbChangesService: DbChangesService,
+    private toastNotificationService: ToastNotificationsService,
     private router: Router
   ) {
 
@@ -132,6 +134,7 @@ export class WelcomeComponent {
           this.companyIdbService.setSelectedFromGUID(exampleVisit.companyId);
           this.facilityIdbService.setSelectedFromGUID(exampleVisit.facilityId);
           this.onSiteVisitIdbService.setSelectedFromGUID(exampleVisit.guid);
+          this.toastNotificationService.showToast('Cocoa Co. Example Added!', 'Our example company and assessments have been added. You can now explore a completed on-site visit to view the possible impacts of NEBs!', 'bg-success', true);
           this.router.navigateByUrl('/setup-wizard/pre-visit/' + exampleVisit.guid);
         } catch (err) {
           console.log(err);
