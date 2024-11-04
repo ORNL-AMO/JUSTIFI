@@ -9,6 +9,9 @@
             <div class="toast-body">
                 <span [innerHTML]="toastNotification.body"></span>
             </div>
+            <div class="toast-footer ps-2 pe-2 pb-2" *ngIf="toastNotification?.showDisable">
+                <button class="btn btn-sm btn-secondary" (click)="disableNotification()">Disable Notification</button>
+            </div>
         </ng-template>
     </div>
 </div>
