@@ -134,7 +134,7 @@ export class WelcomeComponent {
           this.companyIdbService.setSelectedFromGUID(exampleVisit.companyId);
           this.facilityIdbService.setSelectedFromGUID(exampleVisit.facilityId);
           this.onSiteVisitIdbService.setSelectedFromGUID(exampleVisit.guid);
-          this.toastNotificationService.showToast('Cocoa Co. Example Added!', 'Our example company and assessments have been added. You can now explore a completed on-site visit to view the possible impacts of NEBs!', 'bg-success', true);
+          this.toastNotificationService.showToast('Cocoa Co. Example Added!', 'Our example company and assessments have been added. You can now explore a completed on-site visit to view the possible impacts of NEBs!', 'bg-success', true, false);
           this.router.navigateByUrl('/setup-wizard/pre-visit/' + exampleVisit.guid);
         } catch (err) {
           console.log(err);
