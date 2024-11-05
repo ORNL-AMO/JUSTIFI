@@ -44,6 +44,7 @@ import { VisitReportComponent } from './setup-wizard/data-evaluation/visit-repor
 import { AssessmentEvaluationComponent } from './setup-wizard/data-evaluation/assessment-evaluation/assessment-evaluation.component';
 import { OnSiteAssessmentResultsComponent } from './setup-wizard/data-collection/on-site-assessment/on-site-assessment-results/on-site-assessment-results.component';
 import { FacilityEnergyEquipmentSetupComponent } from './setup-wizard/pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component';
+import { NebsDatabaseComponent } from './nebs-database/nebs-database.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,10 @@ const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomeComponent
+  },
+  {
+    path: 'nebs-database',
+    component: NebsDatabaseComponent,
   },
   {
     path: 'setup-wizard',

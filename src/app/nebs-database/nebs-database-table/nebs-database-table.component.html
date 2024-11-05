@@ -1,0 +1,50 @@
+<div class="row pb-2">
+    <label class="col-sm-5" for="kpiValue">Key Performance Indicator (KPI)</label>
+    <div class="col-7">
+        <select id="kpiValue" name="kpiValue" class="form-select" [(ngModel)]="kpiValue"
+            (change)="setKpmOptions()">
+            <option [ngValue]="undefined">All KPI</option>
+            <option *ngFor="let kpi of keyPerformanceIndicatorOptions" [ngValue]="kpi.optionValue">
+                <span [innerHTML]="kpi.label"></span>
+            </option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <label class="col-sm-5" for="kpmValue">Key Performance Metric (KPM)</label>
+    <div class="col-7">
+        <ng-template [ngIf]="kpiValue" [ngIfElse]="noKpiSelectionBlock">
+            <select id="kpmValue" name="kpmValue" class="form-select" [(ngModel)]="kpmValue">
+                <option [ngValue]="undefined">All KPM</option>
+                <option *ngFor="let kpi of keyPerformanceMetricOptions" [ngValue]="kpi.value">
+                    <span [innerHTML]="kpi.label"></span>
+                </option>
+            </select>
+        </ng-template>
+        <ng-template #noKpiSelectionBlock>
+            <p class="fw-lighter">
+                Select KPI to see associated KPMs
+            </p>
+        </ng-template>
+    </div>
+</div>
+<hr>
+@let tableList = nebOptions | nebOptionsFilter: orderByDir: kpiValue: kpmValue: keyPerformanceMetricOptions;
+<table class="table table-bordered table-hover table-sm">
+    <thead>
+        <tr class="clickable">
+            <th (click)="toggleOrderBy()">
+                <fa-icon [icon]="faChevronDown" *ngIf="orderByDir == 'asc'"></fa-icon>
+                <fa-icon [icon]="faChevronUp" *ngIf="orderByDir == 'desc'"></fa-icon>
+                Non-Energy Benefits ({{tableList.length}})
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let neb of tableList">
+            <td>
+                <span [innerHTML]="neb.htmlLabel"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
