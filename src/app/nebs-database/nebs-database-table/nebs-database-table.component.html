@@ -71,7 +71,7 @@ nebSearchStr;
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let neb of tableList">
+        <tr *ngFor="let neb of tableList" (click)="selectNeb(neb)">
             <td class="add-td text-center" *ngIf="inAddModal">
                 <a class="click-link">
                     <ng-template [ngIf]="!neb.selected" [ngIfElse]="selectedNebBlock">

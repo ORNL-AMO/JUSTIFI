@@ -10,65 +10,8 @@
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeModal()"></button>
     </div>
     <div class="popup-body">
-        <app-nebs-database-table [inAddModal]="true"></app-nebs-database-table>
-        <!-- <div class="row justify-content-between mb-2">
-            <div class="col">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="displayAllNebs"
-                        [(ngModel)]="displayAllNebs" (change)="setNebOptions()">
-                    <label class="form-check-label" for="displayAllNebs">Display NEBs without tracked KPMs</label>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="input-group" role="search">
-                    <span class="input-group-text">
-                        <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-                    </span>
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search"
-                        name="nebSearchStr" [(ngModel)]="nebSearchStr">
-                </div>
-            </div>
-        </div>
-        <ng-template [ngIf]="(nebOptions | nebOptionsModalList: nebSearchStr: orderByDir).length > 0"
-            [ngIfElse]="noOptionsBlock">
-            <table class="table table-bordered table-hover table-sm">
-                <thead>
-                    <tr>
-                        <th>
-
-                        </th>
-                        <th (click)="toggleOrderBy()">
-                            <fa-icon [icon]="faChevronDown" *ngIf="orderByDir == 'asc'"></fa-icon>
-                            <fa-icon [icon]="faChevronUp" *ngIf="orderByDir == 'desc'"></fa-icon>
-                            Non-Energy Benefit
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="clickable" (click)="selectNeb(neb)"
-                        *ngFor="let neb of nebOptions | nebOptionsModalList: nebSearchStr: orderByDir">
-                        <td class="add-td text-center">
-                            <a class="click-link">
-                                <ng-template [ngIf]="!neb.selected" [ngIfElse]="selectedNebBlock">
-                                    <fa-icon [icon]="faPlus"></fa-icon>
-                                </ng-template>
-                                <ng-template #selectedNebBlock>
-                                    <fa-icon [icon]="faCheck"></fa-icon>
-                                </ng-template>
-                            </a>
-                        </td>
-                        <td>
-                            <span [innerHTML]="neb.htmlLabel"></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </ng-template>
-        <ng-template #noOptionsBlock>
-            <div class="alert alert-warning">
-                No NEBs found matching the search criteria.
-            </div>
-        </ng-template> -->
+        <app-nebs-database-table [inAddModal]="true"
+            (emitSelectedNebs)="setSelectedNebs($event)"></app-nebs-database-table>
     </div>
     <div class="popup-footer">
         <div class="d-flex flex-column">
@@ -77,8 +20,9 @@
             </div>
             <div class="d-flex justify-content-end">
                 <button class="btn btn-secondary me-2 btn-sm" (click)="closeModal()">Cancel</button>
-                <button class="btn btn-success btn-sm" (click)="addNebs()" [disabled]="numberSelected == 0"><fa-icon
-                        [icon]="faPlus"></fa-icon> Add {{numberSelected}}
+                <button class="btn btn-success btn-sm" (click)="addNebs()"
+                    [disabled]="selectedNebs.length == 0"><fa-icon [icon]="faPlus"></fa-icon> Add
+                    {{selectedNebs.length}}
                     NEBs</button>
             </div>
         </div>
