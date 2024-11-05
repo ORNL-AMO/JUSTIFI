@@ -62,6 +62,7 @@ import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
 import { KpiDescriptionPipe } from './pre-visit/company-kpi-details/kpi-description.pipe';
 import { NebsDatabaseModule } from "../nebs-database/nebs-database.module";
+import { KpmDatabaseModalComponent } from './pre-visit/company-kpi-details/kpm-database-modal/kpm-database-modal.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { NebsDatabaseModule } from "../nebs-database/nebs-database.module";
     KpmImpactsTableComponent,
     EnergyOpportunityNebsTableComponent,
     EnergyOpportunityNebsListPipe,
-    KpiDescriptionPipe
+    KpiDescriptionPipe,
+    KpmDatabaseModalComponent
   ],
   imports: [
     CommonModule,

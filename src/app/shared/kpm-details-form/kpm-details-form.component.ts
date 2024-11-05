@@ -14,7 +14,7 @@ export class KpmDetailsFormComponent {
   @Output('emitSave')
   emitSave: EventEmitter<boolean> = new EventEmitter();
   @Output('emitCalculate')
-  emitCalculate: EventEmitter<boolean> = new EventEmitter();
+  emitCalculate: EventEmitter<{modifiedMethod: boolean, updateBaseline: boolean}> = new EventEmitter();
   @Input({required: true})
   context: 'preVisit' | 'onSite';
 
@@ -23,13 +23,13 @@ export class KpmDetailsFormComponent {
     this.emitSave.emit(true);
   }
 
-  calculateCost() {
+  calculateCost(modifiedMethod: boolean) {
     if (this.keyPerformanceMetric.calculationMethod == 'costPerUnit') {
       this.keyPerformanceMetric.baselineCost = (this.keyPerformanceMetric.costPerValue * this.keyPerformanceMetric.baselineValue);
     }
-    this.emitCalculate.emit(true);
-    if (this.context == 'onSite') {
-      this.saveChanges();
-    }
+    this.emitCalculate.emit({modifiedMethod: modifiedMethod, updateBaseline: true});
+    // if (this.context == 'onSite') {
+    //   this.saveChanges();
+    // }
   }
 }
