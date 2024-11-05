@@ -128,8 +128,7 @@ export interface KeyPerformanceMetricOption {
     totalUnit?: string,
     goalToIncrease: boolean,
     timePeriod: string,
-    calculationMethod?: KpmCalculationMethod,
-    quantitativeUnavailable?: boolean
+    calculationMethod?: KpmCalculationMethod
 };
 
 
@@ -177,8 +176,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "strategicRelationshipImpact",
         isQuantitative: false,
         goalToIncrease: true,
-        timePeriod: 'yr',
-        quantitativeUnavailable: true
+        timePeriod: 'yr'
     },
     {
         label: "Lost Customer Sales ($)",
@@ -198,8 +196,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "strategicRelationshipImpact",
         isQuantitative: false,
         goalToIncrease: true,
-        timePeriod: 'yr',
-        quantitativeUnavailable: true
+        timePeriod: 'yr'
     },
     {
         label: "Supplier Satisfaction Ratings",
@@ -208,8 +205,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "strategicRelationshipImpact",
         isQuantitative: false,
         goalToIncrease: true,
-        timePeriod: 'yr',
-        quantitativeUnavailable: true
+        timePeriod: 'yr'
     },
     {
         label: "Productivity rate: Throughput",
@@ -218,8 +214,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "productivity",
         isQuantitative: false,
         goalToIncrease: true,
-        timePeriod: 'yr',
-        quantitativeUnavailable: true
+        timePeriod: 'yr'
     },
     {
         label: "Production Costs",
@@ -386,8 +381,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "quality",
         isQuantitative: false,
         goalToIncrease: true,
-        timePeriod: 'yr',
-        quantitativeUnavailable: true
+        timePeriod: 'yr'
     },
     {
         label: "$ Customer Returns (quality)",
