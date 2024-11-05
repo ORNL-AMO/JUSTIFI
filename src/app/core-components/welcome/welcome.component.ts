@@ -125,8 +125,8 @@ export class WelcomeComponent {
       reader.readAsText(request.response);
       reader.onloadend = async (e) => {
         try {
-          let test = JSON.parse(JSON.stringify(reader.result));
-          let tmpBackupFile: BackupFile = JSON.parse(test);
+          let fileData: string = reader.result as string;
+          let tmpBackupFile: BackupFile = JSON.parse(fileData);
           let updatedBackupFile: BackupFile = await this.backupDataService.importUserBackupFile(tmpBackupFile, this.user.guid);
           await this.dbChangesService.selectUser(this.user, false);
           this.loadingService.setLoadingStatus(false);
