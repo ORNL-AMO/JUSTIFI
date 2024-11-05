@@ -94,6 +94,7 @@ export class CompanyKpiDetailsComponent {
       let kpiGuid: string = params['id'];
       this.keyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getByGuid(kpiGuid);
       this.setIndexValues();
+      this.showAddMetricDropdown = false;
     });
   }
 
@@ -176,7 +177,7 @@ export class CompanyKpiDetailsComponent {
   }
 
   addPerformanceMetric() {
-    if(this.showAddMetricDropdown){
+    if (this.showAddMetricDropdown) {
       this.showAddMetricDropdown = false;
     }
     let newCustomKPM: KeyPerformanceMetric = getCustomKPM(this.keyPerformanceIndicator.optionValue, this.keyPerformanceIndicator.guid);
@@ -224,7 +225,7 @@ export class CompanyKpiDetailsComponent {
   }
 
   showSuggestedMetrics() {
-    if(this.showAddMetricDropdown){
+    if (this.showAddMetricDropdown) {
       this.showAddMetricDropdown = false;
     }
     this.displayAddMetricModal = true;
