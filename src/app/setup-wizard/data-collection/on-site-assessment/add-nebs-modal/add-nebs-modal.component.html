@@ -10,7 +10,8 @@
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeModal()"></button>
     </div>
     <div class="popup-body">
-        <div class="row justify-content-between mb-2">
+        <app-nebs-database-table [inAddModal]="true"></app-nebs-database-table>
+        <!-- <div class="row justify-content-between mb-2">
             <div class="col">
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" role="switch" id="displayAllNebs"
@@ -67,7 +68,7 @@
             <div class="alert alert-warning">
                 No NEBs found matching the search criteria.
             </div>
-        </ng-template>
+        </ng-template> -->
     </div>
     <div class="popup-footer">
         <div class="d-flex flex-column">

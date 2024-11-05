@@ -62,6 +62,7 @@ import { SetupWizardHelpPanelModule } from './setup-wizard-help-panel/setup-wiza
 import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-tooltip.module';
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
 import { KpiDescriptionPipe } from './pre-visit/company-kpi-details/kpi-description.pipe';
+import { NebsDatabaseModule } from "../nebs-database/nebs-database.module";
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import { KpiDescriptionPipe } from './pre-visit/company-kpi-details/kpi-descript
     ReportsModule,
     SetupWizardHelpPanelModule,
     LabelWithTooltipModule,
-    KpmDetailsFormModule
-  ]
+    KpmDetailsFormModule,
+    NebsDatabaseModule
+]
 })
 export class SetupWizardModule { }

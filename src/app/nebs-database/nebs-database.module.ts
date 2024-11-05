@@ -18,6 +18,9 @@ import { NebsDatabaseTableComponent } from './nebs-database-table/nebs-database-
     CommonModule,
     FontAwesomeModule,
     FormsModule
+  ],
+  exports: [
+    NebsDatabaseTableComponent
   ]
 })
 export class NebsDatabaseModule { }
