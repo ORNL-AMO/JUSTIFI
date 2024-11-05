@@ -51,7 +51,6 @@ import { ProcessEquipmentFormComponent } from './pre-visit/facility-process-equi
 import { FacilityEnergyEquipmentSetupComponent } from './pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component';
 import { EnergyEquipmentFormComponent } from './pre-visit/facility-energy-equipment-setup/energy-equipment-form/energy-equipment-form.component';
 import { PrimaryKpiBadgeModule } from "../shared/primary-kpi-badge/primary-kpi-badge.module";
-import { NebOptionsModalListPipe } from './data-collection/on-site-assessment/add-nebs-modal/neb-options-modal-list.pipe';
 import { PerformanceMetricsModalComponent } from './data-collection/on-site-assessment/neb-forms-accordion/neb-setup-form/performance-metrics-modal/performance-metrics-modal.component';
 import { MetricOptionsModalListPipe } from './data-collection/on-site-assessment/neb-forms-accordion/neb-setup-form/performance-metrics-modal/metric-options-modal-list.pipe';
 import { AssociatedMetricIndicatorPipe } from './data-collection/on-site-assessment/neb-forms-accordion/neb-setup-form/performance-metrics-modal/associated-metric-indicator.pipe';
@@ -108,7 +107,6 @@ import { NebsDatabaseModule } from "../nebs-database/nebs-database.module";
     ProcessEquipmentFormComponent,
     FacilityEnergyEquipmentSetupComponent,
     EnergyEquipmentFormComponent,
-    NebOptionsModalListPipe,
     PerformanceMetricsModalComponent,
     MetricOptionsModalListPipe,
     AssociatedMetricIndicatorPipe,

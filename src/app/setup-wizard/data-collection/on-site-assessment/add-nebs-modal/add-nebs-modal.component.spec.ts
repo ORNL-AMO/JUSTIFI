@@ -13,9 +13,11 @@ import { ContactContext, IdbContact } from 'src/app/models/contact';
 import { IdbAssessment, getNewIdbAssessment } from 'src/app/models/assessment';
 import { getNewIdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
-import { NebOptionsModalListPipe } from './neb-options-modal-list.pipe';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { getDefaultUnitSettings } from 'src/app/models/unitSettings';
+import { NebsDatabaseModule } from 'src/app/nebs-database/nebs-database.module';
+import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { getNewIdbCompany, IdbCompany } from 'src/app/models/company';
 
 describe('AddNebsModalComponent', () => {
   let component: AddNebsModalComponent;
@@ -38,9 +40,11 @@ describe('AddNebsModalComponent', () => {
       viewContact: IdbContact,
       contextGuid: string
     }>(undefined)
-  }; let keyPerformanceIndicatorIdbService: Partial<KeyPerformanceIndicatorsIdbService> = {
+  };
+  let keyPerformanceIndicatorIdbService: Partial<KeyPerformanceIndicatorsIdbService> = {
     keyPerformanceIndicators: new BehaviorSubject<Array<IdbKeyPerformanceIndicator>>([]),
-    getCompanyKeyPerformanceMetrics: () => { return [] }
+    getCompanyKeyPerformanceMetrics: () => { return [] },
+    getByCompanyGuid: () => { return [] }
   };
   let nonEnergyBenefitIdbService: Partial<NonEnergyBenefitsIdbService> = {
     getAssessmentNonEnergyBenefits: () => { return [] }
@@ -55,18 +59,22 @@ describe('AddNebsModalComponent', () => {
 
   };
   let keyPerformanceMetricImpactsIdbService: Partial<KeyPerformanceMetricImpactsIdbService> = {};
+  let companyIdbService: Partial<CompanyIdbService> = {
+    selectedCompany: new BehaviorSubject<IdbCompany>(getNewIdbCompany(''))
+  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, FormsModule],
-      declarations: [AddNebsModalComponent, NebOptionsModalListPipe],
+      imports: [FontAwesomeModule, FormsModule, NebsDatabaseModule],
+      declarations: [AddNebsModalComponent],
       providers: [
         { provide: SetupWizardService, useValue: setupWizardService },
         { provide: KeyPerformanceIndicatorsIdbService, useValue: keyPerformanceIndicatorIdbService },
         { provide: NonEnergyBenefitsIdbService, useValue: nonEnergyBenefitIdbService },
         { provide: AssessmentIdbService, useValue: assessmentIdbService },
         { provide: EnergyOpportunityIdbService, useValue: energyOpportunityIdbService },
-        { provide: KeyPerformanceMetricImpactsIdbService, useValue: keyPerformanceMetricImpactsIdbService }
+        { provide: KeyPerformanceMetricImpactsIdbService, useValue: keyPerformanceMetricImpactsIdbService },
+        { provide: CompanyIdbService, useValue: companyIdbService },
       ]
     })
       .compileComponents();

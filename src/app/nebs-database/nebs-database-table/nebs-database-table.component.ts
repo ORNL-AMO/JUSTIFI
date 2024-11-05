@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { faAsterisk, faCheck, faChevronDown, faChevronUp, faMagnifyingGlass, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faChevronDown, faChevronUp, faMagnifyingGlass, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import * as _ from 'lodash';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
-import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -30,7 +29,6 @@ export class NebsDatabaseTableComponent {
   faChevronDown: IconDefinition = faChevronDown;
   faPlus: IconDefinition = faPlus;
   faCheck: IconDefinition = faCheck;
-  faAsterisk: IconDefinition = faAsterisk;
   faMagnifyingGlass: IconDefinition = faMagnifyingGlass;
 
   nebOptions: Array<NebOption>;
@@ -127,7 +125,6 @@ export class NebsDatabaseTableComponent {
     let companyKpis: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByCompanyGuid(company.guid);
     let companyKpms: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(company.guid);
     this.companyTrackedKpis = companyKpis.map(kpi => { return kpi.optionValue });
-    console.log(this.companyTrackedKpis);
     this.companyTrackedKpms = companyKpms.map(kpm => { return kpm.value });
   }
 
