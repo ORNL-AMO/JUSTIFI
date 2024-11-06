@@ -28,17 +28,14 @@
         </div>
     </div>
     <div class="row">
-        <label class="col-sm-5 col-form-label" for="{{'opportunityType_'+energyOpportunity.guid}}">Opportunity
+        <label class="col-sm-5 col-form-label" for="{{'utilityType_'+energyOpportunity.guid}}">Utility
             Type</label>
         <div class="col-sm-7">
-            <select name="{{'opportunityType_'+energyOpportunity.guid}}" class="form-select"
-                id="{{'opportunityType_'+energyOpportunity.guid}}" [(ngModel)]="energyOpportunity.opportunityType"
-                (change)="saveEnergyOpportunity()">
-                <option [ngValue]="undefined">
-                    Other
-                </option>
-                <option *ngFor="let opportunityType of opportunityTypes" [ngValue]="opportunityType.value">
-                    {{opportunityType.label}}
+            <select name="{{'utilityType_'+energyOpportunity.guid}}" class="form-select"
+                id="{{'utilityType_'+energyOpportunity.guid}}" [(ngModel)]="energyOpportunity.utilityType"
+                (change)="changeUtilityType()">
+                <option *ngFor="let utilityType of energyOpportunity.utilityTypes" [ngValue]="utilityType">
+                    {{utilityType}}
                 </option>
             </select>
         </div>
@@ -76,7 +73,7 @@
                     <input name="{{'energySavings_'+energyOpportunity.guid}}" type="number" class="form-control"
                         [(ngModel)]="energyOpportunity.energySavings" id="{{'energySavings_'+energyOpportunity.guid}}"
                         (input)="saveEnergyOpportunity()">
-                    <span class="input-group-text">MMBtu/yr</span>
+                    <span class="input-group-text" [innerHTML]="(energyOpportunity.energyUnit| unitsDisplay) + '/yr'"></span>
                 </div>
             </div>
         </div>
@@ -89,6 +86,13 @@
                         (input)="saveEnergyOpportunity()">
                     <span class="input-group-text">&dollar;</span>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                <button class="btn btn-outline-primary btn-sm border-0" (click)="calculateCostSavings()">
+                    <fa-icon [icon]="faCalculator"></fa-icon> Calculate Savings
+                </button>
             </div>
         </div>
     </ng-container>

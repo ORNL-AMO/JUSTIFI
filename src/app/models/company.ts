@@ -17,7 +17,7 @@ export function getNewIdbCompany(userId: string): IdbCompany {
         userId: userId,
         generalInformation: generalInformation,
         displayFacilities: true,
-        companyEnergyUnit: 'kWh',
+        companyEnergyUnit: 'MMBtu',
     }
 }
 

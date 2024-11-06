@@ -1,0 +1,4 @@
+th:not(:first-of-type), td:not(:first-of-type){
+    /* width: 25%; */
+    text-align: right;
+}

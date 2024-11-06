@@ -1,0 +1,78 @@
+<table class="table table-bordered savings-table table-hover">
+    <thead>
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                Implementation Cost<br> (&dollar;)
+            </th>
+            <th>
+                Annual Energy Savings<br> (&dollar;/yr)
+            </th>
+            <th>
+                Annual Savings W/ NEBs<br> (&dollar;/yr)
+            </th>
+            <th>
+                Simple Payback<br> (yrs)
+            </th>
+            <th>
+                Simple Payback With NEBs<br> (yrs)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
+            <td>
+                {{assessmentReport.assessment.name}}
+            </td>
+            <td>
+                <app-single-cell-item [isCurrency]="true"
+                    [numValue]="assessmentReport.totalImplementationCost"></app-single-cell-item>
+            </td>
+            <td>
+                <app-single-cell-item [isCurrency]="true"
+                    [numValue]="assessmentReport.totalEnergyCostSavings"></app-single-cell-item>
+            </td>
+            <td>
+                <app-single-cell-item [isCurrency]="true"
+                    [numValue]="assessmentReport.totalCostSavings"></app-single-cell-item>
+            </td>
+            <td>
+                <app-single-cell-item [isCurrency]="false"
+                    [numValue]="assessmentReport.totalPaybackWithoutNebs"></app-single-cell-item>
+            </td>
+            <td>
+                <app-single-cell-item [isCurrency]="false"
+                    [numValue]="assessmentReport.totalPaybackWithNebs"></app-single-cell-item>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                Visit Total
+            </th>
+            <th>
+                <app-single-cell-item [isCurrency]="true"
+                    [numValue]="onSiteVisitReport.totalImplementationCost"></app-single-cell-item>
+            </th>
+            <th>
+                <app-single-cell-item [isCurrency]="true"
+                    [numValue]="onSiteVisitReport.totalEnergyCostSavings"></app-single-cell-item>
+            </th>
+            <th>
+                <app-single-cell-item [isCurrency]="true"
+                    [numValue]="onSiteVisitReport.totalCostSavings"></app-single-cell-item>
+            </th>
+            <th>
+                <app-single-cell-item [isCurrency]="false"
+                    [numValue]="onSiteVisitReport.totalPaybackWithoutNebs"></app-single-cell-item>
+            </th>
+            <th>
+                <app-single-cell-item [isCurrency]="false"
+                    [numValue]="onSiteVisitReport.totalPaybackWithNebs"></app-single-cell-item>
+            </th>
+        </tr>
+    </tfoot>
+</table>

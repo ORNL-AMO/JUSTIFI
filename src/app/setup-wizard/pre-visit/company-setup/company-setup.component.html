@@ -20,9 +20,10 @@
                             Company Name Required
                         </div>
                         <!-- Set Energy Unit Field -->
-                        <app-label-with-tooltip [field]="'energyUnit'" [label]="'Set Energy Unit'" [isRequired]="false"
+                        <app-label-with-tooltip [field]="'energyUnit'" [label]="'Energy Results Unit'" [isRequired]="false"
                             [labelId]="'energyUnit'" [isFloatRight]="true"></app-label-with-tooltip>
-                        <select name="energyUnit" class="form-control" [formControl]="energyUnit" (change)="saveUnitChanges()">
+                        <select name="energyUnit" class="form-select" [formControl]="energyUnit"
+                            (change)="saveUnitChanges()">
                             <option value="kWh">kWh</option>
                             <option value="MMBtu">MMBtu</option>
                         </select>

@@ -12,7 +12,6 @@ import { FacilityDashboardModule } from './facility-dashboard/facility-dashboard
 import { IndexedDbModule } from './indexed-db/indexed-db.module';
 import { LoadingComponent } from './core-components/loading/loading.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgxWebstorageModule } from 'ngx-webstorage';
 import { FormsModule } from '@angular/forms';
 import { SetupWizardModule } from './setup-wizard/setup-wizard.module';
 import { SidebarComponent } from './core-components/sidebar/sidebar.component';
@@ -22,6 +21,8 @@ import { SetupWizardModalComponent } from './core-components/setup-wizard-modal/
 import { ImportBackupModalComponent } from './core-components/import-backup-modal/import-backup-modal.component';
 import { UserPortfolioModule } from './user-portfolio/user-portfolio.module';
 import { PlotlyViaWindowModule } from 'angular-plotly.js';
+import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
+import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
     LoadingComponent,
     SidebarComponent,
     SetupWizardModalComponent,
-    ImportBackupModalComponent
+    ImportBackupModalComponent,
+    AlphaDisclaimerComponent,
+    ToastNotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,6 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
     FacilityDashboardModule,
     IndexedDbModule,
     FontAwesomeModule,
-    NgxWebstorageModule.forRoot(),
     FormsModule,
     SetupWizardModule,
     HelperPipesModule,

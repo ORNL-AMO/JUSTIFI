@@ -173,7 +173,7 @@
                     <textarea class="form-control" name="notes"
                         id="notes"
                         [(ngModel)]="energyEquipment.notes"
-                        (input)="saveChanges()"></textarea>
+                        (input)="saveChanges()" rows="4"></textarea>
                 </div>
             </div>
             <div class="row">
@@ -181,7 +181,12 @@
                 <div class="col-sm-7">
                     <span class="d-flex justify-content-center bold"
                     id="energyUse" name="energyUse">
-                        {{energyEquipment.annualEnergyUse | number:'1.0-2'}} kWh
+                        {{energyEquipment.annualEnergyUse | number:'1.0-2'}}
+                        {{companyEnergyUnit | unitsDisplay}}
+                        <div *ngIf="companyEnergyUnit !== energyEquipment.facilityUtilityUnit">
+                            &nbsp;/&nbsp;{{energyEquipment.annualEnergyUseByUtility | number:'1.0-2'}}
+                            {{energyEquipment.facilityUtilityUnit | unitsDisplay}}
+                        </div>
                     </span>
                 </div>
             </div>

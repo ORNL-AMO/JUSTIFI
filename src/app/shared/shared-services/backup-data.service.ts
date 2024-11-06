@@ -92,7 +92,7 @@ export class BackupDataService {
   }
 
   // Add backup file data to the userGuid
-  async importUserBackupFile(backupFile: BackupFile, userGuid: string): Promise<void> {
+  async importUserBackupFile(backupFile: BackupFile, userGuid: string): Promise<BackupFile> {
     // Overwrite backup user guid with input guid
     this.loadingService.setLoadingMessage('Adding Backup Data to User: ' + userGuid + '...');
     let userGUIDs: { oldId: string, newId: string } = {
@@ -211,6 +211,7 @@ export class BackupDataService {
     // Adding KPIs
     this.loadingService.setLoadingMessage('Adding KPIs...');
     let keyPerformanceIndicatorGUIDs: Array<{ oldId: string, newId: string }> = new Array();
+    let kpmGuids: Array<{ oldId: string, newId: string }> = new Array();
     for (let i = 0; i < backupFile.keyPerformanceIndicators.length; i++) {
       let keyPerformanceIndicator: IdbKeyPerformanceIndicator = backupFile.keyPerformanceIndicators[i];
       let newGUID: string = getGUID();
@@ -219,6 +220,12 @@ export class BackupDataService {
         oldId: keyPerformanceIndicator.guid
       });
       keyPerformanceIndicator.guid = newGUID;
+      for (let m = 0; m < keyPerformanceIndicator.performanceMetrics.length; m++) {
+        keyPerformanceIndicator.performanceMetrics[m].kpiGuid = newGUID;
+        let newKpmGuid: string = getGUID();
+        kpmGuids.push({ oldId: keyPerformanceIndicator.performanceMetrics[m].guid, newId: newKpmGuid });
+        keyPerformanceIndicator.performanceMetrics[m].guid = newKpmGuid;
+      }
       delete keyPerformanceIndicator.id;
       keyPerformanceIndicator.userId = userGUIDs.newId;
       keyPerformanceIndicator.companyId = getNewId(keyPerformanceIndicator.companyId, companyGUIDs);
@@ -307,15 +314,17 @@ export class BackupDataService {
       keyPerformanceMetricImpact.guid = newGUID;
       delete keyPerformanceMetricImpact.id;
       keyPerformanceMetricImpact.userId = userGUIDs.newId;
+      keyPerformanceMetricImpact.kpmGuid = getNewId(keyPerformanceMetricImpact.kpmGuid, kpmGuids);
       keyPerformanceMetricImpact.kpiGuid = getNewId(keyPerformanceMetricImpact.kpiGuid, keyPerformanceIndicatorGUIDs);
       keyPerformanceMetricImpact.companyId = getNewId(keyPerformanceMetricImpact.companyId, companyGUIDs);
       keyPerformanceMetricImpact.facilityId = getNewId(keyPerformanceMetricImpact.facilityId, facilityGUIDs);
       keyPerformanceMetricImpact.assessmentId = getNewId(keyPerformanceMetricImpact.assessmentId, assessmentGUIDs);
       keyPerformanceMetricImpact.nebId = getNewId(keyPerformanceMetricImpact.nebId, nonEnergyBenefitGUIDs);
       keyPerformanceMetricImpact.energyOpportunityId = getNewId(keyPerformanceMetricImpact.energyOpportunityId, energyOpportunityGUIDs);
+
       await firstValueFrom(this.keyPerformanceMetricImpactIdbService.addWithObservable(keyPerformanceMetricImpact));
     }
-
+    return backupFile;
   }
 
   backupFileVersionCheck(fileVersion: string, appVersion: string): boolean {

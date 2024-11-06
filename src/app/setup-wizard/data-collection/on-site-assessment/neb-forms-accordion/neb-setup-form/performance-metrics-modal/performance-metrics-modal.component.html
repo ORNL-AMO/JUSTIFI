@@ -1,6 +1,6 @@
 <button class="me-2 btn btn-sm btn-outline-metric" (click)="openMetricModal()">
     <fa-icon [icon]="faSearchPlus"></fa-icon>
-    Search Performance Metrics
+    Search Key Performance Metrics
 </button>
 
 
@@ -27,7 +27,8 @@
                         <label class="form-check-label" for="filterAssociatedMetrics">Filter associated metrics</label>
                     </div>
                     <p class="small mb-0">
-                        <fa-icon [icon]="faAsterisk"></fa-icon> Denotes metric typically associated with {{nonEnergyBenefit.name}}.
+                        <fa-icon [icon]="faAsterisk"></fa-icon> Denotes metric typically associated with
+                        {{nonEnergyBenefit.name}}.
                     </p>
                 </div>
                 <div class="col-3">
@@ -52,7 +53,7 @@
                             <th (click)="toggleOrderBy()">
                                 <fa-icon [icon]="faChevronDown" *ngIf="orderByDir == 'asc'"></fa-icon>
                                 <fa-icon [icon]="faChevronUp" *ngIf="orderByDir == 'desc'"></fa-icon>
-                                Performance Metric
+                                Key Performance Metric
                             </th>
                             <th>
                                 KPI

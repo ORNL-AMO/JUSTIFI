@@ -74,36 +74,50 @@ export class SharedSettingsFormsService {
       electricityUse: [unitSettings.electricityUse, [Validators.min(0)]],
       electricityUnit: [unitSettings.electricityUnit],
       electricityPrice: [unitSettings.electricityPrice, [Validators.min(0)]],
+      electricityHHV: [unitSettings.electricityHHV, [Validators.min(0)]],
+      electricityEnergyUnit: [unitSettings.electricityEnergyUnit],
 
       includeNaturalGas: [unitSettings.includeNaturalGas],
       naturalGasUse: [unitSettings.naturalGasUse, [Validators.min(0)]],
       naturalGasUnit: [unitSettings.naturalGasUnit],
       naturalGasPrice: [unitSettings.naturalGasPrice, [Validators.min(0)]],
+      naturalGasHHV: [unitSettings.naturalGasHHV, [Validators.min(0)]],
+      naturalGasEnergyUnit: [unitSettings.naturalGasEnergyUnit],
 
       includeSteam: [unitSettings.includeSteam],
       steamUse: [unitSettings.steamUse, [Validators.min(0)]],
       steamUnit: [unitSettings.steamUnit],
       steamPrice: [unitSettings.steamPrice, [Validators.min(0)]],
+      steamHHV: [unitSettings.steamHHV, [Validators.min(0)]],
+      steamEnergyUnit: [unitSettings.steamEnergyUnit],
 
       includeOtherFuels: [unitSettings.includeOtherFuels],
       otherFuelsUse: [unitSettings.otherFuelsUse, [Validators.min(0)]],
       otherFuelsUnit: [unitSettings.otherFuelsUnit],
       otherFuelsPrice: [unitSettings.otherFuelsPrice, [Validators.min(0)]],
+      otherFuelsHHV: [unitSettings.otherFuelsHHV, [Validators.min(0)]],
+      otherFuelsEnergyUnit: [unitSettings.otherFuelsEnergyUnit],
 
       includeCompressedAir: [unitSettings.includeCompressedAir],
       compressedAirUse: [unitSettings.compressedAirUse, [Validators.min(0)]],
       compressedAirUnit: [unitSettings.compressedAirUnit],
       compressedAirPrice: [unitSettings.compressedAirPrice, [Validators.min(0)]],
+      compressedAirHHV: [unitSettings.compressedAirHHV, [Validators.min(0)]],
+      compressedAirEnergyUnit: [unitSettings.compressedAirEnergyUnit],
 
       includeWater: [unitSettings.includeWater],
       waterUse: [unitSettings.waterUse, [Validators.min(0)]],
       waterUnit: [unitSettings.waterUnit],
       waterPrice: [unitSettings.waterPrice, [Validators.min(0)]],
+      waterHHV: [unitSettings.waterHHV, [Validators.min(0)]],
+      waterEnergyUnit: [unitSettings.waterEnergyUnit],
 
       includeWasteWater: [unitSettings.includeWasteWater],
       wasteWaterUse: [unitSettings.wasteWaterUse, [Validators.min(0)]],
       wasteWaterUnit: [unitSettings.wasteWaterUnit],
       wasteWaterPrice: [unitSettings.wasteWaterPrice, [Validators.min(0)]],
+      wasteWaterHHV: [unitSettings.wasteWaterHHV, [Validators.min(0)]],
+      wasteWaterEnergyUnit: [unitSettings.wasteWaterEnergyUnit],
     });
 
     // Update required validators for included items
@@ -122,6 +136,8 @@ export class SharedSettingsFormsService {
     this.setRequiredValidator(form.controls['compressedAirUse'], unitSettings.includeCompressedAir);
     this.setRequiredValidator(form.controls['waterUse'], unitSettings.includeWater);
     this.setRequiredValidator(form.controls['wasteWaterUse'], unitSettings.includeWasteWater);
+
+    // TO DO: Add validators for HHV and Energy Unit
 
     return form;
   }
@@ -147,6 +163,8 @@ export class SharedSettingsFormsService {
     unitSettings.steamUse = form.controls['steamUse'].value;
     unitSettings.steamUnit = form.controls['steamUnit'].value;
     unitSettings.steamPrice = form.controls['steamPrice'].value;
+    unitSettings.steamHHV = form.controls['steamHHV'].value;
+    unitSettings.steamEnergyUnit = form.controls['steamEnergyUnit'].value;
 
     unitSettings.includeOtherFuels = form.controls['includeOtherFuels'].value;
     this.setRequiredValidator(form.controls['otherFuelsPrice'], unitSettings.includeOtherFuels);
@@ -161,6 +179,8 @@ export class SharedSettingsFormsService {
     unitSettings.compressedAirUse = form.controls['compressedAirUse'].value;
     unitSettings.compressedAirUnit = form.controls['compressedAirUnit'].value;
     unitSettings.compressedAirPrice = form.controls['compressedAirPrice'].value;
+    unitSettings.compressedAirHHV = form.controls['compressedAirHHV'].value;
+    unitSettings.compressedAirEnergyUnit = form.controls['compressedAirEnergyUnit'].value;
 
     unitSettings.includeWater = form.controls['includeWater'].value;
     this.setRequiredValidator(form.controls['waterPrice'], unitSettings.includeWater);
@@ -168,6 +188,8 @@ export class SharedSettingsFormsService {
     unitSettings.waterUse = form.controls['waterUse'].value;
     unitSettings.waterUnit = form.controls['waterUnit'].value;
     unitSettings.waterPrice = form.controls['waterPrice'].value;
+    unitSettings.waterHHV = form.controls['waterHHV'].value;
+    unitSettings.waterEnergyUnit = form.controls['waterEnergyUnit'].value;
 
     unitSettings.includeWasteWater = form.controls['includeWasteWater'].value;
     this.setRequiredValidator(form.controls['wasteWaterPrice'], unitSettings.includeWasteWater);
@@ -175,6 +197,9 @@ export class SharedSettingsFormsService {
     unitSettings.wasteWaterUse = form.controls['wasteWaterUse'].value;
     unitSettings.wasteWaterUnit = form.controls['wasteWaterUnit'].value;
     unitSettings.wasteWaterPrice = form.controls['wasteWaterPrice'].value;
+    unitSettings.wasteWaterHHV = form.controls['wasteWaterHHV'].value;
+    unitSettings.wasteWaterEnergyUnit = form.controls['wasteWaterEnergyUnit'].value
+    
     return unitSettings;
   }
 

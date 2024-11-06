@@ -1,7 +1,8 @@
 export interface UnitOption {
     display: string,
     value: string, // Identifier to match the key in unit definitions.
-    unitsOfMeasure: string
+    unitsOfMeasure: string,
+    isStandard?: boolean // 
 }
 
 export const EnergyUnitOptions: Array<UnitOption> = [
@@ -177,80 +178,95 @@ export const VolumeGasOptions: Array<UnitOption> = [
     },
 ]
 
-export const SteamUnitOptions: Array<UnitOption> = [
+export const EnergySteamMixedUnitOptions: Array<UnitOption> = [
     {
         display: 'Pounds (lb)',
         value: 'lb',
-        unitsOfMeasure: 'Imperial'
+        unitsOfMeasure: 'Imperial',
+        isStandard: false
     },
     {
         display: 'Kilograms (kg)',
         value: 'kg',
-        unitsOfMeasure: 'Metric'
+        unitsOfMeasure: 'Metric',
+        isStandard: false
     },
     {
         display: 'Tons',
         value: 'ton',
-        unitsOfMeasure: 'Imperial'
+        unitsOfMeasure: 'Imperial',
+        isStandard: false
     },
     {
         display: 'Metric Tonnes (tonnes)',
         value: 'tonne',
-        unitsOfMeasure: 'Metric'
+        unitsOfMeasure: 'Metric',
+        isStandard: false
     },
     {
         display: 'Thousand pounds (klb)',
         value: 'klb',
-        unitsOfMeasure: 'Imperial'
+        unitsOfMeasure: 'Imperial',
+        isStandard: false
     },
     {
         display: 'Kilowatt-hour (kWh)',
         value: 'kWh',
-        unitsOfMeasure: 'Metric'
+        unitsOfMeasure: 'Metric',
+        isStandard: true
     },
     {   display: 'Watt-hour (Wh)',
         value: 'Wh',
-        unitsOfMeasure: 'Metric'
+        unitsOfMeasure: 'Metric',
+        isStandard: true
     },
     {
         display: 'Megawatt-hour (MWh)',
         value: 'MWh',
-        unitsOfMeasure: 'Imperial'
+        unitsOfMeasure: 'Imperial',
+        isStandard: true
     },
     {
         display: 'Kilojoules (kJ)',
         value: 'kJ',
-        unitsOfMeasure: 'Imperial'
+        unitsOfMeasure: 'Imperial',
+        isStandard: true
     },
     {
         display: 'Gigajoules (GJ)',
         value: 'GJ',
-        unitsOfMeasure: 'Imperial'
+        unitsOfMeasure: 'Imperial',
+        isStandard: true
     },
     {
         display: 'Megajoules (MJ)',
         value: 'MJ',
-        unitsOfMeasure: 'Imperial'
+        unitsOfMeasure: 'Imperial',
+        isStandard: true
     },
     {
         display: 'Therms',
         value: 'Therms',
-        unitsOfMeasure: 'Metric'
+        unitsOfMeasure: 'Metric',
+        isStandard: true
     },
     {
         display: 'Dekatherms (DTherms)',
         value: 'Dtherms',
-        unitsOfMeasure: 'Metric'
+        unitsOfMeasure: 'Metric',
+        isStandard: true
     },
     {
         display: 'Million British Thermal Units (MMBtu)',
         value: 'MMBtu',
-        unitsOfMeasure: 'Metric'
+        unitsOfMeasure: 'Metric',
+        isStandard: true
     },
     {
         display: 'Kilocalorie (kcal)',
         value: 'kcal',
-        unitsOfMeasure: 'Imperial'
+        unitsOfMeasure: 'Imperial',
+        isStandard: true
     }
 ]
 

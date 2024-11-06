@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { PlotlyService } from 'angular-plotly.js';
-import { KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem } from '../../calculations/keyPerformanceIndicatorReport';
+import { KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem } from '../calculations/keyPerformanceIndicatorReport';
 import * as _ from 'lodash';
 @Component({
   selector: 'app-performance-metrics-chart',
@@ -22,41 +22,61 @@ export class PerformanceMetricsChartComponent {
     }
   }
 
-  drawChart() {
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes['keyPerformanceIndicatorReport'].isFirstChange()) {
+      this.drawChart();
+    }
+  }
 
-    let kpiReportItems: Array<KeyPerformanceIndicatorReportItem> = this.keyPerformanceIndicatorReport.kpiReportItems;
+  drawChart() {
+    let kpiReportItems: Array<KeyPerformanceIndicatorReportItem> = this.keyPerformanceIndicatorReport.kpiReportItems.filter(kpiReportItem => {
+      return kpiReportItem.keyPerformanceMetric.isQuantitative
+    });
     kpiReportItems = _.orderBy(kpiReportItems, (reportItem: KeyPerformanceIndicatorReportItem) => {
       return reportItem.keyPerformanceMetric.baselineCost;
     }, 'desc')
 
     var trace1 = {
       x: kpiReportItems.map(kpiReport => {
-        return kpiReport.keyPerformanceMetric.htmlLabel
+        return kpiReport.keyPerformanceMetric.label
       }),
       y: kpiReportItems.map(kpiReportItem => {
         return kpiReportItem.keyPerformanceMetric.baselineCost - kpiReportItem.performanceMetricImpact.costAdjustment
       }),
       name: 'Modified Cost',
-      type: 'bar'
+      type: 'bar',
+      marker: {
+        color: '#e67e22'
+      }
     };
 
     var trace2 = {
       x: kpiReportItems.map(kpiReport => {
-        return kpiReport.keyPerformanceMetric.htmlLabel
+        return kpiReport.keyPerformanceMetric.label
       }),
       y: kpiReportItems.map(kpiReportItem => {
         return kpiReportItem.performanceMetricImpact.costAdjustment
       }),
       name: 'Annual Savings',
       type: 'bar',
+      marker: {
+        color: '#196f3d'
+      }
     };
 
     var data = [trace1, trace2];
     var layout = {
       barmode: 'stack',
       yaxis: {
-        tickprefix: '$'
+        tickprefix: '$',
+        automargin: true
+      },
+      xaxis: {
+        automargin: true
       }
+      // legend: {
+      //   orientation: "h"
+      // },
     };
 
     let config = {

@@ -67,7 +67,11 @@ export class FacilityEnergyEquipmentSetupComponent {
 
   async addEquipment() {
     this.isAddNew = true;
-    let newEnergyEquipment: IdbEnergyEquipment = getNewIdbEnergyEquipment(this.facility.userId, this.facility.companyId, this.facility.guid);
+    let newEnergyEquipment: IdbEnergyEquipment = getNewIdbEnergyEquipment(
+      this.facility.userId,
+      this.facility.companyId,
+      this.facility.guid,
+      this.facility.unitSettings);
     await firstValueFrom(this.energyEquipmentIdbService.addWithObservable(newEnergyEquipment));
     await this.energyEquipmentIdbService.setEnergyEquipments();
   }

@@ -1,0 +1,55 @@
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th colspan="2">
+                <ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentBlock">
+                    On Site Details
+                </ng-template>
+                <ng-template #assessmentBlock>
+                    Assessment Details
+                </ng-template>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="w-50">
+                Company
+            </td>
+            <td>
+                {{company.generalInformation.name}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Facility
+            </td>
+            <td>
+                {{facility.generalInformation.name}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Visit Date
+            </td>
+            <td>
+                <ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentBlock">
+                    {{onSiteVisit.visitDate | date}}
+                </ng-template>
+                <ng-template #assessmentBlock>
+                    {{assessment.visitDate | date}}
+                </ng-template>
+            </td>
+        </tr>
+        <!-- <tr>
+            <td>
+                Industrial Equipment
+            </td>
+            <td>
+                <app-single-cell-item
+                    [strValue]="assessment.equipmentId | energyEquipmentDisplay: energyEquipments"></app-single-cell-item>
+            </td>
+        </tr> -->
+
+    </tbody>
+</table>

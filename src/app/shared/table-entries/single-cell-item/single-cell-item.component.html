@@ -12,10 +12,10 @@
 
     <ng-template #numValueBlock>
         <ng-template [ngIf]="!isCurrency" [ngIfElse]="currencyBlock">
-            {{numValue | number}}
+            {{numValue | number:'1.0-2'}}
         </ng-template>
         <ng-template #currencyBlock>
-            {{numValue | currency}}
+            {{numValue | currency : 'USD' : 'symbol' : '1.0-0'}}
         </ng-template>
         <ng-template [ngIf]="units && !per">
             <span [innerHTML]="units | unitsDisplay"></span>

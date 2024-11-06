@@ -1,0 +1,12 @@
+<div class="d-flex flex-column report">
+    <app-report-details-table [onSiteVisit]="onSiteVisit"></app-report-details-table>
+    <hr>
+    <app-performance-metrics-table
+        [keyPerformanceIndicatorReport]="onSiteVisitReport.keyPerformanceIndicatorReport"></app-performance-metrics-table>
+    <app-performance-metrics-chart
+        [keyPerformanceIndicatorReport]="onSiteVisitReport.keyPerformanceIndicatorReport"></app-performance-metrics-chart>
+    <hr>
+    <app-on-site-visit-payback-table [onSiteVisitReport]="onSiteVisitReport"></app-on-site-visit-payback-table>
+    <app-on-site-visit-savings-chart [onSiteVisitReport]="onSiteVisitReport"></app-on-site-visit-savings-chart>
+    <app-neb-contributions-bar-chart [assessmentReports]="onSiteVisitReport.assessmentReports"></app-neb-contributions-bar-chart>
+</div>

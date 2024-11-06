@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IconDefinition, faChevronLeft, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChartPie, faChevronLeft, faFolderOpen, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
+import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
@@ -13,16 +15,25 @@ export class VisitReportComponent {
 
   faChevronLeft: IconDefinition = faChevronLeft;
   faFolderOpen: IconDefinition = faFolderOpen;
+  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
+  faChartPie: IconDefinition = faChartPie;
 
   onSiteVisit: IdbOnSiteVisit;
+  assessments: Array<IdbAssessment>;
   constructor(private router: Router,
-    private onSiteVisitIdbService: OnSiteVisitIdbService
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private assessmentIdbService: AssessmentIdbService
   ) {
 
   }
 
   ngOnInit() {
     this.onSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+    this.assessments = new Array();
+    this.onSiteVisit.assessmentIds.forEach(assessmentId => {
+      let assessment: IdbAssessment = this.assessmentIdbService.getByGuid(assessmentId);
+      this.assessments.push(assessment);
+    })
   }
 
   goNext() {

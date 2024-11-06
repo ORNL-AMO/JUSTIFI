@@ -1,6 +1,7 @@
 import { getNewIdbEntry, IdbEntry } from "./idbEntry"
 import { EquipmentType, EquipmentTypes } from "../shared/constants/equipmentTypes"
-import { UtilityType } from "../shared/constants/utilityTypes"
+import { UtilityOptions, UtilityType } from "../shared/constants/utilityTypes"
+import { UnitSettings } from "./unitSettings";
 
 export interface IdbEnergyEquipment extends IdbEntry {
     userId: string,
@@ -22,10 +23,18 @@ export interface IdbEnergyEquipment extends IdbEntry {
     efficiency: number,
     numberOfEquipment: number,
     annualEnergyUse: number,
+    facilityUtilityUnit: string;
+    annualEnergyUseByUtility: number;
 }
 
-export function getNewIdbEnergyEquipment(userId: string, companyId: string, facilityId: string): IdbEnergyEquipment {
+export function getNewIdbEnergyEquipment(userId: string, companyId: string, facilityId: string,
+    facilityUnitSettings: UnitSettings
+): IdbEnergyEquipment {
     let idbEntry: IdbEntry = getNewIdbEntry();
+    let facilityUtilityUnit: string = 'kWh';
+    if (facilityUnitSettings['includeElectricity']) {
+        facilityUtilityUnit = facilityUnitSettings['electricityUnit'];
+    }
     return {
         ...idbEntry,
         userId: userId,
@@ -46,6 +55,8 @@ export function getNewIdbEnergyEquipment(userId: string, companyId: string, faci
         efficiency: 0.5,
         numberOfEquipment: 1,
         notes: undefined,
-        annualEnergyUse: 0
+        annualEnergyUse: 0,
+        facilityUtilityUnit: facilityUtilityUnit,
+        annualEnergyUseByUtility: 0
     }
 }

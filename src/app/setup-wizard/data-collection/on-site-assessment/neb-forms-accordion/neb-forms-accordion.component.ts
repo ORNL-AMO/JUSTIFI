@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -60,6 +60,15 @@ export class NebFormsAccordionComponent {
       this.cd.detectChanges();
     }
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['energyOpportunity'] && !changes['energyOpportunity'].firstChange) {
+      this.setEnergyOpportunityNebGuids();
+    } else if (changes['assessment'] && !changes['assessment'].firstChange) {
+      this.setAssessmentNebGuids();
+    }
+  }
+
 
   setEnergyOpportunityNebGuids() {
     // only want to update neb list if changes made

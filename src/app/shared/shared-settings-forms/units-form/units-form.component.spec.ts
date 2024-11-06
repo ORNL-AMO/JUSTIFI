@@ -13,6 +13,8 @@ import { HelperPipesModule } from '../../helper-pipes/helper-pipes.module';
 import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessment-setup/pre-assessment-setup.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
+import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
+import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 
 describe('UnitsFormComponent', () => {
   let component: UnitsFormComponent;
@@ -29,6 +31,14 @@ describe('UnitsFormComponent', () => {
   let onSiteVisitIdbService: Partial<OnSiteVisitIdbService> = {};
   let preAassessmentSetupService: Partial<PreAssessmentSetupService> = {};
   let assessmentIdbService: Partial<AssessmentIdbService> = {};
+
+  let energyOpportunityIdbService: Partial<EnergyOpportunityIdbService> = {
+    getByOtherGuid: (guid, idType) => []
+  };
+
+  let energyEquipmentIdbService: Partial<EnergyEquipmentIdbService> = {
+    getByOtherGuid: (guid, idType) => []
+  };
   
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,7 +50,9 @@ describe('UnitsFormComponent', () => {
         { provide: FacilityIdbService, useValue: facilityIdbService },
         { provide: PreAssessmentSetupService, useValue: preAassessmentSetupService },
         { provide: OnSiteVisitIdbService, useValue: onSiteVisitIdbService },
-        { provide: AssessmentIdbService, useValue: assessmentIdbService }
+        { provide: AssessmentIdbService, useValue: assessmentIdbService },
+        { provide: EnergyOpportunityIdbService, useValue: energyOpportunityIdbService },
+        { provide: EnergyEquipmentIdbService, useValue: energyEquipmentIdbService }
       ]
     });
     fixture = TestBed.createComponent(UnitsFormComponent);

@@ -51,7 +51,7 @@ describe('AddNebsModalComponent', () => {
 
   };
   let energyOpportunityIdbService: Partial<EnergyOpportunityIdbService> = {
-    getByGuid: () => { return getNewIdbEnergyOpportunity('', '', '', '') }
+    getByGuid: () => { return getNewIdbEnergyOpportunity('', '', '', '', null) }
 
   };
   let keyPerformanceMetricImpactsIdbService: Partial<KeyPerformanceMetricImpactsIdbService> = {};

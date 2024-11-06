@@ -82,6 +82,8 @@ export class KeyPerformanceMetricImpactsIdbService {
         metricImpact.costAdjustment = (metricImpact.modificationValue * keyPerformanceMetric.costPerValue);
       } else if (keyPerformanceMetric.calculationMethod == 'percentTotal') {
         metricImpact.costAdjustment = keyPerformanceMetric.baselineCost * (metricImpact.modificationValue / 100);
+      } else if(keyPerformanceMetric.calculationMethod == 'directCost'){
+        metricImpact.costAdjustment = metricImpact.modificationValue;
       }
       await firstValueFrom(this.updateWithObservable(metricImpact));
     }

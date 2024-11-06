@@ -9,7 +9,11 @@ export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, companyPerfo
     keyPerformanceMetricImpact.forEach(performanceMetricImpact => {
         if (nonEnergyBenefit.guid == performanceMetricImpact.nebId) {
             let keyPerformanceMetric: KeyPerformanceMetric = companyPerformanceMetrics.find(companyKPM => {
-                return companyKPM.value == performanceMetricImpact.kpmValue
+                if (companyKPM.isCustom == false) {
+                    return companyKPM.value == performanceMetricImpact.kpmValue
+                } else {
+                    return companyKPM.guid == performanceMetricImpact.kpmGuid
+                }
             });
             reportPerformanceMetrics.push({
                 performanceMetricImpact: performanceMetricImpact,

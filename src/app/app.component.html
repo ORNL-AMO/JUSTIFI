@@ -7,6 +7,7 @@
             </div>
             <div class="w-100 main-content" (click)="collapseSidebar()">
                 <router-outlet></router-outlet>
+                <app-toast-notifications></app-toast-notifications>
             </div>
         </div>
         <!-- <router-outlet></router-outlet> -->
@@ -16,4 +17,5 @@
     </ng-template>
     <app-loading></app-loading>
     <app-setup-wizard-modal></app-setup-wizard-modal>
+    <app-alpha-disclaimer></app-alpha-disclaimer>
 </div>

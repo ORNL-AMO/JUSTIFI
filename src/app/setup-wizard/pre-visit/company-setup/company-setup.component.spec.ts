@@ -17,6 +17,8 @@ import { IdbOnSiteVisit, getNewIdbOnSiteVisit } from 'src/app/models/onSiteVisit
 import { LabelWithTooltipModule } from 'src/app/shared/label-with-tooltip/label-with-tooltip.module';
 import { PreAssessmentSetupService } from '../pre-assessment-setup/pre-assessment-setup.service';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
+import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
+import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 
 describe('CompanySetupComponent', () => {
   let component: CompanySetupComponent;
@@ -32,13 +34,22 @@ describe('CompanySetupComponent', () => {
   };
   let facilityIdbService: Partial<FacilityIdbService> = {
     facilities: new BehaviorSubject<Array<IdbFacility>>([]),
-    selectedFacility: new BehaviorSubject<IdbFacility>(getNewIdbFacility('', ''))
+    selectedFacility: new BehaviorSubject<IdbFacility>(getNewIdbFacility('', '')),
+    getByOtherGuid: (guid, idType) => []
   };
   let onSiteVisitIdbService: Partial<OnSiteVisitIdbService> = {
     selectedVisit: new BehaviorSubject<IdbOnSiteVisit>(getNewIdbOnSiteVisit('', '', ''))
   };
   let preAassessmentSetupService: Partial<PreAssessmentSetupService> = {};
   let assessmentIdbService: Partial<AssessmentIdbService> = {
+    getByOtherGuid: (guid, idType) => []
+  };
+
+  let energyOpportunityIdbService: Partial<EnergyOpportunityIdbService> = {
+    getByOtherGuid: (guid, idType) => []
+  };
+
+  let energyEquipmentIdbService: Partial<EnergyEquipmentIdbService> = {
     getByOtherGuid: (guid, idType) => []
   };
 
@@ -53,7 +64,9 @@ describe('CompanySetupComponent', () => {
         { provide: FacilityIdbService, useValue: facilityIdbService },
         { provide: OnSiteVisitIdbService, useValue: onSiteVisitIdbService },
         { provide: PreAssessmentSetupService, useValue: preAassessmentSetupService },
-        { provide: AssessmentIdbService, useValue: assessmentIdbService }
+        { provide: AssessmentIdbService, useValue: assessmentIdbService },
+        { provide: EnergyOpportunityIdbService, useValue: energyOpportunityIdbService },
+        { provide: EnergyEquipmentIdbService, useValue: energyEquipmentIdbService }
       ]
     })
       .compileComponents();

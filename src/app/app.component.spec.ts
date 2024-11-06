@@ -33,6 +33,8 @@ import { ProcessEquipmentIdbService } from './indexed-db/process-equipment-idb.s
 import { IdbProcessEquipment } from './models/processEquipment';
 import { IdbKeyPerformanceMetricImpact } from './models/keyPerformanceMetricImpact';
 import { KeyPerformanceMetricImpactsIdbService } from './indexed-db/key-performance-metric-impacts-idb.service';
+import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
+import { LocalStorageDataService } from './shared/shared-services/local-storage-data.service';
 
 describe('AppComponent', () => {
 
@@ -92,7 +94,7 @@ describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, FontAwesomeModule],
-      declarations: [AppComponent, NavbarComponent, WelcomeComponent, LoadingComponent, SetupWizardModalComponent, ImportBackupModalComponent],
+      declarations: [AppComponent, NavbarComponent, WelcomeComponent, LoadingComponent, SetupWizardModalComponent, ImportBackupModalComponent, AlphaDisclaimerComponent],
       providers: [
         { provide: CompanyIdbService, useValue: companyIdbService },
         { provide: FacilityIdbService, useValue: facilityIdbService },
@@ -106,7 +108,8 @@ describe('AppComponent', () => {
         { provide: KeyPerformanceIndicatorsIdbService, useValue: keyPerformanceIndicatorService },
         { provide: EnergyEquipmentIdbService, useValue: energyEquipmentIdbService },
         { provide: ProcessEquipmentIdbService, useValue: processEquipmentIdbService },
-        { provide: KeyPerformanceMetricImpactsIdbService, useValue: keyPerformanceMetricImpactIdbService }
+        { provide: KeyPerformanceMetricImpactsIdbService, useValue: keyPerformanceMetricImpactIdbService },
+        { provide: LocalStorageDataService, useValue: {}},
       ]
     })
   });

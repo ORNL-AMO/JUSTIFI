@@ -98,6 +98,12 @@ export type KeyPerformanceMetricValue =
     'employeeRetentionRate' |
     'talentTurnoverRate' |
     'totalLbsDust' |
+    'laborCosts' |
+    'thirdPartyLabor' |
+    'serviceParts' |
+    'treatmentChemicals' |
+    'rawMaterials' |
+    'intermediateGoods' |
     'custom';
 
 
@@ -122,8 +128,7 @@ export interface KeyPerformanceMetricOption {
     totalUnit?: string,
     goalToIncrease: boolean,
     timePeriod: string,
-    calculationMethod?: KpmCalculationMethod,
-    quantitativeUnavailable?: boolean
+    calculationMethod?: KpmCalculationMethod
 };
 
 
@@ -171,8 +176,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "strategicRelationshipImpact",
         isQuantitative: false,
         goalToIncrease: true,
-        timePeriod: 'yr',
-        quantitativeUnavailable: true
+        timePeriod: 'yr'
     },
     {
         label: "Lost Customer Sales ($)",
@@ -192,8 +196,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "strategicRelationshipImpact",
         isQuantitative: false,
         goalToIncrease: true,
-        timePeriod: 'yr',
-        quantitativeUnavailable: true
+        timePeriod: 'yr'
     },
     {
         label: "Supplier Satisfaction Ratings",
@@ -202,8 +205,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "strategicRelationshipImpact",
         isQuantitative: false,
         goalToIncrease: true,
-        timePeriod: 'yr',
-        quantitativeUnavailable: true
+        timePeriod: 'yr'
     },
     {
         label: "Productivity rate: Throughput",
@@ -212,8 +214,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "productivity",
         isQuantitative: false,
         goalToIncrease: true,
-        timePeriod: 'yr',
-        quantitativeUnavailable: true
+        timePeriod: 'yr'
     },
     {
         label: "Production Costs",
@@ -380,8 +381,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "quality",
         isQuantitative: false,
         goalToIncrease: true,
-        timePeriod: 'yr',
-        quantitativeUnavailable: true
+        timePeriod: 'yr'
     },
     {
         label: "$ Customer Returns (quality)",
@@ -440,7 +440,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Maintenance Cost",
         htmlLabel: "Maintenance Cost",
         value: "maintenanceCost",
-        kpiValue: "reduceExpenseCost",
+        kpiValue: "maintenanceExpense",
         isQuantitative: true,
         totalUnit: 'hr',
         goalToIncrease: false,
@@ -451,7 +451,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Engineering support (dollars or hours)",
         htmlLabel: "Engineering support (&#36; or hours)",
         value: "engineeringSupport",
-        kpiValue: "reduceExpenseCost",
+        kpiValue: "maintenanceExpense",
         isQuantitative: true,
         totalUnit: 'hr',
         goalToIncrease: false,
@@ -684,6 +684,72 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         value: "talentTurnoverRate",
         kpiValue: "employeeEngagementWorkforceDevelopment",
         isQuantitative: true,
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Labor Costs",
+        htmlLabel: "Labor Costs",
+        value: "laborCosts",
+        kpiValue: "maintenanceExpense",
+        isQuantitative: true,
+        totalUnit: 'hr',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'costPerUnit'
+    },
+    {
+        label: "3rd Party Labor",
+        htmlLabel: "3rd Party Labor",
+        value: "thirdPartyLabor",
+        kpiValue: "maintenanceExpense",
+        isQuantitative: true,
+        totalUnit: 'hr',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'costPerUnit'
+    },
+    {
+        label: "Service Parts",
+        htmlLabel: "Service Parts",
+        value: "serviceParts",
+        kpiValue: "reduceExpenseCost",
+        isQuantitative: true,
+        totalUnit: 'parts',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'costPerUnit'
+    },
+    {
+        label: "Treatment Chemicals",
+        htmlLabel: "Treatment Chemicals",
+        value: "treatmentChemicals",
+        kpiValue: "reduceExpenseCost",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Raw Materials",
+        htmlLabel: "Raw Materials",
+        value: "rawMaterials",
+        kpiValue: "reduceExpenseCost",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Intermediate Goods",
+        htmlLabel: "Intermediate Goods",
+        value: "intermediateGoods",
+        kpiValue: "reduceExpenseCost",
+        isQuantitative: true,
+        totalUnit: '',
         goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'directCost'

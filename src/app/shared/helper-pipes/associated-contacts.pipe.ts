@@ -22,6 +22,8 @@ export class AssociatedContactsPipe implements PipeTransform {
         _contacts.push(_contact);
       } else if (context == 'nonEnergyBenefit' && _contact.nonEnergyBenefitIds.includes(guid)) {
         _contacts.push(_contact);
+      } else if (context == 'energyEquipment' && _contact.energyEquipmentIds.includes(guid)) {
+        _contacts.push(_contact);
       }
     });
     if (_contacts.length > 0) {

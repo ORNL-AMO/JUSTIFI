@@ -1,8 +1,18 @@
-.report .table td, .report .table th{
+.report .table td,
+.report .table th {
     padding: .25rem;
     font-size: 14px;
 }
 
-.report .savings-table .text-right{
+.report .savings-table .text-right {
     text-align: right;
+}
+
+table.ordered .ordered-th {
+    text-decoration: underline;
+}
+
+
+table.ordered th:hover {
+    cursor: pointer;
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { IdbEnergyOpportunity } from '../models/energyOpportunity';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
+import { guidType } from '../shared/constants/guidTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +59,24 @@ export class EnergyOpportunityIdbService {
     return energyOpportunities.find(opportunity => {
       return opportunity.guid == guid;
     });
+  }
+
+  getByOtherGuid(guid: string, idType: guidType): Array<IdbEnergyOpportunity> {
+    let energyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunities.getValue();
+    if (idType == 'company') {
+      return energyOpportunities.filter(opportunity => {
+        return opportunity.companyId == guid;
+      });
+    } else if (idType == 'facility') {
+      return energyOpportunities.filter(opportunity => {
+        return opportunity.facilityId == guid;
+      });
+    } else if (idType == 'assessment') {
+      return energyOpportunities.filter(opportunity => {
+        return opportunity.assessmentId == guid;
+      });
+    } else {
+      return [];
+    }
   }
 }

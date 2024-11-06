@@ -5,25 +5,26 @@
                 <nav class="navbar top-nav">
                     <div>
                         <h5>
-                            <fa-icon [icon]="faScrewdriverWrench"></fa-icon> {{assessment.name}} @if (assessment.assessmentType) {- {{assessment.assessmentType}}}
+                            <fa-icon [icon]="faScrewdriverWrench"></fa-icon> {{assessment.name}} <span
+                                class="badge bg-dark small ps-1"
+                                *ngIf="assessment.assessmentType">{{assessment.assessmentType}}</span>
                         </h5>
                     </div>
                     <ul class="nav nav-underline">
                         <li class="nav-item">
                             <a class="nav-link pt-0" [routerLink]="'details'"
-                            [routerLinkActive]="['active']">Details</a>
+                                [routerLinkActive]="['active']">Details</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link pt-0" [routerLink]="'energy-opportunities'"
-                            [routerLinkActive]="['active']">Energy Efficiency Opportunities</a>
+                                [routerLinkActive]="['active']">Energy Efficiency Opportunities</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pt-0" [routerLink]="'nebs'"
-                            [routerLinkActive]="['active']">NEBs</a>
+                            <a class="nav-link pt-0" [routerLink]="'nebs'" [routerLinkActive]="['active']">NEBs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link pt-0" [routerLink]="'results'"
-                            [routerLinkActive]="['active']">Results</a>
+                                [routerLinkActive]="['active']">Results</a>
                         </li>
                     </ul>
                 </nav>
@@ -71,8 +72,8 @@
     </div>
 </nav>
 
-<app-contact-modal *ngIf="displayContactModal" (emitCancelContact)="closeContactModal()" [contextGuid]="displayContactModal.contextGuid"
-    [contactContext]="displayContactModal.context" [selectedContact]="displayContactModal.viewContact"
-    [companyGuid]="assessment.companyId"></app-contact-modal>
+<app-contact-modal *ngIf="displayContactModal" (emitCancelContact)="closeContactModal()"
+    [contextGuid]="displayContactModal.contextGuid" [contactContext]="displayContactModal.context"
+    [selectedContact]="displayContactModal.viewContact" [companyGuid]="assessment.companyId"></app-contact-modal>
 
 <app-add-nebs-modal *ngIf="displayAddNebsModal"></app-add-nebs-modal>

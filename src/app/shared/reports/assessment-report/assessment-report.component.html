@@ -1,45 +1,9 @@
 <div class="report">
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th colspan="2">
-                    Assessment Basics
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="w-50">
-                    Company
-                </td>
-                <td>
-                    {{company.generalInformation.name}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Facility
-                </td>
-                <td>
-                    {{facility.generalInformation.name}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Industrial Equipment
-                </td>
-                <td>
-                    <app-single-cell-item
-                        [strValue]="assessment.equipmentId | energyEquipmentDisplay: energyEquipments"></app-single-cell-item>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
+    <app-report-details-table *ngIf="!inRollup" [assessment]="assessment"></app-report-details-table>
     <ng-container *ngIf="assessmentReport">
-        <hr>
-        <app-performance-metrics-report
-            [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-report>
+        <hr *ngIf="!inRollup">
+        <app-performance-metrics-table
+            [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-table>
         <app-performance-metrics-chart
             [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-chart>
         <hr>

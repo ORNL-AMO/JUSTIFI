@@ -24,6 +24,8 @@ import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetr
 export class AssessmentReportComponent {
   @Input({ required: true })
   assessment: IdbAssessment;
+  @Input()
+  inRollup: boolean;
 
   company: IdbCompany;
   facility: IdbFacility;

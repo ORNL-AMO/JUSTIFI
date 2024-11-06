@@ -15,6 +15,7 @@ import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
 import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessment-setup/pre-assessment-setup.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
+import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 
 describe('FacilitySettingsComponent', () => {
   let component: FacilitySettingsComponent;
@@ -31,6 +32,7 @@ describe('FacilitySettingsComponent', () => {
   let onsiteVisitIdbService: Partial<OnSiteVisitIdbService> = {};
   let preAassessmentSetupService: Partial<PreAssessmentSetupService> = {};
   let assessmentIdbService: Partial<AssessmentIdbService> = {};
+  let energyEquipmentIdbService: Partial<EnergyEquipmentIdbService> = {};
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -44,7 +46,8 @@ describe('FacilitySettingsComponent', () => {
         { provide: UserIdbService, useValue: userIdbService},
         { provide: OnSiteVisitIdbService, useValue: onsiteVisitIdbService},
         { provide: PreAssessmentSetupService, useValue: preAassessmentSetupService },
-        { provide: AssessmentIdbService, useValue: assessmentIdbService }
+        { provide: AssessmentIdbService, useValue: assessmentIdbService },
+        { provide: EnergyEquipmentIdbService, useValue: energyEquipmentIdbService }
       ]
     })
     .compileComponents();

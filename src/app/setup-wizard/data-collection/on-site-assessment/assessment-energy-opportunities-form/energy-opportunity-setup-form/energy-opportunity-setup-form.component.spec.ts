@@ -15,6 +15,12 @@ import { NebFormsAccordionComponent } from '../../neb-forms-accordion/neb-forms-
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
+import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { IdbCompany } from 'src/app/models/company';
+import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { IdbAssessment } from 'src/app/models/assessment';
+import { IdbFacility } from 'src/app/models/facility';
 
 describe('EnergyOpportunitySetupFormComponent', () => {
   let component: EnergyOpportunitySetupFormComponent;
@@ -26,7 +32,7 @@ describe('EnergyOpportunitySetupFormComponent', () => {
   };
   let energyOpportunityIdbService: Partial<EnergyOpportunityIdbService> = {
     energyOpportunities: new BehaviorSubject<Array<IdbEnergyOpportunity>>([]),
-    getByGuid: () => { return getNewIdbEnergyOpportunity('', '', '', '') }
+    getByGuid: () => { return getNewIdbEnergyOpportunity('', '', '', '', []) }
   };
   let nonEnergyBenefitsIdbService: Partial<NonEnergyBenefitsIdbService> = {
     nonEnergyBenefits: new BehaviorSubject<Array<IdbNonEnergyBenefit>>([])
@@ -35,6 +41,15 @@ describe('EnergyOpportunitySetupFormComponent', () => {
   let localStorageDataService: Partial<LocalStorageDataService> = {};
   let cd: Partial<ChangeDetectorRef> = {};
   let bootstrapService: Partial<BootstrapService> = {};
+  let companyIdbService: Partial<CompanyIdbService> = {
+    selectedCompany: new BehaviorSubject<IdbCompany>(null)
+  };
+  let assessmentIdbService: Partial<AssessmentIdbService> = {
+    selectedAssessment: new BehaviorSubject<IdbAssessment>(null)
+  };
+  let facilityIdbService: Partial<FacilityIdbService> = {
+    selectedFacility: new BehaviorSubject<IdbFacility>(null)
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FontAwesomeModule, RouterTestingModule, FormsModule],
@@ -46,7 +61,10 @@ describe('EnergyOpportunitySetupFormComponent', () => {
         { provide: DbChangesService, useValue: dbChangesService },
         { provide: LocalStorageDataService, useValue: localStorageDataService },
         { provide: ChangeDetectorRef, useValue: cd },
-        { provide: BootstrapService, useValue: bootstrapService }
+        { provide: BootstrapService, useValue: bootstrapService },
+        { provide: CompanyIdbService, useValue: companyIdbService },
+        { provide: AssessmentIdbService, useValue: assessmentIdbService },
+        { provide: FacilityIdbService, useValue: facilityIdbService }
       ]
 
     })

@@ -12,3 +12,7 @@
 .nav-underline .nav-item .nav-link.active{
     font-weight: normal;
 }
+
+.badge.small{
+    font-size: small;
+}

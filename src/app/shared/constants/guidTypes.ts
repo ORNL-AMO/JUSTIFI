@@ -1,0 +1,1 @@
+export type guidType = 'company' | 'facility' | 'user' | 'visit' | 'energy opportunity' | 'assessment' | 'neb' | 'kpi' | 'kpm';

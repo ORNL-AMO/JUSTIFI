@@ -13,7 +13,8 @@ export interface IdbKeyPerformanceMetricImpact extends IdbEntry {
     kpmGuid: string,
     modificationValue: number,
     costAdjustment: number,
-    percentSavings?: number
+    percentSavings?: number,
+    modifiedCost?: number
 }
 
 
@@ -31,6 +32,7 @@ export function getNewIdbKeyPerformanceMetricImpact(userId: string, companyId: s
         modificationValue: undefined,
         costAdjustment: undefined,
         percentSavings: undefined,
+        modifiedCost: undefined,
         kpmValue: kpmValue,
         kpmGuid: kpmGuid
     }

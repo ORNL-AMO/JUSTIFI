@@ -21,7 +21,6 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { TableEntriesModule } from '../../table-entries/table-entries.module';
 import { HelperPipesModule } from '../../helper-pipes/helper-pipes.module';
-import { PerformanceMetricsReportComponent } from './performance-metrics-report/performance-metrics-report.component';
 import { AssessmentSavingsTableComponent } from './assessment-savings-table/assessment-savings-table.component';
 import { PaybackTableComponent } from './payback-table/payback-table.component';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
@@ -29,6 +28,7 @@ import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { getDefaultUnitSettings } from 'src/app/models/unitSettings';
+import { ReportDetailsTableComponent } from '../report-details-table/report-details-table.component';
 
 describe('AssessmentReportComponent', () => {
   let component: AssessmentReportComponent;
@@ -73,7 +73,7 @@ describe('AssessmentReportComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FontAwesomeModule, RouterTestingModule, TableEntriesModule, HelperPipesModule],
-      declarations: [AssessmentReportComponent, PerformanceMetricsReportComponent, AssessmentSavingsTableComponent, PaybackTableComponent],
+      declarations: [AssessmentReportComponent, AssessmentSavingsTableComponent, PaybackTableComponent, ReportDetailsTableComponent],
       providers: [
         { provide: OnSiteVisitIdbService, useValue: onSiteVisitIdbService },
         { provide: AssessmentIdbService, useValue: assessmentIdbService },

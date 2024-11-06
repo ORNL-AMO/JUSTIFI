@@ -61,6 +61,8 @@ import { EnergyOpportunityNebsListPipe } from './data-collection/on-site-assessm
 import { SetupWizardHelpPanelModule } from './setup-wizard-help-panel/setup-wizard-help-panel.module';
 import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-tooltip.module';
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
+import { KpiDescriptionPipe } from './pre-visit/company-kpi-details/kpi-description.pipe';
+import { KpmDatabaseModalComponent } from './pre-visit/company-kpi-details/kpm-database-modal/kpm-database-modal.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +114,9 @@ import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-for
     AssociatedMetricIndicatorPipe,
     KpmImpactsTableComponent,
     EnergyOpportunityNebsTableComponent,
-    EnergyOpportunityNebsListPipe
+    EnergyOpportunityNebsListPipe,
+    KpiDescriptionPipe,
+    KpmDatabaseModalComponent
   ],
   imports: [
     CommonModule,

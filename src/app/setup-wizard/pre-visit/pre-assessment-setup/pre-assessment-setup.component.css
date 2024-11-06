@@ -1,7 +1,17 @@
-.card {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-header {
-    font-weight: bold;
-  }
+.disabled-input-label{
+    background-color: white;
+    border: none;
+    border-left: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+.utility-row:hover,
+ .utility-row:hover .disabled-input-label,
+ .utility-row:hover .disabled-input-label-secondary{
+  background-color: #efefef;
+}
+
+.disabled-input-label-secondary{
+    background-color: white;
+    border: none;
+    margin-left: 28px;
+}

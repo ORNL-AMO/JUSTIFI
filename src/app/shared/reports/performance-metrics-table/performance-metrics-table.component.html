@@ -1,32 +1,38 @@
-<table class="table table-bordered savings-table table-hover">
+<table class="table table-bordered savings-table table-hover ordered" *ngIf="keyPerformanceIndicatorReport">
     <thead>
         <tr>
-            <th>
+            <th (click)="setOrderByField('kpiValue')" [ngClass]="{'ordered-th': orderByField == 'kpiValue'}">
                 KPI
             </th>
-            <th>
+            <th (click)="setOrderByField('htmlLabel')" [ngClass]="{'ordered-th': orderByField == 'htmlLabel'}">
                 KPM
             </th>
-            <th class="text-right">
+            <th class="text-right" (click)="setOrderByField('baselineCost')"
+                [ngClass]="{'ordered-th': orderByField == 'baselineCost'}">
                 Baseline Cost (&dollar;/yr)
             </th>
-            <th class="text-right">
+            <th class="text-right" (click)="setOrderByField('costAdjustment')"
+                [ngClass]="{'ordered-th': orderByField == 'costAdjustment'}">
                 Annual Savings (&dollar;/yr)
             </th>
-            <th class="text-right">
+            <th class="text-right" (click)="setOrderByField('modifiedCost')"
+                [ngClass]="{'ordered-th': orderByField == 'modifiedCost'}">
                 Modified Cost (&dollar;/yr)
             </th>
-            <th class="text-right">
-                Savings (%)
+            <th class="text-right" (click)="setOrderByField('percentSavings')"
+                [ngClass]="{'ordered-th': orderByField == 'percentSavings'}">
+                Change (%)
             </th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let kpiReportItem of keyPerformanceIndicatorReport.kpiReportItems">
+        <tr
+            *ngFor="let kpiReportItem of keyPerformanceIndicatorReport.kpiReportItems | performanceMetricsTable: orderByField : orderByDir">
             <td class="">
-                {{kpiReportItem.keyPerformanceMetric.kpiValue | kpiValueDisplay: keyPerformanceIndicators}}
+                <span
+                    [innerHTML]="kpiReportItem.keyPerformanceMetric.kpiGuid | kpiLabel:keyPerformanceIndicators"></span>
             </td>
-            <td class="">
+            <td>
                 <span [innerHTML]="kpiReportItem.keyPerformanceMetric.htmlLabel"></span>
             </td>
             <ng-template [ngIf]="kpiReportItem.keyPerformanceMetric.isQuantitative" [ngIfElse]="qualitativeBlock">
@@ -41,12 +47,11 @@
                 </td>
                 <td class="text-right">
                     <app-single-cell-item
-                        [numValue]="kpiReportItem.keyPerformanceMetric.baselineCost - kpiReportItem.performanceMetricImpact.costAdjustment"
+                        [numValue]="kpiReportItem.performanceMetricImpact.modifiedCost"
                         [isCurrency]="true"></app-single-cell-item>
                 </td>
                 <td class="text-right">
-                    <app-single-cell-item
-                        [numValue]="kpiReportItem.performanceMetricImpact.percentSavings"
+                    <app-single-cell-item [numValue]="kpiReportItem.performanceMetricImpact.percentSavings"
                         [isCurrency]="false" [units]="'%'"></app-single-cell-item>
                 </td>
             </ng-template>
@@ -62,24 +67,22 @@
             <th colspan="2">
                 Totals
             </th>
-            <td class="text-right">
+            <th class="text-right">
                 <app-single-cell-item [numValue]="keyPerformanceIndicatorReport.total.baselineCost"
                     [isCurrency]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right">
-                <app-single-cell-item
-                    [numValue]="keyPerformanceIndicatorReport.total.annualSavings"
+            </th>
+            <th class="text-right">
+                <app-single-cell-item [numValue]="keyPerformanceIndicatorReport.total.annualSavings"
                     [isCurrency]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right">
+            </th>
+            <th class="text-right">
                 <app-single-cell-item [numValue]="keyPerformanceIndicatorReport.total.modifiedCost"
                     [isCurrency]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right">
-                <app-single-cell-item
-                    [numValue]="keyPerformanceIndicatorReport.total.percentSavings"
+            </th>
+            <th class="text-right">
+                <app-single-cell-item [numValue]="keyPerformanceIndicatorReport.total.percentSavings"
                     [isCurrency]="false" [units]="'%'"></app-single-cell-item>
-            </td>
+            </th>
         </tr>
     </tfoot>
 </table>

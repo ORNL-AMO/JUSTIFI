@@ -19,13 +19,14 @@ export type KeyPerformanceIndicatorValue =
     'improveSpaceUtilization' |
     'employeeEngagementWorkforceDevelopment' |
     'employeeEngagementWorkingEnvironment' | 
+    'maintenanceExpense' |
     'other';
 
 export interface KeyPerformanceIndicatorOption {
     primaryKPI: PrimaryKPI,
     label: string,
     htmlLabel: string,
-    optionValue: KeyPerformanceIndicatorValue,
+    optionValue: KeyPerformanceIndicatorValue
 };
 
 export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = [
@@ -67,8 +68,8 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Operations',
-        label: 'Reduce Expense Cost',
-        htmlLabel: 'Reduce Expense Cost',
+        label: 'Expense Cost',
+        htmlLabel: 'Expense Cost',
         optionValue: 'reduceExpenseCost'
     },
     {
@@ -136,5 +137,11 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
         label: 'Employee Engagement - Workforce Development',
         htmlLabel: 'Employee Engagement - Workforce Development',
         optionValue: 'employeeEngagementWorkforceDevelopment'
+    },
+    {
+        primaryKPI: 'Operations',
+        label: 'Maintenance Expense',
+        htmlLabel: 'Maintenance Expense',
+        optionValue: 'maintenanceExpense'
     },
 ]

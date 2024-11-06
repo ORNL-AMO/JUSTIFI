@@ -23,6 +23,7 @@ import { UtilityEnergyUse } from 'src/app/models/utilityEnergyUses';
 import { SharedSettingsFormsService } from 'src/app/shared/shared-settings-forms/shared-settings-forms.service';
 import { FormGroup } from '@angular/forms';
 import { UnitSettings } from 'src/app/models/unitSettings';
+import { EnergyUnitOptions, UnitOption } from 'src/app/shared/constants/unitOptions';
 
 @Component({
   selector: 'app-pre-assessment-setup',
@@ -67,7 +68,8 @@ export class PreAssessmentSetupComponent {
   companySub: Subscription;
   companyEnergyUnit: string;
   facilitySub: Subscription;
-  facilityUnitSettings: UnitSettings
+  facilityUnitSettings: UnitSettings;
+  energyUnitOptions: Array<UnitOption> = EnergyUnitOptions;
 
   accordionGuid: string;
   isAddNew: boolean = false;
@@ -146,18 +148,31 @@ export class PreAssessmentSetupComponent {
       let utilityEnergyUse: UtilityEnergyUse = assessment.utilityEnergyUses.find(
         _energyUse => _energyUse.utilityType == utilityType);
       if (utilityEnergyUse.include) {
-        // calculate use
-        let convertedUse = this.convertValue.convertValue(
-          utilityEnergyUse.energyUse,
-          utilityEnergyUse.unit,
-          this.companyEnergyUnit).convertedValue;
-        use += convertedUse;
-        // calculate cost
         let trimmedType = utilityType.replace(/\s+/g, ''); // Remove spaces
         let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
-        let convertedCost = this.convertValue.convertValue(
+        let convertedUse = 0, convertedCost = 0;
+        let selectedUtilityOption = this.utilityOptions.find(
+          _option => _option.utilityType == utilityType);
+        let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
+          _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
+        // calculate use
+        if (selectedUtilityOption.isStandardEnergyUnit 
+          && selectedUnitOption.isStandard !== false) {
+          convertedUse = this.convertValue.convertValue(
+            utilityEnergyUse.energyUse,
+            utilityEnergyUse.energyUnit,
+            this.companyEnergyUnit).convertedValue;
+        } else {
+          convertedUse = this.convertValue.convertValue(
+            utilityEnergyUse.energyUse * utilityEnergyUse.energyHHV,
+            utilityEnergyUse.energyUnitStandard,
+            this.companyEnergyUnit).convertedValue;
+        }
+        use += convertedUse;
+        // calculate cost
+        convertedCost = this.convertValue.convertValue(
           utilityEnergyUse.energyUse,
-          utilityEnergyUse.unit,
+          utilityEnergyUse.energyUnit,
           this.facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
         cost += convertedCost * this.facilityUnitSettings[`${camelCaseType}Price`];
       }

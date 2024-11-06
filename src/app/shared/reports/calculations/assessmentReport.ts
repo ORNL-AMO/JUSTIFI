@@ -111,7 +111,7 @@ export function getAssessmentReport(assessment: IdbAssessment, energyOpportuniti
     if (totalPaybackWithNebs == Infinity) {
         totalPaybackWithNebs = 0;
     }
-    let totalPaybackWithoutNebs: number = (implementationCost / totalNonOpportunitySavings);
+    let totalPaybackWithoutNebs: number = (implementationCost / totalEnergyCostSavings);
     if (totalPaybackWithoutNebs == Infinity) {
         totalPaybackWithoutNebs = 0;
     }
@@ -144,6 +144,7 @@ export function getAssessmentReport(assessment: IdbAssessment, energyOpportuniti
         nonOpportunityPaybackWithoutNebs: nonOpportunityPaybackWithoutNebs,
         nonOpportunityPaybackWithNebs: nonOpportunityPaybackWithNebs,
         totalNonOpportunityAssessmentSavings: totalNonOpportunityAssessmentSavings,
+        allNebReports: allNebReports,
         keyPerformanceIndicatorReport: getKeyPerfomanceIndicatorReport(allNebReports)
     }
 }
@@ -152,6 +153,7 @@ export interface AssessmentReport {
     assessment: IdbAssessment,
     energyOpportunityReports: Array<EnergyOpportunityReport>,
     assessmentNebReports: Array<NebReport>,
+    allNebReports: Array<NebReport>,
     // totalNebReports: Array<NebReport>,
     totalEnergyCostSavings: number,
     totalAssessmentNebSavings: number,
@@ -167,5 +169,5 @@ export interface AssessmentReport {
     nonOpportunityPaybackWithoutNebs: number,
     nonOpportunityPaybackWithNebs: number,
     totalNonOpportunityAssessmentSavings: number,
-    keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport
+    keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport,
 }
