@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-between">
+    <div class="d-flex fw-light">
+        {{company.generalInformation | addressDisplay}}
+    </div>
+    <div class="d-flex">
+        <button class="btn btn-dark btn-sm me-1" (click)="goToCompanyDashboard()">
+            <fa-icon [icon]="faExpand"></fa-icon>
+            <span class="d-none">
+                {{company.generalInformation.name}}
+                Dashboard
+            </span>
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="openDeleteCompanyModal()">
+            <fa-icon [icon]="faTrash"></fa-icon>
+            <span class="d-none">
+                Delete
+                {{company.generalInformation.name}}
+            </span>
+        </button>
+    </div>
+</div>
+<hr>
+<!-- <h6>
+    {{company.generalInformation.name}} Facilities
+</h6> -->
+<div class="accordion" [id]="'facilityAccordion_' + company.guid">
+    <div class="accordion-item facility-item" *ngFor="let facility of facilities; let index = index; let last = last;">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+facility.guid"
+                aria-expanded="true" [attr.aria-controls]="facility.guid" (click)="toggleBS(facility.guid)"
+                [ngClass]="{'collapsed': accordionGuid != facility.guid}">
+                <fa-icon class="pe-2" [icon]="faIndustry"></fa-icon>
+                {{facility.generalInformation.name}}
+            </button>
+        </h2>
+        <div [id]="'#'+facility.guid" class="accordion-collapse collapse"
+            [attr.data-bs-parent]="'#facilityAccordion_' + company.guid">
+            <div class="accordion-body">
+                <app-facility-list-item [facility]="facility"></app-facility-list-item>
+            </div>
+        </div>
+    </div>
+</div>

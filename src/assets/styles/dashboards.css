@@ -22,3 +22,12 @@
     padding: .2rem;
     vertical-align: middle;
 }
+
+
+.container-fluid.dashboard{
+    margin-bottom: 1rem;
+}
+
+.portfolio .btn:hover .d-none{
+    display: inline !important;
+}

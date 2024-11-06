@@ -1,0 +1,5 @@
+
+
+.accordion-item.company-item .accordion-button:not(.collapsed), .accordion-body{
+    border-left: solid var(--company-color) 5px;
+}

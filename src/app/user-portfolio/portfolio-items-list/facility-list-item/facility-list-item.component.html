@@ -1,0 +1,51 @@
+<div class="d-flex justify-content-between">
+    <div class="d-flex fw-light">
+        {{facility.generalInformation | addressDisplay}}
+    </div>
+    <div class="d-flex">
+        <button class="btn btn-dark btn-sm me-1" (click)="goToFacilityDashboard()">
+            <fa-icon [icon]="faExpand"></fa-icon>
+            <span class="d-none">
+                {{facility.generalInformation.name}}
+                Dashboard
+            </span>
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="openDeleteFacilityModal()">
+            <fa-icon [icon]="faTrash"></fa-icon>
+            <span class="d-none">
+                Delete
+                {{facility.generalInformation.name}}
+            </span>
+        </button>
+    </div>
+</div>
+<hr>
+<!-- <h6>
+    {{facility.generalInformation.name}} Assessments
+</h6> -->
+<ng-template [ngIf]="assessments.length != 0" [ngIfElse]="noAssessmentsBlock">
+    <div class="accordion" [id]="'assessmentsAccordion_' + facility.guid">
+        <div class="accordion-item assessment-item"
+            *ngFor="let assessment of assessments; let index = index; let last = last;">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+assessment.guid"
+                    aria-expanded="true" [attr.aria-controls]="assessment.guid" (click)="toggleBS(assessment.guid)"
+                    [ngClass]="{'collapsed': accordionGuid != assessment.guid}">
+                    <fa-icon class="pe-2" [icon]="faFileLines"></fa-icon>
+                    {{assessment.name}}
+                </button>
+            </h2>
+            <div [id]="'#'+assessment.guid" class="accordion-collapse collapse"
+                [attr.data-bs-parent]="'#assessmentsAccordion_' + facility.guid">
+                <div class="accordion-body">
+                    <app-assessment-list-item [assessment]="assessment"></app-assessment-list-item>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #noAssessmentsBlock>
+    <div class="alert alert-info p-2 small">
+        No assessments found for this facility.
+    </div>
+</ng-template>
