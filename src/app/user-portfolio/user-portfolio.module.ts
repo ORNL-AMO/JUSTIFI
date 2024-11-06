@@ -9,6 +9,7 @@ import { PortfolioItemsListComponent } from './portfolio-items-list/portfolio-it
 import { CompanyListItemComponent } from './portfolio-items-list/company-list-item/company-list-item.component';
 import { FacilityListItemComponent } from './portfolio-items-list/facility-list-item/facility-list-item.component';
 import { AssessmentListItemComponent } from './portfolio-items-list/assessment-list-item/assessment-list-item.component';
+import { TablePaginationModule } from '../shared/table-pagination/table-pagination.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { AssessmentListItemComponent } from './portfolio-items-list/assessment-l
   imports: [
     CommonModule,
     FontAwesomeModule,
-    HelperPipesModule
+    HelperPipesModule,
+    TablePaginationModule
+    
   ]
 })
 export class UserPortfolioModule { }

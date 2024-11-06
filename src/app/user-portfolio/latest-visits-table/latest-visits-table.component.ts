@@ -27,6 +27,7 @@ export class LatestVisitsTableComponent {
 
   companies: Array<IdbCompany>;
   companiesSub: Subscription;
+  currentPageNumber: number = 1;
   constructor(
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private facilityIdbService: FacilityIdbService,
@@ -50,7 +51,7 @@ export class LatestVisitsTableComponent {
     })
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.onSiteVisitSub.unsubscribe();
     this.facilitiesSub.unsubscribe();
     this.companiesSub.unsubscribe();
@@ -63,8 +64,12 @@ export class LatestVisitsTableComponent {
     this.onSiteVisitIdbService.setSelectedFromAssessmentGUID(visit.assessmentIds[0]);
     this.sharedDataService.createAssessmentModalOpen.next(true);
   }
-  
+
   openWizardModal() {
     this.sharedDataService.createAssessmentModalOpen.next(true);
+  }
+
+  setPageCurrentPageNumber(pageNumber: number) {
+    this.currentPageNumber = pageNumber;
   }
 }
