@@ -10,6 +10,9 @@ import { CompanyListItemComponent } from './portfolio-items-list/company-list-it
 import { FacilityListItemComponent } from './portfolio-items-list/facility-list-item/facility-list-item.component';
 import { AssessmentListItemComponent } from './portfolio-items-list/assessment-list-item/assessment-list-item.component';
 import { TablePaginationModule } from '../shared/table-pagination/table-pagination.module';
+import { UserPortfolioHomeComponent } from './user-portfolio-home/user-portfolio-home.component';
+import { RouterModule } from '@angular/router';
+import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -19,13 +22,16 @@ import { TablePaginationModule } from '../shared/table-pagination/table-paginati
     PortfolioItemsListComponent,
     CompanyListItemComponent,
     FacilityListItemComponent,
-    AssessmentListItemComponent
+    AssessmentListItemComponent,
+    UserPortfolioHomeComponent,
+    CompanyDashboardComponent
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
     HelperPipesModule,
-    TablePaginationModule
+    TablePaginationModule,
+    RouterModule
     
   ]
 })

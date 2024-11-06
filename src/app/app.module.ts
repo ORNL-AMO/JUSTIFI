@@ -6,9 +6,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './core-components/navbar/navbar.component';
 import { WelcomeComponent } from './core-components/welcome/welcome.component';
 import { PageNotFoundComponent } from './core-components/page-not-found/page-not-found.component';
-import { UserDashboardModule } from './user-dashboard/user-dashboard.module';
-import { CompanyDashboardModule } from './company-dashboard/company-dashboard.module';
-import { FacilityDashboardModule } from './facility-dashboard/facility-dashboard.module';
 import { IndexedDbModule } from './indexed-db/indexed-db.module';
 import { LoadingComponent } from './core-components/loading/loading.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -40,9 +37,6 @@ import { ToastNotificationsComponent } from './core-components/toast-notificatio
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UserDashboardModule,
-    CompanyDashboardModule,
-    FacilityDashboardModule,
     IndexedDbModule,
     FontAwesomeModule,
     FormsModule,

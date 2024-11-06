@@ -4,8 +4,39 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
-                        <fa-icon [icon]="faFolderOpen"></fa-icon>
-                        JUSTIFI Portfolio
+                        <!-- JUSTIFI Portfolio -->
+
+                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <fa-icon [icon]="faFolderOpen"></fa-icon>
+                                <li class="breadcrumb-item" [ngClass]="{'active': context == 'home'}">
+                                    <a [routerLink]="'/portfolio'">JUSTIFI Portfolio</a>
+                                </li>
+                                <ng-container *ngIf="company">
+                                    <li class="breadcrumb-item" [ngClass]="{'active': context == 'company'}">
+                                        <a [routerLink]="'/portfolio/company/'+company.guid">
+                                            {{company.generalInformation.name}}
+                                        </a>
+                                    </li>
+                                </ng-container>
+                                <ng-container *ngIf="facility">
+                                    <li class="breadcrumb-item" [ngClass]="{'active': context == 'facility'}">
+                                        <a [routerLink]="'/portfolio/facility/'+company.guid">
+                                            {{facility.generalInformation.name}}
+                                        </a>
+                                    </li>
+                                </ng-container>
+                                <ng-container *ngIf="assessment">
+                                    <li class="breadcrumb-item" [ngClass]="{'active': context == 'assessment'}">
+                                        <a [routerLink]="'/portfolio/assessment/'+company.guid">
+                                            {{assessment.name}}
+                                        </a>
+                                    </li>
+                                </ng-container>
+                            </ol>
+                        </nav>
+
+
                     </div>
                     <p class="card-text fw-light">
                         View a summary of the data in your system.
@@ -14,15 +45,6 @@
             </div>
             <hr>
         </div>
-        <div class="col-8">
-            <app-latest-visits-table></app-latest-visits-table>
-        </div>
-        <div class="col-4">
-            <app-portfolio-summary-card></app-portfolio-summary-card>
-        </div>
-        <div class="col-12">
-            <hr>
-            <app-portfolio-items-list></app-portfolio-items-list>
-        </div>
+        <router-outlet></router-outlet>
     </div>
 </div>

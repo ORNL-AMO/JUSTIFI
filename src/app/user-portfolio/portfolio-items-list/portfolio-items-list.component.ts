@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faBuilding, faFolderTree, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faBuilding, faFolderTree, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { IdbCompany } from 'src/app/models/company';
@@ -14,6 +14,7 @@ export class PortfolioItemsListComponent {
 
   faFolderTree: IconDefinition = faFolderTree;
   faBuilding: IconDefinition = faBuilding;
+  faPlus: IconDefinition = faPlus;
 
   companies: Array<IdbCompany>
   companiesSub: Subscription

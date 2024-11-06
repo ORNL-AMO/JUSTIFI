@@ -7,7 +7,8 @@
             </div>
         </div>
         <div class="accordion" [id]="'companyAccordion'">
-            <div class="accordion-item company-item" *ngFor="let company of companies; let index = index; let last = last;">
+            <div class="accordion-item company-item"
+                *ngFor="let company of companies; let index = index; let last = last;">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+company.guid"
                         aria-expanded="true" [attr.aria-controls]="company.guid" (click)="toggleBS(company.guid)"
@@ -19,10 +20,11 @@
                 <div [id]="'#'+company.guid" class="accordion-collapse collapse"
                     [attr.data-bs-parent]="'#companyAccordion'">
                     <div class="accordion-body">
-                         <app-company-list-item [company]="company"></app-company-list-item>
+                        <app-company-list-item [company]="company"></app-company-list-item>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
