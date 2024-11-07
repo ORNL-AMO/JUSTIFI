@@ -1,11 +1,8 @@
-<div class="card portfolio">
-    <div class="card-body">
-        <div class="card-title secondary d-flex justify-content-between">
-            <div>
-                <fa-icon class="pe-2" [icon]="faFileLines"></fa-icon>
-                {{assessment.name}}
-            </div>
-        </div>
-        <app-assessment-list-item [assessment]="assessment" [inAssessmentDashboard]="true"></app-assessment-list-item>
-    </div>
+
+
+<div class="pt-2">
+    <app-assessment-dashboard-nav></app-assessment-dashboard-nav>
+</div>
+<div class="p-2">
+    <router-outlet></router-outlet>
 </div>

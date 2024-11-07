@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faFileLines, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
@@ -15,8 +14,6 @@ import { IdbFacility } from 'src/app/models/facility';
 })
 export class AssessmentDashboardComponent {
 
-  faFileLines: IconDefinition = faFileLines
-  assessment: IdbAssessment
   constructor(private activatedRoute: ActivatedRoute,
     private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,
@@ -28,11 +25,11 @@ export class AssessmentDashboardComponent {
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       let guid: string = params['id'];
-      this.assessment = this.assessmentIdbService.getByGuid(guid);
-      this.assessmentIdbService.selectedAssessment.next(this.assessment);
-      let facility: IdbFacility = this.facilityIdbService.getByGUID(this.assessment.facilityId);
+      let assessment: IdbAssessment = this.assessmentIdbService.getByGuid(guid);
+      this.assessmentIdbService.selectedAssessment.next(assessment);
+      let facility: IdbFacility = this.facilityIdbService.getByGUID(assessment.facilityId);
       this.facilityIdbService.selectedFacility.next(facility);
-      let company: IdbCompany = this.companyIdbService.getByGUID(this.assessment.companyId);
+      let company: IdbCompany = this.companyIdbService.getByGUID(assessment.companyId);
       this.companyIdbService.selectedCompany.next(company);
     });
   }

@@ -14,6 +14,9 @@ import { IndustrialSystemInventoryComponent } from "../user-portfolio/facility-d
 import { EndUseInventoryComponent } from "../user-portfolio/facility-dashboard/end-use-inventory/end-use-inventory.component";
 import { FacilityReportsComponent } from "../user-portfolio/facility-dashboard/facility-reports/facility-reports.component";
 import { FacilitySettingsComponent } from "../user-portfolio/facility-dashboard/facility-settings/facility-settings.component";
+import { AssessmentDashboardHomeComponent } from "../user-portfolio/assessment-dashboard/assessment-dashboard-home/assessment-dashboard-home.component";
+import { AssessmentSettingsComponent } from "../user-portfolio/assessment-dashboard/assessment-settings/assessment-settings.component";
+import { AssessmentReportsComponent } from "../user-portfolio/assessment-dashboard/assessment-reports/assessment-reports.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -78,7 +81,21 @@ export const PortfolioRoutes: Route = {
         },
         {
             path: 'assessment/:id',
-            component: AssessmentDashboardComponent
+            component: AssessmentDashboardComponent,
+            children: [
+                {
+                    path: '',
+                    component: AssessmentDashboardHomeComponent
+                },
+                {
+                    path: 'manage',
+                    component: AssessmentSettingsComponent
+                },
+                {
+                    path: 'reports',
+                    component: AssessmentReportsComponent
+                },
+            ]
         }
     ]
 };

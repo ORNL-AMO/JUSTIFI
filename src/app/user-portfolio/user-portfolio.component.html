@@ -1,49 +1,37 @@
-<div class="container-fluid portfolio">
-    <div class="row">
-        <div class="col-12 mt-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-title">
-                        <!-- JUSTIFI Portfolio -->
-
-                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                            <ol class="breadcrumb mb-0">
-                                <li class="breadcrumb-item" [ngClass]="{'active': context == 'home'}">
-                                    <fa-icon class="pe-1" [icon]="faFolderOpen"></fa-icon>
-                                    <a [routerLink]="'/portfolio'">JUSTIFI Portfolio</a>
-                                </li>
-                                <ng-container *ngIf="company">
-                                    <li class="breadcrumb-item" [ngClass]="{'active': context == 'company'}">
-                                        <fa-icon class="pe-1" [icon]="faBuilding"></fa-icon>
-                                        <a [routerLink]="'/portfolio/company/'+company.guid">{{company.generalInformation.name}}
-                                        </a>
-                                    </li>
-                                </ng-container>
-                                <ng-container *ngIf="facility">
-                                    <li class="breadcrumb-item" [ngClass]="{'active': context == 'facility'}">
-                                        <fa-icon class="pe-1" [icon]="faIndustry"></fa-icon>
-                                        <a [routerLink]="'/portfolio/facility/'+facility.guid">{{facility.generalInformation.name}}
-                                        </a>
-                                    </li>
-                                </ng-container>
-                                <ng-container *ngIf="assessment">
-                                    <li class="breadcrumb-item" [ngClass]="{'active': context == 'assessment'}">
-                                        <fa-icon class="pe-1" [icon]="faFileLines"></fa-icon>
-                                        <a [routerLink]="'/portfolio/assessment/'+assessment.guid">{{assessment.name}}
-                                        </a>
-                                    </li>
-                                </ng-container>
-                            </ol>
-                        </nav>
-
-
-                    </div>
-                    <!-- <p class="card-text fw-light">
-                        View a summary of the data in your system.
-                    </p> -->
-                </div>
-            </div>
+<div class="container-fluid portfolio p-0">
+    <nav class="navbar primary-nav bg-body-tertiary border-bottom sticky-top" style="--bs-breadcrumb-divider: '>';"
+        aria-label="breadcrumb">
+        <div class="container-fluid">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item" [ngClass]="{'active': context == 'home'}">
+                    <fa-icon class="pe-1" [icon]="faFolderOpen"></fa-icon>
+                    <a [routerLink]="'/portfolio'">JUSTIFI Portfolio</a>
+                </li>
+                <ng-container *ngIf="company">
+                    <li class="breadcrumb-item" [ngClass]="{'active': context == 'company'}">
+                        <fa-icon class="pe-1" [icon]="faBuilding"></fa-icon>
+                        <a [routerLink]="'/portfolio/company/'+company.guid">{{company.generalInformation.name}}
+                        </a>
+                    </li>
+                </ng-container>
+                <ng-container *ngIf="facility">
+                    <li class="breadcrumb-item" [ngClass]="{'active': context == 'facility'}">
+                        <fa-icon class="pe-1" [icon]="faIndustry"></fa-icon>
+                        <a [routerLink]="'/portfolio/facility/'+facility.guid">{{facility.generalInformation.name}}
+                        </a>
+                    </li>
+                </ng-container>
+                <ng-container *ngIf="assessment">
+                    <li class="breadcrumb-item" [ngClass]="{'active': context == 'assessment'}">
+                        <fa-icon class="pe-1" [icon]="faFileLines"></fa-icon>
+                        <a [routerLink]="'/portfolio/assessment/'+assessment.guid">{{assessment.name}}
+                        </a>
+                    </li>
+                </ng-container>
+            </ol>
         </div>
+    </nav>
+    <div class="pe-2 ps-2">
         <router-outlet></router-outlet>
     </div>
 </div>

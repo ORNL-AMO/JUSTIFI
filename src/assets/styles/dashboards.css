@@ -1,14 +1,18 @@
-.portfolio .card{
+.card{
     border-radius: 0;
 }
 
-.portfolio .card-title{
+.portfolio .primary-nav{
     font-size: 20px;
     margin-bottom: 0px;
 }
 
+.portfolio .card-title{
+    font-size: 18px;
+    margin-bottom: 0px;
+}
 .portfolio .card-body {
-    padding: .25rem .5rem;
+    padding: .5rem .5rem;
 }
 
 
@@ -16,11 +20,11 @@
     font-size: 14px;
 }
 
-.portfolio th.actions,.portfolio  td.actions{
+.portfolio th.actions,.portfolio  td.actions, .dashboard th.actions,.dashboard  td.actions{
     width: 15px;
 }
 
-.portfolio table th,.portfolio  table td{
+.portfolio table th,.portfolio  table td, .dashboard table th,.dashboard  table td{
     padding: .2rem;
     vertical-align: middle;
 }

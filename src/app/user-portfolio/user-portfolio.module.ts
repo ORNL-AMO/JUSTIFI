@@ -27,6 +27,10 @@ import { IndustrialSystemInventoryComponent } from './facility-dashboard/industr
 import { EndUseInventoryComponent } from './facility-dashboard/end-use-inventory/end-use-inventory.component';
 import { FacilityReportsComponent } from './facility-dashboard/facility-reports/facility-reports.component';
 import { FacilitySettingsComponent } from './facility-dashboard/facility-settings/facility-settings.component';
+import { AssessmentDashboardHomeComponent } from './assessment-dashboard/assessment-dashboard-home/assessment-dashboard-home.component';
+import { AssessmentDashboardNavComponent } from './assessment-dashboard/assessment-dashboard-nav/assessment-dashboard-nav.component';
+import { AssessmentSettingsComponent } from './assessment-dashboard/assessment-settings/assessment-settings.component';
+import { AssessmentReportsComponent } from './assessment-dashboard/assessment-reports/assessment-reports.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,11 @@ import { FacilitySettingsComponent } from './facility-dashboard/facility-setting
     IndustrialSystemInventoryComponent,
     EndUseInventoryComponent,
     FacilityReportsComponent,
-    FacilitySettingsComponent
+    FacilitySettingsComponent,
+    AssessmentDashboardHomeComponent,
+    AssessmentDashboardNavComponent,
+    AssessmentSettingsComponent,
+    AssessmentReportsComponent
   ],
   imports: [
     CommonModule,

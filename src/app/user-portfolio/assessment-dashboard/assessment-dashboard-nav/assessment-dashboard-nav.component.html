@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid" [routerLinkActive]="'active'"
+            [routerLinkActiveOptions]="{exact: true}">Assessment
+            Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/reports'"
+            [routerLinkActive]="'active'">Reports</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/manage'"
+            [routerLinkActive]="'active'">Manage</a>
+    </li>
+</ul>
