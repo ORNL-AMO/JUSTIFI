@@ -1,11 +1,6 @@
-<div class="card portfolio">
-    <div class="card-body">
-        <div class="card-title secondary d-flex justify-content-between">
-            <div>
-                <fa-icon class="pe-2" [icon]="faIndustry"></fa-icon>
-                {{facility.generalInformation.name}}
-            </div>
-        </div>
-        <app-facility-list-item [facility]="facility" [inFacilityDashboard]="true"></app-facility-list-item>
-    </div>
+<div class="pt-2">
+    <app-facility-dashboard-nav></app-facility-dashboard-nav>
+</div>
+<div class="p-2">
+    <router-outlet></router-outlet>
 </div>

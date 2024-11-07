@@ -9,6 +9,11 @@ import { CompanyPerformanceIndicatorsComponent } from "../user-portfolio/company
 import { CompanyStakeholdersComponent } from "../user-portfolio/company-dashboard/company-stakeholders/company-stakeholders.component";
 import { CompanyReportsComponent } from "../user-portfolio/company-dashboard/company-reports/company-reports.component";
 import { CompanySettingsComponent } from "../user-portfolio/company-dashboard/company-settings/company-settings.component";
+import { FacilityDashboardHomeComponent } from "../user-portfolio/facility-dashboard/facility-dashboard-home/facility-dashboard-home.component";
+import { IndustrialSystemInventoryComponent } from "../user-portfolio/facility-dashboard/industrial-system-inventory/industrial-system-inventory.component";
+import { EndUseInventoryComponent } from "../user-portfolio/facility-dashboard/end-use-inventory/end-use-inventory.component";
+import { FacilityReportsComponent } from "../user-portfolio/facility-dashboard/facility-reports/facility-reports.component";
+import { FacilitySettingsComponent } from "../user-portfolio/facility-dashboard/facility-settings/facility-settings.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -47,7 +52,29 @@ export const PortfolioRoutes: Route = {
         },
         {
             path: 'facility/:id',
-            component: FacilityDashboardComponent
+            component: FacilityDashboardComponent,
+            children: [
+                {
+                    path: '',
+                    component: FacilityDashboardHomeComponent
+                },
+                {
+                    path: 'system-inventory',
+                    component: IndustrialSystemInventoryComponent
+                },
+                {
+                    path: 'end-use-inventory',
+                    component: EndUseInventoryComponent
+                },
+                {
+                    path: 'reports',
+                    component: FacilityReportsComponent
+                },
+                {
+                    path: 'manage',
+                    component: FacilitySettingsComponent
+                },
+            ]
         },
         {
             path: 'assessment/:id',

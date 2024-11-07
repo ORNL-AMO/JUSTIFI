@@ -21,6 +21,12 @@ import { CompanyPerformanceIndicatorsComponent } from './company-dashboard/compa
 import { CompanyStakeholdersComponent } from './company-dashboard/company-stakeholders/company-stakeholders.component';
 import { CompanyReportsComponent } from './company-dashboard/company-reports/company-reports.component';
 import { CompanySettingsComponent } from './company-dashboard/company-settings/company-settings.component';
+import { FacilityDashboardNavComponent } from './facility-dashboard/facility-dashboard-nav/facility-dashboard-nav.component';
+import { FacilityDashboardHomeComponent } from './facility-dashboard/facility-dashboard-home/facility-dashboard-home.component';
+import { IndustrialSystemInventoryComponent } from './facility-dashboard/industrial-system-inventory/industrial-system-inventory.component';
+import { EndUseInventoryComponent } from './facility-dashboard/end-use-inventory/end-use-inventory.component';
+import { FacilityReportsComponent } from './facility-dashboard/facility-reports/facility-reports.component';
+import { FacilitySettingsComponent } from './facility-dashboard/facility-settings/facility-settings.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +46,13 @@ import { CompanySettingsComponent } from './company-dashboard/company-settings/c
     CompanyPerformanceIndicatorsComponent,
     CompanyStakeholdersComponent,
     CompanyReportsComponent,
-    CompanySettingsComponent
+    CompanySettingsComponent,
+    FacilityDashboardNavComponent,
+    FacilityDashboardHomeComponent,
+    IndustrialSystemInventoryComponent,
+    EndUseInventoryComponent,
+    FacilityReportsComponent,
+    FacilitySettingsComponent
   ],
   imports: [
     CommonModule,
