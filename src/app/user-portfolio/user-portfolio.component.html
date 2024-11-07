@@ -1,4 +1,4 @@
-<div class="container-fluid dashboard">
+<div class="container-fluid portfolio">
     <div class="row">
         <div class="col-12 mt-3">
             <div class="card">
@@ -15,24 +15,21 @@
                                 <ng-container *ngIf="company">
                                     <li class="breadcrumb-item" [ngClass]="{'active': context == 'company'}">
                                         <fa-icon class="pe-1" [icon]="faBuilding"></fa-icon>
-                                        <a [routerLink]="'/portfolio/company/'+company.guid">
-                                            {{company.generalInformation.name}}
+                                        <a [routerLink]="'/portfolio/company/'+company.guid">{{company.generalInformation.name}}
                                         </a>
                                     </li>
                                 </ng-container>
                                 <ng-container *ngIf="facility">
                                     <li class="breadcrumb-item" [ngClass]="{'active': context == 'facility'}">
                                         <fa-icon class="pe-1" [icon]="faIndustry"></fa-icon>
-                                        <a [routerLink]="'/portfolio/facility/'+facility.guid">
-                                            {{facility.generalInformation.name}}
+                                        <a [routerLink]="'/portfolio/facility/'+facility.guid">{{facility.generalInformation.name}}
                                         </a>
                                     </li>
                                 </ng-container>
                                 <ng-container *ngIf="assessment">
                                     <li class="breadcrumb-item" [ngClass]="{'active': context == 'assessment'}">
                                         <fa-icon class="pe-1" [icon]="faFileLines"></fa-icon>
-                                        <a [routerLink]="'/portfolio/assessment/'+assessment.guid">
-                                            {{assessment.name}}
+                                        <a [routerLink]="'/portfolio/assessment/'+assessment.guid">{{assessment.name}}
                                         </a>
                                     </li>
                                 </ng-container>

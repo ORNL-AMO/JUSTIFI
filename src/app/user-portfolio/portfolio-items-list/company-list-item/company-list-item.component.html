@@ -20,9 +20,9 @@
     </div>
 </div>
 <hr>
-<!-- <h6>
+<h6>
     {{company.generalInformation.name}} Facilities
-</h6> -->
+</h6>
 <div class="accordion" [id]="'facilityAccordion_' + company.guid">
     <div class="accordion-item facility-item" *ngFor="let facility of facilities; let index = index; let last = last;">
         <h2 class="accordion-header">

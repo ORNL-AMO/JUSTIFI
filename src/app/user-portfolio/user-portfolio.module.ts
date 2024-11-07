@@ -17,6 +17,10 @@ import { FacilityDashboardComponent } from './facility-dashboard/facility-dashbo
 import { AssessmentDashboardComponent } from './assessment-dashboard/assessment-dashboard.component';
 import { CompanyDashboardNavComponent } from './company-dashboard/company-dashboard-nav/company-dashboard-nav.component';
 import { CompanyDashboardHomeComponent } from './company-dashboard/company-dashboard-home/company-dashboard-home.component';
+import { CompanyPerformanceIndicatorsComponent } from './company-dashboard/company-performance-indicators/company-performance-indicators.component';
+import { CompanyStakeholdersComponent } from './company-dashboard/company-stakeholders/company-stakeholders.component';
+import { CompanyReportsComponent } from './company-dashboard/company-reports/company-reports.component';
+import { CompanySettingsComponent } from './company-dashboard/company-settings/company-settings.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { CompanyDashboardHomeComponent } from './company-dashboard/company-dashb
     FacilityDashboardComponent,
     AssessmentDashboardComponent,
     CompanyDashboardNavComponent,
-    CompanyDashboardHomeComponent
+    CompanyDashboardHomeComponent,
+    CompanyPerformanceIndicatorsComponent,
+    CompanyStakeholdersComponent,
+    CompanyReportsComponent,
+    CompanySettingsComponent
   ],
   imports: [
     CommonModule,

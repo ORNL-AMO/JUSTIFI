@@ -1,33 +1,50 @@
-.dashboard .card{
+.portfolio .card{
     border-radius: 0;
 }
 
-.dashboard .card-title{
-    font-size: 26px;
-}
-
-.dashboard .card-title.secondary{
+.portfolio .card-title{
     font-size: 20px;
+    margin-bottom: 0px;
 }
 
-.dashboard .card-text{
+.portfolio .card-body {
+    padding: .25rem .5rem;
+}
+
+
+.portfolio .card-text{
     font-size: 14px;
 }
 
-.dashboard th.actions,.dashboard  td.actions{
+.portfolio th.actions,.portfolio  td.actions{
     width: 15px;
 }
 
-.dashboard table th,.dashboard  table td{
+.portfolio table th,.portfolio  table td{
     padding: .2rem;
     vertical-align: middle;
 }
 
 
-.container-fluid.dashboard{
+.container-fluid.portfolio{
     margin-bottom: 1rem;
 }
 
 .portfolio .btn:hover .d-none{
     display: inline !important;
+}
+
+.portfolio .nav-tabs .nav-link{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: .25rem .5rem;
+}
+
+.portfolio .breadcrumb .breadcrumb-item.active {
+    color: black;
+}
+
+.portfolio .breadcrumb .breadcrumb-item.active a {
+    text-decoration: none;
+    color: black;
 }
