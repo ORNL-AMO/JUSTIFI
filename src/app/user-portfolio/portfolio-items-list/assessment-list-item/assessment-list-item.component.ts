@@ -17,14 +17,12 @@ export class AssessmentListItemComponent {
   @Input()
   inAssessmentDashboard: boolean;
 
-  faExpand: IconDefinition = faExpand;
   faTrash: IconDefinition = faTrash;
   faWandMagicSparkles: IconDefinition = faWandMagicSparkles;
 
   energyOpportunitiesSub: Subscription;
   energyOpportunities: Array<IdbEnergyOpportunity>;
-  constructor(private energyOpportunityIdbService: EnergyOpportunityIdbService,
-    private router: Router
+  constructor(private energyOpportunityIdbService: EnergyOpportunityIdbService
   ) {
   }
 
@@ -38,10 +36,6 @@ export class AssessmentListItemComponent {
 
   ngOnDestroy() {
     this.energyOpportunitiesSub.unsubscribe();
-  }
-
-  goToAssessmentDashboard() {
-    this.router.navigateByUrl('/portfolio/assessment/' + this.assessment.guid);
   }
 
   openDeleteAssessmentModal() {

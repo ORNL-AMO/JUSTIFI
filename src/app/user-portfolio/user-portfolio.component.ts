@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { faFolderOpen, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faBuilding, faFileLines, faFolderOpen, faIndustry, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { CompanyIdbService } from '../indexed-db/company-idb.service';
 import { FacilityIdbService } from '../indexed-db/facility-idb.service';
 import { AssessmentIdbService } from '../indexed-db/assessment-idb.service';
@@ -17,6 +17,9 @@ import { Subscription } from 'rxjs';
 export class UserPortfolioComponent {
 
   faFolderOpen: IconDefinition = faFolderOpen;
+  faBuilding: IconDefinition = faBuilding;
+  faIndustry: IconDefinition = faIndustry;
+  faFileLines: IconDefinition = faFileLines;
 
   context: 'home' | 'company' | 'facility' | 'assessment';
   company: IdbCompany;

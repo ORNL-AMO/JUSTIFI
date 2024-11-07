@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { faExpand, faFileLines, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faExpand, faFileLines, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -21,7 +21,7 @@ export class FacilityListItemComponent {
 
   faTrash: IconDefinition = faTrash;
   faFileLines: IconDefinition = faFileLines;
-  faExpand: IconDefinition = faExpand;
+  faArrowRight: IconDefinition = faArrowRight;
 
   assessments: Array<IdbAssessment>;
   assessmentsSub: Subscription;
@@ -52,12 +52,10 @@ export class FacilityListItemComponent {
     } else {
       this.accordionGuid = undefined;
     }
-    // this.localStorageDataService.setNebAccordionGuid(this.accordionGuid);
   }
 
-
-  goToFacilityDashboard() {
-    this.router.navigateByUrl('/portfolio/facility/' + this.facility.guid);
+  goToAssessmentDashboard(assessment: IdbAssessment) {
+    this.router.navigateByUrl('/portfolio/assessment/' + assessment.guid);
   }
 
   openDeleteFacilityModal() {

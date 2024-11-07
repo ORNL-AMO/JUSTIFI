@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { faBuilding, faFolderTree, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { faArrowRight, faBuilding, faFolderTree, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { IdbCompany } from 'src/app/models/company';
@@ -15,12 +16,14 @@ export class PortfolioItemsListComponent {
   faFolderTree: IconDefinition = faFolderTree;
   faBuilding: IconDefinition = faBuilding;
   faPlus: IconDefinition = faPlus;
+  faArrowRight: IconDefinition = faArrowRight;
 
   companies: Array<IdbCompany>
   companiesSub: Subscription
   accordionGuid: string;
   constructor(private companyIdbService: CompanyIdbService,
-    private bootstrapService: BootstrapService
+    private bootstrapService: BootstrapService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -41,5 +44,9 @@ export class PortfolioItemsListComponent {
       this.accordionGuid = undefined;
     }
     // this.localStorageDataService.setNebAccordionGuid(this.accordionGuid);
+  }
+
+  goToCompanyDashboard(company: IdbCompany) {
+    this.router.navigateByUrl('/portfolio/company/' + company.guid);
   }
 }

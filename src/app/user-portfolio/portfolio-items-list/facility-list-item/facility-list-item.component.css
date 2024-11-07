@@ -1,3 +1,3 @@
-.accordion-item.assessment-item .accordion-button:not(.collapsed), .accordion-body{
+.accordion-body{
     border-left: solid var(--assessment-color) 5px;
 }

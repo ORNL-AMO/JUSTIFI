@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { faStopwatch, faWandMagicSparkles, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
@@ -27,12 +29,17 @@ export class LatestVisitsTableComponent {
 
   companies: Array<IdbCompany>;
   companiesSub: Subscription;
+
+  assessments: Array<IdbAssessment>;
+  assessmentSub: Subscription;
+
   currentPageNumber: number = 1;
   constructor(
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private facilityIdbService: FacilityIdbService,
     private companyIdbService: CompanyIdbService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private assessmentIdbService: AssessmentIdbService
   ) {
 
   }
@@ -48,6 +55,9 @@ export class LatestVisitsTableComponent {
 
     this.companiesSub = this.companyIdbService.companies.subscribe(companies => {
       this.companies = companies;
+    });
+    this.assessmentSub = this.assessmentIdbService.assessments.subscribe(assessments => {
+      this.assessments = assessments;
     })
   }
 
@@ -55,6 +65,7 @@ export class LatestVisitsTableComponent {
     this.onSiteVisitSub.unsubscribe();
     this.facilitiesSub.unsubscribe();
     this.companiesSub.unsubscribe();
+    this.assessmentSub.unsubscribe();
   }
 
 

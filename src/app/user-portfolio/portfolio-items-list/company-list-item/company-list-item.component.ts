@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { faCopy, faExpand, faIndustry, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faCopy, faExpand, faIndustry, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { LoadingService } from 'src/app/core-components/loading/loading.service';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
@@ -23,7 +23,7 @@ export class CompanyListItemComponent {
 
   faIndustry: IconDefinition = faIndustry;
   faTrash: IconDefinition = faTrash;
-  faExpand: IconDefinition = faExpand;
+  faArrowRight: IconDefinition = faArrowRight;
   faCopy: IconDefinition = faCopy;
 
   facilities: Array<IdbFacility>;
@@ -61,8 +61,8 @@ export class CompanyListItemComponent {
     }
   }
 
-  goToCompanyDashboard() {
-    this.router.navigateByUrl('/portfolio/company/' + this.company.guid);
+  goToFacilityDashboard(facility: IdbFacility) {
+    this.router.navigateByUrl('/portfolio/facility/' + facility.guid);
   }
 
   openDeleteCompanyModal() {

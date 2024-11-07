@@ -1,4 +1,4 @@
-.accordion-item.facility-item .accordion-button:not(.collapsed), .accordion-body{
+.accordion-body{
     border-left: solid var(--facility-color) 5px;
 }
 

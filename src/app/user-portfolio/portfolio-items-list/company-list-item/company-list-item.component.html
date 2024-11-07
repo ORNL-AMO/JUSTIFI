@@ -10,13 +10,6 @@
                 {{company.generalInformation.name}}
             </span>
         </button>
-        <button *ngIf="!inCompanyDashboard" class="btn btn-dark btn-sm me-1" (click)="goToCompanyDashboard()">
-            <fa-icon [icon]="faExpand"></fa-icon>
-            <span class="d-none">
-                {{company.generalInformation.name}}
-                Dashboard
-            </span>
-        </button>
         <button class="btn btn-danger btn-sm" (click)="openDeleteCompanyModal()">
             <fa-icon [icon]="faTrash"></fa-icon>
             <span class="d-none">
@@ -33,12 +26,17 @@
 <div class="accordion" [id]="'facilityAccordion_' + company.guid">
     <div class="accordion-item facility-item" *ngFor="let facility of facilities; let index = index; let last = last;">
         <h2 class="accordion-header">
-            <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+facility.guid"
-                aria-expanded="true" [attr.aria-controls]="facility.guid" (click)="toggleBS(facility.guid)"
-                [ngClass]="{'collapsed': accordionGuid != facility.guid}">
-                <fa-icon class="pe-2" [icon]="faIndustry"></fa-icon>
-                {{facility.generalInformation.name}}
-            </button>
+            <div class="d-flex">
+                <button class="btn btn-outline-primary btn-sm" (click)="goToFacilityDashboard(facility)">
+                    <fa-icon [icon]="faArrowRight"></fa-icon>
+                </button>
+                <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+facility.guid"
+                    aria-expanded="true" [attr.aria-controls]="facility.guid" (click)="toggleBS(facility.guid)"
+                    [ngClass]="{'collapsed': accordionGuid != facility.guid}">
+                    <fa-icon class="pe-2" [icon]="faIndustry"></fa-icon>
+                    {{facility.generalInformation.name}}
+                </button>
+            </div>
         </h2>
         <div [id]="'#'+facility.guid" class="accordion-collapse collapse"
             [attr.data-bs-parent]="'#facilityAccordion_' + company.guid">
@@ -59,7 +57,8 @@
     </div>
     <div class="popup-body">
         <div class="alert alert-danger p-2">
-            Are you sure you would like to delete this company and it's corresponding data? This will delete all associated
+            Are you sure you would like to delete this company and it's corresponding data? This will delete all
+            associated
             facilities and assessments. This cannot be undone.
         </div>
         <hr>

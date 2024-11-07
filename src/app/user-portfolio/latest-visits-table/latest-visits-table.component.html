@@ -48,9 +48,17 @@
                             {{visit.facilityId | facilityName: facilities}}
                         </td>
                         <td>
-                            <span class="badge bg-dark">
+                            <!-- <span class="badge bg-dark">
                                 {{visit.assessmentIds.length}}
-                            </span>
+                            </span> -->
+                            <ng-template [ngIf]="visit.assessmentIds.length > 0" [ngIfElse]="assessmentMdash">
+                                <span *ngFor="let assessmentId of visit.assessmentIds">
+                                    {{assessmentId | assessmentNameDisplay: assessments}}<br>
+                                </span>
+                            </ng-template>
+                            <ng-template #assessmentMdash>
+                                &mdash;
+                            </ng-template>
                         </td>
                         <td>
                             {{visit.visitDate | date}}

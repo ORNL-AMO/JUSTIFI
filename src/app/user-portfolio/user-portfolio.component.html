@@ -8,12 +8,13 @@
 
                         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <fa-icon [icon]="faFolderOpen"></fa-icon>
                                 <li class="breadcrumb-item" [ngClass]="{'active': context == 'home'}">
+                                    <fa-icon class="pe-1" [icon]="faFolderOpen"></fa-icon>
                                     <a [routerLink]="'/portfolio'">JUSTIFI Portfolio</a>
                                 </li>
                                 <ng-container *ngIf="company">
                                     <li class="breadcrumb-item" [ngClass]="{'active': context == 'company'}">
+                                        <fa-icon class="pe-1" [icon]="faBuilding"></fa-icon>
                                         <a [routerLink]="'/portfolio/company/'+company.guid">
                                             {{company.generalInformation.name}}
                                         </a>
@@ -21,6 +22,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="facility">
                                     <li class="breadcrumb-item" [ngClass]="{'active': context == 'facility'}">
+                                        <fa-icon class="pe-1" [icon]="faIndustry"></fa-icon>
                                         <a [routerLink]="'/portfolio/facility/'+facility.guid">
                                             {{facility.generalInformation.name}}
                                         </a>
@@ -28,6 +30,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="assessment">
                                     <li class="breadcrumb-item" [ngClass]="{'active': context == 'assessment'}">
+                                        <fa-icon class="pe-1" [icon]="faFileLines"></fa-icon>
                                         <a [routerLink]="'/portfolio/assessment/'+assessment.guid">
                                             {{assessment.name}}
                                         </a>
@@ -38,9 +41,9 @@
 
 
                     </div>
-                    <p class="card-text fw-light">
+                    <!-- <p class="card-text fw-light">
                         View a summary of the data in your system.
-                    </p>
+                    </p> -->
                 </div>
             </div>
             <hr>

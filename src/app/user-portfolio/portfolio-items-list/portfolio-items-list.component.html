@@ -10,12 +10,18 @@
             <div class="accordion-item company-item"
                 *ngFor="let company of companies; let index = index; let last = last;">
                 <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+company.guid"
-                        aria-expanded="true" [attr.aria-controls]="company.guid" (click)="toggleBS(company.guid)"
-                        [ngClass]="{'collapsed': accordionGuid != company.guid}">
-                        <fa-icon class="pe-2" [icon]="faBuilding"></fa-icon>
-                        {{company.generalInformation.name}}
-                    </button>
+
+                    <div class="d-flex">
+                        <button class="btn btn-outline-primary btn-sm" (click)="goToCompanyDashboard(company)">
+                            <fa-icon [icon]="faArrowRight"></fa-icon>
+                        </button>
+                        <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+company.guid"
+                            aria-expanded="true" [attr.aria-controls]="company.guid" (click)="toggleBS(company.guid)"
+                            [ngClass]="{'collapsed': accordionGuid != company.guid}">
+                            <fa-icon class="pe-2" [icon]="faBuilding"></fa-icon>
+                            {{company.generalInformation.name}}
+                        </button>
+                    </div>
                 </h2>
                 <div [id]="'#'+company.guid" class="accordion-collapse collapse"
                     [attr.data-bs-parent]="'#companyAccordion'">
@@ -27,4 +33,3 @@
         </div>
     </div>
 </div>
-
