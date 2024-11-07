@@ -47,11 +47,15 @@ export class ToastNotificationsComponent {
     }
   }
 
-
-
   closeToast() {
     this.toast.hide();
+    this.toastNotificationService.disableNotification.next(false);
     this.toastNotificationService.toastNotification.next(undefined);
   }
 
+  disableNotification() {
+    this.toast.hide();
+    this.toastNotificationService.disableNotification.next(true);
+    this.toastNotificationService.toastNotification.next(undefined);
+  }
 }
