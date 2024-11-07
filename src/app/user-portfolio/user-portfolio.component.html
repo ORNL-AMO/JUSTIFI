@@ -7,7 +7,7 @@
                         <!-- JUSTIFI Portfolio -->
 
                         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                            <ol class="breadcrumb">
+                            <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item" [ngClass]="{'active': context == 'home'}">
                                     <fa-icon class="pe-1" [icon]="faFolderOpen"></fa-icon>
                                     <a [routerLink]="'/portfolio'">JUSTIFI Portfolio</a>
@@ -46,7 +46,6 @@
                     </p> -->
                 </div>
             </div>
-            <hr>
         </div>
         <router-outlet></router-outlet>
     </div>

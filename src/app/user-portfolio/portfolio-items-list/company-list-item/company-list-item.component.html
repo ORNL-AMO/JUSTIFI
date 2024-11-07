@@ -2,7 +2,7 @@
     <div class="d-flex fw-light">
         {{company.generalInformation | addressDisplay}}
     </div>
-    <div class="d-flex">
+    <div class="d-flex" *ngIf="!inCompanyDashboard">
         <button class="btn btn-secondary btn-sm me-1" (click)="openCreateCopyModal()">
             <fa-icon [icon]="faCopy"></fa-icon>
             <span class="d-none">

@@ -31,6 +31,7 @@ import { UserPortfolioHomeComponent } from './user-portfolio/user-portfolio-home
 import { CompanyDashboardComponent } from './user-portfolio/company-dashboard/company-dashboard.component';
 import { FacilityDashboardComponent } from './user-portfolio/facility-dashboard/facility-dashboard.component';
 import { AssessmentDashboardComponent } from './user-portfolio/assessment-dashboard/assessment-dashboard.component';
+import { CompanyDashboardHomeComponent } from './user-portfolio/company-dashboard/company-dashboard-home/company-dashboard-home.component';
 
 const routes: Routes = [
   {
@@ -172,7 +173,13 @@ const routes: Routes = [
       },
       {
         path: 'company/:id',
-        component: CompanyDashboardComponent
+        component: CompanyDashboardComponent,
+        children: [
+          {
+            path: '',
+            component: CompanyDashboardHomeComponent
+          }
+        ]
       },
       {
         path: 'facility/:id',

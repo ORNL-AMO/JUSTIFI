@@ -15,6 +15,8 @@ import { RouterModule } from '@angular/router';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { FacilityDashboardComponent } from './facility-dashboard/facility-dashboard.component';
 import { AssessmentDashboardComponent } from './assessment-dashboard/assessment-dashboard.component';
+import { CompanyDashboardNavComponent } from './company-dashboard/company-dashboard-nav/company-dashboard-nav.component';
+import { CompanyDashboardHomeComponent } from './company-dashboard/company-dashboard-home/company-dashboard-home.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { AssessmentDashboardComponent } from './assessment-dashboard/assessment-
     UserPortfolioHomeComponent,
     CompanyDashboardComponent,
     FacilityDashboardComponent,
-    AssessmentDashboardComponent
+    AssessmentDashboardComponent,
+    CompanyDashboardNavComponent,
+    CompanyDashboardHomeComponent
   ],
   imports: [
     CommonModule,
