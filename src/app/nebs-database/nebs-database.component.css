@@ -1,0 +1,16 @@
+
+
+.static-content{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background-color: white;
+    /* height: fit-content; */
+}
+
+.row.g-0{
+    height: 100%;
+}
+
+.underline{
+    text-decoration: underline;
+}

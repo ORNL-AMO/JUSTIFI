@@ -22,6 +22,7 @@ import { ImportBackupModalComponent } from './core-components/import-backup-moda
 import { PlotlyViaWindowModule } from 'angular-plotly.js';
 import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
 import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
+import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ToastNotificationsComponent } from './core-components/toast-notificatio
     HelperPipesModule,
     AssessmentDashboardModule,
     PlotlyViaWindowModule,
+    NebsDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
