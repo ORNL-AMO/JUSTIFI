@@ -21,14 +21,14 @@
                                 </ng-container>
                                 <ng-container *ngIf="facility">
                                     <li class="breadcrumb-item" [ngClass]="{'active': context == 'facility'}">
-                                        <a [routerLink]="'/portfolio/facility/'+company.guid">
+                                        <a [routerLink]="'/portfolio/facility/'+facility.guid">
                                             {{facility.generalInformation.name}}
                                         </a>
                                     </li>
                                 </ng-container>
                                 <ng-container *ngIf="assessment">
                                     <li class="breadcrumb-item" [ngClass]="{'active': context == 'assessment'}">
-                                        <a [routerLink]="'/portfolio/assessment/'+company.guid">
+                                        <a [routerLink]="'/portfolio/assessment/'+assessment.guid">
                                             {{assessment.name}}
                                         </a>
                                     </li>

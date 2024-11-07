@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { faExpand, faTrash, faWandMagicSparkles, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
@@ -13,6 +14,8 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 export class AssessmentListItemComponent {
   @Input({ required: true })
   assessment: IdbAssessment;
+  @Input()
+  inAssessmentDashboard: boolean;
 
   faExpand: IconDefinition = faExpand;
   faTrash: IconDefinition = faTrash;
@@ -20,7 +23,9 @@ export class AssessmentListItemComponent {
 
   energyOpportunitiesSub: Subscription;
   energyOpportunities: Array<IdbEnergyOpportunity>;
-  constructor(private energyOpportunityIdbService: EnergyOpportunityIdbService) {
+  constructor(private energyOpportunityIdbService: EnergyOpportunityIdbService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -36,7 +41,7 @@ export class AssessmentListItemComponent {
   }
 
   goToAssessmentDashboard() {
-
+    this.router.navigateByUrl('/portfolio/assessment/' + this.assessment.guid);
   }
 
   openDeleteAssessmentModal() {

@@ -29,6 +29,8 @@ import { FacilityEnergyEquipmentSetupComponent } from './setup-wizard/pre-visit/
 import { UserPortfolioComponent } from './user-portfolio/user-portfolio.component';
 import { UserPortfolioHomeComponent } from './user-portfolio/user-portfolio-home/user-portfolio-home.component';
 import { CompanyDashboardComponent } from './user-portfolio/company-dashboard/company-dashboard.component';
+import { FacilityDashboardComponent } from './user-portfolio/facility-dashboard/facility-dashboard.component';
+import { AssessmentDashboardComponent } from './user-portfolio/assessment-dashboard/assessment-dashboard.component';
 
 const routes: Routes = [
   {
@@ -171,6 +173,14 @@ const routes: Routes = [
       {
         path: 'company/:id',
         component: CompanyDashboardComponent
+      },
+      {
+        path: 'facility/:id',
+        component: FacilityDashboardComponent
+      },
+      {
+        path: 'assessment/:id',
+        component: AssessmentDashboardComponent
       }
     ]
   },

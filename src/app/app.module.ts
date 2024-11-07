@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
 import { SetupWizardModule } from './setup-wizard/setup-wizard.module';
 import { SidebarComponent } from './core-components/sidebar/sidebar.component';
 import { HelperPipesModule } from './shared/helper-pipes/helper-pipes.module';
-import { AssessmentDashboardModule } from './assessment-dashboard/assessment-dashboard.module';
 import { SetupWizardModalComponent } from './core-components/setup-wizard-modal/setup-wizard-modal.component';
 import { ImportBackupModalComponent } from './core-components/import-backup-modal/import-backup-modal.component';
 import { UserPortfolioModule } from './user-portfolio/user-portfolio.module';
@@ -42,7 +41,6 @@ import { ToastNotificationsComponent } from './core-components/toast-notificatio
     FormsModule,
     SetupWizardModule,
     HelperPipesModule,
-    AssessmentDashboardModule,
     UserPortfolioModule,
     PlotlyViaWindowModule
   ],

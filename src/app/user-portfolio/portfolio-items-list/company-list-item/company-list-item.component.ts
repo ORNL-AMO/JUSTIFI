@@ -18,6 +18,8 @@ import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.servi
 export class CompanyListItemComponent {
   @Input({ required: true })
   company: IdbCompany;
+  @Input()
+  inCompanyDashboard: boolean;
 
   faIndustry: IconDefinition = faIndustry;
   faTrash: IconDefinition = faTrash;

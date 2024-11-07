@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { faBuilding, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { IdbCompany } from 'src/app/models/company';
 
@@ -10,7 +11,8 @@ import { IdbCompany } from 'src/app/models/company';
 })
 export class CompanyDashboardComponent {
 
-
+  faBuilding: IconDefinition = faBuilding;
+  company: IdbCompany;
   constructor(private activatedRoute: ActivatedRoute,
     private companyIdbService: CompanyIdbService
   ) {
@@ -19,10 +21,9 @@ export class CompanyDashboardComponent {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      console.log(params);
       let guid: string = params['id'];
-      let company: IdbCompany = this.companyIdbService.getByGUID(guid);
-      this.companyIdbService.selectedCompany.next(company);
+      this.company = this.companyIdbService.getByGUID(guid);
+      this.companyIdbService.selectedCompany.next(this.company);
     });
   }
 }

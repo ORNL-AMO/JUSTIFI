@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { faExpand, faFileLines, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
@@ -14,6 +15,8 @@ import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.servi
 export class FacilityListItemComponent {
   @Input({ required: true })
   facility: IdbFacility;
+  @Input()
+  inFacilityDashboard: boolean;
 
 
   faTrash: IconDefinition = faTrash;
@@ -24,7 +27,8 @@ export class FacilityListItemComponent {
   assessmentsSub: Subscription;
   accordionGuid: string;
   constructor(private assessmentIdbService: AssessmentIdbService,
-    private bootstrapService: BootstrapService
+    private bootstrapService: BootstrapService,
+    private router: Router
   ) {
 
   }
@@ -53,7 +57,7 @@ export class FacilityListItemComponent {
 
 
   goToFacilityDashboard() {
-
+    this.router.navigateByUrl('/portfolio/facility/' + this.facility.guid);
   }
 
   openDeleteFacilityModal() {

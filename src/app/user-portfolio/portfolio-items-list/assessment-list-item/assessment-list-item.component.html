@@ -6,7 +6,7 @@
                 Open {{assessment.name}} In Wizard
             </span>
         </button>
-        <button class="btn btn-dark btn-sm me-1" (click)="goToAssessmentDashboard()">
+        <button *ngIf="!inAssessmentDashboard" class="btn btn-dark btn-sm me-1" (click)="goToAssessmentDashboard()">
             <fa-icon [icon]="faExpand"></fa-icon>
             <span class="d-none">
                 {{assessment.name}}

@@ -10,7 +10,7 @@
                 {{company.generalInformation.name}}
             </span>
         </button>
-        <button class="btn btn-dark btn-sm me-1" (click)="goToCompanyDashboard()">
+        <button *ngIf="!inCompanyDashboard" class="btn btn-dark btn-sm me-1" (click)="goToCompanyDashboard()">
             <fa-icon [icon]="faExpand"></fa-icon>
             <span class="d-none">
                 {{company.generalInformation.name}}

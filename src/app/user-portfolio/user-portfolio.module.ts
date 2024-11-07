@@ -13,6 +13,8 @@ import { TablePaginationModule } from '../shared/table-pagination/table-paginati
 import { UserPortfolioHomeComponent } from './user-portfolio-home/user-portfolio-home.component';
 import { RouterModule } from '@angular/router';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
+import { FacilityDashboardComponent } from './facility-dashboard/facility-dashboard.component';
+import { AssessmentDashboardComponent } from './assessment-dashboard/assessment-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { CompanyDashboardComponent } from './company-dashboard/company-dashboard
     FacilityListItemComponent,
     AssessmentListItemComponent,
     UserPortfolioHomeComponent,
-    CompanyDashboardComponent
+    CompanyDashboardComponent,
+    FacilityDashboardComponent,
+    AssessmentDashboardComponent
   ],
   imports: [
     CommonModule,
