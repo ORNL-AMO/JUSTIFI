@@ -15,6 +15,7 @@ import { UtilityOptions } from 'src/app/shared/constants/utilityTypes';
 import { UnitSettings } from 'src/app/models/unitSettings';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
   selector: 'app-energy-opportunity-setup-form',
@@ -55,7 +56,7 @@ export class EnergyOpportunitySetupFormComponent {
   constructor(
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private dbChangesService: DbChangesService,
-    private setupWizardService: SetupWizardService,
+    private sharedDataService: SharedDataService,
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private companyIdbService: CompanyIdbService,
     private assessmentIdbService: AssessmentIdbService,
@@ -124,7 +125,7 @@ export class EnergyOpportunitySetupFormComponent {
 
   showSuggestedNEBs() {
     this.showAddNebDropdown = false;
-    this.setupWizardService.displayAddNebsModal.next({
+    this.sharedDataService.displayAddNebsModal.next({
       assessmentId: this.energyOpportunity.assessmentId,
       energyOpportunityId: this.energyOpportunity.guid
     });

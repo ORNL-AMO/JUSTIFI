@@ -14,6 +14,8 @@ import { MetricOptionsModalListPipe } from './neb-forms-accordion/neb-setup-form
 import { PerformanceMetricImpactFormComponent } from './neb-forms-accordion/neb-setup-form/performance-metric-impact-form/performance-metric-impact-form.component';
 import { PrimaryKpiBadgeModule } from '../primary-kpi-badge/primary-kpi-badge.module';
 import { KpmDetailsFormModule } from '../kpm-details-form/kpm-details-form.module';
+import { AddNebsModalComponent } from './add-nebs-modal/add-nebs-modal.component';
+import { NebsDatabaseModule } from 'src/app/nebs-database/nebs-database.module';
 
 
 
@@ -27,7 +29,8 @@ import { KpmDetailsFormModule } from '../kpm-details-form/kpm-details-form.modul
     PerformanceMetricsModalComponent,
     AssociatedMetricIndicatorPipe,
     MetricOptionsModalListPipe,
-    PerformanceMetricImpactFormComponent
+    PerformanceMetricImpactFormComponent,
+    AddNebsModalComponent
   ],
   imports: [
     CommonModule,
@@ -35,12 +38,14 @@ import { KpmDetailsFormModule } from '../kpm-details-form/kpm-details-form.modul
     HelperPipesModule,
     FontAwesomeModule,
     PrimaryKpiBadgeModule,
-    KpmDetailsFormModule
+    KpmDetailsFormModule,
+    NebsDatabaseModule
   ],
   exports: [
     AssessmentDetailsFormComponent,
     AssessmentEnergyOpportunitiesFormComponent,
-    NebFormsAccordionComponent
+    NebFormsAccordionComponent,
+    AddNebsModalComponent
   ]
 })
 export class SharedAssessmentFormsModule { }

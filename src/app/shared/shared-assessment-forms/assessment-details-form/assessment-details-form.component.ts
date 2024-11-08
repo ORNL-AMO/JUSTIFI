@@ -19,6 +19,7 @@ import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { AssessmentEnergyOpportunitiesFormService } from '../assessment-energy-opportunities-form/assessment-energy-opportunities-form.service';
+import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({
   selector: 'app-assessment-details-form',
@@ -60,7 +61,7 @@ export class AssessmentDetailsFormComponent {
   constructor(
     private assessmentIdbService: AssessmentIdbService,
     private contactIdbService: ContactIdbService,
-    private setupWizardService: SetupWizardService,
+    private sharedDataService: SharedDataService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,
@@ -168,7 +169,7 @@ export class AssessmentDetailsFormComponent {
   }
 
   openContactModal(viewContact: IdbContact) {
-    this.setupWizardService.displayContactModal.next(
+    this.sharedDataService.displayContactModal.next(
       { context: 'assessment', viewContact: viewContact, contextGuid: this.assessment.guid });
 
   }

@@ -18,6 +18,7 @@ import { AssessmentDashboardHomeComponent } from "../user-portfolio/assessment-d
 import { AssessmentSettingsComponent } from "../user-portfolio/assessment-dashboard/assessment-settings/assessment-settings.component";
 import { AssessmentReportsComponent } from "../user-portfolio/assessment-dashboard/assessment-reports/assessment-reports.component";
 import { AssessmentDetailsComponent } from "../user-portfolio/assessment-dashboard/assessment-details/assessment-details.component";
+import { AssessmentEnergyOpportunitiesComponent } from "../user-portfolio/assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -95,6 +96,10 @@ export const PortfolioRoutes: Route = {
                 {
                     path: 'manage',
                     component: AssessmentSettingsComponent
+                },
+                {
+                    path: 'energy-opportunities',
+                    component: AssessmentEnergyOpportunitiesComponent
                 },
                 {
                     path: 'reports',

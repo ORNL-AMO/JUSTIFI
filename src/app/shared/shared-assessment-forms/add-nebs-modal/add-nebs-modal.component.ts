@@ -10,9 +10,9 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { getNewIdbKeyPerformanceMetricImpact, IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit, getNewIdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
-import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
 import { NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefitOptions';
+import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({
   selector: 'app-add-nebs-modal',
@@ -30,7 +30,7 @@ export class AddNebsModalComponent {
 
   selectedNebs: Array<NebOption> =[];
 
-  constructor(private setupWizardService: SetupWizardService, private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
+  constructor(private sharedDataService: SharedDataService, private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
@@ -39,7 +39,7 @@ export class AddNebsModalComponent {
   }
 
   ngOnInit() {
-    let modalData: { assessmentId: string, energyOpportunityId: string } = this.setupWizardService.displayAddNebsModal.getValue();
+    let modalData: { assessmentId: string, energyOpportunityId: string } = this.sharedDataService.displayAddNebsModal.getValue();
     this.assessment = this.assessmentIdbService.getByGuid(modalData.assessmentId);
     if (modalData.energyOpportunityId) {
       this.energyOpportunity = this.energyOpportunityIdbService.getByGuid(modalData.energyOpportunityId);
@@ -87,7 +87,7 @@ export class AddNebsModalComponent {
     NebOptions.forEach(option => {
       option.selected = false;
     });
-    this.setupWizardService.displayAddNebsModal.next(undefined);
+    this.sharedDataService.displayAddNebsModal.next(undefined);
   }
 
   setSelectedNebs(selectedNebs: Array<NebOption>) {

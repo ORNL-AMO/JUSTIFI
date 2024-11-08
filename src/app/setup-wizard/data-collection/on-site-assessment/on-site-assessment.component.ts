@@ -7,7 +7,7 @@ import { ContactContext, IdbContact } from 'src/app/models/contact';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
-import { SetupWizardService } from '../../setup-wizard.service';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
   selector: 'app-on-site-assessment',
@@ -37,7 +37,7 @@ export class OnSiteAssessmentComponent {
   constructor(private router: Router, private assessmentIdbService: AssessmentIdbService,
     private activatedRoute: ActivatedRoute,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private setupWizardService: SetupWizardService
+    private sharedDataService: SharedDataService
   ) { }
 
   ngOnInit() {
@@ -49,11 +49,11 @@ export class OnSiteAssessmentComponent {
       this.assessment = _assessment;
     });
 
-    this.displayAddNebsModalSub = this.setupWizardService.displayAddNebsModal.subscribe(_displayAddNebsModal => {
+    this.displayAddNebsModalSub = this.sharedDataService.displayAddNebsModal.subscribe(_displayAddNebsModal => {
       this.displayAddNebsModal = _displayAddNebsModal;
     });
 
-    this.displayContactModalSub = this.setupWizardService.displayContactModal.subscribe(_displayContactModal => {
+    this.displayContactModalSub = this.sharedDataService.displayContactModal.subscribe(_displayContactModal => {
       this.displayContactModal = _displayContactModal;
     });
 
@@ -107,11 +107,11 @@ export class OnSiteAssessmentComponent {
   }
 
   showSuggestedNebModal() {
-    this.setupWizardService.displayAddNebsModal.next({ assessmentId: this.assessment.guid, energyOpportunityId: undefined });
+    this.sharedDataService.displayAddNebsModal.next({ assessmentId: this.assessment.guid, energyOpportunityId: undefined });
   }
 
   closeContactModal() {
-    this.setupWizardService.displayContactModal.next(undefined);
+    this.sharedDataService.displayContactModal.next(undefined);
   }
 
   goToNext() {

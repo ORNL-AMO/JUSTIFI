@@ -5,7 +5,7 @@ import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service'
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { getNewIdbNonEnergyBenefit, IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
-import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
   selector: 'app-assessment-nebs-form',
@@ -25,7 +25,7 @@ export class AssessmentNebsFormComponent {
   displayNebModal: boolean = false;
   showAddNebDropdown: boolean = false;
   constructor(private assessmentIdbService: AssessmentIdbService,
-    private setupWizardService: SetupWizardService,
+    private sharedDataService: SharedDataService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService
   ) {
   }
@@ -42,7 +42,7 @@ export class AssessmentNebsFormComponent {
 
   openNebModal() {
     this.showAddNebDropdown = false;
-    this.setupWizardService.displayAddNebsModal.next({ assessmentId: this.assessment.guid, energyOpportunityId: undefined });
+    this.sharedDataService.displayAddNebsModal.next({ assessmentId: this.assessment.guid, energyOpportunityId: undefined });
   }
 
   async addNEB() {

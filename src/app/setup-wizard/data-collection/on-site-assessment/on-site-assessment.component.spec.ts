@@ -11,7 +11,6 @@ import { BehaviorSubject } from 'rxjs';
 import { ContactContext, IdbContact } from 'src/app/models/contact';
 import { IdbAssessment, getNewIdbAssessment } from 'src/app/models/assessment';
 import { IdbOnSiteVisit, getNewIdbOnSiteVisit } from 'src/app/models/onSiteVisit';
-import { AssessmentDetailsFormComponent } from './assessment-details-form/assessment-details-form.component';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { AssessmentNebsFormComponent } from './assessment-nebs-form/assessment-nebs-form.component';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
@@ -20,9 +19,9 @@ import { IdbFacility, getNewIdbFacility } from 'src/app/models/facility';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
-import { AssessmentEnergyOpportunitiesFormComponent } from './assessment-energy-opportunities-form/assessment-energy-opportunities-form.component';
-import { SetupWizardService } from '../../setup-wizard.service';
 import { getDefaultUnitSettings } from 'src/app/models/unitSettings';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
+import { SharedAssessmentFormsModule } from 'src/app/shared/shared-assessment-forms/shared-assessment-forms.module';
 
 describe('OnSiteAssessmentComponent', () => {
   let component: OnSiteAssessmentComponent;
@@ -45,7 +44,7 @@ describe('OnSiteAssessmentComponent', () => {
   let nonEnergyBenefitsIdbService: Partial<NonEnergyBenefitsIdbService> = {
     nonEnergyBenefits: new BehaviorSubject<Array<IdbNonEnergyBenefit>>([])
   };
-  let setupWizardService: Partial<SetupWizardService> = {
+  let sharedDataService: Partial<SharedDataService> = {
     sidebarOpen: new BehaviorSubject<boolean>(false),
     displayAddNebsModal: new BehaviorSubject<{
       assessmentId: string,
@@ -60,8 +59,8 @@ describe('OnSiteAssessmentComponent', () => {
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule],
-      declarations: [OnSiteAssessmentComponent, AssessmentDetailsFormComponent, AssessmentEnergyOpportunitiesFormComponent, AssessmentNebsFormComponent],
+      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule, SharedAssessmentFormsModule],
+      declarations: [OnSiteAssessmentComponent, AssessmentNebsFormComponent],
       providers: [
         { provide: AssessmentIdbService, useValue: assessmentIdbService },
         { provide: ContactIdbService, useValue: contactIdbService },
@@ -69,7 +68,7 @@ describe('OnSiteAssessmentComponent', () => {
         { provide: FacilityIdbService, useValue: facilityIdbService },
         { provide: EnergyOpportunityIdbService, useValue: energyOpportunityIdbService },
         { provide: NonEnergyBenefitsIdbService, useValue: nonEnergyBenefitsIdbService },
-        { provide: SetupWizardService, useValue: setupWizardService },
+        { provide: SharedDataService, useValue: sharedDataService },
       ]
     })
       .compileComponents();

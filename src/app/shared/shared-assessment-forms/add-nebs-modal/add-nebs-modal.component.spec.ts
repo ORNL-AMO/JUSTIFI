@@ -9,7 +9,6 @@ import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportuni
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { ContactContext, IdbContact } from 'src/app/models/contact';
 import { IdbAssessment, getNewIdbAssessment } from 'src/app/models/assessment';
 import { getNewIdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
@@ -26,20 +25,7 @@ describe('AddNebsModalComponent', () => {
 
 
   let setupWizardService: Partial<SetupWizardService> = {
-    sidebarOpen: new BehaviorSubject<boolean>(false),
-    displayAddNebsModal: new BehaviorSubject<{
-      assessmentId: string,
-      energyOpportunityId: string
-    }>({
-      assessmentId: '',
-      energyOpportunityId: ''
-    }),
-
-    displayContactModal: new BehaviorSubject<{
-      context: ContactContext,
-      viewContact: IdbContact,
-      contextGuid: string
-    }>(undefined)
+    sidebarOpen: new BehaviorSubject<boolean>(false)
   };
   let keyPerformanceIndicatorIdbService: Partial<KeyPerformanceIndicatorsIdbService> = {
     keyPerformanceIndicators: new BehaviorSubject<Array<IdbKeyPerformanceIndicator>>([]),

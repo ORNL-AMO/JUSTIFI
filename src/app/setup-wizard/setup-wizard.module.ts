@@ -34,7 +34,6 @@ import { CompanyKpiDetailsComponent } from './pre-visit/company-kpi-details/comp
 import { DataCollectionManageAssessmentsComponent } from './data-collection/data-collection-manage-assessments/data-collection-manage-assessments.component';
 import { AddKpiSearchComponent } from './pre-visit/company-kpi-select/add-kpi-search/add-kpi-search.component';
 import { SelectedKpiOptionPipe } from './pre-visit/company-kpi-select/add-kpi-search/selected-kpi-option.pipe';
-import { AddNebsModalComponent } from './data-collection/on-site-assessment/add-nebs-modal/add-nebs-modal.component';
 import { DataEvaluationComponent } from './data-evaluation/data-evaluation.component';
 import { DataFollowUpComponent } from './data-evaluation/data-follow-up/data-follow-up.component';
 import { VisitReportComponent } from './data-evaluation/visit-report/visit-report.component';
@@ -52,7 +51,6 @@ import { SetupWizardHelpPanelModule } from './setup-wizard-help-panel/setup-wiza
 import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-tooltip.module';
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
 import { KpiDescriptionPipe } from './pre-visit/company-kpi-details/kpi-description.pipe';
-import { NebsDatabaseModule } from "../nebs-database/nebs-database.module";
 import { KpmDatabaseModalComponent } from './pre-visit/company-kpi-details/kpm-database-modal/kpm-database-modal.component';
 import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/shared-assessment-forms.module';
 
@@ -85,7 +83,6 @@ import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/s
     CompanyKpiDetailsComponent,
     SelectedKpiOptionPipe,
     DataCollectionManageAssessmentsComponent,
-    AddNebsModalComponent,
     DataEvaluationComponent,
     DataFollowUpComponent,
     VisitReportComponent,
@@ -116,8 +113,7 @@ import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/s
     SetupWizardHelpPanelModule,
     LabelWithTooltipModule,
     KpmDetailsFormModule,
-    SharedAssessmentFormsModule,
-    NebsDatabaseModule
+    SharedAssessmentFormsModule
   ]
 })
 export class SetupWizardModule { }

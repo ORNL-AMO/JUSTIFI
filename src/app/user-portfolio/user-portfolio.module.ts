@@ -33,6 +33,8 @@ import { AssessmentSettingsComponent } from './assessment-dashboard/assessment-s
 import { AssessmentReportsComponent } from './assessment-dashboard/assessment-reports/assessment-reports.component';
 import { SharedAssessmentFormsModule } from "../shared/shared-assessment-forms/shared-assessment-forms.module";
 import { AssessmentDetailsComponent } from './assessment-dashboard/assessment-details/assessment-details.component';
+import { AssessmentEnergyOpportunitiesComponent } from './assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities.component';
+import { ReportsModule } from '../shared/reports/reports.module';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,8 @@ import { AssessmentDetailsComponent } from './assessment-dashboard/assessment-de
     AssessmentDashboardNavComponent,
     AssessmentSettingsComponent,
     AssessmentReportsComponent,
-    AssessmentDetailsComponent
+    AssessmentDetailsComponent,
+    AssessmentEnergyOpportunitiesComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +74,8 @@ import { AssessmentDetailsComponent } from './assessment-dashboard/assessment-de
     HelperPipesModule,
     TablePaginationModule,
     RouterModule,
-    SharedAssessmentFormsModule
+    SharedAssessmentFormsModule,
+    ReportsModule
 ]
 })
 export class UserPortfolioModule { }

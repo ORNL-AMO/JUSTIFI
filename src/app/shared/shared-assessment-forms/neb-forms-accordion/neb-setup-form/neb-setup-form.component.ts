@@ -15,6 +15,7 @@ import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
 import * as _ from 'lodash';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 @Component({
   selector: 'app-neb-setup-form',
   templateUrl: './neb-setup-form.component.html',
@@ -58,7 +59,7 @@ export class NebSetupFormComponent {
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private dbChangesService: DbChangesService,
     private contactIdbService: ContactIdbService,
-    private setupWizardService: SetupWizardService,
+    private sharedDataService: SharedDataService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService) {
   }
 
@@ -133,7 +134,7 @@ export class NebSetupFormComponent {
   }
 
   openContactModal(viewContact: IdbContact) {
-    this.setupWizardService.displayContactModal.next({ context: 'nonEnergyBenefit', viewContact: viewContact, contextGuid: this.nonEnergyBenefit.guid });
+    this.sharedDataService.displayContactModal.next({ context: 'nonEnergyBenefit', viewContact: viewContact, contextGuid: this.nonEnergyBenefit.guid });
   }
 
   toggleUntrackedNebs() {

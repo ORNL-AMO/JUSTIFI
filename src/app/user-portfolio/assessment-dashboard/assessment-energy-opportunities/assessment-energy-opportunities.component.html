@@ -1,0 +1,56 @@
+<div class="card portfolio">
+    <div class="card-body">
+         <!--<div class="card-title secondary d-flex justify-content-between mb-2">
+            <div>
+                {{assessment.name}} Energy Efficiency Opportunities
+            </div>
+            <!-- <div>
+                <button class="btn btn-outline-success me-1 btn-sm" (click)="goToVisit()">
+                    <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+                    <span class="d-none">
+                        Open {{assessment.name}} In Wizard
+                    </span>
+                </button>
+                <ng-template [ngIf]="isDisabled" [ngIfElse]="unlockedBlock">
+                    <button class="btn btn-dark btn-sm" (click)="openUnlockModal()">
+                        <fa-icon [icon]="faLock"></fa-icon>
+                        <span class="d-none">
+                            Unlock {{assessment.name}} Details
+                        </span>
+                    </button>
+                </ng-template>
+                <ng-template #unlockedBlock>
+                    <button class="btn btn-dark btn-sm" (click)="toggleDisabled()">
+                        <fa-icon [icon]="faUnlock"></fa-icon>
+                        <span class="d-none">
+                            Lock {{assessment.name}} Details
+                        </span>
+                    </button>
+                </ng-template>
+            </div> 
+        </div> -->
+        <!-- <app-assessment-details-form [isDisabled]="isDisabled"></app-assessment-details-form> -->
+         <app-assessment-energy-opportunities-form></app-assessment-energy-opportunities-form>
+    </div>
+</div>
+
+<!-- <div [ngClass]="{'window-overlay': displayUnlockModal}"></div>
+<div class="popup" [ngClass]="{'open': displayUnlockModal }">
+    <div class="popup-header">Edit Assessment Details
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeUnlockModal()"></button>
+    </div>
+    <div class="popup-body">
+        <div class="alert alert-info p-2">
+            Are you sure you would like to modify the details of this assessment? Changes will be saved automatically
+            and may effect reports for the company and facility this assessment is in.
+        </div>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary me-2 btn-sm" (click)="closeUnlockModal()">Cancel</button>
+        <button class="btn btn-success btn-sm" (click)="toggleDisabled()">
+            <fa-icon [icon]="faUnlock"></fa-icon>
+            Unlock Assessment Details
+        </button>
+    </div>
+</div> -->

@@ -31,17 +31,7 @@ describe('AssessmentDetailsFormComponent', () => {
     selectedAssessment: new BehaviorSubject<IdbAssessment>(getNewIdbAssessment('', '', '', getDefaultUnitSettings()))
   };
   let setupWizardService: Partial<SetupWizardService> = {
-    sidebarOpen: new BehaviorSubject<boolean>(false),
-    displayAddNebsModal: new BehaviorSubject<{
-      assessmentId: string,
-      energyOpportunityId: string
-    }>(undefined),
-
-    displayContactModal: new BehaviorSubject<{
-      context: ContactContext,
-      viewContact: IdbContact,
-      contextGuid: string
-    }>(undefined)
+    sidebarOpen: new BehaviorSubject<boolean>(false)
   };
   let contactIdbService: Partial<ContactIdbService> = {
     contacts: new BehaviorSubject<Array<IdbContact>>([])
