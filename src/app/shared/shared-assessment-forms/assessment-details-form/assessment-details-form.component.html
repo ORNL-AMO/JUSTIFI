@@ -3,22 +3,19 @@
         <label class="col-sm-5 col-form-label" for="assessmentName">Assessment Name</label>
         <div class="col-sm-7">
             <input name="assessmentName" type="text" class="form-control" [(ngModel)]="assessment.name"
-                (input)="saveChanges()" minlength="1" maxlength="42" id="assessmentName">
+                (input)="saveChanges()" minlength="1" maxlength="42" id="assessmentName" [disabled]="isDisabled">
         </div>
     </div>
 
     <div class="row">
         <label class="col-sm-5 col-form-label" for="assessmentType">Assessment Type</label>
         <div class="col-sm-7">
-                <select name="assessmentType" class="form-select" id="assessmentType"
-                    [(ngModel)]="assessment.assessmentType"
-                    (change)="assessmentTypeChange()">
-                    <option
-                        *ngFor="let assessmentType of assessmentTypes"
-                        [ngValue]="assessmentType">
-                        {{assessmentType}}
-                    </option>
-                </select>
+            <select name="assessmentType" class="form-select" id="assessmentType"
+                [(ngModel)]="assessment.assessmentType" (change)="assessmentTypeChange()" [disabled]="isDisabled">
+                <option *ngFor="let assessmentType of assessmentTypes" [ngValue]="assessmentType">
+                    {{assessmentType}}
+                </option>
+            </select>
         </div>
     </div>
 
@@ -28,20 +25,17 @@
         applicable to this assessment and enter the annual energy
         use for each type.</p>
     <ng-container *ngFor="let use of assessment.utilityEnergyUses">
-        <div class="row mb-1 utility-row"
-            *ngIf="assessment.utilityTypes.includes(use.utilityType)">
+        <div class="row mb-1 utility-row" *ngIf="assessment.utilityTypes.includes(use.utilityType)">
             <div class="col-5">
                 <div class="input-group">
                     <div class="input-group-text">
                         <input class="form-check-input" type="checkbox"
                             name="{{'include_utilityType_' + use.utilityType + assessment.guid}}"
                             id="{{'include_utilityType_' + use.utilityType + assessment.guid}}"
-                            [(ngModel)]="use.include"
-                            (change)="calculateEnergyUseCost()">
+                            [(ngModel)]="use.include" (change)="calculateEnergyUseCost()" [disabled]="isDisabled">
                     </div>
-                    <input type="text"
-                        class="form-control disabled-input-label"
-                        [value]="use.utilityType" [disabled]="true">
+                    <input type="text" class="form-control disabled-input-label" [value]="use.utilityType"
+                        [disabled]="true">
                 </div>
             </div>
             <ng-container *ngIf="use.include">
@@ -50,19 +44,15 @@
                         <div class="input-group">
                             <input type="number" class="form-control"
                                 name="{{'energyUse_' + use.utilityType + assessment.guid}}"
-                                id="{{'energyUse_' + use.utilityType + assessment.guid}}"
-                                [(ngModel)]="use.energyUse"
-                                (input)="calculateEnergyUseCost()">
+                                id="{{'energyUse_' + use.utilityType + assessment.guid}}" [(ngModel)]="use.energyUse"
+                                (input)="calculateEnergyUseCost()" [disabled]="isDisabled">
                             <select class="input-group-text"
                                 name="{{'energyUnit_' + use.utilityType + assessment.guid}}"
-                                id="{{'energyUnit_' + use.utilityType + assessment.guid}}"
-                                [(ngModel)]="use.energyUnit"
-                                (change)="calculateEnergyUseCost()">
-                                <option
-                                    *ngFor="let unitOption of (use.utilityType | linkedUnitOptions: 'Energy')"
+                                id="{{'energyUnit_' + use.utilityType + assessment.guid}}" [(ngModel)]="use.energyUnit"
+                                (change)="calculateEnergyUseCost()" [disabled]="isDisabled">
+                                <option *ngFor="let unitOption of (use.utilityType | linkedUnitOptions: 'Energy')"
                                     [ngValue]="unitOption.value">
-                                    <span
-                                        [innerHTML]="unitOption.value | unitsDisplay"></span>
+                                    <span [innerHTML]="unitOption.value | unitsDisplay"></span>
                                 </option>
                             </select>
                         </div>
@@ -75,21 +65,20 @@
                 <div class="col-5">
                     <div class="input-group">
                         <input type="text" class="form-control disabled-input-label-secondary" [disabled]="true"
-                        value="{{use.utilityType | utilityHhvDisplay}}">
+                            value="{{use.utilityType | utilityHhvDisplay}}" [disabled]="isDisabled">
                     </div>
                 </div>
                 <div class="col-7">
                     <div class="input-group">
                         <input class="form-control" type="number" step="any" min="0"
                             name="{{'energyHHV_' + use.utilityType + assessment.guid}}"
-                            id="{{'energyHHV_' + use.utilityType + assessment.guid}}"
-                            [(ngModel)]="use.energyHHV"
-                            (change)="calculateEnergyUseCost()">
-                        <select class="input-group-text" 
+                            id="{{'energyHHV_' + use.utilityType + assessment.guid}}" [(ngModel)]="use.energyHHV"
+                            (change)="calculateEnergyUseCost()" [disabled]="isDisabled">
+                        <select class="input-group-text"
                             name="{{'energyUnitStandard_' + use.utilityType + assessment.guid}}"
                             id="{{'energyUnitStandard_' + use.utilityType + assessment.guid}}"
-                            [(ngModel)]="use.energyUnitStandard"
-                            (change)="calculateEnergyUseCost()">
+                            [(ngModel)]="use.energyUnitStandard" (change)="calculateEnergyUseCost()"
+                            [disabled]="isDisabled">
                             <option *ngFor="let energyUnitOption of energyUnitOptions"
                                 [ngValue]="energyUnitOption.value">
                                 <span [innerHTML]="energyUnitOption.value | unitsDisplay">
@@ -119,8 +108,7 @@
     </div>
 
     <div class="row">
-        <label class="col-sm-5 col-form-label"
-            for="{{'cost_'+assessment.guid}}">Annual
+        <label class="col-sm-5 col-form-label" for="{{'cost_'+assessment.guid}}">Annual
             Utility
             Costs</label>
         <div class="col-sm-7" id="{{'cost_'+assessment.guid}}">
@@ -141,7 +129,8 @@
         <div class="col-sm-7">
             <div class="input-group">
                 <input name="implementationCost" type="number" class="form-control"
-                    [(ngModel)]="assessment.implementationCost" (input)="saveChanges()" id="implementationCost">
+                    [(ngModel)]="assessment.implementationCost" (input)="saveChanges()" id="implementationCost"
+                    [disabled]="isDisabled">
                 <span class="input-group-text">&dollar;</span>
             </div>
         </div>
@@ -151,9 +140,8 @@
         <div class="col-sm-7">
             <div class="input-group">
                 <input name="energySavings" type="number" class="form-control" [(ngModel)]="assessment.energySavings"
-                    (input)="saveChanges()" id="energySavings">
-                <span *ngIf="numberOfTrackedUtilities !== 1" 
-                    class="input-group-text" [innerHTML]="numberOfTrackedUtilities === 1?
+                    (input)="saveChanges()" id="energySavings" [disabled]="isDisabled">
+                <span *ngIf="numberOfTrackedUtilities !== 1" class="input-group-text" [innerHTML]="numberOfTrackedUtilities === 1?
                      (trackedEnergyUnit | unitsDisplay) + '/yr': (companyEnergyUnit | unitsDisplay) + '/yr'"></span>
             </div>
         </div>
@@ -163,7 +151,7 @@
         <div class="col-sm-7">
             <div class="input-group">
                 <input name="costSavings" type="number" class="form-control" [(ngModel)]="assessment.costSavings"
-                    (input)="saveChanges()" id="costSavings">
+                    (input)="saveChanges()" id="costSavings" [disabled]="isDisabled">
                 <span class="input-group-text">&dollar;</span>
             </div>
         </div>

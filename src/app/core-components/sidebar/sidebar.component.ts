@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IconDefinition, faBuilding, faChevronDown, faChevronRight, faCircleInfo, faDatabase, faFileLines, faFolder, faFolderOpen, faInbox, faIndustry, faMinusSquare, faPlusSquare, faQuestionCircle, faTrophy, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faBuilding, faChevronDown, faChevronRight, faCircleInfo, faDatabase, faFileLines, faFolder, faFolderOpen, faInbox, faIndustry, faMinusSquare, faPlusSquare, faQuestionCircle, faScrewdriverWrench, faTrophy, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
@@ -24,7 +24,7 @@ export class SidebarComponent {
   faChevronDown: IconDefinition = faChevronDown;
   faBuilding: IconDefinition = faBuilding;
   faIndustry: IconDefinition = faIndustry;
-  faFileLines: IconDefinition = faFileLines;
+  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faTrophy: IconDefinition = faTrophy;
   faCircleInfo: IconDefinition = faCircleInfo;
   faInbox: IconDefinition = faInbox;

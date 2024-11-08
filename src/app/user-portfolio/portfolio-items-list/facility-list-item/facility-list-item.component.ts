@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { faArrowRight, faExpand, faFileLines, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faScrewdriverWrench, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -20,7 +20,7 @@ export class FacilityListItemComponent {
 
 
   faTrash: IconDefinition = faTrash;
-  faFileLines: IconDefinition = faFileLines;
+  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faArrowRight: IconDefinition = faArrowRight;
 
   assessments: Array<IdbAssessment>;

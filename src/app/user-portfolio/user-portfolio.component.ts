@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { faBuilding, faFileLines, faFolderOpen, faIndustry, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { NavigationEnd, Router } from '@angular/router';
+import { faBuilding, faFolderOpen, faIndustry, faScrewdriverWrench, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { CompanyIdbService } from '../indexed-db/company-idb.service';
 import { FacilityIdbService } from '../indexed-db/facility-idb.service';
 import { AssessmentIdbService } from '../indexed-db/assessment-idb.service';
@@ -19,7 +19,7 @@ export class UserPortfolioComponent {
   faFolderOpen: IconDefinition = faFolderOpen;
   faBuilding: IconDefinition = faBuilding;
   faIndustry: IconDefinition = faIndustry;
-  faFileLines: IconDefinition = faFileLines;
+  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
 
   context: 'home' | 'company' | 'facility' | 'assessment';
   company: IdbCompany;
@@ -28,7 +28,7 @@ export class UserPortfolioComponent {
   facilitySub: Subscription;
   assessment: IdbAssessment;
   assessmentSub: Subscription;
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
     private router: Router,
     private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,

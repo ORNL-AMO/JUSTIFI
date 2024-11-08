@@ -35,7 +35,7 @@
                     <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+assessment.guid"
                         aria-expanded="true" [attr.aria-controls]="assessment.guid" (click)="toggleBS(assessment.guid)"
                         [ngClass]="{'collapsed': accordionGuid != assessment.guid}">
-                        <fa-icon class="pe-2" [icon]="faFileLines"></fa-icon>
+                        <fa-icon class="pe-2" [icon]="faScrewdriverWrench"></fa-icon>
                         {{assessment.name}}
                     </button>
                 </div>

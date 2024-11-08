@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
@@ -26,6 +26,8 @@ import { AssessmentEnergyOpportunitiesFormService } from '../assessment-energy-o
   styleUrl: './assessment-details-form.component.css'
 })
 export class AssessmentDetailsFormComponent {
+  @Input()
+  isDisabled: boolean;
 
   faPeopleGroup: IconDefinition = faPeopleGroup;
   faUser: IconDefinition = faUser;
