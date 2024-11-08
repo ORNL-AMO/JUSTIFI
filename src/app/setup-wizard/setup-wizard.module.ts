@@ -45,7 +45,6 @@ import { ProcessEquipmentFormComponent } from './pre-visit/facility-process-equi
 import { FacilityEnergyEquipmentSetupComponent } from './pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component';
 import { EnergyEquipmentFormComponent } from './pre-visit/facility-energy-equipment-setup/energy-equipment-form/energy-equipment-form.component';
 import { PrimaryKpiBadgeModule } from "../shared/primary-kpi-badge/primary-kpi-badge.module";
-import { NebOptionsModalListPipe } from './data-collection/on-site-assessment/add-nebs-modal/neb-options-modal-list.pipe';
 import { KpmImpactsTableComponent } from './pre-visit/company-kpi-details/kpm-impacts-table/kpm-impacts-table.component';
 import { EnergyOpportunityNebsTableComponent } from './data-collection/on-site-assessment/assessment-nebs-form/energy-opportunity-nebs-table/energy-opportunity-nebs-table.component';
 import { EnergyOpportunityNebsListPipe } from './data-collection/on-site-assessment/assessment-nebs-form/energy-opportunity-nebs-table/energy-opportunity-nebs-list.pipe';
@@ -53,6 +52,7 @@ import { SetupWizardHelpPanelModule } from './setup-wizard-help-panel/setup-wiza
 import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-tooltip.module';
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
 import { KpiDescriptionPipe } from './pre-visit/company-kpi-details/kpi-description.pipe';
+import { NebsDatabaseModule } from "../nebs-database/nebs-database.module";
 import { KpmDatabaseModalComponent } from './pre-visit/company-kpi-details/kpm-database-modal/kpm-database-modal.component';
 import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/shared-assessment-forms.module';
 
@@ -94,7 +94,6 @@ import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/s
     ProcessEquipmentFormComponent,
     FacilityEnergyEquipmentSetupComponent,
     EnergyEquipmentFormComponent,
-    NebOptionsModalListPipe,
     KpmImpactsTableComponent,
     EnergyOpportunityNebsTableComponent,
     EnergyOpportunityNebsListPipe,
@@ -117,7 +116,8 @@ import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/s
     SetupWizardHelpPanelModule,
     LabelWithTooltipModule,
     KpmDetailsFormModule,
-    SharedAssessmentFormsModule
+    SharedAssessmentFormsModule,
+    NebsDatabaseModule
   ]
 })
 export class SetupWizardModule { }

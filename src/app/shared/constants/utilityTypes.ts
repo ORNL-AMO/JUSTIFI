@@ -1,10 +1,7 @@
 import { EnergyUnitOptions, MassUnitOptions, PowerUnitOptions, EnergySteamMixedUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from "./unitOptions";
 
-// export type UtilityType = 'Electricity' | 'Natural Gas' | 'Other Fuels' | 'Water' | 'Waste Water' | 'Steam' | 'Compressed Air';
-// export const UtilityTypes: Array<UtilityType> = ['Electricity', 'Natural Gas', 'Other Fuels', 'Water', 'Waste Water', 'Steam', 'Compressed Air'];
-
-export type UtilityType = 'Electricity' | 'Natural Gas' | 'Other Fuels' | 'Steam' | 'Compressed Air';
-export const UtilityTypes: Array<UtilityType> = ['Electricity', 'Natural Gas', 'Other Fuels', 'Steam', 'Compressed Air'];
+export type UtilityType = 'Electricity' | 'Natural Gas' | 'Other Fuels' | 'Water' | 'Waste Water' | 'Steam' | 'Compressed Air';
+export const UtilityTypes: Array<UtilityType> = ['Electricity', 'Natural Gas', 'Other Fuels', 'Water', 'Waste Water', 'Steam', 'Compressed Air'];
 
 // Define utility type - unit relationship
 export interface UtilityOption {
@@ -47,22 +44,22 @@ export const UtilityOptions: Array<UtilityOption> = [
         energyDefaultUnit: MMBtu,
         powerDefaultUnit: undefined
     },
-    // {
-    //     utilityType: 'Water',
-    //     energyUnitOptions: VolumeLiquidOptions,
-    //     isStandardEnergyUnit: false,
-    //     powerUnitOptions: PowerUnitOptions,
-    //     energyDefaultUnit: kgal,
-    //     powerDefaultUnit: undefined
-    // },
-    // {
-    //     utilityType: 'Waste Water', 
-    //     energyUnitOptions: VolumeLiquidOptions,
-    //     isStandardEnergyUnit: false,
-    //     powerUnitOptions: PowerUnitOptions,
-    //     energyDefaultUnit: kgal,
-    //     powerDefaultUnit: undefined
-    // },
+    {
+        utilityType: 'Water',
+        energyUnitOptions: VolumeLiquidOptions,
+        isStandardEnergyUnit: false,
+        powerUnitOptions: PowerUnitOptions,
+        energyDefaultUnit: kgal,
+        powerDefaultUnit: undefined
+    },
+    {
+        utilityType: 'Waste Water', 
+        energyUnitOptions: VolumeLiquidOptions,
+        isStandardEnergyUnit: false,
+        powerUnitOptions: PowerUnitOptions,
+        energyDefaultUnit: kgal,
+        powerDefaultUnit: undefined
+    },
     {
         utilityType: 'Steam',
         energyUnitOptions: EnergySteamMixedUnitOptions,

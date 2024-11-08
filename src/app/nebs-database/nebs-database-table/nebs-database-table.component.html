@@ -1,0 +1,96 @@
+<div class="row pb-2">
+    <label class="col-sm-5" for="kpiValue">Search NEBs</label>
+    <div class="col-7">
+        <div class="input-group" role="search">
+            <span class="input-group-text">
+                <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+            </span>
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="nebSearchStr"
+                [(ngModel)]="nebSearchStr">
+        </div>
+    </div>
+</div>
+
+<div class="row pb-2">
+    <label class="col-sm-5" for="kpiValue">Key Performance Indicator (KPI)</label>
+    <div class="col-7">
+        <select id="kpiValue" name="kpiValue" class="form-select" [(ngModel)]="kpiValue" (change)="setKpmOptions()">
+            <option [ngValue]="undefined">All KPI</option>
+            <option *ngFor="let kpi of keyPerformanceIndicatorOptions" [ngValue]="kpi.optionValue">
+                <div class="d-flex">
+                    <ng-template [ngIf]="companyTrackedKpis.includes(kpi.optionValue)">
+                        <div class="p-1">
+                            &ast;
+                        </div>
+                    </ng-template>
+                    <div class="p-0">
+                        <span [innerHTML]="kpi.label"></span>
+                    </div>
+                </div>
+            </option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <label class="col-sm-5" for="kpmValue">Key Performance Metric (KPM)</label>
+    <div class="col-7">
+        <select id="kpmValue" name="kpmValue" class="form-select" [(ngModel)]="kpmValue">
+            <option [ngValue]="undefined">All KPM</option>
+            <option *ngFor="let kpm of keyPerformanceMetricOptions" [ngValue]="kpm.value">
+                <div class="d-flex">
+                    <ng-template [ngIf]="companyTrackedKpms.includes(kpm.value)">
+                        <div class="p-1">
+                            &ast;
+                        </div>
+                    </ng-template>
+                    <div class="p-0">
+                        <span class="inner-span" [innerHTML]="kpm.label"></span>
+                    </div>
+                </div>
+            </option>
+        </select>
+    </div>
+</div>
+<p class="text-right fw-light" *ngIf="inAddModal">
+    &ast; Indicates KPI/KPM currently tracked by this company.
+</p>
+<hr>
+@let tableList = nebOptions | nebOptionsFilter: orderByDir: kpiValue: kpmValue: keyPerformanceMetricOptions:
+nebSearchStr;
+<table class="table table-bordered table-hover table-sm">
+    <thead>
+        <tr class="clickable">
+            <th *ngIf="inAddModal">
+
+            </th>
+            <th (click)="toggleOrderBy()">
+                <fa-icon [icon]="faChevronDown" *ngIf="orderByDir == 'asc'"></fa-icon>
+                <fa-icon [icon]="faChevronUp" *ngIf="orderByDir == 'desc'"></fa-icon>
+                Non-Energy Benefits ({{tableList.length}})
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let neb of tableList" (click)="selectNeb(neb)">
+            <td class="add-td text-center" *ngIf="inAddModal">
+                <a class="click-link">
+                    <ng-template [ngIf]="!neb.selected" [ngIfElse]="selectedNebBlock">
+                        <fa-icon [icon]="faPlus"></fa-icon>
+                    </ng-template>
+                    <ng-template #selectedNebBlock>
+                        <fa-icon [icon]="faCheck"></fa-icon>
+                    </ng-template>
+                </a>
+            </td>
+            <td>
+                <span [innerHTML]="neb.htmlLabel"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template [ngIf]="tableList.length == 0">
+    <div class="alert alert-info p-2">
+        No NEBs found matching search criteria. You may need to create a custom NEB.
+    </div>
+</ng-template>
