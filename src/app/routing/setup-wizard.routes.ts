@@ -14,8 +14,6 @@ import { ReviewPreVisitSetupComponent } from "../setup-wizard/pre-visit/review-p
 import { DataCollectionComponent } from "../setup-wizard/data-collection/data-collection.component";
 import { DataCollectionManageAssessmentsComponent } from "../setup-wizard/data-collection/data-collection-manage-assessments/data-collection-manage-assessments.component";
 import { OnSiteAssessmentComponent } from "../setup-wizard/data-collection/on-site-assessment/on-site-assessment.component";
-import { AssessmentDetailsFormComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-details-form/assessment-details-form.component";
-import { AssessmentEnergyOpportunitiesFormComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component";
 import { AssessmentNebsFormComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-nebs-form/assessment-nebs-form.component";
 import { OnSiteAssessmentResultsComponent } from "../setup-wizard/data-collection/on-site-assessment/on-site-assessment-results/on-site-assessment-results.component";
 import { ReviewOnSiteComponent } from "../setup-wizard/data-collection/review-on-site/review-on-site.component";
@@ -23,6 +21,8 @@ import { DataEvaluationComponent } from "../setup-wizard/data-evaluation/data-ev
 import { DataFollowUpComponent } from "../setup-wizard/data-evaluation/data-follow-up/data-follow-up.component";
 import { AssessmentEvaluationComponent } from "../setup-wizard/data-evaluation/assessment-evaluation/assessment-evaluation.component";
 import { VisitReportComponent } from "../setup-wizard/data-evaluation/visit-report/visit-report.component";
+import { AssessmentDetailsFormComponent } from "../shared/shared-assessment-forms/assessment-details-form/assessment-details-form.component";
+import { AssessmentEnergyOpportunitiesFormComponent } from "../shared/shared-assessment-forms/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component";
 
 
 export const SetupWizardRoutes: Route = {

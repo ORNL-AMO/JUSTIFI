@@ -16,12 +16,10 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { FacilitySetupService } from '../facility-setup/facility-setup.service';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
-import { EnergyOpportunitySetupFormComponent } from '../../data-collection/on-site-assessment/assessment-energy-opportunities-form/energy-opportunity-setup-form/energy-opportunity-setup-form.component';
-import { AssessmentEnergyOpportunitiesFormService } from '../../data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.service';
-import { FacilityEnergyEquipmentSetupComponent } from '../facility-energy-equipment-setup/facility-energy-equipment-setup.component';
 import { FacilityEnergyEquipmentSetupService } from '../facility-energy-equipment-setup/facility-energy-equipment-setup.service';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
+import { AssessmentEnergyOpportunitiesFormService } from 'src/app/shared/shared-assessment-forms/assessment-energy-opportunities-form/assessment-energy-opportunities-form.service';
 
 @Component({
   selector: 'app-company-setup',

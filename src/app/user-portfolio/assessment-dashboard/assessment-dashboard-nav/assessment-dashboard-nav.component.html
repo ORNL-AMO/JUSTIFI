@@ -5,6 +5,18 @@
             Dashboard</a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid+'/details'"
+            [routerLinkActive]="'active'">Details</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid+'/opportunities'"
+            [routerLinkActive]="'active'">Energy Efficiency Opportunities</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid+'/nebs'"
+            [routerLinkActive]="'active'">NEBs</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/reports'"
             [routerLinkActive]="'active'">Reports</a>
     </li>

@@ -25,22 +25,16 @@ import { ProcessEquipmentSummaryComponent } from './pre-visit/review-pre-visit-s
 import { PreAssessmentSummaryComponent } from './pre-visit/review-pre-visit-setup/pre-assessment-summary/pre-assessment-summary.component';
 import { TableEntriesModule } from '../shared/table-entries/table-entries.module';
 import { OnSiteAssessmentComponent } from './data-collection/on-site-assessment/on-site-assessment.component';
-import { AssessmentDetailsFormComponent } from './data-collection/on-site-assessment/assessment-details-form/assessment-details-form.component';
 import { AssessmentNebsFormComponent } from './data-collection/on-site-assessment/assessment-nebs-form/assessment-nebs-form.component';
-import { NebSetupFormComponent } from './data-collection/on-site-assessment/neb-forms-accordion/neb-setup-form/neb-setup-form.component';
 import { PreVisitComponent } from './pre-visit/pre-visit.component';
 import { DataCollectionComponent } from './data-collection/data-collection.component';
 import { CompanyContactsFormComponent } from './pre-visit/company-contacts-setup/company-contacts-form/company-contacts-form.component';
 import { CompanyKpiSelectComponent } from './pre-visit/company-kpi-select/company-kpi-select.component';
 import { CompanyKpiDetailsComponent } from './pre-visit/company-kpi-details/company-kpi-details.component';
 import { DataCollectionManageAssessmentsComponent } from './data-collection/data-collection-manage-assessments/data-collection-manage-assessments.component';
-import { AssessmentEnergyOpportunitiesFormComponent } from './data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component';
-import { EnergyOpportunitySetupFormComponent } from './data-collection/on-site-assessment/assessment-energy-opportunities-form/energy-opportunity-setup-form/energy-opportunity-setup-form.component';
 import { AddKpiSearchComponent } from './pre-visit/company-kpi-select/add-kpi-search/add-kpi-search.component';
 import { SelectedKpiOptionPipe } from './pre-visit/company-kpi-select/add-kpi-search/selected-kpi-option.pipe';
 import { AddNebsModalComponent } from './data-collection/on-site-assessment/add-nebs-modal/add-nebs-modal.component';
-import { PerformanceMetricImpactFormComponent } from './data-collection/on-site-assessment/neb-forms-accordion/neb-setup-form/performance-metric-impact-form/performance-metric-impact-form.component';
-import { NebFormsAccordionComponent } from './data-collection/on-site-assessment/neb-forms-accordion/neb-forms-accordion.component';
 import { DataEvaluationComponent } from './data-evaluation/data-evaluation.component';
 import { DataFollowUpComponent } from './data-evaluation/data-follow-up/data-follow-up.component';
 import { VisitReportComponent } from './data-evaluation/visit-report/visit-report.component';
@@ -52,9 +46,6 @@ import { FacilityEnergyEquipmentSetupComponent } from './pre-visit/facility-ener
 import { EnergyEquipmentFormComponent } from './pre-visit/facility-energy-equipment-setup/energy-equipment-form/energy-equipment-form.component';
 import { PrimaryKpiBadgeModule } from "../shared/primary-kpi-badge/primary-kpi-badge.module";
 import { NebOptionsModalListPipe } from './data-collection/on-site-assessment/add-nebs-modal/neb-options-modal-list.pipe';
-import { PerformanceMetricsModalComponent } from './data-collection/on-site-assessment/neb-forms-accordion/neb-setup-form/performance-metrics-modal/performance-metrics-modal.component';
-import { MetricOptionsModalListPipe } from './data-collection/on-site-assessment/neb-forms-accordion/neb-setup-form/performance-metrics-modal/metric-options-modal-list.pipe';
-import { AssociatedMetricIndicatorPipe } from './data-collection/on-site-assessment/neb-forms-accordion/neb-setup-form/performance-metrics-modal/associated-metric-indicator.pipe';
 import { KpmImpactsTableComponent } from './pre-visit/company-kpi-details/kpm-impacts-table/kpm-impacts-table.component';
 import { EnergyOpportunityNebsTableComponent } from './data-collection/on-site-assessment/assessment-nebs-form/energy-opportunity-nebs-table/energy-opportunity-nebs-table.component';
 import { EnergyOpportunityNebsListPipe } from './data-collection/on-site-assessment/assessment-nebs-form/energy-opportunity-nebs-table/energy-opportunity-nebs-list.pipe';
@@ -63,6 +54,7 @@ import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
 import { KpiDescriptionPipe } from './pre-visit/company-kpi-details/kpi-description.pipe';
 import { KpmDatabaseModalComponent } from './pre-visit/company-kpi-details/kpm-database-modal/kpm-database-modal.component';
+import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/shared-assessment-forms.module';
 
 @NgModule({
   declarations: [
@@ -85,9 +77,7 @@ import { KpmDatabaseModalComponent } from './pre-visit/company-kpi-details/kpm-d
     ProcessEquipmentSummaryComponent,
     PreAssessmentSummaryComponent,
     OnSiteAssessmentComponent,
-    AssessmentDetailsFormComponent,
     AssessmentNebsFormComponent,
-    NebSetupFormComponent,
     PreVisitComponent,
     DataCollectionComponent,
     CompanyContactsFormComponent,
@@ -95,11 +85,7 @@ import { KpmDatabaseModalComponent } from './pre-visit/company-kpi-details/kpm-d
     CompanyKpiDetailsComponent,
     SelectedKpiOptionPipe,
     DataCollectionManageAssessmentsComponent,
-    AssessmentEnergyOpportunitiesFormComponent,
-    EnergyOpportunitySetupFormComponent,
     AddNebsModalComponent,
-    PerformanceMetricImpactFormComponent,
-    NebFormsAccordionComponent,
     DataEvaluationComponent,
     DataFollowUpComponent,
     VisitReportComponent,
@@ -109,9 +95,6 @@ import { KpmDatabaseModalComponent } from './pre-visit/company-kpi-details/kpm-d
     FacilityEnergyEquipmentSetupComponent,
     EnergyEquipmentFormComponent,
     NebOptionsModalListPipe,
-    PerformanceMetricsModalComponent,
-    MetricOptionsModalListPipe,
-    AssociatedMetricIndicatorPipe,
     KpmImpactsTableComponent,
     EnergyOpportunityNebsTableComponent,
     EnergyOpportunityNebsListPipe,
@@ -133,7 +116,8 @@ import { KpmDatabaseModalComponent } from './pre-visit/company-kpi-details/kpm-d
     ReportsModule,
     SetupWizardHelpPanelModule,
     LabelWithTooltipModule,
-    KpmDetailsFormModule
+    KpmDetailsFormModule,
+    SharedAssessmentFormsModule
   ]
 })
 export class SetupWizardModule { }

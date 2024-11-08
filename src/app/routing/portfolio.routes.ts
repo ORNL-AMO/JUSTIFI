@@ -17,6 +17,7 @@ import { FacilitySettingsComponent } from "../user-portfolio/facility-dashboard/
 import { AssessmentDashboardHomeComponent } from "../user-portfolio/assessment-dashboard/assessment-dashboard-home/assessment-dashboard-home.component";
 import { AssessmentSettingsComponent } from "../user-portfolio/assessment-dashboard/assessment-settings/assessment-settings.component";
 import { AssessmentReportsComponent } from "../user-portfolio/assessment-dashboard/assessment-reports/assessment-reports.component";
+import { AssessmentDetailsComponent } from "../user-portfolio/assessment-dashboard/assessment-details/assessment-details.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -86,6 +87,10 @@ export const PortfolioRoutes: Route = {
                 {
                     path: '',
                     component: AssessmentDashboardHomeComponent
+                },
+                {
+                    path: 'details',
+                    component: AssessmentDetailsComponent
                 },
                 {
                     path: 'manage',
