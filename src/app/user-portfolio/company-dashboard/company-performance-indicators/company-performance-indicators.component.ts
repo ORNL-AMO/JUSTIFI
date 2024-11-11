@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faBullseye, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faBullseye, faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
@@ -14,14 +14,13 @@ import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicat
 export class CompanyPerformanceIndicatorsComponent {
 
   faBullseye: IconDefinition = faBullseye;
+  faChevronRight: IconDefinition = faChevronRight;
 
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   keyPerformanceIndicatorsSub: Subscription;
 
   company: IdbCompany;
   companySub: Subscription;
-
-  selectedKpi: IdbKeyPerformanceIndicator;
   constructor(private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private companyIdbService: CompanyIdbService
   ) {
@@ -41,10 +40,6 @@ export class CompanyPerformanceIndicatorsComponent {
 
   ngOnDestroy() {
     this.companySub.unsubscribe();
-    this.companySub.unsubscribe();
-  }
-
-  setSelectedKpi(kpi: IdbKeyPerformanceIndicator) {
-    this.selectedKpi = kpi;
+    this.keyPerformanceIndicatorsSub.unsubscribe();
   }
 }

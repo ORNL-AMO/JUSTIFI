@@ -58,3 +58,13 @@
 .nav-flex{
     height: fit-content;
 }
+
+.chevron.float-right{
+    /* display: none; */
+    color: white;
+    float: right;
+}
+
+/* .active .chevron.float-right{
+    display: block;
+} */

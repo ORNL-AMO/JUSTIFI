@@ -5,14 +5,28 @@
             <div class="nav-item mb-2">
                 <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/performance-indicators'"
                     [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
-                    Select Performance Indicators
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="d-block">
+                            Select Key Performance Indicators
+                        </div>
+                        <div>
+                            <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
+                        </div>
+                    </div>
                 </a>
             </div>
             <div class="nav-item" *ngFor="let kpi of keyPerformanceIndicators">
                 <a class="nav-link"
                     [routerLink]="'/portfolio/company/'+company.guid + '/performance-indicators/details/'+kpi.guid"
                     [routerLinkActive]="'active'">
-                    <span [innerHTML]="kpi.htmlLabel"></span>
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="d-block">
+                            <span [innerHTML]="kpi.htmlLabel"></span>
+                        </div>
+                        <div>
+                            <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
+                        </div>
+                    </div>
                 </a>
             </div>
         </nav>
@@ -20,18 +34,6 @@
     <div class="card portfolio w-100">
         <div class="card-body">
             <router-outlet></router-outlet>
-            <!-- <ng-template [ngIf]="selectedKpi" [ngIfElse]="selectKpisBlock">
-                <div class="card-title secondary d-flex justify-content-between">
-                    <div>
-                        <fa-icon [icon]="faBullseye" class="pe-2"></fa-icon>
-                        <span [innerHTML]="selectedKpi.htmlLabel"></span>
-                    </div>
-                </div>
-                <app-company-kpi-details-form></app-company-kpi-details-form>
-            </ng-template>
-            <ng-template #selectKpisBlock>
-                <app-company-kpi-search-form></app-company-kpi-search-form>
-            </ng-template> -->
         </div>
     </div>
 </div>

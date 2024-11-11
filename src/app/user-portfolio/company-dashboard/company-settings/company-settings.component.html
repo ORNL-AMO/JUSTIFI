@@ -1,6 +1,35 @@
 <div class="card portfolio">
     <div class="card-body">
         <app-company-setup-form></app-company-setup-form>
+        <hr>
+        <div class="row">
+            <div class="col-6">
+                <h6>
+                    Create Company Copy
+                </h6>
+                <p class="fw-light">
+                    Use the button below to create a copy of this company. A copy of this company will be added to your
+                    JUSTIFI portfolio.
+                </p>
+                <button class="btn btn-secondary btn-sm" (click)="openCreateCopyModal()">
+                    <fa-icon [icon]="faCopy"></fa-icon>
+                    Copy Company
+                </button>
+            </div>
+            <div class="col-6">
+                <h6>
+                    Delete Company
+                </h6>
+                <p class="fw-light">
+                    Use the button below to delete this company and all of its corresponding data. This action cannot be
+                    undone.
+                </p>
+                <button class="btn btn-danger btn-sm" (click)="openDeleteCompanyModal()">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                    Delete Company
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 
