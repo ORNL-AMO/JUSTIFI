@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { faExpand, faTrash, faWandMagicSparkles, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -16,9 +14,6 @@ export class AssessmentListItemComponent {
   assessment: IdbAssessment;
   @Input()
   inAssessmentDashboard: boolean;
-
-  faTrash: IconDefinition = faTrash;
-  faWandMagicSparkles: IconDefinition = faWandMagicSparkles;
 
   energyOpportunitiesSub: Subscription;
   energyOpportunities: Array<IdbEnergyOpportunity>;
@@ -36,13 +31,5 @@ export class AssessmentListItemComponent {
 
   ngOnDestroy() {
     this.energyOpportunitiesSub.unsubscribe();
-  }
-
-  openDeleteAssessmentModal() {
-
-  }
-
-  goToVisit() {
-
   }
 }

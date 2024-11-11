@@ -1,24 +1,9 @@
-<div class="d-flex justify-content-between">
-    <div class="d-flex fw-light">
-        {{company.generalInformation | addressDisplay}}
-    </div>
-    <div class="d-flex" *ngIf="!inCompanyDashboard">
-        <button class="btn btn-secondary btn-sm me-1" (click)="openCreateCopyModal()">
-            <fa-icon [icon]="faCopy"></fa-icon>
-            <span class="d-none">
-                Create Copy of
-                {{company.generalInformation.name}}
-            </span>
-        </button>
-        <button class="btn btn-danger btn-sm" (click)="openDeleteCompanyModal()">
-            <fa-icon [icon]="faTrash"></fa-icon>
-            <span class="d-none">
-                Delete
-                {{company.generalInformation.name}}
-            </span>
-        </button>
-    </div>
-</div>
+@let companyAddress = company.generalInformation | addressDisplay;
+<ng-container *ngIf="companyAddress">
+    <p class="fw-light mb-0">
+        {{companyAddress}}
+    </p>
+</ng-container>
 <hr>
 <h6>
     {{company.generalInformation.name}} Facilities
@@ -44,49 +29,5 @@
                 <app-facility-list-item [facility]="facility"></app-facility-list-item>
             </div>
         </div>
-    </div>
-</div>
-
-
-
-<div [ngClass]="{'window-overlay': showDeleteCompanyModal || showCreateCopyModal}"></div>
-<div class="popup" [ngClass]="{'open': showDeleteCompanyModal }">
-    <div class="popup-header">Delete {{company.generalInformation.name}}
-        <button type="button" class="btn-close float-end" aria-label="Close"
-            (click)="closeDeleteCompanyModal()"></button>
-    </div>
-    <div class="popup-body">
-        <div class="alert alert-danger p-2">
-            Are you sure you would like to delete this company and it's corresponding data? This will delete all
-            associated
-            facilities and assessments. This cannot be undone.
-        </div>
-        <hr>
-    </div>
-    <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2 btn-sm" (click)="closeDeleteCompanyModal()">Cancel</button>
-        <button class="btn btn-danger btn-sm" (click)="confirmDelete()">
-            <fa-icon [icon]="faTrash"></fa-icon>
-            Delete {{company.generalInformation.name}}
-        </button>
-    </div>
-</div>
-
-<div class="popup" [ngClass]="{'open': showCreateCopyModal }">
-    <div class="popup-header">Create Copy of {{company.generalInformation.name}}
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeCreateCopyModal()"></button>
-    </div>
-    <div class="popup-body">
-        <div class="alert alert-warning p-2">
-            This feature is coming soon!
-        </div>
-        <hr>
-    </div>
-    <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2 btn-sm" (click)="closeCreateCopyModal()">Cancel</button>
-        <button class="btn btn-success btn-sm" (click)="confirmCreateCopy()" [disabled]="true">
-            <fa-icon [icon]="faCopy"></fa-icon>
-            Copy {{company.generalInformation.name}}
-        </button>
     </div>
 </div>

@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { faCopy, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Observable, of, Subscription } from 'rxjs';
+import { LoadingService } from 'src/app/core-components/loading/loading.service';
+import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { IdbCompany } from 'src/app/models/company';
 
 @Component({
@@ -11,24 +15,33 @@ import { IdbCompany } from 'src/app/models/company';
 })
 export class CompanySettingsComponent {
 
+  faTrash: IconDefinition = faTrash;
+  faCopy: IconDefinition = faCopy;
 
-  selectedCompany: IdbCompany;
-  selectedCompanySub: Subscription;
+  showDeleteCompanyModal: boolean = false;
+  showCreateCopyModal: boolean = false;
+
+
+  company: IdbCompany;
+  companySub: Subscription;
   name: FormControl;
   routeGuardWarningModal: boolean = false;
 
   hasAssessments: boolean = false;
   constructor(
-    private companyIdbService: CompanyIdbService
+    private companyIdbService: CompanyIdbService,
+    private dbChangesService: DbChangesService,
+    private loadingService: LoadingService,
+    private toastNotificationService: ToastNotificationsService
   ) {
 
   }
 
   ngOnInit() {
-    this.selectedCompanySub = this.companyIdbService.selectedCompany.subscribe(_company => {
-      this.selectedCompany = _company;
-      if (this.selectedCompany) {
-        this.name = new FormControl(this.selectedCompany.generalInformation.name, [Validators.required]);
+    this.companySub = this.companyIdbService.selectedCompany.subscribe(_company => {
+      this.company = _company;
+      if (this.company) {
+        this.name = new FormControl(this.company.generalInformation.name, [Validators.required]);
       }
     });
   }
@@ -43,7 +56,7 @@ export class CompanySettingsComponent {
   }
 
   ngOnDestroy() {
-    this.selectedCompanySub.unsubscribe();
+    this.companySub.unsubscribe();
   }
 
 
@@ -52,5 +65,34 @@ export class CompanySettingsComponent {
   }
   closeWarningModal() {
     this.routeGuardWarningModal = false;
+  }
+
+  openDeleteCompanyModal() {
+    this.showDeleteCompanyModal = true;
+  }
+
+  closeDeleteCompanyModal() {
+    this.showDeleteCompanyModal = false;
+  }
+
+  openCreateCopyModal() {
+    this.showCreateCopyModal = true;
+  }
+
+  closeCreateCopyModal() {
+    this.showCreateCopyModal = false;
+  }
+
+  confirmCreateCopy() {
+    //TODO...
+  }
+
+  async confirmDelete() {
+    this.showDeleteCompanyModal = false;
+    this.loadingService.setLoadingMessage('Deleting ' + this.company.generalInformation.name + '...');
+    this.loadingService.setLoadingStatus(true);
+    await this.dbChangesService.deleteCompany(this.company);
+    this.loadingService.setLoadingStatus(false);
+    this.toastNotificationService.showToast('Company Deleted!', undefined, 'bg-success', true, false);
   }
 }

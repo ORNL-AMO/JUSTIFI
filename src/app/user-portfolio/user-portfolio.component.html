@@ -14,14 +14,14 @@
                         </a>
                     </li>
                 </ng-container>
-                <ng-container *ngIf="facility">
+                <ng-container *ngIf="facility && context != 'company'">
                     <li class="breadcrumb-item" [ngClass]="{'active': context == 'facility'}">
                         <fa-icon class="pe-1" [icon]="faIndustry"></fa-icon>
                         <a [routerLink]="'/portfolio/facility/'+facility.guid">{{facility.generalInformation.name}}
                         </a>
                     </li>
                 </ng-container>
-                <ng-container *ngIf="assessment">
+                <ng-container *ngIf="assessment && context != 'company' && context != 'facility'">
                     <li class="breadcrumb-item" [ngClass]="{'active': context == 'assessment'}">
                         <fa-icon class="pe-1" [icon]="faScrewdriverWrench"></fa-icon>
                         <a [routerLink]="'/portfolio/assessment/'+assessment.guid">{{assessment.name}}

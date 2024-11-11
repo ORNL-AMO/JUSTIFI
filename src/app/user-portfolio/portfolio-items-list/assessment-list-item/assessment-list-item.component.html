@@ -1,22 +1,3 @@
-<div class="d-flex justify-content-end">
-    <div class="d-flex">
-        <button class="btn btn-outline-success me-1 btn-sm" (click)="goToVisit()">
-            <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
-            <span class="d-none">
-                Open {{assessment.name}} In Wizard
-            </span>
-        </button>
-        <button class="btn btn-danger btn-sm" (click)="openDeleteAssessmentModal()">
-            <fa-icon [icon]="faTrash"></fa-icon>
-            <span class="d-none">
-                Delete
-                {{assessment.name}}
-            </span>
-        </button>
-    </div>
-</div>
-<hr>
-
 <table class="table table-bordered">
     <tbody>
         <tr>

@@ -43,7 +43,6 @@ export class PortfolioItemsListComponent {
     } else {
       this.accordionGuid = undefined;
     }
-    // this.localStorageDataService.setNebAccordionGuid(this.accordionGuid);
   }
 
   goToCompanyDashboard(company: IdbCompany) {
