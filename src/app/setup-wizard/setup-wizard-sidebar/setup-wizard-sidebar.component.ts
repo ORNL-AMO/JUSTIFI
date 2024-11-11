@@ -11,7 +11,6 @@ import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
-import { CompanySetupService } from '../pre-visit/company-setup/company-setup.service';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -43,8 +42,6 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   company: IdbCompany;
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   keyPerformanceIndicatorsSub: Subscription;
-  companyNameFormControl: FormControl;
-  companyNameFormControlSub: Subscription;
 
   collapsePreVisit: boolean = true;
   collapseDataCollection: boolean = true;
@@ -54,8 +51,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private companyIdbService: CompanyIdbService,
-    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
-    private companySetupService: CompanySetupService
+    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService
   ) {
 
   }
@@ -91,10 +87,6 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.keyPerformanceIndicatorsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(_keyPerformanceIndicators => {
       this.keyPerformanceIndicators = _keyPerformanceIndicators;
     });
-
-    this.companyNameFormControlSub = this.companySetupService.companyNameFormControl.subscribe(_companyNameFormControl => {
-      this.companyNameFormControl = _companyNameFormControl;
-    });
   }
 
   ngOnDestroy() {
@@ -103,7 +95,6 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.onSiteVisitSub.unsubscribe();
     this.companySub.unsubscribe();
     this.keyPerformanceIndicatorsSub.unsubscribe();
-    this.companyNameFormControlSub.unsubscribe();
   }
 
   setDisplaySidebar() {

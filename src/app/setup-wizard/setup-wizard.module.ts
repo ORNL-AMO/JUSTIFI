@@ -53,6 +53,7 @@ import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-for
 import { KpiDescriptionPipe } from './pre-visit/company-kpi-details/kpi-description.pipe';
 import { KpmDatabaseModalComponent } from './pre-visit/company-kpi-details/kpm-database-modal/kpm-database-modal.component';
 import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/shared-assessment-forms.module';
+import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-company-forms.module";
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/s
     SetupWizardHelpPanelModule,
     LabelWithTooltipModule,
     KpmDetailsFormModule,
-    SharedAssessmentFormsModule
-  ]
+    SharedAssessmentFormsModule,
+    SharedCompanyFormsModule
+]
 })
 export class SetupWizardModule { }

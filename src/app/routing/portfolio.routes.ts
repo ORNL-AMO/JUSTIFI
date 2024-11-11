@@ -19,6 +19,7 @@ import { AssessmentSettingsComponent } from "../user-portfolio/assessment-dashbo
 import { AssessmentReportsComponent } from "../user-portfolio/assessment-dashboard/assessment-reports/assessment-reports.component";
 import { AssessmentDetailsComponent } from "../user-portfolio/assessment-dashboard/assessment-details/assessment-details.component";
 import { AssessmentEnergyOpportunitiesComponent } from "../user-portfolio/assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities.component";
+import { CanDeactivateGuard } from "../guards/can-deactivate.guard";
 
 
 export const PortfolioRoutes: Route = {
@@ -51,7 +52,8 @@ export const PortfolioRoutes: Route = {
                 },
                 {
                     path: 'manage',
-                    component: CompanySettingsComponent
+                    component: CompanySettingsComponent,
+                    canDeactivate: [CanDeactivateGuard]
                 }
             ]
         },
@@ -77,7 +79,8 @@ export const PortfolioRoutes: Route = {
                 },
                 {
                     path: 'manage',
-                    component: FacilitySettingsComponent
+                    component: FacilitySettingsComponent,
+                    canDeactivate: [CanDeactivateGuard]
                 },
             ]
         },
