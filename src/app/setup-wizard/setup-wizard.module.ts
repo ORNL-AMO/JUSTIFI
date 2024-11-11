@@ -27,7 +27,6 @@ import { OnSiteAssessmentComponent } from './data-collection/on-site-assessment/
 import { AssessmentNebsFormComponent } from './data-collection/on-site-assessment/assessment-nebs-form/assessment-nebs-form.component';
 import { PreVisitComponent } from './pre-visit/pre-visit.component';
 import { DataCollectionComponent } from './data-collection/data-collection.component';
-import { CompanyContactsFormComponent } from './pre-visit/company-contacts-setup/company-contacts-form/company-contacts-form.component';
 import { CompanyKpiSelectComponent } from './pre-visit/company-kpi-select/company-kpi-select.component';
 import { CompanyKpiDetailsComponent } from './pre-visit/company-kpi-details/company-kpi-details.component';
 import { DataCollectionManageAssessmentsComponent } from './data-collection/data-collection-manage-assessments/data-collection-manage-assessments.component';
@@ -71,7 +70,6 @@ import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-
     AssessmentNebsFormComponent,
     PreVisitComponent,
     DataCollectionComponent,
-    CompanyContactsFormComponent,
     CompanyKpiSelectComponent,
     CompanyKpiDetailsComponent,
     DataCollectionManageAssessmentsComponent,

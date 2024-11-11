@@ -56,7 +56,8 @@ export const PortfolioRoutes: Route = {
                 },
                 {
                     path: 'stakeholders',
-                    component: CompanyStakeholdersComponent
+                    component: CompanyStakeholdersComponent,
+                    canDeactivate: [CanDeactivateGuard]
                 },
                 {
                     path: 'reports',

@@ -2,34 +2,7 @@
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
         <div class="col-10 pt-4 pb-4">
             <div class="form-paper shadow">
-                <h5>
-                    <fa-icon [icon]="faAddressBook" class="me-2"></fa-icon>Stakeholder Contacts
-                </h5>
-                <hr>
-                <div class="d-flex w-100 justify-content-end pb-2">
-                    <div class="p-0">
-                        <button class="btn btn-outline-success btn-sm" (click)="addContact()">
-                            <fa-icon [icon]="faPlus"></fa-icon>
-                            Add Stakeholder
-                        </button>
-                    </div>
-                </div>
-                <ng-template [ngIf]="companyContactGuids.length > 0" [ngIfElse]="noContactsBlock">
-                    <div class="accordion" id="contactAccordion">
-                        <div class="accordion-item"
-                            *ngFor="let contactGuid of companyContactGuids; let index = index; let last = last;">
-                            <app-company-contacts-form [contactGuid]="contactGuid" [accordionGuid]="accordionGuid"
-                                (emitInitialized)="childFormInitialized(contactGuid, last)"></app-company-contacts-form>
-                        </div>
-                    </div>
-                </ng-template>
-                <ng-template #noContactsBlock>
-                    <div class="alert alert-warning">
-                        No stakeholder contacts added for this company. Click "<fa-icon [icon]="faPlus"></fa-icon> Add
-                        Stakeholder"
-                        to add a contact to this company.
-                    </div>
-                </ng-template>
+                <app-company-contacts-setup-form></app-company-contacts-setup-form>
             </div>
         </div>
     </div>

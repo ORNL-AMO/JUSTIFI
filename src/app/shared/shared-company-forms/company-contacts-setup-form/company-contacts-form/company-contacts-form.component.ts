@@ -64,15 +64,6 @@ export class CompanyContactsFormComponent {
     this.closeDeleteModal();
   }
 
-  setRequiredInvalidControlsTouched() {
-    Object.keys(this.contactForm.controls).forEach(key => {
-      const control = this.contactForm.get(key);
-      if (control.errors && control.errors['required']) {
-        control.markAsTouched();
-      }
-    });
-  }
-
   toggleBS() {
     this.bootstrapService.bsCollapse('#' + this.contactGuid);
     if (this.accordionGuid != this.contactGuid) {

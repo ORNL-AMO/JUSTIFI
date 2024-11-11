@@ -17,6 +17,8 @@ import { CompanyKpiSearchFormComponent } from './company-kpi-search-form/company
 import { AddKpiSearchComponent } from './company-kpi-search-form/add-kpi-search/add-kpi-search.component';
 import { CompanyKpiListComponent } from './company-kpi-search-form/company-kpi-list/company-kpi-list.component';
 import { SelectedKpiOptionPipe } from './company-kpi-search-form/add-kpi-search/selected-kpi-option.pipe';
+import { CompanyContactsSetupFormComponent } from './company-contacts-setup-form/company-contacts-setup-form.component';
+import { CompanyContactsFormComponent } from './company-contacts-setup-form/company-contacts-form/company-contacts-form.component';
 
 
 
@@ -30,7 +32,9 @@ import { SelectedKpiOptionPipe } from './company-kpi-search-form/add-kpi-search/
     CompanyKpiSearchFormComponent,
     AddKpiSearchComponent,
     CompanyKpiListComponent,
-    SelectedKpiOptionPipe
+    SelectedKpiOptionPipe,
+    CompanyContactsSetupFormComponent,
+    CompanyContactsFormComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +51,8 @@ import { SelectedKpiOptionPipe } from './company-kpi-search-form/add-kpi-search/
   exports: [
     CompanySetupFormComponent,
     CompanyKpiDetailsFormComponent,
-    CompanyKpiSearchFormComponent
+    CompanyKpiSearchFormComponent,
+    CompanyContactsSetupFormComponent
   ]
 })
 export class SharedCompanyFormsModule { }
