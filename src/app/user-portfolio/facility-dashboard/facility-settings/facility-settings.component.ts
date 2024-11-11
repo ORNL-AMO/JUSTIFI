@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faCopy, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Observable, of, Subscription } from 'rxjs';
 import { LoadingService } from 'src/app/core-components/loading/loading.service';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
-import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
@@ -20,7 +20,7 @@ export class FacilitySettingsComponent {
   faTrash: IconDefinition = faTrash;
   faCopy: IconDefinition = faCopy;
 
-  showDeleteCompanyModal: boolean = false;
+  showDeleteFacilityModal: boolean = false;
   showCreateCopyModal: boolean = false;
 
 
@@ -33,7 +33,8 @@ export class FacilitySettingsComponent {
   constructor(private facilityIdbService: FacilityIdbService,
     private loadingService: LoadingService,
     private toastNotificationService: ToastNotificationsService,
-    private dbChangesService: DbChangesService
+    private dbChangesService: DbChangesService,
+    private router: Router
   ) {
 
   }
@@ -70,12 +71,12 @@ export class FacilitySettingsComponent {
     this.routeGuardWarningModal = false;
   }
 
-  openDeleteCompanyModal() {
-    this.showDeleteCompanyModal = true;
+  openDeleteFacilityModal() {
+    this.showDeleteFacilityModal = true;
   }
 
-  closeDeleteCompanyModal() {
-    this.showDeleteCompanyModal = false;
+  closeDeleteFacilityModal() {
+    this.showDeleteFacilityModal = false;
   }
 
   openCreateCopyModal() {
@@ -91,11 +92,12 @@ export class FacilitySettingsComponent {
   }
 
   async confirmDelete() {
-    this.showDeleteCompanyModal = false;
+    this.showDeleteFacilityModal = false;
     this.loadingService.setLoadingMessage('Deleting ' + this.facility.generalInformation.name + '...');
     this.loadingService.setLoadingStatus(true);
     await this.dbChangesService.deleteFacility(this.facility);
     this.loadingService.setLoadingStatus(false);
     this.toastNotificationService.showToast('Facility Deleted!', undefined, 'bg-success', true, false);
+    this.router.navigateByUrl('/portfolio');
   }
 }

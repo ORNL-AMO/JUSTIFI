@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faCopy, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Observable, of, Subscription } from 'rxjs';
 import { LoadingService } from 'src/app/core-components/loading/loading.service';
@@ -32,7 +33,8 @@ export class CompanySettingsComponent {
     private companyIdbService: CompanyIdbService,
     private dbChangesService: DbChangesService,
     private loadingService: LoadingService,
-    private toastNotificationService: ToastNotificationsService
+    private toastNotificationService: ToastNotificationsService,
+    private router: Router
   ) {
 
   }
@@ -94,5 +96,6 @@ export class CompanySettingsComponent {
     await this.dbChangesService.deleteCompany(this.company);
     this.loadingService.setLoadingStatus(false);
     this.toastNotificationService.showToast('Company Deleted!', undefined, 'bg-success', true, false);
+    this.router.navigateByUrl('/portfolio');
   }
 }

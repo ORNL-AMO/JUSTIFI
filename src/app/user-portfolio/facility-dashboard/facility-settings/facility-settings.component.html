@@ -26,7 +26,7 @@
                     be
                     undone.
                 </p>
-                <button class="btn btn-danger btn-sm" (click)="openDeleteCompanyModal()">
+                <button class="btn btn-danger btn-sm" (click)="openDeleteFacilityModal()">
                     <fa-icon [icon]="faTrash"></fa-icon>
                     Delete Facility
                 </button>
@@ -36,7 +36,7 @@
 </div>
 
 
-<div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
+<div [ngClass]="{'window-overlay': routeGuardWarningModal ||  showDeleteFacilityModal || showCreateCopyModal}"></div>
 <div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
     <div class="popup-body">
         <div class="alert alert-danger">
@@ -48,10 +48,10 @@
     </div>
 </div>
 
-<div class="popup" [ngClass]="{'open': showDeleteCompanyModal }">
+<div class="popup" [ngClass]="{'open': showDeleteFacilityModal }">
     <div class="popup-header">Delete {{facility.generalInformation.name}}
         <button type="button" class="btn-close float-end" aria-label="Close"
-            (click)="closeDeleteCompanyModal()"></button>
+            (click)="closeDeleteFacilityModal()"></button>
     </div>
     <div class="popup-body">
         <div class="alert alert-danger p-2">
@@ -62,7 +62,7 @@
         <hr>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2 btn-sm" (click)="closeDeleteCompanyModal()">Cancel</button>
+        <button class="btn btn-secondary me-2 btn-sm" (click)="closeDeleteFacilityModal()">Cancel</button>
         <button class="btn btn-danger btn-sm" (click)="confirmDelete()">
             <fa-icon [icon]="faTrash"></fa-icon>
             Delete {{facility.generalInformation.name}}
