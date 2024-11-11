@@ -1,1 +1,90 @@
-<p>facility-settings works!</p>
+<div class="card portfolio">
+    <div class="card-body">
+        <app-facility-setup-form></app-facility-setup-form>
+        <hr>
+        <div class="row">
+            <div class="col-6">
+                <h6>
+                    Create Facility Copy
+                </h6>
+                <p class="fw-light">
+                    Use the button below to create a copy of this facility. A copy of this facility will be added to
+                    your
+                    JUSTIFI portfolio.
+                </p>
+                <button class="btn btn-secondary btn-sm" (click)="openCreateCopyModal()">
+                    <fa-icon [icon]="faCopy"></fa-icon>
+                    Copy Facility
+                </button>
+            </div>
+            <div class="col-6">
+                <h6>
+                    Delete Facility
+                </h6>
+                <p class="fw-light">
+                    Use the button below to delete this facility and all of its corresponding data. This action cannot
+                    be
+                    undone.
+                </p>
+                <button class="btn btn-danger btn-sm" (click)="openDeleteCompanyModal()">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                    Delete Facility
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
+<div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
+    <div class="popup-body">
+        <div class="alert alert-danger">
+            Please fill the required fields.
+        </div>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
+    </div>
+</div>
+
+<div class="popup" [ngClass]="{'open': showDeleteCompanyModal }">
+    <div class="popup-header">Delete {{facility.generalInformation.name}}
+        <button type="button" class="btn-close float-end" aria-label="Close"
+            (click)="closeDeleteCompanyModal()"></button>
+    </div>
+    <div class="popup-body">
+        <div class="alert alert-danger p-2">
+            Are you sure you would like to delete this facility and it's corresponding data? This will delete all
+            associated
+            facilities and assessments. This cannot be undone.
+        </div>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary me-2 btn-sm" (click)="closeDeleteCompanyModal()">Cancel</button>
+        <button class="btn btn-danger btn-sm" (click)="confirmDelete()">
+            <fa-icon [icon]="faTrash"></fa-icon>
+            Delete {{facility.generalInformation.name}}
+        </button>
+    </div>
+</div>
+
+<div class="popup" [ngClass]="{'open': showCreateCopyModal }">
+    <div class="popup-header">Create Copy of {{facility.generalInformation.name}}
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeCreateCopyModal()"></button>
+    </div>
+    <div class="popup-body">
+        <div class="alert alert-warning p-2">
+            This feature is coming soon!
+        </div>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary me-2 btn-sm" (click)="closeCreateCopyModal()">Cancel</button>
+        <button class="btn btn-success btn-sm" (click)="confirmCreateCopy()" [disabled]="true">
+            <fa-icon [icon]="faCopy"></fa-icon>
+            Copy {{facility.generalInformation.name}}
+        </button>
+    </div>
+</div>

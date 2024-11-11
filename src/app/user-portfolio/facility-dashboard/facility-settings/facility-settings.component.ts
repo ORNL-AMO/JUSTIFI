@@ -1,4 +1,13 @@
 import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { faCopy, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Observable, of, Subscription } from 'rxjs';
+import { LoadingService } from 'src/app/core-components/loading/loading.service';
+import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
+import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
   selector: 'app-facility-settings',
@@ -7,4 +16,86 @@ import { Component } from '@angular/core';
 })
 export class FacilitySettingsComponent {
 
+
+  faTrash: IconDefinition = faTrash;
+  faCopy: IconDefinition = faCopy;
+
+  showDeleteCompanyModal: boolean = false;
+  showCreateCopyModal: boolean = false;
+
+
+  name: FormControl;
+  facilityName: string;
+  facilitySub: Subscription;
+  facility: IdbFacility;
+  routeGuardWarningModal: boolean = false;
+
+  constructor(private facilityIdbService: FacilityIdbService,
+    private loadingService: LoadingService,
+    private toastNotificationService: ToastNotificationsService,
+    private dbChangesService: DbChangesService
+  ) {
+
+  }
+
+  ngOnInit() {
+    this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
+      this.facility = facility;
+      this.name = new FormControl(this.facility.generalInformation.name, [Validators.required]);
+    });
+  }
+
+  ngOnDestroy() {
+    this.facilitySub.unsubscribe();
+  }
+
+  async saveChanges() {
+    let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+    facility.generalInformation.name = this.name.value;
+    await this.facilityIdbService.asyncUpdate(facility);
+  }
+
+  canDeactivate(): Observable<boolean> {
+    if (this.name && this.name.getError('required')) {
+      this.dislayWarningModal();
+      return of(false);
+    }
+    return of(true);
+  }
+
+  dislayWarningModal() {
+    this.routeGuardWarningModal = true;
+  }
+  closeWarningModal() {
+    this.routeGuardWarningModal = false;
+  }
+
+  openDeleteCompanyModal() {
+    this.showDeleteCompanyModal = true;
+  }
+
+  closeDeleteCompanyModal() {
+    this.showDeleteCompanyModal = false;
+  }
+
+  openCreateCopyModal() {
+    this.showCreateCopyModal = true;
+  }
+
+  closeCreateCopyModal() {
+    this.showCreateCopyModal = false;
+  }
+
+  confirmCreateCopy() {
+    //TODO...
+  }
+
+  async confirmDelete() {
+    this.showDeleteCompanyModal = false;
+    this.loadingService.setLoadingMessage('Deleting ' + this.facility.generalInformation.name + '...');
+    this.loadingService.setLoadingStatus(true);
+    await this.dbChangesService.deleteFacility(this.facility);
+    this.loadingService.setLoadingStatus(false);
+    this.toastNotificationService.showToast('Facility Deleted!', undefined, 'bg-success', true, false);
+  }
 }

@@ -6,7 +6,7 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { FormControl, Validators } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { Icon } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
@@ -21,13 +21,10 @@ export class FacilitySetupComponent implements OnInit {
 
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
-  faFilePen: IconDefinition = faFilePen;
-  faGear: IconDefinition = faGear;
-  faContactCard: IconDefinition = faContactCard;
-  faLocationDot: IconDefinition = faLocationDot;
   faIndustry: IconDefinition = faIndustry;
   faCircleExclamation: IconDefinition = faCircleExclamation;
 
+  facilitySub: Subscription;
   facility: IdbFacility;
   routeGuardWarningModal: boolean = false;
 
@@ -38,13 +35,14 @@ export class FacilitySetupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.facility = this.facilityIdbService.selectedFacility.getValue();
-
-    if (this.facility) {
+    this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
+      this.facility = facility;
       this.name = new FormControl(this.facility.generalInformation.name, [Validators.required]);
-    } else {
-      this.router.navigateByUrl('/welcome');
-    }
+    });
+  }
+
+  ngOnDestroy(){
+    this.facilitySub.unsubscribe();
   }
 
   async saveChanges() {

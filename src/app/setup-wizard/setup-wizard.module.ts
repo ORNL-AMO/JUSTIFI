@@ -47,6 +47,7 @@ import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
 import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/shared-assessment-forms.module';
 import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-company-forms.module";
+import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/shared-facility-forms.module';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-
     LabelWithTooltipModule,
     KpmDetailsFormModule,
     SharedAssessmentFormsModule,
-    SharedCompanyFormsModule
+    SharedCompanyFormsModule,
+    SharedFacilityFormsModule
 ]
 })
 export class SetupWizardModule { }
