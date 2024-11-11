@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-4">
-        <h6>
+    <div class="col-12">
+        <h5>
             <fa-icon [icon]="faMagnifyingGlassPlus" class="me-2"></fa-icon>
             Find Potential KPIs
-        </h6>
+        </h5>
     </div>
-    <div class="col-4">
+    <div class="col-12 mb-1">
         <div class="input-group" role="search">
             <span class="input-group-text">
                 <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
@@ -14,7 +14,7 @@
                 [(ngModel)]="kpiSearchStr">
         </div>
     </div>
-    <div class="col-4">
+    <div class="col-12">
         <select name="kpiCategorySearch" class="form-select" id="kpiCategorySearch" [(ngModel)]="kpiCategorySearch">
             <option [ngValue]="undefined">All Categories</option>
             <option *ngFor="let category of primaryKPIs" [ngValue]="category">
@@ -35,7 +35,7 @@
             <div>
                 <span class="ps-1" [innerHTML]="option.label"></span>
             </div>
-            <div>
+            <div class="d-md-none d-lg-block">
                 <app-primary-kpi-badge [kpiOption]="option"></app-primary-kpi-badge>
             </div>
         </div>

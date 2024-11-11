@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { IconDefinition, faBullseye, faCircleQuestion, faPlus, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Subscription, firstValueFrom } from 'rxjs';
@@ -107,9 +107,13 @@ export class CompanyKpiListComponent {
     this.closeCustomKPIModal();
   }
 
-  goToKpiDetails(kpi: IdbKeyPerformanceIndicator){
-    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-kpi-detail/' + kpi.guid);
+  goToKpiDetails(kpi: IdbKeyPerformanceIndicator) {
+    if (this.router.url.includes('portfolio')) {
+      this.router.navigateByUrl('portfolio/company/' + kpi.companyId + '/performance-indicators/details/' + kpi.guid);
+    } else {
+      let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-kpi-detail/' + kpi.guid);
+    }
   }
 
 }

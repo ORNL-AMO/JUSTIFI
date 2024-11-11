@@ -13,6 +13,10 @@ import { KpmDetailsFormModule } from '../kpm-details-form/kpm-details-form.modul
 import { KpmDatabaseModalComponent } from './company-kpi-details-form/kpm-database-modal/kpm-database-modal.component';
 import { KpmImpactsTableComponent } from './company-kpi-details-form/kpm-impacts-table/kpm-impacts-table.component';
 import { ContactModalModule } from '../contact-modal/contact-modal.module';
+import { CompanyKpiSearchFormComponent } from './company-kpi-search-form/company-kpi-search-form.component';
+import { AddKpiSearchComponent } from './company-kpi-search-form/add-kpi-search/add-kpi-search.component';
+import { CompanyKpiListComponent } from './company-kpi-search-form/company-kpi-list/company-kpi-list.component';
+import { SelectedKpiOptionPipe } from './company-kpi-search-form/add-kpi-search/selected-kpi-option.pipe';
 
 
 
@@ -22,7 +26,11 @@ import { ContactModalModule } from '../contact-modal/contact-modal.module';
     CompanyKpiDetailsFormComponent,
     KpiDescriptionPipe,
     KpmDatabaseModalComponent,
-    KpmImpactsTableComponent
+    KpmImpactsTableComponent,
+    CompanyKpiSearchFormComponent,
+    AddKpiSearchComponent,
+    CompanyKpiListComponent,
+    SelectedKpiOptionPipe
   ],
   imports: [
     CommonModule,
@@ -38,7 +46,8 @@ import { ContactModalModule } from '../contact-modal/contact-modal.module';
   ],
   exports: [
     CompanySetupFormComponent,
-    CompanyKpiDetailsFormComponent
+    CompanyKpiDetailsFormComponent,
+    CompanyKpiSearchFormComponent
   ]
 })
 export class SharedCompanyFormsModule { }

@@ -13,7 +13,6 @@ import { CompanyContactsSetupComponent } from './pre-visit/company-contacts-setu
 import { FacilityProcessEquipmentSetupComponent } from './pre-visit/facility-process-equipment-setup/facility-process-equipment-setup.component';
 import { PreAssessmentSetupComponent } from './pre-visit/pre-assessment-setup/pre-assessment-setup.component';
 import { ReviewPreVisitSetupComponent } from './pre-visit/review-pre-visit-setup/review-pre-visit-setup.component';
-import { CompanyKpiListComponent } from './pre-visit/company-kpi-select/company-kpi-list/company-kpi-list.component';
 import { ContactModalModule } from '../shared/contact-modal/contact-modal.module';
 import { ReviewOnSiteComponent } from './data-collection/review-on-site/review-on-site.component';
 import { CompanyDetailsSummaryComponent } from './pre-visit/review-pre-visit-setup/company-details-summary/company-details-summary.component';
@@ -32,8 +31,6 @@ import { CompanyContactsFormComponent } from './pre-visit/company-contacts-setup
 import { CompanyKpiSelectComponent } from './pre-visit/company-kpi-select/company-kpi-select.component';
 import { CompanyKpiDetailsComponent } from './pre-visit/company-kpi-details/company-kpi-details.component';
 import { DataCollectionManageAssessmentsComponent } from './data-collection/data-collection-manage-assessments/data-collection-manage-assessments.component';
-import { AddKpiSearchComponent } from './pre-visit/company-kpi-select/add-kpi-search/add-kpi-search.component';
-import { SelectedKpiOptionPipe } from './pre-visit/company-kpi-select/add-kpi-search/selected-kpi-option.pipe';
 import { DataEvaluationComponent } from './data-evaluation/data-evaluation.component';
 import { DataFollowUpComponent } from './data-evaluation/data-follow-up/data-follow-up.component';
 import { VisitReportComponent } from './data-evaluation/visit-report/visit-report.component';
@@ -62,8 +59,6 @@ import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-
     FacilityProcessEquipmentSetupComponent,
     PreAssessmentSetupComponent,
     ReviewPreVisitSetupComponent,
-    AddKpiSearchComponent,
-    CompanyKpiListComponent,
     ReviewOnSiteComponent,
     CompanyDetailsSummaryComponent,
     TeamDetailsSummaryComponent,
@@ -79,7 +74,6 @@ import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-
     CompanyContactsFormComponent,
     CompanyKpiSelectComponent,
     CompanyKpiDetailsComponent,
-    SelectedKpiOptionPipe,
     DataCollectionManageAssessmentsComponent,
     DataEvaluationComponent,
     DataFollowUpComponent,

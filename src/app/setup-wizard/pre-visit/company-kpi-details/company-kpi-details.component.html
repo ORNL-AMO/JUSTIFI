@@ -2,13 +2,7 @@
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
         <div class="col-10 pt-4 pb-4">
             <div class="form-paper shadow" *ngIf="keyPerformanceIndicator">
-                <h5>
-                    <fa-icon [icon]="faBullseye"></fa-icon>
-                    <span class="ps-1" [innerHTML]="keyPerformanceIndicator.htmlLabel"></span>
-                </h5>
-                <hr>
-                <app-company-kpi-details-form
-                    [keyPerformanceIndicator]="keyPerformanceIndicator"></app-company-kpi-details-form>
+                <app-company-kpi-details-form></app-company-kpi-details-form>
             </div>
         </div>
     </div>

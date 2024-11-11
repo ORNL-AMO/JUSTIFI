@@ -20,6 +20,8 @@ import { AssessmentReportsComponent } from "../user-portfolio/assessment-dashboa
 import { AssessmentDetailsComponent } from "../user-portfolio/assessment-dashboard/assessment-details/assessment-details.component";
 import { AssessmentEnergyOpportunitiesComponent } from "../user-portfolio/assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities.component";
 import { CanDeactivateGuard } from "../guards/can-deactivate.guard";
+import { CompanyKpiSearchFormComponent } from "../shared/shared-company-forms/company-kpi-search-form/company-kpi-search-form.component";
+import { CompanyKpiDetailsFormComponent } from "../shared/shared-company-forms/company-kpi-details-form/company-kpi-details-form.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -39,8 +41,18 @@ export const PortfolioRoutes: Route = {
                     component: CompanyDashboardHomeComponent
                 },
                 {
-                    path: 'performance-metrics',
-                    component: CompanyPerformanceIndicatorsComponent
+                    path: 'performance-indicators',
+                    component: CompanyPerformanceIndicatorsComponent,
+                    children: [
+                        {
+                            path: '',
+                            component: CompanyKpiSearchFormComponent
+                        },
+                        {
+                            path: 'details/:id',
+                            component: CompanyKpiDetailsFormComponent
+                        }
+                    ]
                 },
                 {
                     path: 'stakeholders',

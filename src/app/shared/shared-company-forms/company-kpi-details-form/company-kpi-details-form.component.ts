@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { faBullseye, faCircleQuestion, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import { faBullseye, faChartBar, faChevronRight, faCircleQuestion, faClose, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { PrimaryKPI, PrimaryKPIs } from '../../constants/keyPerformanceIndicatorOptions';
 import { firstValueFrom, Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { IdbCompany } from 'src/app/models/company';
 import { IdbContact } from 'src/app/models/contact';
 import { getCustomKPM, KeyPerformanceMetric } from '../../constants/keyPerformanceMetrics';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
+import { ActivatedRoute } from '@angular/router';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -18,10 +19,10 @@ import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-pe
   styleUrl: './company-kpi-details-form.component.css'
 })
 export class CompanyKpiDetailsFormComponent {
-  @Input({ required: true })
+  // @Input({ required: true })
+
+
   keyPerformanceIndicator: IdbKeyPerformanceIndicator;
-
-
 
   faUser: IconDefinition = faUser;
   faContactBook: IconDefinition = faContactBook;
@@ -56,6 +57,7 @@ export class CompanyKpiDetailsFormComponent {
   showAddMetricDropdown: boolean = false;
   constructor(
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
+    private activatedRoute: ActivatedRoute,
     private companyIdbService: CompanyIdbService,
     private contactIdbService: ContactIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService
@@ -69,8 +71,15 @@ export class CompanyKpiDetailsFormComponent {
     this.contactsSub = this.contactIdbService.contacts.subscribe(_contacts => {
       this.contacts = _contacts;
     });
+
     this.keyPerformanceMetricImpactsSub = this.keyPerformanceMetricImpactIdbService.keyPerformanceMetricImpacts.subscribe(_keyPerformanceMetricImpacts => {
       this.keyPerformanceMetricImpacts = _keyPerformanceMetricImpacts;
+    });
+
+    this.activatedRoute.params.subscribe(params => {
+      let kpiGuid: string = params['id'];
+      this.keyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getByGuid(kpiGuid);
+      this.showAddMetricDropdown = false;
     });
   }
 
