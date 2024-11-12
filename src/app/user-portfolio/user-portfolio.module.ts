@@ -29,7 +29,6 @@ import { FacilityReportsComponent } from './facility-dashboard/facility-reports/
 import { FacilitySettingsComponent } from './facility-dashboard/facility-settings/facility-settings.component';
 import { AssessmentDashboardHomeComponent } from './assessment-dashboard/assessment-dashboard-home/assessment-dashboard-home.component';
 import { AssessmentDashboardNavComponent } from './assessment-dashboard/assessment-dashboard-nav/assessment-dashboard-nav.component';
-import { AssessmentSettingsComponent } from './assessment-dashboard/assessment-settings/assessment-settings.component';
 import { AssessmentReportsComponent } from './assessment-dashboard/assessment-reports/assessment-reports.component';
 import { SharedAssessmentFormsModule } from "../shared/shared-assessment-forms/shared-assessment-forms.module";
 import { AssessmentDetailsComponent } from './assessment-dashboard/assessment-details/assessment-details.component';
@@ -71,7 +70,6 @@ import { EndUseInventoryHomeComponent } from './facility-dashboard/end-use-inven
     FacilitySettingsComponent,
     AssessmentDashboardHomeComponent,
     AssessmentDashboardNavComponent,
-    AssessmentSettingsComponent,
     AssessmentReportsComponent,
     AssessmentDetailsComponent,
     AssessmentEnergyOpportunitiesComponent,

@@ -2,7 +2,7 @@
     <div class="d-flex nav-flex pe-3">
         <nav class="nav navbar nav-tabs flex-column pt-0">
 
-            <div class="nav-item mb-2">
+            <div class="nav-item">
                 <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/performance-indicators'"
                     [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
                     <div class="d-flex w-100 justify-content-between">
@@ -14,6 +14,9 @@
                         </div>
                     </div>
                 </a>
+            </div>
+            <div class="w-100">
+                <hr class="my-2">
             </div>
             <div class="nav-item" *ngFor="let kpi of keyPerformanceIndicators">
                 <a class="nav-link"

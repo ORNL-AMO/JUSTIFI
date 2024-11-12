@@ -10,3 +10,101 @@
     border-left: 1px solid;
     border-right: 1px solid;
 }
+
+
+.nav-link:hover {
+    cursor: pointer;
+}
+
+/*
+PORTFOLIO TABS
+*/
+
+.portfolio .navbar {
+    overflow-y: auto;
+    /* flex-wrap: nowrap; */
+}
+
+.portfolio .breadcrumb .breadcrumb-item a {
+    color: var(--portfolio-nav-color);
+}
+
+.portfolio .navbar .nav-item {
+    width: 100%;
+}
+
+.portfolio .navbar .nav-item .nav-link {
+    padding: .25rem;
+    text-wrap-mode: nowrap;
+    border-bottom: solid 1px;
+    /* border-color: black; */
+    /* border-top-left-radius: 0px;
+    border-bottom-right-radius: .5rem;
+    border-bottom-right-radius: .5rem; */
+}
+
+.portfolio .nav-item .nav-link {
+    padding: .25rem;
+    /* text-wrap-mode: nowrap; */
+    /* border-bottom: solid 1px; */
+    border-color: var(--portfolio-nav-color);
+    color: var(--portfolio-nav-color);
+}
+
+
+.portfolio .nav-item .nav-link.active {
+    background-color: var(--portfolio-nav-color);
+    color: white;
+    border-bottom-color: black;
+}
+
+.portfolio .nav-item .nav-link:hover {
+    background-color: #8DABBE;
+    color: black;
+}
+
+.portfolio .navbar .text-end {
+    text-align: right;
+}
+
+.portfolio .nav-flex {
+    height: fit-content;
+}
+
+.portfolio .navbar .nav-item .nav-link .chevron.float-right {
+    color: white;
+    float: right;
+    padding-left: .25rem;
+}
+
+.portfolio .btn-outline-primary {
+    --bs-btn-color: var(--portfolio-nav-color);
+    --bs-btn-border-color: var(--portfolio-nav-color);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--portfolio-nav-color);
+    --bs-btn-hover-border-color: var(--portfolio-nav-color);
+    --bs-btn-focus-shadow-rgb: 13, 110, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--portfolio-nav-color);
+    --bs-btn-active-border-color: var(--portfolio-nav-color);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: var(--portfolio-nav-color);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--portfolio-nav-color);
+    --bs-gradient: none;
+}
+
+.portfolio .nav-tabs .nav-link{
+    /* border-top-left-radius: 0px;
+    border-top-right-radius: 0px; */
+    padding: .25rem .5rem;
+}
+
+.portfolio .breadcrumb .breadcrumb-item.active {
+    color: black;
+}
+
+.portfolio .breadcrumb .breadcrumb-item.active a {
+    text-decoration: none;
+    color: black;
+}

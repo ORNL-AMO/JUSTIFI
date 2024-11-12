@@ -1,3 +1,4 @@
+
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid" [routerLinkActive]="'active'"
@@ -6,22 +7,30 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid+'/details'"
-            [routerLinkActive]="'active'">Details</a>
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faGears"></fa-icon>
+            Details
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid+'/energy-opportunities'"
-            [routerLinkActive]="'active'">Energy Efficiency Opportunities</a>
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faGears"></fa-icon>
+            Energy Efficiency Opportunities
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid+'/nebs'"
-            [routerLinkActive]="'active'">NEBs</a>
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faWeightHanging"></fa-icon>
+            NEBs
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/reports'"
-            [routerLinkActive]="'active'">Reports</a>
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faFile"></fa-icon>
+            Report
+        </a>
     </li>
-    <!-- <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/manage'"
-            [routerLinkActive]="'active'">Manage</a>
-    </li> -->
 </ul>
