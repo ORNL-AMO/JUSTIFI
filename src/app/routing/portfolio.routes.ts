@@ -29,6 +29,8 @@ import { AssessmentNebsHomeComponent } from "../user-portfolio/assessment-dashbo
 import { NebSetupFormComponent } from "../shared/shared-assessment-forms/neb-forms-accordion/neb-setup-form/neb-setup-form.component";
 import { IndustrialSystemInventoryHomeComponent } from "../user-portfolio/facility-dashboard/industrial-system-inventory/industrial-system-inventory-home/industrial-system-inventory-home.component";
 import { EnergyEquipmentFormComponent } from "../shared/shared-facility-forms/energy-equipment-form/energy-equipment-form.component";
+import { EndUseInventoryHomeComponent } from "../user-portfolio/facility-dashboard/end-use-inventory/end-use-inventory-home/end-use-inventory-home.component";
+import { ProcessEquipmentFormComponent } from "../shared/shared-facility-forms/process-equipment-form/process-equipment-form.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -101,7 +103,17 @@ export const PortfolioRoutes: Route = {
                 },
                 {
                     path: 'end-use-inventory',
-                    component: EndUseInventoryComponent
+                    component: EndUseInventoryComponent,
+                    children: [
+                        {
+                            path: '',
+                            component: EndUseInventoryHomeComponent
+                        },
+                        {
+                            path: ':id',
+                            component: ProcessEquipmentFormComponent
+                        }
+                    ]
                 },
                 {
                     path: 'reports',

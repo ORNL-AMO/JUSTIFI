@@ -1,1 +1,39 @@
-<p>end-use-inventory works!</p>
+<div class="d-flex">
+    <div class="d-flex nav-flex pe-3">
+        <nav class="nav navbar nav-tabs flex-column pt-0">
+
+            <div class="nav-item mb-2">
+                <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/end-use-inventory'"
+                    [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="d-block">
+                            Summary
+                        </div>
+                        <div>
+                            <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="nav-item" *ngFor="let processEquipment of processEquipments">
+                <a class="nav-link"
+                    [routerLink]="'/portfolio/facility/'+processEquipment.facilityId + '/end-use-inventory/'+processEquipment.guid"
+                    [routerLinkActive]="'active'">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="d-block">
+                            {{processEquipment.equipmentName}}
+                        </div>
+                        <div>
+                            <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </nav>
+    </div>
+    <div class="card portfolio w-100">
+        <div class="card-body">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

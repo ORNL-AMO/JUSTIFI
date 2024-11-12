@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { faContactBook, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -30,11 +31,19 @@ export class ProcessEquipmentFormComponent {
   constructor(private processEquipmentIdbService: ProcessEquipmentIdbService,
     private dbChangesService: DbChangesService,
     private contactIdbService: ContactIdbService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.processEquipment = this.processEquipmentIdbService.getByGuid(this.processEquipmentGuid);
+    if (!this.processEquipmentGuid) {
+      this.activatedRoute.params.subscribe(params => {
+        this.processEquipmentGuid = params['id'];
+        this.processEquipment = this.processEquipmentIdbService.getByGuid(this.processEquipmentGuid);
+      });
+    } else {
+      this.processEquipment = this.processEquipmentIdbService.getByGuid(this.processEquipmentGuid);
+    }
     this.contactSub = this.contactIdbService.contacts.subscribe(_contacts => {
       this.contacts = _contacts;
     });

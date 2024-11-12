@@ -36,7 +36,6 @@ import { VisitReportComponent } from './data-evaluation/visit-report/visit-repor
 import { ReportsModule } from '../shared/reports/reports.module';
 import { AssessmentEvaluationComponent } from './data-evaluation/assessment-evaluation/assessment-evaluation.component';
 import { OnSiteAssessmentResultsComponent } from './data-collection/on-site-assessment/on-site-assessment-results/on-site-assessment-results.component';
-import { ProcessEquipmentFormComponent } from './pre-visit/facility-process-equipment-setup/process-equipment-form/process-equipment-form.component';
 import { FacilityEnergyEquipmentSetupComponent } from './pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component';
 import { PrimaryKpiBadgeModule } from "../shared/primary-kpi-badge/primary-kpi-badge.module";
 import { EnergyOpportunityNebsTableComponent } from './data-collection/on-site-assessment/assessment-nebs-form/energy-opportunity-nebs-table/energy-opportunity-nebs-table.component';
@@ -79,7 +78,6 @@ import { AssessmentEnergyOpportunitiesFormComponent } from './data-collection/on
     VisitReportComponent,
     AssessmentEvaluationComponent,
     OnSiteAssessmentResultsComponent,
-    ProcessEquipmentFormComponent,
     FacilityEnergyEquipmentSetupComponent,
     EnergyOpportunityNebsTableComponent,
     EnergyOpportunityNebsListPipe,

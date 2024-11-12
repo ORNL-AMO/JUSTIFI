@@ -6,13 +6,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EnergyEquipmentFormComponent } from './energy-equipment-form/energy-equipment-form.component';
 import { HelperPipesModule } from '../helper-pipes/helper-pipes.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProcessEquipmentFormComponent } from './process-equipment-form/process-equipment-form.component';
 
 
 
 @NgModule({
   declarations: [
     FacilitySetupFormComponent,
-    EnergyEquipmentFormComponent
+    EnergyEquipmentFormComponent,
+    ProcessEquipmentFormComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   ],
   exports: [
     FacilitySetupFormComponent,
-    EnergyEquipmentFormComponent
+    EnergyEquipmentFormComponent,
+    ProcessEquipmentFormComponent
   ]
 })
 export class SharedFacilityFormsModule { }
