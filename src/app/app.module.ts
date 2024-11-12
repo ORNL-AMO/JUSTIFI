@@ -26,6 +26,7 @@ import { AboutComponent } from './core-components/about/about.component';
 import { HelpComponent } from './core-components/help/help.component';
 import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
 import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
+import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ToastNotificationsComponent } from './core-components/toast-notificatio
     HelperPipesModule,
     AssessmentDashboardModule,
     PlotlyViaWindowModule,
+    NebsDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

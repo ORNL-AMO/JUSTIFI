@@ -83,6 +83,14 @@ export class PerformanceMetricImpactFormComponent {
     await this.keyPerformanceMetricImpactIdbService.asyncUpdate(this.keyPerformanceMetricImpact);
   }
 
+  calculateCostFromKPM(kpmChanges: {modifiedMethod: boolean, updateBaseline: boolean}){
+    if(kpmChanges.modifiedMethod){
+      this.keyPerformanceMetricImpact.modificationValue = undefined;
+    }
+    this.calculateCost();
+  }
+
+
   calculateCost() {
     if (this.keyPerformanceMetric.calculationMethod == 'costPerUnit') {
       this.keyPerformanceMetricImpact.costAdjustment = (this.keyPerformanceMetricImpact.modificationValue * this.keyPerformanceMetric.costPerValue);

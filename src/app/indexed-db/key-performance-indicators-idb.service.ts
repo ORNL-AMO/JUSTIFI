@@ -53,11 +53,16 @@ export class KeyPerformanceIndicatorsIdbService {
     });
   }
 
-  getCompanyKeyPerformanceMetrics(companyGuid: string): Array<KeyPerformanceMetric> {
+  getByCompanyGuid(companyGuid: string): Array<IdbKeyPerformanceIndicator> {
     let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicators.getValue();
     let companyKPIs: Array<IdbKeyPerformanceIndicator> = keyPerformanceIndicators.filter(kpi => {
       return kpi.companyId == companyGuid;
     });
+    return companyKPIs;
+  }
+
+  getCompanyKeyPerformanceMetrics(companyGuid: string): Array<KeyPerformanceMetric> {
+    let companyKPIs: Array<IdbKeyPerformanceIndicator> = this.getByCompanyGuid(companyGuid);
     let companyKPMs: Array<KeyPerformanceMetric> = new Array();
     companyKPIs.forEach(kpi => {
       kpi.performanceMetrics.forEach(kpiMetric => {

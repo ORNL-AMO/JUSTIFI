@@ -138,7 +138,7 @@
         </ng-container>
     </div>
     <!--Water-->
-    <!-- <div class="row mb-1">
+    <div class="row mb-1">
         <div class="col-4">
             <div class="input-group">
                 <div class="input-group-text">
@@ -176,32 +176,9 @@
                 </div>
             </div>
         </ng-container>
-        <ng-container *ngIf="form.controls['includeWater'].value 
-            && !('Water' | isStandardUnit: form.controls['waterUnit'].value: 'Energy')">
-            <div class="col-4">
-                <div class="input-group">
-                    <input type="text" class="disabled-input-label-secondary" [disabled]="true"
-                    value="Water HHV">
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="input-group">
-                    <input class="form-control" type="number" step="any" min="0" formControlName="waterHHV"
-                        name="waterHHV" (change)="savePriceChanges()">
-                    <select class="input-group-text" formControlName="waterEnergyUnit" (change)="savePriceChanges()">
-                        <option *ngFor="let energyUnitOption of energyUnitOptions"
-                            [ngValue]="energyUnitOption.value">
-                            <span [innerHTML]="energyUnitOption.value | unitsDisplay">
-                            </span>/<span [innerHTML]="form.controls['waterUnit'].value | unitsDisplay">
-                            </span>
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </ng-container>
-    </div> -->
+    </div>
     <!--Waste Water-->
-    <!-- <div class="row mb-1">
+    <div class="row mb-1">
         <div class="col-4">
             <div class="input-group">
                 <div class="input-group-text">
@@ -239,30 +216,7 @@
                 </div>
             </div>
         </ng-container>
-        <ng-container *ngIf="form.controls['includeWasteWater'].value
-            && !('Waste Water' | isStandardUnit: form.controls['wasteWaterUnit'].value : 'Energy')">
-            <div class="col-4">
-                <div class="input-group">
-                    <input type="text" class="disabled-input-label-secondary" [disabled]="true"
-                    value="Waste Water HHV">
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="input-group">
-                    <input class="form-control" type="number" step="any" min="0" formControlName="wasteWaterHHV"
-                        name="wasteWaterHHV" (change)="savePriceChanges()">
-                    <select class="input-group-text" formControlName="wasteWaterEnergyUnit" (change)="savePriceChanges()">
-                        <option *ngFor="let energyUnitOption of energyUnitOptions"
-                            [ngValue]="energyUnitOption.value">
-                            <span [innerHTML]="energyUnitOption.value | unitsDisplay">
-                            </span>/<span [innerHTML]="form.controls['wasteWaterUnit'].value | unitsDisplay">
-                            </span>
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </ng-container>
-    </div> -->
+    </div>
     <!--Steam-->
     <div class="row mb-1">
         <div class="col-4">
@@ -308,7 +262,7 @@
             && !('Steam' | isStandardUnit : form.controls['steamUnit'].value : 'Energy')">
             <div class="col-4">
                 <div class="input-group">
-                    <input type="text" class="disabled-input-label-secondary" [disabled]="true"
+                    <input type="text" class="form-control disabled-input-label-secondary" [disabled]="true"
                     value="{{'Steam' | utilityHhvDisplay}}">
                 </div>
             </div>
@@ -373,7 +327,7 @@
             && !('Compressed Air' |isStandardUnit :form.controls['compressedAirUnit'].value : 'Energy')">
             <div class="col-4">
                 <div class="input-group">
-                    <input type="text" class="disabled-input-label-secondary" [disabled]="true"
+                    <input type="text" class="form-control disabled-input-label-secondary" [disabled]="true"
                     value="{{'Compressed Air' | utilityHhvDisplay}}">
                 </div>
             </div>
@@ -407,7 +361,7 @@
     <div class="row">
         <div class="col-4">
             <label>
-                Annual Cost
+                Annual Utility Cost
             </label>
         </div>
         <div class="col-4">

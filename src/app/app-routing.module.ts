@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { WelcomeComponent } from './core-components/welcome/welcome.component';
 import { PageNotFoundComponent } from './core-components/page-not-found/page-not-found.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
@@ -48,6 +48,7 @@ import { FeedbackPageComponent } from './core-components/feedback-page/feedback-
 import { HelpComponent } from './core-components/help/help.component';
 import { AboutComponent } from './core-components/about/about.component';
 import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
+import { NebsDatabaseComponent } from './nebs-database/nebs-database.component';
 
 const routes: Routes = [
   {
@@ -74,6 +75,10 @@ const routes: Routes = [
   {
     path: 'acknowledgments',
     component: AcknowledgmentsComponent
+  },
+  {
+    path: 'nebs-database',
+    component: NebsDatabaseComponent,
   },
   {
     path: 'setup-wizard',
@@ -301,8 +306,14 @@ const routes: Routes = [
 
 ];
 
+const routerOptions: ExtraOptions = {
+  anchorScrolling: 'enabled',
+  scrollPositionRestoration: 'enabled',
+  useHash: true
+}
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
