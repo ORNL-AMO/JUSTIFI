@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AssessmentDetailsFormComponent } from './assessment-details-form/assessment-details-form.component';
 import { FormsModule } from '@angular/forms';
-import { AssessmentEnergyOpportunitiesFormComponent } from './assessment-energy-opportunities-form/assessment-energy-opportunities-form.component';
 import { HelperPipesModule } from '../helper-pipes/helper-pipes.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { EnergyOpportunitySetupFormComponent } from './assessment-energy-opportunities-form/energy-opportunity-setup-form/energy-opportunity-setup-form.component';
 import { NebFormsAccordionComponent } from './neb-forms-accordion/neb-forms-accordion.component';
 import { NebSetupFormComponent } from './neb-forms-accordion/neb-setup-form/neb-setup-form.component';
 import { PerformanceMetricsModalComponent } from './neb-forms-accordion/neb-setup-form/performance-metrics-modal/performance-metrics-modal.component';
@@ -16,21 +14,21 @@ import { PrimaryKpiBadgeModule } from '../primary-kpi-badge/primary-kpi-badge.mo
 import { KpmDetailsFormModule } from '../kpm-details-form/kpm-details-form.module';
 import { AddNebsModalComponent } from './add-nebs-modal/add-nebs-modal.component';
 import { NebsDatabaseModule } from 'src/app/nebs-database/nebs-database.module';
+import { EnergyOpportunitySetupFormComponent } from './energy-opportunity-setup-form/energy-opportunity-setup-form.component';
 
 
 
 @NgModule({
   declarations: [
     AssessmentDetailsFormComponent,
-    AssessmentEnergyOpportunitiesFormComponent,
-    EnergyOpportunitySetupFormComponent,
     NebFormsAccordionComponent,
     NebSetupFormComponent,
     PerformanceMetricsModalComponent,
     AssociatedMetricIndicatorPipe,
     MetricOptionsModalListPipe,
     PerformanceMetricImpactFormComponent,
-    AddNebsModalComponent
+    AddNebsModalComponent,
+    EnergyOpportunitySetupFormComponent
   ],
   imports: [
     CommonModule,
@@ -43,9 +41,9 @@ import { NebsDatabaseModule } from 'src/app/nebs-database/nebs-database.module';
   ],
   exports: [
     AssessmentDetailsFormComponent,
-    AssessmentEnergyOpportunitiesFormComponent,
     NebFormsAccordionComponent,
-    AddNebsModalComponent
+    AddNebsModalComponent,
+    EnergyOpportunitySetupFormComponent
   ]
 })
 export class SharedAssessmentFormsModule { }

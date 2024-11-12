@@ -18,7 +18,7 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
-import { AssessmentEnergyOpportunitiesFormService } from '../assessment-energy-opportunities-form/assessment-energy-opportunities-form.service';
+import { AssessmentEnergyOpportunitiesFormService } from '../../../setup-wizard/data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.service';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({

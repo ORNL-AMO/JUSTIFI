@@ -23,7 +23,7 @@ export class FacilitySetupFormComponent {
     if (this.facility) {
       this.name = new FormControl(this.facility.generalInformation.name, [Validators.required]);
     } else {
-      this.router.navigateByUrl('/welcome');
+      this.name = new FormControl('', [Validators.required]);
     }
   }
 

@@ -22,7 +22,7 @@ import { DataFollowUpComponent } from "../setup-wizard/data-evaluation/data-foll
 import { AssessmentEvaluationComponent } from "../setup-wizard/data-evaluation/assessment-evaluation/assessment-evaluation.component";
 import { VisitReportComponent } from "../setup-wizard/data-evaluation/visit-report/visit-report.component";
 import { AssessmentDetailsFormComponent } from "../shared/shared-assessment-forms/assessment-details-form/assessment-details-form.component";
-import { AssessmentEnergyOpportunitiesFormComponent } from "../shared/shared-assessment-forms/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component";
+import { AssessmentEnergyOpportunitiesFormComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component";
 
 
 export const SetupWizardRoutes: Route = {

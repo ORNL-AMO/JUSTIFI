@@ -22,8 +22,8 @@ import { AssessmentEnergyOpportunitiesComponent } from "../user-portfolio/assess
 import { CanDeactivateGuard } from "../guards/can-deactivate.guard";
 import { CompanyKpiSearchFormComponent } from "../shared/shared-company-forms/company-kpi-search-form/company-kpi-search-form.component";
 import { CompanyKpiDetailsFormComponent } from "../shared/shared-company-forms/company-kpi-details-form/company-kpi-details-form.component";
-import { EnergyOpportunitySetupFormComponent } from "../shared/shared-assessment-forms/assessment-energy-opportunities-form/energy-opportunity-setup-form/energy-opportunity-setup-form.component";
 import { AssessmentEnergyOpportunitiesHomeComponent } from "../user-portfolio/assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities-home/assessment-energy-opportunities-home.component";
+import { EnergyOpportunitySetupFormComponent } from "../shared/shared-assessment-forms/energy-opportunity-setup-form/energy-opportunity-setup-form.component";
 
 
 export const PortfolioRoutes: Route = {

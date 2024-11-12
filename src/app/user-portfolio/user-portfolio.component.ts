@@ -28,6 +28,7 @@ export class UserPortfolioComponent {
   facilitySub: Subscription;
   assessment: IdbAssessment;
   assessmentSub: Subscription;
+  routerSub: Subscription;
   constructor(
     private router: Router,
     private companyIdbService: CompanyIdbService,
@@ -35,14 +36,14 @@ export class UserPortfolioComponent {
     private assessmentIdbService: AssessmentIdbService,
     private cd: ChangeDetectorRef
   ) {
-    this.router.events.subscribe(event => {
+  }
+
+  ngOnInit() {
+    this.routerSub = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.setContext(event.urlAfterRedirects);
       }
     });
-  }
-
-  ngOnInit() {
     this.setContext(this.router.url);
     this.companySub = this.companyIdbService.selectedCompany.subscribe(selectedCompany => {
       this.company = selectedCompany;
@@ -62,6 +63,7 @@ export class UserPortfolioComponent {
     this.companySub.unsubscribe();
     this.facilitySub.unsubscribe();
     this.assessmentSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   setContext(url: string) {

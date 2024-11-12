@@ -12,7 +12,7 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbFacility } from 'src/app/models/facility';
 import { FacilitySetupService } from 'src/app/setup-wizard/pre-visit/facility-setup/facility-setup.service';
 import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessment-setup/pre-assessment-setup.service';
-import { AssessmentEnergyOpportunitiesFormService } from '../../shared-assessment-forms/assessment-energy-opportunities-form/assessment-energy-opportunities-form.service';
+import { AssessmentEnergyOpportunitiesFormService } from '../../../setup-wizard/data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.service';
 import { FacilityEnergyEquipmentSetupService } from 'src/app/setup-wizard/pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.service';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 

@@ -31,7 +31,8 @@ const routes: Routes = [
 const routerOptions: ExtraOptions = {
   anchorScrolling: 'enabled',
   scrollPositionRestoration: 'enabled',
-  useHash: true
+  useHash: true,
+  enableViewTransitions: true
 }
 
 @NgModule({

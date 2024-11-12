@@ -48,6 +48,7 @@ import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-for
 import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/shared-assessment-forms.module';
 import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-company-forms.module";
 import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/shared-facility-forms.module';
+import { AssessmentEnergyOpportunitiesFormComponent } from './data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/share
     FacilityEnergyEquipmentSetupComponent,
     EnergyEquipmentFormComponent,
     EnergyOpportunityNebsTableComponent,
-    EnergyOpportunityNebsListPipe
+    EnergyOpportunityNebsListPipe,
+    AssessmentEnergyOpportunitiesFormComponent
   ],
   imports: [
     CommonModule,

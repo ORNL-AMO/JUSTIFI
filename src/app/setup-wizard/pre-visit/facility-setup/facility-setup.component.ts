@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IdbFacility } from 'src/app/models/facility';
-import { IconDefinition, faChevronLeft, faChevronRight, faContactCard, faFilePen, faGear, faIndustry, faLocationDot, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronLeft, faChevronRight, faIndustry, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { FormControl, Validators } from '@angular/forms';
 import { Observable, of, Subscription } from 'rxjs';
-import { Icon } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-facility-setup',
@@ -37,7 +36,11 @@ export class FacilitySetupComponent implements OnInit {
   ngOnInit() {
     this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
       this.facility = facility;
-      this.name = new FormControl(this.facility.generalInformation.name, [Validators.required]);
+      if(this.facility){
+        this.name = new FormControl(this.facility.generalInformation.name, [Validators.required]);
+      }else{
+        this.name = new FormControl('', [Validators.required]);
+      }
     });
   }
 

@@ -10,12 +10,12 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
-import { EnergyOpportunitySetupFormComponent } from './energy-opportunity-setup-form/energy-opportunity-setup-form.component';
-import { NebFormsAccordionComponent } from '../neb-forms-accordion/neb-forms-accordion.component';
+import { NebFormsAccordionComponent } from '../../../../shared/shared-assessment-forms/neb-forms-accordion/neb-forms-accordion.component';
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
 import { getDefaultUnitSettings } from 'src/app/models/unitSettings';
+import { EnergyOpportunitySetupFormComponent } from 'src/app/shared/shared-assessment-forms/energy-opportunity-setup-form/energy-opportunity-setup-form.component';
 
 describe('AssessmentEnergyOpportunitiesFormComponent', () => {
   let component: AssessmentEnergyOpportunitiesFormComponent;

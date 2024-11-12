@@ -47,6 +47,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   collapseDataCollection: boolean = true;
   collapseDataEvaluation: boolean = true;
 
+  routerSub: Subscription;
   constructor(private router: Router, private setupWizardService: SetupWizardService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
@@ -57,7 +58,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
+    this.routerSub = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.setDisplaySidebar();
       }
@@ -95,6 +96,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.onSiteVisitSub.unsubscribe();
     this.companySub.unsubscribe();
     this.keyPerformanceIndicatorsSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   setDisplaySidebar() {
