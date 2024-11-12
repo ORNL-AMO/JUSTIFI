@@ -16,6 +16,7 @@ import { UnitSettings } from 'src/app/models/unitSettings';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-energy-opportunity-setup-form',
@@ -27,6 +28,8 @@ export class EnergyOpportunitySetupFormComponent {
   energyOpportunityGuid: string;
   @Output('emitInitialized')
   emitInitialized = new EventEmitter<boolean>();
+  @Input()
+  inWizard: boolean;
 
 
   energyOpportunity: IdbEnergyOpportunity;
@@ -61,11 +64,20 @@ export class EnergyOpportunitySetupFormComponent {
     private companyIdbService: CompanyIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private facilityIdbService: FacilityIdbService,
+    private activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
-    this.energyOpportunity = this.energyOpportunityIdbService.getByGuid(this.energyOpportunityGuid);
+    if (!this.inWizard) {
+      this.activatedRoute.params.subscribe(params => {
+        this.energyOpportunityGuid = params['id'];
+        this.energyOpportunity = this.energyOpportunityIdbService.getByGuid(this.energyOpportunityGuid);
+      });
+    } else {
+      this.energyOpportunity = this.energyOpportunityIdbService.getByGuid(this.energyOpportunityGuid);
+    }
+
     this.companySub = this.companyIdbService.selectedCompany.subscribe(company => {
       this.companyEnergyUnit = company.companyEnergyUnit;
     });
@@ -93,7 +105,7 @@ export class EnergyOpportunitySetupFormComponent {
   }
 
   async changeUtilityType() {
-    let energyUse = this.assessmentEnergyUses.find(use => 
+    let energyUse = this.assessmentEnergyUses.find(use =>
       use.utilityType === this.energyOpportunity.utilityType);
     this.energyOpportunity.energyUnit = energyUse.energyUnit;
     await this.saveEnergyOpportunity();
@@ -104,7 +116,7 @@ export class EnergyOpportunitySetupFormComponent {
     let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
     if (this.facilityUnitSettings[`include${trimmedType}`]) {
       this.energyOpportunity.costSavings = this.convertValue.convertValue(
-        this.energyOpportunity.energySavings *this.facilityUnitSettings[`${camelCaseType}Price`],
+        this.energyOpportunity.energySavings * this.facilityUnitSettings[`${camelCaseType}Price`],
         this.energyOpportunity.energyUnit,
         this.facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
     }

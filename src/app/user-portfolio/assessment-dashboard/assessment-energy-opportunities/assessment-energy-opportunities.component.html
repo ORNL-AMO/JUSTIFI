@@ -1,56 +1,45 @@
-<div class="card portfolio">
+<!-- <div class="card portfolio">
     <div class="card-body">
-         <!--<div class="card-title secondary d-flex justify-content-between mb-2">
-            <div>
-                {{assessment.name}} Energy Efficiency Opportunities
-            </div>
-            <!-- <div>
-                <button class="btn btn-outline-success me-1 btn-sm" (click)="goToVisit()">
-                    <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
-                    <span class="d-none">
-                        Open {{assessment.name}} In Wizard
-                    </span>
-                </button>
-                <ng-template [ngIf]="isDisabled" [ngIfElse]="unlockedBlock">
-                    <button class="btn btn-dark btn-sm" (click)="openUnlockModal()">
-                        <fa-icon [icon]="faLock"></fa-icon>
-                        <span class="d-none">
-                            Unlock {{assessment.name}} Details
-                        </span>
-                    </button>
-                </ng-template>
-                <ng-template #unlockedBlock>
-                    <button class="btn btn-dark btn-sm" (click)="toggleDisabled()">
-                        <fa-icon [icon]="faUnlock"></fa-icon>
-                        <span class="d-none">
-                            Lock {{assessment.name}} Details
-                        </span>
-                    </button>
-                </ng-template>
-            </div> 
-        </div> -->
-        <!-- <app-assessment-details-form [isDisabled]="isDisabled"></app-assessment-details-form> -->
          <app-assessment-energy-opportunities-form></app-assessment-energy-opportunities-form>
     </div>
-</div>
-
-<!-- <div [ngClass]="{'window-overlay': displayUnlockModal}"></div>
-<div class="popup" [ngClass]="{'open': displayUnlockModal }">
-    <div class="popup-header">Edit Assessment Details
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeUnlockModal()"></button>
-    </div>
-    <div class="popup-body">
-        <div class="alert alert-info p-2">
-            Are you sure you would like to modify the details of this assessment? Changes will be saved automatically
-            and may effect reports for the company and facility this assessment is in.
-        </div>
-        <hr>
-    </div>
-    <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2 btn-sm" (click)="closeUnlockModal()">Cancel</button>
-        <button class="btn btn-success btn-sm" (click)="toggleDisabled()">
-            <fa-icon [icon]="faUnlock"></fa-icon>
-            Unlock Assessment Details
-        </button>
-    </div>
 </div> -->
+
+<div class="d-flex">
+    <div class="d-flex nav-flex pe-3">
+        <nav class="nav navbar nav-tabs flex-column pt-0">
+
+            <div class="nav-item mb-2">
+                <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/energy-opportunities'"
+                    [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="d-block">
+                            Summary
+                        </div>
+                        <div>
+                            <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="nav-item" *ngFor="let energyOpportunity of energyOpportunities">
+                <a class="nav-link"
+                    [routerLink]="'/portfolio/assessment/'+energyOpportunity.assessmentId + '/energy-opportunities/'+energyOpportunity.guid"
+                    [routerLinkActive]="'active'">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="d-block">
+                            {{energyOpportunity.name}}
+                        </div>
+                        <div>
+                            <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </nav>
+    </div>
+    <div class="card portfolio w-100">
+        <div class="card-body">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

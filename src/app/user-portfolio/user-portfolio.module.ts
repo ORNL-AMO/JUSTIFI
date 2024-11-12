@@ -37,6 +37,7 @@ import { AssessmentEnergyOpportunitiesComponent } from './assessment-dashboard/a
 import { ReportsModule } from '../shared/reports/reports.module';
 import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-company-forms.module";
 import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/shared-facility-forms.module';
+import { AssessmentEnergyOpportunitiesHomeComponent } from './assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities-home/assessment-energy-opportunities-home.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/share
     AssessmentSettingsComponent,
     AssessmentReportsComponent,
     AssessmentDetailsComponent,
-    AssessmentEnergyOpportunitiesComponent
+    AssessmentEnergyOpportunitiesComponent,
+    AssessmentEnergyOpportunitiesHomeComponent
   ],
   imports: [
     CommonModule,
