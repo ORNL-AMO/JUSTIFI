@@ -32,6 +32,7 @@ import { LinkedUnitOptionsPipe } from './linked-unit-options.pipe';
 import { LinkedUtilityOptionsPipe } from './linked-utility-options.pipe';
 import { IsStandardUnitPipe } from './is-standard-unit.pipe';
 import { UtilityHhvDisplayPipe } from './utility-hhv-display.pipe';
+import { ContactInvalidPipe } from './contact-invalid.pipe';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { UtilityHhvDisplayPipe } from './utility-hhv-display.pipe';
     LinkedUtilityOptionsPipe,
     IsStandardUnitPipe,
     UtilityHhvDisplayPipe,
+    ContactInvalidPipe
   ],
   imports: [
     CommonModule
@@ -104,6 +106,7 @@ import { UtilityHhvDisplayPipe } from './utility-hhv-display.pipe';
     LinkedUtilityOptionsPipe,
     IsStandardUnitPipe,
     UtilityHhvDisplayPipe,
+    ContactInvalidPipe
   ]
 })
 export class HelperPipesModule { }

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContactSummaryCardComponent } from './contact-summary-card.component';
 import { getNewIdbContact } from 'src/app/models/contact';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HelperPipesModule } from 'src/app/shared/helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { TableEntriesModule } from 'src/app/shared/table-entries/table-entries.module';
 import { BehaviorSubject } from 'rxjs';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';

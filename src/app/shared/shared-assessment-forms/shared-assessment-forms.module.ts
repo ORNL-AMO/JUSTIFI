@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AssessmentDetailsFormComponent } from './assessment-details-form/assessment-details-form.component';
 import { FormsModule } from '@angular/forms';
-import { HelperPipesModule } from '../helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from '../helper-pipes/_helper-pipes.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NebFormsAccordionComponent } from './neb-forms-accordion/neb-forms-accordion.component';
 import { NebSetupFormComponent } from './neb-forms-accordion/neb-setup-form/neb-setup-form.component';

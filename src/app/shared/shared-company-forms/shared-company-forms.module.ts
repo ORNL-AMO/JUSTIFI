@@ -7,7 +7,7 @@ import { SharedSettingsFormsModule } from '../shared-settings-forms/shared-setti
 import { CompanySetupFormComponent } from './company-setup-form/company-setup-form.component';
 import { CompanyKpiDetailsFormComponent } from './company-kpi-details-form/company-kpi-details-form.component';
 import { PrimaryKpiBadgeModule } from '../primary-kpi-badge/primary-kpi-badge.module';
-import { HelperPipesModule } from '../helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from '../helper-pipes/_helper-pipes.module';
 import { KpiDescriptionPipe } from './company-kpi-details-form/kpi-description.pipe';
 import { KpmDetailsFormModule } from '../kpm-details-form/kpm-details-form.module';
 import { KpmDatabaseModalComponent } from './company-kpi-details-form/kpm-database-modal/kpm-database-modal.component';
@@ -17,8 +17,7 @@ import { CompanyKpiSearchFormComponent } from './company-kpi-search-form/company
 import { AddKpiSearchComponent } from './company-kpi-search-form/add-kpi-search/add-kpi-search.component';
 import { CompanyKpiListComponent } from './company-kpi-search-form/company-kpi-list/company-kpi-list.component';
 import { SelectedKpiOptionPipe } from './company-kpi-search-form/add-kpi-search/selected-kpi-option.pipe';
-import { CompanyContactsSetupFormComponent } from './company-contacts-setup-form/company-contacts-setup-form.component';
-import { CompanyContactsFormComponent } from './company-contacts-setup-form/company-contacts-form/company-contacts-form.component';
+import { CompanyContactsFormComponent } from './company-contacts-form/company-contacts-form.component';
 
 
 
@@ -33,7 +32,6 @@ import { CompanyContactsFormComponent } from './company-contacts-setup-form/comp
     AddKpiSearchComponent,
     CompanyKpiListComponent,
     SelectedKpiOptionPipe,
-    CompanyContactsSetupFormComponent,
     CompanyContactsFormComponent
   ],
   imports: [
@@ -52,7 +50,7 @@ import { CompanyContactsFormComponent } from './company-contacts-setup-form/comp
     CompanySetupFormComponent,
     CompanyKpiDetailsFormComponent,
     CompanyKpiSearchFormComponent,
-    CompanyContactsSetupFormComponent
+    CompanyContactsFormComponent
   ]
 })
 export class SharedCompanyFormsModule { }

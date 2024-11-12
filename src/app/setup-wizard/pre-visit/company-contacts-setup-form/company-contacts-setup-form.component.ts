@@ -2,11 +2,11 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { getNewIdbContact, IdbContact } from 'src/app/models/contact';
 import { IdbCompany } from 'src/app/models/company';
-import { faAddressBook, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faAddressBook, faCircleExclamation, faPlus, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
-import { LocalStorageDataService } from '../../shared-services/local-storage-data.service';
-import { BootstrapService } from '../../shared-services/bootstrap.service';
+import { LocalStorageDataService } from '../../../shared/shared-services/local-storage-data.service';
+import { BootstrapService } from '../../../shared/shared-services/bootstrap.service';
 
 @Component({
   selector: 'app-company-contacts-setup-form',
@@ -15,6 +15,9 @@ import { BootstrapService } from '../../shared-services/bootstrap.service';
 })
 export class CompanyContactsSetupFormComponent {
 
+  faUser: IconDefinition = faUser;
+  faCircleExclamation: IconDefinition = faCircleExclamation;
+  
   allContacts: Array<IdbContact>;
   companyContactGuids: Array<string>;
   contactsSub: Subscription

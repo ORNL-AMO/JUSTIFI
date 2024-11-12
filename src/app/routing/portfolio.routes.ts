@@ -30,6 +30,8 @@ import { IndustrialSystemInventoryHomeComponent } from "../user-portfolio/facili
 import { EnergyEquipmentFormComponent } from "../shared/shared-facility-forms/energy-equipment-form/energy-equipment-form.component";
 import { EndUseInventoryHomeComponent } from "../user-portfolio/facility-dashboard/end-use-inventory/end-use-inventory-home/end-use-inventory-home.component";
 import { ProcessEquipmentFormComponent } from "../shared/shared-facility-forms/process-equipment-form/process-equipment-form.component";
+import { CompanyStakeholdersHomeComponent } from "../user-portfolio/company-dashboard/company-stakeholders/company-stakeholders-home/company-stakeholders-home.component";
+import { CompanyContactsFormComponent } from "../shared/shared-company-forms/company-contacts-form/company-contacts-form.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -65,7 +67,17 @@ export const PortfolioRoutes: Route = {
                 {
                     path: 'stakeholders',
                     component: CompanyStakeholdersComponent,
-                    canDeactivate: [CanDeactivateGuard]
+                    children: [
+                        {
+                            path: '',
+                            component: CompanyStakeholdersHomeComponent
+                        },
+                        {
+                            path: ':id',
+                            component: CompanyContactsFormComponent,
+                            canDeactivate: [CanDeactivateGuard]
+                        }
+                    ]
                 },
                 {
                     path: 'reports',

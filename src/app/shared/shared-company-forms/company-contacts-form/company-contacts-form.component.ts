@@ -4,9 +4,8 @@ import { CompanyContactsFormService } from './company-contacts-form.service';
 import { IdbContact } from 'src/app/models/contact';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { IconDefinition, faCircleExclamation, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
-import { firstValueFrom } from 'rxjs';
-import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
-import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
+import { firstValueFrom, Observable, of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-company-contacts-form',
@@ -16,8 +15,6 @@ import { LocalStorageDataService } from 'src/app/shared/shared-services/local-st
 export class CompanyContactsFormComponent {
   @Input({ required: true })
   contactGuid: string;
-  @Input({ required: true })
-  accordionGuid: string;
   @Output('emitInitialized')
   emitInitialized = new EventEmitter<boolean>();
 
@@ -29,15 +26,24 @@ export class CompanyContactsFormComponent {
   contact: IdbContact;
   contactForm: FormGroup;
   displayDeleteModal: boolean = false;
+  routeGuardWarningModal: boolean = false;
   constructor(private contactIdbService: ContactIdbService, private companyContactsFormService: CompanyContactsFormService,
-    private bootstrapService: BootstrapService,
-    private localStorageDataService: LocalStorageDataService
+    private activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
-    this.contact = this.contactIdbService.getContactByGuid(this.contactGuid);
-    this.contactForm = this.companyContactsFormService.getFormFromIdbContact(this.contact);
+    if (!this.contactGuid) {
+      this.activatedRoute.params.subscribe(params => {
+        this.contactGuid = params['id'];
+        this.contact = this.contactIdbService.getContactByGuid(this.contactGuid);
+        this.contactForm = this.companyContactsFormService.getFormFromIdbContact(this.contact);
+      });
+    } else {
+      this.contact = this.contactIdbService.getContactByGuid(this.contactGuid);
+      this.contactForm = this.companyContactsFormService.getFormFromIdbContact(this.contact);
+    }
+
   }
   ngAfterViewInit() {
     //emit after intialized. 
@@ -64,13 +70,22 @@ export class CompanyContactsFormComponent {
     this.closeDeleteModal();
   }
 
-  toggleBS() {
-    this.bootstrapService.bsCollapse('#' + this.contactGuid);
-    if (this.accordionGuid != this.contactGuid) {
-      this.accordionGuid = this.contactGuid;
-    } else {
-      this.accordionGuid = undefined;
+  canDeactivate(): Observable<boolean> {
+    if (this.contactForm.controls['firstname'].invalid ||
+      this.contactForm.controls['lastname'].invalid
+    ) {
+      this.contactForm.markAllAsTouched();
+      this.dislayWarningModal();
+      return of(false);
     }
-    this.localStorageDataService.setContactAccordionGuid(this.accordionGuid);
+    return of(true);
+  }
+
+  dislayWarningModal() {
+    this.routeGuardWarningModal = true;
+  }
+
+  closeWarningModal() {
+    this.routeGuardWarningModal = false;
   }
 }

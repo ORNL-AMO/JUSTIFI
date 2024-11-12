@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UserPortfolioComponent } from './user-portfolio.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LatestVisitsTableComponent } from './latest-visits-table/latest-visits-table.component';
-import { HelperPipesModule } from '../shared/helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
 import { PortfolioSummaryCardComponent } from './portfolio-summary-card/portfolio-summary-card.component';
 import { PortfolioItemsListComponent } from './portfolio-items-list/portfolio-items-list.component';
 import { CompanyListItemComponent } from './portfolio-items-list/company-list-item/company-list-item.component';
@@ -42,6 +42,7 @@ import { AssessmentNebsHomeComponent } from './assessment-dashboard/assessment-n
 import { ContactModalModule } from '../shared/contact-modal/contact-modal.module';
 import { IndustrialSystemInventoryHomeComponent } from './facility-dashboard/industrial-system-inventory/industrial-system-inventory-home/industrial-system-inventory-home.component';
 import { EndUseInventoryHomeComponent } from './facility-dashboard/end-use-inventory/end-use-inventory-home/end-use-inventory-home.component';
+import { CompanyStakeholdersHomeComponent } from './company-dashboard/company-stakeholders/company-stakeholders-home/company-stakeholders-home.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { EndUseInventoryHomeComponent } from './facility-dashboard/end-use-inven
     AssessmentNebsComponent,
     AssessmentNebsHomeComponent,
     IndustrialSystemInventoryHomeComponent,
-    EndUseInventoryHomeComponent
+    EndUseInventoryHomeComponent,
+    CompanyStakeholdersHomeComponent
   ],
   imports: [
     CommonModule,

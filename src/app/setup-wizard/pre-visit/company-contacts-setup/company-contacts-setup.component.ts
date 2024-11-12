@@ -9,7 +9,7 @@ import { Observable, Subscription, of } from 'rxjs';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import * as _ from 'lodash';
-import { CompanyContactsFormService } from '../../../shared/shared-company-forms/company-contacts-setup-form/company-contacts-form/company-contacts-form.service';
+import { CompanyContactsFormService } from '../../../shared/shared-company-forms/company-contacts-form/company-contacts-form.service';
 import { FormGroup } from '@angular/forms';
 
 @Component({

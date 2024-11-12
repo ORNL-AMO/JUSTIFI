@@ -13,7 +13,7 @@ import { IdbContact } from 'src/app/models/contact';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HelperPipesModule } from 'src/app/shared/helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { AddKpiSearchComponent } from '../../../shared/shared-company-forms/company-kpi-search-form/add-kpi-search/add-kpi-search.component';
 import { CompanyKpiListComponent } from '../../../shared/shared-company-forms/company-kpi-search-form/company-kpi-list/company-kpi-list.component';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';

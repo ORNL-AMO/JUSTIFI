@@ -7,7 +7,7 @@ import { CompanySetupComponent } from './pre-visit/company-setup/company-setup.c
 import { FacilitySetupComponent } from './pre-visit/facility-setup/facility-setup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedSettingsFormsModule } from '../shared/shared-settings-forms/shared-settings-forms.module';
-import { HelperPipesModule } from '../shared/helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
 import { SetupWizardSidebarComponent } from './setup-wizard-sidebar/setup-wizard-sidebar.component';
 import { CompanyContactsSetupComponent } from './pre-visit/company-contacts-setup/company-contacts-setup.component';
 import { FacilityProcessEquipmentSetupComponent } from './pre-visit/facility-process-equipment-setup/facility-process-equipment-setup.component';
@@ -47,6 +47,7 @@ import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/s
 import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-company-forms.module";
 import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/shared-facility-forms.module';
 import { AssessmentEnergyOpportunitiesFormComponent } from './data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component';
+import { CompanyContactsSetupFormComponent } from './pre-visit/company-contacts-setup-form/company-contacts-setup-form.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { AssessmentEnergyOpportunitiesFormComponent } from './data-collection/on
     FacilityEnergyEquipmentSetupComponent,
     EnergyOpportunityNebsTableComponent,
     EnergyOpportunityNebsListPipe,
-    AssessmentEnergyOpportunitiesFormComponent
+    AssessmentEnergyOpportunitiesFormComponent,
+    CompanyContactsSetupFormComponent
   ],
   imports: [
     CommonModule,

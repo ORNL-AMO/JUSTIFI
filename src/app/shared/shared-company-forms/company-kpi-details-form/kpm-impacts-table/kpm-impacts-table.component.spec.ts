@@ -11,7 +11,7 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HelperPipesModule } from 'src/app/shared/helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 
 describe('KpmImpactsTableComponent', () => {
   let component: KpmImpactsTableComponent;
