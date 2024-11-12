@@ -67,7 +67,7 @@ export class AssessmentDetailsFormComponent {
     private facilityIdbService: FacilityIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private assessmentEnergyOpportunitiesFormService: AssessmentEnergyOpportunitiesFormService,
-    
+
   ) { }
 
   ngOnInit() {
@@ -135,7 +135,7 @@ export class AssessmentDetailsFormComponent {
         let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
           _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
         // calculate use
-        if (selectedUtilityOption.isStandardEnergyUnit 
+        if (selectedUtilityOption.isStandardEnergyUnit
           && selectedUnitOption.isStandard !== false) {
           convertedUse = this.convertValue.convertValue(
             utilityEnergyUse.energyUse,
@@ -170,7 +170,9 @@ export class AssessmentDetailsFormComponent {
 
   openContactModal(viewContact: IdbContact) {
     this.sharedDataService.displayContactModal.next(
-      { context: 'assessment', viewContact: viewContact, contextGuid: this.assessment.guid });
+      {
+        context: 'assessment', viewContact: viewContact, contextGuid: this.assessment.guid, companyId: this.assessment.companyId
+      });
 
   }
 }

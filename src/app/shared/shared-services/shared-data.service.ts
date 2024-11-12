@@ -18,12 +18,13 @@ export class SharedDataService {
   displayContactModal: BehaviorSubject<{
     context: ContactContext,
     viewContact: IdbContact,
-    contextGuid: string
+    contextGuid: string,
+    companyId: string
   }>;
   constructor() {
     this.createAssessmentModalOpen = new BehaviorSubject<boolean>(false);
     this.sidebarOpen = new BehaviorSubject<boolean>(false);
     this.displayAddNebsModal = new BehaviorSubject<{ assessmentId: string, energyOpportunityId: string }>(undefined);
-    this.displayContactModal = new BehaviorSubject<{ context: ContactContext, viewContact: IdbContact, contextGuid: string }>(undefined);
+    this.displayContactModal = new BehaviorSubject<{ context: ContactContext, viewContact: IdbContact, contextGuid: string, companyId: string }>(undefined);
   }
 }

@@ -12,6 +12,7 @@ import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-perfo
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
+import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({
   selector: 'app-company-kpi-details-form',
@@ -38,9 +39,6 @@ export class CompanyKpiDetailsFormComponent {
   companySub: Subscription;
   company: IdbCompany;
 
-  displayContactModal: boolean = false;
-  viewContact: IdbContact;
-
   contacts: Array<IdbContact>;
   contactsSub: Subscription;
 
@@ -60,7 +58,8 @@ export class CompanyKpiDetailsFormComponent {
     private activatedRoute: ActivatedRoute,
     private companyIdbService: CompanyIdbService,
     private contactIdbService: ContactIdbService,
-    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService
+    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
+    private sharedDataService: SharedDataService
   ) {
   }
 
@@ -112,13 +111,7 @@ export class CompanyKpiDetailsFormComponent {
   }
 
   openContactModal(contact: IdbContact) {
-    this.viewContact = contact;
-    this.displayContactModal = true;
-  }
-
-  closeContactModal() {
-    this.displayContactModal = false;
-    this.viewContact = undefined;
+    this.sharedDataService.displayContactModal.next({context: 'KPI', viewContact: contact, contextGuid: this.keyPerformanceIndicator.guid, companyId: this.keyPerformanceIndicator.companyId});
   }
 
   addPerformanceMetric() {

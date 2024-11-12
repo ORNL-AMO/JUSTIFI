@@ -200,12 +200,12 @@
                                                     <div class="col-6">
                                                         <button class="btn btn-sm btn-primary me-1"
                                                             *ngFor="let contact of assessment.guid | associatedContacts:'assessment': contacts;"
-                                                            (click)="openContactModal(assessmentIndex, contact)">
+                                                            (click)="openContactModal(assessment, contact)">
                                                             <fa-icon [icon]="faUser"></fa-icon>
                                                             {{contact | contactNameDisplay}}
                                                         </button>
                                                         <button class="btn btn-sm btn-secondary"
-                                                            (click)="openContactModal(assessmentIndex, undefined)">
+                                                            (click)="openContactModal(assessment, undefined)">
                                                             <fa-icon [icon]="faContactBook"></fa-icon>
                                                             Stakeholders
                                                         </button>
@@ -265,8 +265,3 @@
             Assessment</button>
     </div>
 </div>
-
-
-<app-contact-modal *ngIf="displayContactModal" (emitCancelContact)="closeContactModal()"
-    [contextGuid]="assessments[contactAssessmentIndex].guid" [contactContext]="'assessment'"
-    [selectedContact]="viewContact" [companyGuid]="assessments[contactAssessmentIndex].companyId"></app-contact-modal>

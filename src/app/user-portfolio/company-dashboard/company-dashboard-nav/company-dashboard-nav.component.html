@@ -5,6 +5,12 @@
             Dashboard</a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/manage'" [routerLinkActive]="'active'">
+            <fa-icon [icon]="faGears"></fa-icon>
+            Details
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/stakeholders'"
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faAddressBook"></fa-icon>
@@ -23,12 +29,6 @@
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faFile"></fa-icon>
             Reports
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/manage'" [routerLinkActive]="'active'">
-            <fa-icon [icon]="faGears"></fa-icon>
-            Details
         </a>
     </li>
 </ul>

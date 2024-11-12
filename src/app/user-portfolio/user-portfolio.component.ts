@@ -36,7 +36,7 @@ export class UserPortfolioComponent {
     energyOpportunityId: string
   };
   displayAddNebsModalSub: Subscription;
-  displayContactModal: { context: ContactContext, viewContact: IdbContact, contextGuid: string };
+  displayContactModal: { context: ContactContext, viewContact: IdbContact, contextGuid: string, companyId: string };
   displayContactModalSub: Subscription;
   constructor(
     private router: Router,

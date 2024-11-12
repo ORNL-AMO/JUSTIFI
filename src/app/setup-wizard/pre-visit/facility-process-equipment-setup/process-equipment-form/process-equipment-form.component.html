@@ -67,7 +67,3 @@
             End Use</button>
     </div>
 </div>
-
-<app-contact-modal *ngIf="displayContactModal" (emitCancelContact)="closeContactModal()"
-    [contextGuid]="processEquipment.guid" [contactContext]="'processEquipment'"
-    [selectedContact]="viewContact" [companyGuid]="processEquipment.companyId"></app-contact-modal>

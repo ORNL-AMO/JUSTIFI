@@ -6,8 +6,7 @@ import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbContact } from 'src/app/models/contact';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
-import { EquipmentType, EquipmentTypes } from 'src/app/shared/constants/equipmentTypes';
-import { UtilityType, UtilityTypes } from 'src/app/shared/constants/utilityTypes';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
   selector: 'app-process-equipment-form',
@@ -15,7 +14,7 @@ import { UtilityType, UtilityTypes } from 'src/app/shared/constants/utilityTypes
   styleUrl: './process-equipment-form.component.css'
 })
 export class ProcessEquipmentFormComponent {
-  @Input({required: true})
+  @Input({ required: true })
   processEquipmentGuid: string;
   @Output('emitInitialized')
   emitInitialized = new EventEmitter<boolean>();
@@ -28,11 +27,10 @@ export class ProcessEquipmentFormComponent {
   displayDeleteModal: boolean = false;
   contacts: Array<IdbContact>;
   contactSub: Subscription;
-  viewContact: IdbContact;
-  displayContactModal: boolean = false;
   constructor(private processEquipmentIdbService: ProcessEquipmentIdbService,
     private dbChangesService: DbChangesService,
-    private contactIdbService: ContactIdbService
+    private contactIdbService: ContactIdbService,
+    private sharedDataService: SharedDataService
   ) { }
 
   ngOnInit() {
@@ -69,12 +67,10 @@ export class ProcessEquipmentFormComponent {
   }
 
   openContactModal(viewContact: IdbContact) {
-    this.viewContact = viewContact;
-    this.displayContactModal = true;
+    this.sharedDataService.displayContactModal.next({ context: 'processEquipment', viewContact: viewContact, contextGuid: this.processEquipment.guid, companyId: this.processEquipment.companyId });
   }
 
   closeContactModal() {
-    this.displayContactModal = false;
-    this.viewContact = undefined;
+    this.sharedDataService.displayContactModal.next(undefined)
   }
 }

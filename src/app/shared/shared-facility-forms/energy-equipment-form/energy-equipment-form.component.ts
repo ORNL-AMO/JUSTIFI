@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { faContactBook, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
@@ -13,6 +14,7 @@ import { EquipmentType, EquipmentTypeOptions, EquipmentTypes } from 'src/app/sha
 import { EnergyUnitOptions, ProcessCoolingUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from 'src/app/shared/constants/unitOptions';
 import { UtilityOption, UtilityOptions, UtilityType, UtilityTypes } from 'src/app/shared/constants/utilityTypes';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
+import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({
   selector: 'app-energy-equipment-form',
@@ -30,12 +32,14 @@ export class EnergyEquipmentFormComponent {
   faContactBook: IconDefinition = faContactBook;
 
   equipmentTypes: Array<EquipmentType> = EquipmentTypes;
-  equipmentTypeOptions: Array<{ equipmentType: EquipmentType, 
-      utilityTypes: Array<UtilityType>,
-      defaultUnit: string }> = EquipmentTypeOptions;
+  equipmentTypeOptions: Array<{
+    equipmentType: EquipmentType,
+    utilityTypes: Array<UtilityType>,
+    defaultUnit: string
+  }> = EquipmentTypeOptions;
   utilityOptions: Array<UtilityOption> = UtilityOptions;
 
-  fuelVolumeUnitOptions:Array<UnitOption> = [...VolumeLiquidOptions, ...VolumeGasOptions];
+  fuelVolumeUnitOptions: Array<UnitOption> = [...VolumeLiquidOptions, ...VolumeGasOptions];
   fuelEnergyUnitOptions: Array<UnitOption> = EnergyUnitOptions;
 
   processCoolingUnitOptions: Array<UnitOption> = ProcessCoolingUnitOptions
@@ -46,8 +50,6 @@ export class EnergyEquipmentFormComponent {
   displayDeleteModal: boolean = false;
   contacts: Array<IdbContact>;
   contactSub: Subscription;
-  viewContact: IdbContact;
-  displayContactModal: boolean = false;
 
   companySub: Subscription;
   companyEnergyUnit: string;
@@ -59,10 +61,20 @@ export class EnergyEquipmentFormComponent {
     private contactIdbService: ContactIdbService,
     private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,
+    private activatedRoute: ActivatedRoute,
+    private sharedDataService: SharedDataService
   ) { }
 
   ngOnInit() {
-    this.energyEquipment = this.energyEquipmentIdbService.getByGuid(this.energyEquipmentGuid);
+    if (!this.energyEquipmentGuid) {
+      this.activatedRoute.params.subscribe(params => {
+        this.energyEquipmentGuid = params['id'];
+        this.energyEquipment = this.energyEquipmentIdbService.getByGuid(this.energyEquipmentGuid);
+      });
+    } else {
+      this.energyEquipment = this.energyEquipmentIdbService.getByGuid(this.energyEquipmentGuid);
+    }
+
     this.contactSub = this.contactIdbService.contacts.subscribe(_contacts => {
       this.contacts = _contacts;
     });
@@ -109,8 +121,8 @@ export class EnergyEquipmentFormComponent {
   autoCalculateFuelPower() {
     if (this.energyEquipment.utilityType === 'Other Fuels' && this.energyEquipment.autoCalculate) {
       let result = this.energyEquipment.fuelConsumption * this.energyEquipment.fuelHHV;
-      let unitConv = this.convertValue.convertValue(1, this.energyEquipment.fuelEnergyUnit).convertedValue/
-        this.convertValue.convertValue(1, this.energyEquipment.sizeUnit).convertedValue /3600; // J/hr to W
+      let unitConv = this.convertValue.convertValue(1, this.energyEquipment.fuelEnergyUnit).convertedValue /
+        this.convertValue.convertValue(1, this.energyEquipment.sizeUnit).convertedValue / 3600; // J/hr to W
       result = result * unitConv;
       this.energyEquipment.size = Number(result.toFixed(3)); // Round to 3 decimal places
     }
@@ -136,13 +148,13 @@ export class EnergyEquipmentFormComponent {
   updateFacilityUtilityUnit() {
     const utilityType = this.energyEquipment.utilityType.replace(/\s+/g, '');
     const camelCaseType = utilityType.charAt(0).toLowerCase()
-              + utilityType.slice(1); // Lowercase first letter
+      + utilityType.slice(1); // Lowercase first letter
     if (this.facilityUnitSettings[`include${camelCaseType}`]) {
       let selectedUtilityOption = this.utilityOptions.find(
         _option => _option.utilityType == utilityType);
       let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
         _unitOption => _unitOption.value == this.energyEquipment.facilityUtilityUnit);
-      if (selectedUtilityOption.isStandardEnergyUnit 
+      if (selectedUtilityOption.isStandardEnergyUnit
         && selectedUnitOption.isStandard !== false) { // Standard unit
         this.energyEquipment.facilityUtilityUnit = this.facilityUnitSettings[`${camelCaseType}Unit`];
       } else { // Non-standard unit
@@ -159,12 +171,12 @@ export class EnergyEquipmentFormComponent {
       this.companyEnergyUnit,
       this.energyEquipment.facilityUtilityUnit
     ).convertedValue;
-    if (!this.energyEquipment.annualEnergyUseByUtility || 
+    if (!this.energyEquipment.annualEnergyUseByUtility ||
       this.energyEquipment.annualEnergyUseByUtility === Infinity) {
       this.energyEquipment.annualEnergyUseByUtility = 0;
     }
   }
-  
+
   ngAfterViewInit() {
     //emit after initialized. 
     //When adding new energy equipment this will trigger the form to open
@@ -188,12 +200,10 @@ export class EnergyEquipmentFormComponent {
   }
 
   openContactModal(viewContact: IdbContact) {
-    this.viewContact = viewContact;
-    this.displayContactModal = true;
+    this.sharedDataService.displayContactModal.next({ context: 'energyEquipment', viewContact: viewContact, contextGuid: this.energyEquipment.guid, companyId: this.energyEquipment.companyId });
   }
 
   closeContactModal() {
-    this.displayContactModal = false;
-    this.viewContact = undefined;
+    this.sharedDataService.displayContactModal.next(undefined);
   }
 }

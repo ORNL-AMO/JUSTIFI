@@ -238,7 +238,3 @@
             Equipment</button>
     </div>
 </div>
-
-<app-contact-modal *ngIf="displayContactModal" (emitCancelContact)="closeContactModal()"
-    [contextGuid]="energyEquipment.guid" [contactContext]="'energyEquipment'"
-    [selectedContact]="viewContact" [companyGuid]="energyEquipment.companyId"></app-contact-modal>

@@ -201,12 +201,6 @@
     </ng-template>
 </form>
 
-
-
-<app-contact-modal *ngIf="displayContactModal" (emitCancelContact)="closeContactModal()"
-    [contextGuid]="keyPerformanceIndicator.guid" [contactContext]="'KPI'" [selectedContact]="viewContact"
-    [companyGuid]="company.guid"></app-contact-modal>
-
 <div [ngClass]="{'window-overlay': displayDeleteKpmModal}"></div>
 <div class="popup" [ngClass]="{'open': displayDeleteKpmModal }">
     <ng-template [ngIf]="kpmToDelete">

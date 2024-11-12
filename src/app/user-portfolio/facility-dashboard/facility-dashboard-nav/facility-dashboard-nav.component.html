@@ -5,19 +5,29 @@
             Dashboard</a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/manage'"
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faGears"></fa-icon>
+            Details
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/system-inventory'"
-            [routerLinkActive]="'active'">Industrial System Inventory</a>
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faList"></fa-icon>
+            Industrial System Inventory</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/end-use-inventory'"
-            [routerLinkActive]="'active'">End Use Inventory</a>
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faDiagramProject"></fa-icon>
+            End Use Inventory</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/reports'"
-            [routerLinkActive]="'active'">Reports</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/manage'"
-            [routerLinkActive]="'active'">Manage</a>
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faFile"></fa-icon>
+            Reports
+        </a>
     </li>
 </ul>

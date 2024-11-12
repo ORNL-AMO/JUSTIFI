@@ -41,6 +41,7 @@ import { AssessmentEnergyOpportunitiesHomeComponent } from './assessment-dashboa
 import { AssessmentNebsComponent } from './assessment-dashboard/assessment-nebs/assessment-nebs.component';
 import { AssessmentNebsHomeComponent } from './assessment-dashboard/assessment-nebs/assessment-nebs-home/assessment-nebs-home.component';
 import { ContactModalModule } from '../shared/contact-modal/contact-modal.module';
+import { IndustrialSystemInventoryHomeComponent } from './facility-dashboard/industrial-system-inventory/industrial-system-inventory-home/industrial-system-inventory-home.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ContactModalModule } from '../shared/contact-modal/contact-modal.module
     AssessmentEnergyOpportunitiesComponent,
     AssessmentEnergyOpportunitiesHomeComponent,
     AssessmentNebsComponent,
-    AssessmentNebsHomeComponent
+    AssessmentNebsHomeComponent,
+    IndustrialSystemInventoryHomeComponent
   ],
   imports: [
     CommonModule,
