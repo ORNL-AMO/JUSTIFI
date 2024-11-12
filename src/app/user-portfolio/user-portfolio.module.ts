@@ -38,6 +38,9 @@ import { ReportsModule } from '../shared/reports/reports.module';
 import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-company-forms.module";
 import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/shared-facility-forms.module';
 import { AssessmentEnergyOpportunitiesHomeComponent } from './assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities-home/assessment-energy-opportunities-home.component';
+import { AssessmentNebsComponent } from './assessment-dashboard/assessment-nebs/assessment-nebs.component';
+import { AssessmentNebsHomeComponent } from './assessment-dashboard/assessment-nebs/assessment-nebs-home/assessment-nebs-home.component';
+import { ContactModalModule } from '../shared/contact-modal/contact-modal.module';
 
 @NgModule({
   declarations: [
@@ -70,7 +73,9 @@ import { AssessmentEnergyOpportunitiesHomeComponent } from './assessment-dashboa
     AssessmentReportsComponent,
     AssessmentDetailsComponent,
     AssessmentEnergyOpportunitiesComponent,
-    AssessmentEnergyOpportunitiesHomeComponent
+    AssessmentEnergyOpportunitiesHomeComponent,
+    AssessmentNebsComponent,
+    AssessmentNebsHomeComponent
   ],
   imports: [
     CommonModule,
@@ -81,7 +86,8 @@ import { AssessmentEnergyOpportunitiesHomeComponent } from './assessment-dashboa
     SharedAssessmentFormsModule,
     ReportsModule,
     SharedCompanyFormsModule,
-    SharedFacilityFormsModule
+    SharedFacilityFormsModule,
+    ContactModalModule
 ]
 })
 export class UserPortfolioModule { }

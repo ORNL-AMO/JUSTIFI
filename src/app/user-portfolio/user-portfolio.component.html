@@ -35,3 +35,10 @@
         <router-outlet></router-outlet>
     </div>
 </div>
+
+
+<app-add-nebs-modal *ngIf="displayAddNebsModal"></app-add-nebs-modal>
+
+<app-contact-modal *ngIf="displayContactModal" (emitCancelContact)="closeContactModal()"
+    [contextGuid]="displayContactModal.contextGuid" [contactContext]="displayContactModal.context"
+    [selectedContact]="displayContactModal.viewContact" [companyGuid]="assessment.companyId"></app-contact-modal>

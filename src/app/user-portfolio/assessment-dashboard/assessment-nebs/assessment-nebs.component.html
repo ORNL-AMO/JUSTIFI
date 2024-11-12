@@ -3,27 +3,28 @@
         <nav class="nav navbar nav-tabs flex-column pt-0">
 
             <div class="nav-item mb-2">
-                <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/performance-indicators'"
+                <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/nebs'"
                     [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
                     <div class="d-flex w-100 justify-content-between">
                         <div class="d-block">
-                            Select Key Performance Indicators
+                            Summary
                         </div>
-                        <div class="ps-1">
+                        <div>
                             <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="nav-item" *ngFor="let kpi of keyPerformanceIndicators">
+            
+            <div class="nav-item" *ngFor="let nonEnergyBenefit of nonEnergyBenefits">
                 <a class="nav-link"
-                    [routerLink]="'/portfolio/company/'+company.guid + '/performance-indicators/details/'+kpi.guid"
+                    [routerLink]="'/portfolio/assessment/'+nonEnergyBenefit.assessmentId + '/nebs/'+nonEnergyBenefit.guid"
                     [routerLinkActive]="'active'">
                     <div class="d-flex w-100 justify-content-between">
                         <div class="d-block">
-                            <span [innerHTML]="kpi.htmlLabel"></span>
+                            {{nonEnergyBenefit.name}}
                         </div>
-                        <div class="ps-1">
+                        <div>
                             <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
                         </div>
                     </div>

@@ -88,7 +88,9 @@
                                         <tbody>
                                             <tr *ngFor="let visit of onSiteVisits">
                                                 <td>
-                                                    {{visit.facilityId | facilityName: facilities}}
+                                                    <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
+                                                        {{visit.facilityId | facilityName: facilities}}
+                                                    </a>
                                                 </td>
                                                 <td>
                                                     {{visit.visitDate | date}}

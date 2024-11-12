@@ -8,6 +8,8 @@ import { IdbCompany } from '../models/company';
 import { IdbFacility } from '../models/facility';
 import { IdbAssessment } from '../models/assessment';
 import { Subscription } from 'rxjs';
+import { SharedDataService } from '../shared/shared-services/shared-data.service';
+import { ContactContext, IdbContact } from '../models/contact';
 
 @Component({
   selector: 'app-user-portfolio',
@@ -29,12 +31,20 @@ export class UserPortfolioComponent {
   assessment: IdbAssessment;
   assessmentSub: Subscription;
   routerSub: Subscription;
+  displayAddNebsModal: {
+    assessmentId: string,
+    energyOpportunityId: string
+  };
+  displayAddNebsModalSub: Subscription;
+  displayContactModal: { context: ContactContext, viewContact: IdbContact, contextGuid: string };
+  displayContactModalSub: Subscription;
   constructor(
     private router: Router,
     private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,
     private assessmentIdbService: AssessmentIdbService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private sharedDataService: SharedDataService
   ) {
   }
 
@@ -57,9 +67,17 @@ export class UserPortfolioComponent {
       this.assessment = selectedAssessment;
       this.cd.detectChanges();
     })
+    this.displayAddNebsModalSub = this.sharedDataService.displayAddNebsModal.subscribe(val => {
+      this.displayAddNebsModal = val;
+    });
+    this.displayContactModalSub = this.sharedDataService.displayContactModal.subscribe(val => {
+      this.displayContactModal = val;
+    })
   }
 
   ngOnDestroy() {
+    this.displayAddNebsModalSub.unsubscribe();
+    this.displayContactModalSub.unsubscribe();
     this.companySub.unsubscribe();
     this.facilitySub.unsubscribe();
     this.assessmentSub.unsubscribe();
@@ -100,5 +118,9 @@ export class UserPortfolioComponent {
         this.company = this.companyIdbService.getByGUID(this.assessment.companyId);
       }
     }
+  }
+
+  closeContactModal() {
+    this.sharedDataService.displayContactModal.next(undefined);
   }
 }

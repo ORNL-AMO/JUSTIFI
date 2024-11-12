@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faAddressBook, faBullseye, faFile, faGears, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { IdbCompany } from 'src/app/models/company';
@@ -9,6 +10,11 @@ import { IdbCompany } from 'src/app/models/company';
   styleUrl: './company-dashboard-nav.component.css'
 })
 export class CompanyDashboardNavComponent {
+
+  faFile: IconDefinition = faFile;
+  faGears: IconDefinition = faGears;
+  faAddressBook: IconDefinition = faAddressBook;
+  faBullseye: IconDefinition = faBullseye;
 
   company: IdbCompany;
   companySub: Subscription;

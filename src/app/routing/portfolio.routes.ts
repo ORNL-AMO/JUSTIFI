@@ -24,6 +24,9 @@ import { CompanyKpiSearchFormComponent } from "../shared/shared-company-forms/co
 import { CompanyKpiDetailsFormComponent } from "../shared/shared-company-forms/company-kpi-details-form/company-kpi-details-form.component";
 import { AssessmentEnergyOpportunitiesHomeComponent } from "../user-portfolio/assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities-home/assessment-energy-opportunities-home.component";
 import { EnergyOpportunitySetupFormComponent } from "../shared/shared-assessment-forms/energy-opportunity-setup-form/energy-opportunity-setup-form.component";
+import { AssessmentNebsComponent } from "../user-portfolio/assessment-dashboard/assessment-nebs/assessment-nebs.component";
+import { AssessmentNebsHomeComponent } from "../user-portfolio/assessment-dashboard/assessment-nebs/assessment-nebs-home/assessment-nebs-home.component";
+import { NebSetupFormComponent } from "../shared/shared-assessment-forms/neb-forms-accordion/neb-setup-form/neb-setup-form.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -133,6 +136,20 @@ export const PortfolioRoutes: Route = {
                     path: 'reports',
                     component: AssessmentReportsComponent
                 },
+                {
+                    path: 'nebs',
+                    component: AssessmentNebsComponent,
+                    children: [
+                        {
+                            path: '',
+                            component: AssessmentNebsHomeComponent
+                        },
+                        {
+                            path: ':id',
+                            component: NebSetupFormComponent
+                        }
+                    ]
+                }
             ]
         }
     ]

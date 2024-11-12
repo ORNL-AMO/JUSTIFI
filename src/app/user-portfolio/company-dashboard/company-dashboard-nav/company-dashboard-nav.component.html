@@ -6,18 +6,29 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/stakeholders'"
-            [routerLinkActive]="'active'">Stakeholders</a>
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faAddressBook"></fa-icon>
+            Stakeholders
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/performance-indicators'"
-            [routerLinkActive]="'active'">Key Performance Indicators</a>
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faBullseye"></fa-icon>
+            Key Performance Indicators
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/reports'"
-            [routerLinkActive]="'active'">Reports</a>
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faFile"></fa-icon>
+            Reports
+        </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/manage'"
-            [routerLinkActive]="'active'">Manage</a>
+        <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/manage'" [routerLinkActive]="'active'">
+            <fa-icon [icon]="faGears"></fa-icon>
+            Details
+        </a>
     </li>
 </ul>
