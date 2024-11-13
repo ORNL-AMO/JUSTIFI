@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faFile, faGears, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faFile, faFileLines, faGears, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -14,7 +14,8 @@ export class AssessmentDashboardNavComponent {
   faGears: IconDefinition = faGears;
   faFile: IconDefinition = faFile;
   faWeightHanging: IconDefinition = faWeightHanging;
-
+  faFileLines: IconDefinition = faFileLines;
+  
   assessment: IdbAssessment;
   assessmentSub: Subscription;
   constructor(private assessmentIdbService: AssessmentIdbService) { }

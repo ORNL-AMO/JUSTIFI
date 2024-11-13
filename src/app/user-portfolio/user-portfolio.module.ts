@@ -4,7 +4,6 @@ import { UserPortfolioComponent } from './user-portfolio.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LatestVisitsTableComponent } from './latest-visits-table/latest-visits-table.component';
 import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
-import { PortfolioSummaryCardComponent } from './portfolio-summary-card/portfolio-summary-card.component';
 import { PortfolioItemsListComponent } from './portfolio-items-list/portfolio-items-list.component';
 import { CompanyListItemComponent } from './portfolio-items-list/company-list-item/company-list-item.component';
 import { FacilityListItemComponent } from './portfolio-items-list/facility-list-item/facility-list-item.component';
@@ -48,7 +47,6 @@ import { CompanyStakeholdersHomeComponent } from './company-dashboard/company-st
   declarations: [
     UserPortfolioComponent,
     LatestVisitsTableComponent,
-    PortfolioSummaryCardComponent,
     PortfolioItemsListComponent,
     CompanyListItemComponent,
     FacilityListItemComponent,

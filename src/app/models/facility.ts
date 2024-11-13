@@ -15,7 +15,7 @@ export interface IdbFacility extends IdbEntry {
 export function getNewIdbFacility(userId: string, companyId: string): IdbFacility {
     let idbEntry: IdbEntry = getNewIdbEntry();
     let defaultSettings: UnitSettings = getDefaultUnitSettings();
-    let generalInformation: GeneralInformation = getGeneralInformation('');
+    let generalInformation: GeneralInformation = getGeneralInformation('New Facility');
     return {
         ...idbEntry,
         userId: userId,

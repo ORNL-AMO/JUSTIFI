@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { faArrowRight, faIndustry, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faIndustry, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
+import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbFacility } from 'src/app/models/facility';
@@ -20,14 +22,17 @@ export class CompanyListItemComponent {
 
   faIndustry: IconDefinition = faIndustry;
   faArrowRight: IconDefinition = faArrowRight;
+  faPlus: IconDefinition = faPlus;
 
   facilities: Array<IdbFacility>;
   facilitiesSub: Subscription;
   accordionGuid: string;
-
+  displayAddFacilityModal: boolean = false;
   constructor(private facilityIdbService: FacilityIdbService,
     private bootstrapService: BootstrapService,
-    private router: Router
+    private router: Router,
+    private companyIdbService: CompanyIdbService,
+    private toastNotificationService: ToastNotificationsService
   ) {
 
   }
@@ -53,5 +58,22 @@ export class CompanyListItemComponent {
 
   goToFacilityDashboard(facility: IdbFacility) {
     this.router.navigateByUrl('/portfolio/facility/' + facility.guid);
+  }
+
+  openAddFacilityModal() {
+    this.displayAddFacilityModal = true;
+  }
+
+  closeAddFacilityModal() {
+    this.displayAddFacilityModal = false;
+  }
+
+  async confirmCreate() {
+    this.closeAddFacilityModal();
+    let company: IdbCompany = this.companyIdbService.selectedCompany.getValue();
+    let newFacilityGuid: string = await this.facilityIdbService.addNewFacility(company.userId, company.guid);
+    let newFacility: IdbFacility = this.facilityIdbService.getByGUID(newFacilityGuid)
+    this.router.navigateByUrl('/portfolio/facility/' + newFacility.guid + '/manage');
+    this.toastNotificationService.showToast('New Facility Added!', undefined, 'bg-success', true, false);
   }
 }

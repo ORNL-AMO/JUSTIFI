@@ -5,6 +5,19 @@
     </p>
 </ng-container>
 <hr>
+<div class="d-flex justify-content-between mb-1">
+    <div>
+        <h6>
+            {{facility.generalInformation.name}} Assessment
+        </h6>
+    </div>
+    <div *ngIf="inFacilityDashboard">
+        <button class="btn btn-outline-success btn-sm" (click)="goToVisit(undefined)">
+            <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+            Setup Wizard
+        </button>
+    </div>
+</div>
 <ng-template [ngIf]="assessments.length != 0" [ngIfElse]="noAssessmentsBlock">
     <div class="accordion" [id]="'assessmentsAccordion_' + facility.guid">
         <div class="accordion-item assessment-item"

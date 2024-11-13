@@ -67,9 +67,13 @@ export class FacilityListItemComponent {
   }
 
   goToVisit(assessment: IdbAssessment) {
-    this.companyIdbService.setSelectedFromGUID(assessment.companyId);
-    this.facilityIdbService.setSelectedFromGUID(assessment.facilityId);
-    this.onSiteVisitIdbService.setSelectedFromAssessmentGUID(assessment.guid);
+    this.companyIdbService.setSelectedFromGUID(this.facility.companyId);
+    this.facilityIdbService.setSelectedFromGUID(this.facility.guid);
+    if (assessment) {
+      this.onSiteVisitIdbService.setSelectedFromAssessmentGUID(assessment.guid);
+    } else {
+      this.onSiteVisitIdbService.selectedVisit.next(undefined);
+    }
     this.sharedDataService.createAssessmentModalOpen.next(true);
   }
 

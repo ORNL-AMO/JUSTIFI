@@ -5,6 +5,12 @@
                 <fa-icon [icon]="faFolderTree"></fa-icon>
                 Companies, Facilities, and Assessments
             </div>
+            <div>
+                <button class="btn btn-outline-success btn-sm" (click)="openAddCompanyModal()">
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                    Add Company
+                </button>
+            </div>
         </div>
         <div class="accordion" [id]="'companyAccordion'">
             <div class="accordion-item company-item"
@@ -31,5 +37,26 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div [ngClass]="{'window-overlay': displayAddCompanyModal}"></div>
+<div class="popup" [ngClass]="{'open': displayAddCompanyModal }">
+    <div class="popup-header">Add New Company
+        <button type="button" class="btn-close float-end" aria-label="Close"
+            (click)="closeAddCompanyModal()"></button>
+    </div>
+    <div class="popup-body">
+        <p class="fw-light">
+            Create a new company that will be added to your portfolio.
+        </p>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary me-2 btn-sm" (click)="closeAddCompanyModal()">Cancel</button>
+        <button class="btn btn-success btn-sm" (click)="confirmCreate()">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            Create Company
+        </button>
     </div>
 </div>

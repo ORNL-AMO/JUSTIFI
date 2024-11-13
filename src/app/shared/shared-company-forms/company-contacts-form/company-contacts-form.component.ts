@@ -5,7 +5,8 @@ import { IdbContact } from 'src/app/models/contact';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { IconDefinition, faCircleExclamation, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Observable, of } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 
 @Component({
   selector: 'app-company-contacts-form',
@@ -28,7 +29,9 @@ export class CompanyContactsFormComponent {
   displayDeleteModal: boolean = false;
   routeGuardWarningModal: boolean = false;
   constructor(private contactIdbService: ContactIdbService, private companyContactsFormService: CompanyContactsFormService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private toastNotificationService: ToastNotificationsService
   ) {
   }
 
@@ -68,6 +71,10 @@ export class CompanyContactsFormComponent {
     await firstValueFrom(this.contactIdbService.deleteWithObservable(this.contact.id));
     await this.contactIdbService.setContacts();
     this.closeDeleteModal();
+    this.toastNotificationService.showToast('Stakeholder Deleted!', 'Stakeholder has been removed from this company.', 'bg-success', true, false);
+    if (this.router.url.includes('portfolio')) {
+      this.router.navigateByUrl('/portfolio/company/' + this.contact.companyId + '/stakeholders');
+    }
   }
 
   canDeactivate(): Observable<boolean> {
