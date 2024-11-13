@@ -6,3 +6,48 @@
         </button>
     </div>
 </div>
+<hr class="my-2">
+
+<ng-template [ngIf]="companyContacts.length > 0" [ngIfElse]="noContactsBlock">
+    <table class="table table-bordered table-hover table-sm">
+        <thead>
+            <tr>
+                <th class="w-25">
+                    Name
+                </th>
+                <th class="w-25">
+                    Title
+                </th>
+                <th class="w-25">
+                    Team
+                </th>
+                <th class="w-25">
+                    Notes
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let contact of companyContacts">
+                <td>
+                    {{contact | contactNameDisplay}}
+                </td>
+                <td>
+                    <app-single-cell-item [strValue]="contact.role"></app-single-cell-item>
+                </td>
+                <td>
+                    <app-single-cell-item [strValue]="contact.team"></app-single-cell-item>
+                </td>
+                <td>
+                    <app-single-cell-item [strValue]="contact.notes"></app-single-cell-item>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #noContactsBlock>
+    <div class="alert alert-info p-2 text-center">
+        No stakeholders found for this company. Use the "<fa-icon [icon]="faPlus"></fa-icon>
+        Add New Stakeholder" button to add a stakeholder to this company.
+    </div>
+</ng-template>

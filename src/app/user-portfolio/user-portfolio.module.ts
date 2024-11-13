@@ -42,6 +42,7 @@ import { ContactModalModule } from '../shared/contact-modal/contact-modal.module
 import { IndustrialSystemInventoryHomeComponent } from './facility-dashboard/industrial-system-inventory/industrial-system-inventory-home/industrial-system-inventory-home.component';
 import { EndUseInventoryHomeComponent } from './facility-dashboard/end-use-inventory/end-use-inventory-home/end-use-inventory-home.component';
 import { CompanyStakeholdersHomeComponent } from './company-dashboard/company-stakeholders/company-stakeholders-home/company-stakeholders-home.component';
+import { TableEntriesModule } from "../shared/table-entries/table-entries.module";
 
 @NgModule({
   declarations: [
@@ -89,7 +90,9 @@ import { CompanyStakeholdersHomeComponent } from './company-dashboard/company-st
     ReportsModule,
     SharedCompanyFormsModule,
     SharedFacilityFormsModule,
-    ContactModalModule
+    ContactModalModule,
+    TableEntriesModule,
+    TableEntriesModule
 ]
 })
 export class UserPortfolioModule { }
