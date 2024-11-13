@@ -17,6 +17,10 @@ import { SetupWizardModalComponent } from './core-components/setup-wizard-modal/
 import { ImportBackupModalComponent } from './core-components/import-backup-modal/import-backup-modal.component';
 import { UserPortfolioModule } from './user-portfolio/user-portfolio.module';
 import { PlotlyViaWindowModule } from 'angular-plotly.js';
+import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
+import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
+import { AboutComponent } from './core-components/about/about.component';
+import { HelpComponent } from './core-components/help/help.component';
 import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
 import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
@@ -31,6 +35,10 @@ import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
     SidebarComponent,
     SetupWizardModalComponent,
     ImportBackupModalComponent,
+    FeedbackPageComponent,
+    AcknowledgmentsComponent,
+    AboutComponent,
+    HelpComponent,
     AlphaDisclaimerComponent,
     ToastNotificationsComponent
   ],

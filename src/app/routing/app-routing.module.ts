@@ -5,6 +5,9 @@ import { PageNotFoundComponent } from '../core-components/page-not-found/page-no
 import { SetupWizardRoutes } from './setup-wizard.routes';
 import { PortfolioRoutes } from './portfolio.routes';
 import { NebsDatabaseComponent } from '../nebs-database/nebs-database.component';
+import { AboutComponent } from '../core-components/about/about.component';
+import { FeedbackPageComponent } from '../core-components/feedback-page/feedback-page.component';
+import { AcknowledgmentsComponent } from '../core-components/acknowledgments/acknowledgments.component';
 
 const routes: Routes = [
   {
@@ -19,6 +22,18 @@ const routes: Routes = [
   {
     path: 'nebs-database',
     component: NebsDatabaseComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
+  },
+  {
+    path: 'feedback',
+    component: FeedbackPageComponent
+  },
+  {
+    path: 'acknowledgments',
+    component: AcknowledgmentsComponent
   },
   SetupWizardRoutes,
   PortfolioRoutes,
