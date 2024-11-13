@@ -1,1 +1,64 @@
-<p>assessment-energy-opportunities-home works!</p>
+<div class="d-flex w-100 justify-content-end">
+    <div>
+        <button class="btn btn-outline-success btn-sm" (click)="addEnergyOpportunity()">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            Add Energy Efficiency Opportunity
+        </button>
+    </div>
+</div>
+<hr class="my-2">
+
+<ng-template [ngIf]="energyOpportunities.length > 0" [ngIfElse]="noEndUseBlock">
+    <table class="table table-bordered table-hover table-sm">
+        <thead>
+            <tr>
+                <th class="w-25">
+                    Opportunity Name
+                </th>
+                <th class="w-25">
+                    NEBs
+                </th>
+                <th class="w-25">
+                    Implementation Cost
+                </th>
+                <th class="w-25">
+                    Savings
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let energyOpportunity of energyOpportunities">
+                <td>
+                    {{energyOpportunity.name}}
+                </td>
+                <td>
+                    @let associatedNebs = energyOpportunity.guid | nebList:'energyOpportunity': nonEnergyBenefits;
+                    <ng-template [ngIf]="associatedNebs.length > 0" [ngIfElse]="noNebsBlock">
+                        <span *ngFor="let neb of associatedNebs">
+                            <fa-icon [icon]="faWeightHanging"></fa-icon>
+                            {{neb.name}} <br>
+                        </span>
+                    </ng-template>
+                    <ng-template #noNebsBlock>
+                        &mdash;
+                    </ng-template>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="energyOpportunity.implementationCost"
+                        [isCurrency]="true"></app-single-cell-item>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="energyOpportunity.costSavings"
+                        [isCurrency]="true"></app-single-cell-item><br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #noEndUseBlock>
+    <div class="alert alert-info p-2 text-center">
+        No energy efficiency opportunities found for this assessment. Use the "<fa-icon [icon]="faPlus"></fa-icon>
+        Add Energy Efficiency Opportunity" button to add an opportunity this assessment.
+    </div>
+</ng-template>

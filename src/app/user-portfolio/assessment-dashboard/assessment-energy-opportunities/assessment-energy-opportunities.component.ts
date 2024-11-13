@@ -40,4 +40,5 @@ export class AssessmentEnergyOpportunitiesComponent {
     this.assessmentSub.unsubscribe();
     this.energyOpportunitiesSub.unsubscribe();
   }
+
 }

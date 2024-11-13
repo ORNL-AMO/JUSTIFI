@@ -16,7 +16,8 @@ import { UnitSettings } from 'src/app/models/unitSettings';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 
 @Component({
   selector: 'app-energy-opportunity-setup-form',
@@ -64,7 +65,9 @@ export class EnergyOpportunitySetupFormComponent {
     private companyIdbService: CompanyIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private facilityIdbService: FacilityIdbService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private toastNotificationService: ToastNotificationsService
   ) {
   }
 
@@ -102,6 +105,10 @@ export class EnergyOpportunitySetupFormComponent {
   async deleteEnergyOpportunity() {
     await this.dbChangesService.deleteEnergyOpportunity(this.energyOpportunity)
     this.closeDeleteModal();
+    this.toastNotificationService.showToast('Opportunity Deleted!', 'Energy efficiency opportunity removed from assessment.', 'bg-success', true, false);
+    if (this.router.url.includes('portfolio')) {
+      this.router.navigateByUrl('portfolio/assessment/' + this.energyOpportunity.assessmentId + '/energy-opportunities')
+    }
   }
 
   async changeUtilityType() {
