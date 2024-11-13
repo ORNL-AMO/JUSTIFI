@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IconDefinition, faChevronDown, faChevronRight, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -13,6 +13,7 @@ import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
 import * as _ from 'lodash';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
+import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 @Component({
   selector: 'app-neb-setup-form',
   templateUrl: './neb-setup-form.component.html',
@@ -58,7 +59,9 @@ export class NebSetupFormComponent {
     private contactIdbService: ContactIdbService,
     private sharedDataService: SharedDataService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private toastNotificationService: ToastNotificationsService) {
   }
 
   ngOnInit() {
@@ -99,6 +102,15 @@ export class NebSetupFormComponent {
 
   async deleteNonEnergyBenefit() {
     await this.dbChangesService.deleteNonEnergyBenefit(this.nonEnergyBenefit);
+    this.closeDeleteModal();
+    if (this.nonEnergyBenefit.energyOpportunityId) {
+      this.toastNotificationService.showToast('NEB Deleted!', 'Non-energy Benefit has been removed from the energy opportunity.', 'bg-success', true, false)
+    } else {
+      this.toastNotificationService.showToast('NEB Deleted!', 'Non-energy Benefit has been removed from the assessment.', 'bg-success', true, false)
+    }
+    if (this.router.url.includes('portfolio') && !this.nonEnergyBenefit.energyOpportunityId) {
+      this.router.navigateByUrl('/portfolio/assessment/' + this.nonEnergyBenefit.assessmentId + '/nebs');
+    }
   }
 
   showDeleteModal() {
