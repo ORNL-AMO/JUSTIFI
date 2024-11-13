@@ -1,8 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
+import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
+import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 
 @Component({
   selector: 'app-assessment-list-item',
@@ -15,9 +18,14 @@ export class AssessmentListItemComponent {
   @Input()
   inAssessmentDashboard: boolean;
 
+  faWeightHanging: IconDefinition = faWeightHanging;
   energyOpportunitiesSub: Subscription;
   energyOpportunities: Array<IdbEnergyOpportunity>;
-  constructor(private energyOpportunityIdbService: EnergyOpportunityIdbService
+
+  nonEnergyBenefitsSub: Subscription;
+  nonEnergyBenefits: Array<IdbNonEnergyBenefit>;
+  constructor(private energyOpportunityIdbService: EnergyOpportunityIdbService,
+    private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService
   ) {
   }
 
@@ -27,9 +35,14 @@ export class AssessmentListItemComponent {
         return opp.assessmentId == this.assessment.guid
       });
     });
+
+    this.nonEnergyBenefitsSub = this.nonEnergyBenefitIdbService.nonEnergyBenefits.subscribe(nebs => {
+      this.nonEnergyBenefits = nebs;
+    });
   }
 
   ngOnDestroy() {
     this.energyOpportunitiesSub.unsubscribe();
+    this.nonEnergyBenefitsSub.unsubscribe();
   }
 }

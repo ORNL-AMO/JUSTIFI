@@ -5,7 +5,14 @@
                 <fa-icon class="pe-2" [icon]="faFileLines"></fa-icon>
                 {{assessment.name}}
             </div>
+            <div>
+                <button class="btn btn-outline-success me-1 btn-sm" (click)="goToVisit()">
+                    <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+                    Open {{assessment.name}} In Wizard
+                </button>
+            </div>
         </div>
+        <hr class="my-2">
         <app-assessment-list-item [assessment]="assessment" [inAssessmentDashboard]="true"></app-assessment-list-item>
     </div>
 </div>

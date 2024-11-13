@@ -57,5 +57,19 @@
                 </ng-template>
             </td>
         </tr>
+        <tr>
+            <th>
+                NEBs
+            </th>
+            <td>
+                @let assessmentNebs = assessment.guid | nebList:'assessment': nonEnergyBenefits;
+                <ng-template [ngIf]="assessmentNebs.length > 0">
+                    <span *ngFor="let neb of assessmentNebs">
+                        <fa-icon [icon]="faWeightHanging"></fa-icon>
+                        {{neb.name}} <br>
+                    </span>
+                </ng-template>
+            </td>
+        </tr>
     </tbody>
 </table>

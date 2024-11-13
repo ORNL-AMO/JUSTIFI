@@ -8,7 +8,7 @@
 </div>
 <hr class="my-2">
 
-<ng-template [ngIf]="energyOpportunities.length > 0" [ngIfElse]="noEndUseBlock">
+<ng-template [ngIf]="energyOpportunities.length > 0" [ngIfElse]="noOpportunitiesBlock">
     <table class="table table-bordered table-hover table-sm">
         <thead>
             <tr>
@@ -56,7 +56,7 @@
     </table>
 </ng-template>
 
-<ng-template #noEndUseBlock>
+<ng-template #noOpportunitiesBlock>
     <div class="alert alert-info p-2 text-center">
         No energy efficiency opportunities found for this assessment. Use the "<fa-icon [icon]="faPlus"></fa-icon>
         Add Energy Efficiency Opportunity" button to add an opportunity this assessment.

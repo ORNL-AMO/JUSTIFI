@@ -33,6 +33,9 @@ import { LinkedUtilityOptionsPipe } from './linked-utility-options.pipe';
 import { IsStandardUnitPipe } from './is-standard-unit.pipe';
 import { UtilityHhvDisplayPipe } from './utility-hhv-display.pipe';
 import { ContactInvalidPipe } from './contact-invalid.pipe';
+import { AssociatedPerformanceMetricImpactsPipe } from './associated-performance-metric-impacts.pipe';
+import { KpmLabelPipe } from './kpm-label.pipe';
+import { NebTotalSavingsPipe } from './neb-total-savings.pipe';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,10 @@ import { ContactInvalidPipe } from './contact-invalid.pipe';
     LinkedUtilityOptionsPipe,
     IsStandardUnitPipe,
     UtilityHhvDisplayPipe,
-    ContactInvalidPipe
+    ContactInvalidPipe,
+    AssociatedPerformanceMetricImpactsPipe,
+    KpmLabelPipe,
+    NebTotalSavingsPipe
   ],
   imports: [
     CommonModule
@@ -106,7 +112,10 @@ import { ContactInvalidPipe } from './contact-invalid.pipe';
     LinkedUtilityOptionsPipe,
     IsStandardUnitPipe,
     UtilityHhvDisplayPipe,
-    ContactInvalidPipe
+    ContactInvalidPipe,
+    AssociatedPerformanceMetricImpactsPipe,
+    KpmLabelPipe,
+    NebTotalSavingsPipe
   ]
 })
 export class HelperPipesModule { }
