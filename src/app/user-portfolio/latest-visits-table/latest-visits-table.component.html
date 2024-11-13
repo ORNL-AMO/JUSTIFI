@@ -42,10 +42,14 @@
                 <tbody>
                     <tr *ngFor="let visit of onSiteVisits |  slice: ((currentPageNumber-1) * 5): currentPageNumber * 5">
                         <td>
-                            {{visit.companyId | companyName: companies}}
+                            <a [routerLink]="'/portfolio/company/'+visit.companyId">
+                                {{visit.companyId | companyName: companies}}
+                            </a>
                         </td>
                         <td>
-                            {{visit.facilityId | facilityName: facilities}}
+                            <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
+                                {{visit.facilityId | facilityName: facilities}}
+                            </a>
                         </td>
                         <td>
                             <!-- <span class="badge bg-dark">
@@ -53,7 +57,10 @@
                             </span> -->
                             <ng-template [ngIf]="visit.assessmentIds.length > 0" [ngIfElse]="assessmentMdash">
                                 <span *ngFor="let assessmentId of visit.assessmentIds">
-                                    {{assessmentId | assessmentNameDisplay: assessments}}<br>
+                                    <a [routerLink]="'/portfolio/assessment/'+assessmentId">
+                                        {{assessmentId | assessmentNameDisplay: assessments}}
+                                    </a>
+                                    <br>
                                 </span>
                             </ng-template>
                             <ng-template #assessmentMdash>
@@ -80,7 +87,7 @@
             </div>
         </ng-template>
         <ng-template #noVisitsBlock>
-            <div class="alert alert-warning p-2">
+            <div class="alert alert-info text-center p-2">
                 No visits found. Use the setup wizard to add your first on site visit.
             </div>
         </ng-template>

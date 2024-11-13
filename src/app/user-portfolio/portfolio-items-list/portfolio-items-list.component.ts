@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faArrowRight, faBuilding, faFolderTree, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
-import { getNewIdbCompany, IdbCompany } from 'src/app/models/company';
+import { IdbCompany } from 'src/app/models/company';
 import { IdbUser } from 'src/app/models/user';
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
 
