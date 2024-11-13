@@ -34,6 +34,10 @@ export class CompanyKpiSelectComponent {
     let companyKpis: Array<IdbKeyPerformanceIndicator> = keyPerformanceIndicators.filter(kpi => {
       return kpi.companyId == onSiteVisit.companyId
     });
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-kpi-detail/' + companyKpis[0].guid);
+    if (companyKpis.length > 0) {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-kpi-detail/' + companyKpis[0].guid);
+    } else {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-setup');
+    }
   }
 }

@@ -47,7 +47,7 @@ import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/s
 import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-company-forms.module";
 import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/shared-facility-forms.module';
 import { AssessmentEnergyOpportunitiesFormComponent } from './data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component';
-import { CompanyContactsSetupFormComponent } from './pre-visit/company-contacts-setup-form/company-contacts-setup-form.component';
+import { CompanyContactsSetupFormComponent } from './pre-visit/company-contacts-setup/company-contacts-setup-form/company-contacts-setup-form.component';
 
 @NgModule({
   declarations: [

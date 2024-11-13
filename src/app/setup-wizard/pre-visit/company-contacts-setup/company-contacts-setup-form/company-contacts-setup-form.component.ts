@@ -5,8 +5,8 @@ import { IdbCompany } from 'src/app/models/company';
 import { faAddressBook, faCircleExclamation, faPlus, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
-import { LocalStorageDataService } from '../../../shared/shared-services/local-storage-data.service';
-import { BootstrapService } from '../../../shared/shared-services/bootstrap.service';
+import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
+import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
 
 @Component({
   selector: 'app-company-contacts-setup-form',

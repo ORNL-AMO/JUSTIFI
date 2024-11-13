@@ -51,6 +51,14 @@ PORTFOLIO TABS
     color: var(--portfolio-nav-color);
 }
 
+a {
+    color: var(--portfolio-nav-color);
+}
+
+.btn.nav-btn{
+    background-color: var(--portfolio-nav-color);
+    color: white;
+}
 
 .portfolio .nav-item .nav-link.active {
     background-color: var(--portfolio-nav-color);
@@ -58,7 +66,7 @@ PORTFOLIO TABS
     border-bottom-color: black;
 }
 
-.portfolio .nav-item .nav-link:hover {
+.portfolio .nav-item .nav-link:hover, .btn.nav-btn:hover {
     background-color: #8DABBE;
     color: black;
 }

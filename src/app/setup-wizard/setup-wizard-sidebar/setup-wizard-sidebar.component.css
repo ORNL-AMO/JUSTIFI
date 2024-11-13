@@ -33,7 +33,7 @@
 }
 
 .nav-link.active{
-    background-color: #0079c2;
+    background-color: var(--portfolio-nav-color);
     color: white;
 }
 
