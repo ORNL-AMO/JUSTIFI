@@ -5,18 +5,15 @@
                 <label class="col-sm-5 col-form-label" for="equipmentName">End Use Name</label>
                 <div class="col-sm-7">
                     <input name="equipmentName" type="text" class="form-control"
-                        [(ngModel)]="processEquipment.equipmentName"
-                        id="equipmentName" (input)="saveChanges()">
+                        [(ngModel)]="processEquipment.equipmentName" id="equipmentName" (input)="saveChanges()">
                 </div>
             </div>
-           
+
             <div class="row">
                 <label class="col-sm-5 col-form-label" for="notes">Notes</label>
                 <div class="col-sm-7">
-                    <textarea class="form-control" name="notes"
-                        [(ngModel)]="processEquipment.notes"
-                        (input)="saveChanges()"
-                        rows="4"></textarea>
+                    <textarea class="form-control" name="notes" [(ngModel)]="processEquipment.notes"
+                        (input)="saveChanges()" rows="4"></textarea>
                 </div>
             </div>
         </form>
@@ -33,15 +30,13 @@
                     <fa-icon [icon]="faUser"></fa-icon>
                     {{contact | contactNameDisplay}}
                 </button>
-                <button class="btn btn-sm btn-secondary"
-                    (click)="openContactModal(undefined)">
+                <button class="btn btn-sm btn-secondary" (click)="openContactModal(undefined)">
                     <fa-icon [icon]="faContactBook"></fa-icon>
                     Stakeholders
                 </button>
             </div>
             <div>
-                <button class="btn btn-sm btn-danger"
-                    (click)="openDeleteModal()">
+                <button class="btn btn-sm btn-danger" (click)="openDeleteModal()">
                     <fa-icon [icon]="faTrash"></fa-icon> Delete
                 </button>
             </div>
@@ -62,8 +57,8 @@
         <hr>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2" (click)="closeDeleteModal()">Cancel</button>
-        <button class="btn btn-danger" (click)="deleteEquipment()"><fa-icon [icon]="faTrash"></fa-icon> Delete
+        <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteModal()">Cancel</button>
+        <button class="btn btn-danger btn-sm" (click)="deleteEquipment()"><fa-icon [icon]="faTrash"></fa-icon> Delete
             End Use</button>
     </div>
 </div>

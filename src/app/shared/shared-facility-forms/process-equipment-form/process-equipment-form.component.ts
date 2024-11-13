@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faContactBook, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
@@ -32,7 +33,9 @@ export class ProcessEquipmentFormComponent {
     private dbChangesService: DbChangesService,
     private contactIdbService: ContactIdbService,
     private sharedDataService: SharedDataService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private toastNotificationService: ToastNotificationsService
   ) { }
 
   ngOnInit() {
@@ -73,6 +76,11 @@ export class ProcessEquipmentFormComponent {
 
   async deleteEquipment() {
     await this.dbChangesService.deleteProcessEquipment(this.processEquipment);
+    this.toastNotificationService.showToast("End Use Deleted!", "End use item has been removed from the facility inventory.", 'bg-success', true, false);
+    if (this.router.url.includes('portfolio')) {
+      this.router.navigateByUrl('/portfolio/facility/' + this.processEquipment.facilityId + '/end-use-inventory');
+    }
+    this.closeDeleteModal();
   }
 
   openContactModal(viewContact: IdbContact) {

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faContactBook, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
@@ -15,6 +15,7 @@ import { EnergyUnitOptions, ProcessCoolingUnitOptions, UnitOption, VolumeGasOpti
 import { UtilityOption, UtilityOptions, UtilityType, UtilityTypes } from 'src/app/shared/constants/utilityTypes';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { SharedDataService } from '../../shared-services/shared-data.service';
+import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 
 @Component({
   selector: 'app-energy-equipment-form',
@@ -62,7 +63,9 @@ export class EnergyEquipmentFormComponent {
     private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,
     private activatedRoute: ActivatedRoute,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private toastNotificationService: ToastNotificationsService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -197,6 +200,11 @@ export class EnergyEquipmentFormComponent {
 
   async deleteEquipment() {
     await this.dbChangesService.deleteEnergyEquipment(this.energyEquipment);
+    this.toastNotificationService.showToast("Equipment Deleted!", "Equipment item has been removed from the facility inventory.", 'bg-success', true, false);
+    if (this.router.url.includes('portfolio')) {
+      this.router.navigateByUrl('/portfolio/facility/' + this.energyEquipment.facilityId + '/system-inventory');
+    }
+    this.closeDeleteModal();
   }
 
   openContactModal(viewContact: IdbContact) {

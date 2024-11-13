@@ -17,8 +17,6 @@ export class EndUseInventoryComponent {
 
   facility: IdbFacility;
   facilitySub: Subscription;
-
-
   processEquipmentSub: Subscription
   processEquipments: Array<IdbProcessEquipment>;
 
