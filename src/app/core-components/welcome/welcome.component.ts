@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IconDefinition, faBookOpen, faBookReader, faBuilding, faChevronRight, faDatabase, faExternalLink, faFileCirclePlus, faFolderOpen, faIndustry, faQuestionCircle, faSearchPlus, faStopwatch, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faBookOpen, faInbox, faBuilding, faChevronRight, faDatabase, faExternalLink, faFileCirclePlus, faFolderOpen, faIndustry, faQuestionCircle, faSearchPlus, faStopwatch, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
@@ -35,6 +35,7 @@ export class WelcomeComponent {
   faIndustry: IconDefinition = faIndustry;
   faSearchPlus: IconDefinition = faSearchPlus;
   faStopwatch: IconDefinition = faStopwatch;
+  faInbox: IconDefinition = faInbox;
   faFileCirclePlus: IconDefinition = faFileCirclePlus;
 
   userSub: Subscription
@@ -134,7 +135,10 @@ export class WelcomeComponent {
           this.companyIdbService.setSelectedFromGUID(exampleVisit.companyId);
           this.facilityIdbService.setSelectedFromGUID(exampleVisit.facilityId);
           this.onSiteVisitIdbService.setSelectedFromGUID(exampleVisit.guid);
-          this.toastNotificationService.showToast('Cocoa Co. Example Added!', 'Our example company and assessments have been added. You can now explore a completed on-site visit to view the possible impacts of NEBs!', 'bg-success', true, false);
+          this.toastNotificationService.showToast('Cocoa Co. Example Added!', 
+            `Our example company and assessments have been added. 
+            You can now explore a completed on-site energy assessment visit to view the possible impacts of NEBs!`,
+            'bg-success', true, false);
           this.router.navigateByUrl('/setup-wizard/pre-visit/' + exampleVisit.guid);
         } catch (err) {
           console.log(err);

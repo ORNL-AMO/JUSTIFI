@@ -44,6 +44,10 @@ import { VisitReportComponent } from './setup-wizard/data-evaluation/visit-repor
 import { AssessmentEvaluationComponent } from './setup-wizard/data-evaluation/assessment-evaluation/assessment-evaluation.component';
 import { OnSiteAssessmentResultsComponent } from './setup-wizard/data-collection/on-site-assessment/on-site-assessment-results/on-site-assessment-results.component';
 import { FacilityEnergyEquipmentSetupComponent } from './setup-wizard/pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component';
+import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
+import { HelpComponent } from './core-components/help/help.component';
+import { AboutComponent } from './core-components/about/about.component';
+import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
 import { NebsDatabaseComponent } from './nebs-database/nebs-database.component';
 
 const routes: Routes = [
@@ -55,6 +59,22 @@ const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomeComponent
+  },
+  {
+    path: 'help',
+    component: HelpComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
+  },
+  {
+    path: 'feedback',
+    component: FeedbackPageComponent
+  },
+  {
+    path: 'acknowledgments',
+    component: AcknowledgmentsComponent
   },
   {
     path: 'nebs-database',
