@@ -16,4 +16,6 @@ export class SingleCellItemComponent {
   per: string;
   @Input()
   isCurrency: boolean;
+  @Input()
+  numValueDigits: string = '1.0-2';
 }

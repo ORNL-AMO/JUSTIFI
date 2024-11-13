@@ -1,1 +1,71 @@
-<p>industrial-system-inventory-home works!</p>
+<div class="d-flex w-100 justify-content-end">
+    <div>
+        <button class="btn btn-outline-success btn-sm" (click)="addEquipment()">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            Add New Equipment
+        </button>
+    </div>
+</div>
+<hr class="my-2">
+
+<ng-template [ngIf]="energyEquipments.length > 0" [ngIfElse]="noEquipmentBlock">
+    <table class="table table-bordered table-hover table-sm">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Industrial System
+                </th>
+                <th>
+                    Utility Type
+                </th>
+                <th>
+                    Energy Use<br>
+                    <span class="fw-light small">
+                        (<span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>/yr)
+                    </span>
+                </th>
+                <th>
+                    Stakeholders
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let energyEquipment of energyEquipments">
+                <td>
+                    {{energyEquipment.equipmentName}}
+                </td>
+                <td>
+                    <app-single-cell-item [strValue]="energyEquipment.equipmentType"></app-single-cell-item>
+                </td>
+                <td>
+                    <app-single-cell-item [strValue]="energyEquipment.utilityType"></app-single-cell-item>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="energyEquipment.annualEnergyUse"
+                        [numValueDigits]="'1.0-0'"></app-single-cell-item>
+                </td>
+                <td>
+                    @let associatedContacts = energyEquipment.guid | associatedContacts:'energyEquipment': contacts;
+                    <ng-template [ngIf]="associatedContacts.length > 0" [ngIfElse]="noContactsBlock">
+                        <span *ngFor="let contact of associatedContacts">
+                            {{contact | contactNameDisplay}} <br>
+                        </span>
+                    </ng-template>
+                    <ng-template #noContactsBlock>
+                        &mdash;
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #noEquipmentBlock>
+    <div class="alert alert-info p-2 text-center">
+        No industrial system equipment found for this facility. Use the "<fa-icon [icon]="faPlus"></fa-icon>
+        Add New Equipment" button to add equipment to this facility.
+    </div>
+</ng-template>
