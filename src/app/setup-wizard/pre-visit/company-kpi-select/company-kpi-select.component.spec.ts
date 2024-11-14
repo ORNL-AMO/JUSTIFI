@@ -26,6 +26,7 @@ import { PrimaryKpiBadgeModule } from 'src/app/shared/primary-kpi-badge/primary-
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
+import { SharedCompanyFormsModule } from 'src/app/shared/shared-company-forms/shared-company-forms.module';
 
 describe('CompanyKpiSelectComponent', () => {
   let component: CompanyKpiSelectComponent;
@@ -57,7 +58,7 @@ describe('CompanyKpiSelectComponent', () => {
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule, PrimaryKpiBadgeModule],
+      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule, PrimaryKpiBadgeModule, SharedCompanyFormsModule],
       declarations: [CompanyKpiSelectComponent, AddKpiSearchComponent, CompanyKpiListComponent, SelectedKpiOptionPipe],
       providers: [
         { provide: CompanyIdbService, useValue: companyIdbService },

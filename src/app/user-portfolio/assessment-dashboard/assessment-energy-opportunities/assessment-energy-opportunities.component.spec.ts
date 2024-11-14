@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssessmentEnergyOpportunitiesComponent } from './assessment-energy-opportunities.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('AssessmentEnergyOpportunitiesComponent', () => {
   let component: AssessmentEnergyOpportunitiesComponent;
@@ -8,7 +11,9 @@ describe('AssessmentEnergyOpportunitiesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AssessmentEnergyOpportunitiesComponent]
+      imports: [RouterTestingModule, FontAwesomeModule],
+      declarations: [AssessmentEnergyOpportunitiesComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

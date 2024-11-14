@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CompanySetupFormComponent } from './company-setup-form.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { SharedSettingsFormsModule } from '../../shared-settings-forms/shared-settings-forms.module';
+import { LabelWithTooltipModule } from '../../label-with-tooltip/label-with-tooltip.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('CompanySetupFormComponent', () => {
   let component: CompanySetupFormComponent;
@@ -8,7 +12,9 @@ describe('CompanySetupFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CompanySetupFormComponent]
+      imports: [SharedSettingsFormsModule, LabelWithTooltipModule, FormsModule, ReactiveFormsModule],
+      declarations: [CompanySetupFormComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

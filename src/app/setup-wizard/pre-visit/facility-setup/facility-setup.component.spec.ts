@@ -16,8 +16,8 @@ import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.serv
 import { IdbOnSiteVisit, getNewIdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { PreAssessmentSetupService } from '../pre-assessment-setup/pre-assessment-setup.service';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
-import { EnergyEquipmentDisplayPipe } from 'src/app/shared/helper-pipes/energy-equipment-display.pipe';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
+import { SharedFacilityFormsModule } from 'src/app/shared/shared-facility-forms/shared-facility-forms.module';
 
 describe('FacilitySetupComponent', () => {
   let component: FacilitySetupComponent;
@@ -50,7 +50,7 @@ describe('FacilitySetupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, SharedSettingsFormsModule, FormsModule, ReactiveFormsModule],
+      imports: [FontAwesomeModule, SharedSettingsFormsModule, FormsModule, ReactiveFormsModule, SharedFacilityFormsModule],
       declarations: [FacilitySetupComponent],
       providers: [
         { provide: UserIdbService, useValue: userIdbService },

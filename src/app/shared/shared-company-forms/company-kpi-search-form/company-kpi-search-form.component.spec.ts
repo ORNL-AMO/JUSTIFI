@@ -1,6 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CompanyKpiSearchFormComponent } from './company-kpi-search-form.component';
+import { CompanyKpiListComponent } from './company-kpi-list/company-kpi-list.component';
+import { AddKpiSearchComponent } from './add-kpi-search/add-kpi-search.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
+import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
+import { SelectedKpiOptionPipe } from './add-kpi-search/selected-kpi-option.pipe';
+import { PrimaryKpiBadgeModule } from '../../primary-kpi-badge/primary-kpi-badge.module';
 
 describe('CompanyKpiSearchFormComponent', () => {
   let component: CompanyKpiSearchFormComponent;
@@ -8,7 +16,9 @@ describe('CompanyKpiSearchFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CompanyKpiSearchFormComponent]
+      imports: [FontAwesomeModule, FormsModule, HelperPipesModule, PrimaryKpiBadgeModule],
+      declarations: [CompanyKpiSearchFormComponent, CompanyKpiListComponent, AddKpiSearchComponent, SelectedKpiOptionPipe],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

@@ -15,10 +15,12 @@ export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, companyPerfo
                     return companyKPM.guid == performanceMetricImpact.kpmGuid
                 }
             });
-            reportPerformanceMetrics.push({
-                performanceMetricImpact: performanceMetricImpact,
-                keyPerformanceMetric: keyPerformanceMetric
-            })
+            if (keyPerformanceMetric) {
+                reportPerformanceMetrics.push({
+                    performanceMetricImpact: performanceMetricImpact,
+                    keyPerformanceMetric: keyPerformanceMetric
+                })
+            }
         }
     });
     let costSavings: number = nonEnergyBenefit.costImpact || 0;

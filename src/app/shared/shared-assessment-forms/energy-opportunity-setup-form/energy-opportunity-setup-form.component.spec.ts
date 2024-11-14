@@ -11,7 +11,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { IdbEnergyOpportunity, getNewIdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
-import { NebFormsAccordionComponent } from '../../neb-forms-accordion/neb-forms-accordion.component';
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
@@ -21,6 +20,7 @@ import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service'
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbFacility } from 'src/app/models/facility';
+import { NebFormsAccordionComponent } from '../neb-forms-accordion/neb-forms-accordion.component';
 
 describe('EnergyOpportunitySetupFormComponent', () => {
   let component: EnergyOpportunitySetupFormComponent;

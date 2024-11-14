@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssessmentDashboardComponent } from './assessment-dashboard.component';
+import { AssessmentDashboardNavComponent } from './assessment-dashboard-nav/assessment-dashboard-nav.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('AssessmentDashboardComponent', () => {
   let component: AssessmentDashboardComponent;
@@ -8,7 +12,9 @@ describe('AssessmentDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AssessmentDashboardComponent]
+      imports: [RouterTestingModule, FontAwesomeModule],
+      declarations: [AssessmentDashboardComponent, AssessmentDashboardNavComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

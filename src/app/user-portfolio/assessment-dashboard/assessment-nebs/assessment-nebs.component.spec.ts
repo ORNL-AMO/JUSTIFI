@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssessmentNebsComponent } from './assessment-nebs.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('AssessmentNebsComponent', () => {
   let component: AssessmentNebsComponent;
@@ -8,7 +11,9 @@ describe('AssessmentNebsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AssessmentNebsComponent]
+      imports: [RouterTestingModule, FontAwesomeModule],
+      declarations: [AssessmentNebsComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 
