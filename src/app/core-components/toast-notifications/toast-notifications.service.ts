@@ -28,9 +28,12 @@ export class ToastNotificationsService {
   showWebDisclaimer() {
     if (!this.localStorageDataService.disableDataDisclaimer) {
       let title: string = "JUSTIFI Web";
-      let body: string = `You are running JUSTIFI in a web browser. All application data is saved within this browser (The DOE does not have access to your data). 
-        It is encouraged that you download backup files of your data frequently. Backups can be uploaded to restore lost or corrupted data. Additionally, sharing backups with the development team can help in their effort to make this tool. <br> <hr>
-        You can download data backups using the "Download Data" button in the upper right hand corner of your screen.`
+      let body: string = `You are running JUSTIFI in a web browser. All application data is saved locally 
+    within this browser (The DOE does not have access to your data). 
+    It is encouraged that you download backup files of your data frequently. 
+    Backups can be imported back to the tool to restore lost or corrupted data. 
+    Additionally, sharing backups with the development team can assist in improving this tool. <br> <hr>
+    You can download data backups using the "Download Data" button in the upper right hand corner of your screen.`
       this.showToast(title, body, "bg-info", false, true);
       let initDisable: boolean = true;
       this.disableNotificaitonSub = this.disableNotification.subscribe(val => {

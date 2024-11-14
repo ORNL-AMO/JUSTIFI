@@ -33,6 +33,7 @@ import { ProcessEquipmentIdbService } from './indexed-db/process-equipment-idb.s
 import { IdbProcessEquipment } from './models/processEquipment';
 import { IdbKeyPerformanceMetricImpact } from './models/keyPerformanceMetricImpact';
 import { KeyPerformanceMetricImpactsIdbService } from './indexed-db/key-performance-metric-impacts-idb.service';
+import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
 import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
 import { LocalStorageDataService } from './shared/shared-services/local-storage-data.service';
 
@@ -94,7 +95,7 @@ describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, FontAwesomeModule],
-      declarations: [AppComponent, NavbarComponent, WelcomeComponent, LoadingComponent, SetupWizardModalComponent, ImportBackupModalComponent, AlphaDisclaimerComponent],
+      declarations: [AppComponent, NavbarComponent, WelcomeComponent, LoadingComponent, SetupWizardModalComponent, ImportBackupModalComponent, AlphaDisclaimerComponent, FeedbackPageComponent],
       providers: [
         { provide: CompanyIdbService, useValue: companyIdbService },
         { provide: FacilityIdbService, useValue: facilityIdbService },
