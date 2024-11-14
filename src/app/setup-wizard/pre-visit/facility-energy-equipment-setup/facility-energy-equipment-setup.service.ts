@@ -11,7 +11,6 @@ import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 })
 export class FacilityEnergyEquipmentSetupService {
   convertValue = new ConvertValue();
-  companyEnergyUnit: string;
 
   constructor(
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
@@ -40,18 +39,15 @@ export class FacilityEnergyEquipmentSetupService {
   async updateEnergyEquipmentEnergyUseByUtility(energyEquipments: Array<IdbEnergyEquipment>,
     facilityUnitSettings: UnitSettings) {
     for (const equipment of energyEquipments) {
-      const utilityType = equipment.utilityType.replace(/\s+/g, '');
-      const camelCaseType = utilityType.charAt(0).toLowerCase()
-          + utilityType.slice(1);
-      if (facilityUnitSettings[`include${camelCaseType}`]) {
-        if (equipment.facilityUtilityUnit == facilityUnitSettings[`${camelCaseType}Unit`] ||
-          equipment.facilityUtilityUnit == facilityUnitSettings[`${camelCaseType}EnergyUnit`]) {
-            return;
-        }
+      const utilityType = equipment.utilityType;
+      const trimmedType = utilityType.replace(/\s+/g, '');
+      const camelCaseType = trimmedType.charAt(0).toLowerCase()
+          + trimmedType.slice(1);
+      if (facilityUnitSettings[`include${trimmedType}`]) {
         let selectedUtilityOption = UtilityOptions.find(
           _option => _option.utilityType == utilityType);
         let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
-          _unitOption => _unitOption.value == equipment.facilityUtilityUnit);
+          _unitOption => _unitOption.value == facilityUnitSettings[`${camelCaseType}Unit`]);
         if (selectedUtilityOption.isStandardEnergyUnit 
           && selectedUnitOption.isStandard !== false) { // Standard unit
           equipment.facilityUtilityUnit = facilityUnitSettings[`${camelCaseType}Unit`];
@@ -64,7 +60,7 @@ export class FacilityEnergyEquipmentSetupService {
       // Conversion
       equipment.annualEnergyUseByUtility = this.convertValue.convertValue(
         equipment.annualEnergyUse,
-        this.companyEnergyUnit,
+        this.companyIdbService.getByGUID(equipment.companyId).companyEnergyUnit,
         equipment.facilityUtilityUnit
       ).convertedValue;
       if (!equipment.annualEnergyUseByUtility || 

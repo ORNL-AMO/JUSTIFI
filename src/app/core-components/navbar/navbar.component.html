@@ -10,13 +10,23 @@
             <span class="badge bg-secondary">v{{version}}</span>
         </div>
         <div>
-            <button class="btn btn-primary btn-sm me-2" (click)="openImportDataModel()">
-                <fa-icon [icon]="faUpload"></fa-icon>
-                Import Data
+            <button class="btn btn-dark btn-sm me-2" (click)="openFeedbackModal()">
+                <fa-icon [icon]="faInbox"></fa-icon>
+                <span class="d-sm-none d-md-none d-lg-inline">
+                    Provide Feedback
+                </span>
             </button>
-            <button class="btn btn-primary btn-sm me-2" (click)="backupData()">
+            <button class="btn btn-dark btn-sm me-2" (click)="openImportDataModal()">
+                <fa-icon [icon]="faUpload"></fa-icon>
+                <span class="d-sm-none d-md-none d-lg-inline">
+                    Import Data
+                </span>
+            </button>
+            <button class="btn btn-dark btn-sm me-2" (click)="openBackupDataModal()">
                 <fa-icon [icon]="faDownload"></fa-icon>
-                Download Data
+                <span class="d-sm-none d-md-none d-lg-inline">
+                    Download Data
+                </span>
             </button>
             <button class="btn btn-danger btn-sm" (click)="openResetDatabaseModal()">
                 Reset Database
@@ -26,7 +36,7 @@
 </nav>
 
 
-<div [ngClass]="{'window-overlay': showResetModal}"></div>
+<div [ngClass]="{'window-overlay': showResetModal || showBackupDataModal || showFeedbackModal}"></div>
 <div class="popup" [ngClass]="{'open': showResetModal }">
     <div class="popup-header">Reset Your Database
         <button type="button" class="btn-close float-end" aria-label="Close"
@@ -39,8 +49,40 @@
         <hr>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2" (click)="closeResetDatabaseModal()">Cancel</button>
-        <button class="btn btn-danger" (click)="resetDatabase()">Reset Database</button>
+        <button class="btn btn-sm btn-secondary me-2" (click)="closeResetDatabaseModal()">Cancel</button>
+        <button class="btn btn-sm btn-danger" (click)="resetDatabase()">Reset Database</button>
+    </div>
+</div>
+
+<div class="popup" [ngClass]="{'open': showBackupDataModal }">
+    <div class="popup-header">Backup Data
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeBackupDataModal()"></button>
+    </div>
+    <div class="popup-body">
+        <div class="alert alert-info">
+            Would you like to backup the current state of your data? A .json file will be created in your downloads
+            folder that can be uploaded into JUSTIFI. This can be used to share your data with others or restore to an
+            older state.
+        </div>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-sm btn-secondary me-2" (click)="closeBackupDataModal()">Cancel</button>
+        <button class="btn btn-sm btn-success" (click)="backupData()"><fa-icon [icon]="faDownload"></fa-icon>
+            Download Data</button>
+    </div>
+</div>
+
+<div class="popup popup-lg" [ngClass]="{'open': showFeedbackModal }">
+    <div class="popup-header">
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeFeedbackModal()"></button>
+    </div>
+    <div class="popup-body">
+        <app-feedback-page [inModal]="true"></app-feedback-page>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-sm btn-secondary me-2" (click)="closeFeedbackModal()">Close</button>
     </div>
 </div>
 

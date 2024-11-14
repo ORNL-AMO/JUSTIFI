@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { IconDefinition, faChevronLeft, faCircleCheck, faContactBook, faSave, faUser } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronLeft, faCircle, faCircleCheck, faContactBook, faSave, faUser } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { ContactContext, IdbContact } from 'src/app/models/contact';
@@ -28,6 +28,7 @@ export class ContactModalComponent implements OnInit {
   faChevronLeft: IconDefinition = faChevronLeft;
   faUser: IconDefinition = faUser;
   faContactBook: IconDefinition = faContactBook;
+  faCircle: IconDefinition = faCircle;
   constructor(
     private contactIdbService: ContactIdbService
   ) {

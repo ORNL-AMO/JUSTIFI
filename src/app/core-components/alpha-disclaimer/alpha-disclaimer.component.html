@@ -1,0 +1,33 @@
+<div [ngClass]="{'window-overlay': showDisclaimer}"></div>
+<div class="popup" [ngClass]="{'open': showDisclaimer}">
+    <div class="popup-header">Welcome to JUSTIFI!
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="hideDisclaimer()"></button>
+    </div>
+    <div class="popup-body">
+        <p class="mb-0">
+            Thank you for taking the time to test an alpha version of the JUSTIFI application. There are a few things
+             that you should take into consideration as you work your way through the tool:
+        </p>
+        <ul>
+            <li>
+                The tool is a work in progress. You may encounter bugs along the way. Please use the feedback link to
+                let the development team know what you have found. The more details that can be shared about the bug,
+                the
+                easier it will be for us to address them.
+            </li>
+            <li>
+                We will do our best to ensure compatibility and preserve existing data as we make updates to the 
+                application. However, please be aware that updates may occasionally result in breaking changes to 
+                existing data. If needed, the "Reset Database" button can be used to purge all the existing data 
+                and allow you to start fresh.
+            </li>
+        </ul>
+    </div>
+    <div class="pe-2 ps-1">
+        <hr class="m-0">
+    </div>
+    <div class="p-2 d-flex justify-content-end">
+        <button class="btn btn-secondary btn-sm me-2" (click)="disableDisclaimer()">Don't Show Me Again</button>
+        <button class="btn btn-secondary btn-sm" (click)="hideDisclaimer()">Close Disclaimer</button>
+    </div>
+</div>

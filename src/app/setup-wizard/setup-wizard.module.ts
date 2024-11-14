@@ -51,7 +51,6 @@ import { ProcessEquipmentFormComponent } from './pre-visit/facility-process-equi
 import { FacilityEnergyEquipmentSetupComponent } from './pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component';
 import { EnergyEquipmentFormComponent } from './pre-visit/facility-energy-equipment-setup/energy-equipment-form/energy-equipment-form.component';
 import { PrimaryKpiBadgeModule } from "../shared/primary-kpi-badge/primary-kpi-badge.module";
-import { NebOptionsModalListPipe } from './data-collection/on-site-assessment/add-nebs-modal/neb-options-modal-list.pipe';
 import { PerformanceMetricsModalComponent } from './data-collection/on-site-assessment/neb-forms-accordion/neb-setup-form/performance-metrics-modal/performance-metrics-modal.component';
 import { MetricOptionsModalListPipe } from './data-collection/on-site-assessment/neb-forms-accordion/neb-setup-form/performance-metrics-modal/metric-options-modal-list.pipe';
 import { AssociatedMetricIndicatorPipe } from './data-collection/on-site-assessment/neb-forms-accordion/neb-setup-form/performance-metrics-modal/associated-metric-indicator.pipe';
@@ -61,6 +60,9 @@ import { EnergyOpportunityNebsListPipe } from './data-collection/on-site-assessm
 import { SetupWizardHelpPanelModule } from './setup-wizard-help-panel/setup-wizard-help-panel.module';
 import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-tooltip.module';
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
+import { KpiDescriptionPipe } from './pre-visit/company-kpi-details/kpi-description.pipe';
+import { NebsDatabaseModule } from "../nebs-database/nebs-database.module";
+import { KpmDatabaseModalComponent } from './pre-visit/company-kpi-details/kpm-database-modal/kpm-database-modal.component';
 
 @NgModule({
   declarations: [
@@ -106,13 +108,14 @@ import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-for
     ProcessEquipmentFormComponent,
     FacilityEnergyEquipmentSetupComponent,
     EnergyEquipmentFormComponent,
-    NebOptionsModalListPipe,
     PerformanceMetricsModalComponent,
     MetricOptionsModalListPipe,
     AssociatedMetricIndicatorPipe,
     KpmImpactsTableComponent,
     EnergyOpportunityNebsTableComponent,
-    EnergyOpportunityNebsListPipe
+    EnergyOpportunityNebsListPipe,
+    KpiDescriptionPipe,
+    KpmDatabaseModalComponent
   ],
   imports: [
     CommonModule,
@@ -129,7 +132,8 @@ import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-for
     ReportsModule,
     SetupWizardHelpPanelModule,
     LabelWithTooltipModule,
-    KpmDetailsFormModule
-  ]
+    KpmDetailsFormModule,
+    NebsDatabaseModule
+]
 })
 export class SetupWizardModule { }

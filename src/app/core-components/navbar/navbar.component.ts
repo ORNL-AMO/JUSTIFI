@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
 import { LoadingService } from '../loading/loading.service';
-import { IconDefinition, faHome, faDownload, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faHome, faDownload, faUpload, faInbox } from '@fortawesome/free-solid-svg-icons';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 import { environment } from 'src/environments/environment';
 import { ImportBackupModalService } from '../import-backup-modal/import-backup-modal.service';
@@ -17,11 +17,12 @@ export class NavbarComponent{
   faHome: IconDefinition = faHome;
   faDownload: IconDefinition =faDownload;
   faUpload: IconDefinition = faUpload;
+  faInbox: IconDefinition = faInbox;
 
   version: string = environment.version;
   showResetModal: boolean = false;
-  showImportModal: boolean = false;
-
+  showBackupDataModal: boolean = false;
+  showFeedbackModal: boolean = false;
   constructor(private userIdbService: UserIdbService,
     private loadingService: LoadingService,
     private sharedDataService: SharedDataService,
@@ -33,9 +34,10 @@ export class NavbarComponent{
     this.backupDataService.backupData();
     // to do: update lastBackup property for selectedUser
     // let selectedUser = this.userIdbService.user.getValue();
+    this.closeBackupDataModal();
   }
 
-  openImportDataModel() {
+  openImportDataModal() {
     this.importBackupModalService.showImportModal.next(true);
   }
 
@@ -56,5 +58,21 @@ export class NavbarComponent{
 
   openSidebar(){
     this.sharedDataService.sidebarOpen.next(true);
+  }
+
+  openBackupDataModal(){
+    this.showBackupDataModal = true;
+  }
+
+  closeBackupDataModal(){
+    this.showBackupDataModal = false;
+  }
+
+  openFeedbackModal(){
+    this.showFeedbackModal = true;
+  }
+
+  closeFeedbackModal(){
+    this.showFeedbackModal = false;
   }
 }

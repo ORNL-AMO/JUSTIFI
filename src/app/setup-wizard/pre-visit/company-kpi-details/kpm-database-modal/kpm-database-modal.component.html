@@ -1,0 +1,45 @@
+<div [ngClass]="{'window-overlay': displayModal}"></div>
+<div class="popup" [ngClass]="{'open': displayModal }">
+    <div class="popup-header">KPMs Typically Associated With
+        <span class="bold" [innerHTML]="keyPerformanceIndicator.htmlLabel"></span>
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="popup-body">
+        <ng-template [ngIf]="keyPerformanceMetricOptions.length > 0" [ngIfElse]="noOptionsBlock">
+            <table class="table table-bordered table-hover table-sm">
+                <tbody>
+                    <tr class="clickable" (click)="toggleMetric(performanceMetric)"
+                        *ngFor="let performanceMetric of keyPerformanceMetricOptions">
+                        <td class="add-td text-center">
+                            <a class="click-link">
+                                <ng-template [ngIf]="addMetricValues.includes(performanceMetric.value)"
+                                    [ngIfElse]="addMetricBlock">
+                                    <fa-icon [icon]="faCheck"></fa-icon>
+                                </ng-template>
+                                <ng-template #addMetricBlock>
+                                    <fa-icon [icon]="faPlus"></fa-icon>
+                                </ng-template>
+                            </a>
+                        </td>
+                        <td>
+                            <span [innerHTML]="performanceMetric.htmlLabel"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+        <ng-template #noOptionsBlock>
+            <div class="alert alert-info">
+                All metrics in our system that are associated with <span class="bold"
+                    [innerHTML]="keyPerformanceIndicator.htmlLabel"></span> are being tracked.
+            </div>
+        </ng-template>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary btn-sm me-2" (click)="closeModal()">Cancel</button>
+        <button class="btn btn-sm btn-success" (click)="addMetrics()" [disabled]="addMetricValues.length == 0"><fa-icon
+                [icon]="faPlus"></fa-icon> Add {{addMetricValues.length}}
+            Metrics</button>
+    </div>
+</div>

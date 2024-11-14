@@ -14,6 +14,7 @@ import { EnergyOpportunityIdbService } from './indexed-db/energy-opportunity-idb
 import { EnergyEquipmentIdbService } from './indexed-db/energy-equipment-idb.service';
 import { ProcessEquipmentIdbService } from './indexed-db/process-equipment-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from './indexed-db/key-performance-metric-impacts-idb.service';
+import { ToastNotificationsService } from './core-components/toast-notifications/toast-notifications.service';
 
 @Component({
   selector: 'app-root',
@@ -34,12 +35,14 @@ export class AppComponent {
     private keyPerformanceIndicatorsIdbService: KeyPerformanceIndicatorsIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
-    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService) {
+    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
+    private toastNotificationService: ToastNotificationsService) {
   }
 
   async ngOnInit() {
     await this.initializeData();
     this.checkRouter();
+    this.toastNotificationService.showWebDisclaimer();
   }
 
   async initializeData() {

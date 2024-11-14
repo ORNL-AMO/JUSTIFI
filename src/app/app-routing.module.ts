@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { WelcomeComponent } from './core-components/welcome/welcome.component';
 import { PageNotFoundComponent } from './core-components/page-not-found/page-not-found.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
@@ -44,6 +44,11 @@ import { VisitReportComponent } from './setup-wizard/data-evaluation/visit-repor
 import { AssessmentEvaluationComponent } from './setup-wizard/data-evaluation/assessment-evaluation/assessment-evaluation.component';
 import { OnSiteAssessmentResultsComponent } from './setup-wizard/data-collection/on-site-assessment/on-site-assessment-results/on-site-assessment-results.component';
 import { FacilityEnergyEquipmentSetupComponent } from './setup-wizard/pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component';
+import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
+import { HelpComponent } from './core-components/help/help.component';
+import { AboutComponent } from './core-components/about/about.component';
+import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
+import { NebsDatabaseComponent } from './nebs-database/nebs-database.component';
 
 const routes: Routes = [
   {
@@ -54,6 +59,26 @@ const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomeComponent
+  },
+  {
+    path: 'help',
+    component: HelpComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
+  },
+  {
+    path: 'feedback',
+    component: FeedbackPageComponent
+  },
+  {
+    path: 'acknowledgments',
+    component: AcknowledgmentsComponent
+  },
+  {
+    path: 'nebs-database',
+    component: NebsDatabaseComponent,
   },
   {
     path: 'setup-wizard',
@@ -281,8 +306,14 @@ const routes: Routes = [
 
 ];
 
+const routerOptions: ExtraOptions = {
+  anchorScrolling: 'enabled',
+  scrollPositionRestoration: 'enabled',
+  useHash: true
+}
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

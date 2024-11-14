@@ -1,0 +1,50 @@
+<div class="row g-0 justify-content-center">
+    <div [ngClass]="{'col-lg-9 col-md-10 col-sm-11 static-content': !inModal, 'col-12': inModal}">
+        <div [ngClass]="{'ps-3 pt-2 pe-3 pb-2': !inModal}">
+            <h4>
+                <fa-icon [icon]="faInbox" class="pe-1"></fa-icon>
+                Feedback
+            </h4>
+            <p>
+                We'd love to hear from you! The JUSTIFI application is in active development and your feedback
+                 is invaluable in shaping the user experience, new features and general content within the tool.
+                 To provide feedback, please email <a href="mailto:armstrongko@ornl.gov">Kristina
+                    Armstrong</a> (armstrongko&#64;ornl.gov) with the subject line 
+                    <span class="bold">“JUSTIFI Feedback - A Summary”</span>.
+                This will allow the team to follow up with any
+                clarification questions in a timely manner and update you on progress towards implementing your ideas!
+            </p>
+            <hr>
+            <h4>
+                <fa-icon [icon]="faBug"></fa-icon> Bug Reporting
+            </h4>
+            <p>
+                If you happen to encounter a bug while using JUSTIFI please report them to <a
+                    href="mailto:armstrongko@ornl.gov">Kristina
+                    Armstrong</a> (armstrongko&#64;ornl.gov) as well
+                using the subject <span class="bold">“JUSTIFI Bug Reporting - A Summary”</span>.
+                Kristina will work with you to resolve the issue and
+                 make sure the bug is fixed to prevent future occurrences.
+            </p>
+            <p>
+                To help us address the bug efficiently, 
+                some suggested details to include in the bug report are:
+            </p>
+            <ul>
+                <li>
+                    A .json backup of the data in your system (use the "<fa-icon [icon]="faDownload"></fa-icon> Download
+                    Data" button) (if applicable)
+                </li>
+                <li>
+                    Detailed steps re-produce the bugs you encountered
+                </li>
+                <li>
+                    The type of browser you were using
+                </li>
+                <li>
+                    Screenshots of what you are seeing/encountering (if possible)
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

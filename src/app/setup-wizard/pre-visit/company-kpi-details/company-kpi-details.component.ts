@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IconDefinition, faBullseye, faChartBar, faChevronLeft, faChevronRight, faCircleQuestion, faClose, faContactBook, faPlus, faScaleUnbalancedFlip, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faBullseye, faChartBar, faChevronLeft, faChevronRight, faCircleQuestion, faClose, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
@@ -30,6 +30,7 @@ export class CompanyKpiDetailsComponent {
   faContactBook: IconDefinition = faContactBook;
   faClose: IconDefinition = faClose;
   faTrash: IconDefinition = faTrash;
+  faSearchPlus: IconDefinition = faSearchPlus;
 
   keyPerformanceIndicator: IdbKeyPerformanceIndicator;
   primaryKPIs: Array<PrimaryKPI> = PrimaryKPIs;
@@ -61,6 +62,9 @@ export class CompanyKpiDetailsComponent {
 
   timeOptions: Array<string> = ['day', 'week', 'month', 'year'];
   dropdownMenuGuid: string;
+
+  displayAddMetricModal: boolean = false;
+  showAddMetricDropdown: boolean = false;
   constructor(private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
@@ -90,6 +94,7 @@ export class CompanyKpiDetailsComponent {
       let kpiGuid: string = params['id'];
       this.keyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getByGuid(kpiGuid);
       this.setIndexValues();
+      this.showAddMetricDropdown = false;
     });
   }
 
@@ -172,6 +177,9 @@ export class CompanyKpiDetailsComponent {
   }
 
   addPerformanceMetric() {
+    if (this.showAddMetricDropdown) {
+      this.showAddMetricDropdown = false;
+    }
     let newCustomKPM: KeyPerformanceMetric = getCustomKPM(this.keyPerformanceIndicator.optionValue, this.keyPerformanceIndicator.guid);
     this.keyPerformanceIndicator.performanceMetrics.unshift(newCustomKPM);
     this.saveChanges();
@@ -211,4 +219,27 @@ export class CompanyKpiDetailsComponent {
       this.dropdownMenuGuid = undefined;
     }
   }
+
+  toggleAddMetricDropdown() {
+    this.showAddMetricDropdown = !this.showAddMetricDropdown;
+  }
+
+  showSuggestedMetrics() {
+    if (this.showAddMetricDropdown) {
+      this.showAddMetricDropdown = false;
+    }
+    this.displayAddMetricModal = true;
+  }
+
+  closeSuggestedMetrics() {
+    this.displayAddMetricModal = false;
+  }
+
+  addMetrics(metrics: Array<KeyPerformanceMetric>) {
+    metrics.forEach(metric => {
+      this.keyPerformanceIndicator.performanceMetrics.unshift(metric);
+    })
+    this.saveChanges();
+  }
+
 }

@@ -52,6 +52,8 @@ export class AssessmentDetailsFormComponent {
   convertValue = new ConvertValue();
 
   assessmentEnergyOpportunities: Array<IdbEnergyOpportunity>;
+  numberOfTrackedUtilities: number = 0;
+  trackedEnergyUnit: string;
 
   constructor(
     private assessmentIdbService: AssessmentIdbService,
@@ -115,6 +117,8 @@ export class AssessmentDetailsFormComponent {
 
   async calculateEnergyUseCost() {
     this.updateEnergyOpportunities();
+    this.numberOfTrackedUtilities = this.assessment.utilityEnergyUses.filter(
+      _energyUse => _energyUse.include).length;
     let use = 0, cost = 0;
     this.assessment.utilityTypes.forEach(utilityType => {
       let utilityEnergyUse: UtilityEnergyUse = this.assessment.utilityEnergyUses.find(
@@ -134,11 +138,13 @@ export class AssessmentDetailsFormComponent {
             utilityEnergyUse.energyUse,
             utilityEnergyUse.energyUnit,
             this.companyEnergyUnit).convertedValue;
+          this.trackedEnergyUnit = utilityEnergyUse.energyUnit;
         } else {
           convertedUse = this.convertValue.convertValue(
             utilityEnergyUse.energyUse * utilityEnergyUse.energyHHV,
             utilityEnergyUse.energyUnitStandard,
             this.companyEnergyUnit).convertedValue;
+          this.trackedEnergyUnit = utilityEnergyUse.energyUnitStandard;
         }
         use += convertedUse;
         // calculate cost

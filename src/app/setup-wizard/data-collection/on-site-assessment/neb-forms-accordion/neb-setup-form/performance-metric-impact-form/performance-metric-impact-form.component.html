@@ -53,12 +53,13 @@
                 </div>
             </div>
         </div>
+        <div class="form-block">
+            <app-kpm-details-form [keyPerformanceMetric]="keyPerformanceMetric"
+                [disableForm]="(metricHasOtherImpacts && !overrideBaseline)" (emitSave)="savePerformanceMetric()"
+                (emitCalculate)="calculateCostFromKPM($event)" [context]="'onSite'"></app-kpm-details-form>
 
-        <ng-template [ngIf]="keyPerformanceMetric.isQuantitative" [ngIfElse]="qualitativeMetricBlock">
-            <div class="form-block">
-                <app-kpm-details-form [keyPerformanceMetric]="keyPerformanceMetric"
-                    [disableForm]="(metricHasOtherImpacts && !overrideBaseline)" (emitSave)="savePerformanceMetric()"
-                    (emitCalculate)="calculateCost()" [context]="'onSite'"></app-kpm-details-form>
+
+            <ng-template [ngIf]="keyPerformanceMetric.isQuantitative">
                 <div class="row">
                     <label class="col-sm-6 col-form-label" for="modificationValue">
                         Impact on KPM
@@ -111,13 +112,8 @@
                         </ng-template>
                     </div>
                 </div>
-            </div>
-        </ng-template>
-        <ng-template #qualitativeMetricBlock>
-            <div class="alert alert-info small">
-                Quantitative results unavailable at this time.
-            </div>
-        </ng-template>
+            </ng-template>
+        </div>
     </div>
 </ng-template>
 <ng-template #missingMetricBlock>

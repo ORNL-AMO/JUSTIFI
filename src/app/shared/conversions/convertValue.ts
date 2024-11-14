@@ -42,9 +42,6 @@ export class ConvertValue {
         if (to == undefined) {
             // If no to unit is provided, default to convert to metric anchor
             let tempToUnit = this.getUnit(from);
-            if (tempToUnit == undefined) {
-                console.log(from);
-            }
             if (tempToUnit != undefined) {
                 to = this._measures[tempToUnit.measure]._anchors.metric.unit;
             }

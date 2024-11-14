@@ -126,11 +126,12 @@
                                                                     </div>
                                                                 </div>
                                                             </ng-container>
-                                                            <ng-container *ngIf="use.include
+                                                            <ng-container *ngIf="use.include 
+                                                                &&  use.utilityType !== 'Water' && use.utilityType !== 'Waste Water'
                                                                 && !(use.utilityType | isStandardUnit :use.energyUnit : 'Energy')">
                                                                 <div class="col-4">
                                                                     <div class="input-group">
-                                                                        <input type="text" class="disabled-input-label-secondary" [disabled]="true"
+                                                                        <input type="text" class="form-control disabled-input-label-secondary" [disabled]="true"
                                                                         value="{{use.utilityType | utilityHhvDisplay}}">
                                                                     </div>
                                                                 </div>
@@ -174,6 +175,7 @@
                                                     <div class="row">
                                                         <label class="col-sm-5 col-form-label"
                                                             for="{{'cost_'+assessment.guid}}">Annual
+                                                            Utility
                                                             Costs</label>
                                                         <div class="col-sm-7" id="{{'cost_'+assessment.guid}}">
                                                             {{assessment.cost | currency:'USD':'symbol':'1.0-2'}}

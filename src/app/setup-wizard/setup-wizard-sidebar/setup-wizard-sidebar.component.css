@@ -1,7 +1,7 @@
 .navbar{
     width: 20rem;
     background-color: #ffffff;
-    overflow-y: scroll;
+    overflow-y: auto;
     /* height: 100%; */
     /* max-height: 100%; */
     flex-wrap: nowrap;

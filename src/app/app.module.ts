@@ -20,6 +20,13 @@ import { AssessmentDashboardModule } from './assessment-dashboard/assessment-das
 import { SetupWizardModalComponent } from './core-components/setup-wizard-modal/setup-wizard-modal.component';
 import { ImportBackupModalComponent } from './core-components/import-backup-modal/import-backup-modal.component';
 import { PlotlyViaWindowModule } from 'angular-plotly.js';
+import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
+import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
+import { AboutComponent } from './core-components/about/about.component';
+import { HelpComponent } from './core-components/help/help.component';
+import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
+import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
+import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +37,13 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
     LoadingComponent,
     SidebarComponent,
     SetupWizardModalComponent,
-    ImportBackupModalComponent
+    ImportBackupModalComponent,
+    FeedbackPageComponent,
+    AcknowledgmentsComponent,
+    AboutComponent,
+    HelpComponent,
+    AlphaDisclaimerComponent,
+    ToastNotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +58,7 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
     HelperPipesModule,
     AssessmentDashboardModule,
     PlotlyViaWindowModule,
+    NebsDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

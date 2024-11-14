@@ -1,0 +1,17 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - 'develop'
+      - 'master'
+  workflow_dispatch:
+
+jobs:
+  web:
+    uses: ./.github/workflows/web.yml
+
+  # NOTE: To be implemented at a later date
+  # desktop:
+  #   uses: ./.github/workflows/desktop.yml
+  #   secrets: inherit

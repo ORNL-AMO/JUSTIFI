@@ -13,6 +13,12 @@
             </button>
             <hr>
             <li class="nav-item">
+                <a class="nav-link" [routerLink]="'/welcome'" [routerLinkActive]="['active']">
+                    <fa-icon [icon]="faHome"></fa-icon>
+                    Home</a>
+            </li>
+            <hr>
+            <li class="nav-item">
                 <a class="nav-link" [routerLink]="'/user'" [routerLinkActive]="['active']">
                     <fa-icon [icon]="faFolderOpen"></fa-icon>
                     My Portfolio</a>
@@ -47,19 +53,26 @@
                 <hr>
             </ng-container>
             <li class="nav-item">
-                <a class="nav-link">
-                    <fa-icon [icon]="faQuestionCircle" class="pe-1"></fa-icon>Help</a>
+                <a class="nav-link" [routerLink]="'/help'" [routerLinkActive]="['active']">
+                    <fa-icon [icon]="faQuestionCircle" class="pe-1"></fa-icon>Help
+                    <span class="badge bg-warning">Coming Soon</span>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link">
+                <a class="nav-link" [routerLink]="'/nebs-database'"
+                [routerLinkActive]="['active']">
+                    <fa-icon [icon]="faDatabase" class="pe-1"></fa-icon>NEBs Database</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="'/about'" [routerLinkActive]="['active']">
                     <fa-icon [icon]="faCircleInfo" class="pe-1"></fa-icon>About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link">
+                <a class="nav-link" [routerLink]="'/feedback'" [routerLinkActive]="['active']">
                     <fa-icon [icon]="faInbox" class="pe-1"></fa-icon>Feedback</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link">
+                <a class="nav-link" [routerLink]="'/acknowledgments'" [routerLinkActive]="['active']">
                     <fa-icon [icon]="faTrophy" class="pe-1"></fa-icon>Acknowledgments</a>
             </li>
         </ul>
