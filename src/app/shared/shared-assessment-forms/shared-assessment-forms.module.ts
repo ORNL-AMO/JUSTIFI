@@ -15,6 +15,8 @@ import { KpmDetailsFormModule } from '../kpm-details-form/kpm-details-form.modul
 import { AddNebsModalComponent } from './add-nebs-modal/add-nebs-modal.component';
 import { NebsDatabaseModule } from 'src/app/nebs-database/nebs-database.module';
 import { EnergyOpportunitySetupFormComponent } from './energy-opportunity-setup-form/energy-opportunity-setup-form.component';
+import { EnergyOpportunityNebsTableComponent } from './energy-opportunity-nebs-table/energy-opportunity-nebs-table.component';
+import { TableEntriesModule } from '../table-entries/table-entries.module';
 
 
 
@@ -28,7 +30,8 @@ import { EnergyOpportunitySetupFormComponent } from './energy-opportunity-setup-
     MetricOptionsModalListPipe,
     PerformanceMetricImpactFormComponent,
     AddNebsModalComponent,
-    EnergyOpportunitySetupFormComponent
+    EnergyOpportunitySetupFormComponent,
+    EnergyOpportunityNebsTableComponent
   ],
   imports: [
     CommonModule,
@@ -37,13 +40,15 @@ import { EnergyOpportunitySetupFormComponent } from './energy-opportunity-setup-
     FontAwesomeModule,
     PrimaryKpiBadgeModule,
     KpmDetailsFormModule,
-    NebsDatabaseModule
+    NebsDatabaseModule,
+    TableEntriesModule
   ],
   exports: [
     AssessmentDetailsFormComponent,
     NebFormsAccordionComponent,
     AddNebsModalComponent,
-    EnergyOpportunitySetupFormComponent
+    EnergyOpportunitySetupFormComponent,
+    EnergyOpportunityNebsTableComponent
   ]
 })
 export class SharedAssessmentFormsModule { }

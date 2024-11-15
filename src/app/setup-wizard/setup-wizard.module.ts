@@ -38,8 +38,6 @@ import { AssessmentEvaluationComponent } from './data-evaluation/assessment-eval
 import { OnSiteAssessmentResultsComponent } from './data-collection/on-site-assessment/on-site-assessment-results/on-site-assessment-results.component';
 import { FacilityEnergyEquipmentSetupComponent } from './pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component';
 import { PrimaryKpiBadgeModule } from "../shared/primary-kpi-badge/primary-kpi-badge.module";
-import { EnergyOpportunityNebsTableComponent } from './data-collection/on-site-assessment/assessment-nebs-form/energy-opportunity-nebs-table/energy-opportunity-nebs-table.component';
-import { EnergyOpportunityNebsListPipe } from './data-collection/on-site-assessment/assessment-nebs-form/energy-opportunity-nebs-table/energy-opportunity-nebs-list.pipe';
 import { SetupWizardHelpPanelModule } from './setup-wizard-help-panel/setup-wizard-help-panel.module';
 import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-tooltip.module';
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
@@ -80,8 +78,6 @@ import { CompanyContactsSetupFormComponent } from './pre-visit/company-contacts-
     AssessmentEvaluationComponent,
     OnSiteAssessmentResultsComponent,
     FacilityEnergyEquipmentSetupComponent,
-    EnergyOpportunityNebsTableComponent,
-    EnergyOpportunityNebsListPipe,
     AssessmentEnergyOpportunitiesFormComponent,
     CompanyContactsSetupFormComponent
   ],
