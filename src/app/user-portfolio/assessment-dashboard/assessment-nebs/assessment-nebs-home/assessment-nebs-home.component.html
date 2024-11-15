@@ -65,7 +65,7 @@
                         keyPerformanceMetricImpacts;
                         <ng-template [ngIf]="kpmImpacts.length > 0" [ngIfElse]="noNebsBlock">
                             <span *ngFor="let kpmImpact of kpmImpacts">
-                                <span [innerHTML]="kpmImpact.kpmGuid | kpmLabel: keyPerformanceMetrics"></span>
+                                <span [innerHTML]="kpmImpact.kpmGuid | kpmLabel: keyPerformanceMetrics: 'guid'"></span>
                                 <br>
                             </span>
                         </ng-template>
@@ -143,7 +143,7 @@
                         keyPerformanceMetricImpacts;
                         <ng-template [ngIf]="kpmImpacts.length > 0" [ngIfElse]="noNebsBlock">
                             <span *ngFor="let kpmImpact of kpmImpacts">
-                                <span [innerHTML]="kpmImpact.kpmGuid | kpmLabel: keyPerformanceMetrics"></span>
+                                <span [innerHTML]="kpmImpact.kpmGuid | kpmLabel: keyPerformanceMetrics: 'guid'"></span>
                                 <br>
                             </span>
                         </ng-template>

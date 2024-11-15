@@ -18,7 +18,7 @@ export class NebOptionsFilterPipe implements PipeTransform {
     }
     if (kpmValue) {
       filteredOptions = filteredOptions.filter(option => {
-        return option.KPM.includes(kpmValue);
+        return option.KPM.includes(kpmValue) || option.selected;
       })
     } else if (kpiValue) {
       let kpmOptionValues: Array<KeyPerformanceMetricValue> = keyPerformanceMetricOptions.map(option => {
@@ -31,7 +31,7 @@ export class NebOptionsFilterPipe implements PipeTransform {
       })
     }
     return _.orderBy(filteredOptions, (option: NebOption) => {
-      return option.label;
+      return  option.label;
     }, orderByDir);
   }
 
