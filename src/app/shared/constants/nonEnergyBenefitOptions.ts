@@ -176,7 +176,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "maintenanceCost", "employeeEngagementSatisfaction"],
+        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "maintenanceCost", "employeeEngagementSatisfaction", "laborCosts", "equipmentDowntime"],
     },
     {
         label: "Delay cost replacement equipment, longer equipment life",
@@ -187,7 +187,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "usefulEquipmentLifeExtended", "maintenanceCost"],
+        KPM: ["contributeCompanyVision", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "equipmentDowntime"],
     },
     {
         label: "Faster time, more flexibility, more products",
@@ -209,7 +209,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "numberEquipmentCausedDefects", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "maintenanceCost", "engineeringSupport"],
+        KPM: ["productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "numberEquipmentCausedDefects", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "maintenanceCost", "engineeringSupport", "laborCosts"],
     },
     {
         label: "Improved product quality - operator source",
@@ -286,7 +286,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost"],
+        KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts"],
     },
     {
         label: "Reduced labor costs for problem solving and repair",
@@ -297,7 +297,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "maintenanceCost", "engineeringSupport"],
+        KPM: ["productivityRateThroughput", "maintenanceCost", "engineeringSupport", "laborCosts"],
     },
     {
         label: "Reduce hazardous waste",
