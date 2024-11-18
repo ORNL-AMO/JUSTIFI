@@ -187,7 +187,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "equipmentDowntime"],
+        KPM: ["contributeCompanyVision", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "equipmentDowntime", "serviceParts"],
     },
     {
         label: "Faster time, more flexibility, more products",
@@ -253,7 +253,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productionCosts", "revenuePerEmployee", "perUnitProductCost", "defectiveProductionDollar", "defectRatePPMorDPM", "percentProductionYield", "percentShrinkage", "hazardousDisposalCosts", "nonHazardousDisposalCosts"],
+        KPM: ["productionCosts", "revenuePerEmployee", "perUnitProductCost", "defectiveProductionDollar", "defectRatePPMorDPM", "percentProductionYield", "percentShrinkage", "hazardousDisposalCosts", "nonHazardousDisposalCosts", "rawMaterials"],
     },
     {
         label: "Reduce consumables",
@@ -264,7 +264,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["perUnitProductCost", "dollarConsumables"],
+        KPM: ["perUnitProductCost", "dollarConsumables", "intermediateGoods", "rawMaterials", "serviceParts", "treatmentChemicals"],
     },
     {
         label: "Additional space from layout/process changes",
@@ -286,7 +286,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts"],
+        KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
     },
     {
         label: "Reduced labor costs for problem solving and repair",
@@ -396,7 +396,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "productivityRateThroughput", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["contributeCompanyVision", "productivityRateThroughput", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate", "rawMaterials", "intermediateGoods", "serviceParts", "treatmentChemicals"],
     },
     {
         label: "Reduced noise, exposure & cost of hearing conservation program, Reduced need for protective equipment",
