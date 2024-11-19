@@ -53,7 +53,7 @@ export class CompanyContactsSetupComponent implements OnInit, OnDestroy {
 
   canDeactivate(): Observable<boolean> {
     if (this.hasInvalidContacts) {
-      this.dislayWarningModal();
+      this.displayWarningModal();
       return of(false);
     }
     return of(true);
@@ -99,7 +99,7 @@ export class CompanyContactsSetupComponent implements OnInit, OnDestroy {
       this.hasInvalidContacts = hasInvalidContacts;
     }
   }
-  dislayWarningModal() {
+  displayWarningModal() {
     this.routeGuardWarningModal = true;
   }
   closeWarningModal() {
