@@ -82,13 +82,13 @@ export class CompanyContactsFormComponent {
       this.contactForm.controls['lastname'].invalid
     ) {
       this.contactForm.markAllAsTouched();
-      this.dislayWarningModal();
+      this.displayWarningModal();
       return of(false);
     }
     return of(true);
   }
 
-  dislayWarningModal() {
+  displayWarningModal() {
     this.routeGuardWarningModal = true;
   }
 
