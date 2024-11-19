@@ -116,7 +116,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   }
 
   confirmStartOver() {
-    this.router.navigateByUrl('/user/portfolio');
+    this.router.navigateByUrl('/portfolio');
   }
 
   toggleSidebar() {

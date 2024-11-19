@@ -1,51 +1,6 @@
-.navbar{
-    /* width: 20rem; */
-    background-color: #ffffff;
-    overflow-y: auto;
-    /* height: 100%; */
-    /* max-height: 100%; */
-    flex-wrap: nowrap;
-}
-
 .navbar.collapsed{
     width: auto;
 }
-
-.nav-item{
-    width: 100%;
-    font-size: large;
-}
-
-.nav-item.section-header{
-    font-size: x-large;
-}
-
-.nav-link{
-    padding-left: .5rem;
-}
-
-.nav-link.secondary-nav{
-    padding-left: 1.5rem;
-}
-
-.nav-link.third-nav{
-    padding-left: 3rem;
-}
-
-.nav-link.active{
-    background-color: #0079c2;
-    color: white;
-}
-
-.nav-link:hover{
-    background-color: #8DABBE;
-    color: black;
-}
-
-
-/* .text-start{
-    text-align: right;
-} */
 
 .toggle-collapse{
     font-size: x-large;
@@ -56,17 +11,10 @@
     border: so;
 }
 
-.btn.text-left{
-    text-align: left;
-}
-
-.nav-link:hover{
-    cursor: pointer;
-}
-
-
 .help-container {
     container-type: inline-size;
+    background-color: white;
+    overflow-y: auto;
 }
 
 .help-content {
@@ -77,4 +25,15 @@
     .help-content, .panel-label {
         display: none;
     }
+}
+
+
+.panel-label{
+    display: inline-block;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    font-size: large;
 }

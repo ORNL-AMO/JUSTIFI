@@ -1,4 +1,4 @@
-<div class="h-100 navbar d-flex flex-column align-items-start justify-content-start shadow help-text help-container"
+<div class="h-100 d-flex flex-column align-items-start justify-content-start shadow help-text help-container"
     [ngClass]="{'collapsed': !helpPanelOpen}">
     <div class="w-100 pb-1 d-flex">
         <div class="toggle-collapse d-flex">
@@ -6,7 +6,7 @@
                 <fa-icon [icon]="faCircleQuestion"></fa-icon>
             </a>
             <div class="d-flex mt-2 ps-1 panel-label" *ngIf="helpPanelOpen">
-                <h5 class="mb-0">{{helpLabel}}</h5>
+                {{helpLabel}}
             </div>
         </div>
     </div>
