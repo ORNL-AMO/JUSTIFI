@@ -1,19 +1,11 @@
 .navbar {
     background-color: #ffffff;
     overflow-y: auto;
-    /* height: 100%; */
-    /* max-height: 100%; */
     flex-wrap: nowrap;
 }
 
 .navbar.collapsed {
     width: auto;
-}
-
-.nav-item {
-    /* width: 100%; */
-    /* font-size: large; */
-    /* text-overflow: ellipsis; */
 }
 
 a.nav-link, .btn.btn-dark, .link-section-heading{
@@ -40,13 +32,6 @@ a.nav-link, .btn.btn-dark, .link-section-heading{
     }
 }
 
-
-
-/* a.nav-link, a.nav-link span, .btn.btn-dark, .nav-item {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-} */
-
 .nav-item .d-inline-block{
     line-height: normal;
 }
@@ -54,34 +39,16 @@ a.nav-link, .btn.btn-dark, .link-section-heading{
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-    .navbar {
-        /* width: 15rem; */
-    }
-
     .nav-item {
-        /* font-size: small; */
+        font-size: small;
     }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-    .navbar {
-        /* width: 20rem; */
-    }
-
     .nav-item {
         font-size: medium;
     }
-}
-
-/* @include media-breakpoint-up(md) { ... }
-@include media-breakpoint-up(lg) { ... }
-@include media-breakpoint-up(xl) { ... }
-@include media-breakpoint-up(xxl) { ... } */
-
-
-.nav-item.section-header {
-    font-size: x-large;
 }
 
 .nav-link {
@@ -105,7 +72,6 @@ a.nav-link, .btn.btn-dark, .link-section-heading{
     background-color: #8DABBE;
     color: black;
 }
-
 
 .text-end {
     text-align: right;
