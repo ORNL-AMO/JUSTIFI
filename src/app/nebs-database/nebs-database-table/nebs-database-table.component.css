@@ -1,0 +1,15 @@
+.add-td{
+    width: 20px;
+}
+
+.bg-success a.click-link{
+    color: white;
+}
+
+.table-hover tr.no-hover td:hover{
+    background-color: white !important;
+}
+
+.metric-column{
+    padding-left: 24px;
+}

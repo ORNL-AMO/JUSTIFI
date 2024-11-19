@@ -1,0 +1,71 @@
+<h6>Energy Opportunity Non-Energy Benefits</h6>
+<p class="fw-light small">
+    The below are Non-Energy Benefits (<fa-icon [icon]="faWeightHanging"></fa-icon>) that
+    <span class="bold">are associated with a specific energy efficiency opportunity</span> within this
+    assessment.
+    To modify these NEBs navigate to the "Energy Efficiency Opportunities" tab.
+</p>
+<table class="table table-bordered table-hover table-sm">
+    <thead>
+        <tr>
+            <th>
+                Non-Energy Benefit
+            </th>
+            <th>
+                Key Performance <br> Metric Impacts
+            </th>
+            <th *ngIf="inDashboard">
+                Stakeholders
+            </th>
+            <th>Energy Efficiency <br> Opportunity</th>
+            <th>
+                Total Savings<br>
+                <span class="fw-light">
+                    (&dollar;/yr)
+                </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let nonEnergyBenefit of nonEnergyBenefits">
+            <td>
+                <fa-icon [icon]="faWeightHanging"></fa-icon>
+                {{nonEnergyBenefit.name}}
+            </td>
+            <td>
+                @let kpmImpacts = nonEnergyBenefit.guid | associatedPerformanceMetricImpacts:
+                keyPerformanceMetricImpacts;
+                <ng-template [ngIf]="kpmImpacts.length > 0" [ngIfElse]="noNebsBlock">
+                    <span *ngFor="let kpmImpact of kpmImpacts">
+                        <span [innerHTML]="kpmImpact.kpmGuid | kpmLabel: keyPerformanceMetrics: 'guid'"></span>
+                        <br>
+                    </span>
+                </ng-template>
+                <ng-template #noNebsBlock>
+                    &mdash;
+                </ng-template>
+            </td>
+            <td *ngIf="inDashboard">
+                @let associatedContacts = nonEnergyBenefit.guid | associatedContacts:'nonEnergyBenefit':
+                contacts;
+                <ng-template [ngIf]="associatedContacts.length > 0" [ngIfElse]="noContactsBlock">
+                    <span *ngFor="let contact of associatedContacts">
+                        {{contact | contactNameDisplay}} <br>
+                    </span>
+                </ng-template>
+                <ng-template #noContactsBlock>
+                    &mdash;
+                </ng-template>
+            </td>
+            <td>
+                <a class="click-link" (click)="goToEnergyOpportunity(nonEnergyBenefit)">
+                    {{nonEnergyBenefit.energyOpportunityId | energyOpportunityDisplay: energyOpportunities}}
+                </a>
+            </td>
+            <td>
+                <app-single-cell-item [numValue]="nonEnergyBenefit.guid | nebTotalSavings: keyPerformanceMetricImpacts"
+                    [isCurrency]="true"></app-single-cell-item>
+            </td>
+        </tr>
+    </tbody>
+</table>

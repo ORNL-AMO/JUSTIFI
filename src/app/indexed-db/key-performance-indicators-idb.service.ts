@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
-import { IdbKeyPerformanceIndicator } from '../models/keyPerformanceIndicator';
+import { getNewKeyPerformanceIndicator, IdbKeyPerformanceIndicator } from '../models/keyPerformanceIndicator';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { KeyPerformanceMetric } from '../shared/constants/keyPerformanceMetrics';
-import { KeyPerformanceIndicatorValue } from '../shared/constants/keyPerformanceIndicatorOptions';
+import { getPerformanceMetrics, KeyPerformanceMetric, KeyPerformanceMetricOption } from '../shared/constants/keyPerformanceMetrics';
+import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue } from '../shared/constants/keyPerformanceIndicatorOptions';
 
 @Injectable({
   providedIn: 'root'
@@ -86,5 +86,39 @@ export class KeyPerformanceIndicatorsIdbService {
     return keyPerformanceIndicators.find(kpi => {
       return kpi.companyId == companyGuid && kpi.optionValue == performanceMetricValue;
     });
+  }
+
+  async addKpmToKpi(companyId: string, performanceMetricToAdd: KeyPerformanceMetric | KeyPerformanceMetricOption, userId: string): Promise<KeyPerformanceMetric> {
+    let addedMetric: KeyPerformanceMetric;
+    let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.getKpiFromKpm(companyId, performanceMetricToAdd.kpiValue);
+    if (keyPerformanceIndicator) {
+      //check metric is being tracked in existing KPI
+      addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {
+        return (_metric.value == performanceMetricToAdd.value);
+      });
+      if (!addedMetric) {
+        //if not being tracked. Add metric to existing KPI
+        let metrics: Array<KeyPerformanceMetric> = getPerformanceMetrics(keyPerformanceIndicator.optionValue, keyPerformanceIndicator.guid);
+        addedMetric = metrics.find(_metric => {
+          return (_metric.value == performanceMetricToAdd.value);
+        });
+        if (addedMetric) {
+          keyPerformanceIndicator.performanceMetrics.push(addedMetric);
+          await this.asyncUpdate(keyPerformanceIndicator);
+        }
+      }
+    } else {
+      //add untracked KPI if doesn't exist and all associated metrics
+      let kpiOption: KeyPerformanceIndicatorOption = KeyPerformanceIndicatorOptions.find(option => {
+        return option.optionValue == performanceMetricToAdd.kpiValue
+      });
+      keyPerformanceIndicator = getNewKeyPerformanceIndicator(userId, companyId, kpiOption, false);
+      addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {
+        return (_metric.value == performanceMetricToAdd.value);
+      });
+      await firstValueFrom(this.addWithObservable(keyPerformanceIndicator));
+      await this.setKeyPerformanceIndicators();
+    }
+    return addedMetric;
   }
 }

@@ -6,6 +6,7 @@ import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stu
 import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { TableEntriesModule } from 'src/app/shared/table-entries/table-entries.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SharedAssessmentFormsModule } from 'src/app/shared/shared-assessment-forms/shared-assessment-forms.module';
 
 describe('AssessmentNebsHomeComponent', () => {
   let component: AssessmentNebsHomeComponent;
@@ -13,7 +14,7 @@ describe('AssessmentNebsHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, HelperPipesModule, TableEntriesModule, RouterTestingModule],
+      imports: [FontAwesomeModule, HelperPipesModule, TableEntriesModule, RouterTestingModule, SharedAssessmentFormsModule],
       declarations: [AssessmentNebsHomeComponent],
       providers: stubServiceProviders
     })

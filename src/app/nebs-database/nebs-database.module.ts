@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NebOptionsFilterPipe } from './nebs-database-table/neb-options-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { NebsDatabaseTableComponent } from './nebs-database-table/nebs-database-table.component';
+import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
 
 
 
@@ -17,7 +18,8 @@ import { NebsDatabaseTableComponent } from './nebs-database-table/nebs-database-
   imports: [
     CommonModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    HelperPipesModule
   ],
   exports: [
     NebsDatabaseTableComponent
