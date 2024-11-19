@@ -5,7 +5,8 @@ import { KeyPerformanceIndicatorValue } from '../../shared/constants/keyPerforma
 import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricValue } from '../../shared/constants/keyPerformanceMetrics';
 
 @Pipe({
-  name: 'nebOptionsFilter'
+  name: 'nebOptionsFilter',
+  pure: false
 })
 export class NebOptionsFilterPipe implements PipeTransform {
 
@@ -25,13 +26,13 @@ export class NebOptionsFilterPipe implements PipeTransform {
         return option.value;
       })
       filteredOptions = filteredOptions.filter(option => {
-        return option.KPM.findIndex(kpmOptionValue => {
+        return option.selected || option.KPM.findIndex(kpmOptionValue => {
           return kpmOptionValues.includes(kpmOptionValue)
         }) != -1;
       })
     }
     return _.orderBy(filteredOptions, (option: NebOption) => {
-      return  option.label;
+      return option.label;
     }, orderByDir);
   }
 
