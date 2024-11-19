@@ -1,5 +1,4 @@
-.navbar{
-    width: 20rem;
+.navbar {
     background-color: #ffffff;
     overflow-y: auto;
     /* height: 100%; */
@@ -7,59 +6,124 @@
     flex-wrap: nowrap;
 }
 
-.navbar.collapsed{
+.navbar.collapsed {
     width: auto;
 }
 
-.nav-item{
-    width: 100%;
-    font-size: large;
+.nav-item {
+    /* width: 100%; */
+    /* font-size: large; */
+    /* text-overflow: ellipsis; */
 }
 
-.nav-item.section-header{
+a.nav-link, .btn.btn-dark, .link-section-heading{
+    display: inline-block;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+
+.sidebar-container {
+    container-type: inline-size;
+}
+
+.sidebar-content {
+    display: block;
+}
+
+@container (max-width: 45px) {
+    .sidebar-content {
+        display: none;
+    }
+}
+
+
+
+/* a.nav-link, a.nav-link span, .btn.btn-dark, .nav-item {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+} */
+
+.nav-item .d-inline-block{
+    line-height: normal;
+}
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .navbar {
+        /* width: 15rem; */
+    }
+
+    .nav-item {
+        /* font-size: small; */
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .navbar {
+        /* width: 20rem; */
+    }
+
+    .nav-item {
+        font-size: medium;
+    }
+}
+
+/* @include media-breakpoint-up(md) { ... }
+@include media-breakpoint-up(lg) { ... }
+@include media-breakpoint-up(xl) { ... }
+@include media-breakpoint-up(xxl) { ... } */
+
+
+.nav-item.section-header {
     font-size: x-large;
 }
 
-.nav-link{
+.nav-link {
     padding-left: .5rem;
 }
 
-.nav-link.secondary-nav{
+.nav-link.secondary-nav {
     padding-left: 1.5rem;
 }
 
-.nav-link.third-nav{
-    padding-left: 3rem;
+.nav-link.third-nav {
+    padding-left: 2rem;
 }
 
-.nav-link.active{
+.nav-link.active {
     background-color: var(--portfolio-nav-color);
     color: white;
 }
 
-.nav-link:hover{
+.nav-link:hover {
     background-color: #8DABBE;
     color: black;
 }
 
 
-.text-end{
+.text-end {
     text-align: right;
 }
 
-.toggle-collapse{
+.toggle-collapse {
     font-size: x-large;
 }
 
-.toggle-collapse:hover{
+.toggle-collapse:hover {
     cursor: pointer;
     border: so;
 }
 
-.btn.text-left{
+.btn.text-left {
     text-align: left;
 }
 
-.nav-link:hover{
+.nav-link:hover {
     cursor: pointer;
 }

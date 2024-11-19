@@ -1,4 +1,4 @@
-<div class="h-100 navbar d-flex flex-column align-items-start justify-content-start shadow"
+<div class="h-100 navbar d-flex flex-column align-items-start justify-content-start shadow sidebar-container"
     [ngClass]="{'collapsed': !sidebarOpen}">
 
     <div class="ps-1 pe-1 w-100 pb-2">
@@ -10,14 +10,14 @@
         </div>
     </div>
     <ng-container *ngIf="onSiteVisit">
-        <div class="ps-1 pe-1 w-100" [hidden]="!sidebarOpen">
+        <div class="ps-1 pe-1 w-100 sidebar-content" [hidden]="!sidebarOpen">
             <button class="btn btn-dark w-100 text-left" (click)="toggleCollapsePrevisit()">
                 <fa-icon [icon]="faChevronDown" class="pe-1" *ngIf="collapsePreVisit"></fa-icon>
                 <fa-icon [icon]="faChevronUp" class="pe-1" *ngIf="!collapsePreVisit"></fa-icon>
                 Pre-Visit
             </button>
             <div [ngClass]="{'collapse': collapsePreVisit}">
-                <div class="nav-item ms-2">
+                <div class="nav-item ms-2 link-section-heading">
                     Company Setup
                 </div>
                 <div class="nav-item">
@@ -46,7 +46,7 @@
                         <span [innerHTML]="kpi.htmlLabel"></span>
                     </a>
                 </div>
-                <div class="nav-item ms-2">
+                <div class="nav-item ms-2 link-section-heading">
                     Facility Setup
                 </div>
                 <div class="nav-item">
@@ -81,11 +81,11 @@
                 </div>
             </div>
         </div>
-        <div class="p-2 w-100">
+        <div class="p-2 w-100 sidebar-content">
             <hr class="my-1">
         </div>
 
-        <div class="ps-1 pe-1 w-100" [hidden]="!sidebarOpen">
+        <div class="ps-1 pe-1 w-100 sidebar-content" [hidden]="!sidebarOpen">
             <button class="btn btn-dark w-100 text-left" (click)="toggleCollapseDataCollection()">
                 <fa-icon [icon]="faChevronDown" class="pe-1" *ngIf="collapseDataCollection"></fa-icon>
                 <fa-icon [icon]="faChevronUp" class="pe-1" *ngIf="!collapseDataCollection"></fa-icon>
@@ -147,7 +147,7 @@
                 <hr class="my-1">
             </div>
         </div>
-        <div class="ps-1 pe-1 w-100" [hidden]="!sidebarOpen">
+        <div class="ps-1 pe-1 w-100 sidebar-content" [hidden]="!sidebarOpen">
             <button class="btn btn-dark w-100 text-left" (click)="toggleCollapseDataEvaluation()">
                 <fa-icon [icon]="faChevronDown" class="pe-1" *ngIf="collapseDataEvaluation"></fa-icon>
                 <fa-icon [icon]="faChevronUp" class="pe-1" *ngIf="!collapseDataEvaluation"></fa-icon>
@@ -181,13 +181,14 @@
             </div>
         </div>
     </ng-container>
-    <div class="nav-item" [hidden]="!sidebarOpen">
-        <a class="nav-link bold" (click)="openStartOverModal()">
-            <fa-icon [icon]="faFolderOpen"></fa-icon>
-            Return to Portfolio</a>
+    <div class="ps-1 pe-1 w-100 sidebar-content" [hidden]="!sidebarOpen">
+        <div class="nav-item">
+            <a class="nav-link bold" (click)="openStartOverModal()">
+                <fa-icon [icon]="faFolderOpen"></fa-icon>
+                Return to Portfolio</a>
+        </div>
     </div>
 </div>
-
 
 <div [ngClass]="{'window-overlay': displayStartOverModal}"></div>
 <div class="popup" [ngClass]="{'open': displayStartOverModal }">

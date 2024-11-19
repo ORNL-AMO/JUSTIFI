@@ -1,19 +1,19 @@
-<div class="h-100 navbar d-flex flex-column align-items-start justify-content-start shadow help-text"
-    [ngClass]="{'collapsed': collapseHelpPanel}">
+<div class="h-100 navbar d-flex flex-column align-items-start justify-content-start shadow help-text help-container"
+    [ngClass]="{'collapsed': !helpPanelOpen}">
     <div class="w-100 pb-1 d-flex">
         <div class="toggle-collapse d-flex">
             <a class="click-link" (click)="toggleCollapseHelpPanel()">
                 <fa-icon [icon]="faCircleQuestion"></fa-icon>
             </a>
-            <div class="d-flex mt-2 ps-1 panel-label" *ngIf="!collapseHelpPanel">
+            <div class="d-flex mt-2 ps-1 panel-label" *ngIf="helpPanelOpen">
                 <h5 class="mb-0">{{helpLabel}}</h5>
             </div>
         </div>
     </div>
-    <div class="w-100">
+    <div class="w-100 help-content">
         <hr class="mt-0">
     </div>
-    <div class="w-100" *ngIf="!collapseHelpPanel">
+    <div class="w-100 help-content">
         <app-company-setup-help *ngIf="helpContext == 'company-setup'"></app-company-setup-help>
         <app-company-contacts-help *ngIf="helpContext == 'company-contacts'"></app-company-contacts-help>
         <app-company-kpi-select-help *ngIf="helpContext == 'company-kpi-select'"></app-company-kpi-select-help>

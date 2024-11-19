@@ -1,5 +1,5 @@
 .navbar{
-    width: 20rem;
+    /* width: 20rem; */
     background-color: #ffffff;
     overflow-y: auto;
     /* height: 100%; */
@@ -62,4 +62,19 @@
 
 .nav-link:hover{
     cursor: pointer;
+}
+
+
+.help-container {
+    container-type: inline-size;
+}
+
+.help-content {
+    display: block;
+}
+
+@container (max-width: 45px) {
+    .help-content, .panel-label {
+        display: none;
+    }
 }
