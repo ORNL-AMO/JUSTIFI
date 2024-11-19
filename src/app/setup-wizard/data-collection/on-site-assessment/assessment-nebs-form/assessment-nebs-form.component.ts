@@ -20,13 +20,15 @@ export class AssessmentNebsFormComponent {
 
   assessment: IdbAssessment;
   assessmentSub: Subscription;
+  energyOppNonEnergyBenefits: Array<IdbNonEnergyBenefit>;
+  nonEnergyBenefitsSub: Subscription;
 
   newNebName: string;
   displayNebModal: boolean = false;
   showAddNebDropdown: boolean = false;
   constructor(private assessmentIdbService: AssessmentIdbService,
     private sharedDataService: SharedDataService,
-    private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService
+    private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService
   ) {
   }
 
@@ -34,10 +36,14 @@ export class AssessmentNebsFormComponent {
     this.assessmentSub = this.assessmentIdbService.selectedAssessment.subscribe(_assessment => {
       this.assessment = _assessment;
     });
+    this.nonEnergyBenefitsSub = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.subscribe(_nonEnergyBenefits => {
+      this.energyOppNonEnergyBenefits = _nonEnergyBenefits.filter(neb => { return neb.assessmentId == this.assessment.guid && neb.energyOpportunityId != undefined });
+    });
   }
 
   ngOnDestroy() {
     this.assessmentSub.unsubscribe();
+    this.nonEnergyBenefitsSub.unsubscribe();
   }
 
   openNebModal() {
@@ -48,8 +54,8 @@ export class AssessmentNebsFormComponent {
   async addNEB() {
     this.showAddNebDropdown = false;
     let newNonEnergyBenefit: IdbNonEnergyBenefit = getNewIdbNonEnergyBenefit(this.assessment.userId, this.assessment.companyId, this.assessment.facilityId, this.assessment.guid, undefined, undefined, true);
-    await firstValueFrom(this.nonEnergyBenefitIdbService.addWithObservable(newNonEnergyBenefit))
-    await this.nonEnergyBenefitIdbService.setNonEnergyBenefits();
+    await firstValueFrom(this.nonEnergyBenefitsIdbService.addWithObservable(newNonEnergyBenefit))
+    await this.nonEnergyBenefitsIdbService.setNonEnergyBenefits();
   }
 
   toggleAddNebDropdown() {

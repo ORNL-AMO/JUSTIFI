@@ -37,6 +37,7 @@ export class NebsDatabaseTableComponent {
   nebSearchStr: string = '';
   kpiValue: KeyPerformanceIndicatorValue;
   kpmValue: KeyPerformanceMetricValue;
+  allKpmOptions: Array<KeyPerformanceMetricOption> = KeyPerformanceMetricOptions;
   keyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = KeyPerformanceIndicatorOptions;
   keyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [];
 
@@ -73,6 +74,15 @@ export class NebsDatabaseTableComponent {
       this.keyPerformanceMetricOptions = _.orderBy(KeyPerformanceMetricOptions, (option: KeyPerformanceMetricOption) => {
         return option.label;
       }, 'asc');
+    }
+
+    if (this.companyTrackedKpis && this.companyTrackedKpms) {
+      this.keyPerformanceIndicatorOptions = _.orderBy(this.keyPerformanceIndicatorOptions, (option: KeyPerformanceIndicatorOption) => {
+        return this.companyTrackedKpis.includes(option.optionValue)
+      }, 'desc');
+      this.keyPerformanceMetricOptions = _.orderBy(this.keyPerformanceMetricOptions, (option: KeyPerformanceMetricOption) => {
+        return this.companyTrackedKpms.includes(option.value)
+      }, 'desc');
     }
     let selectedIndex: number = this.keyPerformanceMetricOptions.findIndex(option => {
       return option.value == this.kpmValue;
@@ -136,5 +146,14 @@ export class NebsDatabaseTableComponent {
     this.emitSelectedNebs.emit(selectedNebs);
   }
 
+  setChecked(neb: NebOption, metric: KeyPerformanceMetricValue) {
+    if (neb.selectedKPM.includes(metric)) {
+      neb.selectedKPM = neb.selectedKPM.filter(kpm => {
+        return kpm != metric;
+      })
+    } else {
+      neb.selectedKPM.push(metric);
+    }
+  }
 
 }
