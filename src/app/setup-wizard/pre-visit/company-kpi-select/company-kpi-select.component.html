@@ -18,7 +18,12 @@
             Go Back
         </button>
         <button class="btn nav-btn btn-sm" (click)="goToKpiDetails()">
-            Detail KPIs
+            <ng-template [ngIf]="companyKpis.length > 0" [ngIfElse]="noKPIsBlock">
+                Detail KPIs
+            </ng-template>
+            <ng-template #noKPIsBlock>
+                Facility Details
+            </ng-template>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

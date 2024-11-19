@@ -5,6 +5,7 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-company-kpi-select',
@@ -15,12 +16,27 @@ export class CompanyKpiSelectComponent {
   faChartBar: IconDefinition = faChartBar;
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
+
+  companyKpiSub: Subscription;
+  companyKpis: Array<IdbKeyPerformanceIndicator>;
+  onSiteVisit: IdbOnSiteVisit;
   constructor(private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
   ) { }
 
   ngOnInit() {
+    this.onSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+    this.companyKpiSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(kpis => {
+      let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
+      this.companyKpis = keyPerformanceIndicators.filter(kpi => {
+        return kpi.companyId == this.onSiteVisit.companyId
+      });
+    });
+  }
+
+  ngOnDestroy(){
+    this.companyKpiSub.unsubscribe();
   }
 
   goBack() {
@@ -29,15 +45,10 @@ export class CompanyKpiSelectComponent {
   }
 
   goToKpiDetails() {
-    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
-    let companyKpis: Array<IdbKeyPerformanceIndicator> = keyPerformanceIndicators.filter(kpi => {
-      return kpi.companyId == onSiteVisit.companyId
-    });
-    if (companyKpis.length > 0) {
-      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-kpi-detail/' + companyKpis[0].guid);
+    if (this.companyKpis.length > 0) {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/company-kpi-detail/' + this.companyKpis[0].guid);
     } else {
-      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-setup');
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-setup');
     }
   }
 }
