@@ -1,0 +1,54 @@
+@let facilityAddress = facility.generalInformation | addressDisplay;
+<ng-container *ngIf="facilityAddress">
+    <p class="fw-light mb-0">
+        {{facilityAddress}}
+    </p>
+</ng-container>
+<hr>
+<div class="d-flex justify-content-between mb-1">
+    <div>
+        <h6>
+            {{facility.generalInformation.name}} Assessments
+        </h6>
+    </div>
+    <div *ngIf="inFacilityDashboard">
+        <button class="btn btn-outline-success btn-sm" (click)="goToVisit(undefined)">
+            <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+            Setup Wizard
+        </button>
+    </div>
+</div>
+<ng-template [ngIf]="assessments.length != 0" [ngIfElse]="noAssessmentsBlock">
+    <div class="accordion" [id]="'assessmentsAccordion_' + facility.guid">
+        <div class="accordion-item assessment-item"
+            *ngFor="let assessment of assessments; let index = index; let last = last;">
+            <h2 class="accordion-header">
+                <div class="d-flex">
+                    <button class="btn btn-outline-success btn-sm" (click)="goToVisit(assessment)">
+                        <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" (click)="goToAssessmentDashboard(assessment)">
+                        <fa-icon [icon]="faArrowRight"></fa-icon>
+                    </button>
+                    <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+assessment.guid"
+                        aria-expanded="true" [attr.aria-controls]="assessment.guid" (click)="toggleBS(assessment.guid)"
+                        [ngClass]="{'collapsed': accordionGuid != assessment.guid}">
+                        <fa-icon class="pe-2" [icon]="faScrewdriverWrench"></fa-icon>
+                        {{assessment.name}}
+                    </button>
+                </div>
+            </h2>
+            <div [id]="'#'+assessment.guid" class="accordion-collapse collapse"
+                [attr.data-bs-parent]="'#assessmentsAccordion_' + facility.guid">
+                <div class="accordion-body">
+                    <app-assessment-list-item [assessment]="assessment"></app-assessment-list-item>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #noAssessmentsBlock>
+    <div class="alert alert-info p-2 small">
+        No assessments found for this facility.
+    </div>
+</ng-template>

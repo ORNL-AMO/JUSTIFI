@@ -58,3 +58,7 @@
     height: calc(98vh - 125px);
     overflow-y: auto;
 }
+
+.toast .toast-body{
+    background-color: white;
+}

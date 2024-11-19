@@ -1,0 +1,34 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid" [routerLinkActive]="'active'"
+            [routerLinkActiveOptions]="{exact: true}">Company
+            Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/manage'" [routerLinkActive]="'active'">
+            <fa-icon [icon]="faGears"></fa-icon>
+            Details
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/stakeholders'"
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faAddressBook"></fa-icon>
+            Stakeholders
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/performance-indicators'"
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faBullseye"></fa-icon>
+            Key Performance Indicators
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/reports'"
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faFile"></fa-icon>
+            Reports
+        </a>
+    </li>
+</ul>

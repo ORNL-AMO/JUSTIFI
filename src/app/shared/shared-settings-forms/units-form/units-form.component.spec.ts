@@ -9,7 +9,7 @@ import { IdbFacility, getNewIdbFacility } from 'src/app/models/facility';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HelperPipesModule } from '../../helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
 import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessment-setup/pre-assessment-setup.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';

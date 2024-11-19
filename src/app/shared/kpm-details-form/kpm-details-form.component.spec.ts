@@ -4,7 +4,7 @@ import { KpmDetailsFormComponent } from './kpm-details-form.component';
 import { getCustomKPM } from '../constants/keyPerformanceMetrics';
 import { LabelWithTooltipModule } from '../label-with-tooltip/label-with-tooltip.module';
 import { FormsModule } from '@angular/forms';
-import { HelperPipesModule } from '../helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from '../helper-pipes/_helper-pipes.module';
 
 describe('KpmDetailsFormComponent', () => {
   let component: KpmDetailsFormComponent;

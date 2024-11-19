@@ -1,35 +1,3 @@
-.card{
-    border-radius: 0;
-}
-
-.card-title{
-    font-size: 26px;
-}
-
-.card-title.secondary{
-    font-size: 20px;
-}
-
-.card-text{
-    font-size: 14px;
-}
-
-th.actions, td.actions{
-    width: 15px;
-}
-
-table th, table td{
-    padding: .2rem;
-    vertical-align: middle;
-}
-
-.align-btn-end{
-    text-align: end;
-}
-
-/* .nav-link{
-    padding-left: .5em;
-} */
 
 .nav-link.facility-link{
     padding-left: 2rem;

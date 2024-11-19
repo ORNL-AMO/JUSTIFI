@@ -2,27 +2,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SetupWizardComponent } from './setup-wizard.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ContactModalModule } from '../shared/contact-modal/contact-modal.module';
+import { stubServiceProviders } from '../spec-helpers/spec-test-service-stub';
 import { SetupWizardSidebarComponent } from './setup-wizard-sidebar/setup-wizard-sidebar.component';
-import { UserIdbService } from '../indexed-db/user-idb.service';
-import { IdbUser, getNewIdbUser } from '../models/user';
-import { BehaviorSubject } from 'rxjs';
+import { SetupWizardHelpPanelComponent } from './setup-wizard-help-panel/setup-wizard-help-panel.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
 
 describe('SetupWizardComponent', () => {
   let component: SetupWizardComponent;
   let fixture: ComponentFixture<SetupWizardComponent>;
-
-  let userIdbService: Partial<UserIdbService> = {
-    user: new BehaviorSubject<IdbUser>(getNewIdbUser())
-  };
   beforeEach(async () => {
 
 
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [SetupWizardSidebarComponent],
-      providers: [
-        { provide: UserIdbService, useValue: userIdbService }
-      ]
+      imports: [RouterTestingModule, ContactModalModule, FontAwesomeModule, HelperPipesModule],
+      declarations: [SetupWizardComponent, SetupWizardSidebarComponent, SetupWizardHelpPanelComponent],
+      providers: stubServiceProviders
     })
       .compileComponents();
 

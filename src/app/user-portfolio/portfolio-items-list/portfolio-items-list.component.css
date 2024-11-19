@@ -1,0 +1,5 @@
+
+
+.accordion-body{
+    border-left: solid var(--company-color) 5px;
+}

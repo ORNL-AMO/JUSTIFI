@@ -1,0 +1,55 @@
+<div class="d-flex w-100 justify-content-end">
+    <div>
+        <button class="btn btn-outline-success btn-sm" (click)="addEquipment()">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            Add New End Use
+        </button>
+    </div>
+</div>
+<hr class="my-2">
+
+<ng-template [ngIf]="processEquipments.length > 0" [ngIfElse]="noEndUseBlock">
+    <table class="table table-bordered table-hover table-sm">
+        <thead>
+            <tr>
+                <th class="w-25">
+                    Name
+                </th>
+                <th class="w-50">
+                    Notes
+                </th>
+                <th class="w-25">
+                    Stakeholders
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let processEquipment of processEquipments">
+                <td>
+                    {{processEquipment.equipmentName}}
+                </td>
+                <td>
+                    <app-single-cell-item [strValue]="processEquipment.notes"></app-single-cell-item>
+                </td>
+                <td>
+                    @let associatedContacts = processEquipment.guid | associatedContacts:'processEquipment': contacts;
+                    <ng-template [ngIf]="associatedContacts.length > 0" [ngIfElse]="noContactsBlock">
+                        <span *ngFor="let contact of associatedContacts">
+                            {{contact | contactNameDisplay}} <br>
+                        </span>
+                    </ng-template>
+                    <ng-template #noContactsBlock>
+                        &mdash;
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #noEndUseBlock>
+    <div class="alert alert-info p-2 text-center">
+        No end use inventory items found for this facility. Use the "<fa-icon [icon]="faPlus"></fa-icon>
+        Add End Use" button to add an end use item to this facility.
+    </div>
+</ng-template>

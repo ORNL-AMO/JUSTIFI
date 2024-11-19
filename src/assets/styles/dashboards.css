@@ -1,0 +1,45 @@
+.card{
+    border-radius: 0;
+}
+
+.portfolio .primary-nav{
+    font-size: 20px;
+    margin-bottom: 0px;
+}
+
+.portfolio .card-title{
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+.portfolio .card-body {
+    padding: .5rem .5rem;
+}
+
+
+.portfolio .card-text{
+    font-size: 14px;
+}
+
+.portfolio th.actions,.portfolio  td.actions, .dashboard th.actions,.dashboard  td.actions{
+    width: 15px;
+}
+
+.portfolio table th,.portfolio  table td, .dashboard table th,.dashboard  table td{
+    padding: .2rem;
+    vertical-align: middle;
+}
+
+
+.container-fluid.portfolio{
+    margin-bottom: 1rem;
+}
+
+.portfolio .btn:hover .d-none{
+    display: inline !important;
+}
+
+
+
+.portfolio .table {
+    margin-bottom: 0px;
+}

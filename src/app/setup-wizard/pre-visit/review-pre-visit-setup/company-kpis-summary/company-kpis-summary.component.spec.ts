@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CompanyKpisSummaryComponent } from './company-kpis-summary.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HelperPipesModule } from 'src/app/shared/helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { IdbCompany, getNewIdbCompany } from 'src/app/models/company';
 import { BehaviorSubject } from 'rxjs';

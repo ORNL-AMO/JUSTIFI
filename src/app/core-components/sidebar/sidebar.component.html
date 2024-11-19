@@ -13,20 +13,16 @@
             </button>
             <hr>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="'/welcome'" [routerLinkActive]="['active']">
-                    <fa-icon [icon]="faHome"></fa-icon>
-                    Home</a>
-            </li>
-            <hr>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="'/user'" [routerLinkActive]="['active']">
+                <a class="nav-link" [routerLink]="'/portfolio'" [routerLinkActive]="['active']"
+                    [routerLinkActiveOptions]="{exact: true}">
                     <fa-icon [icon]="faFolderOpen"></fa-icon>
                     My Portfolio</a>
             </li>
             <hr>
             <ng-container *ngFor="let company of companies">
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="'/company/'+company.guid" [routerLinkActive]="['active']">
+                    <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid"
+                        [routerLinkActive]="['active']">
                         <fa-icon class="pe-1" [icon]="faBuilding"></fa-icon>
                         {{company.generalInformation.name}}
                     </a>
@@ -34,7 +30,7 @@
 
                 <ng-container *ngFor="let facility of company.guid | facilityList:facilities">
                     <li class="nav-item">
-                        <a class="nav-link facility-link" [routerLink]="'/facility/'+facility.guid"
+                        <a class="nav-link facility-link" [routerLink]="'/portfolio/facility/'+facility.guid"
                             [routerLinkActive]="['active']">
                             <fa-icon [icon]="faIndustry" class="pe-1"></fa-icon>
                             {{facility.generalInformation.name}}</a>
@@ -42,9 +38,9 @@
 
                     <ng-container *ngFor="let assessment of (facility.guid | assessmentsList:assessments)">
                         <li class="nav-item">
-                            <a class="nav-link assessment-link" [routerLink]="'/assessment/'+assessment.guid"
+                            <a class="nav-link assessment-link" [routerLink]="'/portfolio/assessment/'+assessment.guid"
                                 [routerLinkActive]="['active']">
-                                <fa-icon [icon]="faFileLines" class="pe-1"></fa-icon>
+                                <fa-icon [icon]="faScrewdriverWrench" class="pe-1"></fa-icon>
                                 {{assessment.name}}</a>
                         </li>
                     </ng-container>

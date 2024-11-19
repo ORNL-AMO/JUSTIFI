@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IdbFacility } from 'src/app/models/facility';
-import { IconDefinition, faChevronLeft, faChevronRight, faContactCard, faFilePen, faGear, faIndustry, faLocationDot, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronLeft, faChevronRight, faIndustry, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { FormControl, Validators } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { Icon } from '@fortawesome/fontawesome-svg-core';
+import { Observable, of, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-facility-setup',
@@ -21,13 +20,10 @@ export class FacilitySetupComponent implements OnInit {
 
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
-  faFilePen: IconDefinition = faFilePen;
-  faGear: IconDefinition = faGear;
-  faContactCard: IconDefinition = faContactCard;
-  faLocationDot: IconDefinition = faLocationDot;
   faIndustry: IconDefinition = faIndustry;
   faCircleExclamation: IconDefinition = faCircleExclamation;
 
+  facilitySub: Subscription;
   facility: IdbFacility;
   routeGuardWarningModal: boolean = false;
 
@@ -38,13 +34,18 @@ export class FacilitySetupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.facility = this.facilityIdbService.selectedFacility.getValue();
+    this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
+      this.facility = facility;
+      if(this.facility){
+        this.name = new FormControl(this.facility.generalInformation.name, [Validators.required]);
+      }else{
+        this.name = new FormControl('', [Validators.required]);
+      }
+    });
+  }
 
-    if (this.facility) {
-      this.name = new FormControl(this.facility.generalInformation.name, [Validators.required]);
-    } else {
-      this.router.navigateByUrl('/welcome');
-    }
+  ngOnDestroy(){
+    this.facilitySub.unsubscribe();
   }
 
   async saveChanges() {
@@ -66,13 +67,13 @@ export class FacilitySetupComponent implements OnInit {
   canDeactivate(): Observable<boolean> {
     if (this.name && this.name.getError('required')) {
       this.name.markAsTouched();
-      this.dislayWarningModal();
+      this.displayWarningModal();
       return of(false);
     }
     return of(true);
   }
 
-  dislayWarningModal() {
+  displayWarningModal() {
     this.routeGuardWarningModal = true;
   }
   closeWarningModal() {

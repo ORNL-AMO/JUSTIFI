@@ -1,0 +1,11 @@
+<div class="card portfolio">
+    <div class="card-body">
+        <div class="card-title secondary d-flex justify-content-between">
+            <div>
+                <fa-icon [icon]="faBuilding"></fa-icon>
+                {{company.generalInformation.name}}
+            </div>
+        </div>
+        <app-company-list-item [company]="company" [inCompanyDashboard]="true"></app-company-list-item>
+    </div>
+</div>
