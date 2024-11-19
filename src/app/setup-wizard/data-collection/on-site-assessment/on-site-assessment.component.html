@@ -36,7 +36,7 @@
 <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
         <div class="col-3">
-            <button class="btn btn-dark btn-sm" (click)="goBack()">
+            <button class="btn nav-btn btn-sm" (click)="goBack()">
                 <fa-icon [icon]="faChevronLeft"></fa-icon>
             </button>
         </div>
@@ -64,7 +64,7 @@
         </div> -->
         <div class="col-3">
             <div class="d-flex  justify-content-end">
-                <button class="btn btn-dark btn-sm" (click)="goToNext()">
+                <button class="btn nav-btn btn-sm" (click)="goToNext()">
                     <fa-icon [icon]="faChevronRight"></fa-icon>
                 </button>
             </div>
@@ -72,8 +72,5 @@
     </div>
 </nav>
 
-<app-contact-modal *ngIf="displayContactModal" (emitCancelContact)="closeContactModal()"
-    [contextGuid]="displayContactModal.contextGuid" [contactContext]="displayContactModal.context"
-    [selectedContact]="displayContactModal.viewContact" [companyGuid]="assessment.companyId"></app-contact-modal>
 
 <app-add-nebs-modal *ngIf="displayAddNebsModal"></app-add-nebs-modal>

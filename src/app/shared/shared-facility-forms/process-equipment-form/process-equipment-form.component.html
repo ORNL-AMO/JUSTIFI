@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-12">
+        <form>
+            <div class="row">
+                <label class="col-sm-5 col-form-label" for="equipmentName">End Use Name</label>
+                <div class="col-sm-7">
+                    <input name="equipmentName" type="text" class="form-control"
+                        [(ngModel)]="processEquipment.equipmentName" id="equipmentName" (input)="saveChanges()">
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-sm-5 col-form-label" for="notes">Notes</label>
+                <div class="col-sm-7">
+                    <textarea class="form-control" name="notes" [(ngModel)]="processEquipment.notes"
+                        (input)="saveChanges()" rows="4"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12">
+        <hr>
+    </div>
+    <div class="col-12">
+        <div class="d-flex justify-content-between">
+            <div class="col-6">
+                <button class="btn btn-sm btn-primary me-1"
+                    *ngFor="let contact of processEquipment.guid | associatedContacts:'processEquipment': contacts;"
+                    (click)="openContactModal(contact)">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                    {{contact | contactNameDisplay}}
+                </button>
+                <button class="btn btn-sm btn-secondary" (click)="openContactModal(undefined)">
+                    <fa-icon [icon]="faContactBook"></fa-icon>
+                    Stakeholders
+                </button>
+            </div>
+            <div>
+                <button class="btn btn-sm btn-danger" (click)="openDeleteModal()">
+                    <fa-icon [icon]="faTrash"></fa-icon> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
+<div class="popup" [ngClass]="{'open': displayDeleteModal }">
+    <div class="popup-header">Delete Equipment
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
+    </div>
+    <div class="popup-body">
+        <div class="alert alert-danger">
+            Are you sure you want to delete this end use? Changes will be lost.
+        </div>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteModal()">Cancel</button>
+        <button class="btn btn-danger btn-sm" (click)="deleteEquipment()"><fa-icon [icon]="faTrash"></fa-icon> Delete
+            End Use</button>
+    </div>
+</div>

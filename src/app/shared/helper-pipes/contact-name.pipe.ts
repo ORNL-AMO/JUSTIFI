@@ -8,13 +8,12 @@ import { ContactNameDisplayPipe } from './contact-name-display.pipe';
 })
 export class ContactNamePipe implements PipeTransform {
 
-  constructor(private contactDisplayPipe: ContactNameDisplayPipe) {}
 
   transform(contactGuid: string, contacts: Array<IdbContact>): string {
     let contact: IdbContact = contacts.find(contact => {
       return contact.guid == contactGuid;
     });
-    return this.contactDisplayPipe.transform(contact);
+    let contactNameDisplayPipe = new ContactNameDisplayPipe();
+    return contactNameDisplayPipe.transform(contact);
   }
-
 }

@@ -1,0 +1,7 @@
+/* .page-link{
+    padding: .35rem !important;
+} */
+
+.page-link:hover{
+    cursor: pointer;
+}

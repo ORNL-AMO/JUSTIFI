@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AssessmentReportComponent } from './assessment-report/assessment-report.component';
-import { HelperPipesModule } from '../helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from '../helper-pipes/_helper-pipes.module';
 import { TableEntriesModule } from '../table-entries/table-entries.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AssessmentSavingsTableComponent } from './assessment-report/assessment-savings-table/assessment-savings-table.component';

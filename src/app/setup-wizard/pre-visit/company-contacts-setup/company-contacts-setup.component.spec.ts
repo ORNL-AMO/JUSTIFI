@@ -17,6 +17,8 @@ import { IdbContact } from 'src/app/models/contact';
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
+import { SharedCompanyFormsModule } from 'src/app/shared/shared-company-forms/shared-company-forms.module';
+import { CompanyContactsSetupFormComponent } from './company-contacts-setup-form/company-contacts-setup-form.component';
 
 describe('CompanyContactsSetupComponent', () => {
   let component: CompanyContactsSetupComponent;
@@ -46,8 +48,8 @@ describe('CompanyContactsSetupComponent', () => {
   let bootstrapService: Partial<BootstrapService> = {};
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, FormsModule],
-      declarations: [CompanyContactsSetupComponent],
+      imports: [FontAwesomeModule, FormsModule, SharedCompanyFormsModule],
+      declarations: [CompanyContactsSetupComponent, CompanyContactsSetupFormComponent],
       providers: [
         { provide: UserIdbService, useValue: userIdbService },
         { provide: CompanyIdbService, useValue: companyIdbService },

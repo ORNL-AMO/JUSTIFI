@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid dashboard">
     <div class="row">
         <div class="col mt-3">
             <div class="card">
@@ -45,7 +45,7 @@
                                     from the portfolio window.
                                 </p>
                                 <div class="d-flex justify-content-center">
-                                    <button class="btn btn-primary" routerLink="/user">
+                                    <button class="btn nav-btn" routerLink="/portfolio">
                                         <fa-icon [icon]="faFolderOpen"></fa-icon>
                                         My Portfolio</button>
                                 </div>
@@ -88,7 +88,9 @@
                                         <tbody>
                                             <tr *ngFor="let visit of onSiteVisits">
                                                 <td>
-                                                    {{visit.facilityId | facilityName: facilities}}
+                                                    <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
+                                                        {{visit.facilityId | facilityName: facilities}}
+                                                    </a>
                                                 </td>
                                                 <td>
                                                     {{visit.visitDate | date}}

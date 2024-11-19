@@ -23,7 +23,7 @@ import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HelperPipesModule } from '../../helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
 import { PaybackTableComponent } from '../assessment-report/payback-table/payback-table.component';
 import { AssessmentSavingsTableComponent } from '../assessment-report/assessment-savings-table/assessment-savings-table.component';
 import { TableEntriesModule } from '../../table-entries/table-entries.module';

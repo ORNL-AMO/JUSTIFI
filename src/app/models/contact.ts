@@ -23,8 +23,8 @@ export function getNewIdbContact(userId: string, companyId: string): IdbContact 
     let idbEntry: IdbEntry = getNewIdbEntry();
     return {
         ...idbEntry,
-        firstName: undefined,
-        lastName: undefined,
+        firstName: 'New',
+        lastName: 'Contact',
         userId: userId,
         companyId: companyId,
         facilityIds: [],

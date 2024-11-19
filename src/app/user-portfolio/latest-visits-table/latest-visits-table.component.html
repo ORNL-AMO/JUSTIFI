@@ -1,0 +1,95 @@
+<div class="portfolio card">
+    <div class="card-body">
+        <div class="card-title secondary d-flex justify-content-between">
+            <div>
+                <fa-icon [icon]="faStopwatch"></fa-icon>
+                On-Site Visits
+            </div>
+            <div>
+                <button class="btn btn-outline-success btn-sm" (click)="openWizardModal()">
+                    <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+                    Setup Wizard</button>
+            </div>
+        </div>
+        <p class="card-text fw-light">
+            Below is a list of the on-site visits conducted in JUSTIFI so you can jump back in.
+            Just click the "<fa-icon [icon]="faWandMagicSparkles"></fa-icon>" button.
+        </p>
+        <ng-template [ngIf]="onSiteVisits.length > 0" [ngIfElse]="noVisitsBlock">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Company
+                        </th>
+                        <th>
+                            Facility
+                        </th>
+                        <th>
+                            Assessments
+                        </th>
+                        <th>
+                            Visit Date
+                        </th>
+                        <th>
+                            Last Modified
+                        </th>
+                        <th class="actions">
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let visit of onSiteVisits |  slice: ((currentPageNumber-1) * 5): currentPageNumber * 5">
+                        <td>
+                            <a [routerLink]="'/portfolio/company/'+visit.companyId">
+                                {{visit.companyId | companyName: companies}}
+                            </a>
+                        </td>
+                        <td>
+                            <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
+                                {{visit.facilityId | facilityName: facilities}}
+                            </a>
+                        </td>
+                        <td>
+                            <!-- <span class="badge bg-dark">
+                                {{visit.assessmentIds.length}}
+                            </span> -->
+                            <ng-template [ngIf]="visit.assessmentIds.length > 0" [ngIfElse]="assessmentMdash">
+                                <span *ngFor="let assessmentId of visit.assessmentIds">
+                                    <a [routerLink]="'/portfolio/assessment/'+assessmentId">
+                                        {{assessmentId | assessmentNameDisplay: assessments}}
+                                    </a>
+                                    <br>
+                                </span>
+                            </ng-template>
+                            <ng-template #assessmentMdash>
+                                &mdash;
+                            </ng-template>
+                        </td>
+                        <td>
+                            {{visit.visitDate | date}}
+                        </td>
+                        <td>
+                            {{visit.modifiedDate | date}}
+                        </td>
+                        <th class="actions">
+                            <button class="btn btn-outline-success p-1 btn-sm" (click)="goToVisit(visit)">
+                                <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+                            </button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+                <app-table-pagination [pageNumber]="currentPageNumber" [collectionSize]="onSiteVisits.length"
+                    [itemsPerPage]="5" (emitPageNumber)="setPageCurrentPageNumber($event)"></app-table-pagination>
+            </div>
+        </ng-template>
+        <ng-template #noVisitsBlock>
+            <div class="alert alert-info text-center p-2">
+                No visits found. Use the setup wizard to add your first on site visit.
+            </div>
+        </ng-template>
+    </div>
+</div>

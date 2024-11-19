@@ -9,10 +9,10 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
-import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricOptions, KeyPerformanceMetricValue } from 'src/app/shared/constants/keyPerformanceMetrics';
 import { NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefitOptions';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
   selector: 'app-nebs-database-table',
@@ -37,6 +37,7 @@ export class NebsDatabaseTableComponent {
   nebSearchStr: string = '';
   kpiValue: KeyPerformanceIndicatorValue;
   kpmValue: KeyPerformanceMetricValue;
+  allKpmOptions: Array<KeyPerformanceMetricOption> = KeyPerformanceMetricOptions;
   keyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = KeyPerformanceIndicatorOptions;
   keyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [];
 
@@ -45,7 +46,7 @@ export class NebsDatabaseTableComponent {
 
   constructor(private cd: ChangeDetectorRef, private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private companyIdbService: CompanyIdbService,
-    private setupWizardService: SetupWizardService,
+    private sharedDataService: SharedDataService,
     private assessmentIdbService: AssessmentIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService
   ) { }
@@ -74,6 +75,15 @@ export class NebsDatabaseTableComponent {
         return option.label;
       }, 'asc');
     }
+
+    if (this.companyTrackedKpis && this.companyTrackedKpms) {
+      this.keyPerformanceIndicatorOptions = _.orderBy(this.keyPerformanceIndicatorOptions, (option: KeyPerformanceIndicatorOption) => {
+        return this.companyTrackedKpis.includes(option.optionValue)
+      }, 'desc');
+      this.keyPerformanceMetricOptions = _.orderBy(this.keyPerformanceMetricOptions, (option: KeyPerformanceMetricOption) => {
+        return this.companyTrackedKpms.includes(option.value)
+      }, 'desc');
+    }
     let selectedIndex: number = this.keyPerformanceMetricOptions.findIndex(option => {
       return option.value == this.kpmValue;
     })
@@ -92,7 +102,7 @@ export class NebsDatabaseTableComponent {
         return option;
       });
     } else {
-      let modalData: { assessmentId: string, energyOpportunityId: string } = this.setupWizardService.displayAddNebsModal.getValue();
+      let modalData: { assessmentId: string, energyOpportunityId: string } = this.sharedDataService.displayAddNebsModal.getValue();
       let assessment: IdbAssessment = this.assessmentIdbService.getByGuid(modalData.assessmentId);
       let selectedNebs: Array<IdbNonEnergyBenefit>;
       if (modalData.energyOpportunityId) {
@@ -136,5 +146,14 @@ export class NebsDatabaseTableComponent {
     this.emitSelectedNebs.emit(selectedNebs);
   }
 
+  setChecked(neb: NebOption, metric: KeyPerformanceMetricValue) {
+    if (neb.selectedKPM.includes(metric)) {
+      neb.selectedKPM = neb.selectedKPM.filter(kpm => {
+        return kpm != metric;
+      })
+    } else {
+      neb.selectedKPM.push(metric);
+    }
+  }
 
 }

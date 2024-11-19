@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ContactModalComponent } from './contact-modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
-import { HelperPipesModule } from '../helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from '../helper-pipes/_helper-pipes.module';
 
 
 

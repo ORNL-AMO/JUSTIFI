@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FacilityDetailsSummaryComponent } from './facility-details-summary.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HelperPipesModule } from 'src/app/shared/helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility, getNewIdbFacility } from 'src/app/models/facility';
 import { BehaviorSubject } from 'rxjs';

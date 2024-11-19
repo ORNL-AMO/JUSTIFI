@@ -6,26 +6,24 @@
                     <fa-icon [icon]="faChartBar" class="me-2"></fa-icon> Company Key Performance Indicators (KPIs)
                 </h5>
                 <hr>
-                <div class="row">
-                    <div class="col-6">
-                        <app-add-kpi-search></app-add-kpi-search>
-                    </div>
-                    <div class="col-6">
-                        <app-company-kpi-list></app-company-kpi-list>
-                    </div>
-                </div>
+                <app-company-kpi-search-form></app-company-kpi-search-form>
             </div>
         </div>
     </div>
 </div>
 <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
-        <button class="btn btn-dark btn-sm" (click)="goBack()">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             Go Back
         </button>
-        <button class="btn btn-dark btn-sm" (click)="goToKpiDetails()">
-            Detail KPIs
+        <button class="btn nav-btn btn-sm" (click)="goToKpiDetails()">
+            <ng-template [ngIf]="companyKpis.length > 0" [ngIfElse]="noKPIsBlock">
+                Detail KPIs
+            </ng-template>
+            <ng-template #noKPIsBlock>
+                Facility Details
+            </ng-template>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

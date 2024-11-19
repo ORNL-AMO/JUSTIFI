@@ -37,7 +37,7 @@ export class VisitReportComponent {
   }
 
   goNext() {
-    this.router.navigateByUrl('/facility/' + this.onSiteVisit.facilityId);
+    this.router.navigateByUrl('/portfolio/facility/' + this.onSiteVisit.facilityId);
   }
 
   goBack() {
