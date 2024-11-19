@@ -58,13 +58,13 @@ export class FacilitySettingsComponent {
 
   canDeactivate(): Observable<boolean> {
     if (this.name && this.name.getError('required')) {
-      this.dislayWarningModal();
+      this.displayWarningModal();
       return of(false);
     }
     return of(true);
   }
 
-  dislayWarningModal() {
+  displayWarningModal() {
     this.routeGuardWarningModal = true;
   }
   closeWarningModal() {
