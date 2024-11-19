@@ -27,3 +27,8 @@
       background-color: rgb(93, 159, 235);
     }
   }
+
+
+  .main-content{
+    overflow-y: auto;
+  }

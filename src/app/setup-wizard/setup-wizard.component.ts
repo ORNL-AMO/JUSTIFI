@@ -112,7 +112,12 @@ export class SetupWizardComponent {
   }
 
   setContentWidth() {
-    this.contentWidth = (window.innerWidth - this.helpWidth - this.sidebarWidth);
+    let contentWidth: number = (window.innerWidth - this.helpWidth - this.sidebarWidth);
+    if(contentWidth < 600){
+      this.contentWidth = 600;
+    }else{
+      this.contentWidth = contentWidth;
+    }
   }
 
   @HostListener('window:resize', ['$event'])
