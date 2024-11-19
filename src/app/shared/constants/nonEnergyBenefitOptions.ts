@@ -187,7 +187,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "maintenanceCost", "employeeEngagementSatisfaction"],
+        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "maintenanceCost", "employeeEngagementSatisfaction", "laborCosts", "equipmentDowntime"],
         selectedKPM: []
     },
     {
@@ -199,7 +199,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "usefulEquipmentLifeExtended", "maintenanceCost"],
+        KPM: ["contributeCompanyVision", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "equipmentDowntime", "serviceParts"],
         selectedKPM: []
     },
     {
@@ -223,7 +223,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "numberEquipmentCausedDefects", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "maintenanceCost", "engineeringSupport"],
+        KPM: ["productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "numberEquipmentCausedDefects", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "maintenanceCost", "engineeringSupport", "laborCosts"],
         selectedKPM: []
     },
     {
@@ -271,7 +271,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productionCosts", "revenuePerEmployee", "perUnitProductCost", "defectiveProductionDollar", "defectRatePPMorDPM", "percentProductionYield", "percentShrinkage", "hazardousDisposalCosts", "nonHazardousDisposalCosts"],
+        KPM: ["productionCosts", "revenuePerEmployee", "perUnitProductCost", "defectiveProductionDollar", "defectRatePPMorDPM", "percentProductionYield", "percentShrinkage", "hazardousDisposalCosts", "nonHazardousDisposalCosts", "rawMaterials"],
         selectedKPM: []
     },
     {
@@ -283,7 +283,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["perUnitProductCost", "dollarConsumables"],
+        KPM: ["perUnitProductCost", "dollarConsumables", "intermediateGoods", "rawMaterials", "serviceParts", "treatmentChemicals"],
         selectedKPM: []
     },
     {
@@ -307,7 +307,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost"],
+        KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
         selectedKPM: []
     },
     {
@@ -319,7 +319,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "maintenanceCost", "engineeringSupport"],
+        KPM: ["productivityRateThroughput", "maintenanceCost", "engineeringSupport", "laborCosts"],
         selectedKPM: []
     },
     {
@@ -426,7 +426,7 @@ export const NebOptions: Array<NebOption> = [
         // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "productivityRateThroughput", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["contributeCompanyVision", "productivityRateThroughput", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate", "rawMaterials", "intermediateGoods", "serviceParts", "treatmentChemicals"],
         selectedKPM: []
     },
     {
