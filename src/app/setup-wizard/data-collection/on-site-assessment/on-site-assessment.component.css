@@ -1,18 +1,12 @@
-.add-neb-btn{
-    background-color: #186A3B;
-}
-.add-opportunity-btn{
-    background-color: #D35400;
-}
-
-.top-nav{
-    border-bottom: solid;
-    margin-bottom: .25rem
-}
-.nav-underline .nav-item .nav-link.active{
-    font-weight: normal;
-}
-
 .badge.small{
     font-size: small;
+}
+
+.nav-link{
+    padding: .25rem;
+}
+
+.navbar{
+    padding-bottom: 0px;
+    border-bottom: 1px #0079c2 solid;
 }

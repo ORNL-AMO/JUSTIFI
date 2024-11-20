@@ -2,23 +2,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SetupWizardHelpPanelComponent } from './setup-wizard-help-panel.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LocalStorageService } from 'ngx-webstorage';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('SetupWizardHelpPanelComponent', () => {
   let component: SetupWizardHelpPanelComponent;
   let fixture: ComponentFixture<SetupWizardHelpPanelComponent>;
-  let localStorageService: Partial<LocalStorageService> = {
-    retrieve: () => { return undefined },
-    store: () => { return undefined },
-  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FontAwesomeModule],
       declarations: [SetupWizardHelpPanelComponent],
-      providers: [
-        { provide: LocalStorageService, useValue: localStorageService }
-      ]
+      providers: stubServiceProviders
     })
     .compileComponents();
     

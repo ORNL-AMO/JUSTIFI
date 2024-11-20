@@ -20,7 +20,8 @@ describe('SetupWizardSidebarComponent', () => {
   let fixture: ComponentFixture<SetupWizardSidebarComponent>;
 
   let setupWizardService: Partial<SetupWizardService> = {
-    sidebarOpen: new BehaviorSubject<boolean>(false)
+    sidebarOpen: new BehaviorSubject<boolean>(true),
+    helpPanelOpen: new BehaviorSubject<boolean>(true)
   };
   let onSiteVisitIdbService: Partial<OnSiteVisitIdbService> = {
     selectedVisit: new BehaviorSubject<IdbOnSiteVisit>(getNewIdbOnSiteVisit('', '', ''))

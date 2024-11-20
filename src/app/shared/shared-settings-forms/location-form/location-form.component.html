@@ -6,7 +6,7 @@
                 maxlength="60" id="address" name="address">
         </div>
 
-        <div class="col-6">
+        <div class="col-12 col-sm-12 col-md-6">
             <label for="country">Country</label>
             <select class="form-select" formControlName="country" (change)="saveChanges()" id="country" name="country">
                 <option value="">Select a country</option>
@@ -14,7 +14,7 @@
                 </option>
             </select>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-sm-12 col-md-6">
             <label for="state">State/Province</label>
             <ng-container *ngIf="(inCompany && company?.generalInformation.country === 'US') || 
                 (!inCompany && facility?.generalInformation.country === 'US'); else province">
@@ -26,12 +26,12 @@
                 <input type="text" class="form-control" formControlName="state" (input)="saveChanges()" id="state" name="state"/>
             </ng-template>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-sm-12 col-md-6">
             <label for="city">City</label>
             <input type="text" class="form-control" formControlName="city" (input)="saveChanges()" minlength="1"
                 maxlength="85" id="city" name="city">
         </div>
-        <div class="col-6">
+        <div class="col-12 col-sm-12 col-md-6">
             <label for="zip">Zip</label>
             <input type="text" class="form-control" formControlName="zip" (input)="saveChanges()" minlength="1"
                 maxlength="12" id="zip" name="zip">
