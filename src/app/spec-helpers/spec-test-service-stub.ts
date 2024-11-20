@@ -97,7 +97,8 @@ let onSiteVisitIdbService: Partial<OnSiteVisitIdbService> = {
 };
 
 let setupWizardService: Partial<SetupWizardService> = {
-    sidebarOpen: new BehaviorSubject<boolean>(true)
+    sidebarOpen: new BehaviorSubject<boolean>(true),
+    helpPanelOpen: new BehaviorSubject<boolean>(true)
 };
 
 let option: KeyPerformanceIndicatorOption =
