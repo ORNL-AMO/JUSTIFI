@@ -50,6 +50,13 @@ a.nav-link, .btn.btn-dark, .link-section-heading{
         font-size: medium;
     }
 }
+/* Large devices (tablets, 992px and up) */
+@media (min-width: 992px) {
+    .nav-item {
+        font-size: large;
+    }
+}
+
 
 .nav-link {
     padding-left: .5rem;
