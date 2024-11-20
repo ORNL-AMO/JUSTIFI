@@ -31,6 +31,7 @@ import { KeyPerformanceIndicatorOption } from "../shared/constants/keyPerformanc
 import { SharedDataService } from "../shared/shared-services/shared-data.service";
 import { CompanyContactsFormService } from "../shared/shared-company-forms/company-contacts-form/company-contacts-form.service";
 import { FormControl, FormGroup } from "@angular/forms";
+import { LocalStorageService } from "ngx-webstorage";
 
 let stubCompany: IdbCompany = getNewIdbCompany('123');
 stubCompany.guid = '123';
@@ -160,6 +161,11 @@ let companyContactsFormService: Partial<CompanyContactsFormService> = {
     }
 }
 
+let localStorageService: Partial<LocalStorageService> = {
+    retrieve: () => { return undefined },
+    store: () => { return undefined },
+};
+
 export const stubServiceProviders: Array<{ provide: any, useValue: any }> = [
     { provide: CompanyIdbService, useValue: companyIdbService },
     { provide: FacilityIdbService, useValue: facilityIdbService },
@@ -174,7 +180,7 @@ export const stubServiceProviders: Array<{ provide: any, useValue: any }> = [
     { provide: EnergyEquipmentIdbService, useValue: energyEquipmentIdbService },
     { provide: ProcessEquipmentIdbService, useValue: processEquipmentIdbService },
     { provide: KeyPerformanceMetricImpactsIdbService, useValue: keyPerformanceMetricImpactIdbService },
-    { provide: LocalStorageDataService, useValue: {} },
+    { provide: LocalStorageDataService, useValue: localStorageService },
     { provide: SharedDataService, useValue: sharedDataService },
     { provide: CompanyContactsFormService, useValue: companyContactsFormService },
     {

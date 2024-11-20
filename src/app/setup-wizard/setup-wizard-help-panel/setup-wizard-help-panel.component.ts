@@ -2,7 +2,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { faCircleQuestion, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { HelpContext } from './HelpContext';
-import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 import { Subscription } from 'rxjs';
 import { SetupWizardService } from '../setup-wizard.service';
 
@@ -23,7 +22,7 @@ export class SetupWizardHelpPanelComponent {
   helpPanelOpenSub: Subscription;
   helpPanelOpen: boolean;
   
-  constructor(private router: Router, private localStorageDataService: LocalStorageDataService,
+  constructor(private router: Router,
     private setupWizardService: SetupWizardService
   ) {
 
@@ -42,7 +41,6 @@ export class SetupWizardHelpPanelComponent {
         window.dispatchEvent(new Event("resize"));
       }, 100)
     });
-    // this.collapseHelpPanel = this.localStorageDataService.setupHelpPanelCollapsed;
     this.setHelpContext(this.router.url);
   }
 
@@ -53,12 +51,6 @@ export class SetupWizardHelpPanelComponent {
 
   toggleCollapseHelpPanel() {
     this.emitToggleCollapse.emit(!this.helpPanelOpen);
-    // this.collapseHelpPanel = !this.collapseHelpPanel;
-    // this.localStorageDataService.setSetupPanelCollapsed(this.collapseHelpPanel);
-    //needed to resize charts
-    // setTimeout(() => {
-    //   window.dispatchEvent(new Event("resize"));
-    // }, 100)
   }
 
   setHelpContext(url: string) {

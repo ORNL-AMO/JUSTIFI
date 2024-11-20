@@ -3,7 +3,7 @@ import { SharedDataService } from '../shared/shared-services/shared-data.service
 import { Subscription } from 'rxjs';
 import { ContactContext, IdbContact } from '../models/contact';
 import { SetupWizardService } from './setup-wizard.service';
-import { faGripLinesVertical, faGripVertical, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faGripLinesVertical, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-setup-wizard',
