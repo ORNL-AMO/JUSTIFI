@@ -106,9 +106,11 @@ export class AssessmentSavingsChartComponent {
       }
     }
 
-    trace.values.push(this.assessmentReport.assessment.costSavings);
-    trace.labels.push('Assessment (Energy Cost) Savings');
-    trace.marker.line.width.push(2)
+    if (this.assessmentReport.assessment.costSavings) {
+      trace.values.push(this.assessmentReport.assessment.costSavings);
+      trace.labels.push('Assessment (Energy Cost) Savings');
+      trace.marker.line.width.push(2)
+    }
 
     this.assessmentReport.energyOpportunityReports.forEach(report => {
       if (report.totalEnergyCostSavings) {
@@ -118,17 +120,21 @@ export class AssessmentSavingsChartComponent {
       }
 
       report.nebReports.forEach(nebReport => {
-        trace.labels.push(nebReport.nonEnergyBenefit.name)
-        trace.values.push(nebReport.totalCostSavings)
-        trace.marker.line.width.push(2)
+        if (nebReport.totalCostSavings) {
+          trace.labels.push(nebReport.nonEnergyBenefit.name)
+          trace.values.push(nebReport.totalCostSavings)
+          trace.marker.line.width.push(2)
+        }
       })
     })
 
 
     this.assessmentReport.assessmentNebReports.forEach(nebReport => {
-      trace.labels.push(nebReport.nonEnergyBenefit.name)
-      trace.values.push(nebReport.totalCostSavings)
-      trace.marker.line.width.push(2)
+      if (nebReport.totalCostSavings) {
+        trace.labels.push(nebReport.nonEnergyBenefit.name)
+        trace.values.push(nebReport.totalCostSavings)
+        trace.marker.line.width.push(2)
+      }
     })
 
     var data = [trace];

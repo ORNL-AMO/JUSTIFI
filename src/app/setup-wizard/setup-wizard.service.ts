@@ -7,7 +7,11 @@ import { BehaviorSubject } from 'rxjs';
 export class SetupWizardService {
 
   sidebarOpen: BehaviorSubject<boolean>;
+  helpPanelOpen: BehaviorSubject<boolean>;
+  helpWidth: number = 200;
+  sidebarWidth: number = 200;
   constructor(  ) {
     this.sidebarOpen = new BehaviorSubject<boolean>(true);
+    this.helpPanelOpen = new BehaviorSubject<boolean>(true);
   }
 }

@@ -2,9 +2,9 @@
     <div class="col-12">
         <form [formGroup]="contactForm">
             <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="firstname">First Name <span
+                <label class="col-md-5 col-12 col-form-label" for="firstname">First Name <span
                         class="required-asterisk">*</span></label>
-                <div class="col-sm-7">
+                <div class="col-md-7 col-12">
                     <input name="firstname" type="text" class="form-control" formControlName="firstname" id="firstname"
                         (input)="saveChanges()">
                     <div class="alert alert-danger form-error"
@@ -12,9 +12,9 @@
                         First Name Required
                     </div>
                 </div>
-                <label class="col-sm-5 col-form-label" for="lastname">Last Name <span
+                <label class="col-md-5 col-12 col-form-label" for="lastname">Last Name <span
                         class="required-asterisk">*</span></label>
-                <div class="col-sm-7">
+                <div class="col-md-7 col-12">
                     <input name="lastname" type="text" class="form-control" formControlName="lastname" id="lastname"
                         (input)="saveChanges()">
                     <div class="alert alert-danger form-error"
@@ -24,15 +24,15 @@
                 </div>
             </div>
             <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="phone">Phone Number</label>
-                <div class="col-sm-7 d-flex">
+                <label class="col-md-5 col-12 col-form-label" for="phone">Phone Number</label>
+                <div class="col-md-7 col-12 d-flex">
                     <input type="text" class="form-control" formControlName="phone" (input)="saveChanges()" id="phone"
                         name="phone">
                     <label class="mx-2 col-form-label" for="ext">ext.</label>
-                    <input type="text" class="form-control" style="width: 100px;" formControlName="ext"
+                    <input type="text" class="form-control" style="max-width: 100px;" formControlName="ext"
                         (input)="saveChanges()" id="ext" name="ext">
                 </div>
-                <div class="col-sm-7 offset-sm-5">
+                <div class="col-md-7 offset-md-5">
                     <div class="alert alert-warning form-error" *ngIf="contactForm.controls['phone'].errors && 
                                 (contactForm.controls['phone'].touched || contactForm.controls['ext'].touched)">
                         Invalid phone number: for US xxx-xxx-xxxx / for international +xxx xxxxxxxxxx
@@ -40,8 +40,8 @@
                 </div>
             </div>
             <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="email">Email</label>
-                <div class="col-sm-7">
+                <label class="col-md-5 col-12 col-form-label" for="email">Email</label>
+                <div class="col-md-7 col-12">
                     <input type="email" class="form-control" formControlName="email" (input)="saveChanges()" id="email"
                         name="email">
                     <div
@@ -54,8 +54,8 @@
                 </div>
             </div>
             <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="role">Title</label>
-                <div class="col-sm-7">
+                <label class="col-md-5 col-12 col-form-label" for="role">Title</label>
+                <div class="col-md-7 col-12">
                     <input type="text" class="form-control" formControlName="role" (input)="saveChanges()" id="role"
                         name="role">
                     <div class="alert alert-warning form-error" *ngIf="contactForm.controls['role'].errors">
@@ -64,8 +64,8 @@
                 </div>
             </div>
             <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="team">Team</label>
-                <div class="col-sm-7">
+                <label class="col-md-5 col-12 col-form-label" for="team">Team</label>
+                <div class="col-md-7 col-12">
                     <input type="text" class="form-control" formControlName="team" (input)="saveChanges()" id="team"
                         name="team">
                     <div class="alert alert-warning form-error" *ngIf="contactForm.controls['team'].errors">
@@ -74,8 +74,8 @@
                 </div>
             </div>
             <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="notes">Notes</label>
-                <div class="col-sm-7">
+                <label class="col-md-5 col-12 col-form-label" for="notes">Notes</label>
+                <div class="col-md-7 col-12">
                     <textarea class="form-control" name="notes" formControlName="notes"
                         (input)="saveChanges()"></textarea>
                     <div class="alert alert-warning form-error" *ngIf="contactForm.controls['notes'].errors">
