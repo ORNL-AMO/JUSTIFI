@@ -1,27 +1,20 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EnergyUnitOptions, MassUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from '../../constants/unitOptions';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { EnergyUnitOptions, UnitOption } from '../../constants/unitOptions';
 import { Subscription } from 'rxjs';
-import { UnitSettings } from 'src/app/models/unitSettings';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 import { IconDefinition, faGear } from '@fortawesome/free-solid-svg-icons';
 import { SharedSettingsFormsService } from '../shared-settings-forms.service';
 import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessment-setup/pre-assessment-setup.service';
-import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
-import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
-import { IdbCompany } from 'src/app/models/company';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { UtilityOptions } from '../../constants/utilityTypes';
 import { ConvertValue } from '../../conversions/convertValue';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { FacilityEnergyEquipmentSetupService } from 'src/app/setup-wizard/pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.service';
-import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
-import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
-import { AssessmentEnergyOpportunitiesFormService } from 'src/app/setup-wizard/data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.service';
 
 @Component({
   selector: 'app-units-form',

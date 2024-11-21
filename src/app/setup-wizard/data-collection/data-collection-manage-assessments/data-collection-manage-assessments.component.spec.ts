@@ -9,7 +9,7 @@ import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.serv
 import { IdbOnSiteVisit, getNewIdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { BehaviorSubject } from 'rxjs';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
-import { HelperPipesModule } from 'src/app/shared/helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 
 describe('DataCollectionManageAssessmentsComponent', () => {

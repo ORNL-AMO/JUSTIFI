@@ -1,0 +1,22 @@
+<ng-container *ngIf="numberOfPages > 1">
+    <div class="d-flex">
+        <nav>
+            <ul class="pagination mb-0">
+                <li class="page-item" [ngClass]="{'disabled': pageNumber == 1}">
+                    <a class="page-link" aria-label="Previous" (click)="setPageNumber(pageNumber-1)">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li *ngFor="let pageNumberOption of pageNumberOptions" class="page-item"
+                    [ngClass]="{'active': pageNumber == pageNumberOption}">
+                    <a class="page-link" (click)="setPageNumber(pageNumberOption)">{{pageNumberOption}}</a>
+                </li>
+                <li class="page-item" [ngClass]="{'disabled': pageNumber == numberOfPages}">
+                    <a class="page-link" aria-label="Next" (click)="setPageNumber(pageNumber+1)">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</ng-container>

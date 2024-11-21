@@ -19,6 +19,7 @@ import { PreAssessmentSetupService } from '../pre-assessment-setup/pre-assessmen
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
+import { SharedCompanyFormsModule } from 'src/app/shared/shared-company-forms/shared-company-forms.module';
 
 describe('CompanySetupComponent', () => {
   let component: CompanySetupComponent;
@@ -55,7 +56,7 @@ describe('CompanySetupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, SharedSettingsFormsModule, FormsModule, ReactiveFormsModule, LabelWithTooltipModule],
+      imports: [FontAwesomeModule, SharedSettingsFormsModule, FormsModule, ReactiveFormsModule, LabelWithTooltipModule, SharedCompanyFormsModule],
       declarations: [CompanySetupComponent],
       providers: [
         { provide: UserIdbService, useValue: userIdbService },

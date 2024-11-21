@@ -49,12 +49,16 @@ export class OnSiteVisitIdbService {
   }
 
   setSelectedFromAssessmentGUID(assessmentGUID: string) {
-    let onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisits.getValue();
-    let onSiteVisit: IdbOnSiteVisit = onSiteVisits.find(_onSiteVisit => { return _onSiteVisit.assessmentIds.includes(assessmentGUID) });
+    let onSiteVisit: IdbOnSiteVisit = this.getByAssessmentGUID(assessmentGUID);
     this.selectedVisit.next(onSiteVisit);
     return onSiteVisit != undefined;
   }
 
+  getByAssessmentGUID(assessmentGUID: string) {
+    let onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisits.getValue();
+    let onSiteVisit: IdbOnSiteVisit = onSiteVisits.find(_onSiteVisit => { return _onSiteVisit.assessmentIds.includes(assessmentGUID) });
+    return onSiteVisit;
+  }
 
   async asyncUpdate(onSiteVisit: IdbOnSiteVisit) {
     onSiteVisit = await firstValueFrom(this.updateWithObservable(onSiteVisit));

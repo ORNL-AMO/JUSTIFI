@@ -11,7 +11,7 @@ export interface IdbCompany extends IdbEntry {
 
 export function getNewIdbCompany(userId: string): IdbCompany {
     let idbEntry: IdbEntry = getNewIdbEntry();
-    let generalInformation: GeneralInformation = getGeneralInformation('');
+    let generalInformation: GeneralInformation = getGeneralInformation('New Company');
     return {
         ...idbEntry,
         userId: userId,

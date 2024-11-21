@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { IconDefinition, faChevronDown, faChevronUp, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from '../setup-wizard.service';
@@ -11,8 +11,6 @@ import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
-import { CompanySetupService } from '../pre-visit/company-setup/company-setup.service';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-setup-wizard-sidebar',
@@ -20,6 +18,8 @@ import { FormControl } from '@angular/forms';
   styleUrl: './setup-wizard-sidebar.component.css'
 })
 export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
+  @Output('emitToggleCollapse')
+  emitToggleCollapse: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   faFolderOpen: IconDefinition = faFolderOpen;
   faCircleExclamation: IconDefinition = faCircleExclamation;
@@ -43,25 +43,24 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   company: IdbCompany;
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   keyPerformanceIndicatorsSub: Subscription;
-  companyNameFormControl: FormControl;
-  companyNameFormControlSub: Subscription;
 
   collapsePreVisit: boolean = true;
   collapseDataCollection: boolean = true;
   collapseDataEvaluation: boolean = true;
 
+  routerSub: Subscription;
+
   constructor(private router: Router, private setupWizardService: SetupWizardService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private companyIdbService: CompanyIdbService,
-    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
-    private companySetupService: CompanySetupService
+    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService
   ) {
 
   }
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
+    this.routerSub = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.setDisplaySidebar();
       }
@@ -91,10 +90,6 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.keyPerformanceIndicatorsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(_keyPerformanceIndicators => {
       this.keyPerformanceIndicators = _keyPerformanceIndicators;
     });
-
-    this.companyNameFormControlSub = this.companySetupService.companyNameFormControl.subscribe(_companyNameFormControl => {
-      this.companyNameFormControl = _companyNameFormControl;
-    });
   }
 
   ngOnDestroy() {
@@ -103,7 +98,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.onSiteVisitSub.unsubscribe();
     this.companySub.unsubscribe();
     this.keyPerformanceIndicatorsSub.unsubscribe();
-    this.companyNameFormControlSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   setDisplaySidebar() {
@@ -121,11 +116,11 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   }
 
   confirmStartOver() {
-    this.router.navigateByUrl('/user/home');
+    this.router.navigateByUrl('/portfolio');
   }
 
   toggleSidebar() {
-    this.setupWizardService.sidebarOpen.next(!this.sidebarOpen);
+    this.emitToggleCollapse.emit(!this.sidebarOpen);
   }
 
   toggleCollapsePrevisit() {
@@ -166,4 +161,5 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
       }
     }
   }
+
 }

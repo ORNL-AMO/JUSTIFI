@@ -2,33 +2,37 @@
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
         <div class="col-10 pt-4 pb-4">
             <div class="form-paper shadow">
-                <nav class="navbar top-nav">
+                <div class="d-flex w-100 justify-content-between">
                     <div>
                         <h5>
-                            <fa-icon [icon]="faScrewdriverWrench"></fa-icon> {{assessment.name}} <span
-                                class="badge bg-dark small ps-1"
-                                *ngIf="assessment.assessmentType">{{assessment.assessmentType}}</span>
+                            <fa-icon [icon]="faScrewdriverWrench"></fa-icon> {{assessment.name}}
                         </h5>
                     </div>
-                    <ul class="nav nav-underline">
+                    <div>
+                        <span class="badge bg-dark small"
+                            *ngIf="assessment.assessmentType">{{assessment.assessmentType}}</span>
+                    </div>
+                </div>
+                <nav class="navbar">
+                    <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link pt-0" [routerLink]="'details'"
-                                [routerLinkActive]="['active']">Details</a>
+                            <a class="nav-link" [routerLink]="'details'" [routerLinkActive]="['active']">Details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pt-0" [routerLink]="'energy-opportunities'"
+                            <a class="nav-link" [routerLink]="'energy-opportunities'"
                                 [routerLinkActive]="['active']">Energy Efficiency Opportunities</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pt-0" [routerLink]="'nebs'" [routerLinkActive]="['active']">NEBs</a>
+                            <a class="nav-link" [routerLink]="'nebs'" [routerLinkActive]="['active']">NEBs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pt-0" [routerLink]="'results'"
-                                [routerLinkActive]="['active']">Results</a>
+                            <a class="nav-link" [routerLink]="'results'" [routerLinkActive]="['active']">Results</a>
                         </li>
                     </ul>
                 </nav>
-                <router-outlet></router-outlet>
+                <div class="pt-2">
+                    <router-outlet></router-outlet>
+                </div>
             </div>
         </div>
     </div>
@@ -36,7 +40,7 @@
 <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
         <div class="col-3">
-            <button class="btn btn-dark btn-sm" (click)="goBack()">
+            <button class="btn nav-btn btn-sm" (click)="goBack()">
                 <fa-icon [icon]="faChevronLeft"></fa-icon>
             </button>
         </div>
@@ -64,7 +68,7 @@
         </div> -->
         <div class="col-3">
             <div class="d-flex  justify-content-end">
-                <button class="btn btn-dark btn-sm" (click)="goToNext()">
+                <button class="btn nav-btn btn-sm" (click)="goToNext()">
                     <fa-icon [icon]="faChevronRight"></fa-icon>
                 </button>
             </div>
@@ -72,8 +76,5 @@
     </div>
 </nav>
 
-<app-contact-modal *ngIf="displayContactModal" (emitCancelContact)="closeContactModal()"
-    [contextGuid]="displayContactModal.contextGuid" [contactContext]="displayContactModal.context"
-    [selectedContact]="displayContactModal.viewContact" [companyGuid]="assessment.companyId"></app-contact-modal>
 
 <app-add-nebs-modal *ngIf="displayAddNebsModal"></app-add-nebs-modal>

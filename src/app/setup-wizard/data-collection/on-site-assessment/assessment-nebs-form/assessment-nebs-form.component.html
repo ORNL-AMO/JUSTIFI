@@ -1,4 +1,4 @@
-<h6 class="pt-2 pb-2">
+<h6 class="pb-2">
     <div class="d-flex w-100 justify-content-between">
         <div class="mt-auto bold">
             Assessment Non-Energy Benefits
@@ -25,7 +25,7 @@
 </h6>
 <p class="fw-light small">
     Use the "<fa-icon [icon]="faPlus"></fa-icon> Add NEB" dropdown to add Non-Energy Benefits
-    (<fa-icon [icon]="faWeightHanging"></fa-icon>) that 
+    (<fa-icon [icon]="faWeightHanging"></fa-icon>) that
     <span class="bold">are not associated with any specific energy efficiency opportunity</span> to this assessment.
 </p>
 
@@ -34,4 +34,4 @@
 <hr>
 
 
-<app-energy-opportunity-nebs-table [assessment]="assessment"></app-energy-opportunity-nebs-table>
+<app-energy-opportunity-nebs-table [nonEnergyBenefits]="energyOppNonEnergyBenefits"></app-energy-opportunity-nebs-table>

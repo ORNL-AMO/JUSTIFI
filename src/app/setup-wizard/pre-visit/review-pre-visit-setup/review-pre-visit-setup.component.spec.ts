@@ -9,7 +9,7 @@ import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
-import { HelperPipesModule } from 'src/app/shared/helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { TeamDetailsSummaryComponent } from './team-details-summary/team-details-summary.component';
 import { ProcessEquipmentSummaryComponent } from './process-equipment-summary/process-equipment-summary.component';

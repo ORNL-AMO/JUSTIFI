@@ -17,13 +17,11 @@ import { UtilityOption, UtilityOptions } from 'src/app/shared/constants/utilityT
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
-import { IdbCompany } from 'src/app/models/company';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { UtilityEnergyUse } from 'src/app/models/utilityEnergyUses';
-import { SharedSettingsFormsService } from 'src/app/shared/shared-settings-forms/shared-settings-forms.service';
-import { FormGroup } from '@angular/forms';
 import { UnitSettings } from 'src/app/models/unitSettings';
 import { EnergyUnitOptions, UnitOption } from 'src/app/shared/constants/unitOptions';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
   selector: 'app-pre-assessment-setup',
@@ -54,12 +52,9 @@ export class PreAssessmentSetupComponent {
 
   assessmentTypes: Array<AssessmentType> = AssessmentTypes;
   utilityOptions: Array<UtilityOption> = UtilityOptions;
-  
+
   displayDeleteModal: boolean = false;
   assessmentToDelete: IdbAssessment;
-  displayContactModal: boolean = false;
-  contactAssessmentIndex: number;
-  viewContact: IdbContact;
 
   onSiteVisit: IdbOnSiteVisit;
   onSiteVisitSub: Subscription;
@@ -83,6 +78,7 @@ export class PreAssessmentSetupComponent {
     private bootstrapService: BootstrapService,
     private localStorageDataService: LocalStorageDataService,
     private cd: ChangeDetectorRef,
+    private sharedDataService: SharedDataService
   ) {
   }
 
@@ -125,7 +121,7 @@ export class PreAssessmentSetupComponent {
     this.companySub.unsubscribe();
     this.facilitySub.unsubscribe();
   }
-  
+
   ngAfterViewInit() {
     //open the accordion for last viewed neb
     let lastAssessmentGuid: string = this.localStorageDataService.assessmentAccordionGuid;
@@ -156,7 +152,7 @@ export class PreAssessmentSetupComponent {
         let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
           _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
         // calculate use
-        if (selectedUtilityOption.isStandardEnergyUnit 
+        if (selectedUtilityOption.isStandardEnergyUnit
           && selectedUnitOption.isStandard !== false) {
           convertedUse = this.convertValue.convertValue(
             utilityEnergyUse.energyUse,
@@ -223,16 +219,12 @@ export class PreAssessmentSetupComponent {
     this.closeDeleteModal();
   }
 
-  openContactModal(assessmentIndex: number, viewContact: IdbContact) {
-    this.contactAssessmentIndex = assessmentIndex;
-    this.viewContact = viewContact;
-    this.displayContactModal = true;
+  openContactModal(assessment: IdbAssessment, viewContact: IdbContact) {
+    this.sharedDataService.displayContactModal.next({ context: 'assessment', viewContact: viewContact, contextGuid: assessment.guid, companyId: assessment.companyId })
   }
 
   closeContactModal() {
-    this.displayContactModal = false;
-    this.contactAssessmentIndex = undefined;
-    this.viewContact = undefined;
+    this.sharedDataService.displayContactModal.next(undefined);
   }
 
   async setVisitDate() {

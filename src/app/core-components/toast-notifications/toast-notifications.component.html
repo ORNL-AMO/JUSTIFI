@@ -6,7 +6,7 @@
                 <strong class="me-auto">{{toastNotification.title}}</strong>
                 <button type="button" class="btn-close" (click)="closeToast()" aria-label="Close"></button>
             </div>
-            <div class="toast-body">
+            <div class="toast-body" *ngIf="toastNotification?.body">
                 <span [innerHTML]="toastNotification.body"></span>
             </div>
             <div class="toast-footer ps-2 pe-2 pb-2" *ngIf="toastNotification?.showDisable">

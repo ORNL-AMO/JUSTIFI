@@ -1,0 +1,35 @@
+.list-item {
+    /* border: solid 1px;
+    padding: 2px; */
+}
+
+
+.click-link-danger {
+    color: red;
+}
+
+.click-link-danger:hover {
+    cursor: pointer;
+}
+
+hr {
+    margin: .25rem 0;
+}
+
+.click-link {
+    text-decoration: none;
+}
+
+.indicator-container {
+    container-type: inline-size;
+}
+
+.badge-display {
+    display: block;
+}
+
+@container (max-width: 350px) {
+    .badge-display {
+        display: none;
+    }
+}

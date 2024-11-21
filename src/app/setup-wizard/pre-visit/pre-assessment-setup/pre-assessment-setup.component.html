@@ -200,12 +200,12 @@
                                                     <div class="col-6">
                                                         <button class="btn btn-sm btn-primary me-1"
                                                             *ngFor="let contact of assessment.guid | associatedContacts:'assessment': contacts;"
-                                                            (click)="openContactModal(assessmentIndex, contact)">
+                                                            (click)="openContactModal(assessment, contact)">
                                                             <fa-icon [icon]="faUser"></fa-icon>
                                                             {{contact | contactNameDisplay}}
                                                         </button>
                                                         <button class="btn btn-sm btn-secondary"
-                                                            (click)="openContactModal(assessmentIndex, undefined)">
+                                                            (click)="openContactModal(assessment, undefined)">
                                                             <fa-icon [icon]="faContactBook"></fa-icon>
                                                             Stakeholders
                                                         </button>
@@ -236,11 +236,11 @@
 </div>
 <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
-        <button class="btn btn-dark btn-sm" (click)="goBack()">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             Go Back
         </button>
-        <button class="btn btn-dark btn-sm" (click)="goToNext()">
+        <button class="btn nav-btn btn-sm" (click)="goToNext()">
             Review Pre-Visit
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
@@ -265,8 +265,3 @@
             Assessment</button>
     </div>
 </div>
-
-
-<app-contact-modal *ngIf="displayContactModal" (emitCancelContact)="closeContactModal()"
-    [contextGuid]="assessments[contactAssessmentIndex].guid" [contactContext]="'assessment'"
-    [selectedContact]="viewContact" [companyGuid]="assessments[contactAssessmentIndex].companyId"></app-contact-modal>

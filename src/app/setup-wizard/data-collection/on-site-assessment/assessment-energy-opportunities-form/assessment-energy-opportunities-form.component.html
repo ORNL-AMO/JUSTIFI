@@ -1,4 +1,4 @@
-<div class="d-flex w-100 justify-content-between pt-2 pb-2">
+<div class="d-flex w-100 justify-content-between pb-2">
     <h2 class="col-sm-5 col-form-label" for="assessmentName">Energy Efficiency Opportunities</h2>
     <button class="btn btn-outline-energy-opp btn-sm" (click)="addEnergyOpportunity()"><fa-icon [icon]="faPlus"
             class="me-1"></fa-icon>Add Opportunity</button>
@@ -21,7 +21,8 @@
                 data-bs-parent="#energyOpportunityAccordion">
                 <div class="accordion-body">
                     <app-energy-opportunity-setup-form
-                        [energyOpportunityGuid]="energyOpportunityGuid" (emitInitialized)="childFormInitialized(energyOpportunityGuid)"></app-energy-opportunity-setup-form>
+                        [energyOpportunityGuid]="energyOpportunityGuid" (emitInitialized)="childFormInitialized(energyOpportunityGuid)"
+                        [inWizard]="true"></app-energy-opportunity-setup-form>
                 </div>
             </div>
         </div>

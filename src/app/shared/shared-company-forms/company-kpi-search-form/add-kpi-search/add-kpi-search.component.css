@@ -1,0 +1,20 @@
+.hidden{
+    display: none !important;
+}
+hr{
+    margin: .25rem 0;
+}
+
+.indicator-container {
+    container-type: inline-size;
+}
+
+.badge-display {
+    display: block;
+}
+
+@container (max-width: 350px) {
+    .badge-display {
+        display: none;
+    }
+}

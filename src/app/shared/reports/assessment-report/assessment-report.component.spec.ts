@@ -20,7 +20,7 @@ import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { TableEntriesModule } from '../../table-entries/table-entries.module';
-import { HelperPipesModule } from '../../helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
 import { AssessmentSavingsTableComponent } from './assessment-savings-table/assessment-savings-table.component';
 import { PaybackTableComponent } from './payback-table/payback-table.component';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';

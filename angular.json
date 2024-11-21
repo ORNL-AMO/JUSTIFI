@@ -39,7 +39,8 @@
               "src/assets/styles/forms.css",
               "src/assets/styles/sidebar.css",
               "src/assets/styles/report.css",
-              "src/assets/styles/helpText.css"
+              "src/assets/styles/helpText.css",
+              "src/assets/styles/dashboards.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js",

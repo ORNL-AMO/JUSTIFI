@@ -93,7 +93,7 @@ export class AppComponent {
       let user: IdbUser = this.userIdbService.user.getValue();
       if (user.skipSplashScreen) {
         //if user skips the home screen navigate to dashboard.
-        this.router.navigateByUrl('/user')
+        this.router.navigateByUrl('/portfolio')
       }
     }
   }

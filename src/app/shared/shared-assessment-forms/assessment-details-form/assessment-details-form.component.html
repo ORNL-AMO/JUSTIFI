@@ -1,0 +1,177 @@
+<form *ngIf="assessment">
+    <div class="row">
+        <label class="col-sm-5 col-form-label" for="assessmentName">Assessment Name</label>
+        <div class="col-sm-7">
+            <input name="assessmentName" type="text" class="form-control" [(ngModel)]="assessment.name"
+                (input)="saveChanges()" minlength="1" maxlength="42" id="assessmentName" [disabled]="isDisabled">
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-5 col-form-label" for="assessmentType">Assessment Type</label>
+        <div class="col-sm-7">
+            <select name="assessmentType" class="form-select" id="assessmentType"
+                [(ngModel)]="assessment.assessmentType" (change)="assessmentTypeChange()" [disabled]="isDisabled">
+                <option *ngFor="let assessmentType of assessmentTypes" [ngValue]="assessmentType">
+                    {{assessmentType}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <hr>
+    <h6>Utility Types</h6>
+    <p class="fw-light">Select the utility types that are
+        applicable to this assessment and enter the annual energy
+        use for each type.</p>
+    <ng-container *ngFor="let use of assessment.utilityEnergyUses">
+        <div class="row mb-1 utility-row" *ngIf="assessment.utilityTypes.includes(use.utilityType)">
+            <div class="col-5">
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <input class="form-check-input" type="checkbox"
+                            name="{{'include_utilityType_' + use.utilityType + assessment.guid}}"
+                            id="{{'include_utilityType_' + use.utilityType + assessment.guid}}"
+                            [(ngModel)]="use.include" (change)="calculateEnergyUseCost()" [disabled]="isDisabled">
+                    </div>
+                    <input type="text" class="form-control disabled-input-label" [value]="use.utilityType"
+                        [disabled]="true">
+                </div>
+            </div>
+            <ng-container *ngIf="use.include">
+                <div class="col-7">
+                    <div class="form-group row align-items-center">
+                        <div class="input-group">
+                            <input type="number" class="form-control"
+                                name="{{'energyUse_' + use.utilityType + assessment.guid}}"
+                                id="{{'energyUse_' + use.utilityType + assessment.guid}}" [(ngModel)]="use.energyUse"
+                                (input)="calculateEnergyUseCost()" [disabled]="isDisabled">
+                            <select class="input-group-text"
+                                name="{{'energyUnit_' + use.utilityType + assessment.guid}}"
+                                id="{{'energyUnit_' + use.utilityType + assessment.guid}}" [(ngModel)]="use.energyUnit"
+                                (change)="calculateEnergyUseCost()" [disabled]="isDisabled">
+                                <option *ngFor="let unitOption of (use.utilityType | linkedUnitOptions: 'Energy')"
+                                    [ngValue]="unitOption.value">
+                                    <span [innerHTML]="unitOption.value | unitsDisplay"></span>
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="use.include
+                &&  use.utilityType !== 'Water' && use.utilityType !== 'Waste Water'
+                && !(use.utilityType | isStandardUnit :use.energyUnit : 'Energy')">
+                <div class="col-5">
+                    <div class="input-group">
+                        <input type="text" class="form-control disabled-input-label-secondary" [disabled]="true"
+                            value="{{use.utilityType | utilityHhvDisplay}}" [disabled]="isDisabled">
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="input-group">
+                        <input class="form-control" type="number" step="any" min="0"
+                            name="{{'energyHHV_' + use.utilityType + assessment.guid}}"
+                            id="{{'energyHHV_' + use.utilityType + assessment.guid}}" [(ngModel)]="use.energyHHV"
+                            (change)="calculateEnergyUseCost()" [disabled]="isDisabled">
+                        <select class="input-group-text"
+                            name="{{'energyUnitStandard_' + use.utilityType + assessment.guid}}"
+                            id="{{'energyUnitStandard_' + use.utilityType + assessment.guid}}"
+                            [(ngModel)]="use.energyUnitStandard" (change)="calculateEnergyUseCost()"
+                            [disabled]="isDisabled">
+                            <option *ngFor="let energyUnitOption of energyUnitOptions"
+                                [ngValue]="energyUnitOption.value">
+                                <span [innerHTML]="energyUnitOption.value | unitsDisplay">
+                                </span>/<span [innerHTML]="use.energyUnit| unitsDisplay">
+                                </span>
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+    <hr>
+
+    <div class="row">
+        <label class="col-sm-5 col-form-label" for="energyUse">Annual Energy
+            Use</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="col-sm-7" id="{{'energyUse_'+assessment.guid}}">
+                    {{assessment.energyUse | number:'1.0-2'}}&nbsp;
+                    <span [innerHTML]="companyEnergyUnit | unitsDisplay">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-5 col-form-label" for="{{'cost_'+assessment.guid}}">Annual
+            Utility
+            Costs</label>
+        <div class="col-sm-7" id="{{'cost_'+assessment.guid}}">
+            {{assessment.cost | currency:'USD':'symbol':'1.0-2'}}
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-5 col-form-label">Assessment
+            Date</label>
+        <div class="col-sm-7">
+            {{assessment.visitDate | date}}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <label class="col-sm-5 col-form-label" for="implementationCost">Implementation Cost</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <input name="implementationCost" type="number" class="form-control"
+                    [(ngModel)]="assessment.implementationCost" (input)="saveChanges()" id="implementationCost"
+                    [disabled]="isDisabled">
+                <span class="input-group-text">&dollar;</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-5 col-form-label" for="energySavings">Annual Energy Savings</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <input name="energySavings" type="number" class="form-control" [(ngModel)]="assessment.energySavings"
+                    (input)="saveChanges()" id="energySavings" [disabled]="isDisabled">
+                <span *ngIf="numberOfTrackedUtilities !== 1" class="input-group-text" [innerHTML]="numberOfTrackedUtilities === 1?
+                     (trackedEnergyUnit | unitsDisplay) + '/yr': (companyEnergyUnit | unitsDisplay) + '/yr'"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-5 col-form-label" for="costSavings">Annual Cost Savings</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <input name="costSavings" type="number" class="form-control" [(ngModel)]="assessment.costSavings"
+                    (input)="saveChanges()" id="costSavings" [disabled]="isDisabled">
+                <span class="input-group-text">&dollar;</span>
+            </div>
+        </div>
+    </div>
+</form>
+<hr class="d-md-none d-lg-block">
+<h5>
+    <fa-icon [icon]="faPeopleGroup"></fa-icon> Contacts
+</h5>
+<div class="row">
+    <div class="col-12">
+        <button class="btn btn-sm btn-primary me-1"
+            *ngFor="let contact of assessment.guid | associatedContacts:'assessment': contacts;"
+            (click)="openContactModal(contact)">
+            <fa-icon [icon]="faUser"></fa-icon>
+            {{contact | contactNameDisplay}}
+        </button>
+        <button class="btn btn-sm btn-secondary" (click)="openContactModal(undefined)">
+            <fa-icon [icon]="faContactBook"></fa-icon>
+            Stakeholders
+        </button>
+    </div>
+</div>

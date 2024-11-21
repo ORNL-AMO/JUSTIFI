@@ -13,14 +13,15 @@ import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { IdbCompany, getNewIdbCompany } from 'src/app/models/company';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
-import { HelperPipesModule } from 'src/app/shared/helper-pipes/helper-pipes.module';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 
 describe('SetupWizardSidebarComponent', () => {
   let component: SetupWizardSidebarComponent;
   let fixture: ComponentFixture<SetupWizardSidebarComponent>;
 
   let setupWizardService: Partial<SetupWizardService> = {
-    sidebarOpen: new BehaviorSubject<boolean>(false)
+    sidebarOpen: new BehaviorSubject<boolean>(true),
+    helpPanelOpen: new BehaviorSubject<boolean>(true)
   };
   let onSiteVisitIdbService: Partial<OnSiteVisitIdbService> = {
     selectedVisit: new BehaviorSubject<IdbOnSiteVisit>(getNewIdbOnSiteVisit('', '', ''))
