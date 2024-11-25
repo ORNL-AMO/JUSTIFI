@@ -547,28 +547,31 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "chemicalEmissions",
         isQuantitative: true,
         goalToIncrease: false,
+        totalUnit: 'tonne CO2e',
         timePeriod: 'yr',
-        calculationMethod: 'percentTotal'
+        calculationMethod: 'costPerUnit'
     },
     {
         label: "Scope 2 Emissions",
         htmlLabel: "Scope 2 Emissions",
         value: "scope2Emissions",
         kpiValue: "chemicalEmissions",
+        totalUnit: 'tonne CO2e',
         isQuantitative: true,
         goalToIncrease: false,
         timePeriod: 'yr',
-        calculationMethod: 'percentTotal'
+        calculationMethod: 'costPerUnit'
     },
     {
         label: "Scope 3 Emissions",
         htmlLabel: "Scope 3 Emissions",
         value: "scope3Emissions",
         kpiValue: "chemicalEmissions",
+        totalUnit: 'tonne CO2e',
         isQuantitative: true,
         goalToIncrease: false,
         timePeriod: 'yr',
-        calculationMethod: 'percentTotal'
+        calculationMethod: 'costPerUnit'
     },
     {
         label: "Particulate Emissions",
