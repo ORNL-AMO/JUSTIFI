@@ -17,7 +17,6 @@ import { ContactModalModule } from '../shared/contact-modal/contact-modal.module
 import { ReviewOnSiteComponent } from './data-collection/review-on-site/review-on-site.component';
 import { CompanyDetailsSummaryComponent } from './pre-visit/review-pre-visit-setup/company-details-summary/company-details-summary.component';
 import { TeamDetailsSummaryComponent } from './pre-visit/review-pre-visit-setup/team-details-summary/team-details-summary.component';
-import { ContactSummaryCardComponent } from './pre-visit/review-pre-visit-setup/team-details-summary/contact-summary-card/contact-summary-card.component';
 import { CompanyKpisSummaryComponent } from './pre-visit/review-pre-visit-setup/company-kpis-summary/company-kpis-summary.component';
 import { FacilityDetailsSummaryComponent } from './pre-visit/review-pre-visit-setup/facility-details-summary/facility-details-summary.component';
 import { ProcessEquipmentSummaryComponent } from './pre-visit/review-pre-visit-setup/process-equipment-summary/process-equipment-summary.component';
@@ -46,6 +45,7 @@ import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-
 import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/shared-facility-forms.module';
 import { AssessmentEnergyOpportunitiesFormComponent } from './data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component';
 import { CompanyContactsSetupFormComponent } from './pre-visit/company-contacts-setup/company-contacts-setup-form/company-contacts-setup-form.component';
+import { SystemInventorySummaryComponent } from './pre-visit/review-pre-visit-setup/system-inventory-summary/system-inventory-summary.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,6 @@ import { CompanyContactsSetupFormComponent } from './pre-visit/company-contacts-
     ReviewOnSiteComponent,
     CompanyDetailsSummaryComponent,
     TeamDetailsSummaryComponent,
-    ContactSummaryCardComponent,
     CompanyKpisSummaryComponent,
     FacilityDetailsSummaryComponent,
     ProcessEquipmentSummaryComponent,
@@ -79,7 +78,8 @@ import { CompanyContactsSetupFormComponent } from './pre-visit/company-contacts-
     OnSiteAssessmentResultsComponent,
     FacilityEnergyEquipmentSetupComponent,
     AssessmentEnergyOpportunitiesFormComponent,
-    CompanyContactsSetupFormComponent
+    CompanyContactsSetupFormComponent,
+    SystemInventorySummaryComponent
   ],
   imports: [
     CommonModule,

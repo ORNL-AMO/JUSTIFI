@@ -1,29 +1,81 @@
 <h5 class="bold w-100 text-center">
     <fa-icon [icon]="faChartBar" class="me-2"></fa-icon> Key Performance Indicators
 </h5>
-<div class="row">
-    <div class="col-lg-6 col-md-12 pb-2" *ngFor="let kpi of (company.guid | companyKpiList:keyPerformanceIndicators)">
-        <div class="card">
-            <div class="card-header">
-                <fa-icon [icon]="faBullseye" class="pe-1"></fa-icon>
-                <span [innerHTML]="kpi.htmlLabel"></span>
-            </div>
-            <div class="card-body">
 
-                <table class="table table-sm">
-                    <tbody>
-                        <tr>
-                            <td class="w-50">
-                                KPI Category
-                            </td>
-                            <td>
-                                <app-primary-kpi-badge [kpiOption]="kpi"></app-primary-kpi-badge>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+<table class="table table-bordered savings-table table-hover table-sm">
+    <thead>
+        <tr>
+            <th>
+                <!-- KPM -->
+            </th>
+            <th>
+                Units
+            </th>
+            <th>
+                Cost<br> Per Unit
+            </th>
+            <th>
+                Baseline<br> Amount
+            </th>
+            <th>
+                Baseline Cost<br> (&dollar;/yr)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let kpi of keyPerformanceIndicators">
+            <tr>
+                <th colspan="5">
+                    <span [innerHTML]="kpi.htmlLabel"></span>
+                </th>
+            </tr>
+            <tr *ngFor="let keyPerformanceMetric of kpi.performanceMetrics">
+                <td class="ps-3">
+                    <span [innerHTML]="keyPerformanceMetric.htmlLabel"></span>
+                </td>
+                <ng-template [ngIf]="keyPerformanceMetric.isQuantitative" [ngIfElse]="qualitativeBlock">
 
-            </div>
-        </div>
-    </div>
-</div>
+                    <td>
+                        <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'costPerUnit'"
+                            [ngIfElse]="unitMdash">
+                            <app-single-cell-item [strValue]="keyPerformanceMetric.totalUnit"
+                                [isCurrency]="false"></app-single-cell-item>
+                        </ng-template>
+                        <ng-template #unitMdash>
+                            &mdash;
+                        </ng-template>
+                    </td>
+                    <td>
+                        <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'costPerUnit'"
+                            [ngIfElse]="costPerMdash">
+                            <app-single-cell-item [numValue]="keyPerformanceMetric.costPerValue"
+                                [isCurrency]="true"></app-single-cell-item>
+                        </ng-template>
+                        <ng-template #costPerMdash>
+                            &mdash;
+                        </ng-template>
+                    </td>
+                    <td>
+                        <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'costPerUnit'"
+                            [ngIfElse]="baselineValueMdash">
+                            <app-single-cell-item [numValue]="keyPerformanceMetric.baselineValue"
+                                [isCurrency]="false"></app-single-cell-item>
+                        </ng-template>
+                        <ng-template #baselineValueMdash>
+                            &mdash;
+                        </ng-template>
+                    </td>
+                    <td>
+                        <app-single-cell-item [numValue]="keyPerformanceMetric.baselineCost"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                </ng-template>
+                <ng-template #qualitativeBlock>
+                    <td colspan="4">
+                        Qualitative Metric
+                    </td>
+                </ng-template>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>

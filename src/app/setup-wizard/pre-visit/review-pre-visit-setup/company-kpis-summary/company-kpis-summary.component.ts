@@ -28,7 +28,9 @@ export class CompanyKpisSummaryComponent {
 
   ngOnInit(){
     this.company = this.companyIdbService.selectedCompany.getValue();
-    this.keyPerformanceIndicators = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
+    this.keyPerformanceIndicators = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue().filter(kpi => {
+      return kpi.companyId == this.company.guid;
+    });
     this.contacts = this.contactsIdbService.contacts.getValue();
   }
 }
