@@ -59,11 +59,13 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'reduceUnscheduledBreaks' |
     'reduceWorkplaceIncidentsRelatedToHeat' |
     'increaseWorkplaceSecurity' |
-    'increaseEnergyResiliency' | 
-    'reduceNeedOshaHearingProgram' | 
-    'reduceUnsafeOperatorActs' | 
-    'reduceLikelinessOfOccupationalDangers' | 
-    'reduceCostsForLabor';
+    'increaseEnergyResiliency' |
+    'reduceNeedOshaHearingProgram' |
+    'reduceUnsafeOperatorActs' |
+    'reduceLikelinessOfOccupationalDangers' |
+    'reduceCostsForLabor' |
+    'reduceRegulatoryCosts' |
+    'improvedWaterQuality';
 
 
 export const NebOptions: Array<NebOption> = [
@@ -325,7 +327,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceWaterConsumption",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "consumptionCostWater"],
+        KPM: ["contributeCompanyVision", "consumptionCostWater", "sewageCosts"],
         selectedKPM: []
     },
     {
@@ -334,7 +336,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceSewageVolume",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "consumptionCostSewage"],
+        KPM: ["contributeCompanyVision", "consumptionCostSewage", "sewageCosts"],
         selectedKPM: []
     },
     {
@@ -343,20 +345,9 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceDustEmissions",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "totalLbsDust"],
+        KPM: ["contributeCompanyVision", "totalLbsDust", "particulateEmissions"],
         selectedKPM: []
     },
-    // {
-    //     label: "Reduce CO, CO2, NOx, SOx emissions",
-    //     htmlLabel: "Reduce CO, CO<sub>2</sub>, NO<sub>x</sub>, SO<sub>x</sub> emissions",
-    //     optionValue: "reduceChemicalEmissions",
-    //     // riskReduction: true,
-    //     // valuePropositionIncrease: true,
-    //     // decreaseCosts: true,
-    //     isQualitative: true,
-    //     howToCalculate: "N/A",
-    //     KPM: ["contributeCompanyVision", "percentOrTotalChemicalEmissions"],
-    // },
     {
         label: "Reduce refrigerant gas emissions",
         htmlLabel: "Reduce refrigerant gas emissions",
@@ -417,7 +408,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improveAmbientAirQuality",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "totalLbsDust", "numberOfParticles"],
+        KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "totalLbsDust", "numberOfParticles", "particulateEmissions", "noxSoxCoEmissions", "percentTestsMeetingStandardsAirPollutants"],
         selectedKPM: []
     },
     {
@@ -535,6 +526,33 @@ export const NebOptions: Array<NebOption> = [
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        selectedKPM: []
+    },
+    {
+        label: "Reduce GHG emissions",
+        htmlLabel: "Reduce GHG emissions",
+        optionValue: "reduceChemicalEmissions",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["scope1Emissions", "scope2Emissions", "scope3Emissions"],
+        selectedKPM: []
+    },
+    {
+        label: "Reduce regulatory costs",
+        htmlLabel: "Reduce regulatory costs",
+        optionValue: "reduceRegulatoryCosts",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["scope1Emissions", "scope2Emissions", "scope3Emissions", "particulateEmissions", "noxSoxCoEmissions", "percentTestsMeetingStandardsAirPollutants", "percentTestsMeetingStandardsWaterPollutants"],
+        selectedKPM: []
+    },
+    {
+        label: "Improved water quality",
+        htmlLabel: "Improved water quality",
+        optionValue: "improvedWaterQuality",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["percentTestsMeetingStandardsWaterPollutants"],
         selectedKPM: []
     }
 ]

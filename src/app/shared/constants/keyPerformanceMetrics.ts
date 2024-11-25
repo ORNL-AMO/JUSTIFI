@@ -110,7 +110,8 @@ export type KeyPerformanceMetricValue =
     'percentTestsMeetingStandardsAirPollutants' |
     'noxSoxCoEmissions' |
     'particulateEmissions' |
-    'percentTestsMeetingStandardsWaterPollutants';
+    'percentTestsMeetingStandardsWaterPollutants' |
+    'sewageCosts';
 
 
 export type KpmCalculationMethod = 'costPerUnit' | 'percentTotal' | 'directCost';
@@ -814,6 +815,17 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         htmlLabel: "Intermediate Goods",
         value: "intermediateGoods",
         kpiValue: "reduceExpenseCost",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },,
+    {
+        label: "Sewage Costs",
+        htmlLabel: "Sewage Costs",
+        value: "sewageCosts",
+        kpiValue: "waterConsumption",
         isQuantitative: true,
         totalUnit: '',
         goalToIncrease: false,
