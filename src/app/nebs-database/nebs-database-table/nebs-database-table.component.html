@@ -91,27 +91,43 @@ nebSearchStr;
 
                     <ng-container *ngIf="neb.selected" class="no-hover">
                         <div class="metric-column">
-                            Select KPMs impacted by this NEB.
-                            <div class="d-flex ps-2 flex-column">
-                                <ng-container *ngFor="let metric of neb.KPM">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="{{'check_'+metric+neb.optionValue}}" (change)="setChecked(neb, metric)"
-                                            [checked]="neb.selectedKPM.includes(metric)">
-                                        <label class="form-check-label" for="{{'check_'+metric+neb.optionValue}}">
-                                            <div class="d-flex">
-                                                <ng-template [ngIf]="companyTrackedKpms.includes(metric)">
-                                                    <div class="pe-1">
-                                                        &ast;
-                                                    </div>
-                                                </ng-template>
+                            <ng-template [ngIf]="inAddModal" [ngIfElse]="nonModalBlock">
+                                Select KPMs impacted by this NEB.
+                                <div class="d-flex ps-2 flex-column">
+                                    <ng-container *ngFor="let metric of neb.KPM">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="{{'check_'+metric+neb.optionValue}}"
+                                                (change)="setChecked(neb, metric)"
+                                                [checked]="neb.selectedKPM.includes(metric)">
+                                            <label class="form-check-label" for="{{'check_'+metric+neb.optionValue}}">
+                                                <div class="d-flex">
+                                                    <ng-template [ngIf]="companyTrackedKpms.includes(metric)">
+                                                        <div class="pe-1">
+                                                            &ast;
+                                                        </div>
+                                                    </ng-template>
+                                                    <span
+                                                        [innerHTML]="metric | kpmLabel: allKpmOptions: 'metricValue'"></span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </ng-template>
+                            <ng-template #nonModalBlock>
+                                <div class="fw-light">
+                                    KPMs impacted by this NEB
+                                    <ng-container>
+                                        <ul class="mb-0">
+                                            <li *ngFor="let metric of neb.KPM">
                                                 <span
                                                     [innerHTML]="metric | kpmLabel: allKpmOptions: 'metricValue'"></span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </ng-container>
-                            </div>
+                                            </li>
+                                        </ul>
+                                    </ng-container>
+                                </div>
+                            </ng-template>
                         </div>
                     </ng-container>
                 </td>

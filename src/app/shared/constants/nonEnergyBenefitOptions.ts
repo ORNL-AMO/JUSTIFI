@@ -4,9 +4,6 @@ export interface NebOption {
     label: string,
     htmlLabel: string,
     optionValue: NebOptionValue,
-    // riskReduction: boolean,
-    // valuePropositionIncrease: boolean,
-    // decreaseCosts: boolean,
     isQualitative: boolean,
     howToCalculate: string,
     KPM: Array<KeyPerformanceMetricValue>,
@@ -22,11 +19,11 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'increasedCustomerLoyalty' |
     'improvedSupplyChainRelationships' |
     'increasedProductivity' |
-    'lessTimeToMakeGoods' |
-    'equipmentRunningWithoutNonconformingProduct' |
-    'reduceMalfunctionOrBreakdownIndustrialTrucks' |
+    'shorterCycleTime' |
+    'increaseEquipmentUptime' |
+    'reduceIndustrialTrucksDowntime' |
     'delayReplacementEquipment' |
-    'fasterTimeMoreFlexibilityMoreProducts' |
+    'increaseProdScheduleFlexibility' |
     'improvedProductQualityMachineSource' |
     'improvedProductQualityOperatorSource' |
     'improvedProductQualityDebrisContamination' |
@@ -50,11 +47,23 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'improveAmbientAirQuality' |
     'improvedThermalComfort' |
     'improvedVisualComfort' |
-    'improvedWorkingEnvironment' |
+    'increaseEmployeeEngagement' |
     'changeAddQualityJobs' |
-    'justice40Initiatives' |
-    'improvedStaffSatisfactionLoyalty' |
-    'reduceStaffTurnover'
+    'improveCommunityConditions' |
+    'improvedStaffSatisfaction' |
+    'increaseUsefulEquipmentLife' |
+    'increaseAverageYearsEmployed' |
+    'reduceStaffTurnover' |
+    'reducePPE' |
+    'increaseUsefulEquipmentLife' |
+    'reduceUnscheduledBreaks' |
+    'reduceWorkplaceIncidentsRelatedToHeat' |
+    'increaseWorkplaceSecurity' |
+    'increaseEnergyResiliency' | 
+    'reduceNeedOshaHearingProgram' | 
+    'reduceUnsafeOperatorActs' | 
+    'reduceLikelinessOfOccupationalDangers' | 
+    'reduceCostsForLabor';
 
 
 export const NebOptions: Array<NebOption> = [
@@ -62,9 +71,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Improved image or reputation",
         htmlLabel: "Improved image or reputation",
         optionValue: "improvedImageOrReputation",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate", "supplierSatisfactionRatings"],
@@ -74,21 +80,15 @@ export const NebOptions: Array<NebOption> = [
         label: "Improved stakeholder relationship",
         htmlLabel: "Improved stakeholder relationship",
         optionValue: "improvedStakeholderRelationship",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate", "supplierSatisfactionRatings"],
         selectedKPM: []
     },
     {
-        label: "New customers",
-        htmlLabel: "New customers",
+        label: "Gain new customers",
+        htmlLabel: "Gain new customers",
         optionValue: "newCustomers",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "lostCustomerSales", "customerChurnRate"],
@@ -98,21 +98,15 @@ export const NebOptions: Array<NebOption> = [
         label: "Increased customer satisfaction",
         htmlLabel: "Increased customer satisfaction",
         optionValue: "increasedCustomerSatisfaction",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate"],
         selectedKPM: []
     },
     {
-        label: "Reduce customer loss through better performance: quality, cost and delivery",
-        htmlLabel: "Reduce customer loss through better performance: quality, cost and delivery",
+        label: "Improve customer retention through improved performance",
+        htmlLabel: "Improve customer retention through improved performance",
         optionValue: "reduceCustomerLossThroughBetterPerformance",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate"],
@@ -122,9 +116,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Increased customer loyalty",
         htmlLabel: "Increased customer loyalty",
         optionValue: "increasedCustomerLoyalty",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate"],
@@ -134,9 +125,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Improved supply chain relationships",
         htmlLabel: "Improved supply chain relationships",
         optionValue: "improvedSupplyChainRelationships",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "supplierSatisfactionRatings"],
@@ -146,105 +134,87 @@ export const NebOptions: Array<NebOption> = [
         label: "Increased Productivity",
         htmlLabel: "Increased Productivity",
         optionValue: "increasedProductivity",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "percentCapacityUtilization", "overallEquipmentEffectiveness", "timeToIntroduceNewProducts"],
         selectedKPM: []
     },
     {
-        label: "Less time to make goods",
-        htmlLabel: "Less time to make goods",
-        optionValue: "lessTimeToMakeGoods",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
+        label: "Shorter cycle (make) time",
+        htmlLabel: "Shorter cycle (make) time",
+        optionValue: "shorterCycleTime",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "percentCapacityUtilization", "overallEquipmentEffectiveness", "timeToIntroduceNewProducts", "workInProcess"],
         selectedKPM: []
     },
     {
-        label: "More productive time equipment is running without nonconforming product",
-        htmlLabel: "More productive time equipment is running without nonconforming product",
-        optionValue: "equipmentRunningWithoutNonconformingProduct",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
+        label: "Increase equipment uptime",
+        htmlLabel: "Increase equipment uptime",
+        optionValue: "increaseEquipmentUptime",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["numberEquipmentCausedDefects", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "percentProductionYield", "percentShrinkage", "hazardousDisposalCosts", "nonHazardousDisposalCosts", "percentTotalOrCost", "employeeEngagementSatisfaction"],
         selectedKPM: []
     },
     {
-        label: "Reduced malfunction or breakdown industrial trucks, improve service for production/warehouse/shipping",
-        htmlLabel: "Reduced malfunction or breakdown industrial trucks, improve service for production/warehouse/shipping",
-        optionValue: "reduceMalfunctionOrBreakdownIndustrialTrucks",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
+        label: "Reduce industrial trucks downtime",
+        htmlLabel: "Reduce industrial trucks downtime",
+        optionValue: "reduceIndustrialTrucksDowntime",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "maintenanceCost", "employeeEngagementSatisfaction", "laborCosts", "equipmentDowntime"],
         selectedKPM: []
     },
     {
-        label: "Delay cost replacement equipment, longer equipment life",
-        htmlLabel: "Delay cost replacement equipment, longer equipment life",
-        optionValue: "delayReplacementEquipment",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
+        label: "Increase useful equipment life",
+        htmlLabel: "Increase useful equipment life",
+        optionValue: "increaseUsefulEquipmentLife",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "equipmentDowntime", "serviceParts"],
         selectedKPM: []
     },
     {
-        label: "Faster time, more flexibility, more products",
-        htmlLabel: "Faster time, more flexibility, more products",
-        optionValue: "fasterTimeMoreFlexibilityMoreProducts",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
+        label: "Delay cost to replace equipment",
+        htmlLabel: "Delay cost to replace equipment",
+        optionValue: "delayReplacementEquipment",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["contributeCompanyVision", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "equipmentDowntime", "serviceParts"],
+        selectedKPM: []
+    },
+    {
+        label: "Increase production schedule flexibility",
+        htmlLabel: "Increase production schedule flexibility",
+        optionValue: "increaseProdScheduleFlexibility",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "percentCapacityUtilization", "overallEquipmentEffectiveness", "usefulEquipmentLifeExtended"],
         selectedKPM: []
     },
     {
-        label: "Improved product quality - machine source",
-        htmlLabel: "Improved product quality - machine source",
+        label: "Improved product quality by improving machine source",
+        htmlLabel: "Improved product quality by improving machine source",
         optionValue: "improvedProductQualityMachineSource",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "numberEquipmentCausedDefects", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "maintenanceCost", "engineeringSupport", "laborCosts"],
         selectedKPM: []
     },
     {
-        label: "Improved product quality - operator source",
-        htmlLabel: "Improved product quality - operator source",
+        label: "Improved product quality by reducing operator error",
+        htmlLabel: "Improved product quality by reducing operator error",
         optionValue: "improvedProductQualityOperatorSource",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "maintenanceCost", "engineeringSupport", "employeeEngagementSatisfaction"],
         selectedKPM: []
     },
     {
-        label: "Improved product quality - debris contamination",
-        htmlLabel: "Improved product quality - debris contamination",
+        label: "Improved product quality by reducing debris contamination",
+        htmlLabel: "Improved product quality by reducing debris contamination",
         optionValue: "improvedProductQualityDebrisContamination",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["perUnitProductCost", "percentCapacityUtilization", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns"],
@@ -254,9 +224,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduce production loss - labor and material",
         htmlLabel: "Reduce production loss - labor and material",
         optionValue: "reduceProductionLossLaborMaterial",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["productivityRateThroughput", "productionCosts", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "defectiveProductionDollar", "defectRatePPMorDPM", "percentProductionYield", "percentShrinkage"],
@@ -266,33 +233,24 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduced raw material loss",
         htmlLabel: "Reduced raw material loss",
         optionValue: "reducedRawMaterialLoss",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["productionCosts", "revenuePerEmployee", "perUnitProductCost", "defectiveProductionDollar", "defectRatePPMorDPM", "percentProductionYield", "percentShrinkage", "hazardousDisposalCosts", "nonHazardousDisposalCosts", "rawMaterials"],
         selectedKPM: []
     },
     {
-        label: "Reduce consumables",
-        htmlLabel: "Reduce consumables",
+        label: "Reduce cost from using less consumables",
+        htmlLabel: "Reduce cost from using less consumables",
         optionValue: "reducedConsumables",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["perUnitProductCost", "dollarConsumables", "intermediateGoods", "rawMaterials", "serviceParts", "treatmentChemicals"],
         selectedKPM: []
     },
     {
-        label: "Additional space from layout/process changes",
-        htmlLabel: "Additional space from layout/process changes",
+        label: "Better space utilization",
+        htmlLabel: "Better space utilization",
         optionValue: "additionalSpaceFromLayoutChanges",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["productivityRateThroughput", "percentOptimizedSpace", "employeeEngagementSatisfaction"],
@@ -302,9 +260,24 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduced wear and tear, reduced replacement and repair parts",
         htmlLabel: "Reduced wear and tear, reduced replacement and repair parts",
         optionValue: "reducedWearAndTear",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
+        selectedKPM: []
+    },
+    {
+        label: "Reduce cost from maintenance replacement/repair parts",
+        htmlLabel: "Reduce cost from maintenance replacement/repair parts",
+        optionValue: "reducedWearAndTear",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
+        selectedKPM: []
+    },
+    {
+        label: "Reduced costs for labor",
+        htmlLabel: "Reduced costs for labor",
+        optionValue: "reduceCostsForLabor",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
@@ -314,9 +287,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduced labor costs for problem solving and repair",
         htmlLabel: "Reduced labor costs for problem solving and repair",
         optionValue: "reducedLaborCostsForProblemSolvingAndRepair",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["productivityRateThroughput", "maintenanceCost", "engineeringSupport", "laborCosts"],
@@ -326,9 +296,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduce hazardous waste",
         htmlLabel: "Reduce hazardous waste",
         optionValue: "reduceHazardousWaste",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "defectiveProductionDollar", "percentProductionYield", "percentShrinkage", "hazardousDisposalCosts", "percentTotalOrCost"],
@@ -338,9 +305,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduce nonhazardous waste",
         htmlLabel: "Reduce nonhazardous waste",
         optionValue: "reduceNonhazardousWaste",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "defectiveProductionDollar", "percentProductionYield", "percentShrinkage", "nonHazardousDisposalCosts", "percentTotalOrCost"],
@@ -350,9 +314,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduce product waste",
         htmlLabel: "Reduce product waste",
         optionValue: "reduceProductWaste",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "defectiveProductionDollar", "defectRatePPMorDPM", "percentShrinkage", "percentTotalOrCost"],
@@ -362,9 +323,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduce water consumption",
         htmlLabel: "Reduce water consumption",
         optionValue: "reduceWaterConsumption",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "consumptionCostWater"],
@@ -374,9 +332,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduce sewage volume",
         htmlLabel: "Reduce sewage volume",
         optionValue: "reduceSewageVolume",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "consumptionCostSewage"],
@@ -386,9 +341,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduce dust emission",
         htmlLabel: "Reduce dust emissions",
         optionValue: "reduceDustEmissions",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "totalLbsDust"],
@@ -409,117 +361,168 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduce refrigerant gas emissions",
         htmlLabel: "Reduce refrigerant gas emissions",
         optionValue: "reduceRefrigerantGasEmissions",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "percentOrTotalRefrigerantEmissions"],
         selectedKPM: []
     },
     {
-        label: "Reduced risk of accident and occupational disease, reduce unsafe acts, improve processes, better instructions, better PM, reduce associated costs",
-        htmlLabel: "Reduced risk of accident and occupational disease, reduce unsafe acts, improve processes, better instructions, better PM, reduce associated costs",
+        label: "Reduce accidents or occupational disease",
+        htmlLabel: "Reduce accidents or occupational disease",
         optionValue: "reduceOccupationalDangers",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "productivityRateThroughput", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate", "rawMaterials", "intermediateGoods", "serviceParts", "treatmentChemicals"],
         selectedKPM: []
     },
     {
-        label: "Reduced noise, exposure & cost of hearing conservation program, Reduced need for protective equipment",
-        htmlLabel: "Reduced noise, exposure & cost of hearing conservation program, Reduced need for protective equipment",
+        label: "Reduce unsafe operator acts",
+        htmlLabel: "Reduce unsafe operator acts",
+        optionValue: "reduceUnsafeOperatorActs",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["contributeCompanyVision", "productivityRateThroughput", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate", "rawMaterials", "intermediateGoods", "serviceParts", "treatmentChemicals"],
+        selectedKPM: []
+    },
+    {
+        label: "Reduce likeliness of accidents or occupational disease",
+        htmlLabel: "Reduce likeliness of accidents or occupational disease",
+        optionValue: "reduceLikelinessOfOccupationalDangers",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["contributeCompanyVision", "productivityRateThroughput", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate", "rawMaterials", "intermediateGoods", "serviceParts", "treatmentChemicals"],
+        selectedKPM: []
+    },
+    {
+        label: "Reduce nuisance noise",
+        htmlLabel: "Reduce nuisance noise",
         optionValue: "reducedNoiseExposure",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["dollarConsumables", "engineeringSupport", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "daysAwayFromWork", "lostTimeInjuryRate", "hearingConservationProgram", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
-        label: "Air quality improvement of ambient air, Reduced need for protective equipment",
-        htmlLabel: "Air quality improvement of ambient air, Reduced need for protective equipment",
+        label: "Reduce scope or need of OSHA Hearing Conservation Program",
+        htmlLabel: "Reduce scope or need of OSHA Hearing Conservation Program",
+        optionValue: "reduceNeedOshaHearingProgram",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["dollarConsumables", "engineeringSupport", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "daysAwayFromWork", "lostTimeInjuryRate", "hearingConservationProgram", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        selectedKPM: []
+    },
+    {
+        label: "Improved air quality",
+        htmlLabel: "Improved air quality",
         optionValue: "improveAmbientAirQuality",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "totalLbsDust", "numberOfParticles"],
         selectedKPM: []
     },
     {
-        label: "Improved thermal comfort, reduce unscheduled breaks, heat related illness or absents, reduce security risk due to open doors",
-        htmlLabel: "Improved thermal comfort, reduce unscheduled breaks, heat related illness or absents, reduce security risk due to open doors",
+        label: "Reduced need for personal protective equipment (PPE)",
+        htmlLabel: "Reduced need for personal protective equipment (PPE)",
+        optionValue: "reducePPE",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "totalLbsDust", "numberOfParticles"],
+        selectedKPM: []
+    },
+    {
+        label: "Improve workplace temperature comfort",
+        htmlLabel: "Improve workplace temperature comfort",
         optionValue: "improvedThermalComfort",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["productivityRateThroughput", "energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
-        label: "Improved visual comfort",
-        htmlLabel: "Improved visual comfort",
+        label: "Reduce unscheduled breaks",
+        htmlLabel: "Reduce unscheduled breaks",
+        optionValue: "reduceUnscheduledBreaks",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["productivityRateThroughput", "energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        selectedKPM: []
+    },
+    {
+        label: "Reduce workplace safety incidents related to heat",
+        htmlLabel: "Reduce workplace safety incidents related to heat",
+        optionValue: "reduceWorkplaceIncidentsRelatedToHeat",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["productivityRateThroughput", "energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        selectedKPM: []
+    },
+    {
+        label: "Increase workplace security",
+        htmlLabel: "Increase workplace security",
+        optionValue: "increaseWorkplaceSecurity",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["productivityRateThroughput", "energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        selectedKPM: []
+    },
+    {
+        label: "Improved workplace visual comfort",
+        htmlLabel: "Improved workplace visual comfort",
         optionValue: "improvedVisualComfort",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["productivityRateThroughput", "cycleTimeToMakeGoods", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
-        label: "Improved working environment, job engagement or satisfaction",
-        htmlLabel: "Improved working environment, job engagement or satisfaction",
-        optionValue: "improvedWorkingEnvironment",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
+        label: "Increase employee engagement",
+        htmlLabel: "Increase employee engagement",
+        optionValue: "increaseEmployeeEngagement",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "workInProcess", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
-        label: "Change/add quality jobs",
-        htmlLabel: "Change/add quality jobs",
+        label: "Change or add jobs",
+        htmlLabel: "Change or add jobs",
         optionValue: "changeAddQualityJobs",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
-        label: "Justice40 Initiatives-decrease burden, exposure; Increase parity, resiliency",
-        htmlLabel: "Justice40 Initiatives-decrease burden, exposure; Increase parity, resiliency",
-        optionValue: "justice40Initiatives",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
+        label: "Increase energy resiliency",
+        htmlLabel: "Increase energy resiliency",
+        optionValue: "increaseEnergyResiliency",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "customerSatisfactionRatings", "supplierSatisfactionRatings", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
-        label: "Improved staff satisfaction and loyalty, average years employed",
-        htmlLabel: "Improved staff satisfaction and loyalty, average years employed",
-        optionValue: "improvedStaffSatisfactionLoyalty",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
+        label: "Improve social, economic, health burden conditions for surrounding community",
+        htmlLabel: "Improve social, economic, health burden conditions for surrounding community",
+        optionValue: "improveCommunityConditions",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["contributeCompanyVision", "customerSatisfactionRatings", "supplierSatisfactionRatings", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        selectedKPM: []
+    },
+    {
+        label: "Improved staff satisfaction",
+        htmlLabel: "Improved staff satisfaction",
+        optionValue: "improvedStaffSatisfaction",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["contributeCompanyVision", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        selectedKPM: []
+    },
+    {
+        label: "Increase average years employed",
+        htmlLabel: "Increase average years employed",
+        optionValue: "increaseAverageYearsEmployed",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
@@ -529,9 +532,6 @@ export const NebOptions: Array<NebOption> = [
         label: "Reduce staff turnover",
         htmlLabel: "Reduce staff turnover",
         optionValue: "reduceStaffTurnover",
-        // riskReduction: true,
-        // valuePropositionIncrease: true,
-        // decreaseCosts: true,
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
