@@ -3,7 +3,7 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { IdbContact } from 'src/app/models/contact';
-import { IconDefinition, faContactBook, faPeopleGroup, faUser } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faContactBook, faPeopleGroup, faUser, faIndustry } from '@fortawesome/free-solid-svg-icons';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
@@ -20,6 +20,9 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { AssessmentEnergyOpportunitiesFormService } from '../../../setup-wizard/data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.service';
 import { SharedDataService } from '../../shared-services/shared-data.service';
+import { Router } from '@angular/router';
+import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
   selector: 'app-assessment-details-form',
@@ -33,6 +36,7 @@ export class AssessmentDetailsFormComponent {
   faPeopleGroup: IconDefinition = faPeopleGroup;
   faUser: IconDefinition = faUser;
   faContactBook: IconDefinition = faContactBook;
+  faIndustry: IconDefinition = faIndustry;
 
   assessment: IdbAssessment;
   assessmentSub: Subscription;
@@ -67,6 +71,8 @@ export class AssessmentDetailsFormComponent {
     private facilityIdbService: FacilityIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private assessmentEnergyOpportunitiesFormService: AssessmentEnergyOpportunitiesFormService,
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private router: Router,
 
   ) { }
 
@@ -136,7 +142,7 @@ export class AssessmentDetailsFormComponent {
           _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
         // calculate use
         if (selectedUtilityOption.isStandardEnergyUnit
-          && selectedUnitOption.isStandard !== false) {
+          && selectedUnitOption?.isStandard !== false) {
           convertedUse = this.convertValue.convertValue(
             utilityEnergyUse.energyUse,
             utilityEnergyUse.energyUnit,
@@ -174,5 +180,15 @@ export class AssessmentDetailsFormComponent {
         context: 'assessment', viewContact: viewContact, contextGuid: this.assessment.guid, companyId: this.assessment.companyId
       });
 
+  }
+
+  isUtilityTracked(utilityType: string): boolean {
+    let trimmed = utilityType.replace(/\s+/g, '');
+    return this.facilityUnitSettings[`include${trimmed}`];
+  }
+
+  goToFacilitySetup() {
+    let onsiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+    this.router.navigateByUrl('/setup-wizard/pre-visit/' + onsiteVisit.guid + '/facility-setup');
   }
 }
