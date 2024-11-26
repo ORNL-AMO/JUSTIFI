@@ -122,10 +122,11 @@ export class EnergyOpportunitySetupFormComponent {
     let trimmedType = this.energyOpportunity.utilityType.replace(/\s+/g, '');
     let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
     if (this.facilityUnitSettings[`include${trimmedType}`]) {
-      this.energyOpportunity.costSavings = this.convertValue.convertValue(
+      let costSavings = this.convertValue.convertValue(
         this.energyOpportunity.energySavings * this.facilityUnitSettings[`${camelCaseType}Price`],
         this.energyOpportunity.energyUnit,
         this.facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
+      this.energyOpportunity.costSavings = parseFloat(costSavings.toFixed(0));
     }
     await this.saveEnergyOpportunity();
   }
