@@ -823,7 +823,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'directCost'
-    },,
+    },
     {
         label: "Sewage Costs",
         htmlLabel: "Sewage Costs",
@@ -834,5 +834,5 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'directCost'
-    },
+    }
 ]
