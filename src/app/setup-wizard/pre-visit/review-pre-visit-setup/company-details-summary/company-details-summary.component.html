@@ -9,8 +9,13 @@
                 Address
             </td>
             <td>
-                <!--TODO: add address format-->
-                &mdash;
+                @let address = company.generalInformation | addressDisplay;
+                <ng-template [ngIf]="address" [ngIfElse]="addressMdash">
+                    {{address}}
+                </ng-template>
+                <ng-template #addressMdash>
+                    &mdash;
+                </ng-template>
             </td>
         </tr>
         <tr>
