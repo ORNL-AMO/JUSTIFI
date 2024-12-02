@@ -1,9 +1,5 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { faChevronDown, faChevronUp, faDatabase, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { NebOption, NebOptions } from '../shared/constants/nonEnergyBenefitOptions';
-import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue } from '../shared/constants/keyPerformanceIndicatorOptions';
-import { KeyPerformanceMetricOption, KeyPerformanceMetricOptions, KeyPerformanceMetricValue } from '../shared/constants/keyPerformanceMetrics';
-import * as _ from 'lodash';
+import { Component } from '@angular/core';
+import { faDatabase, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nebs-database',
