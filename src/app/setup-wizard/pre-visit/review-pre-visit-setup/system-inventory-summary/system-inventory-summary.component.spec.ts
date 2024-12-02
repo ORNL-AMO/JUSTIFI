@@ -1,23 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProcessEquipmentSummaryComponent } from './process-equipment-summary.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
+import { SystemInventorySummaryComponent } from './system-inventory-summary.component';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TableEntriesModule } from 'src/app/shared/table-entries/table-entries.module';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 
-describe('ProcessEquipmentSummaryComponent', () => {
-  let component: ProcessEquipmentSummaryComponent;
-  let fixture: ComponentFixture<ProcessEquipmentSummaryComponent>;
+describe('SystemInventorySummaryComponent', () => {
+  let component: SystemInventorySummaryComponent;
+  let fixture: ComponentFixture<SystemInventorySummaryComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FontAwesomeModule, HelperPipesModule, TableEntriesModule],
-      declarations: [ProcessEquipmentSummaryComponent],
+      declarations: [SystemInventorySummaryComponent],
       providers: stubServiceProviders
     })
-      .compileComponents();
+    .compileComponents();
 
-    fixture = TestBed.createComponent(ProcessEquipmentSummaryComponent);
+    fixture = TestBed.createComponent(SystemInventorySummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

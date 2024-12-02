@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TeamDetailsSummaryComponent } from './team-details-summary.component';
-import { ContactSummaryCardComponent } from './contact-summary-card/contact-summary-card.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -24,7 +23,7 @@ describe('TeamDetailsSummaryComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ FontAwesomeModule, HelperPipesModule],
-      declarations: [TeamDetailsSummaryComponent, ContactSummaryCardComponent],
+      declarations: [TeamDetailsSummaryComponent],
       providers: [
         { provide: ContactIdbService, useValue: contactIdbService },
         { provide: OnSiteVisitIdbService, useValue: onSiteVisitIdbService }

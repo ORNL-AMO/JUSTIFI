@@ -80,7 +80,7 @@ export class PreAssessmentSetupService {
             let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
               _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
             if (selectedUtilityOption.isStandardEnergyUnit 
-              && selectedUnitOption.isStandard !== false) {
+              && selectedUnitOption?.isStandard !== false) {
               convertedCost = this.convertValue.convertValue(
                 utilityEnergyUse.energyUse / (facilityUnitSettings[`${camelCaseType}HHV`]),
                 utilityEnergyUse.energyUnit,

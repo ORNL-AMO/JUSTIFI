@@ -19,6 +19,7 @@ import { getDefaultUnitSettings } from 'src/app/models/unitSettings';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { IdbCompany } from 'src/app/models/company';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('AssessmentDetailsFormComponent', () => {
   let component: AssessmentDetailsFormComponent;
@@ -50,15 +51,7 @@ describe('AssessmentDetailsFormComponent', () => {
     await TestBed.configureTestingModule({
       imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule],
       declarations: [AssessmentDetailsFormComponent],
-      providers: [
-        { provide: FacilityIdbService, useValue: facilityIdbService },
-        { provide: AssessmentIdbService, useValue: assessmentIdbService },
-        { provide: SetupWizardService, useValue: setupWizardService },
-        { provide: ContactIdbService, useValue: contactIdbService },
-        { provide: EnergyEquipmentIdbService, useValue: energyEquipmentIdbService },
-        { provide: CompanyIdbService, useValue: companyIdbService },
-        { provide: EnergyOpportunityIdbService, useValue: energyOpportunityIdbService }
-      ]
+      providers: stubServiceProviders
     })
       .compileComponents();
 
