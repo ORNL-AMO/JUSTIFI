@@ -1,71 +1,76 @@
 <h5 class="bold w-100 text-center">
     <fa-icon [icon]="faToolbox" class="me-2"></fa-icon> Pre-Assessments for {{onSiteVisit.visitDate| date}}
 </h5>
-<div class="row">
-    <div class="col-lg-6 col-md-12 pb-2" *ngFor="let assessment of (onSiteVisit.assessmentIds | assessmentListOnSite: assessments)">
-        <div class="card">
-            <div class="card-header">
-                <fa-icon [icon]="faScrewdriverWrench" class="pe-1"></fa-icon>
-                {{assessment.name}}
-            </div>
-            <div class="card-body">
 
-                <table class="table table-sm">
-                    <tbody>
-                        <!-- <tr>
-                            <td>
-                                Process Equipment
-                            </td>
-                            <td>
-                                <ng-template [ngIf]="assessment.equipmentId" [ngIfElse]="equipmentMdash">
-                                    {{assessment.equipmentId | processEquipmentDisplay: processEquipment}}
-                                </ng-template>
-                                <ng-template #equipmentMdash>
-                                    &mdash;
-                                </ng-template>
-                            </td>
-                        </tr> -->
-                        <tr>
-                            <td>
-                                Annual Energy Use
-                            </td>
-                            <td>
-                                <app-single-cell-item [numValue]="assessment.energyUse"></app-single-cell-item>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Annual Costs
-                            </td>
-                            <td>
-                                <app-single-cell-item [numValue]="assessment.cost" [isCurrency]="true"></app-single-cell-item>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Contacts
-                            </td>
-                            <td>
-                                <ng-template [ngIf]="(assessment.guid| associatedContacts:'assessment': contacts).length != 0"
-                                    [ngIfElse]="contactMdash">
-                                    <div class="d-flex">
-                                        <div class="pe-1"
-                                            *ngFor="let contact of assessment.guid| associatedContacts:'assessment': contacts;">
-                                            <span class="badge bg-primary">
-                                                <fa-icon [icon]="faUser"></fa-icon>
-                                                {{contact | contactNameDisplay}}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                                <ng-template #contactMdash>
-                                    &mdash;
-                                </ng-template>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+@let preAssessments = (onSiteVisit.assessmentIds | assessmentListOnSite: assessments);
+<ng-template [ngIf]="preAssessments.length > 0" [ngIfElse]="noPreAssessmentsBlock">
+    <table class="table table-bordered table-hover table-sm">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Utility Types
+                </th>
+                <th>
+                    Baseline<br>
+                    Energy Use<br>
+                    <span class="fw-light">({{companyEnergyUnit}}/yr)</span>
+                </th>
+                <th>
+                    Baseline<br>
+                    Energy Cost<br>
+                    <span class="fw-light">
+                        (&dollar;/yr)
+                    </span>
+                </th>
+                <th>
+                    Stakeholders
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let assessment of preAssessments">
+                <td>
+                    {{assessment.name}}
+                </td>
+                <td>
+                    <app-single-cell-item [strValue]="assessment.assessmentType"></app-single-cell-item>
+                </td>
+                <td>
+                    <ng-container *ngFor="let utilityType of assessment.utilityEnergyUses">
+                        <ng-container *ngIf="utilityType.include">
+                            {{utilityType.utilityType}}<br>
+                        </ng-container>
+                    </ng-container>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="assessment.energyUse"></app-single-cell-item>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="assessment.cost" [isCurrency]="true"></app-single-cell-item>
+                </td>
+                <td>
+                    @let associatedContacts = assessment.guid | associatedContacts:'assessment': contacts;
+                    <ng-template [ngIf]="associatedContacts.length > 0" [ngIfElse]="noContactsBlock">
+                        <span *ngFor="let contact of associatedContacts">
+                            {{contact | contactNameDisplay}} <br>
+                        </span>
+                    </ng-template>
+                    <ng-template #noContactsBlock>
+                        &mdash;
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+<ng-template #noPreAssessmentsBlock>
+    <div class="alert alert-info small p-2">
+        No pre-assessments added for this visit.
     </div>
-</div>
+</ng-template>

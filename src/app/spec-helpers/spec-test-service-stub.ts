@@ -130,7 +130,8 @@ let stubProcessEquipment: IdbProcessEquipment = getNewIdbProcessEquipment('123',
 stubProcessEquipment.guid = '123';
 let processEquipmentIdbService: Partial<ProcessEquipmentIdbService> = {
     processEquipments: new BehaviorSubject<Array<IdbProcessEquipment>>([stubProcessEquipment]),
-    getByGuid: () => { return stubProcessEquipment }
+    getByGuid: () => { return stubProcessEquipment },
+    getFacilityProcessEquipment: () => { return [stubProcessEquipment] }
 }
 
 let stubKpiImpact: IdbKeyPerformanceMetricImpact = getNewIdbKeyPerformanceMetricImpact('123', '123', '123', '123', '123', 'TRIR', '123', '123', '123');
