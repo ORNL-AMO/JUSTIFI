@@ -18,9 +18,11 @@ export type KeyPerformanceIndicatorValue =
     'reduceExpenseCost' |
     'improveSpaceUtilization' |
     'employeeEngagementWorkforceDevelopment' |
-    'employeeEngagementWorkingEnvironment' | 
+    'employeeEngagementWorkingEnvironment' |
     'maintenanceExpense' |
-    'other';
+    'other' |
+    'airPollutantEmissions' |
+    'waterPollutantEmissions';
 
 export interface KeyPerformanceIndicatorOption {
     primaryKPI: PrimaryKPI,
@@ -110,9 +112,21 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'CO, CO2, NOx, SOx emissions',
-        htmlLabel: 'CO, CO<sub>2</sub>, NO<sub>x</sub>, SO<sub>x</sub> emissions',
+        label: 'GHG Emissions',
+        htmlLabel: 'GHG Emissions',
         optionValue: 'chemicalEmissions'
+    },
+    {
+        primaryKPI: 'Sustainability (Environmental Impact)',
+        label: 'Air Pollutant Emissions',
+        htmlLabel: 'Air Pollutant Emissions',
+        optionValue: 'airPollutantEmissions'
+    },
+    {
+        primaryKPI: 'Sustainability (Environmental Impact)',
+        label: 'Water Pollutant Emissions',
+        htmlLabel: 'Water Pollutant Emissions',
+        optionValue: 'waterPollutantEmissions'
     },
     {
         primaryKPI: 'Sustainability (Environmental Impact)',

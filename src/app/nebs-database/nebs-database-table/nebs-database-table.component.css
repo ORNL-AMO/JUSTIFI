@@ -13,3 +13,7 @@
 .metric-column{
     padding-left: 24px;
 }
+
+tr:hover{
+    cursor: pointer;
+}

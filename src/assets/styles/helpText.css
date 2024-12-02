@@ -9,6 +9,15 @@
     font-size: .875rem;
 }
 
+.help-text p{
+    margin-bottom: 0px;
+}
+
 .help-text .panel-label h5{
     font-weight: 300;
+}
+
+.help-text hr{
+    margin-top: .5rem;
+    margin-bottom: .5rem;
 }

@@ -27,16 +27,26 @@ export function getKeyPerfomanceIndicatorReport(nebReports: Array<NebReport>): K
                 }
                 if (kpiReportItems[itemExistIndex].keyPerformanceMetric.baselineCost) {
                     kpiReportItems[itemExistIndex].performanceMetricImpact.percentSavings = (kpiReportItems[itemExistIndex].performanceMetricImpact.costAdjustment / kpiReportItems[itemExistIndex].keyPerformanceMetric.baselineCost) * 100;
+                } else if (kpiReportItems[itemExistIndex].keyPerformanceMetric.baselineValue && kpiReportItems[itemExistIndex].performanceMetricImpact.modificationValue) {
+                    kpiReportItems[itemExistIndex].performanceMetricImpact.percentSavings = (kpiReportItems[itemExistIndex].performanceMetricImpact.modificationValue / kpiReportItems[itemExistIndex].keyPerformanceMetric.baselineValue) * 100;
                 }
             } else {
                 if (performanceMetric.keyPerformanceMetric.isCustom) {
 
                 }
+                let percentSavings: number = 0;
+
+                if (performanceMetric.keyPerformanceMetric.baselineCost) {
+                    percentSavings = (performanceMetric.performanceMetricImpact.costAdjustment / performanceMetric.keyPerformanceMetric.baselineCost) * 100;
+                } else if (performanceMetric.keyPerformanceMetric.baselineValue && performanceMetric.performanceMetricImpact.modificationValue) {
+                    percentSavings = (performanceMetric.performanceMetricImpact.modificationValue / performanceMetric.keyPerformanceMetric.baselineValue) * 100;
+                }
+
                 kpiReportItems.push({
                     keyPerformanceMetric: performanceMetric.keyPerformanceMetric,
                     performanceMetricImpact: {
                         ...performanceMetric.performanceMetricImpact,
-                        percentSavings: (performanceMetric.performanceMetricImpact.costAdjustment / performanceMetric.keyPerformanceMetric.baselineCost) * 100,
+                        percentSavings: percentSavings,
                         modifiedCost: (performanceMetric.keyPerformanceMetric.baselineCost - performanceMetric.performanceMetricImpact.costAdjustment)
                     },
                     // nebsImpacts: [{
