@@ -29,7 +29,7 @@
 
 
 .panel-label{
-    display: inline-block;
+    display: inline-block !important;
     line-height: normal;
     overflow: hidden;
     text-overflow: ellipsis;

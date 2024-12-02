@@ -83,7 +83,6 @@ export type KeyPerformanceMetricValue =
     'percentTotalOrCost' |
     'consumptionCostWater' |
     'consumptionCostSewage' |
-    'percentOrTotalChemicalEmissions' |
     'percentOrTotalRefrigerantEmissions' |
     'TRIR' |
     'oshaRecordableIncidents' |
@@ -104,7 +103,15 @@ export type KeyPerformanceMetricValue =
     'treatmentChemicals' |
     'rawMaterials' |
     'intermediateGoods' |
-    'custom';
+    'custom' |
+    'scope1Emissions' |
+    'scope2Emissions' |
+    'scope3Emissions' |
+    'percentTestsMeetingStandardsAirPollutants' |
+    'noxSoxCoEmissions' |
+    'particulateEmissions' |
+    'percentTestsMeetingStandardsWaterPollutants' |
+    'sewageCosts';
 
 
 export type KpmCalculationMethod = 'costPerUnit' | 'percentTotal' | 'directCost';
@@ -534,10 +541,73 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'percentTotal'
     },
     {
-        label: "Quantity",
-        htmlLabel: "Quantity",
-        value: "percentOrTotalChemicalEmissions",
+        label: "Scope 1 Emissions",
+        htmlLabel: "Scope 1 Emissions",
+        value: "scope1Emissions",
         kpiValue: "chemicalEmissions",
+        isQuantitative: true,
+        goalToIncrease: false,
+        totalUnit: 'tonne CO2e',
+        timePeriod: 'yr',
+        calculationMethod: 'costPerUnit'
+    },
+    {
+        label: "Scope 2 Emissions",
+        htmlLabel: "Scope 2 Emissions",
+        value: "scope2Emissions",
+        kpiValue: "chemicalEmissions",
+        totalUnit: 'tonne CO2e',
+        isQuantitative: true,
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'costPerUnit'
+    },
+    {
+        label: "Scope 3 Emissions",
+        htmlLabel: "Scope 3 Emissions",
+        value: "scope3Emissions",
+        kpiValue: "chemicalEmissions",
+        totalUnit: 'tonne CO2e',
+        isQuantitative: true,
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'costPerUnit'
+    },
+    {
+        label: "Particulate Emissions",
+        htmlLabel: "Particulate Emissions",
+        value: "particulateEmissions",
+        kpiValue: "airPollutantEmissions",
+        isQuantitative: true,
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'percentTotal'
+    },
+    {
+        label: "NOx, SOx, CO Emissions",
+        htmlLabel: "NOx, SOx, CO Emissions",
+        value: "noxSoxCoEmissions",
+        kpiValue: "airPollutantEmissions",
+        isQuantitative: true,
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'percentTotal'
+    },
+    {
+        label: "Percent of tests that meet regulatory standards",
+        htmlLabel: "Percent of tests that meet regulatory standards",
+        value: "percentTestsMeetingStandardsAirPollutants",
+        kpiValue: "airPollutantEmissions",
+        isQuantitative: true,
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'percentTotal'
+    },
+    {
+        label: "Percent of tests that meet regulatory standards",
+        htmlLabel: "Percent of tests that meet regulatory standards",
+        value: "percentTestsMeetingStandardsWaterPollutants",
+        kpiValue: "waterPollutantEmissions",
         isQuantitative: true,
         goalToIncrease: false,
         timePeriod: 'yr',
@@ -754,4 +824,15 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         timePeriod: 'yr',
         calculationMethod: 'directCost'
     },
+    {
+        label: "Sewage Costs",
+        htmlLabel: "Sewage Costs",
+        value: "sewageCosts",
+        kpiValue: "waterConsumption",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    }
 ]

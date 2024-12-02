@@ -2,15 +2,20 @@
     <fa-icon [icon]="faIndustry" class="me-2"></fa-icon> {{facility.generalInformation.name}}
 </h5>
 
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover table-sm">
     <tbody>
         <tr>
             <td class="w-25">
                 Address
             </td>
             <td>
-                <!--TODO: add address format-->
-                &mdash;
+                @let address = facility.generalInformation | addressDisplay;
+                <ng-template [ngIf]="address" [ngIfElse]="addressMdash">
+                    {{address}}
+                </ng-template>
+                <ng-template #addressMdash>
+                    &mdash;
+                </ng-template>
             </td>
         </tr>
         <tr>

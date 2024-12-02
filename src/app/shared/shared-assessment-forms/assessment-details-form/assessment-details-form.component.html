@@ -89,6 +89,19 @@
                     </div>
                 </div>
             </ng-container>
+            <ng-container *ngIf="use.include && !isUtilityTracked(use.utilityType)">
+                <div class="col-12">
+                    <div class="alert alert-warning small m-0 ms-5 p-1">
+                        This utility is not tracked under current facility.
+                        To track this utility, please go to
+                        <button class="btn btn-sm btn-outline-primary border-0 p-0 mb-1" (click)="goToFacilitySetup()">
+                            <fa-icon [icon]="faIndustry"></fa-icon>
+                            Facility Setup
+                        </button>
+                        Page.
+                    </div>
+                </div>
+            </ng-container>
         </div>
     </ng-container>
     <hr>
@@ -141,7 +154,7 @@
             <div class="input-group">
                 <input name="energySavings" type="number" class="form-control" [(ngModel)]="assessment.energySavings"
                     (input)="saveChanges()" id="energySavings" [disabled]="isDisabled">
-                <span *ngIf="numberOfTrackedUtilities !== 1" class="input-group-text" [innerHTML]="numberOfTrackedUtilities === 1?
+                <span class="input-group-text" [innerHTML]="numberOfTrackedUtilities === 1?
                      (trackedEnergyUnit | unitsDisplay) + '/yr': (companyEnergyUnit | unitsDisplay) + '/yr'"></span>
             </div>
         </div>
