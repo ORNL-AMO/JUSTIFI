@@ -8,6 +8,7 @@ import { NebsDatabaseComponent } from '../nebs-database/nebs-database.component'
 import { AboutComponent } from '../core-components/about/about.component';
 import { FeedbackPageComponent } from '../core-components/feedback-page/feedback-page.component';
 import { AcknowledgmentsComponent } from '../core-components/acknowledgments/acknowledgments.component';
+import { HelpComponent } from '../core-components/help/help.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: 'acknowledgments',
     component: AcknowledgmentsComponent
+  },
+  {
+    path: 'help',
+    component: HelpComponent
   },
   SetupWizardRoutes,
   PortfolioRoutes,
