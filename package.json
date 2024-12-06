@@ -1,6 +1,6 @@
 {
   "name": "justifi",
-  "version": "0.0.1-alpha",
+  "version": "0.1.1-alpha",
   "main": "main.js",
   "author": "National Renewable Energy Laboratory",
   "repository": "https://github.com/NREL/NEB-Tool.git",
