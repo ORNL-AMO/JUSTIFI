@@ -1,8 +1,12 @@
 <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
         <div class="col-10 pt-4 pb-4">
-            <div class="form-paper shadow" *ngIf="keyPerformanceIndicator">
-                <app-company-kpi-details-form></app-company-kpi-details-form>
+            <div class="form-paper shadow">
+                <h5>
+                    <fa-icon [icon]="faChartBar" class="me-2"></fa-icon> Company Key Performance Indicators (KPIs)
+                </h5>
+                <hr>
+                <app-kpi-search-form></app-kpi-search-form>
             </div>
         </div>
     </div>
@@ -13,11 +17,11 @@
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             Go Back
         </button>
-        <button class="btn nav-btn btn-sm" (click)="goNext()">
-            <ng-template [ngIf]="indicatorIndex != (numCompanyKpis-1)" [ngIfElse]="facilityDetailsBlock">
-                Next KPI
+        <button class="btn nav-btn btn-sm" (click)="goToKpiDetails()">
+            <ng-template [ngIf]="companyKpis.length > 0" [ngIfElse]="noKPIsBlock">
+                Detail KPIs
             </ng-template>
-            <ng-template #facilityDetailsBlock>
+            <ng-template #noKPIsBlock>
                 Facility Details
             </ng-template>
             <fa-icon [icon]="faChevronRight"></fa-icon>

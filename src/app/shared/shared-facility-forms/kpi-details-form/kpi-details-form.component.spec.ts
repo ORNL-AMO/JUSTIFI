@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CompanyKpiDetailsFormComponent } from './company-kpi-details-form.component';
+import { CompanyKpiDetailsFormComponent } from './kpi-details-form.component';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { KpmDatabaseModalComponent } from './kpm-database-modal/kpm-database-modal.component';
 import { KpmImpactsTableComponent } from './kpm-impacts-table/kpm-impacts-table.component';

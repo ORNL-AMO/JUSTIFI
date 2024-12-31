@@ -6,9 +6,9 @@ import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicat
 })
 export class SelectedKpiOptionPipe implements PipeTransform {
 
-  transform(optionValue: string, keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>, companyGuid: string): boolean {
+  transform(optionValue: string, keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>, facilityId: string): boolean {
     return keyPerformanceIndicators.find(kpi => {
-      return kpi.optionValue == optionValue && kpi.companyId == companyGuid
+      return kpi.optionValue == optionValue && kpi.facilityId == facilityId
     }) != undefined;
   }
 

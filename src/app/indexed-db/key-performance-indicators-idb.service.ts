@@ -88,7 +88,7 @@ export class KeyPerformanceIndicatorsIdbService {
     });
   }
 
-  async addKpmToKpi(companyId: string, performanceMetricToAdd: KeyPerformanceMetric | KeyPerformanceMetricOption, userId: string): Promise<KeyPerformanceMetric> {
+  async addKpmToKpi(companyId: string, performanceMetricToAdd: KeyPerformanceMetric | KeyPerformanceMetricOption, userId: string, facilityId: string): Promise<KeyPerformanceMetric> {
     let addedMetric: KeyPerformanceMetric;
     let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.getKpiFromKpm(companyId, performanceMetricToAdd.kpiValue);
     if (keyPerformanceIndicator) {
@@ -112,7 +112,7 @@ export class KeyPerformanceIndicatorsIdbService {
       let kpiOption: KeyPerformanceIndicatorOption = KeyPerformanceIndicatorOptions.find(option => {
         return option.optionValue == performanceMetricToAdd.kpiValue
       });
-      keyPerformanceIndicator = getNewKeyPerformanceIndicator(userId, companyId, kpiOption, false);
+      keyPerformanceIndicator = getNewKeyPerformanceIndicator(userId, companyId, kpiOption, false, facilityId);
       addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {
         return (_metric.value == performanceMetricToAdd.value);
       });

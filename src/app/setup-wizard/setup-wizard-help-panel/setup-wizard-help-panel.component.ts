@@ -60,11 +60,11 @@ export class SetupWizardHelpPanelComponent {
     } else if (url.includes('company-contacts')) {
       this.helpContext = 'company-contacts';
       this.helpLabel = 'Stakeholder Help';
-    } else if (url.includes('company-kpi-select')) {
-      this.helpContext = 'company-kpi-select';
+    } else if (url.includes('kpi-select')) {
+      this.helpContext = 'kpi-select';
       this.helpLabel = 'KPI Select Help';
-    } else if (url.includes('company-kpi-detail')) {
-      this.helpContext = 'company-kpi-detail';
+    } else if (url.includes('kpi-detail')) {
+      this.helpContext = 'kpi-detail';
       this.helpLabel = 'KPI Details Help';
     } else if (url.includes('facility-setup')) {
       this.helpContext = 'facility-setup';

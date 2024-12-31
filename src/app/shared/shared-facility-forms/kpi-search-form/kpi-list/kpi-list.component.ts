@@ -4,21 +4,23 @@ import { IconDefinition, faBullseye, faCircleQuestion, faPlus, faTrash, faUser }
 import { Subscription, firstValueFrom } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbCompany } from 'src/app/models/company';
+import { IdbFacility } from 'src/app/models/facility';
 import { IdbKeyPerformanceIndicator, getNewKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { KeyPerformanceIndicatorOption, PrimaryKPI, PrimaryKPIs } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 
 @Component({
-  selector: 'app-company-kpi-list',
-  templateUrl: './company-kpi-list.component.html',
-  styleUrl: './company-kpi-list.component.css'
+  selector: 'app-kpi-list',
+  templateUrl: './kpi-list.component.html',
+  styleUrl: './kpi-list.component.css'
 })
-export class CompanyKpiListComponent {
+export class KpiListComponent {
 
   faTrash: IconDefinition = faTrash;
   faBullseye: IconDefinition = faBullseye;
@@ -26,8 +28,8 @@ export class CompanyKpiListComponent {
   faPlus: IconDefinition = faPlus;
   faCircleQuestion: IconDefinition = faCircleQuestion;
 
-  company: IdbCompany;
-  companySub: Subscription;
+  facility: IdbFacility;
+  facilitySub: Subscription;
 
 
   kpiToDelete: IdbKeyPerformanceIndicator;
@@ -49,13 +51,14 @@ export class CompanyKpiListComponent {
     private dbChangesService: DbChangesService,
     private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService
+    private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
+    private facilityIdbService: FacilityIdbService
   ) {
   }
 
   ngOnInit() {
-    this.companySub = this.companyIdbService.selectedCompany.subscribe(_company => {
-      this.company = _company;
+    this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(_facility => {
+      this.facility = _facility;
     });
     this.keyPerformanceIndicatorSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(_keyPerformanceIndicators => {
       this.keyPerformanceIndicators = _keyPerformanceIndicators;
@@ -66,7 +69,7 @@ export class CompanyKpiListComponent {
   }
 
   ngOnDestroy() {
-    this.companySub.unsubscribe();
+    this.facilitySub.unsubscribe();
     this.keyPerformanceIndicatorSub.unsubscribe();
     this.keyPerformanceMetricImpactsSub.unsubscribe();
   }
@@ -100,8 +103,8 @@ export class CompanyKpiListComponent {
       label: this.customKPIName,
       htmlLabel: this.customKPIName,
       optionValue: 'other',
-    }
-    let newKPI: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator(this.company.userId, this.company.guid, option, true);
+    };
+    let newKPI: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator(this.facility.userId, this.facility.companyId, option, true, this.facility.guid);
     await firstValueFrom(this.keyPerformanceIndicatorIdbService.addWithObservable(newKPI));
     await this.keyPerformanceIndicatorIdbService.setKeyPerformanceIndicators();
     this.closeCustomKPIModal();
@@ -112,7 +115,7 @@ export class CompanyKpiListComponent {
       this.router.navigateByUrl('portfolio/company/' + kpi.companyId + '/performance-indicators/details/' + kpi.guid);
     } else {
       let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-kpi-detail/' + kpi.guid);
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/kpi-detail/' + kpi.guid);
     }
   }
 

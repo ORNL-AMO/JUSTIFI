@@ -29,7 +29,7 @@
 </div>
 <div class="d-flex flex-column indicator-container"
     *ngFor="let option of keyPerformanceIndicatorOptions | kpiListFilter: kpiSearchStr: kpiCategorySearch"
-    [ngClass]="{'hidden': option.optionValue | selectedKpiOption: keyPerformanceIndicators: company.guid }">
+    [ngClass]="{'hidden': option.optionValue | selectedKpiOption: keyPerformanceIndicators: facility.guid }">
     <div class="d-flex w-100 justify-content-between list-item">
         <div class="d-flex flex-column">
             <div>

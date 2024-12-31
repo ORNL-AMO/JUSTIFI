@@ -26,8 +26,6 @@ import { OnSiteAssessmentComponent } from './data-collection/on-site-assessment/
 import { AssessmentNebsFormComponent } from './data-collection/on-site-assessment/assessment-nebs-form/assessment-nebs-form.component';
 import { PreVisitComponent } from './pre-visit/pre-visit.component';
 import { DataCollectionComponent } from './data-collection/data-collection.component';
-import { CompanyKpiSelectComponent } from './pre-visit/company-kpi-select/company-kpi-select.component';
-import { CompanyKpiDetailsComponent } from './pre-visit/company-kpi-details/company-kpi-details.component';
 import { DataCollectionManageAssessmentsComponent } from './data-collection/data-collection-manage-assessments/data-collection-manage-assessments.component';
 import { DataEvaluationComponent } from './data-evaluation/data-evaluation.component';
 import { DataFollowUpComponent } from './data-evaluation/data-follow-up/data-follow-up.component';
@@ -46,6 +44,8 @@ import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/share
 import { AssessmentEnergyOpportunitiesFormComponent } from './data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component';
 import { CompanyContactsSetupFormComponent } from './pre-visit/company-contacts-setup/company-contacts-setup-form/company-contacts-setup-form.component';
 import { SystemInventorySummaryComponent } from './pre-visit/review-pre-visit-setup/system-inventory-summary/system-inventory-summary.component';
+import { FacilityKpiDetailsComponent } from './pre-visit/facility-kpi-details/facility-kpi-details.component';
+import { FacilityKpiSelectComponent } from './pre-visit/facility-kpi-select/facility-kpi-select.component';
 
 @NgModule({
   declarations: [
@@ -68,8 +68,8 @@ import { SystemInventorySummaryComponent } from './pre-visit/review-pre-visit-se
     AssessmentNebsFormComponent,
     PreVisitComponent,
     DataCollectionComponent,
-    CompanyKpiSelectComponent,
-    CompanyKpiDetailsComponent,
+    FacilityKpiSelectComponent,
+    FacilityKpiDetailsComponent,
     DataCollectionManageAssessmentsComponent,
     DataEvaluationComponent,
     DataFollowUpComponent,

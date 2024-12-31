@@ -8,11 +8,11 @@ import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicat
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-company-kpi-select',
-  templateUrl: './company-kpi-select.component.html',
-  styleUrl: './company-kpi-select.component.css'
+  selector: 'app-facility-kpi-select',
+  templateUrl: './facility-kpi-select.component.html',
+  styleUrl: './facility-kpi-select.component.css'
 })
-export class CompanyKpiSelectComponent {
+export class FacilityKpiSelectComponent {
   faChartBar: IconDefinition = faChartBar;
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
@@ -28,14 +28,13 @@ export class CompanyKpiSelectComponent {
   ngOnInit() {
     this.onSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
     this.companyKpiSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(kpis => {
-      let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
-      this.companyKpis = keyPerformanceIndicators.filter(kpi => {
+      this.companyKpis = kpis.filter(kpi => {
         return kpi.companyId == this.onSiteVisit.companyId
       });
     });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.companyKpiSub.unsubscribe();
   }
 

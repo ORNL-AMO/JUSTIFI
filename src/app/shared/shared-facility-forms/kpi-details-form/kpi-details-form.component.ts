@@ -1,5 +1,5 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
-import { faBullseye, faChartBar, faChevronRight, faCircleQuestion, faClose, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Component } from '@angular/core';
+import { faBullseye, faCircleQuestion, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { PrimaryKPI, PrimaryKPIs } from '../../constants/keyPerformanceIndicatorOptions';
 import { firstValueFrom, Subscription } from 'rxjs';
@@ -15,11 +15,11 @@ import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-pe
 import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-company-kpi-details-form',
-  templateUrl: './company-kpi-details-form.component.html',
-  styleUrl: './company-kpi-details-form.component.css'
+  selector: 'app-kpi-details-form',
+  templateUrl: './kpi-details-form.component.html',
+  styleUrl: './kpi-details-form.component.css'
 })
-export class CompanyKpiDetailsFormComponent {
+export class KpiDetailsFormComponent {
   // @Input({ required: true })
 
 

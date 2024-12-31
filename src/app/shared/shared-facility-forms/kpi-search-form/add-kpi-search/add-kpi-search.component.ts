@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IconDefinition, faCircleQuestion, faMagnifyingGlass, faMagnifyingGlassPlus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Subscription, firstValueFrom } from 'rxjs';
-import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
-import { IdbCompany } from 'src/app/models/company';
+import { IdbFacility } from 'src/app/models/facility';
 import { IdbKeyPerformanceIndicator, getNewKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, PrimaryKPI, PrimaryKPIs } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 
@@ -19,8 +19,8 @@ export class AddKpiSearchComponent {
   faPlus: IconDefinition = faPlus;
   faCircleQuestion: IconDefinition = faCircleQuestion;
 
-  company: IdbCompany;
-  companySub: Subscription;
+  facility: IdbFacility;
+  facilitySub: Subscription;
 
   primaryKPIs: Array<PrimaryKPI> = PrimaryKPIs;
 
@@ -30,13 +30,13 @@ export class AddKpiSearchComponent {
   keyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = KeyPerformanceIndicatorOptions;
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   keyPerformanceIndicatorSub: Subscription;
-  constructor(private companyIdbService: CompanyIdbService, private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService
+  constructor(private facilityIdbService: FacilityIdbService, private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService
   ) {
   }
 
   ngOnInit() {
-    this.companySub = this.companyIdbService.selectedCompany.subscribe(_company => {
-      this.company = _company;
+    this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(_facility => {
+      this.facility = _facility;;
     });
     this.keyPerformanceIndicatorSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(_keyPerformanceIndicators => {
       this.keyPerformanceIndicators = _keyPerformanceIndicators;
@@ -44,12 +44,12 @@ export class AddKpiSearchComponent {
   }
 
   ngOnDestroy() {
-    this.companySub.unsubscribe();
+    this.facilitySub.unsubscribe();
     this.keyPerformanceIndicatorSub.unsubscribe();
   }
 
   async addKPI(option: KeyPerformanceIndicatorOption) {
-    let newKPI: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator(this.company.userId, this.company.guid, option, false);
+    let newKPI: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator(this.facility.userId, this.facility.companyId, option, false, this.facility.guid);
     await firstValueFrom(this.keyPerformanceIndicatorIdbService.addWithObservable(newKPI));
     await this.keyPerformanceIndicatorIdbService.setKeyPerformanceIndicators();
   }

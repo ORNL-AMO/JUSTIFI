@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CompanyKpiSearchFormComponent } from './company-kpi-search-form.component';
-import { CompanyKpiListComponent } from './company-kpi-list/company-kpi-list.component';
+import { CompanyKpiSearchFormComponent } from './kpi-search-form.component';
+import { CompanyKpiListComponent } from './kpi-list/kpi-list.component';
 import { AddKpiSearchComponent } from './add-kpi-search/add-kpi-search.component';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';

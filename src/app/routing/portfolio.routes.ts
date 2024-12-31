@@ -19,8 +19,8 @@ import { AssessmentReportsComponent } from "../user-portfolio/assessment-dashboa
 import { AssessmentDetailsComponent } from "../user-portfolio/assessment-dashboard/assessment-details/assessment-details.component";
 import { AssessmentEnergyOpportunitiesComponent } from "../user-portfolio/assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities.component";
 import { CanDeactivateGuard } from "../guards/can-deactivate.guard";
-import { CompanyKpiSearchFormComponent } from "../shared/shared-company-forms/company-kpi-search-form/company-kpi-search-form.component";
-import { CompanyKpiDetailsFormComponent } from "../shared/shared-company-forms/company-kpi-details-form/company-kpi-details-form.component";
+import { KpiSearchFormComponent } from "../shared/shared-facility-forms/kpi-search-form/kpi-search-form.component";
+import { KpiDetailsFormComponent } from "../shared/shared-facility-forms/kpi-details-form/kpi-details-form.component";
 import { AssessmentEnergyOpportunitiesHomeComponent } from "../user-portfolio/assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities-home/assessment-energy-opportunities-home.component";
 import { EnergyOpportunitySetupFormComponent } from "../shared/shared-assessment-forms/energy-opportunity-setup-form/energy-opportunity-setup-form.component";
 import { AssessmentNebsComponent } from "../user-portfolio/assessment-dashboard/assessment-nebs/assessment-nebs.component";
@@ -56,11 +56,11 @@ export const PortfolioRoutes: Route = {
                     children: [
                         {
                             path: '',
-                            component: CompanyKpiSearchFormComponent
+                            component: KpiSearchFormComponent
                         },
                         {
                             path: 'details/:id',
-                            component: CompanyKpiDetailsFormComponent
+                            component: KpiDetailsFormComponent
                         }
                     ]
                 },

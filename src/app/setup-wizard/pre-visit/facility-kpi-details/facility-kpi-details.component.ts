@@ -11,11 +11,11 @@ import { Subscription } from 'rxjs';
 import { IdbCompany } from 'src/app/models/company';
 
 @Component({
-  selector: 'app-company-kpi-details',
-  templateUrl: './company-kpi-details.component.html',
-  styleUrl: './company-kpi-details.component.css'
+  selector: 'app-facility-kpi-details',
+  templateUrl: './facility-kpi-details.component.html',
+  styleUrl: './facility-kpi-details.component.css'
 })
-export class CompanyKpiDetailsComponent {
+export class FacilityKpiDetailsComponent {
 
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
@@ -56,7 +56,7 @@ export class CompanyKpiDetailsComponent {
   goBack() {
     if (this.indicatorIndex == 0) {
       let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-kpi-select');
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/kpi-select');
     } else {
       let companyKpis: Array<IdbKeyPerformanceIndicator> = this.getCompanyKPIs();
       this.goToKPI(companyKpis[this.indicatorIndex - 1].guid);
@@ -74,7 +74,7 @@ export class CompanyKpiDetailsComponent {
 
   goToKPI(kpiGUID: string) {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-kpi-detail/' + kpiGUID);
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/kpi-detail/' + kpiGUID);
   }
 
   goToFacility() {

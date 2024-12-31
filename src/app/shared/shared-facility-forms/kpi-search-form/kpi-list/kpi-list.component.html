@@ -2,7 +2,7 @@
     <div class="col-12">
         <h5>
             <fa-icon [icon]="faBullseye" class="me-2"></fa-icon>
-            Selected {{company.generalInformation.name}} KPIs
+            Selected {{facility.generalInformation.name}} KPIs
         </h5>
     </div>
     <div class="col-12">
@@ -13,11 +13,12 @@
     </div>
 </div>
 
-<ng-template [ngIf]="(company.guid | companyKpiList:keyPerformanceIndicators).length != 0" [ngIfElse]="noDataBlock">
+@let facilityKpis = (facility.guid | facilityKpiList:keyPerformanceIndicators);
+<ng-template [ngIf]="facilityKpis.length != 0" [ngIfElse]="noDataBlock">
     <div class="p-0 w-100">
         <hr>
     </div>
-    <div class="d-flex flex-column indicator-container" *ngFor="let kpi of (company.guid | companyKpiList:keyPerformanceIndicators)">
+    <div class="d-flex flex-column indicator-container" *ngFor="let kpi of facilityKpis">
         <div class="d-flex w-100 justify-content-between list-item">
             <div class="d-flex flex-column">
                 <div>
