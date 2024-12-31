@@ -2,16 +2,18 @@ import { Component } from '@angular/core';
 import { faBullseye, faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { IdbCompany } from 'src/app/models/company';
+import { IdbFacility } from 'src/app/models/facility';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 
 @Component({
-  selector: 'app-company-performance-indicators',
-  templateUrl: './company-performance-indicators.component.html',
-  styleUrl: './company-performance-indicators.component.css'
+  selector: 'app-facility-performance-indicators',
+  templateUrl: './facility-performance-indicators.component.html',
+  styleUrl: './facility-performance-indicators.component.css'
 })
-export class CompanyPerformanceIndicatorsComponent {
+export class FacilityPerformanceIndicatorsComponent {
 
   faBullseye: IconDefinition = faBullseye;
   faChevronRight: IconDefinition = faChevronRight;
@@ -19,27 +21,27 @@ export class CompanyPerformanceIndicatorsComponent {
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   keyPerformanceIndicatorsSub: Subscription;
 
-  company: IdbCompany;
-  companySub: Subscription;
+  facility: IdbFacility;
+  facilitySub: Subscription;
   constructor(private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
-    private companyIdbService: CompanyIdbService
+    private facilityIdbService: FacilityIdbService
   ) {
   }
 
   ngOnInit() {
-    this.companySub = this.companyIdbService.selectedCompany.subscribe(company => {
-      this.company = company;
+    this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
+      this.facility = facility;
     })
 
     this.keyPerformanceIndicatorsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(kpis => {
       this.keyPerformanceIndicators = kpis.filter(kpi => {
-        return kpi.companyId == this.company.guid
+        return kpi.facilityId == this.facility.guid
       });
     });
   }
 
   ngOnDestroy() {
-    this.companySub.unsubscribe();
+    this.facilitySub.unsubscribe();
     this.keyPerformanceIndicatorsSub.unsubscribe();
   }
 }

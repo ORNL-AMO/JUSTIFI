@@ -15,6 +15,13 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/performance-indicators'"
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faBullseye"></fa-icon>
+            Key Performance Indicators
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/system-inventory'"
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faList"></fa-icon>
