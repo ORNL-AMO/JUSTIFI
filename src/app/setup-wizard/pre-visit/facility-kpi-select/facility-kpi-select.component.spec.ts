@@ -23,10 +23,10 @@ import { PrimaryKpiBadgeModule } from 'src/app/shared/primary-kpi-badge/primary-
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
-import { SharedCompanyFormsModule } from 'src/app/shared/shared-company-forms/shared-company-forms.module';
 import { AddKpiSearchComponent } from 'src/app/shared/shared-facility-forms/kpi-search-form/add-kpi-search/add-kpi-search.component';
 import { KpiListComponent } from 'src/app/shared/shared-facility-forms/kpi-search-form/kpi-list/kpi-list.component';
 import { SelectedKpiOptionPipe } from 'src/app/shared/shared-facility-forms/kpi-search-form/add-kpi-search/selected-kpi-option.pipe';
+import { SharedFacilityFormsModule } from 'src/app/shared/shared-facility-forms/shared-facility-forms.module';
 
 describe('FacilityKpiSelectComponent', () => {
   let component: FacilityKpiSelectComponent;
@@ -58,7 +58,7 @@ describe('FacilityKpiSelectComponent', () => {
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule, PrimaryKpiBadgeModule, SharedCompanyFormsModule],
+      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule, PrimaryKpiBadgeModule, SharedFacilityFormsModule],
       declarations: [FacilityKpiSelectComponent, AddKpiSearchComponent, KpiListComponent, SelectedKpiOptionPipe],
       providers: [
         { provide: CompanyIdbService, useValue: companyIdbService },

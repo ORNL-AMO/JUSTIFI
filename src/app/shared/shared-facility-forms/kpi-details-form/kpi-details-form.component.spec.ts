@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CompanyKpiDetailsFormComponent } from './kpi-details-form.component';
+import { KpiDetailsFormComponent } from './kpi-details-form.component';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { KpmDatabaseModalComponent } from './kpm-database-modal/kpm-database-modal.component';
 import { KpmImpactsTableComponent } from './kpm-impacts-table/kpm-impacts-table.component';
@@ -10,19 +10,19 @@ import { PrimaryKpiBadgeModule } from '../../primary-kpi-badge/primary-kpi-badge
 import { KpiDescriptionPipe } from './kpi-description.pipe';
 import { KpmDetailsFormModule } from '../../kpm-details-form/kpm-details-form.module';
 
-describe('CompanyKpiDetailsFormComponent', () => {
-  let component: CompanyKpiDetailsFormComponent;
-  let fixture: ComponentFixture<CompanyKpiDetailsFormComponent>;
+describe('KpiDetailsFormComponent', () => {
+  let component: KpiDetailsFormComponent;
+  let fixture: ComponentFixture<KpiDetailsFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FontAwesomeModule, HelperPipesModule, PrimaryKpiBadgeModule, KpmDetailsFormModule],
-      declarations: [CompanyKpiDetailsFormComponent, KpmDatabaseModalComponent, KpmImpactsTableComponent, KpiDescriptionPipe],
+      declarations: [KpiDetailsFormComponent, KpmDatabaseModalComponent, KpmImpactsTableComponent, KpiDescriptionPipe],
       providers: stubServiceProviders
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CompanyKpiDetailsFormComponent);
+    fixture = TestBed.createComponent(KpiDetailsFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

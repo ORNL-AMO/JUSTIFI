@@ -16,7 +16,7 @@ describe('PrimaryKpiBadgeComponent', () => {
         label: 'other',
         htmlLabel: 'other',
         optionValue: 'other'
-      }, true)
+      }, true, '')
     }
   }
   beforeEach(async () => {

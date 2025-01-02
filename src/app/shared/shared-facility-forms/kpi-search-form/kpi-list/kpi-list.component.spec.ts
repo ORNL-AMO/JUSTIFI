@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CompanyKpiListComponent } from './kpi-list.component';
+import { KpiListComponent } from './kpi-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { IdbCompany, getNewIdbCompany } from 'src/app/models/company';
@@ -22,9 +22,9 @@ import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 
-describe('CompanyKpiListComponent', () => {
-  let component: CompanyKpiListComponent;
-  let fixture: ComponentFixture<CompanyKpiListComponent>;
+describe('KpiListComponent', () => {
+  let component: KpiListComponent;
+  let fixture: ComponentFixture<KpiListComponent>;
   let companyIdbService: Partial<CompanyIdbService> = {
     selectedCompany: new BehaviorSubject<IdbCompany>(getNewIdbCompany('',))
   };
@@ -53,7 +53,7 @@ describe('CompanyKpiListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FontAwesomeModule, FormsModule, HelperPipesModule],
-      declarations: [CompanyKpiListComponent],
+      declarations: [KpiListComponent],
       providers: [
         { provide: CompanyIdbService, useValue: companyIdbService },
         { provide: ContactIdbService, useValue: contactIdbService },
@@ -69,7 +69,7 @@ describe('CompanyKpiListComponent', () => {
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(CompanyKpiListComponent);
+    fixture = TestBed.createComponent(KpiListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

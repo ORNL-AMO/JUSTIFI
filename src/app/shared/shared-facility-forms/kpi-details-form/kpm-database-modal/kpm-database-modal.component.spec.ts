@@ -24,7 +24,7 @@ describe('KpmDatabaseModalComponent', () => {
       htmlLabel: '',
       optionValue: 'chemicalEmissions'
     }
-    component.keyPerformanceIndicator = getNewKeyPerformanceIndicator('', '', tmpIndicatorOption, false)
+    component.keyPerformanceIndicator = getNewKeyPerformanceIndicator('', '', tmpIndicatorOption, false, '')
     fixture.detectChanges();
   });
 
