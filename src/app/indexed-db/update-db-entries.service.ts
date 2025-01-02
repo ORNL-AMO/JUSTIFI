@@ -26,10 +26,10 @@ export class UpdateDbEntriesService {
 
   async updateDbEntries(user: IdbUser): Promise<IdbUser> {
     let userNeedsUpdate: boolean = false;
-    if (user.needsKpiFacilityMigration == undefined) {
+    if (!user.kpiFacilityMigrationDone) {
       await this.updateToFacilityKPI();
-      // user.needsKpiFacilityMigration = true;
-      // userNeedsUpdate = true;
+      user.kpiFacilityMigrationDone = true;
+      userNeedsUpdate = true;
     }
 
     if (userNeedsUpdate) {
@@ -63,10 +63,8 @@ export class UpdateDbEntriesService {
           let facilityMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = keyPerformanceMetricImpacts.filter(impact => { return impact.facilityId == facility.guid });
           kpi.facilityId = facility.guid;
           if (f == 0) {
-            console.log('f == 0')
             await firstValueFrom(this.keyPerformanceIndicatorsIdbService.updateWithObservable(kpi));
           } else {
-            console.log('update guids..')
             //create new kpis when multiple facilities;
             let originalKpiGuid: string = kpi.guid;
             let originalKpmGuids: Array<{ originalGuid: string, newGuid: string }> = kpi.performanceMetrics.map(metric => { return { originalGuid: metric.guid, newGuid: undefined } });

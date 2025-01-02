@@ -2,14 +2,14 @@ import { IdbEntry, getNewIdbEntry } from "./idbEntry";
 
 export interface IdbUser extends IdbEntry {
     skipSplashScreen: boolean,
-    needsKpiFacilityMigration: boolean
+    kpiFacilityMigrationDone: boolean
 }
 
 export function getNewIdbUser(): IdbUser {
     let idbEntry: IdbEntry = getNewIdbEntry();
     return {
         ...idbEntry,
-        needsKpiFacilityMigration: false,
+        kpiFacilityMigrationDone: true,
         skipSplashScreen: false
     }
 }

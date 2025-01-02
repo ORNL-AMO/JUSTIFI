@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { faBullseye, faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
-import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
-import { IdbCompany } from 'src/app/models/company';
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 

@@ -8,7 +8,7 @@ export class FacilityKpiListPipe implements PipeTransform {
 
   transform(facilityGuid: string, keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>): Array<IdbKeyPerformanceIndicator> {
     return keyPerformanceIndicators.filter(kpi => {
-      return kpi.companyId == facilityGuid
+      return kpi.facilityId == facilityGuid
     });
   }
 }

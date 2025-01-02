@@ -40,14 +40,14 @@ export class FacilityKpiSelectComponent {
 
   goBack() {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-contacts');
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-setup');
   }
 
   goToKpiDetails() {
     if (this.companyKpis.length > 0) {
       this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/company-kpi-detail/' + this.companyKpis[0].guid);
     } else {
-      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-setup');
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/energy-equipment');
     }
   }
 }
