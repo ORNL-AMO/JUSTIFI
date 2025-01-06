@@ -13,7 +13,7 @@ export class PrimaryKpiBadgeComponent {
   @Input()
   kpiOption: KeyPerformanceIndicatorOption;
   @Input()
-  companyGuid: string
+  facilityId: string
   @Input()
   fullWidth: boolean;
 
@@ -25,8 +25,8 @@ export class PrimaryKpiBadgeComponent {
       this.kpiOption = KeyPerformanceIndicatorOptions.find(option => {
         return option.optionValue == this.kpiValue;
       });
-    } else if (this.kpiValue == 'other' && this.companyGuid) {
-      this.kpiOption = this.keyPerformanceIndicatorIdbService.getKpiFromKpm(this.companyGuid, this.kpiValue);
+    } else if (this.kpiValue == 'other' && this.facilityId) {
+      this.kpiOption = this.keyPerformanceIndicatorIdbService.getKpiFromKpm(this.facilityId, this.kpiValue);
     }
   }
 }

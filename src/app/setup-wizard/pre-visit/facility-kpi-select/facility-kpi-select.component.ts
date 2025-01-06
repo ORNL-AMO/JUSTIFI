@@ -17,8 +17,8 @@ export class FacilityKpiSelectComponent {
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
 
-  companyKpiSub: Subscription;
-  companyKpis: Array<IdbKeyPerformanceIndicator>;
+  facilityKpiSub: Subscription;
+  facilityKpis: Array<IdbKeyPerformanceIndicator>;
   onSiteVisit: IdbOnSiteVisit;
   constructor(private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
@@ -27,15 +27,15 @@ export class FacilityKpiSelectComponent {
 
   ngOnInit() {
     this.onSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.companyKpiSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(kpis => {
-      this.companyKpis = kpis.filter(kpi => {
-        return kpi.companyId == this.onSiteVisit.companyId
+    this.facilityKpiSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(kpis => {
+      this.facilityKpis = kpis.filter(kpi => {
+        return kpi.facilityId == this.onSiteVisit.facilityId
       });
     });
   }
 
   ngOnDestroy() {
-    this.companyKpiSub.unsubscribe();
+    this.facilityKpiSub.unsubscribe();
   }
 
   goBack() {
@@ -44,8 +44,8 @@ export class FacilityKpiSelectComponent {
   }
 
   goToKpiDetails() {
-    if (this.companyKpis.length > 0) {
-      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/company-kpi-detail/' + this.companyKpis[0].guid);
+    if (this.facilityKpis.length > 0) {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/kpi-detail/' + this.facilityKpis[0].guid);
     } else {
       this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/energy-equipment');
     }

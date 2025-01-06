@@ -81,10 +81,10 @@ export class KeyPerformanceIndicatorsIdbService {
     });
   }
 
-  getKpiFromKpm(companyGuid: string, performanceMetricValue: KeyPerformanceIndicatorValue): IdbKeyPerformanceIndicator {
+  getKpiFromKpm(facilityId: string, performanceMetricValue: KeyPerformanceIndicatorValue): IdbKeyPerformanceIndicator {
     let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicators.getValue();
     return keyPerformanceIndicators.find(kpi => {
-      return kpi.companyId == companyGuid && kpi.optionValue == performanceMetricValue;
+      return kpi.facilityId == facilityId && kpi.optionValue == performanceMetricValue;
     });
   }
 

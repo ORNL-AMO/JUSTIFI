@@ -41,7 +41,6 @@ export class UpdateDbEntriesService {
 
   //migration of KPIs to facility level
   async updateToFacilityKPI() {
-    console.log('updateToFacilityKPI')
     let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = await firstValueFrom(this.keyPerformanceIndicatorsIdbService.getAll());
     //get kpis without facility ids
     let noFacilityKeyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = keyPerformanceIndicators.filter(indicator => {

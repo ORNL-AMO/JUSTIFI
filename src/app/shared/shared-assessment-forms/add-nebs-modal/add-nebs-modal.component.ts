@@ -54,7 +54,6 @@ export class AddNebsModalComponent {
     for (let i = 0; i < this.selectedNebs.length; i++) {
       let nebOption: NebOption = this.selectedNebs[i];
       let newIdbNonEnergyBenefit: IdbNonEnergyBenefit;
-      let facilityId: string;
       if (this.energyOpportunity) {
         newIdbNonEnergyBenefit = getNewIdbNonEnergyBenefit(this.energyOpportunity.userId, this.energyOpportunity.companyId, this.energyOpportunity.facilityId, this.energyOpportunity.assessmentId, this.energyOpportunity.guid, nebOption, false);
       } else {
@@ -63,7 +62,7 @@ export class AddNebsModalComponent {
       for (let kpm of nebOption.selectedKPM) {
         let performanceMetricToAdd: KeyPerformanceMetricOption = KeyPerformanceMetricOptions.find(kpmOption => { return kpmOption.value == kpm })
         let addedMetric: KeyPerformanceMetric = await this.keyPerformanceIndicatorIdbService.addKpmToKpi(newIdbNonEnergyBenefit.companyId, performanceMetricToAdd, newIdbNonEnergyBenefit.userId, newIdbNonEnergyBenefit.facilityId);
-        let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getKpiFromKpm(newIdbNonEnergyBenefit.companyId, performanceMetricToAdd.kpiValue);
+        let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getKpiFromKpm(newIdbNonEnergyBenefit.facilityId, performanceMetricToAdd.kpiValue);
         let newKeyPerformanceMetricImpact: IdbKeyPerformanceMetricImpact = getNewIdbKeyPerformanceMetricImpact(newIdbNonEnergyBenefit.userId, newIdbNonEnergyBenefit.companyId, newIdbNonEnergyBenefit.facilityId, newIdbNonEnergyBenefit.energyOpportunityId, newIdbNonEnergyBenefit.guid, addedMetric.value, newIdbNonEnergyBenefit.assessmentId, keyPerformanceIndicator.guid, addedMetric.guid);
         await firstValueFrom(this.keyPerformanceMetricImpactsIdbService.addWithObservable(newKeyPerformanceMetricImpact));
         await this.keyPerformanceMetricImpactsIdbService.setKeyPerformanceMetricImpacts();
