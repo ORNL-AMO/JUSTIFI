@@ -3,11 +3,10 @@ import { faAsterisk, faChevronDown, faChevronUp, faMagnifyingGlass, faPlus, faSe
 import { firstValueFrom } from 'rxjs';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
-import { getNewKeyPerformanceIndicator, IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
+import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { getNewIdbKeyPerformanceMetricImpact, IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
-import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
-import { convertOptionTypeToMetricType, getPerformanceMetrics, KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricOptions } from 'src/app/shared/constants/keyPerformanceMetrics';
+import { convertOptionTypeToMetricType, KeyPerformanceMetric, KeyPerformanceMetricOptions } from 'src/app/shared/constants/keyPerformanceMetrics';
 import { NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefitOptions';
 
 @Component({
@@ -56,8 +55,8 @@ export class PerformanceMetricsModalComponent {
 
   async confirmAddMetric() {
     //make sure metric is tracked in KPI
-    let addedMetric: KeyPerformanceMetric = await this.keyPerformanceIndicatorIdbService.addKpmToKpi(this.nonEnergyBenefit.companyId, this.performanceMetricToAdd, this.nonEnergyBenefit.userId);
-    let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getKpiFromKpm(this.nonEnergyBenefit.companyId, this.performanceMetricToAdd.kpiValue);
+    let addedMetric: KeyPerformanceMetric = await this.keyPerformanceIndicatorIdbService.addKpmToKpi(this.nonEnergyBenefit.companyId, this.performanceMetricToAdd, this.nonEnergyBenefit.userId, this.nonEnergyBenefit.facilityId);
+    let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getKpiFromKpm(this.nonEnergyBenefit.facilityId, this.performanceMetricToAdd.kpiValue);
     let newKeyPerformanceMetricImpact: IdbKeyPerformanceMetricImpact = getNewIdbKeyPerformanceMetricImpact(this.nonEnergyBenefit.userId, this.nonEnergyBenefit.companyId, this.nonEnergyBenefit.facilityId, this.nonEnergyBenefit.energyOpportunityId, this.nonEnergyBenefit.guid, addedMetric.value, this.nonEnergyBenefit.assessmentId, keyPerformanceIndicator.guid, addedMetric.guid);
     await firstValueFrom(this.keyPerformanceMetricImpactIdbService.addWithObservable(newKeyPerformanceMetricImpact));
     await this.keyPerformanceMetricImpactIdbService.setKeyPerformanceMetricImpacts();

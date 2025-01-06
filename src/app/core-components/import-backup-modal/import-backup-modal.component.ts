@@ -8,6 +8,7 @@ import { IdbUser } from 'src/app/models/user';
 import { Subscription } from 'rxjs';
 import { ImportBackupModalService } from './import-backup-modal.service';
 import { environment } from 'src/environments/environment';
+import { UpdateDbEntriesService } from 'src/app/indexed-db/update-db-entries.service';
 
 @Component({
   selector: 'app-import-backup-modal',
@@ -32,7 +33,8 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
     private backupDataService: BackupDataService,
     private dbChangesService: DbChangesService,
     private router: Router,
-    private importBackupModalService: ImportBackupModalService
+    private importBackupModalService: ImportBackupModalService,
+    private updateDbEntriesService: UpdateDbEntriesService
   ) {
 
   }
@@ -124,6 +126,8 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
   async addToCurrentUser(importFile: BackupFile) {
     // Add backup data to current user
     await this.backupDataService.importUserBackupFile(importFile, this.currentUser.guid);
+    this.currentUser.kpiFacilityMigrationDone = false;
+    await this.updateDbEntriesService.updateDbEntries(this.currentUser);
     await this.dbChangesService.selectUser(this.currentUser, false);
   }
 

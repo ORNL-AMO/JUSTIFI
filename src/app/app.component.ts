@@ -15,6 +15,7 @@ import { EnergyEquipmentIdbService } from './indexed-db/energy-equipment-idb.ser
 import { ProcessEquipmentIdbService } from './indexed-db/process-equipment-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from './indexed-db/key-performance-metric-impacts-idb.service';
 import { ToastNotificationsService } from './core-components/toast-notifications/toast-notifications.service';
+import { UpdateDbEntriesService } from './indexed-db/update-db-entries.service';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,8 @@ export class AppComponent {
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
-    private toastNotificationService: ToastNotificationsService) {
+    private toastNotificationService: ToastNotificationsService,
+    private updateDbEntriesService: UpdateDbEntriesService) {
   }
 
   async ngOnInit() {
@@ -51,6 +53,9 @@ export class AppComponent {
     console.log('init')
     await this.userIdbService.initializeData();
     console.log('users init..');
+    //update db entries
+    let user: IdbUser = this.userIdbService.user.getValue();
+    await this.updateDbEntriesService.updateDbEntries(user);
     //companies
     await this.companyIdbService.setCompanies();
     console.log('companies init..');

@@ -75,7 +75,7 @@ export class CompanyContactsSetupComponent implements OnInit, OnDestroy {
 
   goToKPIs() {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-kpi-select');
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-setup');
   }
 
   setHasInvalidContacts() {

@@ -3,8 +3,6 @@ import { SetupWizardComponent } from "../setup-wizard/setup-wizard.component";
 import { PreVisitComponent } from "../setup-wizard/pre-visit/pre-visit.component";
 import { CompanySetupComponent } from "../setup-wizard/pre-visit/company-setup/company-setup.component";
 import { CanDeactivateGuard } from "../guards/can-deactivate.guard";
-import { CompanyKpiSelectComponent } from "../setup-wizard/pre-visit/company-kpi-select/company-kpi-select.component";
-import { CompanyKpiDetailsComponent } from "../setup-wizard/pre-visit/company-kpi-details/company-kpi-details.component";
 import { CompanyContactsSetupComponent } from "../setup-wizard/pre-visit/company-contacts-setup/company-contacts-setup.component";
 import { FacilitySetupComponent } from "../setup-wizard/pre-visit/facility-setup/facility-setup.component";
 import { FacilityEnergyEquipmentSetupComponent } from "../setup-wizard/pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component";
@@ -23,6 +21,8 @@ import { AssessmentEvaluationComponent } from "../setup-wizard/data-evaluation/a
 import { VisitReportComponent } from "../setup-wizard/data-evaluation/visit-report/visit-report.component";
 import { AssessmentDetailsFormComponent } from "../shared/shared-assessment-forms/assessment-details-form/assessment-details-form.component";
 import { AssessmentEnergyOpportunitiesFormComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component";
+import { FacilityKpiSelectComponent } from "../setup-wizard/pre-visit/facility-kpi-select/facility-kpi-select.component";
+import { FacilityKpiDetailsComponent } from "../setup-wizard/pre-visit/facility-kpi-details/facility-kpi-details.component";
 
 
 export const SetupWizardRoutes: Route = {
@@ -44,12 +44,12 @@ export const SetupWizardRoutes: Route = {
                     canDeactivate: [CanDeactivateGuard]
                 },
                 {
-                    path: 'company-kpi-select',
-                    component: CompanyKpiSelectComponent
+                    path: 'kpi-select',
+                    component: FacilityKpiSelectComponent
                 },
                 {
-                    path: 'company-kpi-detail/:id',
-                    component: CompanyKpiDetailsComponent
+                    path: 'kpi-detail/:id',
+                    component: FacilityKpiDetailsComponent
                 },
                 {
                     path: 'company-contacts',

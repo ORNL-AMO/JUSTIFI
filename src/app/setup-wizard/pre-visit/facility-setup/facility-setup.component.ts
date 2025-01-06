@@ -56,12 +56,12 @@ export class FacilitySetupComponent implements OnInit {
 
   goBack() {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('/setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-kpi-select');
+    this.router.navigateByUrl('/setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-contacts');
   }
 
   goToEnergyEquipment() {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/energy-equipment');
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/kpi-select');
   }
 
   canDeactivate(): Observable<boolean> {

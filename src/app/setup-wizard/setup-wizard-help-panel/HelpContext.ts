@@ -1,7 +1,7 @@
 export type HelpContext = 'company-setup' |
     'company-contacts' |
-    'company-kpi-select' |
-    'company-kpi-detail' |
+    'kpi-select' |
+    'kpi-detail' |
     'facility-setup' |
     'energy-equipment' |
     'end-uses' |

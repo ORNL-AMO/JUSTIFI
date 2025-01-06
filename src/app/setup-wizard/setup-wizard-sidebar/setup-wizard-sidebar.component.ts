@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { IconDefinition, faChevronDown, faChevronUp, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from '../setup-wizard.service';
@@ -7,10 +7,10 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
-import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
-import { IdbCompany } from 'src/app/models/company';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
+import { IdbFacility } from 'src/app/models/facility';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 
 @Component({
   selector: 'app-setup-wizard-sidebar',
@@ -39,8 +39,8 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   onSiteVisit: IdbOnSiteVisit;
   onSiteVisitSub: Subscription;
 
-  companySub: Subscription;
-  company: IdbCompany;
+  facilitySub: Subscription;
+  facility: IdbFacility;
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   keyPerformanceIndicatorsSub: Subscription;
 
@@ -53,7 +53,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private setupWizardService: SetupWizardService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
-    private companyIdbService: CompanyIdbService,
+    private facilityIdbService: FacilityIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService
   ) {
 
@@ -83,8 +83,8 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
       this.onSiteVisit = val;
     });
 
-    this.companySub = this.companyIdbService.selectedCompany.subscribe(_company => {
-      this.company = _company;
+    this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(_facility => {
+      this.facility = _facility;
     });
 
     this.keyPerformanceIndicatorsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(_keyPerformanceIndicators => {
@@ -96,7 +96,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.assessmentsSub.unsubscribe();
     this.sidebarOpenSub.unsubscribe();
     this.onSiteVisitSub.unsubscribe();
-    this.companySub.unsubscribe();
+    this.facilitySub.unsubscribe();
     this.keyPerformanceIndicatorsSub.unsubscribe();
     this.routerSub.unsubscribe();
   }

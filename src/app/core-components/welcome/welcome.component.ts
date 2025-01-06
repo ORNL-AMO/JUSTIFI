@@ -16,6 +16,7 @@ import { BackupDataService, BackupFile } from 'src/app/shared/shared-services/ba
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { Router } from '@angular/router';
 import { ToastNotificationsService } from '../toast-notifications/toast-notifications.service';
+import { UpdateDbEntriesService } from 'src/app/indexed-db/update-db-entries.service';
 
 @Component({
   selector: 'app-welcome',
@@ -60,7 +61,8 @@ export class WelcomeComponent {
     private backupDataService: BackupDataService,
     private dbChangesService: DbChangesService,
     private toastNotificationService: ToastNotificationsService,
-    private router: Router
+    private router: Router,
+    private updateDbEntriesService: UpdateDbEntriesService
   ) {
 
   }
@@ -129,6 +131,8 @@ export class WelcomeComponent {
           let fileData: string = reader.result as string;
           let tmpBackupFile: BackupFile = JSON.parse(fileData);
           let updatedBackupFile: BackupFile = await this.backupDataService.importUserBackupFile(tmpBackupFile, this.user.guid);
+          this.user.kpiFacilityMigrationDone = false;
+          await this.updateDbEntriesService.updateDbEntries(this.user);
           await this.dbChangesService.selectUser(this.user, false);
           this.loadingService.setLoadingStatus(false);
           let exampleVisit: IdbOnSiteVisit = updatedBackupFile.onSiteVisits[0];
