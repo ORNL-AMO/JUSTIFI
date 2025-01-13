@@ -10,6 +10,9 @@ export interface IdbFacility extends IdbEntry {
     generalInformation: GeneralInformation,
     energyUse: number,
     cost: number,
+    sidebarOpen: boolean,
+    sidebarKPIsOpen: boolean,
+    sidebarSystemInventoryOpen: boolean
 }
 
 export function getNewIdbFacility(userId: string, companyId: string): IdbFacility {
@@ -24,5 +27,8 @@ export function getNewIdbFacility(userId: string, companyId: string): IdbFacilit
         generalInformation: generalInformation,
         energyUse: 0,
         cost: 0,
+        sidebarOpen: true,
+        sidebarKPIsOpen: false,
+        sidebarSystemInventoryOpen: false
     }
 }

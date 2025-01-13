@@ -1,0 +1,25 @@
+<div class="setup-wizard-content">
+    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+        <div class="col-10 pt-4 pb-4">
+            <div class="form-paper shadow">
+                <h5>
+                    <fa-icon [icon]="faBox"></fa-icon>
+                    {{equipment?.equipmentName}}
+                </h5>
+                <hr>
+                <app-energy-equipment-form [energyEquipmentGuid]="undefined"></app-energy-equipment-form>
+            </div>
+        </div>
+    </div>
+</div>
+<div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
+<div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
+    <div class="popup-body">
+        <div class="alert alert-danger">
+            Please fill the required fields.
+        </div>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
+    </div>
+</div>

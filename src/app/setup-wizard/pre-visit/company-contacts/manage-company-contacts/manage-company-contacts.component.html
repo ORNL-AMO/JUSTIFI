@@ -1,0 +1,78 @@
+<div class="setup-wizard-content">
+    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+        <div class="col-10 pt-4 pb-4">
+            <div class="form-paper shadow">
+                <h5>
+                    <fa-icon [icon]="faAddressBook" class="me-2"></fa-icon>Stakeholder Contacts
+                </h5>
+                <hr>
+                <div class="d-flex w-100 justify-content-end pb-2">
+                    <div class="p-0">
+                        <button class="btn btn-outline-success btn-sm" (click)="addContact()">
+                            <fa-icon [icon]="faPlus"></fa-icon>
+                            Add Stakeholder
+                        </button>
+                    </div>
+                </div>
+                @let contacts = (selectedCompany.guid | associatedContacts:'company':allContacts);
+                <ng-template [ngIf]="contacts.length > 0" [ngIfElse]="noContactsBlock">
+                    <table class="table table-bordered table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th class="w-25">
+                                    Name
+                                </th>
+                                <th class="w-25">
+                                    Title
+                                </th>
+                                <th class="w-25">
+                                    Team
+                                </th>
+                                <th class="w-25">
+                                    Notes
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let contact of contacts">
+                                <td>
+                                    <a class="click-link" (click)="goToContact(contact)">
+                                        {{contact | contactNameDisplay}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <app-single-cell-item [strValue]="contact.role"></app-single-cell-item>
+                                </td>
+                                <td>
+                                    <app-single-cell-item [strValue]="contact.team"></app-single-cell-item>
+                                </td>
+                                <td>
+                                    <app-single-cell-item [strValue]="contact.notes"></app-single-cell-item>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+                <ng-template #noContactsBlock>
+                    <div class="alert alert-warning">
+                        No stakeholder contacts added for this company. Click "<fa-icon [icon]="faPlus"></fa-icon> Add
+                        Stakeholder"
+                        to add a contact to this company.
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="setup-wizard-footer navbar shadow">
+    <div class="container-fluid justify-content-between">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+            Go Back
+        </button>
+        <button class="btn nav-btn btn-sm" (click)="goToKPIs()" [disabled]="hasInvalidContacts">
+            Facility Details
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
+    </div>
+</nav>

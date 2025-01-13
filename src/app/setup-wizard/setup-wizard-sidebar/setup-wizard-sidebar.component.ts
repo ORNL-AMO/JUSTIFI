@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { IconDefinition, faChevronDown, faChevronUp, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronDown, faChevronUp, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faBox } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from '../setup-wizard.service';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
@@ -11,6 +11,12 @@ import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-perfo
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbFacility } from 'src/app/models/facility';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { IdbCompany } from 'src/app/models/company';
+import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { IdbContact } from 'src/app/models/contact';
+import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
+import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
+import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 
 @Component({
   selector: 'app-setup-wizard-sidebar',
@@ -24,9 +30,18 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   faFolderOpen: IconDefinition = faFolderOpen;
   faCircleExclamation: IconDefinition = faCircleExclamation;
   faChevronDown: IconDefinition = faChevronDown;
+  faChevronRight: IconDefinition = faChevronRight;
+
   faChevronUp: IconDefinition = faChevronUp;
-  faChevronRight: IconDefinition = faChevronCircleRight;
-  faChevronLeft: IconDefinition = faChevronCircleLeft;
+  faChevronCircleRight: IconDefinition = faChevronCircleRight;
+  faChevronCircleLeft: IconDefinition = faChevronCircleLeft;
+  faGear: IconDefinition = faGear;
+  faUser: IconDefinition = faUser;
+  faAddressBook: IconDefinition = faAddressBook;
+  faMagnifyingGlassPlus: IconDefinition = faMagnifyingGlassPlus;
+  faBullseye: IconDefinition = faBullseye;
+  faList: IconDefinition = faList;
+  faBox: IconDefinition = faBox;
 
   displayStartOverModal: boolean;
 
@@ -41,6 +56,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
 
   facilitySub: Subscription;
   facility: IdbFacility;
+
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   keyPerformanceIndicatorsSub: Subscription;
 
@@ -50,11 +66,22 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
 
   routerSub: Subscription;
 
+  company: IdbCompany;
+  companySub: Subscription;
+
+  contacts: Array<IdbContact>;
+  contactsSub: Subscription;
+
+  energyEquipmentsSub: Subscription;
+  energyEquipments: Array<IdbEnergyEquipment>;
   constructor(private router: Router, private setupWizardService: SetupWizardService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private facilityIdbService: FacilityIdbService,
-    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService
+    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
+    private companyIdbService: CompanyIdbService,
+    private contactIdbService: ContactIdbService,
+    private energyEquipmentIdbService: EnergyEquipmentIdbService
   ) {
 
   }
@@ -90,6 +117,18 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.keyPerformanceIndicatorsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(_keyPerformanceIndicators => {
       this.keyPerformanceIndicators = _keyPerformanceIndicators;
     });
+
+    this.companySub = this.companyIdbService.selectedCompany.subscribe(val => {
+      this.company = val;
+    });
+    this.contactsSub = this.contactIdbService.contacts.subscribe(contacts => {
+      this.contacts = contacts;
+    });
+
+
+    this.energyEquipmentsSub = this.energyEquipmentIdbService.energyEquipments.subscribe(energyEquipments => {
+      this.energyEquipments = energyEquipments;
+    });
   }
 
   ngOnDestroy() {
@@ -99,6 +138,9 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.facilitySub.unsubscribe();
     this.keyPerformanceIndicatorsSub.unsubscribe();
     this.routerSub.unsubscribe();
+    this.companySub.unsubscribe();
+    this.contactsSub.unsubscribe();
+    this.energyEquipmentsSub.unsubscribe();
   }
 
   setDisplaySidebar() {
@@ -162,4 +204,37 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     }
   }
 
+  async toggleCollapseCompany() {
+    this.company.sidebarOpen = !this.company.sidebarOpen;
+    await firstValueFrom(this.companyIdbService.updateWithObservable(this.company));
+    await this.companyIdbService.setCompanies();
+    this.companyIdbService.selectedCompany.next(this.company);
+  }
+
+  async toggleContactsOpen() {
+    this.company.sidebarContactsOpen = !this.company.sidebarContactsOpen;
+    await firstValueFrom(this.companyIdbService.updateWithObservable(this.company));
+    await this.companyIdbService.setCompanies();
+    this.companyIdbService.selectedCompany.next(this.company);
+  }
+
+  async toggleCollapseFacility() {
+    this.facility.sidebarOpen = !this.facility.sidebarOpen;
+    await firstValueFrom(this.facilityIdbService.updateWithObservable(this.facility));
+    await this.facilityIdbService.setFacilities();
+    this.facilityIdbService.selectedFacility.next(this.facility);
+  }
+
+  async toggleKPIsOpen() {
+    this.facility.sidebarKPIsOpen = !this.facility.sidebarKPIsOpen;
+    await firstValueFrom(this.facilityIdbService.updateWithObservable(this.facility));
+    await this.facilityIdbService.setFacilities();
+    this.facilityIdbService.selectedFacility.next(this.facility);
+  }
+  async toggleSystemInventoryOpen() {
+    this.facility.sidebarSystemInventoryOpen = !this.facility.sidebarSystemInventoryOpen;
+    await firstValueFrom(this.facilityIdbService.updateWithObservable(this.facility));
+    await this.facilityIdbService.setFacilities();
+    this.facilityIdbService.selectedFacility.next(this.facility);
+  }
 }

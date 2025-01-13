@@ -3,7 +3,6 @@ import { SetupWizardComponent } from "../setup-wizard/setup-wizard.component";
 import { PreVisitComponent } from "../setup-wizard/pre-visit/pre-visit.component";
 import { CompanySetupComponent } from "../setup-wizard/pre-visit/company-setup/company-setup.component";
 import { CanDeactivateGuard } from "../guards/can-deactivate.guard";
-import { CompanyContactsSetupComponent } from "../setup-wizard/pre-visit/company-contacts-setup/company-contacts-setup.component";
 import { FacilitySetupComponent } from "../setup-wizard/pre-visit/facility-setup/facility-setup.component";
 import { FacilityEnergyEquipmentSetupComponent } from "../setup-wizard/pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component";
 import { FacilityProcessEquipmentSetupComponent } from "../setup-wizard/pre-visit/facility-process-equipment-setup/facility-process-equipment-setup.component";
@@ -23,6 +22,10 @@ import { AssessmentDetailsFormComponent } from "../shared/shared-assessment-form
 import { AssessmentEnergyOpportunitiesFormComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component";
 import { FacilityKpiSelectComponent } from "../setup-wizard/pre-visit/facility-kpi-select/facility-kpi-select.component";
 import { FacilityKpiDetailsComponent } from "../setup-wizard/pre-visit/facility-kpi-details/facility-kpi-details.component";
+import { ManageCompanyContactsComponent } from "../setup-wizard/pre-visit/company-contacts/manage-company-contacts/manage-company-contacts.component";
+import { CompanyContactDetailsFormComponent } from "../setup-wizard/pre-visit/company-contacts/company-contact-details-form/company-contact-details-form.component";
+import { ManageEnergyEquipmentComponent } from "../setup-wizard/pre-visit/facility-energy-equipment/manage-energy-equipment/manage-energy-equipment.component";
+import { FacilityEnergyEquipmentFormComponent } from "../setup-wizard/pre-visit/facility-energy-equipment/facility-energy-equipment-form/facility-energy-equipment-form.component";
 
 
 export const SetupWizardRoutes: Route = {
@@ -53,7 +56,12 @@ export const SetupWizardRoutes: Route = {
                 },
                 {
                     path: 'company-contacts',
-                    component: CompanyContactsSetupComponent,
+                    component: ManageCompanyContactsComponent,
+                    // canDeactivate: [CanDeactivateGuard]
+                },
+                {
+                    path: 'company-contacts/:id',
+                    component: CompanyContactDetailsFormComponent,
                     canDeactivate: [CanDeactivateGuard]
                 },
                 {
@@ -63,7 +71,12 @@ export const SetupWizardRoutes: Route = {
                 },
                 {
                     path: 'energy-equipment',
-                    component: FacilityEnergyEquipmentSetupComponent
+                    component: ManageEnergyEquipmentComponent
+                },
+                {
+                    path: 'energy-equipment/:id',
+                    component: FacilityEnergyEquipmentFormComponent,
+                    canDeactivate: [CanDeactivateGuard]
                 },
                 {
                     path: 'end-uses',

@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedSettingsFormsModule } from '../shared/shared-settings-forms/shared-settings-forms.module';
 import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
 import { SetupWizardSidebarComponent } from './setup-wizard-sidebar/setup-wizard-sidebar.component';
-import { CompanyContactsSetupComponent } from './pre-visit/company-contacts-setup/company-contacts-setup.component';
 import { FacilityProcessEquipmentSetupComponent } from './pre-visit/facility-process-equipment-setup/facility-process-equipment-setup.component';
 import { PreAssessmentSetupComponent } from './pre-visit/pre-assessment-setup/pre-assessment-setup.component';
 import { ReviewPreVisitSetupComponent } from './pre-visit/review-pre-visit-setup/review-pre-visit-setup.component';
@@ -42,10 +41,13 @@ import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/s
 import { SharedCompanyFormsModule } from "../shared/shared-company-forms/shared-company-forms.module";
 import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/shared-facility-forms.module';
 import { AssessmentEnergyOpportunitiesFormComponent } from './data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component';
-import { CompanyContactsSetupFormComponent } from './pre-visit/company-contacts-setup/company-contacts-setup-form/company-contacts-setup-form.component';
 import { SystemInventorySummaryComponent } from './pre-visit/review-pre-visit-setup/system-inventory-summary/system-inventory-summary.component';
 import { FacilityKpiDetailsComponent } from './pre-visit/facility-kpi-details/facility-kpi-details.component';
 import { FacilityKpiSelectComponent } from './pre-visit/facility-kpi-select/facility-kpi-select.component';
+import { ManageCompanyContactsComponent } from './pre-visit/company-contacts/manage-company-contacts/manage-company-contacts.component';
+import { CompanyContactDetailsFormComponent } from './pre-visit/company-contacts/company-contact-details-form/company-contact-details-form.component';
+import { ManageEnergyEquipmentComponent } from './pre-visit/facility-energy-equipment/manage-energy-equipment/manage-energy-equipment.component';
+import { FacilityEnergyEquipmentFormComponent } from './pre-visit/facility-energy-equipment/facility-energy-equipment-form/facility-energy-equipment-form.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,6 @@ import { FacilityKpiSelectComponent } from './pre-visit/facility-kpi-select/faci
     CompanySetupComponent,
     FacilitySetupComponent,
     SetupWizardSidebarComponent,
-    CompanyContactsSetupComponent,
     FacilityProcessEquipmentSetupComponent,
     PreAssessmentSetupComponent,
     ReviewPreVisitSetupComponent,
@@ -78,8 +79,11 @@ import { FacilityKpiSelectComponent } from './pre-visit/facility-kpi-select/faci
     OnSiteAssessmentResultsComponent,
     FacilityEnergyEquipmentSetupComponent,
     AssessmentEnergyOpportunitiesFormComponent,
-    CompanyContactsSetupFormComponent,
-    SystemInventorySummaryComponent
+    SystemInventorySummaryComponent,
+    ManageCompanyContactsComponent,
+    CompanyContactDetailsFormComponent,
+    ManageEnergyEquipmentComponent,
+    FacilityEnergyEquipmentFormComponent
   ],
   imports: [
     CommonModule,

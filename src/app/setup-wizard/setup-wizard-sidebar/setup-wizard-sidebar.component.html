@@ -4,12 +4,133 @@
     <div class="ps-1 pe-1 w-100 pb-2">
         <div class="text-end toggle-collapse">
             <a class="click-link" (click)="toggleSidebar()">
-                <fa-icon *ngIf="!sidebarOpen" [icon]="faChevronRight"></fa-icon>
-                <fa-icon *ngIf="sidebarOpen" [icon]="faChevronLeft"></fa-icon>
+                <fa-icon *ngIf="!sidebarOpen" [icon]="faChevronCircleRight"></fa-icon>
+                <fa-icon *ngIf="sidebarOpen" [icon]="faChevronCircleLeft"></fa-icon>
             </a>
         </div>
     </div>
     <ng-container *ngIf="onSiteVisit">
+
+        <div class="nav-item">
+            <a class="nav-link" (click)="toggleCollapsePrevisit()">
+                <fa-icon [icon]="collapsePreVisit ? faChevronRight : faChevronDown"></fa-icon>
+                Pre-Visit
+            </a>
+        </div>
+        <div class="sidebar-section" *ngIf="!collapsePreVisit">
+            <div class="nav-item">
+                <a class="nav-link" (click)="toggleCollapseCompany()">
+                    <fa-icon [icon]="company.sidebarOpen ? faChevronDown : faChevronRight"></fa-icon>
+                    Company Setup
+                </a>
+            </div>
+            <div class="sidebar-section" *ngIf="company.sidebarOpen">
+                <div class="nav-item">
+                    <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/company-setup'"
+                        [routerLinkActive]="['active']">
+                        <fa-icon [icon]="faGear"></fa-icon>
+                        General Details
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" (click)="toggleContactsOpen()">
+                        <fa-icon [icon]="company.sidebarContactsOpen ? faChevronDown : faChevronRight"></fa-icon>
+                        Stakeholder Contacts
+                    </a>
+                </div>
+                <div class="sidebar-section" *ngIf="company.sidebarContactsOpen">
+                    <div class="nav-item">
+                        <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/company-contacts'"
+                            [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                            <fa-icon [icon]="faAddressBook"></fa-icon>
+                            View All Contacts
+                        </a>
+                    </div>
+                    <div class="nav-item" *ngFor="let contact of company.guid | associatedContacts:'company':contacts">
+                        <a class="nav-link"
+                            [routerLink]="'pre-visit/'+onSiteVisit.guid+'/company-contacts/'+contact.guid"
+                            [routerLinkActive]="['active']">
+                            <fa-icon [icon]="faUser"></fa-icon>
+                            {{contact | contactNameDisplay}}
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" (click)="toggleCollapseFacility()">
+                    <fa-icon [icon]="facility.sidebarOpen ? faChevronDown : faChevronRight"></fa-icon>
+                    Facility Setup
+                </a>
+            </div>
+            <div class="sidebar-section" *ngIf="facility.sidebarOpen">
+                <div class="nav-item">
+                    <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/facility-setup'"
+                        [routerLinkActive]="['active']">
+                        <fa-icon [icon]="faGear"></fa-icon>
+                        General Details
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" (click)="toggleKPIsOpen()">
+                        <fa-icon [icon]="facility.sidebarKPIsOpen ? faChevronDown : faChevronRight"></fa-icon>
+                        Key Performance Indicators
+                    </a>
+                </div>
+                <div class="sidebar-section" *ngIf="facility.sidebarKPIsOpen">
+                    <div class="nav-item">
+                        <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/kpi-select'"
+                            [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                            <fa-icon [icon]="faMagnifyingGlassPlus"></fa-icon>
+                            Select KPIs
+                        </a>
+                    </div>
+                    <div class="nav-item"
+                        *ngFor="let kpi of (facility.guid | facilityKpiList: keyPerformanceIndicators)">
+                        <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/kpi-detail/' + kpi.guid"
+                            [routerLinkActive]="['active']">
+                            <fa-icon [icon]="faBullseye" class="pe-1"></fa-icon>
+                            <span [innerHTML]="kpi.htmlLabel"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" (click)="toggleSystemInventoryOpen()">
+                        <fa-icon
+                            [icon]="facility.sidebarSystemInventoryOpen ? faChevronDown : faChevronRight"></fa-icon>
+                        Industrial System Inventory
+                    </a>
+                </div>
+                <div class="sidebar-section" *ngIf="facility.sidebarSystemInventoryOpen">
+                    <div class="nav-item">
+                        <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/energy-equipment'"
+                            [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                            <fa-icon [icon]="faList"></fa-icon>
+                            View Inventory
+                        </a>
+                    </div>
+                    <div class="nav-item"
+                        *ngFor="let energyEquipment of (facility.guid | energyEquipmentList:'facility':energyEquipments)">
+                        <a class="nav-link"
+                            [routerLink]="'pre-visit/'+onSiteVisit.guid+'/energy-equipment/' + energyEquipment.guid"
+                            [routerLinkActive]="['active']">
+                            <fa-icon [icon]="faBox" class="pe-1"></fa-icon>
+                            {{energyEquipment.equipmentName}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+
+
+
+
+
+
+
+    <!-- <ng-container *ngIf="onSiteVisit">
         <div class="ps-1 pe-1 w-100 sidebar-content" [hidden]="!sidebarOpen">
             <button class="btn btn-dark w-100 text-left" (click)="toggleCollapsePrevisit()">
                 <fa-icon [icon]="faChevronDown" class="pe-1" *ngIf="collapsePreVisit"></fa-icon>
@@ -49,8 +170,7 @@
                 </div>
 
                 <div class="nav-item" *ngFor="let kpi of (facility.guid | facilityKpiList: keyPerformanceIndicators)">
-                    <a class="nav-link third-nav"
-                        [routerLink]="'pre-visit/'+onSiteVisit.guid+'/kpi-detail/' + kpi.guid"
+                    <a class="nav-link third-nav" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/kpi-detail/' + kpi.guid"
                         [routerLinkActive]="['active']">
                         <span [innerHTML]="kpi.htmlLabel"></span>
                     </a>
@@ -135,13 +255,13 @@
                         </a>
                     </div>
                 </ng-container>
-                <!--TODO: Issue #226-->
+                <!--TODO: Issue #226--
                 <!-- <div class="nav-item">
                     <a class="nav-link" [routerLink]="'data-collection/'+onSiteVisit.guid+'/review-data-collection'"
                         [routerLinkActive]="['active']">
                         Preliminary Results
                     </a>
-                </div> -->
+                </div> --
             </div>
             <div class="p-2 w-100">
                 <hr class="my-1">
@@ -187,7 +307,7 @@
                 <fa-icon [icon]="faFolderOpen"></fa-icon>
                 Return to Portfolio</a>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <div [ngClass]="{'window-overlay': displayStartOverModal}"></div>
