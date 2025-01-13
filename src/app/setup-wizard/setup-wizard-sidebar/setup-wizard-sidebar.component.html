@@ -114,7 +114,33 @@
                         <a class="nav-link"
                             [routerLink]="'pre-visit/'+onSiteVisit.guid+'/energy-equipment/' + energyEquipment.guid"
                             [routerLinkActive]="['active']">
-                            <fa-icon [icon]="faBox" class="pe-1"></fa-icon>
+                            <fa-icon [icon]="faCube" class="pe-1"></fa-icon>
+                            {{energyEquipment.equipmentName}}
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link" (click)="toggleEndUseInventoryOpen()">
+                        <fa-icon
+                            [icon]="facility.sidebarEndUseInventoryOpen ? faChevronDown : faChevronRight"></fa-icon>
+                        End Use Inventory
+                    </a>
+                </div>
+                <div class="sidebar-section" *ngIf="facility.sidebarEndUseInventoryOpen">
+                    <div class="nav-item">
+                        <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/end-uses'"
+                            [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                            <fa-icon [icon]="faList"></fa-icon>
+                            View Inventory
+                        </a>
+                    </div>
+                    <div class="nav-item"
+                        *ngFor="let energyEquipment of (facility.guid | processEquipmentList:'facility':processEquipments)">
+                        <a class="nav-link"
+                            [routerLink]="'pre-visit/'+onSiteVisit.guid+'/end-uses/' + energyEquipment.guid"
+                            [routerLinkActive]="['active']">
+                            <fa-icon [icon]="faSplotch" class="pe-1"></fa-icon>
                             {{energyEquipment.equipmentName}}
                         </a>
                     </div>

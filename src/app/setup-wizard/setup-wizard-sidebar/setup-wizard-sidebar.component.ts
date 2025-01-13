@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { IconDefinition, faChevronDown, faChevronUp, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faBox } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronDown, faChevronUp, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from '../setup-wizard.service';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -17,6 +17,8 @@ import { IdbContact } from 'src/app/models/contact';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
+import { IdbProcessEquipment } from 'src/app/models/processEquipment';
+import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 
 @Component({
   selector: 'app-setup-wizard-sidebar',
@@ -41,7 +43,8 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   faMagnifyingGlassPlus: IconDefinition = faMagnifyingGlassPlus;
   faBullseye: IconDefinition = faBullseye;
   faList: IconDefinition = faList;
-  faBox: IconDefinition = faBox;
+  faCube: IconDefinition = faCube;
+  faSplotch: IconDefinition = faSplotch;
 
   displayStartOverModal: boolean;
 
@@ -74,6 +77,9 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
 
   energyEquipmentsSub: Subscription;
   energyEquipments: Array<IdbEnergyEquipment>;
+
+  processEquipments: Array<IdbProcessEquipment>;
+  processEquipmentSub: Subscription;
   constructor(private router: Router, private setupWizardService: SetupWizardService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
@@ -81,7 +87,8 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private companyIdbService: CompanyIdbService,
     private contactIdbService: ContactIdbService,
-    private energyEquipmentIdbService: EnergyEquipmentIdbService
+    private energyEquipmentIdbService: EnergyEquipmentIdbService,
+    private processEquipmentIdbService: ProcessEquipmentIdbService
   ) {
 
   }
@@ -125,10 +132,12 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
       this.contacts = contacts;
     });
 
-
     this.energyEquipmentsSub = this.energyEquipmentIdbService.energyEquipments.subscribe(energyEquipments => {
       this.energyEquipments = energyEquipments;
     });
+    this.processEquipmentSub = this.processEquipmentIdbService.processEquipments.subscribe(equipments => {
+      this.processEquipments = equipments;
+    })
   }
 
   ngOnDestroy() {
@@ -141,6 +150,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.companySub.unsubscribe();
     this.contactsSub.unsubscribe();
     this.energyEquipmentsSub.unsubscribe();
+    this.processEquipmentSub.unsubscribe();
   }
 
   setDisplaySidebar() {
@@ -233,6 +243,13 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   }
   async toggleSystemInventoryOpen() {
     this.facility.sidebarSystemInventoryOpen = !this.facility.sidebarSystemInventoryOpen;
+    await firstValueFrom(this.facilityIdbService.updateWithObservable(this.facility));
+    await this.facilityIdbService.setFacilities();
+    this.facilityIdbService.selectedFacility.next(this.facility);
+  }
+
+  async toggleEndUseInventoryOpen(){
+    this.facility.sidebarEndUseInventoryOpen = !this.facility.sidebarEndUseInventoryOpen;
     await firstValueFrom(this.facilityIdbService.updateWithObservable(this.facility));
     await this.facilityIdbService.setFacilities();
     this.facilityIdbService.selectedFacility.next(this.facility);

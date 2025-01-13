@@ -32,7 +32,6 @@ import { VisitReportComponent } from './data-evaluation/visit-report/visit-repor
 import { ReportsModule } from '../shared/reports/reports.module';
 import { AssessmentEvaluationComponent } from './data-evaluation/assessment-evaluation/assessment-evaluation.component';
 import { OnSiteAssessmentResultsComponent } from './data-collection/on-site-assessment/on-site-assessment-results/on-site-assessment-results.component';
-import { FacilityEnergyEquipmentSetupComponent } from './pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component';
 import { PrimaryKpiBadgeModule } from "../shared/primary-kpi-badge/primary-kpi-badge.module";
 import { SetupWizardHelpPanelModule } from './setup-wizard-help-panel/setup-wizard-help-panel.module';
 import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-tooltip.module';
@@ -48,6 +47,8 @@ import { ManageCompanyContactsComponent } from './pre-visit/company-contacts/man
 import { CompanyContactDetailsFormComponent } from './pre-visit/company-contacts/company-contact-details-form/company-contact-details-form.component';
 import { ManageEnergyEquipmentComponent } from './pre-visit/facility-energy-equipment/manage-energy-equipment/manage-energy-equipment.component';
 import { FacilityEnergyEquipmentFormComponent } from './pre-visit/facility-energy-equipment/facility-energy-equipment-form/facility-energy-equipment-form.component';
+import { ManageProcessEquipmentComponent } from './pre-visit/facility-process-equipment/manage-process-equipment/manage-process-equipment.component';
+import { FacilityProcessEquipmentFormComponent } from './pre-visit/facility-process-equipment/facility-process-equipment-form/facility-process-equipment-form.component';
 
 @NgModule({
   declarations: [
@@ -77,13 +78,14 @@ import { FacilityEnergyEquipmentFormComponent } from './pre-visit/facility-energ
     VisitReportComponent,
     AssessmentEvaluationComponent,
     OnSiteAssessmentResultsComponent,
-    FacilityEnergyEquipmentSetupComponent,
     AssessmentEnergyOpportunitiesFormComponent,
     SystemInventorySummaryComponent,
     ManageCompanyContactsComponent,
     CompanyContactDetailsFormComponent,
     ManageEnergyEquipmentComponent,
-    FacilityEnergyEquipmentFormComponent
+    FacilityEnergyEquipmentFormComponent,
+    ManageProcessEquipmentComponent,
+    FacilityProcessEquipmentFormComponent
   ],
   imports: [
     CommonModule,

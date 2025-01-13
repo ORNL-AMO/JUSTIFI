@@ -1,32 +1,32 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faBox, faChevronLeft, faChevronRight, faCube, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faBox, faChevronLeft, faChevronRight, faSplotch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Observable, of, Subscription } from 'rxjs';
-import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
-import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
+import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
+import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Component({
-  selector: 'app-facility-energy-equipment-form',
-  templateUrl: './facility-energy-equipment-form.component.html',
-  styleUrl: './facility-energy-equipment-form.component.css'
+  selector: 'app-facility-process-equipment-form',
+  templateUrl: './facility-process-equipment-form.component.html',
+  styleUrl: './facility-process-equipment-form.component.css'
 })
-export class FacilityEnergyEquipmentFormComponent {
+export class FacilityProcessEquipmentFormComponent {
 
-  faCube: IconDefinition = faCube;
   faChevronLeft: IconDefinition = faChevronLeft;
   faChevronRight: IconDefinition = faChevronRight;
+  faSplotch: IconDefinition = faSplotch;
 
   equipmentGuid: string;
-  energyEquipments: Array<IdbEnergyEquipment>;
+  processEquipments: Array<IdbProcessEquipment>;
   equipmentsSub: Subscription;
-  equipment: IdbEnergyEquipment;
+  equipment: IdbProcessEquipment;
   routeGuardWarningModal: boolean = false;
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private energyEquipmentIdbService: EnergyEquipmentIdbService
+    private processEquipmentIdbService: ProcessEquipmentIdbService
   ) {
 
   }
@@ -36,8 +36,8 @@ export class FacilityEnergyEquipmentFormComponent {
       this.equipmentGuid = params['id'];
       this.setEquipment();
     });
-    this.equipmentsSub = this.energyEquipmentIdbService.energyEquipments.subscribe(energyEquipments => {
-      this.energyEquipments = energyEquipments;
+    this.equipmentsSub = this.processEquipmentIdbService.processEquipments.subscribe(processEquipments => {
+      this.processEquipments = processEquipments;
       this.setEquipment();
     });
   }
@@ -47,11 +47,11 @@ export class FacilityEnergyEquipmentFormComponent {
   }
 
   setEquipment() {
-    if (this.energyEquipments) {
-      this.equipment = this.energyEquipments.find(eq => { return eq.guid == this.equipmentGuid });
+    if (this.processEquipments) {
+      this.equipment = this.processEquipments.find(eq => { return eq.guid == this.equipmentGuid });
       if (!this.equipment) {
         let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-        this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/energy-equipment')
+        this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/end-uses')
       }
     }
   }

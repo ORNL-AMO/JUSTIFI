@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="processEquipment">
     <div class="col-12">
         <form>
             <div class="row">
@@ -6,6 +6,9 @@
                 <div class="col-sm-7">
                     <input name="equipmentName" type="text" class="form-control"
                         [(ngModel)]="processEquipment.equipmentName" id="equipmentName" (input)="saveChanges()">
+                    <div class="alert alert-danger p-1" *ngIf="!processEquipment.equipmentName">
+                        End use name required.
+                    </div>
                 </div>
             </div>
 

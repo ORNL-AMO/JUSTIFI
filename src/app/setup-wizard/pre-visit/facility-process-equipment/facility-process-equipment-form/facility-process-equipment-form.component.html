@@ -3,11 +3,11 @@
         <div class="col-10 pt-4 pb-4">
             <div class="form-paper shadow">
                 <h5>
-                    <fa-icon [icon]="faUser"></fa-icon>
-                    {{contact | contactNameDisplay}}
+                    <fa-icon [icon]="faSplotch"></fa-icon>
+                    {{equipment?.equipmentName}}
                 </h5>
                 <hr>
-                <app-company-contacts-form [contactGuid]="undefined"></app-company-contacts-form>
+                <app-process-equipment-form [processEquipmentGuid]="undefined"></app-process-equipment-form>
             </div>
         </div>
     </div>
@@ -18,13 +18,12 @@
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             Go Back
         </button>
-        <button class="btn nav-btn btn-sm" (click)="next()">
-            Facility Details
+        <button class="btn nav-btn btn-sm" (click)="goToNext()">
+            End Use Inventory
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>
 </nav>
-
 <div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
 <div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
     <div class="popup-body">

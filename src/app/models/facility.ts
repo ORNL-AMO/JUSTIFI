@@ -12,7 +12,8 @@ export interface IdbFacility extends IdbEntry {
     cost: number,
     sidebarOpen: boolean,
     sidebarKPIsOpen: boolean,
-    sidebarSystemInventoryOpen: boolean
+    sidebarSystemInventoryOpen: boolean,
+    sidebarEndUseInventoryOpen: boolean
 }
 
 export function getNewIdbFacility(userId: string, companyId: string): IdbFacility {
@@ -29,6 +30,7 @@ export function getNewIdbFacility(userId: string, companyId: string): IdbFacilit
         cost: 0,
         sidebarOpen: true,
         sidebarKPIsOpen: false,
-        sidebarSystemInventoryOpen: false
+        sidebarSystemInventoryOpen: false,
+        sidebarEndUseInventoryOpen: false
     }
 }

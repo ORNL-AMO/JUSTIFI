@@ -4,7 +4,6 @@ import { PreVisitComponent } from "../setup-wizard/pre-visit/pre-visit.component
 import { CompanySetupComponent } from "../setup-wizard/pre-visit/company-setup/company-setup.component";
 import { CanDeactivateGuard } from "../guards/can-deactivate.guard";
 import { FacilitySetupComponent } from "../setup-wizard/pre-visit/facility-setup/facility-setup.component";
-import { FacilityEnergyEquipmentSetupComponent } from "../setup-wizard/pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component";
 import { FacilityProcessEquipmentSetupComponent } from "../setup-wizard/pre-visit/facility-process-equipment-setup/facility-process-equipment-setup.component";
 import { PreAssessmentSetupComponent } from "../setup-wizard/pre-visit/pre-assessment-setup/pre-assessment-setup.component";
 import { ReviewPreVisitSetupComponent } from "../setup-wizard/pre-visit/review-pre-visit-setup/review-pre-visit-setup.component";
@@ -26,6 +25,8 @@ import { ManageCompanyContactsComponent } from "../setup-wizard/pre-visit/compan
 import { CompanyContactDetailsFormComponent } from "../setup-wizard/pre-visit/company-contacts/company-contact-details-form/company-contact-details-form.component";
 import { ManageEnergyEquipmentComponent } from "../setup-wizard/pre-visit/facility-energy-equipment/manage-energy-equipment/manage-energy-equipment.component";
 import { FacilityEnergyEquipmentFormComponent } from "../setup-wizard/pre-visit/facility-energy-equipment/facility-energy-equipment-form/facility-energy-equipment-form.component";
+import { ManageProcessEquipmentComponent } from "../setup-wizard/pre-visit/facility-process-equipment/manage-process-equipment/manage-process-equipment.component";
+import { FacilityProcessEquipmentFormComponent } from "../setup-wizard/pre-visit/facility-process-equipment/facility-process-equipment-form/facility-process-equipment-form.component";
 
 
 export const SetupWizardRoutes: Route = {
@@ -80,7 +81,12 @@ export const SetupWizardRoutes: Route = {
                 },
                 {
                     path: 'end-uses',
-                    component: FacilityProcessEquipmentSetupComponent
+                    component: ManageProcessEquipmentComponent
+                },
+                {
+                    path: 'end-uses/:id',
+                    component: FacilityProcessEquipmentFormComponent,
+                    canDeactivate: [CanDeactivateGuard]
                 },
                 {
                     path: 'pre-assessment',

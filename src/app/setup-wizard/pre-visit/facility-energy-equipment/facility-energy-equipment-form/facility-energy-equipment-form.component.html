@@ -3,7 +3,7 @@
         <div class="col-10 pt-4 pb-4">
             <div class="form-paper shadow">
                 <h5>
-                    <fa-icon [icon]="faBox"></fa-icon>
+                    <fa-icon [icon]="faCube"></fa-icon>
                     {{equipment?.equipmentName}}
                 </h5>
                 <hr>
@@ -12,6 +12,18 @@
         </div>
     </div>
 </div>
+<nav class="setup-wizard-footer navbar shadow">
+    <div class="container-fluid justify-content-between">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+            Go Back
+        </button>
+        <button class="btn nav-btn btn-sm" (click)="goToNext()">
+            End Use Inventory
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
+    </div>
+</nav>
 <div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
 <div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
     <div class="popup-body">

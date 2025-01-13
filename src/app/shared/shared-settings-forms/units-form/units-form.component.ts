@@ -14,7 +14,7 @@ import { UtilityOptions } from '../../constants/utilityTypes';
 import { ConvertValue } from '../../conversions/convertValue';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
-import { FacilityEnergyEquipmentSetupService } from 'src/app/setup-wizard/pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.service';
+import { FacilityEnergyEquipmentSetupService } from 'src/app/setup-wizard/pre-visit/facility-energy-equipment/facility-energy-equipment-setup.service';
 
 @Component({
   selector: 'app-units-form',
@@ -48,7 +48,7 @@ export class UnitsFormComponent implements OnInit, OnDestroy{
     private preAssessmentSetupService: PreAssessmentSetupService,
     private assessmentIdbService: AssessmentIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
-    private facilityEnergyEquipmentSetupService: FacilityEnergyEquipmentSetupService,
+    private facilityEnergyEquipmentSetupService: FacilityEnergyEquipmentSetupService
   ) {
   }
 
