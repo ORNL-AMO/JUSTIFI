@@ -1,0 +1,91 @@
+<div class="setup-wizard-content">
+    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+        <div class="col-10 pt-4 pb-4">
+            <div class="form-paper shadow">
+                <h5>
+                    <fa-icon [icon]="faList"></fa-icon> Pre-Assessments
+                </h5>
+                <hr>
+                <ng-container *ngIf="onSiteVisit">
+                    <div class="d-flex w-100 justify-content-between pb-2">
+                        <div class="p-0">
+                            <div class="row">
+                                <label class="col-sm-6 col-form-label bold" for="visitDate">Assessment Date</label>
+                                <div class="col-sm-6">
+                                    <input name="visitDate" id="visitDate" type="date" class="form-control"
+                                        [(ngModel)]="onSiteVisit.visitDate" name="visitDate" (change)="setVisitDate()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-0">
+                            <button class="btn btn-outline-success btn-sm" (click)="addAssessment()">
+                                <fa-icon [icon]="faPlus"></fa-icon>
+                                Add Pre-Assessment
+                            </button>
+                        </div>
+                    </div>
+                    @let onSiteAssessments = (onSiteVisit.assessmentIds | assessmentListOnSite: assessments);
+                    <ng-template [ngIf]="onSiteAssessments.length != 0" [ngIfElse]="noAssessmentsBlock">
+                        <table class="table table-bordered table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th class="w-25">
+                                        Name
+                                    </th>
+                                    <th class="w-50">
+                                        Assessment Type
+                                    </th>
+                                    <th class="w-25">
+                                        Stakeholders
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let assessment of onSiteAssessments">
+                                    <td>
+                                        <a class="click-link" (click)="goToAssessment(assessment)">
+                                            {{assessment.name}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <app-single-cell-item [strValue]="assessment.assessmentType"></app-single-cell-item>
+                                    </td>
+                                    <td>
+                                        @let associatedContacts = assessment.guid |
+                                        associatedContacts:'assessment': contacts;
+                                        <ng-template [ngIf]="associatedContacts.length > 0"
+                                            [ngIfElse]="noContactsBlock">
+                                            <span *ngFor="let contact of associatedContacts">
+                                                {{contact | contactNameDisplay}} <br>
+                                            </span>
+                                        </ng-template>
+                                        <ng-template #noContactsBlock>
+                                            &mdash;
+                                        </ng-template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ng-template>
+                    <ng-template #noAssessmentsBlock>
+                        <div class="alert alert-info text-center">
+                            No Pre-Assessments added. Click "Add Pre-Assessment" to prepare a pre-assessment.
+                        </div>
+                    </ng-template>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="setup-wizard-footer navbar shadow">
+    <div class="container-fluid justify-content-between">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+            Go Back
+        </button>
+        <button class="btn nav-btn btn-sm" (click)="goToNext()">
+            Review Pre-Visit
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
+    </div>
+</nav>

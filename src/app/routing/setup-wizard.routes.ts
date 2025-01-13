@@ -4,8 +4,6 @@ import { PreVisitComponent } from "../setup-wizard/pre-visit/pre-visit.component
 import { CompanySetupComponent } from "../setup-wizard/pre-visit/company-setup/company-setup.component";
 import { CanDeactivateGuard } from "../guards/can-deactivate.guard";
 import { FacilitySetupComponent } from "../setup-wizard/pre-visit/facility-setup/facility-setup.component";
-import { FacilityProcessEquipmentSetupComponent } from "../setup-wizard/pre-visit/facility-process-equipment-setup/facility-process-equipment-setup.component";
-import { PreAssessmentSetupComponent } from "../setup-wizard/pre-visit/pre-assessment-setup/pre-assessment-setup.component";
 import { ReviewPreVisitSetupComponent } from "../setup-wizard/pre-visit/review-pre-visit-setup/review-pre-visit-setup.component";
 import { DataCollectionComponent } from "../setup-wizard/data-collection/data-collection.component";
 import { DataCollectionManageAssessmentsComponent } from "../setup-wizard/data-collection/data-collection-manage-assessments/data-collection-manage-assessments.component";
@@ -27,6 +25,8 @@ import { ManageEnergyEquipmentComponent } from "../setup-wizard/pre-visit/facili
 import { FacilityEnergyEquipmentFormComponent } from "../setup-wizard/pre-visit/facility-energy-equipment/facility-energy-equipment-form/facility-energy-equipment-form.component";
 import { ManageProcessEquipmentComponent } from "../setup-wizard/pre-visit/facility-process-equipment/manage-process-equipment/manage-process-equipment.component";
 import { FacilityProcessEquipmentFormComponent } from "../setup-wizard/pre-visit/facility-process-equipment/facility-process-equipment-form/facility-process-equipment-form.component";
+import { PreAssessmentFormComponent } from "../setup-wizard/pre-visit/pre-assessments/pre-assessment-form/pre-assessment-form.component";
+import { ManagePreAssessmentsComponent } from "../setup-wizard/pre-visit/pre-assessments/manage-pre-assessments/manage-pre-assessments.component";
 
 
 export const SetupWizardRoutes: Route = {
@@ -90,7 +90,12 @@ export const SetupWizardRoutes: Route = {
                 },
                 {
                     path: 'pre-assessment',
-                    component: PreAssessmentSetupComponent
+                    component: ManagePreAssessmentsComponent
+                },
+                {
+                    path: 'pre-assessment/:id',
+                    component: PreAssessmentFormComponent,
+                    canDeactivate: [CanDeactivateGuard]
                 },
                 {
                     path: 'review-pre-visit',

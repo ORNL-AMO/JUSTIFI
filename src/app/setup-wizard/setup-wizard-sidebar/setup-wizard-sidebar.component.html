@@ -145,6 +145,42 @@
                         </a>
                     </div>
                 </div>
+
+
+
+
+                <div class="nav-item">
+                    <a class="nav-link" (click)="togglePreAssessmentOpen()">
+                        <fa-icon
+                            [icon]="facility.sidebarPreAssessmentOpen ? faChevronDown : faChevronRight"></fa-icon>
+                        Pre-Assessments
+                    </a>
+                </div>
+                <div class="sidebar-section" *ngIf="facility.sidebarPreAssessmentOpen">
+                    <div class="nav-item">
+                        <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/pre-assessment'"
+                            [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                            <fa-icon [icon]="faList"></fa-icon>
+                            View Assessments
+                        </a>
+                    </div>
+                    <div class="nav-item" *ngFor="let assessmentGuid of onSiteVisit.assessmentIds">
+                        <a class="nav-link"
+                            [routerLink]="'pre-visit/'+onSiteVisit.guid+'/pre-assessment/' + assessmentGuid"
+                            [routerLinkActive]="['active']">
+                            <fa-icon [icon]="faScrewdriverWrench" class="pe-1"></fa-icon>
+                            {{assessmentGuid | assessmentNameDisplay: assessments}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-item">
+                <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/review-pre-visit'"
+                    routerLink="review-pre-visit" [routerLinkActive]="['active']">
+                    <fa-icon [icon]="faFileCircleCheck" class="pe-1"></fa-icon>
+                    Review Pre-Visit
+                </a>
             </div>
         </div>
     </ng-container>

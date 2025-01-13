@@ -10,7 +10,6 @@ import { SharedSettingsFormsModule } from '../shared/shared-settings-forms/share
 import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
 import { SetupWizardSidebarComponent } from './setup-wizard-sidebar/setup-wizard-sidebar.component';
 import { FacilityProcessEquipmentSetupComponent } from './pre-visit/facility-process-equipment-setup/facility-process-equipment-setup.component';
-import { PreAssessmentSetupComponent } from './pre-visit/pre-assessment-setup/pre-assessment-setup.component';
 import { ReviewPreVisitSetupComponent } from './pre-visit/review-pre-visit-setup/review-pre-visit-setup.component';
 import { ContactModalModule } from '../shared/contact-modal/contact-modal.module';
 import { ReviewOnSiteComponent } from './data-collection/review-on-site/review-on-site.component';
@@ -49,6 +48,8 @@ import { ManageEnergyEquipmentComponent } from './pre-visit/facility-energy-equi
 import { FacilityEnergyEquipmentFormComponent } from './pre-visit/facility-energy-equipment/facility-energy-equipment-form/facility-energy-equipment-form.component';
 import { ManageProcessEquipmentComponent } from './pre-visit/facility-process-equipment/manage-process-equipment/manage-process-equipment.component';
 import { FacilityProcessEquipmentFormComponent } from './pre-visit/facility-process-equipment/facility-process-equipment-form/facility-process-equipment-form.component';
+import { ManagePreAssessmentsComponent } from './pre-visit/pre-assessments/manage-pre-assessments/manage-pre-assessments.component';
+import { PreAssessmentFormComponent } from './pre-visit/pre-assessments/pre-assessment-form/pre-assessment-form.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,6 @@ import { FacilityProcessEquipmentFormComponent } from './pre-visit/facility-proc
     FacilitySetupComponent,
     SetupWizardSidebarComponent,
     FacilityProcessEquipmentSetupComponent,
-    PreAssessmentSetupComponent,
     ReviewPreVisitSetupComponent,
     ReviewOnSiteComponent,
     CompanyDetailsSummaryComponent,
@@ -85,7 +85,9 @@ import { FacilityProcessEquipmentFormComponent } from './pre-visit/facility-proc
     ManageEnergyEquipmentComponent,
     FacilityEnergyEquipmentFormComponent,
     ManageProcessEquipmentComponent,
-    FacilityProcessEquipmentFormComponent
+    FacilityProcessEquipmentFormComponent,
+    ManagePreAssessmentsComponent,
+    PreAssessmentFormComponent
   ],
   imports: [
     CommonModule,

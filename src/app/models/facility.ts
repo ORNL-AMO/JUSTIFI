@@ -13,7 +13,8 @@ export interface IdbFacility extends IdbEntry {
     sidebarOpen: boolean,
     sidebarKPIsOpen: boolean,
     sidebarSystemInventoryOpen: boolean,
-    sidebarEndUseInventoryOpen: boolean
+    sidebarEndUseInventoryOpen: boolean,
+    sidebarPreAssessmentOpen: boolean
 }
 
 export function getNewIdbFacility(userId: string, companyId: string): IdbFacility {
@@ -31,6 +32,7 @@ export function getNewIdbFacility(userId: string, companyId: string): IdbFacilit
         sidebarOpen: true,
         sidebarKPIsOpen: false,
         sidebarSystemInventoryOpen: false,
-        sidebarEndUseInventoryOpen: false
+        sidebarEndUseInventoryOpen: false,
+        sidebarPreAssessmentOpen: false
     }
 }

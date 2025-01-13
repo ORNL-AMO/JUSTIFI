@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { IconDefinition, faChevronDown, faChevronUp, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronDown, faChevronUp, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube, faFileCircleCheck, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from '../setup-wizard.service';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -45,6 +45,8 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   faList: IconDefinition = faList;
   faCube: IconDefinition = faCube;
   faSplotch: IconDefinition = faSplotch;
+  faFileCircleCheck: IconDefinition = faFileCircleCheck;
+  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
 
   displayStartOverModal: boolean;
 
@@ -250,6 +252,13 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
 
   async toggleEndUseInventoryOpen(){
     this.facility.sidebarEndUseInventoryOpen = !this.facility.sidebarEndUseInventoryOpen;
+    await firstValueFrom(this.facilityIdbService.updateWithObservable(this.facility));
+    await this.facilityIdbService.setFacilities();
+    this.facilityIdbService.selectedFacility.next(this.facility);
+  }
+
+  async togglePreAssessmentOpen(){
+    this.facility.sidebarPreAssessmentOpen = !this.facility.sidebarPreAssessmentOpen;
     await firstValueFrom(this.facilityIdbService.updateWithObservable(this.facility));
     await this.facilityIdbService.setFacilities();
     this.facilityIdbService.selectedFacility.next(this.facility);

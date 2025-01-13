@@ -6,7 +6,6 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 import { IconDefinition, faGear } from '@fortawesome/free-solid-svg-icons';
 import { SharedSettingsFormsService } from '../shared-settings-forms.service';
-import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessment-setup/pre-assessment-setup.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
@@ -15,6 +14,7 @@ import { ConvertValue } from '../../conversions/convertValue';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { FacilityEnergyEquipmentSetupService } from 'src/app/setup-wizard/pre-visit/facility-energy-equipment/facility-energy-equipment-setup.service';
+import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessments/pre-assessment-setup.service';
 
 @Component({
   selector: 'app-units-form',
