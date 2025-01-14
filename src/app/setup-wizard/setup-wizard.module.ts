@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedSettingsFormsModule } from '../shared/shared-settings-forms/shared-settings-forms.module';
 import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
 import { SetupWizardSidebarComponent } from './setup-wizard-sidebar/setup-wizard-sidebar.component';
-import { FacilityProcessEquipmentSetupComponent } from './pre-visit/facility-process-equipment-setup/facility-process-equipment-setup.component';
 import { ReviewPreVisitSetupComponent } from './pre-visit/review-pre-visit-setup/review-pre-visit-setup.component';
 import { ContactModalModule } from '../shared/contact-modal/contact-modal.module';
 import { ReviewOnSiteComponent } from './data-collection/review-on-site/review-on-site.component';
@@ -58,7 +57,6 @@ import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
     CompanySetupComponent,
     FacilitySetupComponent,
     SetupWizardSidebarComponent,
-    FacilityProcessEquipmentSetupComponent,
     ReviewPreVisitSetupComponent,
     ReviewOnSiteComponent,
     CompanyDetailsSummaryComponent,

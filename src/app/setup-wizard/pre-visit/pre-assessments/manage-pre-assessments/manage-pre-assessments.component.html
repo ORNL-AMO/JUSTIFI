@@ -84,7 +84,12 @@
             Go Back
         </button>
         <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            Review Pre-Visit
+            <ng-template [ngIf]="onSiteVisit.assessmentIds.length != 0" [ngIfElse]="reviewVisitBlock">
+                Pre-Assessment Details
+            </ng-template>
+            <ng-template #reviewVisitBlock>
+                Review Pre-Visit
+            </ng-template>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

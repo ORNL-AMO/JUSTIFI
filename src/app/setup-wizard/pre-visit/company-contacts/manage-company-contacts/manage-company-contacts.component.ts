@@ -19,7 +19,7 @@ import { CompanyContactsFormService } from 'src/app/shared/shared-company-forms/
   styleUrl: './manage-company-contacts.component.css'
 })
 export class ManageCompanyContactsComponent {
-  allContacts: Array<IdbContact>;
+  companyContacts: Array<IdbContact>;
   contactsSub: Subscription;
   routeGuardWarningModal: boolean = false;
 
@@ -48,7 +48,7 @@ export class ManageCompanyContactsComponent {
     });
 
     this.contactsSub = this.contactIdbService.contacts.subscribe(_contacts => {
-      this.allContacts = _contacts;
+      this.companyContacts = _contacts.filter(c => { return c.companyId == this.selectedCompany.guid });
     });
     this.onSiteVisitSub = this.onSiteVisitIdbService.selectedVisit.subscribe(visit => {
       this.onSiteVisit = visit;
@@ -69,8 +69,12 @@ export class ManageCompanyContactsComponent {
     this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/company-setup');
   }
 
-  goToKPIs() {
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-setup');
+  next() {
+    if (this.companyContacts.length == 0) {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-setup');
+    } else {
+      this.goToContact(this.companyContacts[0]);
+    }
   }
 
 
@@ -81,7 +85,7 @@ export class ManageCompanyContactsComponent {
     this.goToContact(newContact);
   }
 
-  goToContact(contact: IdbContact){
+  goToContact(contact: IdbContact) {
     this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/company-contacts/' + contact.guid)
   }
 }

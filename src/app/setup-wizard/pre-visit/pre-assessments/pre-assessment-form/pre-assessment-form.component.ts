@@ -25,6 +25,10 @@ export class PreAssessmentFormComponent {
   assessment: IdbAssessment;
   routeGuardWarningModal: boolean = false;
   displayDeleteModal: boolean = false;
+  assessmentIndex: number;
+
+  onSiteVisitSub: Subscription;
+  onSiteVisit: IdbOnSiteVisit;
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
@@ -35,6 +39,9 @@ export class PreAssessmentFormComponent {
   }
 
   ngOnInit() {
+    this.onSiteVisitSub = this.onSiteVisitIdbService.selectedVisit.subscribe(val => {
+      this.onSiteVisit = val;
+    })
     this.activatedRoute.params.subscribe(params => {
       this.assessmentGuid = params['id'];
       this.setAssessment();
@@ -47,14 +54,15 @@ export class PreAssessmentFormComponent {
 
   ngOnDestroy() {
     this.assessmentsSub.unsubscribe();
+    this.onSiteVisitSub.unsubscribe();
   }
 
   setAssessment() {
     if (this.assessments) {
+      this.assessmentIndex = this.onSiteVisit.assessmentIds.findIndex(id => { return id == this.assessmentGuid });
       this.assessment = this.assessments.find(eq => { return eq.guid == this.assessmentGuid });
       if (!this.assessment) {
-        let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-        this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/pre-assessment')
+        this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-pre-assessment')
       } else {
         this.assessmentIdbService.selectedAssessment.next(this.assessment);
       }
@@ -62,11 +70,27 @@ export class PreAssessmentFormComponent {
   }
 
   goToNext() {
-    //TODO: implement next
+    this.assessmentIndex++;
+    if (this.onSiteVisit.assessmentIds[this.assessmentIndex]) {
+      this.goToPreAssessment(this.onSiteVisit.assessmentIds[this.assessmentIndex]);
+    } else {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/review-pre-visit')
+    }
   }
 
   goBack() {
     //TODO: Implement back
+    if (this.assessmentIndex == 0) {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-pre-assessment')
+    } else {
+      this.assessmentIndex--;
+      this.goToPreAssessment(this.onSiteVisit.assessmentIds[this.assessmentIndex])
+    }
+
+  }
+
+  goToPreAssessment(guid: string) {
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-pre-assessment/' + guid)
 
   }
 

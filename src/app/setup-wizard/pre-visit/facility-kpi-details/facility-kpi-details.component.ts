@@ -9,6 +9,8 @@ import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicat
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { IdbCompany } from 'src/app/models/company';
+import { IdbFacility } from 'src/app/models/facility';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 
 @Component({
   selector: 'app-facility-kpi-details',
@@ -23,23 +25,23 @@ export class FacilityKpiDetailsComponent {
   keyPerformanceIndicator: IdbKeyPerformanceIndicator;
   faBullseye: IconDefinition = faBullseye;
 
-  companySub: Subscription;
-  company: IdbCompany;
+  facilitySub: Subscription;
+  facility: IdbFacility;
 
   indicatorIndex: number;
-  numCompanyKpis: number;
+  numFacilityKpis: number;
 
   constructor(private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private activatedRoute: ActivatedRoute,
-    private companyIdbService: CompanyIdbService,
+    private facilityIdbService: FacilityIdbService,
   ) {
   }
 
   ngOnInit() {
-    this.companySub = this.companyIdbService.selectedCompany.subscribe(_company => {
-      this.company = _company;
+    this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
+      this.facility = facility;
     });
 
     this.activatedRoute.params.subscribe(params => {
@@ -50,7 +52,7 @@ export class FacilityKpiDetailsComponent {
   }
 
   ngOnDestroy() {
-    this.companySub.unsubscribe();
+    this.facilitySub.unsubscribe();
   }
 
   goBack() {
@@ -58,42 +60,46 @@ export class FacilityKpiDetailsComponent {
       let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
       this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/kpi-select');
     } else {
-      let companyKpis: Array<IdbKeyPerformanceIndicator> = this.getCompanyKPIs();
-      this.goToKPI(companyKpis[this.indicatorIndex - 1].guid);
+      let facilityKpis: Array<IdbKeyPerformanceIndicator> = this.getFacilityKPIs();
+      this.goToKPI(facilityKpis[this.indicatorIndex - 1].guid);
     }
   }
 
-  goNext() {
-    if (this.numCompanyKpis - 1 == this.indicatorIndex) {
-      this.goToFacility();
+  async goNext() {
+    if (this.numFacilityKpis - 1 == this.indicatorIndex) {
+      await this.goToSystemInventory();
     } else {
-      let companyKpis: Array<IdbKeyPerformanceIndicator> = this.getCompanyKPIs();
-      this.goToKPI(companyKpis[this.indicatorIndex + 1].guid);
+      let facilityKpis: Array<IdbKeyPerformanceIndicator> = this.getFacilityKPIs();
+      this.goToKPI(facilityKpis[this.indicatorIndex + 1].guid);
     }
   }
 
   goToKPI(kpiGUID: string) {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/kpi-detail/' + kpiGUID);
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-kpi-detail/' + kpiGUID);
   }
 
-  goToFacility() {
+  async goToSystemInventory() {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-setup');
+    if (!this.facility.sidebarSystemInventoryOpen) {
+      this.facility.sidebarSystemInventoryOpen = true;
+      await this.facilityIdbService.asyncUpdate(this.facility);
+    }
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-energy-equipment');
   }
 
   setIndexValues() {
-    let companyKpis: Array<IdbKeyPerformanceIndicator> = this.getCompanyKPIs();
-    this.numCompanyKpis = companyKpis.length;
-    this.indicatorIndex = companyKpis.findIndex(kpi => {
+    let facilityKpis: Array<IdbKeyPerformanceIndicator> = this.getFacilityKPIs();
+    this.numFacilityKpis = facilityKpis.length;
+    this.indicatorIndex = facilityKpis.findIndex(kpi => {
       return kpi.guid == this.keyPerformanceIndicator.guid
     });
   }
 
-  getCompanyKPIs(): Array<IdbKeyPerformanceIndicator> {
+  getFacilityKPIs(): Array<IdbKeyPerformanceIndicator> {
     let kpis: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
     return kpis.filter(kpi => {
-      return kpi.companyId == this.company.guid
+      return kpi.facilityId == this.facility.guid
     });
   }
 }

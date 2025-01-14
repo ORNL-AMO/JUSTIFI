@@ -45,9 +45,9 @@ export class FacilityKpiSelectComponent {
 
   goToKpiDetails() {
     if (this.facilityKpis.length > 0) {
-      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/kpi-detail/' + this.facilityKpis[0].guid);
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-kpi-detail/' + this.facilityKpis[0].guid);
     } else {
-      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/energy-equipment');
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-energy-equipment');
     }
   }
 }

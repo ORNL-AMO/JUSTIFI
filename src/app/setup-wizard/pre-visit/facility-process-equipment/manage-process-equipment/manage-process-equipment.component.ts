@@ -74,15 +74,27 @@ export class ManageProcessEquipmentComponent {
     this.goToProcessEquipment(newEquipment);
   }
 
-  goBack() {
-    //TODO: navigation
+  async goBack() {
+    if (!this.facility.sidebarSystemInventoryOpen) {
+      this.facility.sidebarSystemInventoryOpen = true;
+      await this.facilityIdbService.asyncUpdate(this.facility);
+    }
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-energy-equipment')
   }
 
-  goToNext() {
-    //TODO: navigation
+  async goToNext() {
+    if (this.processEquipments.length != 0) {
+      this.goToProcessEquipment(this.processEquipments[0])
+    } else {
+      if (!this.facility.sidebarPreAssessmentOpen) {
+        this.facility.sidebarPreAssessmentOpen = true;
+        await this.facilityIdbService.asyncUpdate(this.facility);
+      }
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-pre-assessment')
+    }
   }
 
   goToProcessEquipment(equipment: IdbProcessEquipment) {
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/end-uses/' + equipment.guid);
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-end-uses/' + equipment.guid);
   }
 }

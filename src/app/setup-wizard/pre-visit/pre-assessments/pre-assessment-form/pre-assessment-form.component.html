@@ -28,7 +28,13 @@
             Go Back
         </button>
         <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            End Use Inventory
+            <ng-template [ngIf]="assessmentIndex < (this.onSiteVisit.assessmentIds.length -1)"
+                [ngIfElse]="reviewPrevisitBlock">
+                Next Pre-Assessment
+            </ng-template>
+            <ng-template #reviewPrevisitBlock>
+                Review Pre-visit
+            </ng-template>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

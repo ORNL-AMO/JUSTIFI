@@ -73,7 +73,12 @@
             Go Back
         </button>
         <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            End Use Inventory
+            <ng-template [ngIf]="processEquipments.length != 0" [ngIfElse]="preAssessmentBlock">
+                Equipment Details
+            </ng-template>
+            <ng-template #preAssessmentBlock>
+                Pre-Assessments
+            </ng-template>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

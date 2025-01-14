@@ -19,7 +19,12 @@
             Go Back
         </button>
         <button class="btn nav-btn btn-sm" (click)="next()">
-            Facility Details
+            <ng-template [ngIf]="contactIndex < (companyContacts.length-1)" [ngIfElse]="facilityDetailsBlock">
+                Next Stakeholder
+            </ng-template>
+            <ng-template #facilityDetailsBlock>
+                Facility Details
+            </ng-template>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

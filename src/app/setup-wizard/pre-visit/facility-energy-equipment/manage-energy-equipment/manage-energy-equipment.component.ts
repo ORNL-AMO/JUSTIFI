@@ -6,10 +6,12 @@ import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbContact } from 'src/app/models/contact';
 import { getNewIdbEnergyEquipment, IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { IdbFacility } from 'src/app/models/facility';
+import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
@@ -42,7 +44,8 @@ export class ManageEnergyEquipmentComponent {
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private contactIdbService: ContactIdbService,
-    private companyIdbService: CompanyIdbService
+    private companyIdbService: CompanyIdbService,
+    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService
   ) {
   }
 
@@ -80,15 +83,32 @@ export class ManageEnergyEquipmentComponent {
     this.goToEnergyEquipment(newEnergyEquipment);
   }
 
-  goBack() {
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/kpi-select');
+  async goBack() {
+    let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.facility.guid);
+    if (!this.facility.sidebarKPIsOpen) {
+      this.facility.sidebarKPIsOpen = true;
+      await this.facilityIdbService.asyncUpdate(this.facility);
+    }
+    if (keyPerformanceIndicators.length == 0) {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-kpi-select');
+    } else {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-kpi-detail/' + keyPerformanceIndicators[keyPerformanceIndicators.length - 1].guid);
+    }
   }
 
-  goToNext() {
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/end-uses');
+  async goToNext() {
+    if (this.energyEquipments.length == 0) {
+      if (!this.facility.sidebarEndUseInventoryOpen) {
+        this.facility.sidebarEndUseInventoryOpen = true;
+        await this.facilityIdbService.asyncUpdate(this.facility);
+      }
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-end-uses');
+    } else {
+      this.goToEnergyEquipment(this.energyEquipments[0]);
+    }
   }
 
   goToEnergyEquipment(equipment: IdbEnergyEquipment) {
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/energy-equipment/' + equipment.guid);
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-energy-equipment/' + equipment.guid);
   }
 }

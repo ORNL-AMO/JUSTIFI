@@ -6,10 +6,12 @@ import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service'
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { getNewIdbAssessment, IdbAssessment } from 'src/app/models/assessment';
 import { IdbContact } from 'src/app/models/contact';
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
+import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Component({
   selector: 'app-manage-pre-assessments',
@@ -39,7 +41,8 @@ export class ManagePreAssessmentsComponent {
     private facilityIdbService: FacilityIdbService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private contactIdbService: ContactIdbService,
-    private assessmentIdbService: AssessmentIdbService
+    private assessmentIdbService: AssessmentIdbService,
+    private processEquipmentIdbService: ProcessEquipmentIdbService
   ) {
   }
 
@@ -76,16 +79,29 @@ export class ManagePreAssessmentsComponent {
     this.goToAssessment(assessment);
   }
 
-  goBack() {
-    //TODO: navigation
+  async goBack() {
+    if (!this.facility.sidebarEndUseInventoryOpen) {
+      this.facility.sidebarEndUseInventoryOpen = true;
+      await this.facilityIdbService.asyncUpdate(this.facility);
+    }
+    let processEquipment: Array<IdbProcessEquipment> = this.processEquipmentIdbService.getFacilityProcessEquipment(this.facility.guid);
+    if (processEquipment.length > 0) {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-end-uses/' + processEquipment[processEquipment.length - 1].guid);
+    } else {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-end-uses');
+    }
   }
 
   goToNext() {
-    //TODO: navigation
+    if (this.onSiteVisit.assessmentIds.length != 0) {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-pre-assessment/' + this.onSiteVisit.assessmentIds[0]);
+    } else {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/review-pre-visit')
+    }
   }
 
   goToAssessment(assessment: IdbAssessment) {
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/pre-assessment/' + assessment.guid);
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-pre-assessment/' + assessment.guid);
   }
 
   async setVisitDate() {

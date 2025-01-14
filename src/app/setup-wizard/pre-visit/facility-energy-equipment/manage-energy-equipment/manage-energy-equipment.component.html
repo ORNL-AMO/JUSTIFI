@@ -88,7 +88,12 @@
             Go Back
         </button>
         <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            End Use Inventory
+            <ng-template [ngIf]="energyEquipments.length > 0" [ngIfElse]="endUseBlock">
+                Equipment Details
+            </ng-template>
+            <ng-template #endUseBlock>
+                End Use Inventory
+            </ng-template>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

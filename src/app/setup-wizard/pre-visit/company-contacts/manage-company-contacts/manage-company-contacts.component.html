@@ -14,8 +14,7 @@
                         </button>
                     </div>
                 </div>
-                @let contacts = (selectedCompany.guid | associatedContacts:'company':allContacts);
-                <ng-template [ngIf]="contacts.length > 0" [ngIfElse]="noContactsBlock">
+                <ng-template [ngIf]="companyContacts.length > 0" [ngIfElse]="noContactsBlock">
                     <table class="table table-bordered table-hover table-sm">
                         <thead>
                             <tr>
@@ -34,7 +33,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let contact of contacts">
+                            <tr *ngFor="let contact of companyContacts">
                                 <td>
                                     <a class="click-link" (click)="goToContact(contact)">
                                         {{contact | contactNameDisplay}}
@@ -70,8 +69,14 @@
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             Go Back
         </button>
-        <button class="btn nav-btn btn-sm" (click)="goToKPIs()" [disabled]="hasInvalidContacts">
-            Facility Details
+
+        <button class="btn nav-btn btn-sm" (click)="next()">
+            <ng-template [ngIf]="companyContacts.length != 0" [ngIfElse]="facilityDetailsBlock">
+                Stakeholder Details
+            </ng-template>
+            <ng-template #facilityDetailsBlock>
+                Facility Details
+            </ng-template>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>
