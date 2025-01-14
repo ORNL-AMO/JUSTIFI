@@ -104,6 +104,23 @@ a.nav-link, .btn.btn-dark, .link-section-heading{
 /*NEW*/
 .sidebar-section {
     border-left: groove 1px black;
-    padding-left: .5rem;
-    margin-left: 1rem;
+    padding-left: .25rem;
+    margin-left: .5rem;
+    margin-bottom: .25rem;
 }
+
+hr.spacer{
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    border: dashed 1px black;
+}
+
+.sidebar-section.first-section{
+    margin-right: .5rem;
+}
+
+/* a.nav-link:not(.active) .ng-fa-icon:not(.toggle){
+    color: var(--portfolio-nav-color);
+} */

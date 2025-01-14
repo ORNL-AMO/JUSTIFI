@@ -38,6 +38,7 @@ import { KpmLabelPipe } from './kpm-label.pipe';
 import { NebTotalSavingsPipe } from './neb-total-savings.pipe';
 import { FacilityKpiListPipe } from './facility-kpi-list.pipe';
 import { ProcessEquipmentListPipe } from './process-equipment-list.pipe';
+import { AssessmentItemPipe } from './assessment-item.pipe';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { ProcessEquipmentListPipe } from './process-equipment-list.pipe';
     KpmLabelPipe,
     NebTotalSavingsPipe,
     FacilityKpiListPipe,
-    ProcessEquipmentListPipe
+    ProcessEquipmentListPipe,
+    AssessmentItemPipe
   ],
   imports: [
     CommonModule
@@ -121,7 +123,8 @@ import { ProcessEquipmentListPipe } from './process-equipment-list.pipe';
     KpmLabelPipe,
     NebTotalSavingsPipe,
     FacilityKpiListPipe,
-    ProcessEquipmentListPipe
+    ProcessEquipmentListPipe,
+    AssessmentItemPipe
   ]
 })
 export class HelperPipesModule { }
