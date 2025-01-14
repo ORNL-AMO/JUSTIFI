@@ -121,6 +121,6 @@ hr.spacer{
     margin-right: .5rem;
 }
 
-/* a.nav-link:not(.active) .ng-fa-icon:not(.toggle){
-    color: var(--portfolio-nav-color);
-} */
+.nav-link.section-active{
+    background-color: #8DABBE;
+}

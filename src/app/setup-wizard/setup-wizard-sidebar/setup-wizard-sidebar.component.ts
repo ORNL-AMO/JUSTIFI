@@ -87,6 +87,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
 
   processEquipments: Array<IdbProcessEquipment>;
   processEquipmentSub: Subscription;
+  routerUrl: string;
   constructor(private router: Router, private setupWizardService: SetupWizardService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
@@ -161,6 +162,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   }
 
   setDisplaySidebar() {
+    this.routerUrl = this.router.url;
     this.checkCollapsePrevisit();
     this.checkCollapseDataCollection();
     this.checkCollapseDataEvaluation();

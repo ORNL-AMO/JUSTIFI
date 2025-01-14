@@ -48,11 +48,11 @@ export const SetupWizardRoutes: Route = {
                     canDeactivate: [CanDeactivateGuard]
                 },
                 {
-                    path: 'kpi-select',
+                    path: 'facility-kpi-select',
                     component: FacilityKpiSelectComponent
                 },
                 {
-                    path: 'kpi-detail/:id',
+                    path: 'facility-kpi-detail/:id',
                     component: FacilityKpiDetailsComponent
                 },
                 {
@@ -71,29 +71,29 @@ export const SetupWizardRoutes: Route = {
                     canDeactivate: [CanDeactivateGuard]
                 },
                 {
-                    path: 'energy-equipment',
+                    path: 'facility-energy-equipment',
                     component: ManageEnergyEquipmentComponent
                 },
                 {
-                    path: 'energy-equipment/:id',
+                    path: 'facility-energy-equipment/:id',
                     component: FacilityEnergyEquipmentFormComponent,
                     canDeactivate: [CanDeactivateGuard]
                 },
                 {
-                    path: 'end-uses',
+                    path: 'facility-end-uses',
                     component: ManageProcessEquipmentComponent
                 },
                 {
-                    path: 'end-uses/:id',
+                    path: 'facility-end-uses/:id',
                     component: FacilityProcessEquipmentFormComponent,
                     canDeactivate: [CanDeactivateGuard]
                 },
                 {
-                    path: 'pre-assessment',
+                    path: 'facility-pre-assessment',
                     component: ManagePreAssessmentsComponent
                 },
                 {
-                    path: 'pre-assessment/:id',
+                    path: 'facility-pre-assessment/:id',
                     component: PreAssessmentFormComponent,
                     canDeactivate: [CanDeactivateGuard]
                 },
