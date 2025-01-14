@@ -64,6 +64,8 @@ export class SetupWizardComponent {
   stopResizing($event: MouseEvent) {
     this.isDraggingSidebar = false;
     this.isDraggingHelp = false;
+    this.setupWizardService.setHelpWidth(this.helpWidth);
+    this.setupWizardService.setSidebarWidth(this.sidebarWidth);
   }
 
   drag(event: MouseEvent) {
