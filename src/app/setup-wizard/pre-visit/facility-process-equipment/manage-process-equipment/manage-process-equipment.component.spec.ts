@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ManageProcessEquipmentComponent } from './manage-process-equipment.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { TableEntriesModule } from 'src/app/shared/table-entries/table-entries.module';
 
 describe('ManageProcessEquipmentComponent', () => {
   let component: ManageProcessEquipmentComponent;
@@ -8,7 +12,9 @@ describe('ManageProcessEquipmentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ManageProcessEquipmentComponent]
+      imports: [FontAwesomeModule, HelperPipesModule, TableEntriesModule],
+      declarations: [ManageProcessEquipmentComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 
