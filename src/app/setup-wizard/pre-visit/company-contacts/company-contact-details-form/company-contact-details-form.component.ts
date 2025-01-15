@@ -61,6 +61,7 @@ export class CompanyContactDetailsFormComponent {
 
   ngOnDestroy() {
     this.contactsSub.unsubscribe();
+    this.companySub.unsubscribe();
   }
 
   setContact() {

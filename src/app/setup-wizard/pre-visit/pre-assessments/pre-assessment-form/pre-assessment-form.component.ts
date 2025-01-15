@@ -88,7 +88,6 @@ export class PreAssessmentFormComponent {
   }
 
   goBack() {
-    //TODO: Implement back
     if (this.assessmentIndex == 0) {
       this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-pre-assessment')
     } else {
