@@ -76,6 +76,7 @@ export class FacilityProcessEquipmentFormComponent {
     } else {
       if (!this.facility.sidebarPreAssessmentOpen) {
         this.facility.sidebarPreAssessmentOpen = true;
+        this.facility.sidebarEndUseInventoryOpen = false;
         await this.facilityIdbService.updateWithObservable(this.facility);
       }
       let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
@@ -85,12 +86,8 @@ export class FacilityProcessEquipmentFormComponent {
 
   async goBack() {
     if (this.equipmentIndex == 0) {
-      if(!this.facility.sidebarSystemInventoryOpen){
-        this.facility.sidebarSystemInventoryOpen = true;
-        await this.facilityIdbService.asyncUpdate(this.facility);
-      }
       let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-energy-equipment');
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-end-uses');
     } else {
       this.equipmentIndex--;
       this.goToProcessEquipment(this.processEquipments[this.equipmentIndex])

@@ -82,9 +82,16 @@ export class CompanyContactDetailsFormComponent {
     if (this.companyContacts[this.contactIndex]) {
       this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-contacts/' + this.companyContacts[this.contactIndex].guid);
     } else {
+      let selectedCompany: IdbCompany = this.companyIdbService.selectedCompany.getValue();
+      if (selectedCompany.sidebarContactsOpen) {
+        selectedCompany.sidebarContactsOpen = false;
+        await this.companyIdbService.asyncUpdate(selectedCompany);
+      }
       let facility: IdbFacility = this.facilityIdbService.getByGUID(onSiteVisit.facilityId);
-      facility.sidebarOpen = true;
-      await this.facilityIdbService.asyncUpdate(facility);
+      if (!facility.sidebarOpen) {
+        facility.sidebarOpen = true;
+        await this.facilityIdbService.asyncUpdate(facility);
+      }
       this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-setup');
     }
   }

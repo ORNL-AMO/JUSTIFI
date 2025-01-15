@@ -87,6 +87,7 @@ export class ManageEnergyEquipmentComponent {
     let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.facility.guid);
     if (!this.facility.sidebarKPIsOpen) {
       this.facility.sidebarKPIsOpen = true;
+      this.facility.sidebarSystemInventoryOpen = false;
       await this.facilityIdbService.asyncUpdate(this.facility);
     }
     if (keyPerformanceIndicators.length == 0) {
@@ -100,6 +101,7 @@ export class ManageEnergyEquipmentComponent {
     if (this.energyEquipments.length == 0) {
       if (!this.facility.sidebarEndUseInventoryOpen) {
         this.facility.sidebarEndUseInventoryOpen = true;
+        this.facility.sidebarSystemInventoryOpen = false;
         await this.facilityIdbService.asyncUpdate(this.facility);
       }
       this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-end-uses');

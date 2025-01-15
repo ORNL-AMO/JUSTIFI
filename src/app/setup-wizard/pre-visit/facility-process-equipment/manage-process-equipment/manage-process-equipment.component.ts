@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { faChevronLeft, faChevronRight, faList, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
+import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbContact } from 'src/app/models/contact';
+import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { getNewIdbProcessEquipment, IdbProcessEquipment } from 'src/app/models/processEquipment';
@@ -38,7 +40,8 @@ export class ManageProcessEquipmentComponent {
     private facilityIdbService: FacilityIdbService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private contactIdbService: ContactIdbService,
-    private processEquipmentIdbService: ProcessEquipmentIdbService
+    private processEquipmentIdbService: ProcessEquipmentIdbService,
+    private energyEquipmentIdbService: EnergyEquipmentIdbService
   ) {
   }
 
@@ -77,9 +80,15 @@ export class ManageProcessEquipmentComponent {
   async goBack() {
     if (!this.facility.sidebarSystemInventoryOpen) {
       this.facility.sidebarSystemInventoryOpen = true;
+      this.facility.sidebarEndUseInventoryOpen = false;
       await this.facilityIdbService.asyncUpdate(this.facility);
     }
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-energy-equipment')
+    let energyEquipments: Array<IdbEnergyEquipment> = this.energyEquipmentIdbService.getByOtherGuid(this.facility.guid, 'facility');
+    if (energyEquipments.length == 0) {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-energy-equipment')
+    } else {
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-energy-equipment/' + energyEquipments[energyEquipments.length - 1].guid)
+    }
   }
 
   async goToNext() {
@@ -88,6 +97,7 @@ export class ManageProcessEquipmentComponent {
     } else {
       if (!this.facility.sidebarPreAssessmentOpen) {
         this.facility.sidebarPreAssessmentOpen = true;
+        this.facility.sidebarEndUseInventoryOpen = false;
         await this.facilityIdbService.asyncUpdate(this.facility);
       }
       this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-pre-assessment')

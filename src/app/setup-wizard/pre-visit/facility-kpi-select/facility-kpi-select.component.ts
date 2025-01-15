@@ -6,6 +6,8 @@ import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.serv
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { Subscription } from 'rxjs';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
   selector: 'app-facility-kpi-select',
@@ -23,6 +25,7 @@ export class FacilityKpiSelectComponent {
   constructor(private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
+    private facilityIdbService: FacilityIdbService
   ) { }
 
   ngOnInit() {
@@ -38,16 +41,26 @@ export class FacilityKpiSelectComponent {
     this.facilityKpiSub.unsubscribe();
   }
 
-  goBack() {
+  async goBack() {
+    await this.collapseKpi();
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
     this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-setup');
   }
 
-  goToKpiDetails() {
+  async goToKpiDetails() {
     if (this.facilityKpis.length > 0) {
       this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-kpi-detail/' + this.facilityKpis[0].guid);
     } else {
+      await this.collapseKpi();
       this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-energy-equipment');
+    }
+  }
+
+  async collapseKpi() {
+    let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+    if (facility.sidebarKPIsOpen) {
+      facility.sidebarKPIsOpen = false;
+      await this.facilityIdbService.asyncUpdate(facility);
     }
   }
 }

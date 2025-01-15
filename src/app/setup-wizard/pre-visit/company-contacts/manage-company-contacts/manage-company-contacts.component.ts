@@ -65,12 +65,21 @@ export class ManageCompanyContactsComponent {
     this.onSiteVisitSub.unsubscribe();
   }
 
-  goBack() {
+  async goBack() {
+    if(this.selectedCompany.sidebarContactsOpen){
+      this.selectedCompany.sidebarContactsOpen = false;
+      await this.companyIdbService.asyncUpdate(this.selectedCompany);
+    }
     this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/company-setup');
   }
 
-  next() {
+   async next() {
     if (this.companyContacts.length == 0) {
+      if(this.selectedCompany.sidebarContactsOpen){
+        this.selectedCompany.sidebarContactsOpen = false;
+        this.selectedCompany.sidebarOpen = false;
+        await this.companyIdbService.asyncUpdate(this.selectedCompany);
+      }
       this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-setup');
     } else {
       this.goToContact(this.companyContacts[0]);

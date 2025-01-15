@@ -82,6 +82,7 @@ export class ManagePreAssessmentsComponent {
   async goBack() {
     if (!this.facility.sidebarEndUseInventoryOpen) {
       this.facility.sidebarEndUseInventoryOpen = true;
+      this.facility.sidebarPreAssessmentOpen = false;
       await this.facilityIdbService.asyncUpdate(this.facility);
     }
     let processEquipment: Array<IdbProcessEquipment> = this.processEquipmentIdbService.getFacilityProcessEquipment(this.facility.guid);
@@ -92,10 +93,14 @@ export class ManagePreAssessmentsComponent {
     }
   }
 
-  goToNext() {
+  async goToNext() {
     if (this.onSiteVisit.assessmentIds.length != 0) {
       this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-pre-assessment/' + this.onSiteVisit.assessmentIds[0]);
     } else {
+      if (this.facility.sidebarPreAssessmentOpen) {
+        this.facility.sidebarPreAssessmentOpen = false;
+        await this.facilityIdbService.asyncUpdate(this.facility);
+      }
       this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/review-pre-visit')
     }
   }

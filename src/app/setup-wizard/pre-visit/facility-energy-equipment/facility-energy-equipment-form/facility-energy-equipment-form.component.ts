@@ -76,6 +76,7 @@ export class FacilityEnergyEquipmentFormComponent {
     } else {
       if (!this.facility.sidebarEndUseInventoryOpen) {
         this.facility.sidebarEndUseInventoryOpen = true;
+        this.facility.sidebarSystemInventoryOpen = false;
         await this.facilityIdbService.asyncUpdate(this.facility);
       }
       let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();

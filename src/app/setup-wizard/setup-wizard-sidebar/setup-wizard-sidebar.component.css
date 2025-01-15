@@ -76,7 +76,7 @@ a.nav-link, .btn.btn-dark, .link-section-heading{
 }
 
 .nav-link:hover {
-    background-color: #8DABBE;
+    background-color: #9ec5de;
     color: black;
 }
 
@@ -122,5 +122,5 @@ hr.spacer{
 }
 
 .nav-link.section-active{
-    background-color: #8DABBE;
+    background-color: #9ec5de;
 }

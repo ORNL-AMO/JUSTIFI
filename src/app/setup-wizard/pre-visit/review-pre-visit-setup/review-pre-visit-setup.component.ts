@@ -5,6 +5,8 @@ import { IdbCompany } from 'src/app/models/company';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
   selector: 'app-review-pre-visit-setup',
@@ -20,7 +22,8 @@ export class ReviewPreVisitSetupComponent {
 
   company: IdbCompany;
   constructor(private router: Router, private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private companyIdbService: CompanyIdbService
+    private companyIdbService: CompanyIdbService,
+    private facilityIdbService: FacilityIdbService
   ) {
   }
 
@@ -31,22 +34,28 @@ export class ReviewPreVisitSetupComponent {
     }
   }
 
-  goBack() {
+  async goBack() {
+    let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+    if(!facility.sidebarOpen){
+      facility.sidebarOpen = true;
+      facility.sidebarPreAssessmentOpen = true;
+      await this.facilityIdbService.asyncUpdate(facility);
+    }
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/pre-assessment');
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-pre-assessment');
   }
 
-  continue() {
+  async continue() {
+    let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+    if(facility.sidebarOpen){
+      facility.sidebarOpen = false;
+      await this.facilityIdbService.asyncUpdate(facility);
+    }
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
     if(onSiteVisit.assessmentIds.length > 0){
       this.router.navigateByUrl('setup-wizard/data-collection/' + onSiteVisit.guid + '/assessment/' + onSiteVisit.assessmentIds[0]);
     }else{
       this.router.navigateByUrl('setup-wizard/data-collection/' + onSiteVisit.guid + '/manage-assessments');
     }
-  }
-
-  goToFacility() {
-    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('facility/' + onSiteVisit.facilityId);
   }
 }

@@ -4,8 +4,10 @@ import { faChevronLeft, faChevronRight, faScrewdriverWrench, faTrash, IconDefini
 import { Observable, of, Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
+import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
@@ -33,7 +35,8 @@ export class PreAssessmentFormComponent {
     private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
-    private dbChangesService: DbChangesService
+    private dbChangesService: DbChangesService,
+    private facilityIdbService: FacilityIdbService
   ) {
 
   }
@@ -69,11 +72,17 @@ export class PreAssessmentFormComponent {
     }
   }
 
-  goToNext() {
+  async goToNext() {
     this.assessmentIndex++;
     if (this.onSiteVisit.assessmentIds[this.assessmentIndex]) {
       this.goToPreAssessment(this.onSiteVisit.assessmentIds[this.assessmentIndex]);
     } else {
+      let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+      if (facility.sidebarPreAssessmentOpen) {
+        facility.sidebarPreAssessmentOpen = false;
+        facility.sidebarOpen = false;
+        await this.facilityIdbService.asyncUpdate(facility);
+      }
       this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/review-pre-visit')
     }
   }

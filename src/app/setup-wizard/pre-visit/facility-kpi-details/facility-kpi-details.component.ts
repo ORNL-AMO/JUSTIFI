@@ -55,7 +55,7 @@ export class FacilityKpiDetailsComponent {
     this.facilitySub.unsubscribe();
   }
 
-  goBack() {
+  async goBack() {
     if (this.indicatorIndex == 0) {
       let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
       this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/kpi-select');
@@ -83,6 +83,7 @@ export class FacilityKpiDetailsComponent {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
     if (!this.facility.sidebarSystemInventoryOpen) {
       this.facility.sidebarSystemInventoryOpen = true;
+      this.facility.sidebarKPIsOpen = false;
       await this.facilityIdbService.asyncUpdate(this.facility);
     }
     this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-energy-equipment');
