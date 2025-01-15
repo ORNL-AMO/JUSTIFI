@@ -1,7 +1,7 @@
-<div class="setup-wizard-content">
+<div [ngClass]="{'setup-wizard-content': !print}">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
         <div class="col-10 pt-4 pb-4">
-            <div class="form-paper shadow">
+            <div [ngClass]="{'form-paper shadow': !print}">
                 <h5>
                     <fa-icon [icon]="faCircleCheck"></fa-icon> Review Pre-Visit
                 </h5>
@@ -10,10 +10,10 @@
                     <app-company-details-summary></app-company-details-summary>
                     <hr>
                     <app-team-details-summary></app-team-details-summary>
-                    <hr>
-                    <app-company-kpis-summary></app-company-kpis-summary>
                     <hr class="solid-hr">
                     <app-facility-details-summary></app-facility-details-summary>
+                    <hr>
+                    <app-company-kpis-summary></app-company-kpis-summary>
                     <hr>
                     <app-system-inventory-summary></app-system-inventory-summary>
                     <hr>
@@ -25,13 +25,13 @@
         </div>
     </div>
 </div>
-<nav class="setup-wizard-footer navbar shadow">
+<nav class="setup-wizard-footer navbar shadow" *ngIf="!print">
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             Go Back
         </button>
-        <button class="btn btn-secondary btn-sm" [disabled]="true">
+        <button class="btn btn-secondary btn-sm" (click)="togglePrint()">
             <fa-icon [icon]="faFilePdf"></fa-icon>
             Generate PDF
         </button>

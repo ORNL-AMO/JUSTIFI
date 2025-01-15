@@ -1,81 +1,83 @@
-<h5 class="bold w-100 text-center">
-    <fa-icon [icon]="faChartBar" class="me-2"></fa-icon> Key Performance Indicators
-</h5>
+<div class="print-break-avoid">
+    <h5 class="bold w-100 text-center">
+        <fa-icon [icon]="faChartBar" class="me-2"></fa-icon> Key Performance Indicators
+    </h5>
 
-<table class="table table-bordered savings-table table-hover table-sm">
-    <thead>
-        <tr>
-            <th>
-                <!-- KPM -->
-            </th>
-            <th>
-                Units
-            </th>
-            <th>
-                Cost<br> Per Unit
-            </th>
-            <th>
-                Baseline<br> Amount
-            </th>
-            <th>
-                Baseline Cost<br> (&dollar;/yr)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let kpi of keyPerformanceIndicators">
+    <table class="table table-bordered savings-table table-hover table-sm">
+        <thead>
             <tr>
-                <th colspan="5">
-                    <span [innerHTML]="kpi.htmlLabel"></span>
+                <th>
+                    <!-- KPM -->
+                </th>
+                <th>
+                    Units
+                </th>
+                <th>
+                    Cost<br> Per Unit
+                </th>
+                <th>
+                    Baseline<br> Amount
+                </th>
+                <th>
+                    Baseline Cost<br> (&dollar;/yr)
                 </th>
             </tr>
-            <tr *ngFor="let keyPerformanceMetric of kpi.performanceMetrics">
-                <td class="ps-3">
-                    <span [innerHTML]="keyPerformanceMetric.htmlLabel"></span>
-                </td>
-                <ng-template [ngIf]="keyPerformanceMetric.isQuantitative" [ngIfElse]="qualitativeBlock">
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let kpi of keyPerformanceIndicators">
+                <tr>
+                    <th colspan="5">
+                        <span [innerHTML]="kpi.htmlLabel"></span>
+                    </th>
+                </tr>
+                <tr *ngFor="let keyPerformanceMetric of kpi.performanceMetrics">
+                    <td class="ps-3">
+                        <span [innerHTML]="keyPerformanceMetric.htmlLabel"></span>
+                    </td>
+                    <ng-template [ngIf]="keyPerformanceMetric.isQuantitative" [ngIfElse]="qualitativeBlock">
 
-                    <td>
-                        <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'costPerUnit'"
-                            [ngIfElse]="unitMdash">
-                            <app-single-cell-item [strValue]="keyPerformanceMetric.totalUnit"
-                                [isCurrency]="false"></app-single-cell-item>
-                        </ng-template>
-                        <ng-template #unitMdash>
-                            &mdash;
-                        </ng-template>
-                    </td>
-                    <td>
-                        <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'costPerUnit'"
-                            [ngIfElse]="costPerMdash">
-                            <app-single-cell-item [numValue]="keyPerformanceMetric.costPerValue"
+                        <td>
+                            <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'costPerUnit'"
+                                [ngIfElse]="unitMdash">
+                                <app-single-cell-item [strValue]="keyPerformanceMetric.totalUnit"
+                                    [isCurrency]="false"></app-single-cell-item>
+                            </ng-template>
+                            <ng-template #unitMdash>
+                                &mdash;
+                            </ng-template>
+                        </td>
+                        <td>
+                            <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'costPerUnit'"
+                                [ngIfElse]="costPerMdash">
+                                <app-single-cell-item [numValue]="keyPerformanceMetric.costPerValue"
+                                    [isCurrency]="true"></app-single-cell-item>
+                            </ng-template>
+                            <ng-template #costPerMdash>
+                                &mdash;
+                            </ng-template>
+                        </td>
+                        <td>
+                            <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'costPerUnit'"
+                                [ngIfElse]="baselineValueMdash">
+                                <app-single-cell-item [numValue]="keyPerformanceMetric.baselineValue"
+                                    [isCurrency]="false"></app-single-cell-item>
+                            </ng-template>
+                            <ng-template #baselineValueMdash>
+                                &mdash;
+                            </ng-template>
+                        </td>
+                        <td>
+                            <app-single-cell-item [numValue]="keyPerformanceMetric.baselineCost"
                                 [isCurrency]="true"></app-single-cell-item>
-                        </ng-template>
-                        <ng-template #costPerMdash>
-                            &mdash;
-                        </ng-template>
-                    </td>
-                    <td>
-                        <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'costPerUnit'"
-                            [ngIfElse]="baselineValueMdash">
-                            <app-single-cell-item [numValue]="keyPerformanceMetric.baselineValue"
-                                [isCurrency]="false"></app-single-cell-item>
-                        </ng-template>
-                        <ng-template #baselineValueMdash>
-                            &mdash;
-                        </ng-template>
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="keyPerformanceMetric.baselineCost"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </td>
-                </ng-template>
-                <ng-template #qualitativeBlock>
-                    <td colspan="4">
-                        Qualitative Metric
-                    </td>
-                </ng-template>
-            </tr>
-        </ng-container>
-    </tbody>
-</table>
+                        </td>
+                    </ng-template>
+                    <ng-template #qualitativeBlock>
+                        <td colspan="4">
+                            Qualitative Metric
+                        </td>
+                    </ng-template>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>

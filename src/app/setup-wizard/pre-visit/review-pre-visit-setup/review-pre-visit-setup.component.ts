@@ -5,6 +5,9 @@ import { IdbCompany } from 'src/app/models/company';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { SetupWizardService } from '../../setup-wizard.service';
+import { Subscription } from 'rxjs';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
   selector: 'app-review-pre-visit-setup',
@@ -19,8 +22,11 @@ export class ReviewPreVisitSetupComponent {
   faFilePdf: IconDefinition = faFilePdf;
 
   company: IdbCompany;
+  print: boolean;
+  printSub: Subscription;
   constructor(private router: Router, private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private companyIdbService: CompanyIdbService
+    private companyIdbService: CompanyIdbService,
+    private sharedDataService: SharedDataService
   ) {
   }
 
@@ -29,6 +35,17 @@ export class ReviewPreVisitSetupComponent {
     if(!this.company){
       this.router.navigateByUrl('/welcome');
     }
+
+    this.printSub = this.sharedDataService.print.subscribe(print => {
+      this.print = print;
+      if (this.print) {
+        this.printReport();
+      }
+    });
+  }
+
+  ngOnDestroy(){
+    this.printSub.unsubscribe();
   }
 
   goBack() {
@@ -48,5 +65,19 @@ export class ReviewPreVisitSetupComponent {
   goToFacility() {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
     this.router.navigateByUrl('facility/' + onSiteVisit.facilityId);
+  }
+
+  togglePrint() {
+    this.sharedDataService.print.next(true);
+  }
+
+  printReport() {
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+      setTimeout(() => {
+        window.print();
+        this.sharedDataService.print.next(false)
+      }, 1000)
+    }, 100)
   }
 }

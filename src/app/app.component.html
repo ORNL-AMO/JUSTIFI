@@ -1,5 +1,5 @@
-<div class="neb-container d-flex flex-column">
-    <app-navbar></app-navbar>
+<div class="d-flex flex-column" [ngClass]="{'neb-container': !print}">
+    <app-navbar class="hide-print"></app-navbar>
     <ng-template [ngIf]="dataInitialized" [ngIfElse]="initializingDataBlock">
         <div class="d-flex w-100">
             <div class="d-flex">
@@ -15,7 +15,9 @@
     <ng-template #initializingDataBlock>
         Initializing data...
     </ng-template>
-    <app-loading></app-loading>
-    <app-setup-wizard-modal></app-setup-wizard-modal>
-    <app-alpha-disclaimer></app-alpha-disclaimer>
+    <ng-container *ngIf="!print">
+        <app-loading></app-loading>
+        <app-setup-wizard-modal></app-setup-wizard-modal>
+        <app-alpha-disclaimer></app-alpha-disclaimer>
+    </ng-container>
 </div>

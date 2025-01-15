@@ -16,6 +16,7 @@ import { ProcessEquipmentIdbService } from './indexed-db/process-equipment-idb.s
 import { KeyPerformanceMetricImpactsIdbService } from './indexed-db/key-performance-metric-impacts-idb.service';
 import { ToastNotificationsService } from './core-components/toast-notifications/toast-notifications.service';
 import { UpdateDbEntriesService } from './indexed-db/update-db-entries.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,8 @@ import { UpdateDbEntriesService } from './indexed-db/update-db-entries.service';
 export class AppComponent {
 
   dataInitialized: boolean = false;
+  print: boolean;
+  printSub: Subscription;
   constructor(private userIdbService: UserIdbService, private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService, private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private router: Router,
@@ -42,6 +45,9 @@ export class AppComponent {
   }
 
   async ngOnInit() {
+    this.printSub = this.sharedDataService.print.subscribe(print => {
+      this.print = print;
+    });
     await this.initializeData();
     this.checkRouter();
     this.toastNotificationService.showWebDisclaimer();

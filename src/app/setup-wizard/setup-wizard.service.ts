@@ -12,6 +12,6 @@ export class SetupWizardService {
   sidebarWidth: number = 200;
   constructor(  ) {
     this.sidebarOpen = new BehaviorSubject<boolean>(true);
-    this.helpPanelOpen = new BehaviorSubject<boolean>(true);
+    this.helpPanelOpen = new BehaviorSubject<boolean>(false);
   }
 }
