@@ -69,10 +69,12 @@ export class DataCollectionManageAssessmentsComponent {
       this.facilityIdbService.getByGUID(this.onSiteVisit.facilityId).unitSettings
     );
     assessment.visitDate = this.onSiteVisit.visitDate;
+    assessment.sidebarOpen = true;
     await firstValueFrom(this.assessmentIdbService.addWithObservable(assessment));
     await this.assessmentIdbService.setAssessments();
     this.onSiteVisit.assessmentIds.push(assessment.guid);
     await this.onSiteVisitIdbService.asyncUpdate(this.onSiteVisit);
+    this.goToAssessment(assessment.guid);
   }
 
 
