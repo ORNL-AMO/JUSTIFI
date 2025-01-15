@@ -11,6 +11,8 @@ import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportuni
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
+import { Subscription } from 'rxjs';
+import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({
   selector: 'app-on-site-visit-report',
@@ -23,11 +25,14 @@ export class OnSiteVisitReportComponent {
 
   onSiteVisitReport: OnSiteVisitReport;
 
+  print: boolean;
+  printSub: Subscription;
   constructor(private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
-    private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService
+    private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
+    private sharedDataService: SharedDataService
   ) {
 
   }
@@ -39,5 +44,12 @@ export class OnSiteVisitReportComponent {
     let companyPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(this.onSiteVisit.companyId);
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
     this.onSiteVisitReport = getOnSiteVisitReport(this.onSiteVisit.assessmentIds, allAssessments, allEnergyOpportunities, allNonEnergyBenefits, companyPerformanceMetrics, keyPerformanceMetricImpacts);
+    this.printSub = this.sharedDataService.print.subscribe(_print => {
+      this.print = _print;
+    })
+  }
+
+  ngOnDestroy() {
+    this.printSub.unsubscribe();
   }
 }

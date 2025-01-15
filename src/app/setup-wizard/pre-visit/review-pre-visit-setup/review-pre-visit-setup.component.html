@@ -1,6 +1,6 @@
-<div [ngClass]="{'setup-wizard-content': !print}">
-    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
+<div [ngClass]="{'setup-wizard-content': !print, 'report print': print}">
+    <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
+        <div [ngClass]="{'col-10 pt-4 pb-4': !print}">
             <div [ngClass]="{'form-paper shadow': !print}">
                 <h5>
                     <fa-icon [icon]="faCircleCheck"></fa-icon> Review Pre-Visit
@@ -31,7 +31,7 @@
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             Go Back
         </button>
-        <button class="btn btn-secondary btn-sm" (click)="togglePrint()">
+        <button class="btn btn-success btn-sm" (click)="togglePrint()">
             <fa-icon [icon]="faFilePdf"></fa-icon>
             Generate PDF
         </button>

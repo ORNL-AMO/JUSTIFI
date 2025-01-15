@@ -1,5 +1,5 @@
-<div class="d-flex w-100 h-100" (mousemove)="drag($event)" (mouseup)="stopResizing($event)" #pageContent
-    (mouseleave)="stopResizing($event)">
+<div (mousemove)="drag($event)" (mouseup)="stopResizing($event)" #pageContent (mouseleave)="stopResizing($event)"
+    [ngClass]="{'d-flex w-100 h-100': !print}">
     <ng-container *ngIf="!print">
         <div class="d-flex" [ngStyle]="{'width.px': sidebarWidth}">
             <div class="w-100">
@@ -15,7 +15,7 @@
             </div>
         </div>
     </ng-container>
-    <div class="main-content" [ngStyle]="{'width.px': (!print ? contentWidth : undefined )}">
+    <div [ngClass]="{'main-content': !print}" [ngStyle]="{'width.px': (!print ? contentWidth : undefined )}">
         <router-outlet></router-outlet>
     </div>
     <ng-container *ngIf="!print">

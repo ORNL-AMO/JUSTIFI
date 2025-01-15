@@ -2,6 +2,10 @@
     height: 100% !important;
 } */
 
+.report.print{
+    width: 725px;
+}
+
 @media print {
 
     .hide-print,

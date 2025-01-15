@@ -1,15 +1,25 @@
-<div class="report">
+<div class="report" [ngClass]="{'print': print}">
     <app-report-details-table *ngIf="!inRollup" [assessment]="assessment"></app-report-details-table>
     <ng-container *ngIf="assessmentReport">
         <hr *ngIf="!inRollup">
-        <app-performance-metrics-table
-            [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-table>
-        <app-performance-metrics-chart
-            [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-chart>
+        <div class="print-break-avoid">
+            <app-performance-metrics-table
+                [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-table>
+        </div>
+        <div class="print-break-avoid">
+            <app-performance-metrics-chart
+                [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-chart>
+        </div>
         <hr>
-        <app-payback-table [assessmentReport]="assessmentReport"></app-payback-table>
+        <div class="print-break-avoid">
+            <app-payback-table [assessmentReport]="assessmentReport"></app-payback-table>
+        </div>
         <hr>
-        <app-assessment-savings-chart [assessmentReport]="assessmentReport"></app-assessment-savings-chart>
-        <app-assessment-savings-table [assessmentReport]="assessmentReport"></app-assessment-savings-table>
+        <div class="print-break-avoid">
+            <app-assessment-savings-chart [assessmentReport]="assessmentReport"></app-assessment-savings-chart>
+        </div>
+        <div class="print-break-avoid">
+            <app-assessment-savings-table [assessmentReport]="assessmentReport"></app-assessment-savings-table>
+        </div>
     </ng-container>
 </div>
