@@ -23,6 +23,7 @@ export class OnSiteAssessmentResultsComponent {
   assessment: IdbAssessment;
 
   assessmentReport: AssessmentReport;
+  nonEnergyBenefits: Array<IdbNonEnergyBenefit>;
   constructor(private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
@@ -36,6 +37,7 @@ export class OnSiteAssessmentResultsComponent {
   ngOnInit() {
     this.assessmentSub = this.assessmentIdbService.selectedAssessment.subscribe(_assessment => {
       this.assessment = _assessment;
+      this.nonEnergyBenefits = this.nonEnergyBenefitIdbService.getAssessmentNonEnergyBenefits(this.assessment.guid, false);
       this.setAssessmentReport();
     });
   }

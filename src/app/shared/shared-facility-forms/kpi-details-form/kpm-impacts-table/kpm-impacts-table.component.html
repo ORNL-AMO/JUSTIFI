@@ -38,7 +38,7 @@
             </td>
             <td>
                 <ng-template [ngIf]="kpmImpact.nebId" [ngIfElse]="noNebBlock">
-                    {{kpmImpact.nebId | nebDisplay: nonEnergyBenefits}}
+                    {{(kpmImpact.nebId | nebDisplay: nonEnergyBenefits).name}}
                 </ng-template>
                 <ng-template #noNebBlock>
                     &mdash;

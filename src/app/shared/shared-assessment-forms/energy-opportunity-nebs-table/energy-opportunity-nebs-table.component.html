@@ -1,10 +1,17 @@
-<h6 class="bold">Energy Opportunity Non-Energy Benefits</h6>
+<!-- <h6 class="bold">Energy Opportunity Non-Energy Benefits</h6>
 <p class="fw-light small">
     The below are Non-Energy Benefits (<fa-icon [icon]="faWeightHanging"></fa-icon>) that
     <span class="bold">are associated with a specific energy efficiency opportunity</span> within this
     assessment.
     To modify these NEBs navigate to the "Energy Efficiency Opportunities" tab.
-</p>
+</p> -->
+<!-- <h6 class="bold">Non-Energy Benefits</h6>
+<p class="fw-light small">
+    The below are Non-Energy Benefits (<fa-icon [icon]="faWeightHanging"></fa-icon>) that
+    <span class="bold">are associated with a specific energy efficiency opportunity</span> within this
+    assessment.
+    To modify these NEBs navigate to the "Energy Efficiency Opportunities" tab.
+</p> -->
 <table class="table table-bordered table-hover table-sm">
     <thead>
         <tr>
@@ -58,9 +65,14 @@
                 </ng-template>
             </td>
             <td>
-                <a class="click-link" (click)="goToEnergyOpportunity(nonEnergyBenefit)">
-                    {{nonEnergyBenefit.energyOpportunityId | energyOpportunityDisplay: energyOpportunities}}
-                </a>
+                <ng-template [ngIf]="nonEnergyBenefit.energyOpportunityId" [ngIfElse]="noOppBlock">
+                    <a class="click-link" (click)="goToEnergyOpportunity(nonEnergyBenefit)">
+                        {{nonEnergyBenefit.energyOpportunityId | energyOpportunityDisplay: energyOpportunities}}
+                    </a>
+                </ng-template>
+                <ng-template #noOppBlock>
+                    &mdash;
+                </ng-template>
             </td>
             <td>
                 <app-single-cell-item [numValue]="nonEnergyBenefit.guid | nebTotalSavings: keyPerformanceMetricImpacts"
