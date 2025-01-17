@@ -32,7 +32,7 @@ export class AssessmentNebsComponent {
 
     this.nonEnergyBenefitsSub = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.subscribe(nonEnergyBenefits => {
       this.nonEnergyBenefits = nonEnergyBenefits.filter(neb => {
-        return neb.assessmentId == this.assessment.guid && neb.energyOpportunityId == undefined;
+        return neb.assessmentId == this.assessment.guid;
       });
     })
   }

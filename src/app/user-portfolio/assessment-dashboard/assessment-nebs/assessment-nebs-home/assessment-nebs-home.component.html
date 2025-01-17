@@ -1,6 +1,6 @@
 <div class="d-flex w-100 justify-content-between">
     <div>
-        <h6 class="pt-2">Assessment Non-Energy Benefits</h6>
+        <h6 class="pt-2">Non-Energy Benefits</h6>
     </div>
     <div>
         <div class="dropdown">
@@ -25,8 +25,7 @@
 </div>
 <hr class="my-2">
 
-<ng-template [ngIf]="assessmentNonEnergyBenefits.length > 0 || energyOppNonEnergyBenefits.length > 0"
-    [ngIfElse]="noNebsBlock">
+<!-- <ng-template [ngIf]="nonEnergyBenefits.length > 0 || energyOppNonEnergyBenefits.length > 0" [ngIfElse]="noNebsBlock">
     <ng-template [ngIf]="assessmentNonEnergyBenefits.length > 0" [ngIfElse]="noAssessmentNebsBlock">
         <p class="fw-light small">
             Use the "<fa-icon [icon]="faPlus"></fa-icon> Add NEB" dropdown to add Non-Energy Benefits
@@ -55,7 +54,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let nonEnergyBenefit of assessmentNonEnergyBenefits">
+                <tr *ngFor="let nonEnergyBenefit of nonEnergyBenefits">
                     <td>
                         <fa-icon [icon]="faWeightHanging"></fa-icon>
                         {{nonEnergyBenefit.name}}
@@ -111,7 +110,13 @@
 
 
 
+</ng-template> -->
+
+<ng-template [ngIf]="nonEnergyBenefits.length > 0" [ngIfElse]="noNebsBlock">
+    <app-energy-opportunity-nebs-table [nonEnergyBenefits]="nonEnergyBenefits"
+        [inDashboard]="true"></app-energy-opportunity-nebs-table>
 </ng-template>
+
 
 <ng-template #noNebsBlock>
     <div class="alert alert-info p-2 text-center">

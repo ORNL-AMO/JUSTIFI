@@ -37,7 +37,9 @@
         <tr *ngFor="let nonEnergyBenefit of nonEnergyBenefits">
             <td>
                 <fa-icon [icon]="faWeightHanging"></fa-icon>
-                {{nonEnergyBenefit.name}}
+                <a class="click-link" (click)="goToNeb(nonEnergyBenefit)">
+                    {{nonEnergyBenefit.name}}
+                </a>
             </td>
             <td>
                 @let kpmImpacts = nonEnergyBenefit.guid | associatedPerformanceMetricImpacts:

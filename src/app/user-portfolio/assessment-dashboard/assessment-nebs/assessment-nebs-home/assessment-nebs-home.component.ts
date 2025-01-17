@@ -31,8 +31,9 @@ export class AssessmentNebsHomeComponent {
   assessment: IdbAssessment;
   assessmentSub: Subscription;
 
-  energyOppNonEnergyBenefits: Array<IdbNonEnergyBenefit>;
-  assessmentNonEnergyBenefits: Array<IdbNonEnergyBenefit>;
+  // energyOppNonEnergyBenefits: Array<IdbNonEnergyBenefit>;
+  // assessmentNonEnergyBenefits: Array<IdbNonEnergyBenefit>;
+  nonEnergyBenefits: Array<IdbNonEnergyBenefit>;
 
   keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>;
   keyPerformanceMetricImpactsSub: Subscription;
@@ -65,12 +66,15 @@ export class AssessmentNebsHomeComponent {
     });
 
     this.nonEnergyBenefitsSub = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.subscribe(nebs => {
-      this.assessmentNonEnergyBenefits = nebs.filter(neb => {
-        return neb.assessmentId == this.assessment.guid && neb.energyOpportunityId == undefined;
+      this.nonEnergyBenefits = nebs.filter(neb => {
+        return neb.assessmentId == this.assessment.guid;
       });
-      this.energyOppNonEnergyBenefits = nebs.filter(neb => {
-        return neb.assessmentId == this.assessment.guid && neb.energyOpportunityId;
-      });
+      // this.assessmentNonEnergyBenefits = nebs.filter(neb => {
+      //   return neb.assessmentId == this.assessment.guid;
+      // });
+      // this.energyOppNonEnergyBenefits = nebs.filter(neb => {
+      //   return neb.assessmentId == this.assessment.guid && neb.energyOpportunityId;
+      // });
     });
 
     this.keyPerformanceMetricImpactsSub = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.subscribe(kpmImpacts => {

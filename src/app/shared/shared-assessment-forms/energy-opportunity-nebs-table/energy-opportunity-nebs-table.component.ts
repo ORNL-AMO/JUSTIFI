@@ -90,4 +90,14 @@ export class EnergyOpportunityNebsTableComponent {
       this.router.navigateByUrl('setup-wizard/data-collection/' + onSiteVisit.guid + '/assessment/' + nonEnergyBenefit.assessmentId + '/energy-opportunities')
     }
   }
+
+  goToNeb(nonEnergyBenefit: IdbNonEnergyBenefit) {
+    if (this.router.url.includes('portfolio')) {
+      this.router.navigateByUrl('/portfolio/assessment/' + nonEnergyBenefit.assessmentId + '/nebs/' + nonEnergyBenefit.guid)
+    } else if (this.router.url.includes('setup-wizard')) {
+      let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(nonEnergyBenefit.assessmentId);
+      this.localStorageDataService.setNebAccordionGuid(nonEnergyBenefit.guid);
+      this.router.navigateByUrl('setup-wizard/data-collection/' + onSiteVisit.guid + '/assessment/' + nonEnergyBenefit.assessmentId + '/nebs')
+    }
+  }
 }
