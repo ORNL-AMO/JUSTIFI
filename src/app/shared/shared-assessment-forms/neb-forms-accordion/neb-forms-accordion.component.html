@@ -2,7 +2,7 @@
     <div class="accordion" [id]="'nebFormsAccordion'">
         <div class="accordion-item" *ngFor="let nebGuid of nebGuids; let index = index; let last = last;">
             <h2 class="accordion-header">
-                @let neb = (nebGuid |nebDisplay:nonEnergyBenefits);
+                @let neb = (nebGuid |nebItem:nonEnergyBenefits);
                 <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+nebGuid" aria-expanded="true"
                     [attr.aria-controls]="nebGuid" (click)="toggleBS(nebGuid)"
                     [ngClass]="{'collapsed': accordionGuid != nebGuid}">

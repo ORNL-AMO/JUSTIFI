@@ -104,6 +104,7 @@ export class NebSetupFormComponent {
   ngOnDestroy() {
     this.contactsSub.unsubscribe();
     this.kpmImpactsSub.unsubscribe();
+    this.energyOpportunitiesSub.unsubscribe();
   }
 
   ngAfterViewInit() {

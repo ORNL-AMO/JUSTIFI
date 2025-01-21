@@ -2,10 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 
 @Pipe({
-  name: 'nebDisplay',
+  name: 'nebItem',
   pure: false
 })
-export class NebDisplayPipe implements PipeTransform {
+export class NebItemPipe implements PipeTransform {
 
   transform(guid: string, nonEnergyBenefits: Array<IdbNonEnergyBenefit>): IdbNonEnergyBenefit {
     let neb: IdbNonEnergyBenefit = nonEnergyBenefits.find(neb =>{

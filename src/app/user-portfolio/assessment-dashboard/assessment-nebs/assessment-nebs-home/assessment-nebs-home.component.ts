@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { faPlus, faSearchPlus, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Subscription } from 'rxjs';
-import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
@@ -31,8 +29,6 @@ export class AssessmentNebsHomeComponent {
   assessment: IdbAssessment;
   assessmentSub: Subscription;
 
-  // energyOppNonEnergyBenefits: Array<IdbNonEnergyBenefit>;
-  // assessmentNonEnergyBenefits: Array<IdbNonEnergyBenefit>;
   nonEnergyBenefits: Array<IdbNonEnergyBenefit>;
 
   keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>;
@@ -50,8 +46,6 @@ export class AssessmentNebsHomeComponent {
   energyOpportunitiesSub: Subscription;
   constructor(private assessmentIdbService: AssessmentIdbService,
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
-    private router: Router,
-    private toastNotificationsService: ToastNotificationsService,
     private sharedDataService: SharedDataService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private contactIdbService: ContactIdbService,
@@ -69,12 +63,6 @@ export class AssessmentNebsHomeComponent {
       this.nonEnergyBenefits = nebs.filter(neb => {
         return neb.assessmentId == this.assessment.guid;
       });
-      // this.assessmentNonEnergyBenefits = nebs.filter(neb => {
-      //   return neb.assessmentId == this.assessment.guid;
-      // });
-      // this.energyOppNonEnergyBenefits = nebs.filter(neb => {
-      //   return neb.assessmentId == this.assessment.guid && neb.energyOpportunityId;
-      // });
     });
 
     this.keyPerformanceMetricImpactsSub = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.subscribe(kpmImpacts => {

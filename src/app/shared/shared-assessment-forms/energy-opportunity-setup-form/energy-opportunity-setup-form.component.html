@@ -111,40 +111,6 @@
                 id="opportunityNotes"></textarea>
         </div>
     </div>
-
-    <!--NEBs-->
-    <!-- <h6>
-        <div class="d-flex w-100 justify-content-between">
-            <div class="mt-auto bold">
-                Non-Energy Benefits
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-outline-neb btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false" (click)="toggleAddNebDropdown()">
-                    <fa-icon [icon]="faPlus"></fa-icon> Add NEB
-                </button>
-                <ul class="dropdown-menu" [ngClass]="{'show': showAddNebDropdown}">
-                    <li>
-                        <a class="dropdown-item" (click)="addNEB()">
-                            <fa-icon [icon]="faPlus"></fa-icon> Add Custom NEB
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" (click)="showSuggestedNEBs()">
-                            <fa-icon [icon]="faSearchPlus"></fa-icon> Search NEBs Database
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </h6>
-    <p class="fw-light small">
-        Use the "<fa-icon [icon]="faPlus"></fa-icon> Add NEB" dropdown to add Non-Energy Benefits 
-            (<fa-icon [icon]="faWeightHanging"></fa-icon>) that are <span class="bold">directly
-            associated with this energy efficiency opportunity</span>.
-    </p>
-
-    <app-neb-forms-accordion [energyOpportunity]="energyOpportunity"></app-neb-forms-accordion> -->
 </form>
 
 <div [ngClass]="{'window-overlay': displayDeleteModal}"></div>

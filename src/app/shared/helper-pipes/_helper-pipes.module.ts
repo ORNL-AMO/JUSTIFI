@@ -12,7 +12,7 @@ import { EquipmentTypeIconPipe } from './equipment-type-icon.pipe';
 import { IncludesContactPipe } from './includes-contact.pipe';
 import { AssessmentNameDisplayPipe } from './assessment-name-display.pipe';
 import { ProcessEquipmentDisplayPipe } from './process-equipment-display.pipe';
-import { NebDisplayPipe } from './neb-display.pipe';
+import { NebItemPipe } from './neb-item.pipe';
 import { OnSiteVisitListPipe } from './on-site-visit-list.pipe';
 import { AssessmentListOnSitePipe } from './assessment-list-on-site.pipe';
 import { NebListPipe } from './neb-list.pipe';
@@ -55,7 +55,7 @@ import { AssessmentItemPipe } from './assessment-item.pipe';
     IncludesContactPipe,
     AssessmentNameDisplayPipe,
     ProcessEquipmentDisplayPipe,
-    NebDisplayPipe,
+    NebItemPipe,
     OnSiteVisitListPipe,
     AssessmentListOnSitePipe,
     NebListPipe,
@@ -99,7 +99,7 @@ import { AssessmentItemPipe } from './assessment-item.pipe';
     IncludesContactPipe,
     AssessmentNameDisplayPipe,
     ProcessEquipmentDisplayPipe,
-    NebDisplayPipe,
+    NebItemPipe,
     OnSiteVisitListPipe,
     AssessmentListOnSitePipe,
     NebListPipe,
