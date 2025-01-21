@@ -125,7 +125,7 @@
 <div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
 <div class="popup" [ngClass]="{'open': displayDeleteModal }">
     <div class="popup-header">Remove
-        <span [innerHTML]="keyPerformanceMetric.htmlLabel"></span> Impact
+        <span [innerHTML]="keyPerformanceMetric?.htmlLabel"></span> Impact
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
     </div>
     <div class="popup-body">

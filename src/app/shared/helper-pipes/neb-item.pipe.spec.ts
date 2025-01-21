@@ -1,8 +1,8 @@
-import { NebDisplayPipe } from './neb-display.pipe';
+import { NebItemPipe } from './neb-item.pipe';
 
 describe('NebDisplayPipe', () => {
   it('create an instance', () => {
-    const pipe = new NebDisplayPipe();
+    const pipe = new NebItemPipe();
     expect(pipe).toBeTruthy();
   });
 });

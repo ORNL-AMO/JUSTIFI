@@ -88,7 +88,8 @@ let stubNeb: IdbNonEnergyBenefit = getNewIdbNonEnergyBenefit('123', '123', '123'
 stubNeb.guid = '123';
 let nonEnergyBenefitsIdbService: Partial<NonEnergyBenefitsIdbService> = {
     nonEnergyBenefits: new BehaviorSubject<Array<IdbNonEnergyBenefit>>([stubNeb]),
-    getEnergyOpportunityNonEnergyBenefits: () => { return [stubNeb] }
+    getEnergyOpportunityNonEnergyBenefits: () => { return [stubNeb] },
+    getByGuid: () => { return stubNeb }
 };
 
 let stubOnSiteVisit: IdbOnSiteVisit = getNewIdbOnSiteVisit('123', '123', '123');

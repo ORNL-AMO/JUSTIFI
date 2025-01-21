@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IconDefinition, faChevronDown, faChevronRight, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronDown, faChevronRight, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUpRightFromSquare, faUser, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
@@ -14,6 +14,11 @@ import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMet
 import * as _ from 'lodash';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
+import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
+import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
+import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
+import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
+import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 @Component({
   selector: 'app-neb-setup-form',
   templateUrl: './neb-setup-form.component.html',
@@ -37,6 +42,7 @@ export class NebSetupFormComponent {
   faChevronRight: IconDefinition = faChevronRight;
   faChevronDown: IconDefinition = faChevronDown;
   faPlus: IconDefinition = faPlus;
+  faUpRightFromSquare: IconDefinition = faUpRightFromSquare;
 
   displayDeleteModal: boolean = false;
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
@@ -53,6 +59,9 @@ export class NebSetupFormComponent {
   performanceMetricImpactGuids: Array<string> = [];
   keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>
   kpmImpactsSub: Subscription;
+
+  energyOpportunities: Array<IdbEnergyOpportunity>;
+  energyOpportunitiesSub: Subscription;
   constructor(
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private dbChangesService: DbChangesService,
@@ -61,7 +70,10 @@ export class NebSetupFormComponent {
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private toastNotificationService: ToastNotificationsService) {
+    private toastNotificationService: ToastNotificationsService,
+    private energyOpportunityIdbService: EnergyOpportunityIdbService,
+    private localStorageDataService: LocalStorageDataService,
+    private onSiteVisitIdbService: OnSiteVisitIdbService) {
   }
 
   ngOnInit() {
@@ -83,11 +95,16 @@ export class NebSetupFormComponent {
       this.keyPerformanceMetricImpacts = _keyPerformanceMetricImpacts;
       this.setMetricGuids();
     });
+
+    this.energyOpportunitiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(opps => {
+      this.energyOpportunities = opps.filter(opp => { return opp.assessmentId == this.nonEnergyBenefit.assessmentId });
+    });
   }
 
   ngOnDestroy() {
     this.contactsSub.unsubscribe();
     this.kpmImpactsSub.unsubscribe();
+    this.energyOpportunitiesSub.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -147,8 +164,6 @@ export class NebSetupFormComponent {
     } else {
       this.performanceMetricImpactGuids = [];
     }
-
-
   }
 
   openContactModal(viewContact: IdbContact) {
@@ -166,10 +181,19 @@ export class NebSetupFormComponent {
   closeAddMetricModal() {
     this.displayAddPerformanceMetricModal = false;
     this.performanceMetricToAdd = undefined;
-
   }
 
   showUntrackedMetricsModal() {
     this.displayAddPerformanceMetricModal = true;
+  }
+
+  goToEnergyOpportunity(energyOpportunityId: string) {
+    if (this.router.url.includes('portfolio')) {
+      this.router.navigateByUrl('/portfolio/assessment/' + this.nonEnergyBenefit.assessmentId + '/energy-opportunities/' + energyOpportunityId)
+    } else if (this.router.url.includes('setup-wizard')) {
+      let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(this.nonEnergyBenefit.assessmentId);
+      this.localStorageDataService.setEnergyOppAccordionGuid(energyOpportunityId);
+      this.router.navigateByUrl('setup-wizard/data-collection/' + onSiteVisit.guid + '/assessment/' + this.nonEnergyBenefit.assessmentId + '/energy-opportunities')
+    }
   }
 }
