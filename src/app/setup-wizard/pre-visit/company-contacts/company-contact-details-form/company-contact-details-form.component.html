@@ -2,7 +2,12 @@
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
         <div class="col-10 pt-4 pb-4">
             <div class="form-paper shadow">
-                <app-company-contacts-setup-form></app-company-contacts-setup-form>
+                <h5>
+                    <fa-icon [icon]="faUser"></fa-icon>
+                    {{contact | contactNameDisplay}}
+                </h5>
+                <hr>
+                <app-company-contacts-form [contactGuid]="undefined"></app-company-contacts-form>
             </div>
         </div>
     </div>
@@ -11,14 +16,25 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            Go Back
+            <ng-template [ngIf]="contactIndex != 0" [ngIfElse]="listLabelBlock">
+                Next Stakeholder
+            </ng-template>
+            <ng-template #listLabelBlock>
+                Stakeholder List
+            </ng-template>
         </button>
-        <button class="btn nav-btn btn-sm" (click)="goToKPIs()" [disabled]="hasInvalidContacts">
-            Facility Details
+        <button class="btn nav-btn btn-sm" (click)="next()">
+            <ng-template [ngIf]="contactIndex < (companyContacts.length-1)" [ngIfElse]="facilityDetailsBlock">
+                Next Stakeholder
+            </ng-template>
+            <ng-template #facilityDetailsBlock>
+                Facility Details
+            </ng-template>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>
 </nav>
+
 <div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
 <div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
     <div class="popup-body">

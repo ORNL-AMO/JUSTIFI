@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IconDefinition, faChevronLeft, faChevronRight, faFilePdf, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronLeft, faChevronRight, faChartPie, faFilePdf } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
@@ -16,8 +16,8 @@ import { SharedDataService } from 'src/app/shared/shared-services/shared-data.se
 export class AssessmentEvaluationComponent {
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
-  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faFilePdf: IconDefinition = faFilePdf;
+  faChartPie: IconDefinition = faChartPie;
   
   assessmentIndex: number;
   onSiteVisit: IdbOnSiteVisit;

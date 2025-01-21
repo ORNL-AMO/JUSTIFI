@@ -14,11 +14,11 @@
             Go Back
         </button>
         <button class="btn nav-btn btn-sm" (click)="goNext()">
-            <ng-template [ngIf]="indicatorIndex != (numCompanyKpis-1)" [ngIfElse]="facilityDetailsBlock">
+            <ng-template [ngIf]="indicatorIndex != (numFacilityKpis-1)" [ngIfElse]="facilityDetailsBlock">
                 Next KPI
             </ng-template>
             <ng-template #facilityDetailsBlock>
-                Facility Details
+                Industrial System Inventory
             </ng-template>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>

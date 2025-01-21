@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IconDefinition, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronLeft, faChevronRight, faPersonWalkingArrowLoopLeft } from '@fortawesome/free-solid-svg-icons';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
@@ -13,6 +13,7 @@ export class DataFollowUpComponent {
 
   faChevronLeft: IconDefinition = faChevronLeft;
   faChevronRight: IconDefinition = faChevronRight;
+  faPersonWalkingArrowLoopLeft: IconDefinition = faPersonWalkingArrowLoopLeft;
 
   onSiteVisit: IdbOnSiteVisit;
   constructor(private router: Router,

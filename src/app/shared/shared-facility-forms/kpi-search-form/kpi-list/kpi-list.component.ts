@@ -115,7 +115,7 @@ export class KpiListComponent {
       this.router.navigateByUrl('portfolio/company/' + kpi.companyId + '/performance-indicators/details/' + kpi.guid);
     } else {
       let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/kpi-detail/' + kpi.guid);
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-kpi-detail/' + kpi.guid);
     }
   }
 

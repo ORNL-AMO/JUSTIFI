@@ -15,11 +15,11 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit, getNewIdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { LabelWithTooltipModule } from 'src/app/shared/label-with-tooltip/label-with-tooltip.module';
-import { PreAssessmentSetupService } from '../pre-assessment-setup/pre-assessment-setup.service';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { SharedCompanyFormsModule } from 'src/app/shared/shared-company-forms/shared-company-forms.module';
+import { PreAssessmentSetupService } from '../pre-assessments/pre-assessment-setup.service';
 
 describe('CompanySetupComponent', () => {
   let component: CompanySetupComponent;

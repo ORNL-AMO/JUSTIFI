@@ -38,24 +38,24 @@ a.nav-link, .btn.btn-dark, .link-section-heading{
 
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
     .nav-item {
         font-size: small;
     }
-}
+} */
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
     .nav-item {
         font-size: medium;
     }
-}
+} */
 /* Large devices (tablets, 992px and up) */
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
     .nav-item {
         font-size: large;
     }
-}
+} */
 
 
 .nav-link {
@@ -76,7 +76,7 @@ a.nav-link, .btn.btn-dark, .link-section-heading{
 }
 
 .nav-link:hover {
-    background-color: #8DABBE;
+    background-color: #9ec5de;
     color: black;
 }
 
@@ -99,4 +99,28 @@ a.nav-link, .btn.btn-dark, .link-section-heading{
 
 .nav-link:hover {
     cursor: pointer;
+}
+
+/*NEW*/
+.sidebar-section {
+    border-left: groove 1px black;
+    padding-left: .25rem;
+    margin-left: .5rem;
+    margin-bottom: .25rem;
+}
+
+hr.spacer{
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    border: dashed 1px black;
+}
+
+.sidebar-section.first-section{
+    margin-right: .5rem;
+}
+
+.nav-link.section-active{
+    background-color: #9ec5de;
 }

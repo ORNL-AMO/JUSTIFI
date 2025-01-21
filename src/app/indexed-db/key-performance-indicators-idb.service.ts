@@ -121,4 +121,12 @@ export class KeyPerformanceIndicatorsIdbService {
     }
     return addedMetric;
   }
+
+  getByFacilityGuid(facilityGuid: string): Array<IdbKeyPerformanceIndicator> {
+    let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicators.getValue();
+    let facilityKPIs: Array<IdbKeyPerformanceIndicator> = keyPerformanceIndicators.filter(kpi => {
+      return kpi.facilityId == facilityGuid;
+    });
+    return facilityKPIs;
+  }
 }

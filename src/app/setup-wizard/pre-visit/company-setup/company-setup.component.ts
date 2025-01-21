@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IdbCompany } from 'src/app/models/company';
 import { IconDefinition, faBuilding, faChevronRight, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
-import { Observable, Subscription, filter, of } from 'rxjs';
+import { Observable, Subscription, filter, firstValueFrom, of } from 'rxjs';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { FormControl, Validators } from '@angular/forms';
@@ -54,7 +54,9 @@ export class CompanySetupComponent implements OnInit, OnDestroy {
     this.selectedCompanySub.unsubscribe();
   }
 
-  goToContacts() {
+  async goToContacts() {
+    this.selectedCompany.sidebarContactsOpen = true;
+    await this.companyIdbService.asyncUpdate(this.selectedCompany);
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
     this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-contacts');
   }
