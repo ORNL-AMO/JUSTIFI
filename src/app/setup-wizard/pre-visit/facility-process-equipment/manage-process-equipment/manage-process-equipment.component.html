@@ -4,7 +4,7 @@
             <div class="form-paper shadow">
                 <h5>
                     <fa-icon [icon]="faList"></fa-icon>
-                    Process Equipment Inventory
+                    End Use Inventory
                 </h5>
                 <hr>
                 <div class="d-flex w-100 justify-content-end pb-2">
@@ -74,7 +74,7 @@
         </button>
         <button class="btn nav-btn btn-sm" (click)="goToNext()">
             <ng-template [ngIf]="processEquipments.length != 0" [ngIfElse]="preAssessmentBlock">
-                Equipment Details
+                End Use Details
             </ng-template>
             <ng-template #preAssessmentBlock>
                 Pre-Assessments

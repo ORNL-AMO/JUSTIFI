@@ -21,10 +21,12 @@ export class SharedDataService {
     contextGuid: string,
     companyId: string
   }>;
+  print: BehaviorSubject<boolean>;
   constructor() {
     this.createAssessmentModalOpen = new BehaviorSubject<boolean>(false);
     this.sidebarOpen = new BehaviorSubject<boolean>(false);
     this.displayAddNebsModal = new BehaviorSubject<{ assessmentId: string, energyOpportunityId: string }>(undefined);
     this.displayContactModal = new BehaviorSubject<{ context: ContactContext, viewContact: IdbContact, contextGuid: string, companyId: string }>(undefined);
+    this.print = new BehaviorSubject<boolean>(false);
   }
 }

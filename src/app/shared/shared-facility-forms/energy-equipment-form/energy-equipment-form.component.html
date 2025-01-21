@@ -3,7 +3,7 @@
         <form>
             <div class="row">
                 <label class="col-sm-5 col-form-label" for="equipmentName">Equipment
-                    Name</label>
+                    Name <span class="required-asterisk">*</span></label>
                 <div class="col-sm-7">
                     <input name="equipmentName" type="text" class="form-control"
                         [(ngModel)]="energyEquipment.equipmentName" id="equipmentName" (input)="saveChanges()" required>

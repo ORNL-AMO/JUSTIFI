@@ -1,39 +1,41 @@
-<div class="d-flex w-100 h-100" (mousemove)="dragMouse($event)" (mouseup)="stopResizing()"
-    (touchmove)="dragTouch($event)" (touchend)="stopResizing()" #pageContent (mouseleave)="stopResizing()">
-    <div class="d-flex" [ngStyle]="{'width.px': sidebarWidth}">
-        <div class="w-100">
-            <app-setup-wizard-sidebar (emitToggleCollapse)="toggleCollapseSidebar($event)"></app-setup-wizard-sidebar>
-        </div>
-        <div class="resize-handle pe-1 ps-1" (mousedown)="startResizingSidebarMouse($event)"
-            (touchstart)="startResizingSidebarTouch($event)">
-            <div class="h-100 d-flex align-items-center">
-                <div>
-                    <fa-icon [icon]="faGripVertical"></fa-icon>
+<div (mousemove)="dragMouse($event)" (mouseup)="stopResizing()" (touchmove)="dragTouch($event)"
+    (touchend)="stopResizing()" #pageContent (mouseleave)="stopResizing()" [ngClass]="{'d-flex w-100 h-100': !print}">
+    <ng-container *ngIf="!print">
+        <div class="d-flex" [ngStyle]="{'width.px': sidebarWidth}">
+            <div class="w-100">
+                <app-setup-wizard-sidebar
+                    (emitToggleCollapse)="toggleCollapseSidebar($event)"></app-setup-wizard-sidebar>
+            </div>
+            <div class="resize-handle pe-1 ps-1" (mousedown)="startResizingSidebarMouse($event)"
+                (touchstart)="startResizingSidebarTouch($event)">
+                <div class="h-100 d-flex align-items-center">
+                    <div>
+                        <fa-icon [icon]="faGripVertical"></fa-icon>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="main-content" [ngStyle]="{'width.px': contentWidth}">
+    </ng-container>
+    <div [ngClass]="{'main-content': !print}" [ngStyle]="{'width.px': (!print ? contentWidth : undefined )}">
         <router-outlet></router-outlet>
     </div>
-    <div class="d-flex" [ngStyle]="{'width.px': helpWidth}">
-        <div class="resize-handle ps-1 pe-1" (mousedown)="startResizingHelpMouse($event)"
-            (touchstart)="startResizingHelpTouch($event)">
-            <div class="h-100 d-flex align-items-center">
-                <div>
-                    <fa-icon class="mt-auto" [icon]="faGripVertical"></fa-icon>
+    <ng-container *ngIf="!print">
+        <div class="d-flex" [ngStyle]="{'width.px': helpWidth}">
+            <div class="resize-handle ps-1 pe-1" (mousedown)="startResizingHelpMouse($event)"
+                (touchstart)="startResizingHelpTouch($event)">
+                <div class="h-100 d-flex align-items-center">
+                    <div>
+                        <fa-icon class="mt-auto" [icon]="faGripVertical"></fa-icon>
+                    </div>
                 </div>
             </div>
+            <div class="w-100">
+                <app-setup-wizard-help-panel
+                    (emitToggleCollapse)="toggleCollapseHelp($event)"></app-setup-wizard-help-panel>
+            </div>
         </div>
-        <div class="w-100">
-            <app-setup-wizard-help-panel
-                (emitToggleCollapse)="toggleCollapseHelp($event)"></app-setup-wizard-help-panel>
-        </div>
-    </div>
+    </ng-container>
 </div>
-
-
-
 <app-contact-modal *ngIf="displayContactModal" (emitCancelContact)="closeContactModal()"
     [contextGuid]="displayContactModal.contextGuid" [contactContext]="displayContactModal.context"
     [selectedContact]="displayContactModal.viewContact"

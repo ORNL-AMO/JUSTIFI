@@ -26,6 +26,9 @@ export class SetupWizardComponent {
   isDraggingSidebar: boolean = false;
   isDraggingHelp: boolean = false;
   sidebarCollapsed: boolean = false;
+
+  print: boolean;
+  printSub: Subscription
   constructor(private sharedDataService: SharedDataService,
     private setupWizardService: SetupWizardService
   ) {
@@ -33,6 +36,10 @@ export class SetupWizardComponent {
   }
 
   ngOnInit() {
+    this.printSub = this.sharedDataService.print.subscribe(print => {
+      this.print = print;
+    })
+
     this.sidebarWidth = this.setupWizardService.sidebarWidth;
     this.helpWidth = this.setupWizardService.helpWidth;
     this.displayContactModalSub = this.sharedDataService.displayContactModal.subscribe(_displayContactModal => {
@@ -45,6 +52,7 @@ export class SetupWizardComponent {
     this.displayContactModalSub.unsubscribe();
     this.setupWizardService.sidebarWidth = this.sidebarWidth;
     this.setupWizardService.helpWidth = this.helpWidth;
+    this.printSub.unsubscribe();
   }
 
   closeContactModal() {
@@ -118,6 +126,7 @@ export class SetupWizardComponent {
     } else {
       this.sidebarWidth = 50;
     }
+    this.setupWizardService.setSidebarWidth(this.sidebarWidth);
     this.setContentWidth();
   }
 
@@ -128,6 +137,7 @@ export class SetupWizardComponent {
     } else {
       this.helpWidth = 50;
     }
+    this.setupWizardService.setHelpWidth(this.helpWidth);
     this.setContentWidth();
   }
 
