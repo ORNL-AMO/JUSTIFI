@@ -3,11 +3,7 @@ import { SetupWizardComponent } from "../setup-wizard/setup-wizard.component";
 import { PreVisitComponent } from "../setup-wizard/pre-visit/pre-visit.component";
 import { CompanySetupComponent } from "../setup-wizard/pre-visit/company-setup/company-setup.component";
 import { CanDeactivateGuard } from "../guards/can-deactivate.guard";
-import { CompanyContactsSetupComponent } from "../setup-wizard/pre-visit/company-contacts-setup/company-contacts-setup.component";
 import { FacilitySetupComponent } from "../setup-wizard/pre-visit/facility-setup/facility-setup.component";
-import { FacilityEnergyEquipmentSetupComponent } from "../setup-wizard/pre-visit/facility-energy-equipment-setup/facility-energy-equipment-setup.component";
-import { FacilityProcessEquipmentSetupComponent } from "../setup-wizard/pre-visit/facility-process-equipment-setup/facility-process-equipment-setup.component";
-import { PreAssessmentSetupComponent } from "../setup-wizard/pre-visit/pre-assessment-setup/pre-assessment-setup.component";
 import { ReviewPreVisitSetupComponent } from "../setup-wizard/pre-visit/review-pre-visit-setup/review-pre-visit-setup.component";
 import { DataCollectionComponent } from "../setup-wizard/data-collection/data-collection.component";
 import { DataCollectionManageAssessmentsComponent } from "../setup-wizard/data-collection/data-collection-manage-assessments/data-collection-manage-assessments.component";
@@ -23,6 +19,14 @@ import { AssessmentDetailsFormComponent } from "../shared/shared-assessment-form
 import { AssessmentEnergyOpportunitiesFormComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.component";
 import { FacilityKpiSelectComponent } from "../setup-wizard/pre-visit/facility-kpi-select/facility-kpi-select.component";
 import { FacilityKpiDetailsComponent } from "../setup-wizard/pre-visit/facility-kpi-details/facility-kpi-details.component";
+import { ManageCompanyContactsComponent } from "../setup-wizard/pre-visit/company-contacts/manage-company-contacts/manage-company-contacts.component";
+import { CompanyContactDetailsFormComponent } from "../setup-wizard/pre-visit/company-contacts/company-contact-details-form/company-contact-details-form.component";
+import { ManageEnergyEquipmentComponent } from "../setup-wizard/pre-visit/facility-energy-equipment/manage-energy-equipment/manage-energy-equipment.component";
+import { FacilityEnergyEquipmentFormComponent } from "../setup-wizard/pre-visit/facility-energy-equipment/facility-energy-equipment-form/facility-energy-equipment-form.component";
+import { ManageProcessEquipmentComponent } from "../setup-wizard/pre-visit/facility-process-equipment/manage-process-equipment/manage-process-equipment.component";
+import { FacilityProcessEquipmentFormComponent } from "../setup-wizard/pre-visit/facility-process-equipment/facility-process-equipment-form/facility-process-equipment-form.component";
+import { PreAssessmentFormComponent } from "../setup-wizard/pre-visit/pre-assessments/pre-assessment-form/pre-assessment-form.component";
+import { ManagePreAssessmentsComponent } from "../setup-wizard/pre-visit/pre-assessments/manage-pre-assessments/manage-pre-assessments.component";
 
 
 export const SetupWizardRoutes: Route = {
@@ -44,16 +48,21 @@ export const SetupWizardRoutes: Route = {
                     canDeactivate: [CanDeactivateGuard]
                 },
                 {
-                    path: 'kpi-select',
+                    path: 'facility-kpi-select',
                     component: FacilityKpiSelectComponent
                 },
                 {
-                    path: 'kpi-detail/:id',
+                    path: 'facility-kpi-detail/:id',
                     component: FacilityKpiDetailsComponent
                 },
                 {
                     path: 'company-contacts',
-                    component: CompanyContactsSetupComponent,
+                    component: ManageCompanyContactsComponent,
+                    // canDeactivate: [CanDeactivateGuard]
+                },
+                {
+                    path: 'company-contacts/:id',
+                    component: CompanyContactDetailsFormComponent,
                     canDeactivate: [CanDeactivateGuard]
                 },
                 {
@@ -62,16 +71,31 @@ export const SetupWizardRoutes: Route = {
                     canDeactivate: [CanDeactivateGuard]
                 },
                 {
-                    path: 'energy-equipment',
-                    component: FacilityEnergyEquipmentSetupComponent
+                    path: 'facility-energy-equipment',
+                    component: ManageEnergyEquipmentComponent
                 },
                 {
-                    path: 'end-uses',
-                    component: FacilityProcessEquipmentSetupComponent
+                    path: 'facility-energy-equipment/:id',
+                    component: FacilityEnergyEquipmentFormComponent,
+                    canDeactivate: [CanDeactivateGuard]
                 },
                 {
-                    path: 'pre-assessment',
-                    component: PreAssessmentSetupComponent
+                    path: 'facility-end-uses',
+                    component: ManageProcessEquipmentComponent
+                },
+                {
+                    path: 'facility-end-uses/:id',
+                    component: FacilityProcessEquipmentFormComponent,
+                    canDeactivate: [CanDeactivateGuard]
+                },
+                {
+                    path: 'facility-pre-assessment',
+                    component: ManagePreAssessmentsComponent
+                },
+                {
+                    path: 'facility-pre-assessment/:id',
+                    component: PreAssessmentFormComponent,
+                    canDeactivate: [CanDeactivateGuard]
                 },
                 {
                     path: 'review-pre-visit',

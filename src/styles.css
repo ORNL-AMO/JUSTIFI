@@ -81,6 +81,7 @@
 
 .neb-container .overflow-scroll {
     overflow-y: auto !important;
+    overflow-x: auto !important;
 }
 
 .neb-container ::-webkit-scrollbar {

@@ -1,11 +1,15 @@
-<div class="row">
+<div class="row" *ngIf="processEquipment">
     <div class="col-12">
         <form>
             <div class="row">
-                <label class="col-sm-5 col-form-label" for="equipmentName">End Use Name</label>
+                <label class="col-sm-5 col-form-label" for="equipmentName">End Use Name <span
+                        class="required-asterisk">*</span></label>
                 <div class="col-sm-7">
                     <input name="equipmentName" type="text" class="form-control"
                         [(ngModel)]="processEquipment.equipmentName" id="equipmentName" (input)="saveChanges()">
+                    <div class="alert alert-danger p-1" *ngIf="!processEquipment.equipmentName">
+                        End use name required.
+                    </div>
                 </div>
             </div>
 

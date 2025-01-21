@@ -20,7 +20,8 @@ export interface IdbAssessment extends IdbEntry {
     costSavings: number,
     visitDate: Date,
     notes: string,
-    implementationCost: number
+    implementationCost: number,
+    sidebarOpen: boolean
 }
 
 const defaultAssessmentType: AssessmentType = "Pump";
@@ -46,6 +47,7 @@ export function getNewIdbAssessment(userId: string, companyId: string, facilityI
         costSavings: 0,
         notes: undefined,
         visitDate: undefined,
-        implementationCost: 0
+        implementationCost: 0,
+        sidebarOpen: false
     }
 }

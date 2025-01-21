@@ -8,6 +8,7 @@ import { SetupWizardSidebarComponent } from './setup-wizard-sidebar/setup-wizard
 import { SetupWizardHelpPanelComponent } from './setup-wizard-help-panel/setup-wizard-help-panel.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
+import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
 
 describe('SetupWizardComponent', () => {
   let component: SetupWizardComponent;
@@ -17,7 +18,7 @@ describe('SetupWizardComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, ContactModalModule, FontAwesomeModule, HelperPipesModule],
-      declarations: [SetupWizardComponent, SetupWizardSidebarComponent, SetupWizardHelpPanelComponent],
+      declarations: [SetupWizardComponent, SetupWizardSidebarComponent, SetupWizardHelpPanelComponent, NavItemActivePipe],
       providers: stubServiceProviders
     })
       .compileComponents();

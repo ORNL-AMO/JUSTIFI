@@ -51,25 +51,45 @@ export class SetupWizardComponent {
     this.sharedDataService.displayContactModal.next(undefined);
   }
 
-  startResizingSidebar(event: MouseEvent): void {
+  startResizingSidebarTouch(event: TouchEvent): void {
+    this.startingCursorX = event.touches[0].clientX;
+    this.isDraggingSidebar = true;
+  }
+
+  startResizingSidebarMouse(event: MouseEvent): void {
     this.startingCursorX = event.clientX;
     this.isDraggingSidebar = true;
   }
 
-  startResizingHelp(event: MouseEvent): void {
+  startResizingHelpTouch(event: TouchEvent): void {
+    this.startingCursorX = event.touches[0].clientX;
+    this.isDraggingHelp = true;
+  }
+
+  startResizingHelpMouse(event: MouseEvent): void {
     this.startingCursorX = event.clientX;
     this.isDraggingHelp = true;
   }
 
-  stopResizing($event: MouseEvent) {
+  stopResizing() {
     this.isDraggingSidebar = false;
     this.isDraggingHelp = false;
+    this.setupWizardService.setHelpWidth(this.helpWidth);
+    this.setupWizardService.setSidebarWidth(this.sidebarWidth);
   }
 
-  drag(event: MouseEvent) {
+  dragTouch(event: TouchEvent) {
+    this.drag(event.touches[0].clientX);
+  }
+
+  dragMouse(event: MouseEvent) {
+    this.drag(event.clientX);
+  }
+
+  drag(clientX: number) {
     if (this.isDraggingSidebar) {
-      if (event.clientX > 50) {
-        this.sidebarWidth = event.clientX;
+      if (clientX > 50) {
+        this.sidebarWidth = clientX;
         this.setupWizardService.sidebarOpen.next(true);
       } else {
         this.sidebarWidth = 50;
@@ -78,7 +98,7 @@ export class SetupWizardComponent {
       this.setContentWidth();
     }
     if (this.isDraggingHelp) {
-      let helpWidth: number = (window.innerWidth - event.clientX)
+      let helpWidth: number = (window.innerWidth - clientX)
       if (helpWidth > 50) {
         this.helpWidth = helpWidth;
         this.setupWizardService.helpPanelOpen.next(true);
@@ -113,9 +133,9 @@ export class SetupWizardComponent {
 
   setContentWidth() {
     let contentWidth: number = (window.innerWidth - this.helpWidth - this.sidebarWidth);
-    if(contentWidth < 600){
+    if (contentWidth < 600) {
       this.contentWidth = 600;
-    }else{
+    } else {
       this.contentWidth = contentWidth;
     }
   }
