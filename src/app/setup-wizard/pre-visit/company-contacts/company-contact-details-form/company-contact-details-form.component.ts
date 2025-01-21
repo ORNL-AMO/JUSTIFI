@@ -34,6 +34,8 @@ export class CompanyContactDetailsFormComponent {
 
   company: IdbCompany;
   companySub: Subscription;
+
+  contactDeleted: boolean = false;
   constructor(private activatedRoute: ActivatedRoute,
     private contactIdbService: ContactIdbService,
     private companyContactFormService: CompanyContactsFormService,
@@ -71,6 +73,7 @@ export class CompanyContactDetailsFormComponent {
         this.contact = this.companyContacts[this.contactIndex];
         this.contactForm = this.companyContactFormService.getFormFromIdbContact(this.contact);
       } else {
+        this.contactDeleted = true;
         let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
         this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-contacts')
       }
@@ -108,7 +111,7 @@ export class CompanyContactDetailsFormComponent {
   }
 
   canDeactivate(): Observable<boolean> {
-    if (this.contactForm.invalid) {
+    if (this.contactForm.invalid && !this.contactDeleted) {
       this.displayWarningModal();
       return of(false);
     }

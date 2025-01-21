@@ -61,7 +61,7 @@ export class FacilityKpiDetailsComponent {
       this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/kpi-select');
     } else {
       let facilityKpis: Array<IdbKeyPerformanceIndicator> = this.getFacilityKPIs();
-      this.goToKPI(facilityKpis[this.indicatorIndex - 1].guid);
+      await this.goToKPI(facilityKpis[this.indicatorIndex - 1].guid);
     }
   }
 

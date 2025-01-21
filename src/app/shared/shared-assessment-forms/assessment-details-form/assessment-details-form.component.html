@@ -1,6 +1,7 @@
 <form *ngIf="assessment">
     <div class="row">
-        <label class="col-sm-5 col-form-label" for="assessmentName">Assessment Name</label>
+        <label class="col-sm-5 col-form-label" for="assessmentName">Assessment Name <span
+                class="required-asterisk">*</span></label>
         <div class="col-sm-7">
             <input name="assessmentName" type="text" class="form-control" [(ngModel)]="assessment.name"
                 (input)="saveChanges()" minlength="1" maxlength="42" id="assessmentName" [disabled]="isDisabled"

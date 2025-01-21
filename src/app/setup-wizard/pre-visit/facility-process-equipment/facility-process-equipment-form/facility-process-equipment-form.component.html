@@ -20,7 +20,7 @@
         </button>
         <button class="btn nav-btn btn-sm" (click)="goToNext()">
             <ng-template [ngIf]="equipmentIndex != (processEquipments.length - 1)" [ngIfElse]="preAssessmentBlock">
-                Next Equipment Details
+                Next End Use Details
             </ng-template>
             <ng-template #preAssessmentBlock>
                 Pre-Assessments

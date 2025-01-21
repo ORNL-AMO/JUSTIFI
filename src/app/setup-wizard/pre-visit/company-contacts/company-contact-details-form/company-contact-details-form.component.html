@@ -16,7 +16,12 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            Go Back
+            <ng-template [ngIf]="contactIndex != 0" [ngIfElse]="listLabelBlock">
+                Next Stakeholder
+            </ng-template>
+            <ng-template #listLabelBlock>
+                Stakeholder List
+            </ng-template>
         </button>
         <button class="btn nav-btn btn-sm" (click)="next()">
             <ng-template [ngIf]="contactIndex < (companyContacts.length-1)" [ngIfElse]="facilityDetailsBlock">
