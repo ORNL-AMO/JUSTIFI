@@ -32,12 +32,7 @@ export interface KeyPerformanceIndicatorOption {
 };
 
 export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = [
-    {
-        primaryKPI: 'Strategic Relationship Impact',
-        label: 'Strategic Relationship Impact',
-        htmlLabel: 'Strategic Relationship Impact',
-        optionValue: 'strategicRelationshipImpact'
-    },
+    //operations
     {
         primaryKPI: 'Operations',
         label: 'Productivity',
@@ -46,15 +41,21 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Operations',
-        label: 'Machine Utilization',
-        htmlLabel: 'Machine Utilization',
-        optionValue: 'machineUtilization'
+        label: 'Expense Cost',
+        htmlLabel: 'Expense Cost',
+        optionValue: 'reduceExpenseCost'
     },
     {
         primaryKPI: 'Operations',
         label: 'Quality',
         htmlLabel: 'Quality',
         optionValue: 'quality'
+    },
+    {
+        primaryKPI: 'Operations',
+        label: 'Machine Utilization',
+        htmlLabel: 'Machine Utilization',
+        optionValue: 'machineUtilization'
     },
     {
         primaryKPI: 'Operations',
@@ -70,9 +71,35 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Operations',
-        label: 'Expense Cost',
-        htmlLabel: 'Expense Cost',
-        optionValue: 'reduceExpenseCost'
+        label: 'Maintenance Expense',
+        htmlLabel: 'Maintenance Expense',
+        optionValue: 'maintenanceExpense'
+    },
+    //Employee and workplace environment
+    {
+        primaryKPI: 'Employee and Workplace Environment',
+        label: 'Safety',
+        htmlLabel: 'Safety',
+        optionValue: 'safety'
+    },
+    {
+        primaryKPI: 'Employee and Workplace Environment',
+        label: 'Employee Engagement - Workforce Development',
+        htmlLabel: 'Employee Engagement - Workforce Development',
+        optionValue: 'employeeEngagementWorkforceDevelopment'
+    },
+    {
+        primaryKPI: 'Employee and Workplace Environment',
+        label: 'Employee Engagement - Working Environment',
+        htmlLabel: 'Employee Engagement - Working Environment',
+        optionValue: 'employeeEngagementWorkingEnvironment'
+    },
+    //Sustainability (Environmental Impact)
+    {
+        primaryKPI: 'Sustainability (Environmental Impact)',
+        label: 'GHG Emissions',
+        htmlLabel: 'GHG Emissions',
+        optionValue: 'chemicalEmissions'
     },
     {
         primaryKPI: 'Sustainability (Environmental Impact)',
@@ -112,12 +139,6 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'GHG Emissions',
-        htmlLabel: 'GHG Emissions',
-        optionValue: 'chemicalEmissions'
-    },
-    {
-        primaryKPI: 'Sustainability (Environmental Impact)',
         label: 'Air Pollutant Emissions',
         htmlLabel: 'Air Pollutant Emissions',
         optionValue: 'airPollutantEmissions'
@@ -134,28 +155,11 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
         htmlLabel: 'Reduce Refrigerant Gas Emissions',
         optionValue: 'reduceRefrigerantGasEmissions'
     },
+    //Strategic relationship impact
     {
-        primaryKPI: 'Employee and Workplace Environment',
-        label: 'Safety',
-        htmlLabel: 'Safety',
-        optionValue: 'safety'
-    },
-    {
-        primaryKPI: 'Employee and Workplace Environment',
-        label: 'Employee Engagement - Working Environment',
-        htmlLabel: 'Employee Engagement - Working Environment',
-        optionValue: 'employeeEngagementWorkingEnvironment'
-    },
-    {
-        primaryKPI: 'Employee and Workplace Environment',
-        label: 'Employee Engagement - Workforce Development',
-        htmlLabel: 'Employee Engagement - Workforce Development',
-        optionValue: 'employeeEngagementWorkforceDevelopment'
-    },
-    {
-        primaryKPI: 'Operations',
-        label: 'Maintenance Expense',
-        htmlLabel: 'Maintenance Expense',
-        optionValue: 'maintenanceExpense'
+        primaryKPI: 'Strategic Relationship Impact',
+        label: 'Strategic Relationship Impact',
+        htmlLabel: 'Strategic Relationship Impact',
+        optionValue: 'strategicRelationshipImpact'
     },
 ]
