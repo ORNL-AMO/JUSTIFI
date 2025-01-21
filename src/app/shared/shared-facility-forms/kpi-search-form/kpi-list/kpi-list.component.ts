@@ -112,7 +112,7 @@ export class KpiListComponent {
 
   goToKpiDetails(kpi: IdbKeyPerformanceIndicator) {
     if (this.router.url.includes('portfolio')) {
-      this.router.navigateByUrl('portfolio/company/' + kpi.companyId + '/performance-indicators/details/' + kpi.guid);
+      this.router.navigateByUrl('portfolio/facility/' + kpi.facilityId + '/performance-indicators/details/' + kpi.guid);
     } else {
       let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
       this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-kpi-detail/' + kpi.guid);
