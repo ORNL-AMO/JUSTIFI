@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { LocalStorageDataService } from '../../shared-services/local-storage-data.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-energy-opportunity-nebs-table',
@@ -50,6 +51,9 @@ export class EnergyOpportunityNebsTableComponent {
   ) { }
 
   ngOnInit() {
+    this.nonEnergyBenefits = _.orderBy(this.nonEnergyBenefits, (neb: IdbNonEnergyBenefit) => {
+      return neb.energyOpportunityId;
+    }, 'desc')
     this.keyPerformanceMetricImpactsSub = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.subscribe(kpmImpacts => {
       this.keyPerformanceMetricImpacts = kpmImpacts;
     });
@@ -84,6 +88,16 @@ export class EnergyOpportunityNebsTableComponent {
       this.localStorageDataService.setEnergyOppAccordionGuid(nonEnergyBenefit.energyOpportunityId);
       this.localStorageDataService.setNebAccordionGuid(nonEnergyBenefit.guid);
       this.router.navigateByUrl('setup-wizard/data-collection/' + onSiteVisit.guid + '/assessment/' + nonEnergyBenefit.assessmentId + '/energy-opportunities')
+    }
+  }
+
+  goToNeb(nonEnergyBenefit: IdbNonEnergyBenefit) {
+    if (this.router.url.includes('portfolio')) {
+      this.router.navigateByUrl('/portfolio/assessment/' + nonEnergyBenefit.assessmentId + '/nebs/' + nonEnergyBenefit.guid)
+    } else if (this.router.url.includes('setup-wizard')) {
+      let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(nonEnergyBenefit.assessmentId);
+      this.localStorageDataService.setNebAccordionGuid(nonEnergyBenefit.guid);
+      this.router.navigateByUrl('setup-wizard/data-collection/' + onSiteVisit.guid + '/assessment/' + nonEnergyBenefit.assessmentId + '/nebs')
     }
   }
 }

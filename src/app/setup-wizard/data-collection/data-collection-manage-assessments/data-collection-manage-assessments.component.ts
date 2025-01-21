@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IconDefinition, faChevronLeft, faChevronRight, faPlus, faScrewdriverWrench, faToolbox, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronLeft, faChevronRight, faList, faPlus, faScrewdriverWrench, faToolbox, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Subscription, firstValueFrom } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
@@ -16,7 +16,7 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 })
 export class DataCollectionManageAssessmentsComponent {
 
-  faToolbox: IconDefinition = faToolbox;
+  faList: IconDefinition = faList;
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
   faPlus: IconDefinition = faPlus;
@@ -69,10 +69,12 @@ export class DataCollectionManageAssessmentsComponent {
       this.facilityIdbService.getByGUID(this.onSiteVisit.facilityId).unitSettings
     );
     assessment.visitDate = this.onSiteVisit.visitDate;
+    assessment.sidebarOpen = true;
     await firstValueFrom(this.assessmentIdbService.addWithObservable(assessment));
     await this.assessmentIdbService.setAssessments();
     this.onSiteVisit.assessmentIds.push(assessment.guid);
     await this.onSiteVisitIdbService.asyncUpdate(this.onSiteVisit);
+    this.goToAssessment(assessment.guid);
   }
 
 

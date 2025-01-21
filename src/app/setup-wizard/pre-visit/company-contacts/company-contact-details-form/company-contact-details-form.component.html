@@ -1,0 +1,48 @@
+<div class="setup-wizard-content">
+    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+        <div class="col-10 pt-4 pb-4">
+            <div class="form-paper shadow">
+                <h5>
+                    <fa-icon [icon]="faUser"></fa-icon>
+                    {{contact | contactNameDisplay}}
+                </h5>
+                <hr>
+                <app-company-contacts-form [contactGuid]="undefined"></app-company-contacts-form>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="setup-wizard-footer navbar shadow">
+    <div class="container-fluid justify-content-between">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+            <ng-template [ngIf]="contactIndex != 0" [ngIfElse]="listLabelBlock">
+                Next Stakeholder
+            </ng-template>
+            <ng-template #listLabelBlock>
+                Stakeholder List
+            </ng-template>
+        </button>
+        <button class="btn nav-btn btn-sm" (click)="next()">
+            <ng-template [ngIf]="contactIndex < (companyContacts.length-1)" [ngIfElse]="facilityDetailsBlock">
+                Next Stakeholder
+            </ng-template>
+            <ng-template #facilityDetailsBlock>
+                Facility Details
+            </ng-template>
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
+    </div>
+</nav>
+
+<div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
+<div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
+    <div class="popup-body">
+        <div class="alert alert-danger">
+            Please fill the required fields.
+        </div>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
+    </div>
+</div>

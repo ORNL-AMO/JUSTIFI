@@ -5,7 +5,6 @@ import { CompanyDashboardComponent } from "../user-portfolio/company-dashboard/c
 import { CompanyDashboardHomeComponent } from "../user-portfolio/company-dashboard/company-dashboard-home/company-dashboard-home.component";
 import { FacilityDashboardComponent } from "../user-portfolio/facility-dashboard/facility-dashboard.component";
 import { AssessmentDashboardComponent } from "../user-portfolio/assessment-dashboard/assessment-dashboard.component";
-import { CompanyPerformanceIndicatorsComponent } from "../user-portfolio/company-dashboard/company-performance-indicators/company-performance-indicators.component";
 import { CompanyStakeholdersComponent } from "../user-portfolio/company-dashboard/company-stakeholders/company-stakeholders.component";
 import { CompanyReportsComponent } from "../user-portfolio/company-dashboard/company-reports/company-reports.component";
 import { CompanySettingsComponent } from "../user-portfolio/company-dashboard/company-settings/company-settings.component";
@@ -19,8 +18,8 @@ import { AssessmentReportsComponent } from "../user-portfolio/assessment-dashboa
 import { AssessmentDetailsComponent } from "../user-portfolio/assessment-dashboard/assessment-details/assessment-details.component";
 import { AssessmentEnergyOpportunitiesComponent } from "../user-portfolio/assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities.component";
 import { CanDeactivateGuard } from "../guards/can-deactivate.guard";
-import { CompanyKpiSearchFormComponent } from "../shared/shared-company-forms/company-kpi-search-form/company-kpi-search-form.component";
-import { CompanyKpiDetailsFormComponent } from "../shared/shared-company-forms/company-kpi-details-form/company-kpi-details-form.component";
+import { KpiSearchFormComponent } from "../shared/shared-facility-forms/kpi-search-form/kpi-search-form.component";
+import { KpiDetailsFormComponent } from "../shared/shared-facility-forms/kpi-details-form/kpi-details-form.component";
 import { AssessmentEnergyOpportunitiesHomeComponent } from "../user-portfolio/assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities-home/assessment-energy-opportunities-home.component";
 import { EnergyOpportunitySetupFormComponent } from "../shared/shared-assessment-forms/energy-opportunity-setup-form/energy-opportunity-setup-form.component";
 import { AssessmentNebsComponent } from "../user-portfolio/assessment-dashboard/assessment-nebs/assessment-nebs.component";
@@ -32,6 +31,7 @@ import { EndUseInventoryHomeComponent } from "../user-portfolio/facility-dashboa
 import { ProcessEquipmentFormComponent } from "../shared/shared-facility-forms/process-equipment-form/process-equipment-form.component";
 import { CompanyStakeholdersHomeComponent } from "../user-portfolio/company-dashboard/company-stakeholders/company-stakeholders-home/company-stakeholders-home.component";
 import { CompanyContactsFormComponent } from "../shared/shared-company-forms/company-contacts-form/company-contacts-form.component";
+import { FacilityPerformanceIndicatorsComponent } from "../user-portfolio/facility-dashboard/facility-performance-indicators/facility-performance-indicators.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -49,20 +49,6 @@ export const PortfolioRoutes: Route = {
                 {
                     path: '',
                     component: CompanyDashboardHomeComponent
-                },
-                {
-                    path: 'performance-indicators',
-                    component: CompanyPerformanceIndicatorsComponent,
-                    children: [
-                        {
-                            path: '',
-                            component: CompanyKpiSearchFormComponent
-                        },
-                        {
-                            path: 'details/:id',
-                            component: CompanyKpiDetailsFormComponent
-                        }
-                    ]
                 },
                 {
                     path: 'stakeholders',
@@ -97,6 +83,20 @@ export const PortfolioRoutes: Route = {
                 {
                     path: '',
                     component: FacilityDashboardHomeComponent
+                },
+                {
+                    path: 'performance-indicators',
+                    component: FacilityPerformanceIndicatorsComponent,
+                    children: [
+                        {
+                            path: '',
+                            component: KpiSearchFormComponent
+                        },
+                        {
+                            path: 'details/:id',
+                            component: KpiDetailsFormComponent
+                        }
+                    ]
                 },
                 {
                     path: 'system-inventory',

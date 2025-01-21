@@ -19,9 +19,26 @@ export class KpiListFilterPipe implements PipeTransform {
         return option.label.toLowerCase().includes(searchStr.toLowerCase());
       });
     }
+
+
     return _.orderBy(filteredOptions, (option: KeyPerformanceIndicatorOption) => {
-      return option.label;
+      return this.getPrimaryOrder(option);
     }, 'asc');
   }
 
+
+  getPrimaryOrder(option: KeyPerformanceIndicatorOption): number {
+    switch (option.primaryKPI) {
+      case 'Operations':
+        return 1;
+      case 'Employee and Workplace Environment':
+        return 2;
+      case 'Sustainability (Environmental Impact)':
+        return 3;
+      case 'Strategic Relationship Impact':
+        return 4;
+      case 'Other':
+        return 5;
+    }
+  }
 }
