@@ -1,48 +1,42 @@
-<div class="setup-wizard-content">
-    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
-            <div class="form-paper shadow">
-                <nav class="navbar top-nav">
-                    <h5>
-                        <fa-icon [icon]="faChartColumn"></fa-icon>
-                        On Site Visit Report
-                    </h5>
-                </nav>
+<div [ngClass]="{'setup-wizard-content': !print}">
+    <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
+        <div [ngClass]="{'col-10 pt-4 pb-4': !print}">
+            <div [ngClass]="{'form-paper shadow': !print}">
+                <h5>
+                    <fa-icon [icon]="faChartColumn"></fa-icon>
+                    On Site Visit Report
+                </h5>
                 <app-on-site-visit-report [onSiteVisit]="onSiteVisit"></app-on-site-visit-report>
             </div>
         </div>
-        <div class="col-10">
+        <div class="col-10 hide-print">
             <hr>
         </div>
-        <div class="col-10 pt-4 pb-4" *ngFor="let assessment of assessments">
-            <div class="form-paper shadow">
-                <nav class="navbar top-nav">
-                    <h5>
-                        <fa-icon [icon]="faScrewdriverWrench"></fa-icon> {{assessment.name}} Report
-                    </h5>
-                </nav>
+        <div class="print-break-avoid" *ngFor="let assessment of assessments" [ngClass]="{'col-10 pt-4 pb-4': !print}">
+            <div [ngClass]="{'form-paper shadow': !print}">
+                <h5>
+                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon> {{assessment.name}} Report
+                </h5>
                 <app-assessment-report [assessment]="assessment" [inRollup]="true"></app-assessment-report>
             </div>
         </div>
     </div>
 </div>
-<nav class="setup-wizard-footer navbar shadow">
+<nav class="setup-wizard-footer navbar shadow" *ngIf="!print">
     <div class="container-fluid justify-content-between">
-        <div class="col-3">
-            <button class="btn nav-btn btn-sm" (click)="goBack()">
-                <fa-icon [icon]="faChevronLeft"></fa-icon>
-                <span class="d-md-none">
-                    Back
-                </span>
-            </button>
-        </div>
-        <div class="col-3">
-            <div class="d-flex  justify-content-end">
-                <button class="btn nav-btn btn-sm" (click)="goNext()">
-                    <fa-icon [icon]="faFolderOpen"></fa-icon>
-                    Go To Portfolio
-                </button>
-            </div>
-        </div>
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+            <span class="d-md-none">
+                Back
+            </span>
+        </button>
+        <button class="btn btn-success btn-sm" (click)="togglePrint()">
+            <fa-icon [icon]="faFilePdf"></fa-icon>
+            Generate PDF
+        </button>
+        <button class="btn nav-btn btn-sm" (click)="goNext()">
+            <fa-icon [icon]="faFolderOpen"></fa-icon>
+            Go To Portfolio
+        </button>
     </div>
 </nav>
