@@ -154,13 +154,15 @@ export class DbChangesService {
 
     //update on site visits
     let onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisitIdbService.onSiteVisits.getValue();
-    let assessmentOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits.filter(onSiteVisit => { return onSiteVisit.assessmentIds.includes(assessment.guid) });
-    if (assessmentOnSiteVisits.length > 0) {
-      for (let i = 0; i < assessmentOnSiteVisits.length; i++) {
-        assessmentOnSiteVisits[i].assessmentIds = assessmentOnSiteVisits[i].assessmentIds.filter(assessmentId => { return assessmentId != assessment.guid });
-        await firstValueFrom(this.onSiteVisitIdbService.updateWithObservable(assessmentOnSiteVisits[i]));
-      }
+    let assessmentOnSiteVisit: IdbOnSiteVisit = onSiteVisits.find(onSiteVisit => { return onSiteVisit.assessmentIds.includes(assessment.guid) });
+    if (assessmentOnSiteVisit) {
+      assessmentOnSiteVisit.assessmentIds = assessmentOnSiteVisit.assessmentIds.filter(assessmentId => { return assessmentId != assessment.guid });
+      await firstValueFrom(this.onSiteVisitIdbService.updateWithObservable(assessmentOnSiteVisit));
       await this.onSiteVisitIdbService.setOnSiteVisits();
+      let selectedOnSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+      if (selectedOnSiteVisit && selectedOnSiteVisit.guid == assessmentOnSiteVisit.guid) {
+        this.onSiteVisitIdbService.selectedVisit.next(assessmentOnSiteVisit);
+      }
     }
 
     //delete assessment

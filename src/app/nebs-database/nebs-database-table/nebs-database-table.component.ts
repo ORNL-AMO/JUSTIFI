@@ -108,7 +108,7 @@ export class NebsDatabaseTableComponent {
       if (modalData.energyOpportunityId) {
         selectedNebs = this.nonEnergyBenefitIdbService.getEnergyOpportunityNonEnergyBenefits(modalData.energyOpportunityId);
       } else {
-        selectedNebs = this.nonEnergyBenefitIdbService.getAssessmentNonEnergyBenefits(assessment.guid);
+        selectedNebs = this.nonEnergyBenefitIdbService.getAssessmentNonEnergyBenefits(assessment.guid, true);
       }
       let selectedOptionValues = selectedNebs.map(option => {
         return option.nebOptionValue;

@@ -105,7 +105,7 @@ export class PerformanceMetricImpactFormComponent {
   goToMetric() {
     this.showDropdownMenu = false;
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-kpi-detail/' + this.keyPerformanceMetricImpact.kpiGuid)
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-kpi-detail/' + this.keyPerformanceMetricImpact.kpiGuid)
   }
 
   async savePerformanceMetric() {

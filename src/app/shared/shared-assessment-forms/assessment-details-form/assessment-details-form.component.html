@@ -1,9 +1,14 @@
 <form *ngIf="assessment">
     <div class="row">
-        <label class="col-sm-5 col-form-label" for="assessmentName">Assessment Name</label>
+        <label class="col-sm-5 col-form-label" for="assessmentName">Assessment Name <span
+                class="required-asterisk">*</span></label>
         <div class="col-sm-7">
             <input name="assessmentName" type="text" class="form-control" [(ngModel)]="assessment.name"
-                (input)="saveChanges()" minlength="1" maxlength="42" id="assessmentName" [disabled]="isDisabled">
+                (input)="saveChanges()" minlength="1" maxlength="42" id="assessmentName" [disabled]="isDisabled"
+                required>
+            <div class="alert alert-danger p-1" *ngIf="!assessment.name">
+                Assessment name required.
+            </div>
         </div>
     </div>
 
@@ -128,47 +133,49 @@
             {{assessment.cost | currency:'USD':'symbol':'1.0-2'}}
         </div>
     </div>
-
-    <div class="row">
-        <label class="col-sm-5 col-form-label">Assessment
-            Date</label>
-        <div class="col-sm-7">
-            {{assessment.visitDate | date}}
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <label class="col-sm-5 col-form-label" for="implementationCost">Implementation Cost</label>
-        <div class="col-sm-7">
-            <div class="input-group">
-                <input name="implementationCost" type="number" class="form-control"
-                    [(ngModel)]="assessment.implementationCost" (input)="saveChanges()" id="implementationCost"
-                    [disabled]="isDisabled">
-                <span class="input-group-text">&dollar;</span>
+    <ng-container *ngIf="!inPreAssessment">
+        <div class="row">
+            <label class="col-sm-5 col-form-label">Assessment
+                Date</label>
+            <div class="col-sm-7">
+                {{assessment.visitDate | date}}
             </div>
         </div>
-    </div>
-    <div class="row">
-        <label class="col-sm-5 col-form-label" for="energySavings">Annual Energy Savings</label>
-        <div class="col-sm-7">
-            <div class="input-group">
-                <input name="energySavings" type="number" class="form-control" [(ngModel)]="assessment.energySavings"
-                    (input)="saveChanges()" id="energySavings" [disabled]="isDisabled">
-                <span class="input-group-text" [innerHTML]="numberOfTrackedUtilities === 1?
+        <hr>
+        <div class="row">
+            <label class="col-sm-5 col-form-label" for="implementationCost">Implementation Cost</label>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <input name="implementationCost" type="number" class="form-control"
+                        [(ngModel)]="assessment.implementationCost" (input)="saveChanges()" id="implementationCost"
+                        [disabled]="isDisabled">
+                    <span class="input-group-text">&dollar;</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-5 col-form-label" for="energySavings">Annual Energy Savings</label>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <input name="energySavings" type="number" class="form-control"
+                        [(ngModel)]="assessment.energySavings" (input)="saveChanges()" id="energySavings"
+                        [disabled]="isDisabled">
+                    <span class="input-group-text" [innerHTML]="numberOfTrackedUtilities === 1?
                      (trackedEnergyUnit | unitsDisplay) + '/yr': (companyEnergyUnit | unitsDisplay) + '/yr'"></span>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <label class="col-sm-5 col-form-label" for="costSavings">Annual Cost Savings</label>
-        <div class="col-sm-7">
-            <div class="input-group">
-                <input name="costSavings" type="number" class="form-control" [(ngModel)]="assessment.costSavings"
-                    (input)="saveChanges()" id="costSavings" [disabled]="isDisabled">
-                <span class="input-group-text">&dollar;</span>
+        <div class="row">
+            <label class="col-sm-5 col-form-label" for="costSavings">Annual Cost Savings</label>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <input name="costSavings" type="number" class="form-control" [(ngModel)]="assessment.costSavings"
+                        (input)="saveChanges()" id="costSavings" [disabled]="isDisabled">
+                    <span class="input-group-text">&dollar;</span>
+                </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 </form>
 <hr class="d-md-none d-lg-block">
 <h5>

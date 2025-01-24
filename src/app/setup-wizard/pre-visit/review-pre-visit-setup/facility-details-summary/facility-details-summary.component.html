@@ -1,149 +1,173 @@
-<h5 class="bold w-100 text-center">
-    <fa-icon [icon]="faIndustry" class="me-2"></fa-icon> {{facility.generalInformation.name}}
-</h5>
+<div class="print-break-avoid">
+    <h5 class="bold w-100 text-center">
+        <fa-icon [icon]="faIndustry" class="me-2"></fa-icon> {{facility.generalInformation.name}}
+    </h5>
 
-<table class="table table-bordered table-hover table-sm">
-    <tbody>
-        <tr>
-            <td class="w-25">
-                Address
-            </td>
-            <td>
-                @let address = facility.generalInformation | addressDisplay;
-                <ng-template [ngIf]="address" [ngIfElse]="addressMdash">
-                    {{address}}
-                </ng-template>
-                <ng-template #addressMdash>
-                    &mdash;
-                </ng-template>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                NAICs
-            </td>
-            <td>
-                <ng-container *ngIf="!facility.generalInformation.naics1">
-                    &mdash;
-                </ng-container>
-                <ng-container
-                    *ngIf="facility.generalInformation.naics1 && !facility.generalInformation.naics2 && !facility.generalInformation.naics3">
-                    {{facility.generalInformation.naics1}}
-                </ng-container>
-                <ng-container *ngIf="facility.generalInformation.naics2 && !facility.generalInformation.naics3">
-                    {{facility.generalInformation.naics2}}
-                </ng-container>
-                <ng-container *ngIf="facility.generalInformation.naics3">
-                    {{facility.generalInformation.naics3}}
-                </ng-container>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<h6 class="bold">Tracked Utilities</h6>
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th class="w-25">
-                Utility
-            </th>
-            <th>
-                Unit
-            </th>
-            <th>
-                Unit Price
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngIf="facility.unitSettings.includeElectricity">
-            <td>
-                Electricity
-            </td>
-            <td>
-                <span [innerHTML]="facility.unitSettings.electricityUnit | unitsDisplay"></span>
-            </td>
-            <td>
-                {{facility.unitSettings.electricityPrice}} &dollar;/<span
-                    [innerHTML]="facility.unitSettings.electricityUnit | unitsDisplay"></span>
-            </td>
-        </tr>
-        <tr *ngIf="facility.unitSettings.includeNaturalGas">
-            <td>
-                Natural Gas
-            </td>
-            <td>
-                <span [innerHTML]="facility.unitSettings.naturalGasUnit | unitsDisplay"></span>
-            </td>
-            <td>
-                {{facility.unitSettings.naturalGasPrice}} &dollar;/<span
-                    [innerHTML]="facility.unitSettings.naturalGasUnit | unitsDisplay"></span>
-            </td>
-        </tr>
+    <table class="table table-bordered table-hover table-sm">
+        <tbody>
+            <tr>
+                <td class="w-25">
+                    Address
+                </td>
+                <td>
+                    @let address = facility.generalInformation | addressDisplay;
+                    <ng-template [ngIf]="address" [ngIfElse]="addressMdash">
+                        {{address}}
+                    </ng-template>
+                    <ng-template #addressMdash>
+                        &mdash;
+                    </ng-template>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    NAICs
+                </td>
+                <td>
+                    <ng-container *ngIf="!facility.generalInformation.naics1">
+                        &mdash;
+                    </ng-container>
+                    <ng-container
+                        *ngIf="facility.generalInformation.naics1 && !facility.generalInformation.naics2 && !facility.generalInformation.naics3">
+                        {{facility.generalInformation.naics1}}
+                    </ng-container>
+                    <ng-container *ngIf="facility.generalInformation.naics2 && !facility.generalInformation.naics3">
+                        {{facility.generalInformation.naics2}}
+                    </ng-container>
+                    <ng-container *ngIf="facility.generalInformation.naics3">
+                        {{facility.generalInformation.naics3}}
+                    </ng-container>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h6 class="bold">Tracked Utilities</h6>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="w-25">
+                    Utility
+                </th>
+                <th>
+                    Unit Price
+                </th>
+                <th>
+                    Energy/Utility Use
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="facility.unitSettings.includeElectricity">
+                <td>
+                    Electricity
+                </td>
+                <td>
+                    {{facility.unitSettings.electricityPrice}} &dollar;/<span
+                        [innerHTML]="facility.unitSettings.electricityUnit | unitsDisplay"></span>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="facility.unitSettings.electricityUse"></app-single-cell-item>
+                    <span [innerHTML]="facility.unitSettings.electricityUnit | unitsDisplay"></span>
+                </td>
+            </tr>
+            <tr *ngIf="facility.unitSettings.includeNaturalGas">
+                <td>
+                    Natural Gas
+                </td>
+                <td>
+                    {{facility.unitSettings.naturalGasPrice}} &dollar;/<span
+                        [innerHTML]="facility.unitSettings.naturalGasUnit | unitsDisplay"></span>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="facility.unitSettings.naturalGasUse"></app-single-cell-item>
+                    <span [innerHTML]="facility.unitSettings.naturalGasUnit | unitsDisplay"></span>
+                </td>
+            </tr>
 
-        <tr *ngIf="facility.unitSettings.includeOtherFuels">
-            <td>
-                Other Fuel
-            </td>
-            <td>
-                <span [innerHTML]="facility.unitSettings.otherFuelsUnit | unitsDisplay"></span>
-            </td>
-            <td>
-                {{facility.unitSettings.otherFuelsPrice}} &dollar;/<span
-                    [innerHTML]="facility.unitSettings.otherFuelsUnit | unitsDisplay"></span>
-            </td>
-        </tr>
+            <tr *ngIf="facility.unitSettings.includeOtherFuels">
+                <td>
+                    Other Fuel
+                </td>
+                <td>
+                    {{facility.unitSettings.otherFuelsPrice}} &dollar;/<span
+                        [innerHTML]="facility.unitSettings.otherFuelsUnit | unitsDisplay"></span>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="facility.unitSettings.otherFuelsUse"></app-single-cell-item>
+                    <span [innerHTML]="facility.unitSettings.otherFuelsUnit | unitsDisplay"></span>
+                </td>
+            </tr>
 
-        <tr *ngIf="facility.unitSettings.includeWater">
-            <td>
-                Water
-            </td>
-            <td>
-                <span [innerHTML]="facility.unitSettings.waterUnit | unitsDisplay"></span>
-            </td>
-            <td>
-                {{facility.unitSettings.waterPrice}} &dollar;/<span
-                    [innerHTML]="facility.unitSettings.waterUnit | unitsDisplay"></span>
-            </td>
-        </tr>
+            <tr *ngIf="facility.unitSettings.includeWater">
+                <td>
+                    Water
+                </td>
+                <td>
+                    {{facility.unitSettings.waterPrice}} &dollar;/<span
+                        [innerHTML]="facility.unitSettings.waterUnit | unitsDisplay"></span>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="facility.unitSettings.waterUse"></app-single-cell-item>
+                    <span [innerHTML]="facility.unitSettings.waterUnit | unitsDisplay"></span>
+                </td>
+            </tr>
 
-        <tr *ngIf="facility.unitSettings.includeWasteWater">
-            <td>
-                Waste Water
-            </td>
-            <td>
-                <span [innerHTML]="facility.unitSettings.wasteWaterUnit | unitsDisplay"></span>
-            </td>
-            <td>
-                {{facility.unitSettings.wasteWaterPrice}} &dollar;/<span
-                    [innerHTML]="facility.unitSettings.wasteWaterUnit | unitsDisplay"></span>
-            </td>
-        </tr>
+            <tr *ngIf="facility.unitSettings.includeWasteWater">
+                <td>
+                    Waste Water
+                </td>
+                <td>
+                    {{facility.unitSettings.wasteWaterPrice}} &dollar;/<span
+                        [innerHTML]="facility.unitSettings.wasteWaterUnit | unitsDisplay"></span>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="facility.unitSettings.wasteWaterUse"></app-single-cell-item>
+                    <span [innerHTML]="facility.unitSettings.wasteWaterUnit | unitsDisplay"></span>
+                </td>
+            </tr>
 
-        <tr *ngIf="facility.unitSettings.includeSteam">
-            <td>
-                Steam (as Utility)
-            </td>
-            <td>
-                <span [innerHTML]="facility.unitSettings.steamUnit | unitsDisplay"></span>
-            </td>
-            <td>
-                {{facility.unitSettings.steamPrice}} &dollar;/<span
-                    [innerHTML]="facility.unitSettings.steamUnit | unitsDisplay"></span>
-            </td>
-        </tr>
+            <tr *ngIf="facility.unitSettings.includeSteam">
+                <td>
+                    Steam (as Utility)
+                </td>
+                <td>
+                    {{facility.unitSettings.steamPrice}} &dollar;/<span
+                        [innerHTML]="facility.unitSettings.steamUnit | unitsDisplay"></span>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="facility.unitSettings.steamUse"></app-single-cell-item>
+                    <span [innerHTML]="facility.unitSettings.steamUnit | unitsDisplay"></span>
+                </td>
+            </tr>
 
-        <tr *ngIf="facility.unitSettings.includeCompressedAir">
-            <td>
-                Compressed Air (as Utility)
-            </td>
-            <td>
-                <span [innerHTML]="facility.unitSettings.compressedAirUnit | unitsDisplay"></span>
-            </td>
-            <td>
-                {{facility.unitSettings.compressedAirPrice}} &dollar;/<span
-                    [innerHTML]="facility.unitSettings.compressedAirUnit | unitsDisplay"></span>
-            </td>
-        </tr>
-    </tbody>
-</table>
+            <tr *ngIf="facility.unitSettings.includeCompressedAir">
+                <td>
+                    Compressed Air (as Utility)
+                </td>
+                <td>
+                    {{facility.unitSettings.compressedAirPrice}} &dollar;/<span
+                        [innerHTML]="facility.unitSettings.compressedAirUnit | unitsDisplay"></span>
+                </td>
+                <td>
+                    <app-single-cell-item [numValue]="facility.unitSettings.compressedAirUse"></app-single-cell-item>
+                    <span [innerHTML]="facility.unitSettings.compressedAirUnit | unitsDisplay"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="d-flex flex-column">
+        <div>
+            <label class="bold">
+                Total Energy Use:
+            </label>
+            {{ facility.energyUse | number: '1.0-2' }}
+            <span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>
+        </div>
+        <div>
+            <label class="bold">
+                Annual Utility Cost:
+            </label>
+            {{ facility.cost | currency:'USD':'symbol':'1.0-2' }}
+        </div>
+    </div>
+</div>

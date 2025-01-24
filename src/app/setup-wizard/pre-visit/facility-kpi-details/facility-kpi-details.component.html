@@ -1,0 +1,26 @@
+<div class="setup-wizard-content">
+    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+        <div class="col-10 pt-4 pb-4">
+            <div class="form-paper shadow" *ngIf="keyPerformanceIndicator">
+                <app-kpi-details-form></app-kpi-details-form>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="setup-wizard-footer navbar shadow">
+    <div class="container-fluid justify-content-between">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+            Go Back
+        </button>
+        <button class="btn nav-btn btn-sm" (click)="goNext()">
+            <ng-template [ngIf]="indicatorIndex != (numFacilityKpis-1)" [ngIfElse]="facilityDetailsBlock">
+                Next KPI
+            </ng-template>
+            <ng-template #facilityDetailsBlock>
+                Industrial System Inventory
+            </ng-template>
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
+    </div>
+</nav>

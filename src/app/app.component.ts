@@ -15,6 +15,8 @@ import { EnergyEquipmentIdbService } from './indexed-db/energy-equipment-idb.ser
 import { ProcessEquipmentIdbService } from './indexed-db/process-equipment-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from './indexed-db/key-performance-metric-impacts-idb.service';
 import { ToastNotificationsService } from './core-components/toast-notifications/toast-notifications.service';
+import { UpdateDbEntriesService } from './indexed-db/update-db-entries.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +26,8 @@ import { ToastNotificationsService } from './core-components/toast-notifications
 export class AppComponent {
 
   dataInitialized: boolean = false;
+  print: boolean;
+  printSub: Subscription;
   constructor(private userIdbService: UserIdbService, private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService, private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private router: Router,
@@ -36,10 +40,14 @@ export class AppComponent {
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
-    private toastNotificationService: ToastNotificationsService) {
+    private toastNotificationService: ToastNotificationsService,
+    private updateDbEntriesService: UpdateDbEntriesService) {
   }
 
   async ngOnInit() {
+    this.printSub = this.sharedDataService.print.subscribe(print => {
+      this.print = print;
+    });
     await this.initializeData();
     this.checkRouter();
     this.toastNotificationService.showWebDisclaimer();
@@ -51,6 +59,9 @@ export class AppComponent {
     console.log('init')
     await this.userIdbService.initializeData();
     console.log('users init..');
+    //update db entries
+    let user: IdbUser = this.userIdbService.user.getValue();
+    await this.updateDbEntriesService.updateDbEntries(user);
     //companies
     await this.companyIdbService.setCompanies();
     console.log('companies init..');

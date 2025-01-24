@@ -16,9 +16,6 @@ import { ToastNotificationsService } from 'src/app/core-components/toast-notific
 export class CompanyContactsFormComponent {
   @Input({ required: true })
   contactGuid: string;
-  @Output('emitInitialized')
-  emitInitialized = new EventEmitter<boolean>();
-
 
   faTrash: IconDefinition = faTrash;
   faUser: IconDefinition = faUser;
@@ -47,11 +44,6 @@ export class CompanyContactsFormComponent {
       this.contactForm = this.companyContactsFormService.getFormFromIdbContact(this.contact);
     }
 
-  }
-  ngAfterViewInit() {
-    //emit after intialized. 
-    //When adding new nebs this will trigger the form to open
-    this.emitInitialized.emit(true);
   }
 
   async saveChanges() {

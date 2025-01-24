@@ -15,6 +15,8 @@ import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
+import { Subscription } from 'rxjs';
+import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({
   selector: 'app-assessment-report',
@@ -31,12 +33,15 @@ export class AssessmentReportComponent {
   facility: IdbFacility;
   assessmentReport: AssessmentReport;
   energyEquipments: Array<IdbEnergyEquipment>;
+  printSub: Subscription;
+  print: boolean;
   constructor(private facilityIdbService: FacilityIdbService, private companyIdbService: CompanyIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
-    private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService
+    private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
+    private sharedDataService: SharedDataService
   ) {
   }
 
@@ -44,6 +49,13 @@ export class AssessmentReportComponent {
     this.company = this.companyIdbService.getByGUID(this.assessment.companyId);
     this.facility = this.facilityIdbService.getByGUID(this.assessment.facilityId);
     this.energyEquipments = this.energyEquipmentIdbService.energyEquipments.getValue();
+    this.printSub = this.sharedDataService.print.subscribe(_print => {
+      this.print = _print;
+    })
+  }
+
+  ngOnDestroy(){
+    this.printSub.unsubscribe();
   }
 
   ngOnChanges() {

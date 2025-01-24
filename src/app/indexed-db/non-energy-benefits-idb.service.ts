@@ -68,10 +68,14 @@ export class NonEnergyBenefitsIdbService {
     });
   }
 
-  getAssessmentNonEnergyBenefits(assessmentId: string): Array<IdbNonEnergyBenefit> {
+  getAssessmentNonEnergyBenefits(assessmentId: string, filterEnergyOppBenefits: boolean): Array<IdbNonEnergyBenefit> {
     let nonEnergyBenefits: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefits.getValue();
     return nonEnergyBenefits.filter(neb => {
-      return neb.assessmentId == assessmentId && neb.energyOpportunityId == undefined;
+      if (filterEnergyOppBenefits) {
+        return neb.assessmentId == assessmentId && neb.energyOpportunityId == undefined;
+      } else {
+        return neb.assessmentId == assessmentId;
+      }
     });
   }
 }

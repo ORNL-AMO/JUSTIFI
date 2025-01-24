@@ -81,14 +81,14 @@ export class KeyPerformanceIndicatorsIdbService {
     });
   }
 
-  getKpiFromKpm(companyGuid: string, performanceMetricValue: KeyPerformanceIndicatorValue): IdbKeyPerformanceIndicator {
+  getKpiFromKpm(facilityId: string, performanceMetricValue: KeyPerformanceIndicatorValue): IdbKeyPerformanceIndicator {
     let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicators.getValue();
     return keyPerformanceIndicators.find(kpi => {
-      return kpi.companyId == companyGuid && kpi.optionValue == performanceMetricValue;
+      return kpi.facilityId == facilityId && kpi.optionValue == performanceMetricValue;
     });
   }
 
-  async addKpmToKpi(companyId: string, performanceMetricToAdd: KeyPerformanceMetric | KeyPerformanceMetricOption, userId: string): Promise<KeyPerformanceMetric> {
+  async addKpmToKpi(companyId: string, performanceMetricToAdd: KeyPerformanceMetric | KeyPerformanceMetricOption, userId: string, facilityId: string): Promise<KeyPerformanceMetric> {
     let addedMetric: KeyPerformanceMetric;
     let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.getKpiFromKpm(companyId, performanceMetricToAdd.kpiValue);
     if (keyPerformanceIndicator) {
@@ -112,7 +112,7 @@ export class KeyPerformanceIndicatorsIdbService {
       let kpiOption: KeyPerformanceIndicatorOption = KeyPerformanceIndicatorOptions.find(option => {
         return option.optionValue == performanceMetricToAdd.kpiValue
       });
-      keyPerformanceIndicator = getNewKeyPerformanceIndicator(userId, companyId, kpiOption, false);
+      keyPerformanceIndicator = getNewKeyPerformanceIndicator(userId, companyId, kpiOption, false, facilityId);
       addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {
         return (_metric.value == performanceMetricToAdd.value);
       });
@@ -120,5 +120,13 @@ export class KeyPerformanceIndicatorsIdbService {
       await this.setKeyPerformanceIndicators();
     }
     return addedMetric;
+  }
+
+  getByFacilityGuid(facilityGuid: string): Array<IdbKeyPerformanceIndicator> {
+    let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicators.getValue();
+    let facilityKPIs: Array<IdbKeyPerformanceIndicator> = keyPerformanceIndicators.filter(kpi => {
+      return kpi.facilityId == facilityGuid;
+    });
+    return facilityKPIs;
   }
 }

@@ -23,6 +23,7 @@ export class OnSiteAssessmentResultsComponent {
   assessment: IdbAssessment;
 
   assessmentReport: AssessmentReport;
+  nonEnergyBenefits: Array<IdbNonEnergyBenefit>;
   constructor(private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
@@ -36,6 +37,7 @@ export class OnSiteAssessmentResultsComponent {
   ngOnInit() {
     this.assessmentSub = this.assessmentIdbService.selectedAssessment.subscribe(_assessment => {
       this.assessment = _assessment;
+      this.nonEnergyBenefits = this.nonEnergyBenefitIdbService.getAssessmentNonEnergyBenefits(this.assessment.guid, false);
       this.setAssessmentReport();
     });
   }
@@ -44,7 +46,7 @@ export class OnSiteAssessmentResultsComponent {
     this.assessmentSub.unsubscribe();
   }
 
-  setAssessmentReport(){
+  setAssessmentReport() {
     let allEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue();
     let allNonEnergyBenefits: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefitIdbService.nonEnergyBenefits.getValue();
     let companyPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(this.assessment.companyId);

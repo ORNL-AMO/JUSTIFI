@@ -32,6 +32,7 @@ import { SharedDataService } from "../shared/shared-services/shared-data.service
 import { CompanyContactsFormService } from "../shared/shared-company-forms/company-contacts-form/company-contacts-form.service";
 import { FormControl, FormGroup } from "@angular/forms";
 import { LocalStorageService } from "ngx-webstorage";
+import { UpdateDbEntriesService } from "../indexed-db/update-db-entries.service";
 
 let stubCompany: IdbCompany = getNewIdbCompany('123');
 stubCompany.guid = '123';
@@ -87,7 +88,8 @@ let stubNeb: IdbNonEnergyBenefit = getNewIdbNonEnergyBenefit('123', '123', '123'
 stubNeb.guid = '123';
 let nonEnergyBenefitsIdbService: Partial<NonEnergyBenefitsIdbService> = {
     nonEnergyBenefits: new BehaviorSubject<Array<IdbNonEnergyBenefit>>([stubNeb]),
-    getEnergyOpportunityNonEnergyBenefits: () => { return [stubNeb] }
+    getEnergyOpportunityNonEnergyBenefits: () => { return [stubNeb] },
+    getByGuid: () => { return stubNeb }
 };
 
 let stubOnSiteVisit: IdbOnSiteVisit = getNewIdbOnSiteVisit('123', '123', '123');
@@ -109,7 +111,7 @@ let option: KeyPerformanceIndicatorOption =
     htmlLabel: 'Expense Cost',
     optionValue: 'reduceExpenseCost'
 }
-let stubKpi: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator('123', '123', option, false);
+let stubKpi: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator('123', '123', option, false, '123');
 stubKpi.guid = '123';
 let keyPerformanceIndicatorService: Partial<KeyPerformanceIndicatorsIdbService> = {
     keyPerformanceIndicators: new BehaviorSubject<Array<IdbKeyPerformanceIndicator>>([stubKpi]),
@@ -144,7 +146,8 @@ let sharedDataService: Partial<SharedDataService> = {
     createAssessmentModalOpen: new BehaviorSubject<boolean>(false),
     sidebarOpen: new BehaviorSubject<boolean>(false),
     displayAddNebsModal: new BehaviorSubject<{ assessmentId: string, energyOpportunityId: string }>(undefined),
-    displayContactModal: new BehaviorSubject<{ context: ContactContext, viewContact: IdbContact, contextGuid: string, companyId: string }>(undefined)
+    displayContactModal: new BehaviorSubject<{ context: ContactContext, viewContact: IdbContact, contextGuid: string, companyId: string }>(undefined),
+    print: new BehaviorSubject<boolean>(false)
 }
 
 let companyContactsFormService: Partial<CompanyContactsFormService> = {
@@ -161,6 +164,8 @@ let companyContactsFormService: Partial<CompanyContactsFormService> = {
         })
     }
 }
+
+let updateDbEntriesService: Partial<UpdateDbEntriesService> = {};
 
 let localStorageService: Partial<LocalStorageService> = {
     retrieve: () => { return undefined },
@@ -184,6 +189,7 @@ export const stubServiceProviders: Array<{ provide: any, useValue: any }> = [
     { provide: LocalStorageDataService, useValue: localStorageService },
     { provide: SharedDataService, useValue: sharedDataService },
     { provide: CompanyContactsFormService, useValue: companyContactsFormService },
+    { provide: UpdateDbEntriesService, useValue: updateDbEntriesService },
     {
         provide: ActivatedRoute,
         useValue: {

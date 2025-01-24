@@ -5,6 +5,10 @@ import { IdbCompany } from 'src/app/models/company';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { Subscription } from 'rxjs';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
   selector: 'app-review-pre-visit-setup',
@@ -19,8 +23,12 @@ export class ReviewPreVisitSetupComponent {
   faFilePdf: IconDefinition = faFilePdf;
 
   company: IdbCompany;
+  print: boolean;
+  printSub: Subscription;
   constructor(private router: Router, private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private companyIdbService: CompanyIdbService
+    private companyIdbService: CompanyIdbService,
+    private sharedDataService: SharedDataService,
+    private facilityIdbService: FacilityIdbService
   ) {
   }
 
@@ -29,14 +37,36 @@ export class ReviewPreVisitSetupComponent {
     if(!this.company){
       this.router.navigateByUrl('/welcome');
     }
+
+    this.printSub = this.sharedDataService.print.subscribe(print => {
+      this.print = print;
+      if (this.print) {
+        this.printReport();
+      }
+    });
   }
 
-  goBack() {
+  ngOnDestroy(){
+    this.printSub.unsubscribe();
+  }
+
+  async goBack() {
+    let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+    if(!facility.sidebarOpen){
+      facility.sidebarOpen = true;
+      facility.sidebarPreAssessmentOpen = true;
+      await this.facilityIdbService.asyncUpdate(facility);
+    }
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/pre-assessment');
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-pre-assessment');
   }
 
-  continue() {
+  async continue() {
+    let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+    if(facility.sidebarOpen){
+      facility.sidebarOpen = false;
+      await this.facilityIdbService.asyncUpdate(facility);
+    }
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
     if(onSiteVisit.assessmentIds.length > 0){
       this.router.navigateByUrl('setup-wizard/data-collection/' + onSiteVisit.guid + '/assessment/' + onSiteVisit.assessmentIds[0]);
@@ -48,5 +78,19 @@ export class ReviewPreVisitSetupComponent {
   goToFacility() {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
     this.router.navigateByUrl('facility/' + onSiteVisit.facilityId);
+  }
+
+  togglePrint() {
+    this.sharedDataService.print.next(true);
+  }
+
+  printReport() {
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+      setTimeout(() => {
+        window.print();
+        this.sharedDataService.print.next(false)
+      }, 1000)
+    }, 100)
   }
 }

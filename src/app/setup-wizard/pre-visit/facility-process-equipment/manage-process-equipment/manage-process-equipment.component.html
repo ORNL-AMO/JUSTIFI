@@ -1,0 +1,85 @@
+<div class="setup-wizard-content">
+    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+        <div class="col-10 pt-4 pb-4">
+            <div class="form-paper shadow">
+                <h5>
+                    <fa-icon [icon]="faList"></fa-icon>
+                    End Use Inventory
+                </h5>
+                <hr>
+                <div class="d-flex w-100 justify-content-end pb-2">
+                    <div class="p-0">
+                        <button class="btn btn-outline-success btn-sm" (click)="addEquipment()">
+                            <fa-icon [icon]="faPlus" class="pe-1"></fa-icon>
+                            Add End Use
+                        </button>
+                    </div>
+                </div>
+
+                <ng-template [ngIf]="processEquipments.length != 0" [ngIfElse]="noEnergyEquipmentBlock">
+                    <table class="table table-bordered table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th class="w-25">
+                                    Name
+                                </th>
+                                <th class="w-50">
+                                    Notes
+                                </th>
+                                <th class="w-25">
+                                    Stakeholders
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let processEquipment of processEquipments">
+                                <td>
+                                    <a class="click-link" (click)="goToProcessEquipment(processEquipment)">
+                                        {{processEquipment.equipmentName}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <app-single-cell-item [strValue]="processEquipment.notes"></app-single-cell-item>
+                                </td>
+                                <td>
+                                    @let associatedContacts = processEquipment.guid |
+                                    associatedContacts:'processEquipment': contacts;
+                                    <ng-template [ngIf]="associatedContacts.length > 0" [ngIfElse]="noContactsBlock">
+                                        <span *ngFor="let contact of associatedContacts">
+                                            {{contact | contactNameDisplay}} <br>
+                                        </span>
+                                    </ng-template>
+                                    <ng-template #noContactsBlock>
+                                        &mdash;
+                                    </ng-template>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+                <ng-template #noEnergyEquipmentBlock>
+                    <div class="alert alert-info text-center">
+                        Empty Inventory. Click "Add End Use" to the end uses system inventory.
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="setup-wizard-footer navbar shadow">
+    <div class="container-fluid justify-content-between">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+            Go Back
+        </button>
+        <button class="btn nav-btn btn-sm" (click)="goToNext()">
+            <ng-template [ngIf]="processEquipments.length != 0" [ngIfElse]="preAssessmentBlock">
+                End Use Details
+            </ng-template>
+            <ng-template #preAssessmentBlock>
+                Pre-Assessments
+            </ng-template>
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
+    </div>
+</nav>
