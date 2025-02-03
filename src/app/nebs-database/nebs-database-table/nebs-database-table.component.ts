@@ -15,9 +15,10 @@ import { NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefit
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-nebs-database-table',
-  templateUrl: './nebs-database-table.component.html',
-  styleUrl: './nebs-database-table.component.css'
+    selector: 'app-nebs-database-table',
+    templateUrl: './nebs-database-table.component.html',
+    styleUrl: './nebs-database-table.component.css',
+    standalone: false
 })
 export class NebsDatabaseTableComponent {
   @Input()

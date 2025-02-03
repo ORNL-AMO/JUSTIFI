@@ -4,7 +4,8 @@ import { NebOption, NebOptions } from '../constants/nonEnergyBenefitOptions';
 import * as _ from 'lodash';
 
 @Pipe({
-  name: 'nebOptionsList'
+    name: 'nebOptionsList',
+    standalone: false
 })
 export class NebOptionsListPipe implements PipeTransform {
 

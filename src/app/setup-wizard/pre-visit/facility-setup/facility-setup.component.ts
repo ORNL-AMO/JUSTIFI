@@ -13,9 +13,10 @@ import { IdbCompany } from 'src/app/models/company';
 import { IdbContact } from 'src/app/models/contact';
 
 @Component({
-  selector: 'app-facility-setup',
-  templateUrl: './facility-setup.component.html',
-  styleUrl: './facility-setup.component.css'
+    selector: 'app-facility-setup',
+    templateUrl: './facility-setup.component.html',
+    styleUrl: './facility-setup.component.css',
+    standalone: false
 })
 export class FacilitySetupComponent implements OnInit {
 

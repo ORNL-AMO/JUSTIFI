@@ -9,9 +9,10 @@ import { IdbContact } from 'src/app/models/contact';
 import { CompanyContactsFormService } from 'src/app/shared/shared-company-forms/company-contacts-form/company-contacts-form.service';
 
 @Component({
-  selector: 'app-company-stakeholders',
-  templateUrl: './company-stakeholders.component.html',
-  styleUrl: './company-stakeholders.component.css'
+    selector: 'app-company-stakeholders',
+    templateUrl: './company-stakeholders.component.html',
+    styleUrl: './company-stakeholders.component.css',
+    standalone: false
 })
 export class CompanyStakeholdersComponent {
   faChevronRight: IconDefinition = faChevronRight;

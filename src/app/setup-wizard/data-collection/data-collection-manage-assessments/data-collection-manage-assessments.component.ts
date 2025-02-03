@@ -10,9 +10,10 @@ import { IdbAssessment, getNewIdbAssessment } from 'src/app/models/assessment';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-  selector: 'app-data-collection-manage-assessments',
-  templateUrl: './data-collection-manage-assessments.component.html',
-  styleUrl: './data-collection-manage-assessments.component.css'
+    selector: 'app-data-collection-manage-assessments',
+    templateUrl: './data-collection-manage-assessments.component.html',
+    styleUrl: './data-collection-manage-assessments.component.css',
+    standalone: false
 })
 export class DataCollectionManageAssessmentsComponent {
 

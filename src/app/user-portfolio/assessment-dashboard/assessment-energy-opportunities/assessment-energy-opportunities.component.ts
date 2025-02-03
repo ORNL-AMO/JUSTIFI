@@ -7,9 +7,10 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 
 @Component({
-  selector: 'app-assessment-energy-opportunities',
-  templateUrl: './assessment-energy-opportunities.component.html',
-  styleUrl: './assessment-energy-opportunities.component.css'
+    selector: 'app-assessment-energy-opportunities',
+    templateUrl: './assessment-energy-opportunities.component.html',
+    styleUrl: './assessment-energy-opportunities.component.css',
+    standalone: false
 })
 export class AssessmentEnergyOpportunitiesComponent {
 

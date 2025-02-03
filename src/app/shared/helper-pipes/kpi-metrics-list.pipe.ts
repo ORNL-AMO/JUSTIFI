@@ -4,7 +4,8 @@ import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricO
 import * as _ from 'lodash';
 
 @Pipe({
-  name: 'kpiMetricsList'
+    name: 'kpiMetricsList',
+    standalone: false
 })
 export class KpiMetricsListPipe implements PipeTransform {
 

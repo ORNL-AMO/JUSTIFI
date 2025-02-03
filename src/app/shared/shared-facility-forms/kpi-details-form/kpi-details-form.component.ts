@@ -15,9 +15,10 @@ import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-pe
 import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-kpi-details-form',
-  templateUrl: './kpi-details-form.component.html',
-  styleUrl: './kpi-details-form.component.css'
+    selector: 'app-kpi-details-form',
+    templateUrl: './kpi-details-form.component.html',
+    styleUrl: './kpi-details-form.component.css',
+    standalone: false
 })
 export class KpiDetailsFormComponent {
   // @Input({ required: true })

@@ -20,9 +20,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 
 @Component({
-  selector: 'app-energy-opportunity-setup-form',
-  templateUrl: './energy-opportunity-setup-form.component.html',
-  styleUrl: './energy-opportunity-setup-form.component.css'
+    selector: 'app-energy-opportunity-setup-form',
+    templateUrl: './energy-opportunity-setup-form.component.html',
+    styleUrl: './energy-opportunity-setup-form.component.css',
+    standalone: false
 })
 export class EnergyOpportunitySetupFormComponent {
   @Input({ required: true })

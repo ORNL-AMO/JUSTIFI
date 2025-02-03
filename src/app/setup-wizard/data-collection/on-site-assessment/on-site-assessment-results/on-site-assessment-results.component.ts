@@ -13,9 +13,10 @@ import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMet
 import { AssessmentReport, getAssessmentReport } from 'src/app/shared/reports/calculations/assessmentReport';
 
 @Component({
-  selector: 'app-on-site-assessment-results',
-  templateUrl: './on-site-assessment-results.component.html',
-  styleUrl: './on-site-assessment-results.component.css'
+    selector: 'app-on-site-assessment-results',
+    templateUrl: './on-site-assessment-results.component.html',
+    styleUrl: './on-site-assessment-results.component.css',
+    standalone: false
 })
 export class OnSiteAssessmentResultsComponent {
 

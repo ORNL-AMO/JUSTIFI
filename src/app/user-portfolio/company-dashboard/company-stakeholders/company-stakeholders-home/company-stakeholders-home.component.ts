@@ -9,9 +9,10 @@ import { IdbCompany } from 'src/app/models/company';
 import { getNewIdbContact, IdbContact } from 'src/app/models/contact';
 
 @Component({
-  selector: 'app-company-stakeholders-home',
-  templateUrl: './company-stakeholders-home.component.html',
-  styleUrl: './company-stakeholders-home.component.css'
+    selector: 'app-company-stakeholders-home',
+    templateUrl: './company-stakeholders-home.component.html',
+    styleUrl: './company-stakeholders-home.component.css',
+    standalone: false
 })
 export class CompanyStakeholdersHomeComponent {
 

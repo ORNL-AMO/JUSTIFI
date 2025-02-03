@@ -9,9 +9,10 @@ import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.servi
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 
 @Component({
-  selector: 'app-assessment-energy-opportunities-form',
-  templateUrl: './assessment-energy-opportunities-form.component.html',
-  styleUrl: './assessment-energy-opportunities-form.component.css'
+    selector: 'app-assessment-energy-opportunities-form',
+    templateUrl: './assessment-energy-opportunities-form.component.html',
+    styleUrl: './assessment-energy-opportunities-form.component.css',
+    standalone: false
 })
 export class AssessmentEnergyOpportunitiesFormComponent {
   faFileLines: IconDefinition = faFileLines;

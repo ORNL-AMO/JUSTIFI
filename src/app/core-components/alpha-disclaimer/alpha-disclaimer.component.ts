@@ -2,9 +2,10 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 
 @Component({
-  selector: 'app-alpha-disclaimer',
-  templateUrl: './alpha-disclaimer.component.html',
-  styleUrl: './alpha-disclaimer.component.css'
+    selector: 'app-alpha-disclaimer',
+    templateUrl: './alpha-disclaimer.component.html',
+    styleUrl: './alpha-disclaimer.component.css',
+    standalone: false
 })
 export class AlphaDisclaimerComponent {
 

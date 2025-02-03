@@ -5,9 +5,10 @@ import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-perfo
 import { OrderMetricsTableFields } from './performance-metrics-table.pipe';
 
 @Component({
-  selector: 'app-performance-metrics-table',
-  templateUrl: './performance-metrics-table.component.html',
-  styleUrl: './performance-metrics-table.component.css'
+    selector: 'app-performance-metrics-table',
+    templateUrl: './performance-metrics-table.component.html',
+    styleUrl: './performance-metrics-table.component.css',
+    standalone: false
 })
 export class PerformanceMetricsTableComponent {
   @Input({ required: true })

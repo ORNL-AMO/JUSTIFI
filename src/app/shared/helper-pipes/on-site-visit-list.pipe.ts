@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Pipe({
-  name: 'onSiteVisitList',
+    name: 'onSiteVisitList',
+    standalone: false
 })
 export class OnSiteVisitListPipe implements PipeTransform {
 

@@ -17,9 +17,10 @@ import { LocalStorageDataService } from '../../shared-services/local-storage-dat
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-energy-opportunity-nebs-table',
-  templateUrl: './energy-opportunity-nebs-table.component.html',
-  styleUrl: './energy-opportunity-nebs-table.component.css'
+    selector: 'app-energy-opportunity-nebs-table',
+    templateUrl: './energy-opportunity-nebs-table.component.html',
+    styleUrl: './energy-opportunity-nebs-table.component.css',
+    standalone: false
 })
 export class EnergyOpportunityNebsTableComponent {
   @Input({ required: true })

@@ -3,9 +3,10 @@ import { IconDefinition, faFileLines, faScrewdriverWrench, faWeightHanging } fro
 import { AssessmentReport } from '../../calculations/assessmentReport';
 
 @Component({
-  selector: 'app-assessment-savings-table',
-  templateUrl: './assessment-savings-table.component.html',
-  styleUrl: './assessment-savings-table.component.css'
+    selector: 'app-assessment-savings-table',
+    templateUrl: './assessment-savings-table.component.html',
+    styleUrl: './assessment-savings-table.component.css',
+    standalone: false
 })
 export class AssessmentSavingsTableComponent {
   @Input({required: true})

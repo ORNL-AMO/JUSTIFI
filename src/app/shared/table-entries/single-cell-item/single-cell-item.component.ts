@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-single-cell-item',
-  templateUrl: './single-cell-item.component.html',
-  styleUrl: './single-cell-item.component.css'
+    selector: 'app-single-cell-item',
+    templateUrl: './single-cell-item.component.html',
+    styleUrl: './single-cell-item.component.css',
+    standalone: false
 })
 export class SingleCellItemComponent {
   @Input()

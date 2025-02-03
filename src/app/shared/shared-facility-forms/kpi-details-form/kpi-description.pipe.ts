@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 
 @Pipe({
-  name: 'kpiDescription'
+    name: 'kpiDescription',
+    standalone: false
 })
 export class KpiDescriptionPipe implements PipeTransform {
 

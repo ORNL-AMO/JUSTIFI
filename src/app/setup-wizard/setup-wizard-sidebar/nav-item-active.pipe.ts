@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'navItemActive'
+    name: 'navItemActive',
+    standalone: false
 })
 export class NavItemActivePipe implements PipeTransform {
 

@@ -8,9 +8,10 @@ import { getNewIdbNonEnergyBenefit, IdbNonEnergyBenefit } from 'src/app/models/n
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-assessment-nebs-form',
-  templateUrl: './assessment-nebs-form.component.html',
-  styleUrl: './assessment-nebs-form.component.css'
+    selector: 'app-assessment-nebs-form',
+    templateUrl: './assessment-nebs-form.component.html',
+    styleUrl: './assessment-nebs-form.component.css',
+    standalone: false
 })
 export class AssessmentNebsFormComponent {
 

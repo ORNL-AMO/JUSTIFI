@@ -10,9 +10,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Component({
-  selector: 'app-facility-process-equipment-form',
-  templateUrl: './facility-process-equipment-form.component.html',
-  styleUrl: './facility-process-equipment-form.component.css'
+    selector: 'app-facility-process-equipment-form',
+    templateUrl: './facility-process-equipment-form.component.html',
+    styleUrl: './facility-process-equipment-form.component.css',
+    standalone: false
 })
 export class FacilityProcessEquipmentFormComponent {
 

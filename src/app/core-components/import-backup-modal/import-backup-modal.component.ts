@@ -11,9 +11,10 @@ import { environment } from 'src/environments/environment';
 import { UpdateDbEntriesService } from 'src/app/indexed-db/update-db-entries.service';
 
 @Component({
-  selector: 'app-import-backup-modal',
-  templateUrl: './import-backup-modal.component.html',
-  styleUrl: './import-backup-modal.component.css'
+    selector: 'app-import-backup-modal',
+    templateUrl: './import-backup-modal.component.html',
+    styleUrl: './import-backup-modal.component.css',
+    standalone: false
 })
 export class ImportBackupModalComponent implements OnInit, OnDestroy {
   

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricValue } from '../constants/keyPerformanceMetrics';
 
 @Pipe({
-  name: 'kpmLabel'
+    name: 'kpmLabel',
+    standalone: false
 })
 export class KpmLabelPipe implements PipeTransform {
 

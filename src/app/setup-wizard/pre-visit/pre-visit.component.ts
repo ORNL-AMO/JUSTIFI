@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 @Component({
-  selector: 'app-pre-visit',
-  templateUrl: './pre-visit.component.html',
-  styleUrl: './pre-visit.component.css'
+    selector: 'app-pre-visit',
+    templateUrl: './pre-visit.component.html',
+    styleUrl: './pre-visit.component.css',
+    standalone: false
 })
 export class PreVisitComponent {
 

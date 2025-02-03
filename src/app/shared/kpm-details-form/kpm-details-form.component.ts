@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { KeyPerformanceMetric } from '../constants/keyPerformanceMetrics';
 
 @Component({
-  selector: 'app-kpm-details-form',
-  templateUrl: './kpm-details-form.component.html',
-  styleUrl: './kpm-details-form.component.css'
+    selector: 'app-kpm-details-form',
+    templateUrl: './kpm-details-form.component.html',
+    styleUrl: './kpm-details-form.component.css',
+    standalone: false
 })
 export class KpmDetailsFormComponent {
   @Input({ required: true })

@@ -11,9 +11,10 @@ import { LocalStorageDataService } from 'src/app/shared/shared-services/local-st
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 
 @Component({
-  selector: 'app-neb-forms-accordion',
-  templateUrl: './neb-forms-accordion.component.html',
-  styleUrl: './neb-forms-accordion.component.css'
+    selector: 'app-neb-forms-accordion',
+    templateUrl: './neb-forms-accordion.component.html',
+    styleUrl: './neb-forms-accordion.component.css',
+    standalone: false
 })
 export class NebFormsAccordionComponent {
   @Input({required: true})
