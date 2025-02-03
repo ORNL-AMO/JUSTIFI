@@ -12,9 +12,10 @@ import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
 import { IdbUser } from 'src/app/models/user';
 
 @Component({
-  selector: 'app-setup-wizard-modal',
-  templateUrl: './setup-wizard-modal.component.html',
-  styleUrl: './setup-wizard-modal.component.css'
+    selector: 'app-setup-wizard-modal',
+    templateUrl: './setup-wizard-modal.component.html',
+    styleUrl: './setup-wizard-modal.component.css',
+    standalone: false
 })
 export class SetupWizardModalComponent {
   selectedCompanyGuid: string;

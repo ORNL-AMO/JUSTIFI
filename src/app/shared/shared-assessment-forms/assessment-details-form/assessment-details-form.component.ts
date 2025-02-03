@@ -25,9 +25,10 @@ import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.serv
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-  selector: 'app-assessment-details-form',
-  templateUrl: './assessment-details-form.component.html',
-  styleUrl: './assessment-details-form.component.css'
+    selector: 'app-assessment-details-form',
+    templateUrl: './assessment-details-form.component.html',
+    styleUrl: './assessment-details-form.component.css',
+    standalone: false
 })
 export class AssessmentDetailsFormComponent {
   @Input()

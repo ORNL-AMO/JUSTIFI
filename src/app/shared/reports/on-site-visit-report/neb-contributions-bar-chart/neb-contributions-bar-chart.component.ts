@@ -6,9 +6,10 @@ import * as _ from 'lodash';
 import { graphColors } from 'src/app/shared/constants/graphColors';
 import { AssessmentReport } from '../../calculations/assessmentReport';
 @Component({
-  selector: 'app-neb-contributions-bar-chart',
-  templateUrl: './neb-contributions-bar-chart.component.html',
-  styleUrl: './neb-contributions-bar-chart.component.css'
+    selector: 'app-neb-contributions-bar-chart',
+    templateUrl: './neb-contributions-bar-chart.component.html',
+    styleUrl: './neb-contributions-bar-chart.component.css',
+    standalone: false
 })
 export class NebContributionsBarChartComponent {
   @Input({ required: true })

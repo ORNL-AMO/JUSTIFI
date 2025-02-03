@@ -15,9 +15,10 @@ import { Subscription } from 'rxjs';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-on-site-visit-report',
-  templateUrl: './on-site-visit-report.component.html',
-  styleUrl: './on-site-visit-report.component.css'
+    selector: 'app-on-site-visit-report',
+    templateUrl: './on-site-visit-report.component.html',
+    styleUrl: './on-site-visit-report.component.css',
+    standalone: false
 })
 export class OnSiteVisitReportComponent {
   @Input()

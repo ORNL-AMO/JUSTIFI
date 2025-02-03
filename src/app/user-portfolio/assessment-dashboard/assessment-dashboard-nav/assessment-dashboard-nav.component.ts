@@ -5,9 +5,10 @@ import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service'
 import { IdbAssessment } from 'src/app/models/assessment';
 
 @Component({
-  selector: 'app-assessment-dashboard-nav',
-  templateUrl: './assessment-dashboard-nav.component.html',
-  styleUrl: './assessment-dashboard-nav.component.css'
+    selector: 'app-assessment-dashboard-nav',
+    templateUrl: './assessment-dashboard-nav.component.html',
+    styleUrl: './assessment-dashboard-nav.component.css',
+    standalone: false
 })
 export class AssessmentDashboardNavComponent {
 

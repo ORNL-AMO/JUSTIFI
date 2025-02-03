@@ -3,8 +3,9 @@ import { IdbContact } from 'src/app/models/contact';
 import { ContactNameDisplayPipe } from './contact-name-display.pipe';
 
 @Pipe({
-  name: 'contactName',
-  pure: false
+    name: 'contactName',
+    pure: false,
+    standalone: false
 })
 export class ContactNamePipe implements PipeTransform {
 

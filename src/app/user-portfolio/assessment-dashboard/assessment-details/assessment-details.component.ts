@@ -9,9 +9,10 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-assessment-details',
-  templateUrl: './assessment-details.component.html',
-  styleUrl: './assessment-details.component.css'
+    selector: 'app-assessment-details',
+    templateUrl: './assessment-details.component.html',
+    styleUrl: './assessment-details.component.css',
+    standalone: false
 })
 export class AssessmentDetailsComponent {
 

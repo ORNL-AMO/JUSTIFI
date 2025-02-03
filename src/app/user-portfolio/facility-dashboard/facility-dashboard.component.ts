@@ -6,9 +6,10 @@ import { IdbCompany } from 'src/app/models/company';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
-  selector: 'app-facility-dashboard',
-  templateUrl: './facility-dashboard.component.html',
-  styleUrl: './facility-dashboard.component.css'
+    selector: 'app-facility-dashboard',
+    templateUrl: './facility-dashboard.component.html',
+    styleUrl: './facility-dashboard.component.css',
+    standalone: false
 })
 export class FacilityDashboardComponent {
 

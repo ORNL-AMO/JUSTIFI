@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 
 @Pipe({
-  name: 'nebTotalSavings'
+    name: 'nebTotalSavings',
+    standalone: false
 })
 export class NebTotalSavingsPipe implements PipeTransform {
 

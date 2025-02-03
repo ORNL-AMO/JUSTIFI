@@ -18,9 +18,10 @@ import { SharedDataService } from '../../shared-services/shared-data.service';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 
 @Component({
-  selector: 'app-energy-equipment-form',
-  templateUrl: './energy-equipment-form.component.html',
-  styleUrl: './energy-equipment-form.component.css'
+    selector: 'app-energy-equipment-form',
+    templateUrl: './energy-equipment-form.component.html',
+    styleUrl: './energy-equipment-form.component.css',
+    standalone: false
 })
 export class EnergyEquipmentFormComponent {
   @Input({ required: true })

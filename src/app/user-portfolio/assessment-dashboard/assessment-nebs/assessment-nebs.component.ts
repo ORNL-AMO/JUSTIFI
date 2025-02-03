@@ -7,9 +7,10 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 
 @Component({
-  selector: 'app-assessment-nebs',
-  templateUrl: './assessment-nebs.component.html',
-  styleUrl: './assessment-nebs.component.css'
+    selector: 'app-assessment-nebs',
+    templateUrl: './assessment-nebs.component.html',
+    styleUrl: './assessment-nebs.component.css',
+    standalone: false
 })
 export class AssessmentNebsComponent {
 

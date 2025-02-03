@@ -11,9 +11,10 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
-  selector: 'app-review-pre-visit-setup',
-  templateUrl: './review-pre-visit-setup.component.html',
-  styleUrl: './review-pre-visit-setup.component.css'
+    selector: 'app-review-pre-visit-setup',
+    templateUrl: './review-pre-visit-setup.component.html',
+    styleUrl: './review-pre-visit-setup.component.css',
+    standalone: false
 })
 export class ReviewPreVisitSetupComponent {
 

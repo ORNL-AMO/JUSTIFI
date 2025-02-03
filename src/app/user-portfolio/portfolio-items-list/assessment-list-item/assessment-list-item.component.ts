@@ -8,9 +8,10 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 
 @Component({
-  selector: 'app-assessment-list-item',
-  templateUrl: './assessment-list-item.component.html',
-  styleUrl: './assessment-list-item.component.css'
+    selector: 'app-assessment-list-item',
+    templateUrl: './assessment-list-item.component.html',
+    styleUrl: './assessment-list-item.component.css',
+    standalone: false
 })
 export class AssessmentListItemComponent {
   @Input({ required: true })

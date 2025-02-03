@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { UtilityType } from '../constants/utilityTypes';
 
 @Pipe({
-  name: 'utilityHhvDisplay',
+    name: 'utilityHhvDisplay',
+    standalone: false
 })
 export class UtilityHhvDisplayPipe implements PipeTransform {
 

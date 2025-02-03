@@ -11,9 +11,10 @@ import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetr
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 
 @Component({
-  selector: 'app-kpm-impacts-table',
-  templateUrl: './kpm-impacts-table.component.html',
-  styleUrl: './kpm-impacts-table.component.css'
+    selector: 'app-kpm-impacts-table',
+    templateUrl: './kpm-impacts-table.component.html',
+    styleUrl: './kpm-impacts-table.component.css',
+    standalone: false
 })
 export class KpmImpactsTableComponent {
   @Input({ required: true })

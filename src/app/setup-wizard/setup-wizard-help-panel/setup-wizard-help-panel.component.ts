@@ -6,9 +6,10 @@ import { Subscription } from 'rxjs';
 import { SetupWizardService } from '../setup-wizard.service';
 
 @Component({
-  selector: 'app-setup-wizard-help-panel',
-  templateUrl: './setup-wizard-help-panel.component.html',
-  styleUrl: './setup-wizard-help-panel.component.css'
+    selector: 'app-setup-wizard-help-panel',
+    templateUrl: './setup-wizard-help-panel.component.html',
+    styleUrl: './setup-wizard-help-panel.component.css',
+    standalone: false
 })
 export class SetupWizardHelpPanelComponent {
   @Output('emitToggleCollapse')

@@ -9,9 +9,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-visit-report',
-  templateUrl: './visit-report.component.html',
-  styleUrl: './visit-report.component.css'
+    selector: 'app-visit-report',
+    templateUrl: './visit-report.component.html',
+    styleUrl: './visit-report.component.css',
+    standalone: false
 })
 export class VisitReportComponent {
 

@@ -4,7 +4,8 @@ import { KeyPerformanceMetric, KeyPerformanceMetricOption } from 'src/app/shared
 import { NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefitOptions';
 
 @Pipe({
-  name: 'associatedMetricIndicator'
+    name: 'associatedMetricIndicator',
+    standalone: false
 })
 export class AssociatedMetricIndicatorPipe implements PipeTransform {
 

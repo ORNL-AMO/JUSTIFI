@@ -10,9 +10,10 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
-  selector: 'app-facility-kpi-select',
-  templateUrl: './facility-kpi-select.component.html',
-  styleUrl: './facility-kpi-select.component.css'
+    selector: 'app-facility-kpi-select',
+    templateUrl: './facility-kpi-select.component.html',
+    styleUrl: './facility-kpi-select.component.css',
+    standalone: false
 })
 export class FacilityKpiSelectComponent {
   faChartBar: IconDefinition = faChartBar;

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Pipe({
-  name: 'processEquipmentDisplay'
+    name: 'processEquipmentDisplay',
+    standalone: false
 })
 export class ProcessEquipmentDisplayPipe implements PipeTransform {
 

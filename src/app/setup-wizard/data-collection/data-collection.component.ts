@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 
 @Component({
-  selector: 'app-data-collection',
-  templateUrl: './data-collection.component.html',
-  styleUrl: './data-collection.component.css'
+    selector: 'app-data-collection',
+    templateUrl: './data-collection.component.html',
+    styleUrl: './data-collection.component.css',
+    standalone: false
 })
 export class DataCollectionComponent {
 

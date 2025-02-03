@@ -4,9 +4,10 @@ import { ToastNotification, ToastNotificationsService } from './toast-notificati
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-toast-notifications',
-  templateUrl: './toast-notifications.component.html',
-  styleUrl: './toast-notifications.component.css'
+    selector: 'app-toast-notifications',
+    templateUrl: './toast-notifications.component.html',
+    styleUrl: './toast-notifications.component.css',
+    standalone: false
 })
 export class ToastNotificationsComponent {
 

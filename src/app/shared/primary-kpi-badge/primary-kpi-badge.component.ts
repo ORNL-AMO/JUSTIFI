@@ -3,9 +3,10 @@ import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerfo
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 
 @Component({
-  selector: 'app-primary-kpi-badge',
-  templateUrl: './primary-kpi-badge.component.html',
-  styleUrl: './primary-kpi-badge.component.css'
+    selector: 'app-primary-kpi-badge',
+    templateUrl: './primary-kpi-badge.component.html',
+    styleUrl: './primary-kpi-badge.component.css',
+    standalone: false
 })
 export class PrimaryKpiBadgeComponent {
   @Input()

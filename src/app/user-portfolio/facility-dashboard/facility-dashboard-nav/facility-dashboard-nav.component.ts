@@ -5,9 +5,10 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
-  selector: 'app-facility-dashboard-nav',
-  templateUrl: './facility-dashboard-nav.component.html',
-  styleUrl: './facility-dashboard-nav.component.css'
+    selector: 'app-facility-dashboard-nav',
+    templateUrl: './facility-dashboard-nav.component.html',
+    styleUrl: './facility-dashboard-nav.component.css',
+    standalone: false
 })
 export class FacilityDashboardNavComponent {
 

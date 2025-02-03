@@ -10,9 +10,10 @@ import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
-  selector: 'app-system-inventory-summary',
-  templateUrl: './system-inventory-summary.component.html',
-  styleUrl: './system-inventory-summary.component.css'
+    selector: 'app-system-inventory-summary',
+    templateUrl: './system-inventory-summary.component.html',
+    styleUrl: './system-inventory-summary.component.css',
+    standalone: false
 })
 export class SystemInventorySummaryComponent {
 

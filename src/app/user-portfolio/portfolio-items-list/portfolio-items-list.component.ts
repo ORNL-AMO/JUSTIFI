@@ -10,9 +10,10 @@ import { IdbUser } from 'src/app/models/user';
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
 
 @Component({
-  selector: 'app-portfolio-items-list',
-  templateUrl: './portfolio-items-list.component.html',
-  styleUrl: './portfolio-items-list.component.css'
+    selector: 'app-portfolio-items-list',
+    templateUrl: './portfolio-items-list.component.html',
+    styleUrl: './portfolio-items-list.component.css',
+    standalone: false
 })
 export class PortfolioItemsListComponent {
 

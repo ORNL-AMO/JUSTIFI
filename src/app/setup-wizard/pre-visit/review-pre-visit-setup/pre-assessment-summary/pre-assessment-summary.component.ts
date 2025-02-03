@@ -10,9 +10,10 @@ import { IdbContact } from 'src/app/models/contact';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-  selector: 'app-pre-assessment-summary',
-  templateUrl: './pre-assessment-summary.component.html',
-  styleUrl: './pre-assessment-summary.component.css'
+    selector: 'app-pre-assessment-summary',
+    templateUrl: './pre-assessment-summary.component.html',
+    styleUrl: './pre-assessment-summary.component.css',
+    standalone: false
 })
 export class PreAssessmentSummaryComponent {
 

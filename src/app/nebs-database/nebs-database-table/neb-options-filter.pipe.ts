@@ -5,8 +5,9 @@ import { KeyPerformanceIndicatorValue } from '../../shared/constants/keyPerforma
 import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricValue } from '../../shared/constants/keyPerformanceMetrics';
 
 @Pipe({
-  name: 'nebOptionsFilter',
-  pure: false
+    name: 'nebOptionsFilter',
+    pure: false,
+    standalone: false
 })
 export class NebOptionsFilterPipe implements PipeTransform {
 

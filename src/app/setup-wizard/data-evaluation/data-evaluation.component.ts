@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 
 @Component({
-  selector: 'app-data-evaluation',
-  templateUrl: './data-evaluation.component.html',
-  styleUrl: './data-evaluation.component.css'
+    selector: 'app-data-evaluation',
+    templateUrl: './data-evaluation.component.html',
+    styleUrl: './data-evaluation.component.css',
+    standalone: false
 })
 export class DataEvaluationComponent {
 

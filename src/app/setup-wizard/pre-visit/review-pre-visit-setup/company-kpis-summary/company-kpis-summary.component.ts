@@ -8,9 +8,10 @@ import { IdbContact } from 'src/app/models/contact';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 
 @Component({
-  selector: 'app-company-kpis-summary',
-  templateUrl: './company-kpis-summary.component.html',
-  styleUrl: './company-kpis-summary.component.css'
+    selector: 'app-company-kpis-summary',
+    templateUrl: './company-kpis-summary.component.html',
+    styleUrl: './company-kpis-summary.component.css',
+    standalone: false
 })
 export class CompanyKpisSummaryComponent {
 

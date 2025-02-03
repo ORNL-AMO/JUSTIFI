@@ -5,9 +5,10 @@ import { faQuestionCircle, IconDefinition } from '@fortawesome/free-solid-svg-ic
 import * as bootstrap from 'bootstrap';
 
 @Component({
-  selector: 'app-label-with-tooltip',
-  templateUrl: './label-with-tooltip.component.html',
-  styleUrl: './label-with-tooltip.component.css'
+    selector: 'app-label-with-tooltip',
+    templateUrl: './label-with-tooltip.component.html',
+    styleUrl: './label-with-tooltip.component.css',
+    standalone: false
 })
 export class LabelWithTooltipComponent {
   @Input({ required: true })

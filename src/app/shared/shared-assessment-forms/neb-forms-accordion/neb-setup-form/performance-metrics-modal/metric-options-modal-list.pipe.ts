@@ -3,7 +3,8 @@ import { KeyPerformanceMetric, KeyPerformanceMetricOption } from 'src/app/shared
 import * as _ from 'lodash';
 
 @Pipe({
-  name: 'metricOptionsModalList'
+    name: 'metricOptionsModalList',
+    standalone: false
 })
 export class MetricOptionsModalListPipe implements PipeTransform {
 

@@ -19,9 +19,10 @@ import { Subscription } from 'rxjs';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-assessment-report',
-  templateUrl: './assessment-report.component.html',
-  styleUrl: './assessment-report.component.css'
+    selector: 'app-assessment-report',
+    templateUrl: './assessment-report.component.html',
+    styleUrl: './assessment-report.component.css',
+    standalone: false
 })
 export class AssessmentReportComponent {
   @Input({ required: true })

@@ -4,7 +4,8 @@ import { IdbContact } from 'src/app/models/contact';
 import { FormGroup } from '@angular/forms';
 
 @Pipe({
-  name: 'contactInvalid'
+    name: 'contactInvalid',
+    standalone: false
 })
 export class ContactInvalidPipe implements PipeTransform {
 
