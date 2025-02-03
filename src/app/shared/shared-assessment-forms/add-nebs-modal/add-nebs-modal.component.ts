@@ -54,15 +54,15 @@ export class AddNebsModalComponent {
     for (let i = 0; i < this.selectedNebs.length; i++) {
       let nebOption: NebOption = this.selectedNebs[i];
       let newIdbNonEnergyBenefit: IdbNonEnergyBenefit;
-       if (this.energyOpportunity) {
+      if (this.energyOpportunity) {
         newIdbNonEnergyBenefit = getNewIdbNonEnergyBenefit(this.energyOpportunity.userId, this.energyOpportunity.companyId, this.energyOpportunity.facilityId, this.energyOpportunity.assessmentId, this.energyOpportunity.guid, nebOption, false);
       } else {
         newIdbNonEnergyBenefit = getNewIdbNonEnergyBenefit(this.assessment.userId, this.assessment.companyId, this.assessment.facilityId, this.assessment.guid, undefined, nebOption, false);
       }
       for (let kpm of nebOption.selectedKPM) {
         let performanceMetricToAdd: KeyPerformanceMetricOption = KeyPerformanceMetricOptions.find(kpmOption => { return kpmOption.value == kpm })
-        let addedMetric: KeyPerformanceMetric = await this.keyPerformanceIndicatorIdbService.addKpmToKpi(newIdbNonEnergyBenefit.companyId, performanceMetricToAdd, newIdbNonEnergyBenefit.userId);
-        let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getKpiFromKpm(newIdbNonEnergyBenefit.companyId, performanceMetricToAdd.kpiValue);
+        let addedMetric: KeyPerformanceMetric = await this.keyPerformanceIndicatorIdbService.addKpmToKpi(newIdbNonEnergyBenefit.companyId, performanceMetricToAdd, newIdbNonEnergyBenefit.userId, newIdbNonEnergyBenefit.facilityId);
+        let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getKpiFromKpm(newIdbNonEnergyBenefit.facilityId, performanceMetricToAdd.kpiValue);
         let newKeyPerformanceMetricImpact: IdbKeyPerformanceMetricImpact = getNewIdbKeyPerformanceMetricImpact(newIdbNonEnergyBenefit.userId, newIdbNonEnergyBenefit.companyId, newIdbNonEnergyBenefit.facilityId, newIdbNonEnergyBenefit.energyOpportunityId, newIdbNonEnergyBenefit.guid, addedMetric.value, newIdbNonEnergyBenefit.assessmentId, keyPerformanceIndicator.guid, addedMetric.guid);
         await firstValueFrom(this.keyPerformanceMetricImpactsIdbService.addWithObservable(newKeyPerformanceMetricImpact));
         await this.keyPerformanceMetricImpactsIdbService.setKeyPerformanceMetricImpacts();

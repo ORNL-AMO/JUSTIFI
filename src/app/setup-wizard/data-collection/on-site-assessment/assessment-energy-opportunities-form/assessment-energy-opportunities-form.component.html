@@ -1,8 +1,18 @@
-<div class="d-flex w-100 justify-content-between pb-2">
-    <h2 class="col-sm-5 col-form-label" for="assessmentName">Energy Efficiency Opportunities</h2>
-    <button class="btn btn-outline-energy-opp btn-sm" (click)="addEnergyOpportunity()"><fa-icon [icon]="faPlus"
-            class="me-1"></fa-icon>Add Opportunity</button>
-</div>
+<h6 class="pb-2">
+    <div class="d-flex w-100 justify-content-between">
+        <div class="mt-auto bold">
+            Energy Efficiency Opportunities
+        </div>
+        <button class="btn btn-outline-energy-opp btn-sm" (click)="addEnergyOpportunity()"><fa-icon [icon]="faPlus"
+                class="me-1"></fa-icon>Add Opportunity</button>
+    </div>
+</h6>
+
+<p class="fw-light small">
+    Use the "<fa-icon [icon]="faPlus"></fa-icon> Add Opportunity" button to add Energy Efficiency Opportunities to this
+    assessment.
+</p>
+
 <ng-template [ngIf]="assessmentEnergyOpportunityGuids.length > 0" [ngIfElse]="noOpportunitiesBlock">
     <div class="accordion" id="energyOpportunityAccordion">
         <div class="accordion-item"
@@ -20,8 +30,8 @@
             <div [id]="'#'+energyOpportunityGuid" class="accordion-collapse collapse"
                 data-bs-parent="#energyOpportunityAccordion">
                 <div class="accordion-body">
-                    <app-energy-opportunity-setup-form
-                        [energyOpportunityGuid]="energyOpportunityGuid" (emitInitialized)="childFormInitialized(energyOpportunityGuid)"
+                    <app-energy-opportunity-setup-form [energyOpportunityGuid]="energyOpportunityGuid"
+                        (emitInitialized)="childFormInitialized(energyOpportunityGuid)"
                         [inWizard]="true"></app-energy-opportunity-setup-form>
                 </div>
             </div>

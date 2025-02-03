@@ -12,7 +12,7 @@ import { EquipmentTypeIconPipe } from './equipment-type-icon.pipe';
 import { IncludesContactPipe } from './includes-contact.pipe';
 import { AssessmentNameDisplayPipe } from './assessment-name-display.pipe';
 import { ProcessEquipmentDisplayPipe } from './process-equipment-display.pipe';
-import { NebDisplayPipe } from './neb-display.pipe';
+import { NebItemPipe } from './neb-item.pipe';
 import { OnSiteVisitListPipe } from './on-site-visit-list.pipe';
 import { AssessmentListOnSitePipe } from './assessment-list-on-site.pipe';
 import { NebListPipe } from './neb-list.pipe';
@@ -36,6 +36,9 @@ import { ContactInvalidPipe } from './contact-invalid.pipe';
 import { AssociatedPerformanceMetricImpactsPipe } from './associated-performance-metric-impacts.pipe';
 import { KpmLabelPipe } from './kpm-label.pipe';
 import { NebTotalSavingsPipe } from './neb-total-savings.pipe';
+import { FacilityKpiListPipe } from './facility-kpi-list.pipe';
+import { ProcessEquipmentListPipe } from './process-equipment-list.pipe';
+import { AssessmentItemPipe } from './assessment-item.pipe';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,7 @@ import { NebTotalSavingsPipe } from './neb-total-savings.pipe';
     IncludesContactPipe,
     AssessmentNameDisplayPipe,
     ProcessEquipmentDisplayPipe,
-    NebDisplayPipe,
+    NebItemPipe,
     OnSiteVisitListPipe,
     AssessmentListOnSitePipe,
     NebListPipe,
@@ -74,7 +77,10 @@ import { NebTotalSavingsPipe } from './neb-total-savings.pipe';
     ContactInvalidPipe,
     AssociatedPerformanceMetricImpactsPipe,
     KpmLabelPipe,
-    NebTotalSavingsPipe
+    NebTotalSavingsPipe,
+    FacilityKpiListPipe,
+    ProcessEquipmentListPipe,
+    AssessmentItemPipe
   ],
   imports: [
     CommonModule
@@ -93,7 +99,7 @@ import { NebTotalSavingsPipe } from './neb-total-savings.pipe';
     IncludesContactPipe,
     AssessmentNameDisplayPipe,
     ProcessEquipmentDisplayPipe,
-    NebDisplayPipe,
+    NebItemPipe,
     OnSiteVisitListPipe,
     AssessmentListOnSitePipe,
     NebListPipe,
@@ -115,7 +121,10 @@ import { NebTotalSavingsPipe } from './neb-total-savings.pipe';
     ContactInvalidPipe,
     AssociatedPerformanceMetricImpactsPipe,
     KpmLabelPipe,
-    NebTotalSavingsPipe
+    NebTotalSavingsPipe,
+    FacilityKpiListPipe,
+    ProcessEquipmentListPipe,
+    AssessmentItemPipe
   ]
 })
 export class HelperPipesModule { }

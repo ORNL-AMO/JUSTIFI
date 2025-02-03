@@ -40,7 +40,8 @@
               "src/assets/styles/sidebar.css",
               "src/assets/styles/report.css",
               "src/assets/styles/helpText.css",
-              "src/assets/styles/dashboards.css"
+              "src/assets/styles/dashboards.css",
+              "src/assets/styles/printing.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js",

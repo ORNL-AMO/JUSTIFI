@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-12">
+        <h5>
+            <fa-icon [icon]="faMagnifyingGlassPlus" class="me-2"></fa-icon>
+            Find Potential KPIs
+        </h5>
+    </div>
+    <div class="col-12 mb-1">
+        <div class="input-group" role="search">
+            <span class="input-group-text">
+                <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+            </span>
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="kpiSearchStr"
+                [(ngModel)]="kpiSearchStr">
+        </div>
+    </div>
+    <div class="col-12">
+        <select name="kpiCategorySearch" class="form-select" id="kpiCategorySearch" [(ngModel)]="kpiCategorySearch">
+            <option [ngValue]="undefined">All Categories</option>
+            <option *ngFor="let category of primaryKPIs" [ngValue]="category">
+                {{category}}
+            </option>
+        </select>
+    </div>
+</div>
+
+<div class="p-0 w-100">
+    <hr>
+</div>
+<div class="d-flex flex-column indicator-container"
+    *ngFor="let option of keyPerformanceIndicatorOptions | kpiListFilter: kpiSearchStr: kpiCategorySearch"
+    [ngClass]="{'hidden': option.optionValue | selectedKpiOption: keyPerformanceIndicators: facility.guid }">
+    <div class="d-flex w-100 justify-content-between list-item">
+        <div class="d-flex flex-column">
+            <div>
+                <span class="ps-1" [innerHTML]="option.label"></span>
+            </div>
+            <div class="badge-display">
+                <app-primary-kpi-badge [kpiOption]="option"></app-primary-kpi-badge>
+            </div>
+        </div>
+        <div>
+            <!-- <a class="p-1 click-link">
+                <fa-icon class="small" [icon]="faCircleQuestion"></fa-icon>
+            </a> -->
+            <a class="p-1 click-link" (click)="addKPI(option)">
+                <fa-icon class="small" [icon]="faPlus"></fa-icon>
+            </a>
+        </div>
+    </div>
+    <div class="p-0 w-100">
+        <hr>
+    </div>
+</div>

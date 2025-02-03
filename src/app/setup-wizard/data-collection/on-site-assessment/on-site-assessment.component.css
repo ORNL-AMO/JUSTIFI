@@ -8,5 +8,21 @@
 
 .navbar{
     padding-bottom: 0px;
-    border-bottom: 1px #0079c2 solid;
+    border-bottom: 1px var(--portfolio-nav-color) solid;
+}
+
+nav.navbar .nav.nav-tabs .nav-item .nav-link{
+    border-color: var(--portfolio-nav-color);
+    color: var(--portfolio-nav-color);
+}
+
+
+nav.navbar .nav.nav-tabs .nav-item .nav-link.active {
+    background-color: var(--portfolio-nav-color);
+    color: white;
+    border-bottom-color: black;
+}
+nav.navbar .nav.nav-tabs .nav-item .nav-link:hover {
+    background-color: #8DABBE;
+    color: black;
 }

@@ -17,7 +17,7 @@ import { NebsDatabaseModule } from 'src/app/nebs-database/nebs-database.module';
 import { EnergyOpportunitySetupFormComponent } from './energy-opportunity-setup-form/energy-opportunity-setup-form.component';
 import { EnergyOpportunityNebsTableComponent } from './energy-opportunity-nebs-table/energy-opportunity-nebs-table.component';
 import { TableEntriesModule } from '../table-entries/table-entries.module';
-
+import { LabelWithTooltipModule } from "../label-with-tooltip/label-with-tooltip.module";
 
 
 @NgModule({
@@ -41,8 +41,10 @@ import { TableEntriesModule } from '../table-entries/table-entries.module';
     PrimaryKpiBadgeModule,
     KpmDetailsFormModule,
     NebsDatabaseModule,
-    TableEntriesModule
-  ],
+    TableEntriesModule,
+    LabelWithTooltipModule,
+    LabelWithTooltipModule
+],
   exports: [
     AssessmentDetailsFormComponent,
     NebFormsAccordionComponent,

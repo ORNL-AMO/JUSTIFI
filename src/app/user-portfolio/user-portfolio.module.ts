@@ -16,7 +16,6 @@ import { FacilityDashboardComponent } from './facility-dashboard/facility-dashbo
 import { AssessmentDashboardComponent } from './assessment-dashboard/assessment-dashboard.component';
 import { CompanyDashboardNavComponent } from './company-dashboard/company-dashboard-nav/company-dashboard-nav.component';
 import { CompanyDashboardHomeComponent } from './company-dashboard/company-dashboard-home/company-dashboard-home.component';
-import { CompanyPerformanceIndicatorsComponent } from './company-dashboard/company-performance-indicators/company-performance-indicators.component';
 import { CompanyStakeholdersComponent } from './company-dashboard/company-stakeholders/company-stakeholders.component';
 import { CompanyReportsComponent } from './company-dashboard/company-reports/company-reports.component';
 import { CompanySettingsComponent } from './company-dashboard/company-settings/company-settings.component';
@@ -43,6 +42,7 @@ import { IndustrialSystemInventoryHomeComponent } from './facility-dashboard/ind
 import { EndUseInventoryHomeComponent } from './facility-dashboard/end-use-inventory/end-use-inventory-home/end-use-inventory-home.component';
 import { CompanyStakeholdersHomeComponent } from './company-dashboard/company-stakeholders/company-stakeholders-home/company-stakeholders-home.component';
 import { TableEntriesModule } from "../shared/table-entries/table-entries.module";
+import { FacilityPerformanceIndicatorsComponent } from './facility-dashboard/facility-performance-indicators/facility-performance-indicators.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +58,6 @@ import { TableEntriesModule } from "../shared/table-entries/table-entries.module
     AssessmentDashboardComponent,
     CompanyDashboardNavComponent,
     CompanyDashboardHomeComponent,
-    CompanyPerformanceIndicatorsComponent,
     CompanyStakeholdersComponent,
     CompanyReportsComponent,
     CompanySettingsComponent,
@@ -78,7 +77,8 @@ import { TableEntriesModule } from "../shared/table-entries/table-entries.module
     AssessmentNebsHomeComponent,
     IndustrialSystemInventoryHomeComponent,
     EndUseInventoryHomeComponent,
-    CompanyStakeholdersHomeComponent
+    CompanyStakeholdersHomeComponent,
+    FacilityPerformanceIndicatorsComponent
   ],
   imports: [
     CommonModule,

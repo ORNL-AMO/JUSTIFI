@@ -32,6 +32,8 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 export class AssessmentDetailsFormComponent {
   @Input()
   isDisabled: boolean;
+  @Input()
+  inPreAssessment: boolean;
 
   faPeopleGroup: IconDefinition = faPeopleGroup;
   faUser: IconDefinition = faUser;

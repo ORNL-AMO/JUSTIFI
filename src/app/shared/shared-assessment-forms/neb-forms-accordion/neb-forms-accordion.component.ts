@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 import { IconDefinition, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
+import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 
 @Component({
   selector: 'app-neb-forms-accordion',
@@ -15,9 +16,7 @@ import { LocalStorageDataService } from 'src/app/shared/shared-services/local-st
   styleUrl: './neb-forms-accordion.component.css'
 })
 export class NebFormsAccordionComponent {
-  @Input()
-  energyOpportunity: IdbEnergyOpportunity;
-  @Input()
+  @Input({required: true})
   assessment: IdbAssessment;
 
   faWeightHanging: IconDefinition = faWeightHanging;
@@ -28,10 +27,13 @@ export class NebFormsAccordionComponent {
   accordionGuid: string;
   isAddNew: boolean = false;
   isOnInit: boolean = true;
+  energyOpportunities: Array<IdbEnergyOpportunity>;
+  energyOpportunitiesSub: Subscription
   constructor(private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private bootstrapService: BootstrapService,
     private cd: ChangeDetectorRef,
-    private localStorageDataService: LocalStorageDataService
+    private localStorageDataService: LocalStorageDataService,
+    private energyOpportuinitesIdbService: EnergyOpportunityIdbService
   ) {
 
   }
@@ -39,17 +41,17 @@ export class NebFormsAccordionComponent {
   ngOnInit() {
     this.nonEnergyBenefitsSub = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.subscribe(_nonEnergyBenefits => {
       this.nonEnergyBenefits = _nonEnergyBenefits;
-      if (this.energyOpportunity) {
-        this.setEnergyOpportunityNebGuids();
-      } else if (this.assessment) {
-        this.setAssessmentNebGuids();
-      }
+      this.setNebGuids();
     });
     this.isOnInit = false;
+    this.energyOpportunitiesSub = this.energyOpportuinitesIdbService.energyOpportunities.subscribe(opps => {
+      this.energyOpportunities = opps;
+    })
   }
 
   ngOnDestroy() {
     this.nonEnergyBenefitsSub.unsubscribe();
+    this.energyOpportunitiesSub.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -62,46 +64,17 @@ export class NebFormsAccordionComponent {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['energyOpportunity'] && !changes['energyOpportunity'].firstChange) {
-      this.setEnergyOpportunityNebGuids();
-    } else if (changes['assessment'] && !changes['assessment'].firstChange) {
-      this.setAssessmentNebGuids();
+    if (changes['assessment'] && !changes['assessment'].firstChange) {
+      this.setNebGuids();
     }
   }
 
-
-  setEnergyOpportunityNebGuids() {
-    // only want to update neb list if changes made
-    // otherwise forms get re-init when the list updates
-    if (this.energyOpportunity && this.nonEnergyBenefits) {
-      let energyOpportunityNebs: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefits.filter(neb => {
-        return neb.energyOpportunityId == this.energyOpportunity.guid
-      });
-      let tmpOpportunityNebs: Array<string> = energyOpportunityNebs.map(neb => {
-        return neb.guid
-      });
-      if (tmpOpportunityNebs.length != this.nebGuids.length) {
-        if (this.isOnInit == false && tmpOpportunityNebs.length > this.nebGuids.length) {
-          this.isAddNew = true;
-        }
-        this.nebGuids = tmpOpportunityNebs;
-      } else {
-        let xor: Array<string> = _.xor(this.nebGuids, tmpOpportunityNebs)
-        if (xor.length != 0) {
-          this.nebGuids = tmpOpportunityNebs;
-        }
-      }
-    } else {
-      this.nebGuids = [];
-    }
-  }
-
-  setAssessmentNebGuids() {
+  setNebGuids() {
     // only want to update neb list if changes made
     // otherwise forms get re-init when the list updates
     if (this.assessment && this.nonEnergyBenefits) {
       let assessmentNebs: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefits.filter(neb => {
-        return neb.assessmentId == this.assessment.guid && neb.energyOpportunityId == undefined
+        return neb.assessmentId == this.assessment.guid
       });
       let tmpAssessmentNebs: Array<string> = assessmentNebs.map(neb => {
         return neb.guid

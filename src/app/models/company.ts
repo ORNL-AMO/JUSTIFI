@@ -7,6 +7,8 @@ export interface IdbCompany extends IdbEntry {
     generalInformation: GeneralInformation,
     displayFacilities: boolean,
     companyEnergyUnit: string,
+    sidebarOpen: boolean,
+    sidebarContactsOpen: boolean
 }
 
 export function getNewIdbCompany(userId: string): IdbCompany {
@@ -18,6 +20,8 @@ export function getNewIdbCompany(userId: string): IdbCompany {
         generalInformation: generalInformation,
         displayFacilities: true,
         companyEnergyUnit: 'MMBtu',
+        sidebarOpen: true,
+        sidebarContactsOpen: false
     }
 }
 
