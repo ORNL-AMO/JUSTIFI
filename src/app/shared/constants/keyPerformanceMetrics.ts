@@ -53,7 +53,6 @@ export type KeyPerformanceMetricValue =
     'customerChurnRate' |
     'supplierSatisfactionRatings' |
     'lostCustomerSales' |
-    'productivityRateThroughput' |
     'productionCosts' |
     'cycleTimeToMakeGoods' |
     'percentOnTimeToDueDate' |
@@ -82,7 +81,7 @@ export type KeyPerformanceMetricValue =
     'nonHazardousDisposalCosts' |
     'percentTotalOrCost' |
     'consumptionCostWater' |
-    'consumptionCostSewage' |
+    'sewageVolume' |
     'percentOrTotalRefrigerantEmissions' |
     'TRIR' |
     'oshaRecordableIncidents' |
@@ -110,8 +109,14 @@ export type KeyPerformanceMetricValue =
     'percentTestsMeetingStandardsAirPollutants' |
     'noxSoxCoEmissions' |
     'particulateEmissions' |
-    'percentTestsMeetingStandardsWaterPollutants' |
-    'sewageCosts';
+    'waterPolutantEmissions' |
+    'sewageCosts' | 
+    'regulatoryFeesWater' | 
+    'regulatoryFeesWaste' | 
+    'directLaborCosts' | 
+    'emergencyEquipmentDowntime' |
+    'electricalDemandCosts' |
+    'powerFactorCosts';
 
 
 export type KpmCalculationMethod = 'costPerUnit' | 'percentTotal' | 'directCost';
@@ -215,17 +220,8 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         timePeriod: 'yr'
     },
     {
-        label: "Productivity rate: Throughput",
-        htmlLabel: "Productivity rate: Throughput",
-        value: "productivityRateThroughput",
-        kpiValue: "productivity",
-        isQuantitative: false,
-        goalToIncrease: true,
-        timePeriod: 'yr'
-    },
-    {
-        label: "Production Costs",
-        htmlLabel: "Production Costs",
+        label: "Production Costs (Throughput)",
+        htmlLabel: "Production Costs (Throughput)",
         value: "productionCosts",
         kpiValue: "productivity",
         isQuantitative: true,
@@ -433,10 +429,10 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
     {
-        label: "Percent Optimized space",
-        htmlLabel: "&#37; Optimized space",
+        label: "Space Utilization",
+        htmlLabel: "Space Utilization",
         value: "percentOptimizedSpace",
-        kpiValue: "improveSpaceUtilization",
+        kpiValue: "reduceExpenseCost",
         isQuantitative: true,
         totalUnit: 'ft2',
         goalToIncrease: true,
@@ -479,7 +475,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Hazardous Disposal Costs",
         htmlLabel: "Hazardous Disposal Costs",
         value: "hazardousDisposalCosts",
-        kpiValue: "wasteReductionHazardous",
+        kpiValue: "waste",
         isQuantitative: true,
         totalUnit: 'gal',
         goalToIncrease: false,
@@ -490,7 +486,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Non-Hazardous Disposal Costs",
         htmlLabel: "Non-Hazardous Disposal Costs",
         value: "nonHazardousDisposalCosts",
-        kpiValue: "wasteReductionNonHazardous",
+        kpiValue: "waste",
         isQuantitative: true,
         totalUnit: 'gal',
         goalToIncrease: false,
@@ -501,7 +497,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Percent Total or Costs",
         htmlLabel: "&#37; Total or Costs",
         value: "percentTotalOrCost",
-        kpiValue: "reduceNonconformingProductWaste",
+        kpiValue: "waste",
         isQuantitative: true,
         goalToIncrease: false,
         timePeriod: 'yr',
@@ -519,10 +515,10 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
     {
-        label: "Consumption Cost",
-        htmlLabel: "Consumption Cost",
-        value: "consumptionCostSewage",
-        kpiValue: "sewageVolume",
+        label: "Sewage Volume",
+        htmlLabel: "Sewage Volume",
+        value: "sewageVolume",
+        kpiValue: "waterConsumption",
         isQuantitative: true,
         totalUnit: 'gal',
         goalToIncrease: false,
@@ -604,10 +600,10 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'percentTotal'
     },
     {
-        label: "Percent of tests that meet regulatory standards",
-        htmlLabel: "Percent of tests that meet regulatory standards",
-        value: "percentTestsMeetingStandardsWaterPollutants",
-        kpiValue: "waterPollutantEmissions",
+        label: "Water Polutant Emissions",
+        htmlLabel: "Water Polutant Emissions",
+        value: "waterPolutantEmissions",
+        kpiValue: "waterConsumption",
         isQuantitative: true,
         goalToIncrease: false,
         timePeriod: 'yr',
@@ -702,7 +698,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Number of particles",
         htmlLabel: "Number of particles",
         value: "numberOfParticles",
-        kpiValue: "employeeEngagementWorkingEnvironment",
+        kpiValue: "dustEmissions",
         isQuantitative: false,
         goalToIncrease: false,
         timePeriod: 'yr',
@@ -759,8 +755,8 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
     {
-        label: "Labor Costs",
-        htmlLabel: "Labor Costs",
+        label: "Maintenance Labor Costs",
+        htmlLabel: "Maintenance Labor Costs",
         value: "laborCosts",
         kpiValue: "maintenanceExpense",
         isQuantitative: true,
@@ -784,7 +780,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Service Parts",
         htmlLabel: "Service Parts",
         value: "serviceParts",
-        kpiValue: "reduceExpenseCost",
+        kpiValue: "maintenanceExpense",
         isQuantitative: true,
         totalUnit: 'parts',
         goalToIncrease: false,
@@ -825,10 +821,65 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
     {
-        label: "Sewage Costs",
-        htmlLabel: "Sewage Costs",
-        value: "sewageCosts",
+        label: "Reduce Regulatory Fees",
+        htmlLabel: "Reduce Regulatory Fees",
+        value: "regulatoryFeesWater",
         kpiValue: "waterConsumption",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Reduce Regulatory Fees",
+        htmlLabel: "Reduce Regulatory Fees",
+        value: "regulatoryFeesWaste",
+        kpiValue: "waste",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Direct Labor Costs",
+        htmlLabel: "Direct Labor Costs",
+        value: "directLaborCosts",
+        kpiValue: "productivity",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Emergency Equipment Downtime",
+        htmlLabel: "Emergency Equipment Downtime",
+        value: "emergencyEquipmentDowntime",
+        kpiValue: "maintenanceExpense",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Electrical Demand Costs",
+        htmlLabel: "Electrical Demand Costs",
+        value: "electricalDemandCosts",
+        kpiValue: "reduceExpenseCost",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Power Factor Costs",
+        htmlLabel: "Power Factor Costs",
+        value: "powerFactorCosts",
+        kpiValue: "reduceExpenseCost",
         isQuantitative: true,
         totalUnit: '',
         goalToIncrease: false,
