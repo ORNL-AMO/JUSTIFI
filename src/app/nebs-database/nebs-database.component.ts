@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { faDatabase, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import * as ExcelJS from 'exceljs';
 import { LoadingService } from '../core-components/loading/loading.service';
-import { ToastNotificationsService } from '../core-components/toast-notifications/toast-notifications.service';
 import { KeyPerformanceIndicatorOptions } from '../shared/constants/keyPerformanceIndicatorOptions';
-import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricOptions } from '../shared/constants/keyPerformanceMetrics';
+import { KeyPerformanceMetricOption, KeyPerformanceMetricOptions } from '../shared/constants/keyPerformanceMetrics';
 import { NebOption, NebOptions } from '../shared/constants/nonEnergyBenefitOptions';
 
 @Component({
@@ -16,9 +15,7 @@ import { NebOption, NebOptions } from '../shared/constants/nonEnergyBenefitOptio
 export class NebsDatabaseComponent {
 
   faDatabase: IconDefinition = faDatabase;
-
-  constructor(private loadingService: LoadingService,
-    private toastNotificationService: ToastNotificationsService
+  constructor(private loadingService: LoadingService
   ) {
   }
 
