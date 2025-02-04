@@ -75,6 +75,7 @@
     "bootstrap": "^5.3.2",
     "electron-log": "5.2.0",
     "electron-updater": "6.3.9",
+    "exceljs": "^4.4.0",
     "libphonenumber-js": "^1.11.3",
     "ngx-indexed-db": "19.3.2",
     "ngx-webstorage": "19.0.1",
