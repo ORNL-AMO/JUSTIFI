@@ -2,8 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 
 @Pipe({
-  name: 'nebItem',
-  pure: false
+    name: 'nebItem',
+    pure: false,
+    standalone: false
 })
 export class NebItemPipe implements PipeTransform {
 

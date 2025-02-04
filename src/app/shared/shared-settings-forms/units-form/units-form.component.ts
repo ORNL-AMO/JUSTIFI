@@ -17,9 +17,10 @@ import { FacilityEnergyEquipmentSetupService } from 'src/app/setup-wizard/pre-vi
 import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessments/pre-assessment-setup.service';
 
 @Component({
-  selector: 'app-units-form',
-  templateUrl: './units-form.component.html',
-  styleUrls: ['./units-form.component.css']
+    selector: 'app-units-form',
+    templateUrl: './units-form.component.html',
+    styleUrls: ['./units-form.component.css'],
+    standalone: false
 })
 export class UnitsFormComponent implements OnInit, OnDestroy{
 

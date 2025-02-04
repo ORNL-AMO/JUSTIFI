@@ -6,9 +6,10 @@ import { IdbCompany } from 'src/app/models/company';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
-  selector: 'app-facility-details-summary',
-  templateUrl: './facility-details-summary.component.html',
-  styleUrl: './facility-details-summary.component.css'
+    selector: 'app-facility-details-summary',
+    templateUrl: './facility-details-summary.component.html',
+    styleUrl: './facility-details-summary.component.css',
+    standalone: false
 })
 export class FacilityDetailsSummaryComponent {
 

@@ -21,9 +21,10 @@ import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 
 @Component({
-  selector: 'app-setup-wizard-sidebar',
-  templateUrl: './setup-wizard-sidebar.component.html',
-  styleUrl: './setup-wizard-sidebar.component.css'
+    selector: 'app-setup-wizard-sidebar',
+    templateUrl: './setup-wizard-sidebar.component.html',
+    styleUrl: './setup-wizard-sidebar.component.css',
+    standalone: false
 })
 export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   @Output('emitToggleCollapse')

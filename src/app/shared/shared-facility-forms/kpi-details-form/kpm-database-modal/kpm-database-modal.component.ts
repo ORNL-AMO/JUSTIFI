@@ -4,9 +4,10 @@ import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicat
 import { getPerformanceMetrics, KeyPerformanceMetric, KeyPerformanceMetricValue } from 'src/app/shared/constants/keyPerformanceMetrics';
 
 @Component({
-  selector: 'app-kpm-database-modal',
-  templateUrl: './kpm-database-modal.component.html',
-  styleUrl: './kpm-database-modal.component.css'
+    selector: 'app-kpm-database-modal',
+    templateUrl: './kpm-database-modal.component.html',
+    styleUrl: './kpm-database-modal.component.css',
+    standalone: false
 })
 export class KpmDatabaseModalComponent {
   @Output('emitClose')

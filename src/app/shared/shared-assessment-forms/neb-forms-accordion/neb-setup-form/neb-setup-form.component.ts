@@ -20,9 +20,10 @@ import { LocalStorageDataService } from 'src/app/shared/shared-services/local-st
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 @Component({
-  selector: 'app-neb-setup-form',
-  templateUrl: './neb-setup-form.component.html',
-  styleUrl: './neb-setup-form.component.css'
+    selector: 'app-neb-setup-form',
+    templateUrl: './neb-setup-form.component.html',
+    styleUrl: './neb-setup-form.component.css',
+    standalone: false
 })
 export class NebSetupFormComponent {
   @Input({ required: true })

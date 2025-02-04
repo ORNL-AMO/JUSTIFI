@@ -7,9 +7,10 @@ import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
-  selector: 'app-industrial-system-inventory',
-  templateUrl: './industrial-system-inventory.component.html',
-  styleUrl: './industrial-system-inventory.component.css'
+    selector: 'app-industrial-system-inventory',
+    templateUrl: './industrial-system-inventory.component.html',
+    styleUrl: './industrial-system-inventory.component.css',
+    standalone: false
 })
 export class IndustrialSystemInventoryComponent {
 

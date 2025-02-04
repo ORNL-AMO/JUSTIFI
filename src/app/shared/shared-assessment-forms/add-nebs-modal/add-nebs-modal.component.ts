@@ -16,9 +16,10 @@ import { SharedDataService } from '../../shared-services/shared-data.service';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 
 @Component({
-  selector: 'app-add-nebs-modal',
-  templateUrl: './add-nebs-modal.component.html',
-  styleUrl: './add-nebs-modal.component.css'
+    selector: 'app-add-nebs-modal',
+    templateUrl: './add-nebs-modal.component.html',
+    styleUrl: './add-nebs-modal.component.css',
+    standalone: false
 })
 export class AddNebsModalComponent {
 

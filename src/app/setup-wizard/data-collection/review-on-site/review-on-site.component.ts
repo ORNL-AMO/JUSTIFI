@@ -5,9 +5,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 
 @Component({
-  selector: 'app-review-on-site',
-  templateUrl: './review-on-site.component.html',
-  styleUrl: './review-on-site.component.css'
+    selector: 'app-review-on-site',
+    templateUrl: './review-on-site.component.html',
+    styleUrl: './review-on-site.component.css',
+    standalone: false
 })
 export class ReviewOnSiteComponent {
 

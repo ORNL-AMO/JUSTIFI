@@ -19,9 +19,10 @@ import { ToastNotificationsService } from '../toast-notifications/toast-notifica
 import { UpdateDbEntriesService } from 'src/app/indexed-db/update-db-entries.service';
 
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.css']
+    selector: 'app-welcome',
+    templateUrl: './welcome.component.html',
+    styleUrls: ['./welcome.component.css'],
+    standalone: false
 })
 export class WelcomeComponent {
 

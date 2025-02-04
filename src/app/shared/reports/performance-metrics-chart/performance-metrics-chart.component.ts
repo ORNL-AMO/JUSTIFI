@@ -3,9 +3,10 @@ import { PlotlyService } from 'angular-plotly.js';
 import { KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem } from '../calculations/keyPerformanceIndicatorReport';
 import * as _ from 'lodash';
 @Component({
-  selector: 'app-performance-metrics-chart',
-  templateUrl: './performance-metrics-chart.component.html',
-  styleUrl: './performance-metrics-chart.component.css'
+    selector: 'app-performance-metrics-chart',
+    templateUrl: './performance-metrics-chart.component.html',
+    styleUrl: './performance-metrics-chart.component.css',
+    standalone: false
 })
 export class PerformanceMetricsChartComponent {
   @Input({ required: true })

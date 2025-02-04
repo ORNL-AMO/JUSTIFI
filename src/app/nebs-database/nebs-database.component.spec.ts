@@ -16,6 +16,7 @@ import { KeyPerformanceMetricImpactsIdbService } from '../indexed-db/key-perform
 import { CompanyIdbService } from '../indexed-db/company-idb.service';
 import { NebOptionsFilterPipe } from './nebs-database-table/neb-options-filter.pipe';
 import { FormsModule } from '@angular/forms';
+import { LoadingService } from '../core-components/loading/loading.service';
 
 describe('NebsDatabaseComponent', () => {
   let component: NebsDatabaseComponent;
@@ -49,6 +50,7 @@ describe('NebsDatabaseComponent', () => {
         { provide: EnergyOpportunityIdbService, useValue: energyOpportunityIdbService },
         { provide: KeyPerformanceMetricImpactsIdbService, useValue: keyPerformanceMetricImpactsIdbService },
         { provide: CompanyIdbService, useValue: companyIdbService },
+        { provide: LoadingService, useValue: {}}
       ]
     })
     .compileComponents();

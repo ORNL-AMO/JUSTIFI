@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-table-pagination',
-  templateUrl: './table-pagination.component.html',
-  styleUrl: './table-pagination.component.css'
+    selector: 'app-table-pagination',
+    templateUrl: './table-pagination.component.html',
+    styleUrl: './table-pagination.component.css',
+    standalone: false
 })
 export class TablePaginationComponent {
   @Input({ required: true })

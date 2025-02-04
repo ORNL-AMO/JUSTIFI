@@ -8,9 +8,10 @@ import { ImportBackupModalService } from '../import-backup-modal/import-backup-m
 import { BackupDataService } from 'src/app/shared/shared-services/backup-data.service';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.css'],
+    standalone: false
 })
 export class NavbarComponent{
 

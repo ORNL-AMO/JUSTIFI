@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IdbCompany } from 'src/app/models/company';
 
 @Pipe({
-  name: 'companyName'
+    name: 'companyName',
+    standalone: false
 })
 export class CompanyNamePipe implements PipeTransform {
 

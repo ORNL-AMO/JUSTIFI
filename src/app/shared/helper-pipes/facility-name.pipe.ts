@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Pipe({
-  name: 'facilityName'
+    name: 'facilityName',
+    standalone: false
 })
 export class FacilityNamePipe implements PipeTransform {
 

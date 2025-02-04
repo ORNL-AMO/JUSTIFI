@@ -6,9 +6,10 @@ import { IdbContact } from 'src/app/models/contact';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-  selector: 'app-team-details-summary',
-  templateUrl: './team-details-summary.component.html',
-  styleUrl: './team-details-summary.component.css'
+    selector: 'app-team-details-summary',
+    templateUrl: './team-details-summary.component.html',
+    styleUrl: './team-details-summary.component.css',
+    standalone: false
 })
 export class TeamDetailsSummaryComponent {
 

@@ -12,9 +12,10 @@ import { IconDefinition, faLocationDot } from '@fortawesome/free-solid-svg-icons
 import { SharedSettingsFormsService } from '../shared-settings-forms.service';
 
 @Component({
-  selector: 'app-location-form',
-  templateUrl: './location-form.component.html',
-  styleUrls: ['./location-form.component.css']
+    selector: 'app-location-form',
+    templateUrl: './location-form.component.html',
+    styleUrls: ['./location-form.component.css'],
+    standalone: false
 })
 export class LocationFormComponent implements OnInit, OnDestroy{
   @Input()

@@ -5,9 +5,10 @@ import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { ContactContext, IdbContact } from 'src/app/models/contact';
 
 @Component({
-  selector: 'app-contact-modal',
-  templateUrl: './contact-modal.component.html',
-  styleUrl: './contact-modal.component.css'
+    selector: 'app-contact-modal',
+    templateUrl: './contact-modal.component.html',
+    styleUrl: './contact-modal.component.css',
+    standalone: false
 })
 export class ContactModalComponent implements OnInit {
   @Input({ required: true })

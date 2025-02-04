@@ -16,9 +16,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { KeyPerformanceIndicatorOption, PrimaryKPI, PrimaryKPIs } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 
 @Component({
-  selector: 'app-kpi-list',
-  templateUrl: './kpi-list.component.html',
-  styleUrl: './kpi-list.component.css'
+    selector: 'app-kpi-list',
+    templateUrl: './kpi-list.component.html',
+    styleUrl: './kpi-list.component.css',
+    standalone: false
 })
 export class KpiListComponent {
 

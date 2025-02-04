@@ -2,8 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ContactContext, IdbContact } from 'src/app/models/contact';
 
 @Pipe({
-  name: 'includesContact',
-  pure: false
+    name: 'includesContact',
+    pure: false,
+    standalone: false
 })
 export class IncludesContactPipe implements PipeTransform {
 

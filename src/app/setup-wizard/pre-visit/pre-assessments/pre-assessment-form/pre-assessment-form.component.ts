@@ -11,9 +11,10 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-  selector: 'app-pre-assessment-form',
-  templateUrl: './pre-assessment-form.component.html',
-  styleUrl: './pre-assessment-form.component.css'
+    selector: 'app-pre-assessment-form',
+    templateUrl: './pre-assessment-form.component.html',
+    styleUrl: './pre-assessment-form.component.css',
+    standalone: false
 })
 export class PreAssessmentFormComponent {
   faChevronLeft: IconDefinition = faChevronLeft;

@@ -14,9 +14,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { getNewIdbProcessEquipment, IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Component({
-  selector: 'app-manage-process-equipment',
-  templateUrl: './manage-process-equipment.component.html',
-  styleUrl: './manage-process-equipment.component.css'
+    selector: 'app-manage-process-equipment',
+    templateUrl: './manage-process-equipment.component.html',
+    styleUrl: './manage-process-equipment.component.css',
+    standalone: false
 })
 export class ManageProcessEquipmentComponent {
   faChevronRight: IconDefinition = faChevronRight;

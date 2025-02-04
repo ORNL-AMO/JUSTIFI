@@ -13,9 +13,10 @@ import { IdbFacility } from 'src/app/models/facility';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 
 @Component({
-  selector: 'app-facility-kpi-details',
-  templateUrl: './facility-kpi-details.component.html',
-  styleUrl: './facility-kpi-details.component.css'
+    selector: 'app-facility-kpi-details',
+    templateUrl: './facility-kpi-details.component.html',
+    styleUrl: './facility-kpi-details.component.css',
+    standalone: false
 })
 export class FacilityKpiDetailsComponent {
 

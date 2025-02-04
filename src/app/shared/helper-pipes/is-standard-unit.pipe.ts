@@ -3,7 +3,8 @@ import { UtilityOptions } from '../constants/utilityTypes';
 import { UnitOption } from '../constants/unitOptions';
 
 @Pipe({
-  name: 'isStandardUnit',
+    name: 'isStandardUnit',
+    standalone: false
 })
 export class IsStandardUnitPipe implements PipeTransform {
 

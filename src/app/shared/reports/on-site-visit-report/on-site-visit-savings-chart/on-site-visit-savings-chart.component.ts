@@ -4,9 +4,10 @@ import { OnSiteVisitReport } from '../../calculations/visitReport';
 import { graphColors } from 'src/app/shared/constants/graphColors';
 
 @Component({
-  selector: 'app-on-site-visit-savings-chart',
-  templateUrl: './on-site-visit-savings-chart.component.html',
-  styleUrl: './on-site-visit-savings-chart.component.css'
+    selector: 'app-on-site-visit-savings-chart',
+    templateUrl: './on-site-visit-savings-chart.component.html',
+    styleUrl: './on-site-visit-savings-chart.component.css',
+    standalone: false
 })
 export class OnSiteVisitSavingsChartComponent {
   @Input({ required: true })

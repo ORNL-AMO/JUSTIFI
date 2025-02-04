@@ -5,9 +5,10 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
-  selector: 'app-facility-setup-form',
-  templateUrl: './facility-setup-form.component.html',
-  styleUrl: './facility-setup-form.component.css'
+    selector: 'app-facility-setup-form',
+    templateUrl: './facility-setup-form.component.html',
+    styleUrl: './facility-setup-form.component.css',
+    standalone: false
 })
 export class FacilitySetupFormComponent {
 

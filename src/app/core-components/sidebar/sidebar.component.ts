@@ -10,9 +10,10 @@ import { IdbFacility } from 'src/app/models/facility';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrl: './sidebar.component.css',
+    standalone: false
 })
 export class SidebarComponent {
 
