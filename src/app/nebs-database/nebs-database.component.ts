@@ -19,7 +19,9 @@ export class NebsDatabaseComponent {
   ) {
   }
 
-  exportNebsToCsv() {
+  exportNebs() {
+    this.loadingService.setLoadingMessage('Exporting NEBs Data');
+    this.loadingService.setLoadingStatus(true);
     let workbook = new ExcelJS.Workbook();
     this.writeToWorkbook(workbook);
     workbook.xlsx.writeBuffer().then(excelData => {
@@ -63,7 +65,6 @@ export class NebsDatabaseComponent {
       metrics.forEach(metric => {
         worksheet.getCell('A' + metricIndex).value = metric.label;
         worksheet.getCell('A' + metricIndex).font = {
-          // size: 18,
           bold: true
         }
         let nebs: Array<NebOption> = NebOptions.filter(nebOption => {
