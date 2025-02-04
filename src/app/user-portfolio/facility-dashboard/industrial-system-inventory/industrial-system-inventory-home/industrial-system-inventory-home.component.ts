@@ -12,9 +12,10 @@ import { getNewIdbEnergyEquipment, IdbEnergyEquipment } from 'src/app/models/ene
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
-  selector: 'app-industrial-system-inventory-home',
-  templateUrl: './industrial-system-inventory-home.component.html',
-  styleUrl: './industrial-system-inventory-home.component.css'
+    selector: 'app-industrial-system-inventory-home',
+    templateUrl: './industrial-system-inventory-home.component.html',
+    styleUrl: './industrial-system-inventory-home.component.css',
+    standalone: false
 })
 export class IndustrialSystemInventoryHomeComponent {
 

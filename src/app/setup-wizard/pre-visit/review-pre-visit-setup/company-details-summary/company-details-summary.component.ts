@@ -6,9 +6,10 @@ import { IdbCompany } from 'src/app/models/company';
 import { IdbContact } from 'src/app/models/contact';
 
 @Component({
-  selector: 'app-company-details-summary',
-  templateUrl: './company-details-summary.component.html',
-  styleUrl: './company-details-summary.component.css'
+    selector: 'app-company-details-summary',
+    templateUrl: './company-details-summary.component.html',
+    styleUrl: './company-details-summary.component.css',
+    standalone: false
 })
 export class CompanyDetailsSummaryComponent {
 

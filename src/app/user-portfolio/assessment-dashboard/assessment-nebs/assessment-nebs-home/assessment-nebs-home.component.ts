@@ -16,9 +16,10 @@ import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMet
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-assessment-nebs-home',
-  templateUrl: './assessment-nebs-home.component.html',
-  styleUrl: './assessment-nebs-home.component.css'
+    selector: 'app-assessment-nebs-home',
+    templateUrl: './assessment-nebs-home.component.html',
+    styleUrl: './assessment-nebs-home.component.css',
+    standalone: false
 })
 export class AssessmentNebsHomeComponent {
 

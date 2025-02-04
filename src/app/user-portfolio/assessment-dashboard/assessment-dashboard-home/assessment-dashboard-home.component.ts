@@ -11,9 +11,10 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-assessment-dashboard-home',
-  templateUrl: './assessment-dashboard-home.component.html',
-  styleUrl: './assessment-dashboard-home.component.css'
+    selector: 'app-assessment-dashboard-home',
+    templateUrl: './assessment-dashboard-home.component.html',
+    styleUrl: './assessment-dashboard-home.component.css',
+    standalone: false
 })
 export class AssessmentDashboardHomeComponent {
 

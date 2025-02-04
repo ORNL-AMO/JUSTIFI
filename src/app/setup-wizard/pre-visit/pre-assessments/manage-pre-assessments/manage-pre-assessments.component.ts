@@ -14,9 +14,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Component({
-  selector: 'app-manage-pre-assessments',
-  templateUrl: './manage-pre-assessments.component.html',
-  styleUrl: './manage-pre-assessments.component.css'
+    selector: 'app-manage-pre-assessments',
+    templateUrl: './manage-pre-assessments.component.html',
+    styleUrl: './manage-pre-assessments.component.css',
+    standalone: false
 })
 export class ManagePreAssessmentsComponent {
 

@@ -6,9 +6,10 @@ import { SetupWizardService } from './setup-wizard.service';
 import { faGripLinesVertical, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-setup-wizard',
-  templateUrl: './setup-wizard.component.html',
-  styleUrl: './setup-wizard.component.css'
+    selector: 'app-setup-wizard',
+    templateUrl: './setup-wizard.component.html',
+    styleUrl: './setup-wizard.component.css',
+    standalone: false
 })
 export class SetupWizardComponent {
 

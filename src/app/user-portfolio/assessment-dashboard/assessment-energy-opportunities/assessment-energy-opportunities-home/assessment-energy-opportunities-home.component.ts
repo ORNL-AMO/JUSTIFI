@@ -11,9 +11,10 @@ import { getNewIdbEnergyOpportunity, IdbEnergyOpportunity } from 'src/app/models
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 
 @Component({
-  selector: 'app-assessment-energy-opportunities-home',
-  templateUrl: './assessment-energy-opportunities-home.component.html',
-  styleUrl: './assessment-energy-opportunities-home.component.css'
+    selector: 'app-assessment-energy-opportunities-home',
+    templateUrl: './assessment-energy-opportunities-home.component.html',
+    styleUrl: './assessment-energy-opportunities-home.component.css',
+    standalone: false
 })
 export class AssessmentEnergyOpportunitiesHomeComponent {
 

@@ -12,9 +12,10 @@ import { SharedDataService } from '../shared/shared-services/shared-data.service
 import { ContactContext, IdbContact } from '../models/contact';
 
 @Component({
-  selector: 'app-user-portfolio',
-  templateUrl: './user-portfolio.component.html',
-  styleUrl: './user-portfolio.component.css'
+    selector: 'app-user-portfolio',
+    templateUrl: './user-portfolio.component.html',
+    styleUrl: './user-portfolio.component.css',
+    standalone: false
 })
 export class UserPortfolioComponent {
 

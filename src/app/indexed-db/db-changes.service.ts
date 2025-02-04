@@ -195,6 +195,11 @@ export class DbChangesService {
   }
 
   async deleteAssessments(assessments: Array<IdbAssessment>) {
+    // reset selected assessment if it is in the deletion list
+    let selectedAssessment = this.assessmentIdbService.selectedAssessment.getValue();
+    if (selectedAssessment && assessments.find(assessment => { return assessment.guid == selectedAssessment.guid })) {
+      this.assessmentIdbService.selectedAssessment.next(undefined);
+    }
     for (let i = 0; i < assessments.length; i++) {
       await firstValueFrom(this.assessmentIdbService.deleteWithObservable(assessments[i].id));
     }

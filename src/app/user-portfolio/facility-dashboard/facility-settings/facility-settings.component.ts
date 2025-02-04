@@ -10,9 +10,10 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
-  selector: 'app-facility-settings',
-  templateUrl: './facility-settings.component.html',
-  styleUrl: './facility-settings.component.css'
+    selector: 'app-facility-settings',
+    templateUrl: './facility-settings.component.html',
+    styleUrl: './facility-settings.component.css',
+    standalone: false
 })
 export class FacilitySettingsComponent {
 

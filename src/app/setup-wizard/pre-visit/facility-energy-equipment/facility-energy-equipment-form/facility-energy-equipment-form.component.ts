@@ -10,9 +10,10 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-  selector: 'app-facility-energy-equipment-form',
-  templateUrl: './facility-energy-equipment-form.component.html',
-  styleUrl: './facility-energy-equipment-form.component.css'
+    selector: 'app-facility-energy-equipment-form',
+    templateUrl: './facility-energy-equipment-form.component.html',
+    styleUrl: './facility-energy-equipment-form.component.css',
+    standalone: false
 })
 export class FacilityEnergyEquipmentFormComponent {
 

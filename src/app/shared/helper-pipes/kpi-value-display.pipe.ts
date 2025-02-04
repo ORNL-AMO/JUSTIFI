@@ -3,7 +3,8 @@ import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicat
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue } from '../constants/keyPerformanceIndicatorOptions';
 
 @Pipe({
-  name: 'kpiValueDisplay'
+    name: 'kpiValueDisplay',
+    standalone: false
 })
 export class KpiValueDisplayPipe implements PipeTransform {
 

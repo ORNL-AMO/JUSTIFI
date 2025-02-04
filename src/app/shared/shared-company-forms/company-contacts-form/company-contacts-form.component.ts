@@ -9,9 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 
 @Component({
-  selector: 'app-company-contacts-form',
-  templateUrl: './company-contacts-form.component.html',
-  styleUrl: './company-contacts-form.component.css'
+    selector: 'app-company-contacts-form',
+    templateUrl: './company-contacts-form.component.html',
+    styleUrl: './company-contacts-form.component.css',
+    standalone: false
 })
 export class CompanyContactsFormComponent {
   @Input({ required: true })

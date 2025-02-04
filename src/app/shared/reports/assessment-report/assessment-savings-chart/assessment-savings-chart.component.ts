@@ -4,9 +4,10 @@ import { PlotlyService } from 'angular-plotly.js';
 import { graphColors } from 'src/app/shared/constants/graphColors';
 
 @Component({
-  selector: 'app-assessment-savings-chart',
-  templateUrl: './assessment-savings-chart.component.html',
-  styleUrl: './assessment-savings-chart.component.css'
+    selector: 'app-assessment-savings-chart',
+    templateUrl: './assessment-savings-chart.component.html',
+    styleUrl: './assessment-savings-chart.component.css',
+    standalone: false
 })
 export class AssessmentSavingsChartComponent {
   @Input({ required: true })

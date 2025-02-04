@@ -7,9 +7,10 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-  selector: 'app-report-details-table',
-  templateUrl: './report-details-table.component.html',
-  styleUrl: './report-details-table.component.css'
+    selector: 'app-report-details-table',
+    templateUrl: './report-details-table.component.html',
+    styleUrl: './report-details-table.component.css',
+    standalone: false
 })
 export class ReportDetailsTableComponent {
   @Input()

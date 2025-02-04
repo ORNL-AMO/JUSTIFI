@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ConvertValue } from '../conversions/convertValue';
 
 @Pipe({
-  name: 'unitsDisplay'
+    name: 'unitsDisplay',
+    standalone: false
 })
 export class UnitsDisplayPipe implements PipeTransform {
 

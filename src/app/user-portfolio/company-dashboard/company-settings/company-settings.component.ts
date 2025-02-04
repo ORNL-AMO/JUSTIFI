@@ -10,9 +10,10 @@ import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { IdbCompany } from 'src/app/models/company';
 
 @Component({
-  selector: 'app-company-settings',
-  templateUrl: './company-settings.component.html',
-  styleUrl: './company-settings.component.css'
+    selector: 'app-company-settings',
+    templateUrl: './company-settings.component.html',
+    styleUrl: './company-settings.component.css',
+    standalone: false
 })
 export class CompanySettingsComponent {
 

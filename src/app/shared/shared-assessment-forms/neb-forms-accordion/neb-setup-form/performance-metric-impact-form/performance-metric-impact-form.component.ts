@@ -12,9 +12,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
 
 @Component({
-  selector: 'app-performance-metric-impact-form',
-  templateUrl: './performance-metric-impact-form.component.html',
-  styleUrl: './performance-metric-impact-form.component.css'
+    selector: 'app-performance-metric-impact-form',
+    templateUrl: './performance-metric-impact-form.component.html',
+    styleUrl: './performance-metric-impact-form.component.css',
+    standalone: false
 })
 export class PerformanceMetricImpactFormComponent {
   @Input({ required: true })

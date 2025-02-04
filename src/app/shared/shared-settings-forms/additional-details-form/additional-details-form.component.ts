@@ -11,9 +11,10 @@ import { IconDefinition, faFilePen } from '@fortawesome/free-solid-svg-icons';
 import { SharedSettingsFormsService } from '../shared-settings-forms.service';
 
 @Component({
-  selector: 'app-additional-details-form',
-  templateUrl: './additional-details-form.component.html',
-  styleUrls: ['./additional-details-form.component.css']
+    selector: 'app-additional-details-form',
+    templateUrl: './additional-details-form.component.html',
+    styleUrls: ['./additional-details-form.component.css'],
+    standalone: false
 })
 export class AdditionalDetailsFormComponent implements OnInit, OnDestroy{
   @Input()

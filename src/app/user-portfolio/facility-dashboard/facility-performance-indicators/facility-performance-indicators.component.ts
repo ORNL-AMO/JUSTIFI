@@ -7,9 +7,10 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 
 @Component({
-  selector: 'app-facility-performance-indicators',
-  templateUrl: './facility-performance-indicators.component.html',
-  styleUrl: './facility-performance-indicators.component.css'
+    selector: 'app-facility-performance-indicators',
+    templateUrl: './facility-performance-indicators.component.html',
+    styleUrl: './facility-performance-indicators.component.css',
+    standalone: false
 })
 export class FacilityPerformanceIndicatorsComponent {
 

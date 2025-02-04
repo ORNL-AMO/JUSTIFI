@@ -17,9 +17,10 @@ import { FacilityEnergyEquipmentSetupService } from 'src/app/setup-wizard/pre-vi
 import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessments/pre-assessment-setup.service';
 
 @Component({
-  selector: 'app-company-setup-form',
-  templateUrl: './company-setup-form.component.html',
-  styleUrl: './company-setup-form.component.css'
+    selector: 'app-company-setup-form',
+    templateUrl: './company-setup-form.component.html',
+    styleUrl: './company-setup-form.component.css',
+    standalone: false
 })
 export class CompanySetupFormComponent {
   

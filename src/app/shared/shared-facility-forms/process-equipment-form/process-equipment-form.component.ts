@@ -11,9 +11,10 @@ import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-process-equipment-form',
-  templateUrl: './process-equipment-form.component.html',
-  styleUrl: './process-equipment-form.component.css'
+    selector: 'app-process-equipment-form',
+    templateUrl: './process-equipment-form.component.html',
+    styleUrl: './process-equipment-form.component.css',
+    standalone: false
 })
 export class ProcessEquipmentFormComponent {
   @Input({ required: true })

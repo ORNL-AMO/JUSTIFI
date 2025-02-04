@@ -10,9 +10,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-on-site-assessment',
-  templateUrl: './on-site-assessment.component.html',
-  styleUrl: './on-site-assessment.component.css'
+    selector: 'app-on-site-assessment',
+    templateUrl: './on-site-assessment.component.html',
+    styleUrl: './on-site-assessment.component.css',
+    standalone: false
 })
 export class OnSiteAssessmentComponent {
 

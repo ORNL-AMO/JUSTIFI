@@ -4,7 +4,8 @@ import { AssessmentOptions, AssessmentType } from '../constants/assessmentTypes'
 import { UtilityOption, UtilityType } from '../constants/utilityTypes';
 
 @Pipe({
-  name: 'linkedUtilityOptions',
+    name: 'linkedUtilityOptions',
+    standalone: false
 })
 export class LinkedUtilityOptionsPipe implements PipeTransform {
 

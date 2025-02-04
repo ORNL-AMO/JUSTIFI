@@ -3,7 +3,8 @@ import { UnitOption } from '../constants/unitOptions';
 import { UtilityOptions, UtilityType } from '../constants/utilityTypes';
 
 @Pipe({
-  name: 'linkedUnitOptions'
+    name: 'linkedUnitOptions',
+    standalone: false
 })
 export class LinkedUnitOptionsPipe implements PipeTransform {
 
