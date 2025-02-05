@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssociatedContactsModalComponent } from './associated-contacts-modal.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
 
 describe('AssociatedContactsModalComponent', () => {
   let component: AssociatedContactsModalComponent;
@@ -8,7 +11,9 @@ describe('AssociatedContactsModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AssociatedContactsModalComponent]
+      imports: [FontAwesomeModule, HelperPipesModule],
+      declarations: [AssociatedContactsModalComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

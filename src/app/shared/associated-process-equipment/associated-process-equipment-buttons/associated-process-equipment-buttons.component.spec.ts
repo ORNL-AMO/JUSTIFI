@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssociatedProcessEquipmentButtonsComponent } from './associated-process-equipment-buttons.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('AssociatedProcessEquipmentButtonsComponent', () => {
   let component: AssociatedProcessEquipmentButtonsComponent;
@@ -8,7 +11,9 @@ describe('AssociatedProcessEquipmentButtonsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AssociatedProcessEquipmentButtonsComponent]
+      imports: [FontAwesomeModule, HelperPipesModule],
+      declarations: [AssociatedProcessEquipmentButtonsComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 
