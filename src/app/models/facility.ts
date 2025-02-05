@@ -23,7 +23,8 @@ export interface IdbFacility extends IdbEntry {
     outsidePressures: string,
     financialMetricsUsed: string,
     efficiencyIncentives: string,
-    dependentFunding: string
+    dependentFunding: string,
+    associatedCosts: string
 }
 
 export function getNewIdbFacility(userId: string, companyId: string): IdbFacility {
@@ -50,6 +51,7 @@ export function getNewIdbFacility(userId: string, companyId: string): IdbFacilit
         outsidePressures: '',
         financialMetricsUsed: '',
         efficiencyIncentives: '',
-        dependentFunding: ''
+        dependentFunding: '',
+        associatedCosts: ''
     }
 }

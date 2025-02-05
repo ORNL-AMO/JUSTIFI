@@ -26,6 +26,7 @@ export class SharedFacilityProtocolQuestionsComponent {
   financialMetricsUsed: string;
   efficiencyIncentives: string;
   dependentFunding: string;
+  associatedCosts: string;
   constructor(private facilityIdbService: FacilityIdbService,
     private setupWizardService: SetupWizardService
   ) {
@@ -41,6 +42,7 @@ export class SharedFacilityProtocolQuestionsComponent {
     this.outsidePressures = facility.outsidePressures;
     this.efficiencyIncentives = facility.efficiencyIncentives;
     this.dependentFunding = facility.dependentFunding;
+    this.associatedCosts = facility.associatedCosts;
   }
 
   async saveChanges() {
@@ -53,6 +55,7 @@ export class SharedFacilityProtocolQuestionsComponent {
     facility.financialMetricsUsed = this.financialMetricsUsed;
     facility.efficiencyIncentives = this.efficiencyIncentives;
     facility.dependentFunding = this.dependentFunding;
+    facility.associatedCosts = this.associatedCosts;
     await this.facilityIdbService.asyncUpdate(facility);
   }
 
