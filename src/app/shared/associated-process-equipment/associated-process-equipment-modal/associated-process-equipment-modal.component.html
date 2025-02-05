@@ -1,7 +1,7 @@
 <div [ngClass]="{'window-overlay': displayModal}"></div>
 <div class="popup" [ngClass]="{'open': displayModal }">
     <div class="popup-header">
-        <fa-icon [icon]="faLink"></fa-icon> 
+        <fa-icon [icon]="faLink"></fa-icon>
         Select Linked End Uses
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeModal()"></button>
     </div>
@@ -43,9 +43,6 @@
                 <thead>
                     <tr>
                         <th>
-                            End Use
-                        </th>
-                        <th>
                             <ng-template
                                 [ngIf]="(contextGuid | includesProcessEquipment:itemContext: selectedEquipment)">
                                 <fa-icon class="success" [icon]="faCircleCheck"></fa-icon>
@@ -55,47 +52,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!--TODO: Add details-->
-                    <!-- <tr>
-                        <td>
-                            Phone
-                        </td>
-                        <td>
-                            {{selectedContact.phone}}
-                        </td>
-                    </tr>
                     <tr>
                         <td>
-                            Email
-                        </td>
-                        <td>
-                            {{selectedContact.email}}
+                            {{selectedEquipment.notes}}
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            Title
-                        </td>
-                        <td>
-                            {{selectedContact.role}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Team
-                        </td>
-                        <td>
-                            {{selectedContact.team}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Notes
-                        </td>
-                        <td>
-                            {{selectedContact.notes}}
-                        </td>
-                    </tr> -->
                 </tbody>
             </table>
         </ng-template>
