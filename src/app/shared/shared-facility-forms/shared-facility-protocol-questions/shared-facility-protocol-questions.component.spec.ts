@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SharedFacilityProtocolQuestionsComponent } from './shared-facility-protocol-questions.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { FormsModule } from '@angular/forms';
 
 describe('SharedFacilityProtocolQuestionsComponent', () => {
   let component: SharedFacilityProtocolQuestionsComponent;
@@ -8,7 +10,9 @@ describe('SharedFacilityProtocolQuestionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SharedFacilityProtocolQuestionsComponent]
+      imports: [FormsModule],
+      declarations: [SharedFacilityProtocolQuestionsComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FacilityProtocolQuestionsComponent } from './facility-protocol-questions.component';
+import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { SharedFacilityFormsModule } from 'src/app/shared/shared-facility-forms/shared-facility-forms.module';
 
 describe('FacilityProtocolQuestionsComponent', () => {
   let component: FacilityProtocolQuestionsComponent;
@@ -8,7 +12,9 @@ describe('FacilityProtocolQuestionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FacilityProtocolQuestionsComponent]
+      imports: [FormsModule, FontAwesomeModule, SharedFacilityFormsModule],
+      declarations: [FacilityProtocolQuestionsComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 
