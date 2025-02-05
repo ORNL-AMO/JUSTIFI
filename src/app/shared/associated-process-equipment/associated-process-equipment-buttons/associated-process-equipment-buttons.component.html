@@ -1,0 +1,14 @@
+<button class="btn btn-sm btn-outline-end-use me-1"
+    *ngFor="let processEquipment of itemGuid | processEquipmentList:itemContext: processEquipmentOptions;"
+    (click)="openModal(processEquipment)">
+    <fa-icon [icon]="faSplotch"></fa-icon>
+    {{processEquipment.equipmentName}}
+</button>
+<button class="btn btn-sm btn-outline-end-use" (click)="openModal(undefined)">
+    <fa-icon [icon]="faLink"></fa-icon>
+    Link End Uses
+</button>
+
+<app-associated-process-equipment-modal *ngIf="showModal" [contextGuid]="itemGuid" [itemContext]="itemContext"
+    [selectedEquipment]="selectedEquipment" [facilityGuid]="facility.guid"
+    (emitCancel)="closeModal()"></app-associated-process-equipment-modal>
