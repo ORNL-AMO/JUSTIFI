@@ -18,7 +18,6 @@ export class SharedFacilityProtocolQuestionsComponent {
 
 
   doesFacilityTrackGHG: string;
-  showMoreGHG: boolean = false;
 
   equipmentAcquisition: string;
   financialCriteria: string;
@@ -59,9 +58,5 @@ export class SharedFacilityProtocolQuestionsComponent {
 
   focusField(str: string) {
     this.setupWizardService.focusedHelp.next(str);
-  }
-
-  toggleGHGshowMore(){
-    this.showMoreGHG = !this.showMoreGHG;
   }
 }
