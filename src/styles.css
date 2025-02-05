@@ -106,8 +106,6 @@
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: var(--contact-color);
     --bs-gradient: none;
-    padding-top: .1rem;
-    padding-bottom: .1rem;
 }
 
 

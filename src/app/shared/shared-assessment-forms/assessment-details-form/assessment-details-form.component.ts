@@ -3,13 +3,13 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { IdbContact } from 'src/app/models/contact';
-import { IconDefinition, faContactBook, faPeopleGroup, faUser, faIndustry } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faContactBook, faUser, faIndustry } from '@fortawesome/free-solid-svg-icons';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { AssessmentOptions, AssessmentType, AssessmentTypes } from 'src/app/shared/constants/assessmentTypes';
 import { EnergyUnitOptions, UnitOption } from 'src/app/shared/constants/unitOptions';
-import { UtilityOptions, UtilityType } from 'src/app/shared/constants/utilityTypes';
+import { UtilityOptions } from 'src/app/shared/constants/utilityTypes';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { UtilityEnergyUse } from 'src/app/models/utilityEnergyUses';
 import { UnitSettings } from 'src/app/models/unitSettings';
@@ -34,7 +34,6 @@ export class AssessmentDetailsFormComponent {
   @Input()
   inPreAssessment: boolean;
 
-  faPeopleGroup: IconDefinition = faPeopleGroup;
   faUser: IconDefinition = faUser;
   faContactBook: IconDefinition = faContactBook;
   faIndustry: IconDefinition = faIndustry;
