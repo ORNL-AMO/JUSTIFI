@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="col">
+        <p class="fw-light smaller">
+            The questions in this section aim
+            to help you understand how the facility might react to the suggestion of large expenditures, how projects
+            are approved and what might be needed to help encourage approval.
+        </p>
+        <hr>
+        <!--ghg emissions-->
+        <label class="bold">
+            Does the facility track their Greenhouse Gas Emissions (GHGs) related to energy intensity?
+        </label>
+        <p class="fw-light small">
+            Energy efficiency projects usually reduce Scope 1 and Scope 2 energy-based emissions.
+            Understanding their baseline, tracking, emission factors, and any costs associated with emissions
+            (internal or external) will help quantify NEBs for energy efficiency measures (EEMs).<br>
+            Questions relating to other sustainability-related Key Performance Indicators (KPIs) that may be
+            impacted by
+            energy efficiency measures (water use, water pollution, air pollution, waste - hazardous, non-hazardous,
+            recycling) are handled elsewhere in the app.
+        </p>
+        <textarea id="doesFacilityTrackGHG" name="doesFacilityTrackGHG" class="form-control"
+            [(ngModel)]="doesFacilityTrackGHG" (input)="saveChanges()" (focus)="focusField('doesFacilityTrackGHG')"
+            rows="3"></textarea>
+        <hr>
+        <!--equipment acquisition-->
+        <label class="bold">
+            What does the facility use to judge equipment acquisition (lifecycle, performance, costs, etc.)?
+        </label>
+        <p class="fw-light small">
+            Assessors should understand how assets are valued and expected to perform - typical techniques include the
+            capital asset pricing model, lifecycle assessment models. Also, understand what factors, other than cost,
+            does the facility use to determine what equipment to purchase (long term costs or performance, energy
+            consumption, needs of plant personnel, brands).
+        </p>
+        <textarea id="equipmentAcquisition" name="equipmentAcquisition" class="form-control"
+            [(ngModel)]="equipmentAcquisition" (input)="saveChanges()" (focus)="focusField('equipmentAcquisition')"
+            rows="3"></textarea>
+
+        <hr>
+        <!--how costs are tracked-->
+        <label class="bold">
+            How does the facility track its costs?
+        </label>
+        <p class="fw-light small">
+            This can help assessors begin to identify what and how much data will be available for calculating NEBs and
+            who to contact. This is just for keeping broad notes: there will be places to enter this specific data
+            further into the tool.
+        </p>
+        <textarea id="howCostsTracked" name="howCostsTracked" class="form-control" [(ngModel)]="howCostsTracked"
+            (input)="saveChanges()" (focus)="focusField('howCostsTracked')" rows="3"></textarea>
+        <hr>
+        <!--financial criteria-->
+        <label class="bold">
+            What financial criteria does the facility use to evaluate projects?
+        </label>
+        <p class="fw-light small">
+            Identify metrics like return on investment (ROI), Simple Payback Period and the facility's criteria.
+        </p>
+        <textarea id="financialCriteria" name="financialCriteria" class="form-control" [(ngModel)]="financialCriteria"
+            (input)="saveChanges()" (focus)="focusField('financialCriteria')" rows="3"></textarea>
+
+        <hr>
+        <!--external financial pressures-->
+        <label class="bold">
+            Are there any external financial pressures?
+        </label>
+        <p class="fw-light small">
+            Understand if there is any outside pressure that could influence the decision-making of the sector of the
+            company getting the assessment, e.g., activist investors or private equity firms, highly competitive sector.
+            This can help find further metrics and stakeholders for potential NEBs.
+        </p>
+        <textarea id="outsidePressures" name="outsidePressures" class="form-control" [(ngModel)]="outsidePressures"
+            (input)="saveChanges()" (focus)="focusField('outsidePressures')" rows="3"></textarea>
+        <hr>
+
+        <!--financial metrics used-->
+        <label class="bold">
+            What financial metrics are used to evaluate plant operations?
+        </label>
+        <p class="fw-light small">
+            THIS ONE NEEDS HELP TEXT
+        </p>
+        <textarea id="financialMetricsUsed" name="financialMetricsUsed" class="form-control"
+            [(ngModel)]="financialMetricsUsed" (input)="saveChanges()" (focus)="focusField('financialMetricsUsed')"
+            rows="3"></textarea>
+        <hr>
+
+        <!--efficiency incentives-->
+        <label class="bold">
+            What energy efficiency incentives is your facility eligible for?
+        </label>
+        <p class="fw-light small">
+            Is the facility aware of any utility, state public service commission, federal energy incentives that it may
+            qualify for? The DSIRE database may help <a target="_blank"
+                href="https://www.dsireusa.org/">https://www.dsireusa.org/</a>
+        </p>
+        <textarea id="efficiencyIncentives" name="efficiencyIncentives" class="form-control"
+            [(ngModel)]="efficiencyIncentives" (input)="saveChanges()" (focus)="focusField('efficiencyIncentives')"
+            rows="3"></textarea>
+        <hr>
+
+        <!--dependentFunding-->
+        <label class="bold">
+            Does the facility depend on internal or external funding for energy projects?
+        </label>
+        <p class="fw-light small">
+            This can help the assessor understand where the facility's funding for energy projects comes from. Does the
+            site have an energy / sustainability project budget? Does the company have an energy / sustainability
+            project budget? Have they ever used Energy as a Service (EaaS), PACE loans, or other external avenues?
+        </p>
+        <textarea id="dependentFunding" name="dependentFunding" class="form-control" [(ngModel)]="dependentFunding"
+            (input)="saveChanges()" (focus)="focusField('dependentFunding')" rows="3"></textarea>
+    </div>
+</div>

@@ -50,6 +50,7 @@ import { FacilityProcessEquipmentFormComponent } from './pre-visit/facility-proc
 import { ManagePreAssessmentsComponent } from './pre-visit/pre-assessments/manage-pre-assessments/manage-pre-assessments.component';
 import { PreAssessmentFormComponent } from './pre-visit/pre-assessments/pre-assessment-form/pre-assessment-form.component';
 import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
+import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protocol-questions/facility-protocol-questions.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
     FacilityProcessEquipmentFormComponent,
     ManagePreAssessmentsComponent,
     PreAssessmentFormComponent,
-    NavItemActivePipe
+    NavItemActivePipe,
+    FacilityProtocolQuestionsComponent
   ],
   imports: [
     CommonModule,

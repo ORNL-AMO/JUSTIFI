@@ -14,7 +14,16 @@ export interface IdbFacility extends IdbEntry {
     sidebarKPIsOpen: boolean,
     sidebarSystemInventoryOpen: boolean,
     sidebarEndUseInventoryOpen: boolean,
-    sidebarPreAssessmentOpen: boolean
+    sidebarPreAssessmentOpen: boolean,
+    //protocol
+    doesFacilityTrackGHG: string,
+    equipmentAcquisition: string,
+    howCostsTracked: string,
+    financialCriteria: string,
+    outsidePressures: string,
+    financialMetricsUsed: string,
+    efficiencyIncentives: string,
+    dependentFunding: string
 }
 
 export function getNewIdbFacility(userId: string, companyId: string): IdbFacility {
@@ -33,6 +42,14 @@ export function getNewIdbFacility(userId: string, companyId: string): IdbFacilit
         sidebarKPIsOpen: false,
         sidebarSystemInventoryOpen: false,
         sidebarEndUseInventoryOpen: false,
-        sidebarPreAssessmentOpen: false
+        sidebarPreAssessmentOpen: false,
+        doesFacilityTrackGHG: '',
+        equipmentAcquisition: '',
+        howCostsTracked: '',
+        financialCriteria: '',
+        outsidePressures: '',
+        financialMetricsUsed: '',
+        efficiencyIncentives: '',
+        dependentFunding: ''
     }
 }
