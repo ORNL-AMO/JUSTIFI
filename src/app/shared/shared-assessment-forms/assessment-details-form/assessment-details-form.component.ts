@@ -5,7 +5,6 @@ import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service'
 import { IdbContact } from 'src/app/models/contact';
 import { IconDefinition, faContactBook, faPeopleGroup, faUser, faIndustry } from '@fortawesome/free-solid-svg-icons';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
-import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { AssessmentOptions, AssessmentType, AssessmentTypes } from 'src/app/shared/constants/assessmentTypes';
@@ -19,7 +18,6 @@ import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { AssessmentEnergyOpportunitiesFormService } from '../../../setup-wizard/data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.service';
-import { SharedDataService } from '../../shared-services/shared-data.service';
 import { Router } from '@angular/router';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
@@ -68,7 +66,6 @@ export class AssessmentDetailsFormComponent {
   constructor(
     private assessmentIdbService: AssessmentIdbService,
     private contactIdbService: ContactIdbService,
-    private sharedDataService: SharedDataService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,
@@ -175,14 +172,6 @@ export class AssessmentDetailsFormComponent {
   async saveChanges() {
     this.isFormChange = true;
     await this.assessmentIdbService.asyncUpdate(this.assessment);
-  }
-
-  openContactModal(viewContact: IdbContact) {
-    this.sharedDataService.displayContactModal.next(
-      {
-        context: 'assessment', viewContact: viewContact, contextGuid: this.assessment.guid, companyId: this.assessment.companyId
-      });
-
   }
 
   isUtilityTracked(utilityType: string): boolean {

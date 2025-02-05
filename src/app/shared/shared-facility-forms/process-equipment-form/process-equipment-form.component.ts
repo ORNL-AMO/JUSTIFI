@@ -83,12 +83,4 @@ export class ProcessEquipmentFormComponent {
     }
     this.closeDeleteModal();
   }
-
-  openContactModal(viewContact: IdbContact) {
-    this.sharedDataService.displayContactModal.next({ context: 'processEquipment', viewContact: viewContact, contextGuid: this.processEquipment.guid, companyId: this.processEquipment.companyId });
-  }
-
-  closeContactModal() {
-    this.sharedDataService.displayContactModal.next(undefined)
-  }
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { faChevronLeft, faCircle, faCircleCheck, faSave, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faCircle, faCircleCheck, faLink, faSave, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom } from 'rxjs';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
@@ -29,6 +29,7 @@ export class AssociatedProcessEquipmentModalComponent {
   faCircleCheck: IconDefinition = faCircleCheck;
   faChevronLeft: IconDefinition = faChevronLeft;
   faCircle: IconDefinition = faCircle;
+  faLink: IconDefinition = faLink;
 
   constructor(
     private processEquipmentIdbService: ProcessEquipmentIdbService

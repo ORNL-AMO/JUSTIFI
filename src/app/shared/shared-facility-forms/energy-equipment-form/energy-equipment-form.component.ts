@@ -207,12 +207,4 @@ export class EnergyEquipmentFormComponent {
     }
     this.closeDeleteModal();
   }
-
-  openContactModal(viewContact: IdbContact) {
-    this.sharedDataService.displayContactModal.next({ context: 'energyEquipment', viewContact: viewContact, contextGuid: this.energyEquipment.guid, companyId: this.energyEquipment.companyId });
-  }
-
-  closeContactModal() {
-    this.sharedDataService.displayContactModal.next(undefined);
-  }
 }

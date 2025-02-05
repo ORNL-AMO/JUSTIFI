@@ -183,15 +183,7 @@
 </h5>
 <div class="row">
     <div class="col-12">
-        <button class="btn btn-sm btn-primary me-1"
-            *ngFor="let contact of assessment.guid | associatedContacts:'assessment': contacts;"
-            (click)="openContactModal(contact)">
-            <fa-icon [icon]="faUser"></fa-icon>
-            {{contact | contactNameDisplay}}
-        </button>
-        <button class="btn btn-sm btn-secondary" (click)="openContactModal(undefined)">
-            <fa-icon [icon]="faContactBook"></fa-icon>
-            Stakeholders
-        </button>
+        <app-associated-contacts-buttons [companyGuid]="assessment.companyId" [contactContext]="'assessment'"
+            [contextGuid]="assessment.guid"></app-associated-contacts-buttons>
     </div>
 </div>

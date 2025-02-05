@@ -17,6 +17,7 @@ import { KpmDatabaseModalComponent } from './kpi-details-form/kpm-database-modal
 import { KpmImpactsTableComponent } from './kpi-details-form/kpm-impacts-table/kpm-impacts-table.component';
 import { KpiDescriptionPipe } from './kpi-details-form/kpi-description.pipe';
 import { KpiDetailsFormComponent } from './kpi-details-form/kpi-details-form.component';
+import { AssociatedContactsModule } from '../associated-contacts/associated-contacts.module';
 
 
 
@@ -42,7 +43,8 @@ import { KpiDetailsFormComponent } from './kpi-details-form/kpi-details-form.com
     HelperPipesModule,
     FontAwesomeModule,
     KpmDetailsFormModule,
-    PrimaryKpiBadgeModule
+    PrimaryKpiBadgeModule,
+    AssociatedContactsModule
   ],
   exports: [
     FacilitySetupFormComponent,
