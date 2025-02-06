@@ -276,4 +276,10 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     await firstValueFrom(this.assessmentIdbService.updateWithObservable(assessment));
     await this.assessmentIdbService.setAssessments();
   }
+
+  async toggleAssessmentSidebarDiscoveryOpen(assessment: IdbAssessment) {
+    assessment.sidebarDiscoveryOpen = !assessment.sidebarDiscoveryOpen;
+    await firstValueFrom(this.assessmentIdbService.updateWithObservable(assessment));
+    await this.assessmentIdbService.setAssessments();
+  }
 }

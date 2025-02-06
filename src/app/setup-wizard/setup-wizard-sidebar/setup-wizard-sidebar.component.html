@@ -243,6 +243,26 @@
                                 Energy Efficiency Opportunities
                             </a>
                         </div>
+
+                        <div class="nav-item">
+                            <a class="nav-link" (click)="toggleAssessmentSidebarDiscoveryOpen(assessment)"
+                                [ngClass]="routerUrl | navItemActive:'/assessment/'+assessmentGuid+'/discovery'">
+                                <fa-icon class="toggle"
+                                    [icon]="assessment.sidebarDiscoveryOpen ? faChevronDown : faChevronRight"></fa-icon>
+                                Discovery
+                            </a>
+                        </div>
+                        <div class="sidebar-section" *ngIf="assessment.sidebarDiscoveryOpen">
+                            <div class="nav-item">
+                                <a class="nav-link"
+                                    [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/discovery'"
+                                    [routerLinkActive]="['active']">
+                                    <fa-icon [icon]="faList"></fa-icon>
+                                    Systems and Equipment
+                                </a>
+                            </div>
+
+                        </div>
                         <div class="nav-item">
                             <a class="nav-link"
                                 [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/nebs'"

@@ -1,0 +1,48 @@
+<h6 class="pb-2">
+    <div class="d-flex w-100 justify-content-between">
+        <div class="mt-auto bold">
+            <fa-icon [icon]="faLink"></fa-icon>
+            Linked Industrial Systems and End Use Equipment
+        </div>
+        <button class="btn btn-outline-success btn-sm" [disabled]="true" (click)="addEquipment()"><fa-icon [icon]="faPlus"
+                class="me-1"></fa-icon>Add New</button>
+    </div>
+</h6>
+
+<hr class="my-1">
+<h6>
+    Industrial Systems
+</h6>
+
+@let associatedEnergyEquipments = (assessment.guid | energyEquipmentList:'assessment': energyEquipments);
+<div class="list-group">
+    <div class="list-group-item" *ngFor="let equipment of associatedEnergyEquipments">
+        <div class="d-flex w-100 justify-content-between">
+            <div>
+                <fa-icon [icon]="faCube"></fa-icon>
+                {{equipment.equipmentName}}
+            </div>
+            <div>
+                <span class="badge text-bg-warning me-1">
+                    {{equipment.equipmentType}}
+                </span>
+                <span class="badge text-bg-dark">
+                    {{equipment.utilityType}}
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+<hr>
+<h6>
+    End Uses
+</h6>
+@let associatedProcessEquipments = (assessment.guid |
+processEquipmentList:'assessment':processEquipments:energyOpportunities);
+<div class="list-group">
+    <div class="list-group-item" *ngFor="let equipment of associatedProcessEquipments">
+        <fa-icon [icon]="faSplotch"></fa-icon>
+        {{equipment.equipmentName}}
+    </div>
+</div>
