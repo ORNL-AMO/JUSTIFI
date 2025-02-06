@@ -9,14 +9,15 @@ import { IdbCompany } from 'src/app/models/company';
 import { IdbFacility } from 'src/app/models/facility';
 import { IconDefinition, faFilePen } from '@fortawesome/free-solid-svg-icons';
 import { SharedSettingsFormsService } from '../shared-settings-forms.service';
+import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 
 @Component({
-    selector: 'app-additional-details-form',
-    templateUrl: './additional-details-form.component.html',
-    styleUrls: ['./additional-details-form.component.css'],
-    standalone: false
+  selector: 'app-additional-details-form',
+  templateUrl: './additional-details-form.component.html',
+  styleUrls: ['./additional-details-form.component.css'],
+  standalone: false
 })
-export class AdditionalDetailsFormComponent implements OnInit, OnDestroy{
+export class AdditionalDetailsFormComponent implements OnInit, OnDestroy {
   @Input()
   inCompany: boolean;
 
@@ -30,8 +31,9 @@ export class AdditionalDetailsFormComponent implements OnInit, OnDestroy{
   firstNaicsList: Array<NAICS> = FirstNaicsList;
   secondNaicsList: Array<NAICS> = SecondNaicsList;
   thirdNaicsList: Array<NAICS> = ThirdNaicsList;
-  constructor(private formBuilder: FormBuilder, private companyIdbService: CompanyIdbService,
-    private facilityIdbService: FacilityIdbService, private sharedSettingsFormsService: SharedSettingsFormsService) {
+  constructor(private companyIdbService: CompanyIdbService,
+    private facilityIdbService: FacilityIdbService, private sharedSettingsFormsService: SharedSettingsFormsService,
+    private setupWizardService: SetupWizardService) {
   }
 
   ngOnInit() {
@@ -90,5 +92,9 @@ export class AdditionalDetailsFormComponent implements OnInit, OnDestroy{
       }
     }
     this.saveChanges();
+  }
+
+  focusField() {
+    this.setupWizardService.focusedHelp.next('additionalDetails');
   }
 }

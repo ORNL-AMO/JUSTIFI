@@ -30,6 +30,7 @@ import { ManagePreAssessmentsComponent } from "../setup-wizard/pre-visit/pre-ass
 import { AssessmentDiscoveryEquipmentListComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-discovery/assessment-discovery-equipment-list/assessment-discovery-equipment-list.component";
 import { ProcessEquipmentDiscoveryComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-discovery/process-equipment-discovery/process-equipment-discovery.component";
 import { EnergyEquipmentDiscoveryComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-discovery/energy-equipment-discovery/energy-equipment-discovery.component";
+import { FacilityProtocolQuestionsComponent } from "../setup-wizard/pre-visit/facility-protocol-questions/facility-protocol-questions.component";
 
 
 export const SetupWizardRoutes: Route = {
@@ -72,6 +73,10 @@ export const SetupWizardRoutes: Route = {
                     path: 'facility-setup',
                     component: FacilitySetupComponent,
                     canDeactivate: [CanDeactivateGuard]
+                },
+                {
+                    path: 'facility-questions',
+                    component: FacilityProtocolQuestionsComponent
                 },
                 {
                     path: 'facility-energy-equipment',

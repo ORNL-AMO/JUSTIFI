@@ -54,6 +54,7 @@ import { AssociatedContactsModule } from '../shared/associated-contacts/associat
 import { AssessmentDiscoveryEquipmentListComponent } from './data-collection/on-site-assessment/assessment-discovery/assessment-discovery-equipment-list/assessment-discovery-equipment-list.component';
 import { EnergyEquipmentDiscoveryComponent } from './data-collection/on-site-assessment/assessment-discovery/energy-equipment-discovery/energy-equipment-discovery.component';
 import { ProcessEquipmentDiscoveryComponent } from './data-collection/on-site-assessment/assessment-discovery/process-equipment-discovery/process-equipment-discovery.component';
+import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protocol-questions/facility-protocol-questions.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { ProcessEquipmentDiscoveryComponent } from './data-collection/on-site-as
     NavItemActivePipe,
     AssessmentDiscoveryEquipmentListComponent,
     EnergyEquipmentDiscoveryComponent,
-    ProcessEquipmentDiscoveryComponent
+    ProcessEquipmentDiscoveryComponent,
+    FacilityProtocolQuestionsComponent
   ],
   imports: [
     CommonModule,
