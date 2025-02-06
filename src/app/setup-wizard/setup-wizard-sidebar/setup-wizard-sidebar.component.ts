@@ -19,12 +19,14 @@ import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-i
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
+import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
+import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 
 @Component({
-    selector: 'app-setup-wizard-sidebar',
-    templateUrl: './setup-wizard-sidebar.component.html',
-    styleUrl: './setup-wizard-sidebar.component.css',
-    standalone: false
+  selector: 'app-setup-wizard-sidebar',
+  templateUrl: './setup-wizard-sidebar.component.html',
+  styleUrl: './setup-wizard-sidebar.component.css',
+  standalone: false
 })
 export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   @Output('emitToggleCollapse')
@@ -87,6 +89,10 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
 
   processEquipments: Array<IdbProcessEquipment>;
   processEquipmentSub: Subscription;
+
+  energyOpportunities: Array<IdbEnergyOpportunity>;
+  energyOpportunitySub: Subscription;
+
   routerUrl: string;
   constructor(private router: Router, private setupWizardService: SetupWizardService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
@@ -96,7 +102,8 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     private companyIdbService: CompanyIdbService,
     private contactIdbService: ContactIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
-    private processEquipmentIdbService: ProcessEquipmentIdbService
+    private processEquipmentIdbService: ProcessEquipmentIdbService,
+    private energyOpportunityIdbService: EnergyOpportunityIdbService
   ) {
 
   }
@@ -145,7 +152,10 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     });
     this.processEquipmentSub = this.processEquipmentIdbService.processEquipments.subscribe(equipments => {
       this.processEquipments = equipments;
-    })
+    });
+    this.energyOpportunitySub = this.energyOpportunityIdbService.energyOpportunities.subscribe(opportunities => {
+      this.energyOpportunities = opportunities;
+    });
   }
 
   ngOnDestroy() {
@@ -159,6 +169,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.contactsSub.unsubscribe();
     this.energyEquipmentsSub.unsubscribe();
     this.processEquipmentSub.unsubscribe();
+    this.energyOpportunitySub.unsubscribe();
   }
 
   setDisplaySidebar() {

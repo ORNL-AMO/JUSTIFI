@@ -28,6 +28,8 @@ import { FacilityProcessEquipmentFormComponent } from "../setup-wizard/pre-visit
 import { PreAssessmentFormComponent } from "../setup-wizard/pre-visit/pre-assessments/pre-assessment-form/pre-assessment-form.component";
 import { ManagePreAssessmentsComponent } from "../setup-wizard/pre-visit/pre-assessments/manage-pre-assessments/manage-pre-assessments.component";
 import { AssessmentDiscoveryEquipmentListComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-discovery/assessment-discovery-equipment-list/assessment-discovery-equipment-list.component";
+import { ProcessEquipmentDiscoveryComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-discovery/process-equipment-discovery/process-equipment-discovery.component";
+import { EnergyEquipmentDiscoveryComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-discovery/energy-equipment-discovery/energy-equipment-discovery.component";
 
 
 export const SetupWizardRoutes: Route = {
@@ -135,7 +137,21 @@ export const SetupWizardRoutes: Route = {
                         },
                         {
                             path: 'discovery',
-                            component: AssessmentDiscoveryEquipmentListComponent
+                            children: [
+                                {
+                                    path: '',
+                                    component: AssessmentDiscoveryEquipmentListComponent
+                                },
+                                {
+                                    path: 'process-equipment/:id',
+                                    component: ProcessEquipmentDiscoveryComponent
+                                },
+                                {
+                                    path: 'energy-equipment/:id',
+                                    component: EnergyEquipmentDiscoveryComponent
+                                },
+                            ]
+                            
                         },
                         {
                             path: 'results',
