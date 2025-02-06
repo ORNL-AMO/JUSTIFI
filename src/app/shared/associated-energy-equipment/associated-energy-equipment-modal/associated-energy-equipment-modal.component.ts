@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faChevronLeft, faCircle, faCircleCheck, faLink, faSave, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom } from 'rxjs';
+import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 
@@ -30,13 +31,15 @@ export class AssociatedEnergyEquipmentModalComponent {
   faChevronLeft: IconDefinition = faChevronLeft;
   faCircle: IconDefinition = faCircle;
   faLink: IconDefinition = faLink;
-
+  companyEnergyUnit: string;
   constructor(
-    private energyEquipmentIdbService: EnergyEquipmentIdbService
+    private energyEquipmentIdbService: EnergyEquipmentIdbService,
+    private companyIdbService: CompanyIdbService
   ) {
   }
 
   ngOnInit() {
+    this.companyEnergyUnit = this.companyIdbService.selectedCompany.getValue().companyEnergyUnit;
     this.energyEquipments = this.energyEquipmentIdbService.getByOtherGuid(this.facilityGuid, 'facility').map(equipment => {
       //need to use shallow copy
       return {
