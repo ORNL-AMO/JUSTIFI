@@ -367,6 +367,18 @@ export class DbChangesService {
       }
       await this.assessmentIdbService.setAssessments();
     }
+
+    let energyEquipments: Array<IdbEnergyEquipment> = this.energyEquipmentIdbService.energyEquipments.getValue();
+    let associatedEEs: Array<IdbEnergyEquipment> = energyEquipments.filter(equipment => {
+      return equipment.energyEquipmentIds.includes(energyEquipment.guid);
+    });
+    for (let i = 0; i < associatedEEs.length; i++) {
+      associatedEEs[i].energyEquipmentIds = associatedEEs[i].energyEquipmentIds.filter(guid => {
+        return guid != energyEquipment.guid
+      });
+      await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(associatedEEs[i]));
+    }
+
     await firstValueFrom(this.energyEquipmentIdbService.deleteWithObservable(energyEquipment.id));
     await this.energyEquipmentIdbService.setEnergyEquipments();
   }

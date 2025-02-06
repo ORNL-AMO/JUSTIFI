@@ -8,14 +8,13 @@ import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 })
 export class IncludesEnergyEquipmentPipe implements PipeTransform {
 
-  transform(guid: string, context: 'assessment' | 'endUse', equipment: IdbEnergyEquipment): boolean {
+  transform(guid: string, context: 'assessment' | 'energyEquipment' | 'processEquipment', equipment: IdbEnergyEquipment): boolean {
     if (context == 'assessment' && equipment.assessmentIds.includes(guid)) {
       return true;
     }
-    //TODO: end use
-    // else if (context == 'assessment' && contact.assessmentIds.includes(guid)) {
-    //   return true;
-    // } 
+    else if (context == 'energyEquipment' && equipment.energyEquipmentIds.includes(guid)) {
+      return true;
+    }
     return null;
   }
 

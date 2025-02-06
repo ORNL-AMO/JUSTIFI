@@ -25,7 +25,9 @@ export interface IdbEnergyEquipment extends IdbEntry {
     annualEnergyUse: number,
     facilityUtilityUnit: string;
     annualEnergyUseByUtility: number;
-    assessmentIds: Array<string>
+    assessmentIds: Array<string>,
+    energyEquipmentIds: Array<string>
+
 }
 
 export function getNewIdbEnergyEquipment(userId: string, companyId: string, facilityId: string,
@@ -59,6 +61,7 @@ export function getNewIdbEnergyEquipment(userId: string, companyId: string, faci
         annualEnergyUse: 0,
         facilityUtilityUnit: facilityUtilityUnit,
         annualEnergyUseByUtility: 0,
-        assessmentIds: new Array()
+        assessmentIds: new Array(),
+        energyEquipmentIds: new Array()
     }
 }

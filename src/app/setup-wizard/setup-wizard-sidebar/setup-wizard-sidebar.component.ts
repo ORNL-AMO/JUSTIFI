@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { IconDefinition, faChevronDown, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube, faFileCircleCheck, faScrewdriverWrench, faFileLines, faWeightHanging, faChartPie, faPersonWalkingArrowLoopLeft, faChartColumn, faClipboardQuestion } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from '../setup-wizard.service';
@@ -104,7 +104,8 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     private contactIdbService: ContactIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
-    private energyOpportunityIdbService: EnergyOpportunityIdbService
+    private energyOpportunityIdbService: EnergyOpportunityIdbService,
+    private cd: ChangeDetectorRef
   ) {
 
   }

@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 })
 export class ProcessEquipmentListPipe implements PipeTransform {
 
-  transform(contextGuid: string, context: 'facility' | 'company' | 'energyOpportunity' | 'industrialSystem' | 'assessment', allEquipments: Array<IdbProcessEquipment>, energyOpportunities?: Array<IdbEnergyOpportunity>): Array<IdbProcessEquipment> {
+  transform(contextGuid: string, context: 'facility' | 'company' | 'energyOpportunity' | 'energyEquipment' | 'assessment' | 'processEquipment', allEquipments: Array<IdbProcessEquipment>, energyOpportunities?: Array<IdbEnergyOpportunity>): Array<IdbProcessEquipment> {
     if (context == 'facility') {
       return allEquipments.filter(equipment => {
         return equipment.facilityId == contextGuid;
@@ -37,6 +37,14 @@ export class ProcessEquipmentListPipe implements PipeTransform {
       });
       return _.uniqBy(filteredEquipment, (equipment: IdbProcessEquipment) => {
         return equipment.guid
+      });
+    } else if (context == 'energyEquipment') {
+      return allEquipments.filter(equipment => {
+        return equipment.energyEquipmentIds.includes(contextGuid);
+      });
+    } else if (context == 'processEquipment') {
+      return allEquipments.filter(equipment => {
+        return equipment.processEquipmentIds.includes(contextGuid);
       });
     }
     return [];

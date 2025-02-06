@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCube, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
+import { IdbCompany } from 'src/app/models/company';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 
 @Component({
@@ -15,12 +17,15 @@ export class EnergyEquipmentDiscoveryComponent {
   faCube: IconDefinition = faCube;
   
   energyEquipment: IdbEnergyEquipment;
+  company: IdbCompany;
   constructor(private activatedRoute: ActivatedRoute,
-    private energyEquipmentIdbService: EnergyEquipmentIdbService
+    private energyEquipmentIdbService: EnergyEquipmentIdbService,
+    private companyIdbService: CompanyIdbService
   ) {
   }
 
   ngOnInit() {
+    this.company = this.companyIdbService.selectedCompany.getValue();
     this.activatedRoute.params.subscribe(params => {
       let equipmentId: string = params['id'];
       this.energyEquipment = this.energyEquipmentIdbService.getByGuid(equipmentId);

@@ -17,7 +17,7 @@ export class AssociatedProcessEquipmentButtonsComponent {
   @Input({ required: true })
   itemGuid: string;
   @Input({ required: true })
-  itemContext: 'energyOpportunity' | 'industrialSystem';
+  itemContext: 'energyOpportunity' | 'energyEquipment';
 
   faLink: IconDefinition = faLink;
   faSplotch: IconDefinition = faSplotch;
@@ -34,7 +34,6 @@ export class AssociatedProcessEquipmentButtonsComponent {
   }
 
   ngOnInit() {
-    //TODO: verify selected facility okay here..
     this.facility = this.facilityIdbService.selectedFacility.getValue();
     this.processEquipmentSub = this.processEquipmentIdbService.processEquipments.subscribe(processEquipments => {
       this.processEquipmentOptions = processEquipments;

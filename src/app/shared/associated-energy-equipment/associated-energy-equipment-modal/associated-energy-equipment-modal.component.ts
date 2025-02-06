@@ -16,7 +16,7 @@ export class AssociatedEnergyEquipmentModalComponent {
   @Input({ required: true })
   contextGuid: string;
   @Input({ required: true })
-  itemContext: 'assessment' | 'endUse';
+  itemContext: 'assessment' | 'processEquipment' | 'energyEquipment';
   @Input({ required: true })
   selectedEquipment: IdbEnergyEquipment;
   @Output('emitCancel')
@@ -46,6 +46,11 @@ export class AssociatedEnergyEquipmentModalComponent {
         ...equipment
       }
     });
+    if (this.itemContext == 'energyEquipment') {
+      this.energyEquipments = this.energyEquipments.filter(equipment => {
+        return equipment.guid != this.contextGuid
+      });
+    }
 
     setTimeout(() => {
       this.displayModal = true;
@@ -79,15 +84,14 @@ export class AssociatedEnergyEquipmentModalComponent {
         this.energyEquipments[equipmentIndex].assessmentIds.push(this.contextGuid);
       }
     }
-    //TODO: end use
-    // else if (this.contactContext == 'processEquipment') {
-    //   if (this.contacts[contactIndex].processEquipmentIds.includes(this.contextGuid)) {
-    //     this.contacts[contactIndex].processEquipmentIds = this.contacts[contactIndex].processEquipmentIds.filter(id => {
-    //       return id != this.contextGuid;
-    //     });
-    //   } else {
-    //     this.contacts[contactIndex].processEquipmentIds.push(this.contextGuid);
-    //   }
-    // }
+    else if (this.itemContext == 'energyEquipment') {
+      if (this.energyEquipments[equipmentIndex].energyEquipmentIds.includes(this.contextGuid)) {
+        this.energyEquipments[equipmentIndex].energyEquipmentIds = this.energyEquipments[equipmentIndex].energyEquipmentIds.filter(id => {
+          return id != this.contextGuid;
+        });
+      } else {
+        this.energyEquipments[equipmentIndex].energyEquipmentIds.push(this.contextGuid);
+      }
+    }
   }
 }

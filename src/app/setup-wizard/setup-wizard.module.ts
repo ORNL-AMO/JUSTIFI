@@ -55,6 +55,7 @@ import { AssessmentDiscoveryEquipmentListComponent } from './data-collection/on-
 import { EnergyEquipmentDiscoveryComponent } from './data-collection/on-site-assessment/assessment-discovery/energy-equipment-discovery/energy-equipment-discovery.component';
 import { ProcessEquipmentDiscoveryComponent } from './data-collection/on-site-assessment/assessment-discovery/process-equipment-discovery/process-equipment-discovery.component';
 import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protocol-questions/facility-protocol-questions.component';
+import { AssociatedEnergyEquipmentModule } from "../shared/associated-energy-equipment/associated-energy-equipment.module";
 
 @NgModule({
   declarations: [
@@ -116,7 +117,9 @@ import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protoco
     SharedAssessmentFormsModule,
     SharedCompanyFormsModule,
     SharedFacilityFormsModule,
-    AssociatedContactsModule
+    AssociatedContactsModule,
+    AssociatedEnergyEquipmentModule,
+    AssociatedProcessEquipmentModule
 ]
 })
 export class SetupWizardModule { }

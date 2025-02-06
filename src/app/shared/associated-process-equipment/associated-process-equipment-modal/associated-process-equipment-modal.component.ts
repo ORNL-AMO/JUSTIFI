@@ -15,7 +15,7 @@ export class AssociatedProcessEquipmentModalComponent {
   @Input({ required: true })
   contextGuid: string;
   @Input({ required: true })
-  itemContext: 'energyOpportunity' | 'industrialSystem';
+  itemContext: 'energyOpportunity' | 'energyEquipment' | 'processEquipment';
   @Input({ required: true })
   selectedEquipment: IdbProcessEquipment;
   @Output('emitCancel')
@@ -37,13 +37,18 @@ export class AssociatedProcessEquipmentModalComponent {
   }
 
   ngOnInit() {
-
     this.processEquipments = this.processEquipmentIdbService.getFacilityProcessEquipment(this.facilityGuid).map(equipment => {
       //need to use shallow copy
       return {
         ...equipment
       }
     });
+    //don't link to self
+    if (this.itemContext == 'processEquipment') {
+      this.processEquipments = this.processEquipments.filter(equipment => {
+        return equipment.guid != this.contextGuid;
+      })
+    }
 
     setTimeout(() => {
       this.displayModal = true;
@@ -76,16 +81,14 @@ export class AssociatedProcessEquipmentModalComponent {
       } else {
         this.processEquipments[equipmentIndex].energyOpportunityIds.push(this.contextGuid);
       }
+    } else if (this.itemContext == 'energyEquipment') {
+      if (this.processEquipments[equipmentIndex].energyEquipmentIds.includes(this.contextGuid)) {
+        this.processEquipments[equipmentIndex].energyEquipmentIds = this.processEquipments[equipmentIndex].energyEquipmentIds.filter(id => {
+          return id != this.contextGuid;
+        });
+      } else {
+        this.processEquipments[equipmentIndex].energyEquipmentIds.push(this.contextGuid);
+      }
     }
-    //TODO: end use
-    // else if (this.contactContext == 'processEquipment') {
-    //   if (this.contacts[contactIndex].processEquipmentIds.includes(this.contextGuid)) {
-    //     this.contacts[contactIndex].processEquipmentIds = this.contacts[contactIndex].processEquipmentIds.filter(id => {
-    //       return id != this.contextGuid;
-    //     });
-    //   } else {
-    //     this.contacts[contactIndex].processEquipmentIds.push(this.contextGuid);
-    //   }
-    // }
   }
 }

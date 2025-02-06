@@ -19,6 +19,9 @@ import { KpiDescriptionPipe } from './kpi-details-form/kpi-description.pipe';
 import { KpiDetailsFormComponent } from './kpi-details-form/kpi-details-form.component';
 import { AssociatedContactsModule } from '../associated-contacts/associated-contacts.module';
 import { SharedFacilityProtocolQuestionsComponent } from './shared-facility-protocol-questions/shared-facility-protocol-questions.component';
+import { SharedAssessmentFormsModule } from "../shared-assessment-forms/shared-assessment-forms.module";
+import { AssociatedProcessEquipmentModule } from "../associated-process-equipment/associated-process-equipment.module";
+import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/associated-energy-equipment.module';
 
 
 
@@ -46,7 +49,11 @@ import { SharedFacilityProtocolQuestionsComponent } from './shared-facility-prot
     FontAwesomeModule,
     KpmDetailsFormModule,
     PrimaryKpiBadgeModule,
-    AssociatedContactsModule
+    AssociatedContactsModule,
+    SharedAssessmentFormsModule,
+    AssociatedContactsModule,
+    AssociatedProcessEquipmentModule,
+    AssociatedEnergyEquipmentModule
   ],
   exports: [
     FacilitySetupFormComponent,

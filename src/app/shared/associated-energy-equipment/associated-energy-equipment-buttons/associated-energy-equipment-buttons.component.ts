@@ -17,7 +17,7 @@ export class AssociatedEnergyEquipmentButtonsComponent {
   @Input({ required: true })
   itemGuid: string;
   @Input({ required: true })
-  itemContext: 'assessment' | 'endUse';
+  itemContext: 'assessment' | 'processEquipment' | 'energyEquipment';
 
   faLink: IconDefinition = faLink;
   faCube: IconDefinition = faCube;
