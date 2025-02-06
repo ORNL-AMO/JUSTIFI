@@ -17,6 +17,7 @@ import { KpmDatabaseModalComponent } from './kpi-details-form/kpm-database-modal
 import { KpmImpactsTableComponent } from './kpi-details-form/kpm-impacts-table/kpm-impacts-table.component';
 import { KpiDescriptionPipe } from './kpi-details-form/kpi-description.pipe';
 import { KpiDetailsFormComponent } from './kpi-details-form/kpi-details-form.component';
+import { SharedFacilityProtocolQuestionsComponent } from './shared-facility-protocol-questions/shared-facility-protocol-questions.component';
 
 
 
@@ -32,7 +33,8 @@ import { KpiDetailsFormComponent } from './kpi-details-form/kpi-details-form.com
     KpmDatabaseModalComponent,
     KpmImpactsTableComponent,
     KpiDescriptionPipe,
-    KpiDetailsFormComponent
+    KpiDetailsFormComponent,
+    SharedFacilityProtocolQuestionsComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { KpiDetailsFormComponent } from './kpi-details-form/kpi-details-form.com
     EnergyEquipmentFormComponent,
     ProcessEquipmentFormComponent,
     KpiDetailsFormComponent,
-    KpiSearchFormComponent
+    KpiSearchFormComponent,
+    SharedFacilityProtocolQuestionsComponent
   ]
 })
 export class SharedFacilityFormsModule { }

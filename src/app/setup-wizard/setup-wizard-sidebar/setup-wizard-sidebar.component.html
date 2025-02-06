@@ -80,6 +80,13 @@
                         </a>
                     </div>
                     <div class="nav-item">
+                        <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/facility-questions'"
+                            [routerLinkActive]="['active']">
+                            <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+                            Questions
+                        </a>
+                    </div>
+                    <div class="nav-item">
                         <a class="nav-link" (click)="toggleKPIsOpen()" [ngClass]="routerUrl | navItemActive:'kpi'">
                             <fa-icon class="toggle"
                                 [icon]="facility.sidebarKPIsOpen ? faChevronDown : faChevronRight"></fa-icon>
