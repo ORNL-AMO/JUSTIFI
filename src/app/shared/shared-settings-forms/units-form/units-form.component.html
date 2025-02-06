@@ -279,7 +279,8 @@
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="steamHHV"
                         name="steamHHV" (change)="savePriceChanges()" (focus)="focusField()">
-                    <select class="input-group-text" formControlName="steamEnergyUnit" (change)="savePriceChanges()">
+                    <select class="input-group-text" formControlName="steamEnergyUnit" (change)="savePriceChanges()"
+                        (focus)="focusField()">
                         <option *ngFor="let energyUnitOption of energyUnitOptions" [ngValue]="energyUnitOption.value">
                             <span [innerHTML]="energyUnitOption.value | unitsDisplay">
                             </span>/<span [innerHTML]="form.controls['steamUnit'].value | unitsDisplay">
