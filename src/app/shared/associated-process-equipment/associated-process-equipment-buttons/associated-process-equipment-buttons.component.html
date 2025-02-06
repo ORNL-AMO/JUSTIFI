@@ -1,11 +1,10 @@
 @let processEquipments = (itemGuid | processEquipmentList:itemContext: processEquipmentOptions);
-<button class="btn btn-sm btn-outline-end-use" (click)="openModal(undefined)"
-    [ngClass]="{'me-1': processEquipments.length > 0}">
+<button class="btn btn-sm btn-outline-end-use" (click)="openModal(undefined)">
     <fa-icon [icon]="faLink"></fa-icon>
     End Uses
 </button>
 
-<button class="btn btn-sm btn-outline-end-use me-1" *ngFor="let processEquipment of processEquipments"
+<button class="btn btn-sm btn-outline-end-use" *ngFor="let processEquipment of processEquipments"
     (click)="openModal(processEquipment)">
     <fa-icon [icon]="faSplotch"></fa-icon>
     {{processEquipment.equipmentName}}

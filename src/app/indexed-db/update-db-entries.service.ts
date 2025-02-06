@@ -13,6 +13,8 @@ import { IdbKeyPerformanceMetricImpact } from '../models/keyPerformanceMetricImp
 import { getGUID } from '../shared/helpFunctions';
 import { ProcessEquipmentIdbService } from './process-equipment-idb.service';
 import { IdbProcessEquipment } from '../models/processEquipment';
+import { EnergyEquipmentIdbService } from './energy-equipment-idb.service';
+import { IdbEnergyEquipment } from '../models/energyEquipment';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +26,8 @@ export class UpdateDbEntriesService {
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private facilityIdbService: FacilityIdbService,
     private userIdbService: UserIdbService,
-    private processEquipmentIdbService: ProcessEquipmentIdbService
+    private processEquipmentIdbService: ProcessEquipmentIdbService,
+    private energyEquipmentIdbService: EnergyEquipmentIdbService
   ) { }
 
   async updateDbEntries(user: IdbUser): Promise<IdbUser> {
@@ -35,6 +38,7 @@ export class UpdateDbEntriesService {
       userNeedsUpdate = true;
     }
     await this.updateProcessEquipment();
+    await this.updateEnergyEquipment();
     if (userNeedsUpdate) {
       user = await firstValueFrom(this.userIdbService.updateWithObservable(user));
       this.userIdbService.user.next(user);
@@ -105,6 +109,17 @@ export class UpdateDbEntriesService {
     for (let i = 0; i < missingOpportunityIds.length; i++) {
       missingOpportunityIds[i].energyOpportunityIds = new Array();
       await firstValueFrom(this.processEquipmentIdbService.updateWithObservable(missingOpportunityIds[i]));
+    }
+  }
+
+  async updateEnergyEquipment() {
+    let energyEquipments: Array<IdbEnergyEquipment> = await firstValueFrom(this.energyEquipmentIdbService.getAll());
+    let missingAssessmentIds: Array<IdbEnergyEquipment> = energyEquipments.filter(equipment => {
+      return equipment.assessmentIds == undefined;
+    });
+    for (let i = 0; i < missingAssessmentIds.length; i++) {
+      missingAssessmentIds[i].assessmentIds = new Array();
+      await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(missingAssessmentIds[i]));
     }
   }
 }
