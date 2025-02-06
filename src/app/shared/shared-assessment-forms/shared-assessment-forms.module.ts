@@ -21,6 +21,7 @@ import { LabelWithTooltipModule } from "../label-with-tooltip/label-with-tooltip
 import { AssociatedProcessEquipmentModule } from '../associated-process-equipment/associated-process-equipment.module';
 import { AssociatedContactsModule } from "../associated-contacts/associated-contacts.module";
 import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/associated-energy-equipment.module';
+import { DiscoveryEnergyEquipmentQuestionsComponent } from './discovery-energy-equipment-questions/discovery-energy-equipment-questions.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/
     PerformanceMetricImpactFormComponent,
     AddNebsModalComponent,
     EnergyOpportunitySetupFormComponent,
-    EnergyOpportunityNebsTableComponent
+    EnergyOpportunityNebsTableComponent,
+    DiscoveryEnergyEquipmentQuestionsComponent
   ],
   imports: [
     CommonModule,
@@ -57,7 +59,7 @@ import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/
     AddNebsModalComponent,
     EnergyOpportunitySetupFormComponent,
     EnergyOpportunityNebsTableComponent,
-    AssociatedProcessEquipmentModule
+    DiscoveryEnergyEquipmentQuestionsComponent
   ]
 })
 export class SharedAssessmentFormsModule { }
