@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
+import { BootstrapService } from '../../shared-services/bootstrap.service';
+import { faClipboardQuestion, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-discovery-energy-equipment-questions',
@@ -13,14 +14,24 @@ import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 })
 export class DiscoveryEnergyEquipmentQuestionsComponent {
 
+  faClipboardQuestion: IconDefinition = faClipboardQuestion;
+
   energyEquipmentGuid: string;
   energyEquipment: IdbEnergyEquipment
 
   howSupportPlant: string;
   adverseEffects: string;
   equipmentFinancialStatus: string;
+  describeOutputOfSystem: string;
+  describeServicingNeeds: string;
+  describeLaborRequirements: string;
+  describeSystemMaterials: string;
+
+  collapseTackStock: boolean = true;
+  collapseOperations: boolean = false;
   constructor(private activatedRoute: ActivatedRoute,
-    private energyEquipmentIdbService: EnergyEquipmentIdbService
+    private energyEquipmentIdbService: EnergyEquipmentIdbService,
+    private bootstrapService: BootstrapService
   ) {
   }
 
@@ -31,6 +42,10 @@ export class DiscoveryEnergyEquipmentQuestionsComponent {
       this.howSupportPlant = energyEquipment.howSupportPlant;
       this.adverseEffects = energyEquipment.adverseEffects;
       this.equipmentFinancialStatus = energyEquipment.equipmentFinancialStatus;
+      this.describeOutputOfSystem = energyEquipment.describeOutputOfSystem;
+      this.describeServicingNeeds = energyEquipment.describeServicingNeeds;
+      this.describeLaborRequirements = energyEquipment.describeLaborRequirements;
+      this.describeSystemMaterials = energyEquipment.describeSystemMaterials;
     });
   }
 
@@ -39,10 +54,23 @@ export class DiscoveryEnergyEquipmentQuestionsComponent {
     energyEquipment.howSupportPlant = this.howSupportPlant;
     energyEquipment.adverseEffects = this.adverseEffects;
     energyEquipment.equipmentFinancialStatus = this.equipmentFinancialStatus;
+    energyEquipment.describeOutputOfSystem = this.describeOutputOfSystem;
+    energyEquipment.describeServicingNeeds = this.describeServicingNeeds;
+    energyEquipment.describeLaborRequirements = this.describeLaborRequirements;
+    energyEquipment.describeSystemMaterials = this.describeSystemMaterials;
     await this.energyEquipmentIdbService.asyncUpdate(energyEquipment);
   }
 
   focusField(str: string) {
 
+  }
+
+  toggleBS(collapseId: 'takeStock' | 'operations') {
+    this.bootstrapService.bsCollapse('#' + collapseId);
+    if (collapseId == 'takeStock') {
+      this.collapseTackStock = !this.collapseTackStock;
+    } else if (collapseId == 'operations') {
+      this.collapseOperations = !this.collapseOperations;
+    }
   }
 }
