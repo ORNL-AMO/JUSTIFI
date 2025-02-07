@@ -1,0 +1,65 @@
+import { Component } from '@angular/core';
+import { faMinus, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { IdbFacility } from 'src/app/models/facility';
+import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+
+@Component({
+  selector: 'app-shared-facility-protocol-questions',
+  standalone: false,
+
+  templateUrl: './shared-facility-protocol-questions.component.html',
+  styleUrl: './shared-facility-protocol-questions.component.css'
+})
+export class SharedFacilityProtocolQuestionsComponent {
+
+  faPlus: IconDefinition = faPlus;
+  faMinus: IconDefinition = faMinus;
+
+
+  doesFacilityTrackGHG: string;
+
+  equipmentAcquisition: string;
+  financialCriteria: string;
+  howCostsTracked: string;
+  outsidePressures: string;
+  financialMetricsUsed: string;
+  efficiencyIncentives: string;
+  dependentFunding: string;
+  associatedCosts: string;
+  constructor(private facilityIdbService: FacilityIdbService,
+    private setupWizardService: SetupWizardService
+  ) {
+  }
+
+  ngOnInit() {
+    let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+    this.doesFacilityTrackGHG = facility.doesFacilityTrackGHG;
+    this.equipmentAcquisition = facility.equipmentAcquisition;
+    this.howCostsTracked = facility.howCostsTracked;
+    this.financialCriteria = facility.financialCriteria;
+    this.financialMetricsUsed = facility.financialMetricsUsed;
+    this.outsidePressures = facility.outsidePressures;
+    this.efficiencyIncentives = facility.efficiencyIncentives;
+    this.dependentFunding = facility.dependentFunding;
+    this.associatedCosts = facility.associatedCosts;
+  }
+
+  async saveChanges() {
+    let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+    facility.doesFacilityTrackGHG = this.doesFacilityTrackGHG;
+    facility.equipmentAcquisition = this.equipmentAcquisition;
+    facility.howCostsTracked = this.howCostsTracked;
+    facility.financialCriteria = this.financialCriteria;
+    facility.outsidePressures = this.outsidePressures;
+    facility.financialMetricsUsed = this.financialMetricsUsed;
+    facility.efficiencyIncentives = this.efficiencyIncentives;
+    facility.dependentFunding = this.dependentFunding;
+    facility.associatedCosts = this.associatedCosts;
+    await this.facilityIdbService.asyncUpdate(facility);
+  }
+
+  focusField(str: string) {
+    this.setupWizardService.focusedHelp.next(str);
+  }
+}
