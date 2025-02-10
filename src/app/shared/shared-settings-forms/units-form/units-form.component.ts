@@ -15,6 +15,7 @@ import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { FacilityEnergyEquipmentSetupService } from 'src/app/setup-wizard/pre-visit/facility-energy-equipment/facility-energy-equipment-setup.service';
 import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessments/pre-assessment-setup.service';
+import { LocaleService } from '../../shared-services/locale.service';
 
 @Component({
     selector: 'app-units-form',
@@ -42,6 +43,9 @@ export class UnitsFormComponent implements OnInit, OnDestroy{
 
   energyUnitOptions: Array<UnitOption> = EnergyUnitOptions;
 
+  currencyCode: string;
+  currencySub: Subscription;
+
   constructor(
     private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,
@@ -49,7 +53,8 @@ export class UnitsFormComponent implements OnInit, OnDestroy{
     private preAssessmentSetupService: PreAssessmentSetupService,
     private assessmentIdbService: AssessmentIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
-    private facilityEnergyEquipmentSetupService: FacilityEnergyEquipmentSetupService
+    private facilityEnergyEquipmentSetupService: FacilityEnergyEquipmentSetupService,
+    private localeService: LocaleService,
   ) {
   }
 
@@ -70,6 +75,10 @@ export class UnitsFormComponent implements OnInit, OnDestroy{
     this.companySub = this.companyIdbService.selectedCompany.subscribe(_company => {
       this.companyEnergyUnit = _company.companyEnergyUnit;
     });
+
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
   }
 
   ngOnDestroy() {
@@ -78,6 +87,9 @@ export class UnitsFormComponent implements OnInit, OnDestroy{
     }
     if (this.companySub) {
       this.companySub.unsubscribe();
+    }
+    if (this.currencySub) {
+      this.currencySub.unsubscribe();
     }
   }
 

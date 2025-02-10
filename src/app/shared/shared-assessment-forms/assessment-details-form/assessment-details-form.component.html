@@ -130,7 +130,7 @@
             Utility
             Costs</label>
         <div class="col-sm-7" id="{{'cost_'+assessment.guid}}">
-            {{assessment.cost | currency:'USD':'symbol':'1.0-2'}}
+            {{assessment.cost | currency:currencyCode:'symbol':'1.0-2'}}
         </div>
     </div>
     <ng-container *ngIf="!inPreAssessment">

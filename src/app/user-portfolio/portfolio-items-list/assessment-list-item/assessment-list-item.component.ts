@@ -6,6 +6,7 @@ import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benef
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
+import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 
 @Component({
     selector: 'app-assessment-list-item',
@@ -25,8 +26,13 @@ export class AssessmentListItemComponent {
 
   nonEnergyBenefitsSub: Subscription;
   nonEnergyBenefits: Array<IdbNonEnergyBenefit>;
+
+  currencyCode: string;
+  currencySub: Subscription;
+
   constructor(private energyOpportunityIdbService: EnergyOpportunityIdbService,
-    private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService
+    private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
+    private localeService: LocaleService,
   ) {
   }
 
@@ -39,6 +45,10 @@ export class AssessmentListItemComponent {
 
     this.nonEnergyBenefitsSub = this.nonEnergyBenefitIdbService.nonEnergyBenefits.subscribe(nebs => {
       this.nonEnergyBenefits = nebs;
+    });
+
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
     });
   }
 

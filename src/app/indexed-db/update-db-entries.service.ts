@@ -39,6 +39,7 @@ export class UpdateDbEntriesService {
       this.updateUserLocale(user);
       userNeedsUpdate = true;
     }
+    this.localeService.setCurrencyCode(user.locale);
 
     if (userNeedsUpdate) {
       user = await firstValueFrom(this.userIdbService.updateWithObservable(user));
@@ -51,7 +52,6 @@ export class UpdateDbEntriesService {
     const browserLang = navigator.language;
     const currencyOption = localeCurrency.find(option => option.locale === browserLang);
     user.locale = currencyOption ? currencyOption.locale : 'en-US';
-    this.localeService.currencyCode.next(currencyOption ? currencyOption.currencyCode : 'USD');
   }
 
   //migration of KPIs to facility level
