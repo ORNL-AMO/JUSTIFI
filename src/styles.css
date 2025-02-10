@@ -10,7 +10,8 @@
     --assessment-color: #196f3d;
     --portfolio-nav-color: #006aaa;
     --end-use-color: #994006;
-    --contact-color: #5b0159;
+    --contact-color: #272c29;
+    --energy-equipment-color: #0e0b76;
 }
 
 
@@ -105,6 +106,24 @@
     --bs-btn-disabled-color: var(--contact-color);
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: var(--contact-color);
+    --bs-gradient: none;
+}
+
+.btn.btn-outline-energy-equipment {
+    font-weight: bolder;
+    --bs-btn-color: var(--energy-equipment-color);
+    --bs-btn-border-color: var(--energy-equipment-color);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--energy-equipment-color);
+    --bs-btn-hover-border-color: var(--energy-equipment-color);
+    --bs-btn-focus-shadow-rgb: 25, 135, 84;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--energy-equipment-color);
+    --bs-btn-active-border-color: var(--energy-equipment-color);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: var(--energy-equipment-color);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--energy-equipment-color);
     --bs-gradient: none;
 }
 

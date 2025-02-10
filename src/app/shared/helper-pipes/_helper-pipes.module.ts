@@ -40,6 +40,7 @@ import { FacilityKpiListPipe } from './facility-kpi-list.pipe';
 import { ProcessEquipmentListPipe } from './process-equipment-list.pipe';
 import { AssessmentItemPipe } from './assessment-item.pipe';
 import { IncludesProcessEquipmentPipe } from './includes-process-equipment.pipe';
+import { IncludesEnergyEquipmentPipe } from './includes-energy-equipment.pipe';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { IncludesProcessEquipmentPipe } from './includes-process-equipment.pipe'
     FacilityKpiListPipe,
     ProcessEquipmentListPipe,
     AssessmentItemPipe,
-    IncludesProcessEquipmentPipe
+    IncludesProcessEquipmentPipe,
+    IncludesEnergyEquipmentPipe
   ],
   imports: [
     CommonModule
@@ -127,7 +129,8 @@ import { IncludesProcessEquipmentPipe } from './includes-process-equipment.pipe'
     FacilityKpiListPipe,
     ProcessEquipmentListPipe,
     AssessmentItemPipe,
-    IncludesProcessEquipmentPipe
+    IncludesProcessEquipmentPipe,
+    IncludesEnergyEquipmentPipe
   ]
 })
 export class HelperPipesModule { }

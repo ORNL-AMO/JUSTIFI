@@ -177,10 +177,18 @@
         </div>
     </ng-container>
 </form>
-<hr class="d-md-none d-lg-block">
+<hr class="my-1">
 <div class="row">
     <div class="col-12">
         <app-associated-contacts-buttons [companyGuid]="assessment.companyId" [contactContext]="'assessment'"
             [contextGuid]="assessment.guid"></app-associated-contacts-buttons>
     </div>
 </div>
+<hr class="my-1">
+<div class="row">
+    <div class="col-12">
+        <app-associated-energy-equipment-buttons [itemGuid]="assessment.guid"
+            [itemContext]="'assessment'"></app-associated-energy-equipment-buttons>
+    </div>
+</div>
+<hr class="my-1">

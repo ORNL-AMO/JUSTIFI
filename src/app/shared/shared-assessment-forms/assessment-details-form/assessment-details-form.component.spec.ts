@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { AssociatedContactsModule } from '../../associated-contacts/associated-contacts.module';
+import { AssociatedEnergyEquipmentModule } from '../../associated-energy-equipment/associated-energy-equipment.module';
 
 describe('AssessmentDetailsFormComponent', () => {
   let component: AssessmentDetailsFormComponent;
@@ -14,7 +15,7 @@ describe('AssessmentDetailsFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule, AssociatedContactsModule],
+      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule, AssociatedContactsModule, AssociatedEnergyEquipmentModule],
       declarations: [AssessmentDetailsFormComponent],
       providers: stubServiceProviders
     })
