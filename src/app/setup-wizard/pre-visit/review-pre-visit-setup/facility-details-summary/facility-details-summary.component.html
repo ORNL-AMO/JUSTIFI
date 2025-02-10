@@ -62,7 +62,7 @@
                     Electricity
                 </td>
                 <td>
-                    {{facility.unitSettings.electricityPrice}} &dollar;/<span
+                    {{facility.unitSettings.electricityPrice}} {{ currencyCode | currencySymbol }}/<span
                         [innerHTML]="facility.unitSettings.electricityUnit | unitsDisplay"></span>
                 </td>
                 <td>
@@ -75,7 +75,7 @@
                     Natural Gas
                 </td>
                 <td>
-                    {{facility.unitSettings.naturalGasPrice}} &dollar;/<span
+                    {{facility.unitSettings.naturalGasPrice}} {{ currencyCode | currencySymbol }}/<span
                         [innerHTML]="facility.unitSettings.naturalGasUnit | unitsDisplay"></span>
                 </td>
                 <td>
@@ -89,7 +89,7 @@
                     Other Fuel
                 </td>
                 <td>
-                    {{facility.unitSettings.otherFuelsPrice}} &dollar;/<span
+                    {{facility.unitSettings.otherFuelsPrice}} {{ currencyCode | currencySymbol }}/<span
                         [innerHTML]="facility.unitSettings.otherFuelsUnit | unitsDisplay"></span>
                 </td>
                 <td>
@@ -103,7 +103,7 @@
                     Water
                 </td>
                 <td>
-                    {{facility.unitSettings.waterPrice}} &dollar;/<span
+                    {{facility.unitSettings.waterPrice}} {{ currencyCode | currencySymbol }}/<span
                         [innerHTML]="facility.unitSettings.waterUnit | unitsDisplay"></span>
                 </td>
                 <td>
@@ -117,7 +117,7 @@
                     Waste Water
                 </td>
                 <td>
-                    {{facility.unitSettings.wasteWaterPrice}} &dollar;/<span
+                    {{facility.unitSettings.wasteWaterPrice}} {{ currencyCode | currencySymbol }}/<span
                         [innerHTML]="facility.unitSettings.wasteWaterUnit | unitsDisplay"></span>
                 </td>
                 <td>
@@ -131,7 +131,7 @@
                     Steam (as Utility)
                 </td>
                 <td>
-                    {{facility.unitSettings.steamPrice}} &dollar;/<span
+                    {{facility.unitSettings.steamPrice}} {{ currencyCode | currencySymbol }}/<span
                         [innerHTML]="facility.unitSettings.steamUnit | unitsDisplay"></span>
                 </td>
                 <td>
@@ -145,7 +145,7 @@
                     Compressed Air (as Utility)
                 </td>
                 <td>
-                    {{facility.unitSettings.compressedAirPrice}} &dollar;/<span
+                    {{facility.unitSettings.compressedAirPrice}} {{ currencyCode | currencySymbol }}/<span
                         [innerHTML]="facility.unitSettings.compressedAirUnit | unitsDisplay"></span>
                 </td>
                 <td>

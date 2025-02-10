@@ -42,7 +42,7 @@
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="electricityPrice"
                         name="electricityPrice" (change)="savePriceChanges()">
-                    <span class="input-group-text">&dollar;/<span
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['electricityUnit'].value | unitsDisplay"></span>
                     </span>
                 </div>
@@ -84,7 +84,7 @@
                     <input class="form-control" type="number" step="any" min="0"
                         formControlName="naturalGasPrice"
                         name="naturalGasPrice" (change)="savePriceChanges()">
-                    <span class="input-group-text">&dollar;/<span
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['naturalGasUnit'].value | unitsDisplay"></span>
                     </span>
                 </div>
@@ -125,7 +125,7 @@
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0"
                         formControlName="otherFuelsPrice" name="otherFuelsPrice" (change)="savePriceChanges()">
-                    <span class="input-group-text">&dollar;/<span
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['otherFuelsUnit'].value | unitsDisplay"></span></span>
                 </div>
                 <div class="alert alert-warning form-error" *ngIf="form.controls['otherFuelsPrice'].getError('min')">
@@ -165,7 +165,7 @@
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0"
                         formControlName="waterPrice" name="waterPrice" (change)="savePriceChanges()">
-                    <span class="input-group-text">&dollar;/<span
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['waterUnit'].value | unitsDisplay"></span></span>
                 </div>
                 <div class="alert alert-warning form-error" *ngIf="form.controls['waterPrice'].getError('min')">
@@ -205,7 +205,7 @@
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0"
                         formControlName="wasteWaterPrice" name="wasteWaterPrice" (change)="savePriceChanges()">
-                    <span class="input-group-text">&dollar;/<span
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['wasteWaterUnit'].value | unitsDisplay"></span></span>
                 </div>
                 <div class="alert alert-warning form-error" *ngIf="form.controls['wasteWaterPrice'].getError('min')">
@@ -246,7 +246,7 @@
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0"
                         formControlName="steamPrice" name="steamPrice" (change)="savePriceChanges()">
-                    <span class="input-group-text">&dollar;/<span
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['steamUnit'].value | unitsDisplay"></span>
                     </span>
                 </div>
@@ -311,7 +311,7 @@
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="compressedAirPrice"
                         name="compressedAirPrice" (change)="savePriceChanges()">
-                    <span class="input-group-text">&dollar;/<span
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['compressedAirUnit'].value | unitsDisplay"></span>
                     </span>
                 </div>

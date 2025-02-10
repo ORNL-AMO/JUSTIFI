@@ -83,7 +83,7 @@
                                     <span [innerHTML]="keyPerformanceMetric.totalUnit | unitsDisplay"></span>/yr
                                 </ng-template>
                                 <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'directCost'">
-                                    &dollar;/yr
+                                    {{ currencyCode | currencySymbol }}/yr
                                 </ng-template>
                                 <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'percentTotal'">
                                     &percnt;
