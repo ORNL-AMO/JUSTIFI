@@ -11,6 +11,8 @@ import { IdbUser } from '../models/user';
 import { UserIdbService } from './user-idb.service';
 import { IdbKeyPerformanceMetricImpact } from '../models/keyPerformanceMetricImpact';
 import { getGUID } from '../shared/helpFunctions';
+import { LocaleService } from '../shared/shared-services/locale.service';
+import { localeCurrency } from '../shared/constants/localeCurrency';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,8 @@ export class UpdateDbEntriesService {
     private keyPerformanceIndicatorsIdbService: KeyPerformanceIndicatorsIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private facilityIdbService: FacilityIdbService,
-    private userIdbService: UserIdbService
+    private userIdbService: UserIdbService,
+    private localeService: LocaleService,
   ) { }
 
   async updateDbEntries(user: IdbUser): Promise<IdbUser> {
@@ -32,11 +35,23 @@ export class UpdateDbEntriesService {
       userNeedsUpdate = true;
     }
 
+    if (!user.locale) {
+      this.updateUserLocale(user);
+      userNeedsUpdate = true;
+    }
+
     if (userNeedsUpdate) {
       user = await firstValueFrom(this.userIdbService.updateWithObservable(user));
       this.userIdbService.user.next(user);
     }
     return user;
+  }
+
+  updateUserLocale(user: IdbUser) {
+    const browserLang = navigator.language;
+    const currencyOption = localeCurrency.find(option => option.locale === browserLang);
+    user.locale = currencyOption ? currencyOption.locale : 'en-US';
+    this.localeService.currencyCode.next(currencyOption ? currencyOption.currencyCode : 'USD');
   }
 
   //migration of KPIs to facility level
