@@ -21,12 +21,6 @@ describe('AddNebsModalComponent', () => {
       assessmentId: '123',
       energyOpportunityId: '123'
     }),
-    displayContactModal: new BehaviorSubject<{ context: ContactContext, viewContact: IdbContact, contextGuid: string, companyId: string }>({
-      context: 'assessment',
-      viewContact: undefined,
-      contextGuid: '123',
-      companyId: '123'
-    })
   }
   let tmpStubServiceProviders: Array<{ provide: any, useValue: any }> = new Array();
   stubServiceProviders.forEach(serviceProvider => {

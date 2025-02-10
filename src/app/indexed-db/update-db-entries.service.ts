@@ -11,6 +11,8 @@ import { IdbUser } from '../models/user';
 import { UserIdbService } from './user-idb.service';
 import { IdbKeyPerformanceMetricImpact } from '../models/keyPerformanceMetricImpact';
 import { getGUID } from '../shared/helpFunctions';
+import { ProcessEquipmentIdbService } from './process-equipment-idb.service';
+import { IdbProcessEquipment } from '../models/processEquipment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,8 @@ export class UpdateDbEntriesService {
     private keyPerformanceIndicatorsIdbService: KeyPerformanceIndicatorsIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private facilityIdbService: FacilityIdbService,
-    private userIdbService: UserIdbService
+    private userIdbService: UserIdbService,
+    private processEquipmentIdbService: ProcessEquipmentIdbService
   ) { }
 
   async updateDbEntries(user: IdbUser): Promise<IdbUser> {
@@ -31,7 +34,7 @@ export class UpdateDbEntriesService {
       user.kpiFacilityMigrationDone = true;
       userNeedsUpdate = true;
     }
-
+    await this.updateProcessEquipment();
     if (userNeedsUpdate) {
       user = await firstValueFrom(this.userIdbService.updateWithObservable(user));
       this.userIdbService.user.next(user);
@@ -91,6 +94,17 @@ export class UpdateDbEntriesService {
           }
         }
       }
+    }
+  }
+
+  async updateProcessEquipment() {
+    let processEquipments: Array<IdbProcessEquipment> = await firstValueFrom(this.processEquipmentIdbService.getAll());
+    let missingOpportunityIds: Array<IdbProcessEquipment> = processEquipments.filter(equipment => {
+      return equipment.energyOpportunityIds == undefined;
+    });
+    for (let i = 0; i < missingOpportunityIds.length; i++) {
+      missingOpportunityIds[i].energyOpportunityIds = new Array();
+      await firstValueFrom(this.processEquipmentIdbService.updateWithObservable(missingOpportunityIds[i]));
     }
   }
 }

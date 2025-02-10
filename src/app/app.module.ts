@@ -24,7 +24,6 @@ import { HelpComponent } from './core-components/help/help.component';
 import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
 import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
-
 @NgModule({
   declarations: [
     AppComponent,

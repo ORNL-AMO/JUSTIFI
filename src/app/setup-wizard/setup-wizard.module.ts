@@ -10,7 +10,6 @@ import { SharedSettingsFormsModule } from '../shared/shared-settings-forms/share
 import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
 import { SetupWizardSidebarComponent } from './setup-wizard-sidebar/setup-wizard-sidebar.component';
 import { ReviewPreVisitSetupComponent } from './pre-visit/review-pre-visit-setup/review-pre-visit-setup.component';
-import { ContactModalModule } from '../shared/contact-modal/contact-modal.module';
 import { ReviewOnSiteComponent } from './data-collection/review-on-site/review-on-site.component';
 import { CompanyDetailsSummaryComponent } from './pre-visit/review-pre-visit-setup/company-details-summary/company-details-summary.component';
 import { TeamDetailsSummaryComponent } from './pre-visit/review-pre-visit-setup/team-details-summary/team-details-summary.component';
@@ -50,6 +49,8 @@ import { FacilityProcessEquipmentFormComponent } from './pre-visit/facility-proc
 import { ManagePreAssessmentsComponent } from './pre-visit/pre-assessments/manage-pre-assessments/manage-pre-assessments.component';
 import { PreAssessmentFormComponent } from './pre-visit/pre-assessments/pre-assessment-form/pre-assessment-form.component';
 import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
+import { AssociatedProcessEquipmentModule } from '../shared/associated-process-equipment/associated-process-equipment.module';
+import { AssociatedContactsModule } from '../shared/associated-contacts/associated-contacts.module';
 import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protocol-questions/facility-protocol-questions.component';
 
 @NgModule({
@@ -98,7 +99,6 @@ import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protoco
     FormsModule,
     SharedSettingsFormsModule,
     HelperPipesModule,
-    ContactModalModule,
     TableEntriesModule,
     ReportsModule,
     PrimaryKpiBadgeModule,
@@ -109,7 +109,8 @@ import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protoco
     KpmDetailsFormModule,
     SharedAssessmentFormsModule,
     SharedCompanyFormsModule,
-    SharedFacilityFormsModule
+    SharedFacilityFormsModule,
+    AssociatedContactsModule
 ]
 })
 export class SetupWizardModule { }

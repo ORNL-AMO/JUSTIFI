@@ -9,6 +9,7 @@ import { PerformanceMetricsModalComponent } from './performance-metrics-modal/pe
 import { PerformanceMetricImpactFormComponent } from './performance-metric-impact-form/performance-metric-impact-form.component';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { LabelWithTooltipModule } from 'src/app/shared/label-with-tooltip/label-with-tooltip.module';
+import { AssociatedContactsModule } from 'src/app/shared/associated-contacts/associated-contacts.module';
 
 describe('NebSetupFormComponent', () => {
   let component: NebSetupFormComponent;
@@ -16,7 +17,7 @@ describe('NebSetupFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, FormsModule, HelperPipesModule, LabelWithTooltipModule],
+      imports: [FontAwesomeModule, FormsModule, HelperPipesModule, LabelWithTooltipModule, AssociatedContactsModule],
       declarations: [NebSetupFormComponent, PerformanceMetricsModalComponent, PerformanceMetricImpactFormComponent ],
       providers: stubServiceProviders
     })

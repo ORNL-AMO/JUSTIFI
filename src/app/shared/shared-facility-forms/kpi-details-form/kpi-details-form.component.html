@@ -66,16 +66,9 @@
 
     <div class="row pt-2">
         <div class="col">
-            <button class="btn btn-sm btn-primary me-1"
-                *ngFor="let contact of keyPerformanceIndicator.guid | associatedContacts:'KPI': contacts;"
-                (click)="openContactModal(contact)">
-                <fa-icon [icon]="faUser"></fa-icon>
-                {{contact | contactNameDisplay}}
-            </button>
-            <button class="btn btn-sm btn-secondary" (click)="openContactModal(undefined)">
-                <fa-icon [icon]="faContactBook"></fa-icon>
-                Stakeholders
-            </button>
+            <app-associated-contacts-buttons [companyGuid]="keyPerformanceIndicator.companyId"
+                [contactContext]="'KPI'"
+                [contextGuid]="keyPerformanceIndicator.guid"></app-associated-contacts-buttons>
         </div>
     </div>
     <div class="row">

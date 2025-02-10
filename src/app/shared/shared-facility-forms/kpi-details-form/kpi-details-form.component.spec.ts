@@ -9,6 +9,7 @@ import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
 import { PrimaryKpiBadgeModule } from '../../primary-kpi-badge/primary-kpi-badge.module';
 import { KpiDescriptionPipe } from './kpi-description.pipe';
 import { KpmDetailsFormModule } from '../../kpm-details-form/kpm-details-form.module';
+import { AssociatedContactsModule } from '../../associated-contacts/associated-contacts.module';
 
 describe('KpiDetailsFormComponent', () => {
   let component: KpiDetailsFormComponent;
@@ -16,7 +17,7 @@ describe('KpiDetailsFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, HelperPipesModule, PrimaryKpiBadgeModule, KpmDetailsFormModule],
+      imports: [FontAwesomeModule, HelperPipesModule, PrimaryKpiBadgeModule, KpmDetailsFormModule, AssociatedContactsModule],
       declarations: [KpiDetailsFormComponent, KpmDatabaseModalComponent, KpmImpactsTableComponent, KpiDescriptionPipe],
       providers: stubServiceProviders
     })

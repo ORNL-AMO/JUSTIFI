@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { AssociatedContactsModule } from '../../associated-contacts/associated-contacts.module';
 
 describe('ProcessEquipmentFormComponent', () => {
   let component: ProcessEquipmentFormComponent;
@@ -12,7 +13,7 @@ describe('ProcessEquipmentFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, HelperPipesModule, FormsModule],
+      imports: [FontAwesomeModule, HelperPipesModule, FormsModule, AssociatedContactsModule],
       declarations: [ProcessEquipmentFormComponent],
       providers: stubServiceProviders
     })

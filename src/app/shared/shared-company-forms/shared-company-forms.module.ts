@@ -6,8 +6,8 @@ import { LabelWithTooltipModule } from '../label-with-tooltip/label-with-tooltip
 import { SharedSettingsFormsModule } from '../shared-settings-forms/shared-settings-forms.module';
 import { CompanySetupFormComponent } from './company-setup-form/company-setup-form.component';
 import { HelperPipesModule } from '../helper-pipes/_helper-pipes.module';
-import { ContactModalModule } from '../contact-modal/contact-modal.module';
 import { CompanyContactsFormComponent } from './company-contacts-form/company-contacts-form.component';
+import { AssociatedContactsModule } from '../associated-contacts/associated-contacts.module';
 
 
 
@@ -24,7 +24,7 @@ import { CompanyContactsFormComponent } from './company-contacts-form/company-co
     SharedSettingsFormsModule,
     FormsModule,
     HelperPipesModule,
-    ContactModalModule
+    AssociatedContactsModule
   ],
   exports: [
     CompanySetupFormComponent,
