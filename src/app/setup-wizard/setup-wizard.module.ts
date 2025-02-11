@@ -98,7 +98,6 @@ import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
     HelperPipesModule,
     ContactModalModule,
     TableEntriesModule,
-    ReportsModule,
     PrimaryKpiBadgeModule,
     ReactiveFormsModule,
     ReportsModule,

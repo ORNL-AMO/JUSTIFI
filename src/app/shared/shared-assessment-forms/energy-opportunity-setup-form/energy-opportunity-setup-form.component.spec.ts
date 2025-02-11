@@ -21,6 +21,7 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbFacility } from 'src/app/models/facility';
 import { NebFormsAccordionComponent } from '../neb-forms-accordion/neb-forms-accordion.component';
+import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
 
 describe('EnergyOpportunitySetupFormComponent', () => {
   let component: EnergyOpportunitySetupFormComponent;
@@ -52,7 +53,7 @@ describe('EnergyOpportunitySetupFormComponent', () => {
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, RouterTestingModule, FormsModule],
+      imports: [FontAwesomeModule, RouterTestingModule, FormsModule, HelperPipesModule],
       declarations: [EnergyOpportunitySetupFormComponent, NebFormsAccordionComponent],
       providers: [
         { provide: SetupWizardService, useValue: setupWizardService },

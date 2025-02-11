@@ -53,7 +53,9 @@ export class NavbarComponent{
   }
 
   ngOnDestroy(){
-    this.userSub.unsubscribe();
+    if (this.userSub) {
+      this.userSub.unsubscribe();
+    }
   }
 
   backupData() {
