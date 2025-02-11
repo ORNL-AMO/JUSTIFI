@@ -70,7 +70,7 @@ export class SetupWizardHelpPanelComponent {
     } else if (url.includes('facility-setup')) {
       this.helpContext = 'facility-setup';
       this.helpLabel = 'Facility Setup Help';
-    } else if (url.includes('energy-equipment')) {
+    } else if (url.includes('energy-equipment') && !url.includes('discovery')) {
       this.helpContext = 'energy-equipment';
       this.helpLabel = 'Industrial System Inventory Help';
     } else if (url.includes('end-uses')) {
@@ -109,6 +109,17 @@ export class SetupWizardHelpPanelComponent {
     } else if (url.includes('visit-report')) {
       this.helpContext = 'rollup-report';
       this.helpLabel = 'Rollup Report Help';
+    }else if (url.includes('discovery')) {
+      if(url.includes('energy-equipment')){
+        this.helpContext = 'energy-equipment-discovery';
+        this.helpLabel = 'Industrial System Inventory Discovery Help';
+      }else if(url.includes('process-equipment')){
+        this.helpContext = 'process-equipment-discovery';
+        this.helpLabel = 'End Uses Discovery Help';
+      }else{
+        this.helpContext = 'discovery';
+        this.helpLabel = 'Discovery Help';
+      }
     }
     else {
       this.helpContext = undefined;

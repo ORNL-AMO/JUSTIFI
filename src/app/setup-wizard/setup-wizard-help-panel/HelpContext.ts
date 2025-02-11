@@ -14,4 +14,7 @@ export type HelpContext = 'company-setup' |
     'assessment-results' |
     'follow-up' | 
     'assessment-report' | 
-    'rollup-report';
+    'rollup-report' |
+    'energy-equipment-discovery' |
+    'process-equipment-discovery' | 
+    'discovery';

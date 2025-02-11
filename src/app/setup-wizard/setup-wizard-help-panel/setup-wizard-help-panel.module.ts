@@ -19,6 +19,9 @@ import { AssessmentResultsHelpComponent } from './assessment-results-help/assess
 import { DataFollowUpHelpComponent } from './data-follow-up-help/data-follow-up-help.component';
 import { AssessmentReportHelpComponent } from './assessment-report-help/assessment-report-help.component';
 import { RollupReportHelpComponent } from './rollup-report-help/rollup-report-help.component';
+import { EnergyEquipmentDiscoveryHelpComponent } from './energy-equipment-discovery-help/energy-equipment-discovery-help.component';
+import { ProcessEquipmentDiscoveryHelpComponent } from './process-equipment-discovery-help/process-equipment-discovery-help.component';
+import { AssessmentDiscoveryHelpComponent } from './assessment-discovery-help/assessment-discovery-help.component';
 
 
 
@@ -41,7 +44,10 @@ import { RollupReportHelpComponent } from './rollup-report-help/rollup-report-he
     AssessmentResultsHelpComponent,
     DataFollowUpHelpComponent,
     AssessmentReportHelpComponent,
-    RollupReportHelpComponent
+    RollupReportHelpComponent,
+    EnergyEquipmentDiscoveryHelpComponent,
+    ProcessEquipmentDiscoveryHelpComponent,
+    AssessmentDiscoveryHelpComponent
   ],
   imports: [
     CommonModule,

@@ -4,8 +4,8 @@
             <fa-icon [icon]="faLink"></fa-icon>
             Linked Industrial Systems and End Use Equipment
         </div>
-        <button class="btn btn-outline-success btn-sm" [disabled]="true" (click)="addEquipment()"><fa-icon [icon]="faPlus"
-                class="me-1"></fa-icon>Add New</button>
+        <button class="btn btn-outline-success btn-sm" [disabled]="true" (click)="addEquipment()"><fa-icon
+                [icon]="faPlus" class="me-1"></fa-icon>Add New</button>
     </div>
 </h6>
 
@@ -21,6 +21,12 @@
             <div>
                 <fa-icon [icon]="faCube"></fa-icon>
                 {{equipment.equipmentName}}
+            </div>
+            <div>
+                <button class="btn nav-btn btn-sm" (click)="goToEnergyEquipment(equipment)">
+                    <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+                    Discovery
+                </button>
             </div>
             <div>
                 <span class="badge text-bg-warning me-1">

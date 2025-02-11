@@ -107,6 +107,8 @@
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: var(--contact-color);
     --bs-gradient: none;
+    padding-top: .1rem;
+    padding-bottom: .1rem;
 }
 
 .btn.btn-outline-energy-equipment {
@@ -125,6 +127,8 @@
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: var(--energy-equipment-color);
     --bs-gradient: none;
+    padding-top: .1rem;
+    padding-bottom: .1rem;
 }
 
 
@@ -157,7 +161,7 @@
 }
 
 .neb-container ::-webkit-scrollbar-button {
-    display:none;
+    display: none;
 }
 
 
