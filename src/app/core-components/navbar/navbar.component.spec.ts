@@ -7,6 +7,7 @@ import { ImportBackupModalComponent } from '../import-backup-modal/import-backup
 import { FeedbackPageComponent } from '../feedback-page/feedback-page.component';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { FormsModule } from '@angular/forms';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -14,7 +15,7 @@ describe('NavbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FontAwesomeModule, FormsModule],
+      imports: [RouterTestingModule, FontAwesomeModule, FormsModule, HelperPipesModule],
       declarations: [NavbarComponent, ImportBackupModalComponent, FeedbackPageComponent],
       providers: stubServiceProviders
     });

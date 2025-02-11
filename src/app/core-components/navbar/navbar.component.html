@@ -56,7 +56,7 @@
                 (change)="saveSettings()">
                 <option *ngFor="let option of localeCurrency"
                     [ngValue]="option.locale">
-                    {{option.locale}} - {{option.currencyCode}}
+                    {{option.locale}}: {{option.currencyCode}} ({{option.currencyCode | currencySymbol}})
                 </option>
             </select>
         </div>
