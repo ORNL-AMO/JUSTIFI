@@ -11,6 +11,7 @@ export class SetupWizardService {
   helpPanelOpen: BehaviorSubject<boolean>;
   helpWidth: number = 200;
   sidebarWidth: number = 200;
+  focusedHelp: BehaviorSubject<string>;
   constructor(private localStorageService: LocalStorageService) {
     this.helpWidth = this.localStorageService.retrieve("helpWidth");
     if (!this.helpWidth) {
@@ -31,6 +32,8 @@ export class SetupWizardService {
     } else {
       this.sidebarOpen = new BehaviorSubject<boolean>(true);
     }
+
+    this.focusedHelp = new BehaviorSubject<string>(undefined);
   }
 
   setHelpWidth(val: number) {

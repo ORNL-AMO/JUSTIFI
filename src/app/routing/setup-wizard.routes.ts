@@ -27,6 +27,7 @@ import { ManageProcessEquipmentComponent } from "../setup-wizard/pre-visit/facil
 import { FacilityProcessEquipmentFormComponent } from "../setup-wizard/pre-visit/facility-process-equipment/facility-process-equipment-form/facility-process-equipment-form.component";
 import { PreAssessmentFormComponent } from "../setup-wizard/pre-visit/pre-assessments/pre-assessment-form/pre-assessment-form.component";
 import { ManagePreAssessmentsComponent } from "../setup-wizard/pre-visit/pre-assessments/manage-pre-assessments/manage-pre-assessments.component";
+import { FacilityProtocolQuestionsComponent } from "../setup-wizard/pre-visit/facility-protocol-questions/facility-protocol-questions.component";
 
 
 export const SetupWizardRoutes: Route = {
@@ -69,6 +70,10 @@ export const SetupWizardRoutes: Route = {
                     path: 'facility-setup',
                     component: FacilitySetupComponent,
                     canDeactivate: [CanDeactivateGuard]
+                },
+                {
+                    path: 'facility-questions',
+                    component: FacilityProtocolQuestionsComponent
                 },
                 {
                     path: 'facility-energy-equipment',

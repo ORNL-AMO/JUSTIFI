@@ -179,10 +179,6 @@ export class NebSetupFormComponent {
     }
   }
 
-  openContactModal(viewContact: IdbContact) {
-    this.sharedDataService.displayContactModal.next({ context: 'nonEnergyBenefit', viewContact: viewContact, contextGuid: this.nonEnergyBenefit.guid, companyId: this.nonEnergyBenefit.companyId });
-  }
-
   toggleUntrackedNebs() {
     this.hideUntrackedMetrics = !this.hideUntrackedMetrics;
   }

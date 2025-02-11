@@ -9,7 +9,6 @@ import { IdbFacility } from '../models/facility';
 import { IdbAssessment } from '../models/assessment';
 import { Subscription } from 'rxjs';
 import { SharedDataService } from '../shared/shared-services/shared-data.service';
-import { ContactContext, IdbContact } from '../models/contact';
 
 @Component({
     selector: 'app-user-portfolio',
@@ -37,8 +36,6 @@ export class UserPortfolioComponent {
     energyOpportunityId: string
   };
   displayAddNebsModalSub: Subscription;
-  displayContactModal: { context: ContactContext, viewContact: IdbContact, contextGuid: string, companyId: string };
-  displayContactModalSub: Subscription;
   constructor(
     private router: Router,
     private companyIdbService: CompanyIdbService,
@@ -71,14 +68,10 @@ export class UserPortfolioComponent {
     this.displayAddNebsModalSub = this.sharedDataService.displayAddNebsModal.subscribe(val => {
       this.displayAddNebsModal = val;
     });
-    this.displayContactModalSub = this.sharedDataService.displayContactModal.subscribe(val => {
-      this.displayContactModal = val;
-    })
   }
 
   ngOnDestroy() {
     this.displayAddNebsModalSub.unsubscribe();
-    this.displayContactModalSub.unsubscribe();
     this.companySub.unsubscribe();
     this.facilitySub.unsubscribe();
     this.assessmentSub.unsubscribe();
@@ -121,7 +114,4 @@ export class UserPortfolioComponent {
     }
   }
 
-  closeContactModal() {
-    this.sharedDataService.displayContactModal.next(undefined);
-  }
 }

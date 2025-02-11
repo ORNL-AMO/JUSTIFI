@@ -17,9 +17,6 @@ export class SetupWizardComponent {
 
   faGripVertical: IconDefinition = faGripLinesVertical;
 
-  displayContactModal: { context: ContactContext, viewContact: IdbContact, contextGuid: string, companyId: string };
-  displayContactModalSub: Subscription;
-
   sidebarWidth: number = 200;
   helpWidth: number = 200;
   contentWidth: number;
@@ -40,24 +37,15 @@ export class SetupWizardComponent {
     this.printSub = this.sharedDataService.print.subscribe(print => {
       this.print = print;
     })
-
     this.sidebarWidth = this.setupWizardService.sidebarWidth;
     this.helpWidth = this.setupWizardService.helpWidth;
-    this.displayContactModalSub = this.sharedDataService.displayContactModal.subscribe(_displayContactModal => {
-      this.displayContactModal = _displayContactModal;
-    });
     this.setContentWidth();
   }
 
   ngOnDestroy() {
-    this.displayContactModalSub.unsubscribe();
     this.setupWizardService.sidebarWidth = this.sidebarWidth;
     this.setupWizardService.helpWidth = this.helpWidth;
     this.printSub.unsubscribe();
-  }
-
-  closeContactModal() {
-    this.sharedDataService.displayContactModal.next(undefined);
   }
 
   startResizingSidebarTouch(event: TouchEvent): void {

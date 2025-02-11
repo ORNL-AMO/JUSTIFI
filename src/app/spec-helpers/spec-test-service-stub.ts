@@ -101,7 +101,8 @@ let onSiteVisitIdbService: Partial<OnSiteVisitIdbService> = {
 
 let setupWizardService: Partial<SetupWizardService> = {
     sidebarOpen: new BehaviorSubject<boolean>(true),
-    helpPanelOpen: new BehaviorSubject<boolean>(true)
+    helpPanelOpen: new BehaviorSubject<boolean>(true),
+    focusedHelp: new BehaviorSubject<string>(undefined)
 };
 
 let option: KeyPerformanceIndicatorOption =
@@ -146,7 +147,6 @@ let sharedDataService: Partial<SharedDataService> = {
     createAssessmentModalOpen: new BehaviorSubject<boolean>(false),
     sidebarOpen: new BehaviorSubject<boolean>(false),
     displayAddNebsModal: new BehaviorSubject<{ assessmentId: string, energyOpportunityId: string }>(undefined),
-    displayContactModal: new BehaviorSubject<{ context: ContactContext, viewContact: IdbContact, contextGuid: string, companyId: string }>(undefined),
     print: new BehaviorSubject<boolean>(false)
 }
 

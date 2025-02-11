@@ -16,6 +16,7 @@ import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-i
 import { FacilityEnergyEquipmentSetupService } from 'src/app/setup-wizard/pre-visit/facility-energy-equipment/facility-energy-equipment-setup.service';
 import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessments/pre-assessment-setup.service';
 import { LocaleService } from '../../shared-services/locale.service';
+import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 
 @Component({
     selector: 'app-units-form',
@@ -55,6 +56,7 @@ export class UnitsFormComponent implements OnInit, OnDestroy{
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private facilityEnergyEquipmentSetupService: FacilityEnergyEquipmentSetupService,
     private localeService: LocaleService,
+    private setupWizardService: SetupWizardService
   ) {
   }
 
@@ -139,6 +141,10 @@ export class UnitsFormComponent implements OnInit, OnDestroy{
     });
     this.facility.energyUse = use;
     this.facility.cost = cost;
+  }
+
+  focusField(){
+    this.setupWizardService.focusedHelp.next('trackedUtilities');
   }
 
 }

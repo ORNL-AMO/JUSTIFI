@@ -11,6 +11,7 @@ export interface IdbProcessEquipment extends IdbEntry {
     // operatingHours: number,
     // loadFactor: number,
     notes: string,
+    energyOpportunityIds: Array<string>
     // equipmentType: EquipmentType,
     // utilityType: UtilityType
 }
@@ -28,6 +29,7 @@ export function getNewIdbProcessEquipment(userId: string, companyId: string, fac
         // loadFactor: undefined,
         notes: undefined,
         // equipmentType: undefined,
-        // utilityType: undefined
+        // utilityType: undefined,
+        energyOpportunityIds: new Array()
     }
 }

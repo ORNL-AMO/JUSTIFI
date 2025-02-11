@@ -122,10 +122,6 @@ export class KpiDetailsFormComponent {
     await this.saveChanges();
   }
 
-  openContactModal(contact: IdbContact) {
-    this.sharedDataService.displayContactModal.next({context: 'KPI', viewContact: contact, contextGuid: this.keyPerformanceIndicator.guid, companyId: this.keyPerformanceIndicator.companyId});
-  }
-
   addPerformanceMetric() {
     if (this.showAddMetricDropdown) {
       this.showAddMetricDropdown = false;
