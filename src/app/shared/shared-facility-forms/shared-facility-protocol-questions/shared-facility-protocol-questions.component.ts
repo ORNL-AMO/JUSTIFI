@@ -3,6 +3,7 @@ import { faMinus, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-ico
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+import { FacilityProtocolHelp } from '../../help-content/facility-protocol-help';
 
 @Component({
   selector: 'app-shared-facility-protocol-questions',
@@ -12,6 +13,8 @@ import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
   styleUrl: './shared-facility-protocol-questions.component.css'
 })
 export class SharedFacilityProtocolQuestionsComponent {
+
+  FacilityProtocolHelp = FacilityProtocolHelp;
 
   faPlus: IconDefinition = faPlus;
   faMinus: IconDefinition = faMinus;
