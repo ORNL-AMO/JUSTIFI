@@ -2,7 +2,8 @@ import { IdbEntry, getNewIdbEntry } from "./idbEntry";
 
 export interface IdbUser extends IdbEntry {
     skipSplashScreen: boolean,
-    kpiFacilityMigrationDone: boolean
+    kpiFacilityMigrationDone: boolean,
+    locale: string,
 }
 
 export function getNewIdbUser(): IdbUser {
@@ -10,6 +11,7 @@ export function getNewIdbUser(): IdbUser {
     return {
         ...idbEntry,
         kpiFacilityMigrationDone: true,
-        skipSplashScreen: false
+        skipSplashScreen: false,
+        locale: 'en-US',
     }
 }

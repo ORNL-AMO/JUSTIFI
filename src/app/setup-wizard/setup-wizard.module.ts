@@ -100,7 +100,6 @@ import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protoco
     SharedSettingsFormsModule,
     HelperPipesModule,
     TableEntriesModule,
-    ReportsModule,
     PrimaryKpiBadgeModule,
     ReactiveFormsModule,
     ReportsModule,

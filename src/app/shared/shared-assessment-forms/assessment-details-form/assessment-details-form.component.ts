@@ -21,6 +21,7 @@ import { AssessmentEnergyOpportunitiesFormService } from '../../../setup-wizard/
 import { Router } from '@angular/router';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
+import { LocaleService } from '../../shared-services/locale.service';
 
 @Component({
     selector: 'app-assessment-details-form',
@@ -62,6 +63,9 @@ export class AssessmentDetailsFormComponent {
   numberOfTrackedUtilities: number = 0;
   trackedEnergyUnit: string;
 
+  currencyCode: string;
+  currencySub: Subscription;
+
   constructor(
     private assessmentIdbService: AssessmentIdbService,
     private contactIdbService: ContactIdbService,
@@ -72,6 +76,7 @@ export class AssessmentDetailsFormComponent {
     private assessmentEnergyOpportunitiesFormService: AssessmentEnergyOpportunitiesFormService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private router: Router,
+    private localeService: LocaleService,
 
   ) { }
 
@@ -99,6 +104,10 @@ export class AssessmentDetailsFormComponent {
     this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(_facility => {
       this.facilityUnitSettings = _facility.unitSettings;
     });
+
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
   }
 
   ngOnDestroy() {
@@ -107,6 +116,7 @@ export class AssessmentDetailsFormComponent {
     this.energyEquipmentSub.unsubscribe();
     this.facilitySub.unsubscribe();
     this.companySub.unsubscribe();
+    this.currencySub.unsubscribe();
   }
 
   async assessmentTypeChange() {

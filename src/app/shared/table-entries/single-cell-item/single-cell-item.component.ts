@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { LocaleService } from '../../shared-services/locale.service';
 
 @Component({
     selector: 'app-single-cell-item',
@@ -19,4 +21,25 @@ export class SingleCellItemComponent {
   isCurrency: boolean;
   @Input()
   numValueDigits: string = '1.0-2';
+  
+  currencyCode: string;
+  currencySub: Subscription;
+  
+  constructor(
+    private localeService: LocaleService,
+  ) {}
+
+  ngOnInit() {
+    if (this.isCurrency) {
+      this.currencySub = this.localeService.currencyCode.subscribe(code => {
+        this.currencyCode = code;
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.currencySub) {
+      this.currencySub.unsubscribe();
+    }
+  }
 }

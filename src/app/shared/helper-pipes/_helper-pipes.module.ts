@@ -39,6 +39,8 @@ import { NebTotalSavingsPipe } from './neb-total-savings.pipe';
 import { FacilityKpiListPipe } from './facility-kpi-list.pipe';
 import { ProcessEquipmentListPipe } from './process-equipment-list.pipe';
 import { AssessmentItemPipe } from './assessment-item.pipe';
+import { CurrencySymbolPipe } from './currency-symbol.pipe';
+import { CurrencyPipe } from '@angular/common';
 import { IncludesProcessEquipmentPipe } from './includes-process-equipment.pipe';
 import { IncludesEnergyEquipmentPipe } from './includes-energy-equipment.pipe';
 
@@ -83,11 +85,15 @@ import { IncludesEnergyEquipmentPipe } from './includes-energy-equipment.pipe';
     FacilityKpiListPipe,
     ProcessEquipmentListPipe,
     AssessmentItemPipe,
+    CurrencySymbolPipe,
     IncludesProcessEquipmentPipe,
     IncludesEnergyEquipmentPipe
   ],
   imports: [
     CommonModule
+  ],
+  providers: [
+    CurrencyPipe,
   ],
   exports: [
     CompanyNamePipe,
@@ -129,6 +135,7 @@ import { IncludesEnergyEquipmentPipe } from './includes-energy-equipment.pipe';
     FacilityKpiListPipe,
     ProcessEquipmentListPipe,
     AssessmentItemPipe,
+    CurrencySymbolPipe,
     IncludesProcessEquipmentPipe,
     IncludesEnergyEquipmentPipe
   ]
