@@ -15,70 +15,61 @@ import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
   styleUrl: './discovery-energy-equipment-questions.component.css'
 })
 export class DiscoveryEnergyEquipmentQuestionsComponent {
-  EnergyEquipmentTakeStockHelp = EnergyEquipmentTakeStockHelp;
-  EnergyEquipmentOperationsHelp = EnergyEquipmentOperationsHelp;
   faClipboardQuestion: IconDefinition = faClipboardQuestion;
-
-  energyEquipmentGuid: string;
-  energyEquipment: IdbEnergyEquipment
-
-  howSupportPlant: string;
-  adverseEffects: string;
-  equipmentFinancialStatus: string;
-  describeOutputOfSystem: string;
-  describeServicingNeeds: string;
-  describeLaborRequirements: string;
-  describeSystemMaterials: string;
-
+  
   collapseTackStock: boolean = true;
   collapseOperations: boolean = true;
-  constructor(private activatedRoute: ActivatedRoute,
-    private energyEquipmentIdbService: EnergyEquipmentIdbService,
+  collapseSustainability: boolean = false;
+  collapseEmployeeEngagement: boolean = true;
+
+  constructor(
     private bootstrapService: BootstrapService,
     private setupWizardService: SetupWizardService
   ) {
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      this.energyEquipmentGuid = params['id'];
-      let energyEquipment: IdbEnergyEquipment = this.energyEquipmentIdbService.getByGuid(this.energyEquipmentGuid);
-      this.howSupportPlant = energyEquipment.howSupportPlant;
-      this.adverseEffects = energyEquipment.adverseEffects;
-      this.equipmentFinancialStatus = energyEquipment.equipmentFinancialStatus;
-      this.describeOutputOfSystem = energyEquipment.describeOutputOfSystem;
-      this.describeServicingNeeds = energyEquipment.describeServicingNeeds;
-      this.describeLaborRequirements = energyEquipment.describeLaborRequirements;
-      this.describeSystemMaterials = energyEquipment.describeSystemMaterials;
-    });
   }
 
   ngOnDestory(){
     this.setupWizardService.focusedHelp.next(undefined);
   }
 
-  async saveChanges() {
-    let energyEquipment: IdbEnergyEquipment = this.energyEquipmentIdbService.getByGuid(this.energyEquipmentGuid);
-    energyEquipment.howSupportPlant = this.howSupportPlant;
-    energyEquipment.adverseEffects = this.adverseEffects;
-    energyEquipment.equipmentFinancialStatus = this.equipmentFinancialStatus;
-    energyEquipment.describeOutputOfSystem = this.describeOutputOfSystem;
-    energyEquipment.describeServicingNeeds = this.describeServicingNeeds;
-    energyEquipment.describeLaborRequirements = this.describeLaborRequirements;
-    energyEquipment.describeSystemMaterials = this.describeSystemMaterials;
-    await this.energyEquipmentIdbService.asyncUpdate(energyEquipment);
-  }
-
+  
   focusField(str: string) {
     this.setupWizardService.focusedHelp.next(str);
   }
 
-  toggleBS(collapseId: 'takeStock' | 'operations') {
+  toggleBS(collapseId: 'takeStock' | 'operations' | 'sustainability' | 'employeeEngagement') {
     this.bootstrapService.bsCollapse('#' + collapseId);
     if (collapseId == 'takeStock') {
       this.collapseTackStock = !this.collapseTackStock;
+      if(!this.collapseTackStock){
+        this.collapseOperations = true;
+        this.collapseEmployeeEngagement = true;
+        this.collapseSustainability = true;
+      }
     } else if (collapseId == 'operations') {
       this.collapseOperations = !this.collapseOperations;
+      if(!this.collapseOperations){
+        this.collapseTackStock = true;
+        this.collapseEmployeeEngagement = true;
+        this.collapseSustainability = true;
+      }
+    } else if(collapseId == 'sustainability'){
+      this.collapseSustainability = !this.collapseSustainability;
+      if(!this.collapseSustainability){
+        this.collapseTackStock = true;
+        this.collapseEmployeeEngagement = true;
+        this.collapseOperations = true;
+      }
+    } else if(collapseId == 'employeeEngagement'){
+      this.collapseEmployeeEngagement = !this.collapseEmployeeEngagement;
+      if(!this.collapseEmployeeEngagement){
+        this.collapseTackStock = true;
+        this.collapseSustainability = true;
+        this.collapseOperations = true;
+      }
     }
     this.focusField(collapseId)
   }

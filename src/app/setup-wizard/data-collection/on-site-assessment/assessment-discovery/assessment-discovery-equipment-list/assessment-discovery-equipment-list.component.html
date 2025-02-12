@@ -48,7 +48,15 @@
 processEquipmentList:'assessment':processEquipments:energyOpportunities);
 <div class="list-group">
     <div class="list-group-item" *ngFor="let equipment of associatedProcessEquipments">
-        <fa-icon [icon]="faSplotch"></fa-icon>
-        {{equipment.equipmentName}}
+        <div>
+            <fa-icon [icon]="faSplotch"></fa-icon>
+            {{equipment.equipmentName}}
+        </div>
+        <div>
+            <button class="btn nav-btn btn-sm" (click)="goToProcessEquipment(equipment)">
+                <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+                Discovery
+            </button>
+        </div>
     </div>
 </div>

@@ -22,6 +22,11 @@ import { AssociatedProcessEquipmentModule } from '../associated-process-equipmen
 import { AssociatedContactsModule } from "../associated-contacts/associated-contacts.module";
 import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/associated-energy-equipment.module';
 import { DiscoveryEnergyEquipmentQuestionsComponent } from './discovery-energy-equipment-questions/discovery-energy-equipment-questions.component';
+import { DiscoveryProcessEquipmentQuestionsComponent } from './discovery-process-equipment-questions/discovery-process-equipment-questions.component';
+import { EnergyEquipmentTakeStockComponent } from './discovery-energy-equipment-questions/energy-equipment-take-stock/energy-equipment-take-stock.component';
+import { EnergyEquipmentOperationsComponent } from './discovery-energy-equipment-questions/energy-equipment-operations/energy-equipment-operations.component';
+import { EnergyEquipmentSustainabilityComponent } from './discovery-energy-equipment-questions/energy-equipment-sustainability/energy-equipment-sustainability.component';
+import { EnergyEquipmentEmployeeEngagementComponent } from './discovery-energy-equipment-questions/energy-equipment-employee-engagement/energy-equipment-employee-engagement.component';
 
 
 @NgModule({
@@ -36,7 +41,12 @@ import { DiscoveryEnergyEquipmentQuestionsComponent } from './discovery-energy-e
     AddNebsModalComponent,
     EnergyOpportunitySetupFormComponent,
     EnergyOpportunityNebsTableComponent,
-    DiscoveryEnergyEquipmentQuestionsComponent
+    DiscoveryEnergyEquipmentQuestionsComponent,
+    DiscoveryProcessEquipmentQuestionsComponent,
+    EnergyEquipmentTakeStockComponent,
+    EnergyEquipmentOperationsComponent,
+    EnergyEquipmentSustainabilityComponent,
+    EnergyEquipmentEmployeeEngagementComponent
   ],
   imports: [
     CommonModule,
@@ -59,7 +69,8 @@ import { DiscoveryEnergyEquipmentQuestionsComponent } from './discovery-energy-e
     AddNebsModalComponent,
     EnergyOpportunitySetupFormComponent,
     EnergyOpportunityNebsTableComponent,
-    DiscoveryEnergyEquipmentQuestionsComponent
+    DiscoveryEnergyEquipmentQuestionsComponent,
+    DiscoveryProcessEquipmentQuestionsComponent
   ]
 })
 export class SharedAssessmentFormsModule { }

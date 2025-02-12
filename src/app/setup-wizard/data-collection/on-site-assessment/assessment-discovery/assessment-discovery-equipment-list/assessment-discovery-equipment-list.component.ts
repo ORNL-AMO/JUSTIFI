@@ -78,4 +78,8 @@ export class AssessmentDiscoveryEquipmentListComponent {
     this.router.navigateByUrl('/setup-wizard/data-collection/' + onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/discovery/energy-equipment/' + equipment.guid);
   }
 
+  goToProcessEquipment(equipment: IdbProcessEquipment) {
+    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+    this.router.navigateByUrl('/setup-wizard/data-collection/' + onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/discovery/process-equipment/' + equipment.guid);
+  }
 }

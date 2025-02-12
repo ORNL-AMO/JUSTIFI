@@ -1,4 +1,11 @@
+<a class="click-link" (click)="goBack()">
+    <fa-icon [icon]="faChevronLeft"></fa-icon>
+    All Linked Items
+</a>
+<hr class="my-1">
 <h6>
     <fa-icon [icon]="faSplotch"></fa-icon>
     {{processEquipment.equipmentName}}
 </h6>
+
+<app-discovery-process-equipment-questions></app-discovery-process-equipment-questions>

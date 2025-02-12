@@ -81,3 +81,46 @@ export const EnergyEquipmentOperationsHelp = {
                     Are there supply chain difficulties?<br>
                     Are there opportunities to optimize?`
 }
+
+export const EnergyEquipmentSustainabilityHelp = {
+    sectionHelp: `The questions outlined in this section are to help you think about how this system, the assessment, and possible energy efficiency measures (EEMS) connect with the sites Key Performance Indicators and Metrics (KPIs and KPMs) related to sustainability (waste, water, emissions).  Asking key stakeholders these questions will allow the assessor to better understand the needs of the site and any areas where energy improvement can help. Not all of these sections are relevant to every system and every site. Assessors should get some basic information on the topic areas, gauge site concern about the topic, and triage systems under assessment to focus on systems with projects that need more justification before investing the time for this deep dive.`,
+    describeWasteStreams: `Material waste and wastewater streams can be expensive to dispose of, especially if they require pretreatment, monitoring, regulation, or special disposal. EEMs can reduce waste of industrial energy systems by reducing blowdown or improving the output of process heating systems.<br>
+                    When quantifying a waste-related EEM, be sure to not double count as it could impact several different KPIs (expenses, waste, water, regulatory, etc.)`,
+    describeWasteStreamsQs: `Assessors can ask:<br>
+                    What waste is generated and how it is disposed (sewer, landfill, recycled, special disposal)? <br>
+                    Is treatment required on site? <br>
+                    How much does disposal cost? <br>
+                    Are there regulatory concerns about this waste?<br>
+                    Are there opportunities to sell as byproduct?`,
+    describeWaterInputDischarge: `EEMs often target the unnecessary consumption, heating, or moving of water to match demand of end uses (pumping, steam generation or blowdown). Water use reductions also often pair with sewage reductions, to the point where many utilities companies only meter one of the two streams.  Reductions in water use and water discharge can impact water procurement and disposal costs, especially if the water must be treated before or after use.<br>
+                    When quantifying a waste-related EEM, be sure to not double count as it could impact several different KPIs (expenses, waste, water, regulatory, etc.)`,
+    describeWaterInputDischargeQs: `Assessors can ask:<br>
+                    Are any water streams utilized in this system?<br>
+                    How much does water use and sewage cost?<br>
+                    Are there any water pollution concerns in the plant and could those be alleviated?`,
+    describeRefrigerantProcessDustEmissions: `EEMs or other opportunities found in an assessment could reduce emissions from the system. Refrigerant losses from a process cooling loop or dust emissions from bag houses could be reduced and quantified.`,
+    describeRefrigerantProcessDustEmissionsQs: `Assessors can ask:<br>
+                    Are there any refrigerant loops in the system?<br>
+                    Are there any non-combustion emissions being generated?<br>
+                    Is there any dust or particulates generated?<br>
+                    Are these measured?<br>
+                    Do they have an associated cost?`,
+    describeRegulations: `Changes to the operations of an industrial energy system can impact systems being regulated (boiler and burner emissions – CO2, N2O, dust, water quality). Changes to the system that may impact regulated qualities must be considered before implementation and projects could reduce the regulated emission, thus reducing associated fees. This could be related to air, dust, water, or waste streams/emissions.`,
+    describeRegulationsQs: `Assessors can ask:<br>
+                    What environmental regulations are impacted by the equipment? <br>
+                    Does any waste require regulation or treatment?`
+}
+
+export const EnergyEquipmentEmployeeEngagementHelp = {
+    sectionHelp: `The questions outlined in this section are to help you think about how this system, the assessment, and possible energy efficiency measures (EEMS) connect with the sites Key Performance Indicators and Metrics (KPIs and KPMs) related to employee and workplace environment (safety, employee satisfaction).  Asking key stakeholders these questions will allow the assessor to better understand the needs of the site and any areas where energy improvement can help. Not all of these sections are relevant to every system and every site. Assessors should get some basic information on the topic areas, gauge site concern about the topic, and triage systems under assessment to focus on systems with projects that need more justification before investing the time for this deep dive. `,
+    describeSafetyConcerns: `Many common EEMs can improve safety around the system. Increased insulation, reduced vibration, improved lighting, lower ambient temperature are all EEMs with safety benefits. Understand any safety concerns around the system under assessment. Safety incidents can be measured or monitored via OSHA Total recordable incident rate (TRIR), OSHA recordable incidents, non-recordable incidents, near-misses, days away from work, lost time injury rate (LTIFR).`,
+    describeSafetyConcernsQs: `Assessors can ask:<br>
+                    Have there been any safety concerns or incidents related to the system?<br>
+                    How are safety incidents measured?<br>
+                    What are the costs of these safety deficiencies?`,
+    describeWorkplaceEnvironment: `Many common EEMs can improve the workplace environment around the system. Reduced noise, lower ambient temperature, improved lighting can all improve the happiness of employees, reducing absenteeism, increasing employee retention, and more.`,
+    describeWorkplaceEnvironmentQs: `Assessors can ask:<br>
+                    Have there been any workplace environment concerns related to the system?<br>
+                    How is employee happiness or employee concerns monitored?<br>
+                    Are there any quantified costs associated with this?`
+}

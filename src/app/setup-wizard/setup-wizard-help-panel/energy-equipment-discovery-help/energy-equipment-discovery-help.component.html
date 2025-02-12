@@ -1,3 +1,4 @@
+<!--TAKE STOCK-->
 <ng-template [ngIf]="isTakeStock">
     <label>
         <fa-icon [icon]="faClipboardQuestion"></fa-icon>
@@ -27,6 +28,7 @@
         <hr>
     </ng-template>
 </ng-template>
+<!--OPERATIONS-->
 <ng-template [ngIf]="isOperations">
     <label>
         <fa-icon [icon]="faClipboardQuestion"></fa-icon>
@@ -69,8 +71,83 @@
         <hr>
     </ng-template>
 </ng-template>
+<!--SUSTAINABILITY-->
+<ng-template [ngIf]="isSustainablity">
+    <label>
+        <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+        Operations
+    </label>
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.sectionHelp">
+    </p>
+    <hr>
 
 
+    <ng-template [ngIf]="focusedHelp == 'describeWasteStreams'">
+        <label>Describe the waste streams that result from this system</label>
+        <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeWasteStreams">
+        </p>
+        <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeWasteStreamsQs">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'describeWaterInputDischarge'">
+        <label>Describe water input or discharge streams that result from this system</label>
+        <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeWaterInputDischarge">
+        </p>
+        <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeWaterInputDischargeQs">
+        </p>
+        <hr>
+    </ng-template>
+
+    <ng-template [ngIf]="focusedHelp == 'describeRefrigerantProcessDustEmissions'">
+        <label>Describe any refrigerant, process, or dust emissions that may come from this system</label>
+        <p class="fw-light small mb-2"
+            [innerHTML]="EnergyEquipmentSustainabilityHelp.describeRefrigerantProcessDustEmissions">
+        </p>
+        <p class="fw-light small"
+            [innerHTML]="EnergyEquipmentSustainabilityHelp.describeRefrigerantProcessDustEmissionsQs">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'describeRegulations'">
+        <label>Describe any environmental regulations or considerations impacting this system</label>
+        <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeRegulations">
+        </p>
+        <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeRegulationsQs">
+        </p>
+        <hr>
+    </ng-template>
+</ng-template>
+
+<!--EMPLOYEE ENGAGEMENT-->
+<ng-template [ngIf]="isEmployeeEngagement">
+    <label>
+        <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+        Employee and Workplace Environment
+    </label>
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentEmployeeEngagementHelp.sectionHelp">
+    </p>
+    <hr>
+
+
+    <ng-template [ngIf]="focusedHelp == 'describeSafetyConcerns'">
+        <label>Describe any safety concerns related to this system</label>
+        <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentEmployeeEngagementHelp.describeSafetyConcerns">
+        </p>
+        <p class="fw-light small" [innerHTML]="EnergyEquipmentEmployeeEngagementHelp.describeSafetyConcerns">
+        </p>
+        <hr>
+    </ng-template>
+
+    <ng-template [ngIf]="focusedHelp == 'describeWorkplaceEnvironment'">
+        <label>Describe any other workplace environment details related to the system</label>
+        <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentEmployeeEngagementHelp.describeWorkplaceEnvironment">
+        </p>
+        <p class="fw-light small" [innerHTML]="EnergyEquipmentEmployeeEngagementHelp.describeWorkplaceEnvironmentQs">
+        </p>
+        <hr>
+    </ng-template>
+</ng-template>
 <p class="fw-light help-disclaimer">
     <fa-icon [icon]="faExclamationCircle"></fa-icon>
     Help panel content is dynamic. Click on input fields to view field-by-field help.

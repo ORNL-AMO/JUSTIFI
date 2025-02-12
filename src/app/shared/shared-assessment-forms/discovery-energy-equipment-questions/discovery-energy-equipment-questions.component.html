@@ -12,43 +12,11 @@
         <div [id]="'#takeStock'" class="accordion-collapse collapse"
             [attr.data-bs-parent]="'#energyEquipmentDiscoveryAccordion'">
             <div class="accordion-body">
-                <!-- <p class="fw-light small mb-0" [innerHTML]="EnergyEquipmentTakeStockHelp.sectionHelp">
-                </p>
-                <hr class="my-1"> -->
-                <!--howSupportPlant-->
-                <label>
-                    How does this system support the plant?
-                </label>
-                <!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlantQs">
-                </p> -->
-                <textarea id="howSupportPlant" name="howSupportPlant" class="form-control" [(ngModel)]="howSupportPlant"
-                    (input)="saveChanges()" (focus)="focusField('howSupportPlant')" rows="3"></textarea>
-                <hr class="my-1">
-                <!--adverseEffects-->
-                <label>
-                    How are other areas adversely affected by energy inefficiencies in the system?
-                </label>
-                <!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.adverseEffects">
-                </p> -->
-                <textarea id="adverseEffects" name="adverseEffects" class="form-control" [(ngModel)]="adverseEffects"
-                    (input)="saveChanges()" (focus)="focusField('adverseEffects')" rows="3"></textarea>
-                <hr class="my-1">
-                <!--equipmentFinancialStatus-->
-                <label>
-                    Describe the financial status of the equipment
-                </label>
-                <!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatus">
-                </p>
-                <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatusQs">
-                </p> -->
-                <textarea id="equipmentFinancialStatus" name="equipmentFinancialStatus" class="form-control"
-                    [(ngModel)]="equipmentFinancialStatus" (input)="saveChanges()"
-                    (focus)="focusField('equipmentFinancialStatus')" rows="3"></textarea>
+                <app-energy-equipment-take-stock></app-energy-equipment-take-stock>
             </div>
         </div>
     </div>
     <!--OPERATIONS-->
-
     <div class="accordion-item">
         <h2 class="accordion-header">
             <button class="accordion-button" type="button" [attr.data-bs-target]="'#operations'" aria-expanded="true"
@@ -61,77 +29,42 @@
         <div [id]="'#operations'" class="accordion-collapse collapse" [ngClass]="{'show': !collapseOperations}"
             [attr.data-bs-parent]="'#energyEquipmentDiscoveryAccordion'">
             <div class="accordion-body">
-                <!-- <p class="fw-light small mb-0" [innerHTML]="EnergyEquipmentOperationsHelp.sectionHelp">
-                </p>
-                <hr class="my-1"> -->
-                <!--describeOutputOfSystem-->
-                <label>
-                    Describe the output of the system and how it aligns with plant needs
-                </label>
-                <!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeOutputOfSystem">
-                </p>
-                <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeOutputOfSystemQs">
-                </p> -->
-                <!--TODO: Link KPIs-->
-                <!--
-                    **Provide link to Quality and Production KPI
-                -->
-                <textarea id="describeOutputOfSystem" name="describeOutputOfSystem" class="form-control"
-                    [(ngModel)]="describeOutputOfSystem" (input)="saveChanges()"
-                    (focus)="focusField('describeOutputOfSystem')" rows="3"></textarea>
-                <hr class="my-1">
-
-
-                <!--describeServicingNeeds-->
-                <label>
-                    Describe the maintenance and servicing needs of this system
-                </label>
-                <!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeServicingNeeds">
-                </p>
-                <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeServicingNeedsQs">
-                </p> -->
-                <!--TODO: link kpis-->
-                <!--
-                    **Provide link to Maintainance KPI
-                -->
-                <textarea id="describeServicingNeeds" name="describeServicingNeeds" class="form-control"
-                    [(ngModel)]="describeServicingNeeds" (input)="saveChanges()"
-                    (focus)="focusField('describeServicingNeeds')" rows="3"></textarea>
-                <hr class="my-1">
-
-                <!--describeLaborRequirements-->
-                <label>
-                    Describe the labor requirements of this system.
-                </label>
-                <!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeLaborRequirements">
-                </p>
-                <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeLaborRequirementsQs">
-                </p> -->
-                <!--TODO: Link kpis-->
-                <!--
-                    **Provide link to Expense Cost KPI
-                -->
-                <textarea id="describeLaborRequirements" name="describeLaborRequirements" class="form-control"
-                    [(ngModel)]="describeLaborRequirements" (input)="saveChanges()"
-                    (focus)="focusField('describeLaborRequirements')" rows="3"></textarea>
-                <hr class="my-1">
-
-                <!--describeSystemMaterials-->
-                <label>
-                    Describe the materials that are required by this system (raw materials, intermediate goods,
-                    treatment chemicals)?
-                </label>
-                <!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeSystemMaterials">
-                </p>
-                <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeSystemMaterialsQs">
-                </p> -->
-                <!--TODO: link kpis-->
-                <!--
-                    **Provide link to Expense Cost and Material Utilization KPI
-                -->
-                <textarea id="describeSystemMaterials" name="describeSystemMaterials" class="form-control"
-                    [(ngModel)]="describeSystemMaterials" (input)="saveChanges()"
-                    (focus)="focusField('describeSystemMaterials')" rows="3"></textarea>
+                <app-energy-equipment-operations></app-energy-equipment-operations>
+            </div>
+        </div>
+    </div>
+    <!--Sustainability (Environmental Impact)-->
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" [attr.data-bs-target]="'#sustainability'"
+                aria-expanded="true" [attr.aria-controls]="'sustainability'" (click)="toggleBS('sustainability')"
+                [ngClass]="{'collapsed': collapseSustainability}">
+                <fa-icon [icon]="faClipboardQuestion" class="me-1"></fa-icon>
+                Sustainability (Environmental Impact)
+            </button>
+        </h2>
+        <div [id]="'#sustainability'" class="accordion-collapse collapse" [ngClass]="{'show': !collapseSustainability}"
+            [attr.data-bs-parent]="'#energyEquipmentDiscoveryAccordion'">
+            <div class="accordion-body">
+                <app-energy-equipment-sustainability></app-energy-equipment-sustainability>
+            </div>
+        </div>
+    </div>
+    <!--Employee and Workplace Environment-->
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" [attr.data-bs-target]="'#employeeEngagement'"
+                aria-expanded="true" [attr.aria-controls]="'employeeEngagement'"
+                (click)="toggleBS('employeeEngagement')" [ngClass]="{'collapsed': collapseEmployeeEngagement}">
+                <fa-icon [icon]="faClipboardQuestion" class="me-1"></fa-icon>
+                Employee and Workplace Environment
+            </button>
+        </h2>
+        <div [id]="'#employeeEngagement'" class="accordion-collapse collapse"
+            [ngClass]="{'show': !collapseEmployeeEngagement}"
+            [attr.data-bs-parent]="'#energyEquipmentDiscoveryAccordion'">
+            <div class="accordion-body">
+                <app-energy-equipment-employee-engagement></app-energy-equipment-employee-engagement>
             </div>
         </div>
     </div>
