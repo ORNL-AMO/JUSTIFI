@@ -1,1 +1,160 @@
-<p>process-equipment-discovery-help works!</p>
+<!--TAKE STOCK-->
+<ng-template [ngIf]="isTakeStock">
+    <label>
+        <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+        Take Stock
+    </label>
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.sectionHelp">
+    </p>
+    <hr>
+    <ng-template [ngIf]="focusedHelp == 'whatIsTheOutput'">
+        <label>What is the output of this process?</label>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.whatIsTheOutput">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'howDoesTheProcessWork'">
+        <label>How does the process or manufacturing technology work?</label>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.howDoesTheProcessWork">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'financialStatusOfEquipment'">
+        <label>Describe the financial status of the equipment</label>
+        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipment">
+        </p>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipmentQs">
+        </p>
+        <hr>
+    </ng-template>
+</ng-template>
+<!--OPERATIONS-->
+<ng-template [ngIf]="isOperations">
+    <label>
+        <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+        Operations
+    </label>
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.sectionHelp">
+    </p>
+    <hr>
+    <ng-template [ngIf]="focusedHelp == 'describeOutputRate'">
+        <label>Describe the output rate of the process and how it aligns with plant needs</label>
+        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputRate">
+        </p>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputRateQs">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'describeOutputQualityMeasurement'">
+        <label>Describe the measurement of output quality and how it aligns with plant or company needs</label>
+        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputQualityMeasurement">
+        </p>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputQualityMeasurementQs">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'describeMaintenanceNeeds'">
+        <label>Describe the maintenance and servicing needs of this process</label>
+        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentOperationsHelp.describeMaintenanceNeeds">
+        </p>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeMaintenanceNeedsQs">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'describeLaborRequirements'">
+        <label>Describe the labor requirements of this process</label>
+        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentOperationsHelp.describeLaborRequirements">
+        </p>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeLaborRequirementsQs">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'describeRequiredMaterials'">
+        <label>Describe the materials that are required by this process (raw materials, intermediate goods, treatment
+            chemicals)?</label>
+        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentOperationsHelp.describeRequiredMaterials">
+        </p>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeRequiredMaterialsQs">
+        </p>
+        <hr>
+    </ng-template>
+</ng-template>
+<!--SUSTAINABILITY-->
+<ng-template [ngIf]="isSustainablity">
+    <label>
+        <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+        Sustainability (Environmental Impact)
+    </label>
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainabilityHelp.sectionHelp">
+    </p>
+    <hr>
+    <ng-template [ngIf]="focusedHelp == 'describeRefrigerantProcessDustEmissions'">
+        <label>Describe any refrigerant, process, or dust emissions that may come from this system</label>
+        <p class="fw-light small mb-2"
+            [innerHTML]="ProcessEquipmentSustainabilityHelp.describeRefrigerantProcessDustEmissions">
+        </p>
+        <p class="fw-light small"
+            [innerHTML]="ProcessEquipmentSustainabilityHelp.describeRefrigerantProcessDustEmissionsQs">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'describeWasteStreams'">
+        <label>Describe the waste streams that result from this process</label>
+        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentSustainabilityHelp.describeWasteStreams">
+        </p>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainabilityHelp.describeWasteStreamsQs">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'describeWaterInputDischarge'">
+        <label>Describe water input or discharge streams that result from this process</label>
+        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentSustainabilityHelp.describeWaterInputDischarge">
+        </p>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainabilityHelp.describeWaterInputDischargeQs">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'describeRegulations'">
+        <label>Describe any environmental regulations or considerations impacting this process</label>
+        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentSustainabilityHelp.describeRegulations">
+        </p>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainabilityHelp.describeRegulationsQs">
+        </p>
+        <hr>
+    </ng-template>
+</ng-template>
+
+
+<!--EMPLOYEE ENGAGEMENT-->
+<ng-template [ngIf]="isEmployeeEngagement">
+    <label>
+        <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+        Employee and Workplace Environment
+    </label>
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentEmployeeEngagementHelp.sectionHelp">
+    </p>
+    <hr>
+    <ng-template [ngIf]="focusedHelp == 'describeSafetyConcerns'">
+        <label>Describe any safety concerns related to this process</label>
+        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentEmployeeEngagementHelp.describeSafetyConcerns">
+        </p>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentEmployeeEngagementHelp.describeSafetyConcernsQs">
+        </p>
+        <hr>
+    </ng-template>
+    <ng-template [ngIf]="focusedHelp == 'describeWorkplaceEnvironment'">
+        <label>Describe any other workplace environment related to the system</label>
+        <p class="fw-light small mb-2"
+            [innerHTML]="ProcessEquipmentEmployeeEngagementHelp.describeWorkplaceEnvironment">
+        </p>
+        <p class="fw-light small" [innerHTML]="ProcessEquipmentEmployeeEngagementHelp.describeWorkplaceEnvironmentQs">
+        </p>
+        <hr>
+    </ng-template>
+</ng-template>
+
+
+<p class="fw-light help-disclaimer">
+    <fa-icon [icon]="faExclamationCircle"></fa-icon>
+    Help panel content is dynamic. Click on input fields to view field-by-field help.
+</p>

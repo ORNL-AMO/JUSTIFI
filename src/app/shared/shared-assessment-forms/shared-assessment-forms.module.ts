@@ -27,6 +27,10 @@ import { EnergyEquipmentTakeStockComponent } from './discovery-energy-equipment-
 import { EnergyEquipmentOperationsComponent } from './discovery-energy-equipment-questions/energy-equipment-operations/energy-equipment-operations.component';
 import { EnergyEquipmentSustainabilityComponent } from './discovery-energy-equipment-questions/energy-equipment-sustainability/energy-equipment-sustainability.component';
 import { EnergyEquipmentEmployeeEngagementComponent } from './discovery-energy-equipment-questions/energy-equipment-employee-engagement/energy-equipment-employee-engagement.component';
+import { ProcessEquipmentTakeStockComponent } from './discovery-process-equipment-questions/process-equipment-take-stock/process-equipment-take-stock.component';
+import { ProcessEquipmentOperationsComponent } from './discovery-process-equipment-questions/process-equipment-operations/process-equipment-operations.component';
+import { ProcessEquipmentEmployeeEngagementComponent } from './discovery-process-equipment-questions/process-equipment-employee-engagement/process-equipment-employee-engagement.component';
+import { ProcessEquipmentSustainablityComponent } from './discovery-process-equipment-questions/process-equipment-sustainablity/process-equipment-sustainablity.component';
 
 
 @NgModule({
@@ -46,7 +50,11 @@ import { EnergyEquipmentEmployeeEngagementComponent } from './discovery-energy-e
     EnergyEquipmentTakeStockComponent,
     EnergyEquipmentOperationsComponent,
     EnergyEquipmentSustainabilityComponent,
-    EnergyEquipmentEmployeeEngagementComponent
+    EnergyEquipmentEmployeeEngagementComponent,
+    ProcessEquipmentTakeStockComponent,
+    ProcessEquipmentOperationsComponent,
+    ProcessEquipmentEmployeeEngagementComponent,
+    ProcessEquipmentSustainablityComponent
   ],
   imports: [
     CommonModule,

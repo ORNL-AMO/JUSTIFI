@@ -1,0 +1,23 @@
+<!--whatIsTheOutput-->
+<label>
+    What is the output of this process?
+</label>
+<textarea id="whatIsTheOutput" name="whatIsTheOutput" class="form-control" [(ngModel)]="whatIsTheOutput"
+    (input)="saveChanges()" (focus)="focusField('whatIsTheOutput')" rows="3"></textarea>
+<hr class="my-1">
+
+<!--howDoesTheProcessWork-->
+<label>
+    How does the process or manufacturing technology work?
+</label>
+<textarea id="howDoesTheProcessWork" name="howDoesTheProcessWork" class="form-control" [(ngModel)]="howDoesTheProcessWork"
+    (input)="saveChanges()" (focus)="focusField('howDoesTheProcessWork')" rows="3"></textarea>
+<hr class="my-1">
+
+<!--financialStatusOfEquipment-->
+<label>
+    Describe the financial status of the equipment
+</label>
+<textarea id="equipmentFinancialStatus" name="financialStatusOfEquipment" class="form-control"
+    [(ngModel)]="financialStatusOfEquipment" (input)="saveChanges()" (focus)="focusField('financialStatusOfEquipment')"
+    rows="3"></textarea>

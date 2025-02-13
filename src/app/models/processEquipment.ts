@@ -16,6 +16,27 @@ export interface IdbProcessEquipment extends IdbEntry {
     processEquipmentIds: Array<string>
     // equipmentType: EquipmentType,
     // utilityType: UtilityType
+
+
+    //Discovery Questions
+    //takeStock
+    whatIsTheOutput: string,
+    howDoesTheProcessWork: string,
+    financialStatusOfEquipment: string,
+    //operations
+    describeOutputRate: string,
+    describeOutputQualityMeasurement: string,
+    describeMaintenanceNeeds: string,
+    describeLaborRequirements: string,
+    describeRequiredMaterials: string
+    //sustainability
+    describeRefrigerantProcessDustEmissions: string,
+    describeWasteStreams: string,
+    describeWaterInputDischarge: string,
+    describeRegulations: string
+    //employeeEngagement
+    describeSafetyConcerns: string,
+    describeWorkplaceEnvironment: string
 }
 
 export function getNewIdbProcessEquipment(userId: string, companyId: string, facilityId: string): IdbProcessEquipment {
@@ -34,6 +55,20 @@ export function getNewIdbProcessEquipment(userId: string, companyId: string, fac
         // utilityType: undefined,
         energyOpportunityIds: new Array(),
         energyEquipmentIds: new Array(),
-        processEquipmentIds: new Array()
+        processEquipmentIds: new Array(),
+        whatIsTheOutput: '',
+        howDoesTheProcessWork: '',
+        financialStatusOfEquipment: '',
+        describeOutputRate: '',
+        describeOutputQualityMeasurement: '',
+        describeMaintenanceNeeds: '',
+        describeLaborRequirements: '',
+        describeRequiredMaterials: '',
+        describeRefrigerantProcessDustEmissions: '',
+        describeWasteStreams: '',
+        describeWaterInputDischarge: '',
+        describeRegulations: '',
+        describeSafetyConcerns: '',
+        describeWorkplaceEnvironment: ''
     }
 }
