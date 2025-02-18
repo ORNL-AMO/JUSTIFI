@@ -43,6 +43,7 @@ import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { CurrencyPipe } from '@angular/common';
 import { IncludesProcessEquipmentPipe } from './includes-process-equipment.pipe';
 import { IncludesEnergyEquipmentPipe } from './includes-energy-equipment.pipe';
+import { UtilityTrackedPipe } from './utility-tracked.pipe';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { IncludesEnergyEquipmentPipe } from './includes-energy-equipment.pipe';
     AssessmentItemPipe,
     CurrencySymbolPipe,
     IncludesProcessEquipmentPipe,
-    IncludesEnergyEquipmentPipe
+    IncludesEnergyEquipmentPipe,
+    UtilityTrackedPipe,
   ],
   imports: [
     CommonModule
@@ -137,7 +139,8 @@ import { IncludesEnergyEquipmentPipe } from './includes-energy-equipment.pipe';
     AssessmentItemPipe,
     CurrencySymbolPipe,
     IncludesProcessEquipmentPipe,
-    IncludesEnergyEquipmentPipe
+    IncludesEnergyEquipmentPipe,
+    UtilityTrackedPipe,
   ]
 })
 export class HelperPipesModule { }

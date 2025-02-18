@@ -358,19 +358,18 @@
         </ng-container>
     </div>
     <hr />
-    <div class="row">
-        <div class="col-4 bold">
-            <label>
-                Total Energy Use
-            </label>
+    <ng-container *ngIf="'energy' | utilityTracked : facility">
+        <div class="row">
+            <div class="col-4 bold">
+                <label>
+                    Total Energy Use
+                </label>
+            </div>
+            <div class="col-4">
+                {{ facility.energyUse | number: '1.0-2' }}
+                <span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>
+            </div>
         </div>
-        <div class="col-4">
-            {{ facility.energyUse | number: '1.0-2' }}
-            <span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>
-        </div>
-    </div>
-    <ng-container *ngIf="form.controls['includeWasteWater'].value || 
-            form.controls['includeWater'].value">
         <div class="row">
             <div class="col-4 bold">
                 <label>
@@ -381,6 +380,9 @@
                 {{ facility.energyCost | currency:currencyCode:'symbol':'1.0-2' }}
             </div>
         </div>
+    </ng-container>
+    
+    <ng-container *ngIf="'water' | utilityTracked : facility">
         <div class="row">
             <div class="col-4 bold">
                 <label>
