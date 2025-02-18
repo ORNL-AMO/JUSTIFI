@@ -111,36 +111,45 @@ export class UnitsFormComponent implements OnInit, OnDestroy{
   }
 
   calculate() {
-    let use = 0, cost = 0;
+    let energyUse = 0, energyCost = 0, waterCost = 0;
     UtilityOptions.forEach(option => {
       let utilityType = option.utilityType;
       let trimmedType = utilityType.replace(/\s+/g, ''); // Remove spaces
       let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
       if (this.facility.unitSettings[`include${trimmedType}`]) {
-        let convertedUse = 0;
-        let selectedUnitOption = option.energyUnitOptions.find(
-          _unitOption => _unitOption.value == this.facility.unitSettings[`${camelCaseType}Unit`]);
-        if (option.isStandardEnergyUnit && selectedUnitOption.isStandard !== false) {
-          // standard energy unit
-          convertedUse = this.convertValue.convertValue(
-            this.facility.unitSettings[`${camelCaseType}Use`],
-            this.facility.unitSettings[`${camelCaseType}Unit`],
-            this.companyEnergyUnit).convertedValue;
+        if (utilityType === 'Water' || utilityType === 'Waste Water') {
+          // water related cost
+          waterCost += this.facility.unitSettings[`${camelCaseType}Use`] *
+            this.facility.unitSettings[`${camelCaseType}Price`];
         } else {
-          // non-standard energy unit
-          convertedUse = this.convertValue.convertValue(
-            this.facility.unitSettings[`${camelCaseType}Use`] *
-            this.facility.unitSettings[`${camelCaseType}HHV`],
-            this.facility.unitSettings[`${camelCaseType}EnergyUnit`],
-            this.companyEnergyUnit).convertedValue;
+          // energy related use and cost
+          let convertedUse = 0;
+          let selectedUnitOption = option.energyUnitOptions.find(
+            _unitOption => _unitOption.value == this.facility.unitSettings[`${camelCaseType}Unit`]);
+          if (option.isStandardEnergyUnit && selectedUnitOption.isStandard !== false) {
+            // standard energy unit
+            convertedUse = this.convertValue.convertValue(
+              this.facility.unitSettings[`${camelCaseType}Use`],
+              this.facility.unitSettings[`${camelCaseType}Unit`],
+              this.companyEnergyUnit).convertedValue;
+          } else {
+            // non-standard energy unit
+            convertedUse = this.convertValue.convertValue(
+              this.facility.unitSettings[`${camelCaseType}Use`] *
+              this.facility.unitSettings[`${camelCaseType}HHV`],
+              this.facility.unitSettings[`${camelCaseType}EnergyUnit`],
+              this.companyEnergyUnit).convertedValue;
+          }
+          energyUse += convertedUse;
+          energyCost += this.facility.unitSettings[`${camelCaseType}Use`] *
+            this.facility.unitSettings[`${camelCaseType}Price`];
         }
-        use += convertedUse;
-        cost += this.facility.unitSettings[`${camelCaseType}Use`] *
-          this.facility.unitSettings[`${camelCaseType}Price`];
       }
     });
-    this.facility.energyUse = use;
-    this.facility.cost = cost;
+    this.facility.energyUse = energyUse;
+    this.facility.energyCost = energyCost;
+    this.facility.waterCost = waterCost;
+    this.facility.cost = energyCost + waterCost;
   }
 
   focusField(){
