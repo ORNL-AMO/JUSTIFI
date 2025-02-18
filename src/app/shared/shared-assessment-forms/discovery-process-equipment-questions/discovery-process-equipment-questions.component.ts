@@ -15,7 +15,7 @@ faClipboardQuestion: IconDefinition = faClipboardQuestion;
   
   collapseTackStock: boolean = true;
   collapseOperations: boolean = true;
-  collapseSustainability: boolean = false;
+  collapseSustainability: boolean = true;
   collapseEmployeeEngagement: boolean = true;
 
   constructor(

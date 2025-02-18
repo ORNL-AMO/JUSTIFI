@@ -2,7 +2,7 @@
     [ngClass]="{'collapsed': !helpPanelOpen}">
     <div class="w-100 pb-1 d-flex">
         <div class="toggle-collapse d-flex flex-column w-100">
-            <nav class="navbar d-flex">
+            <nav class="navbar pt-0">
                 <a class="click-link" (click)="toggleCollapseHelpPanel()">
                     <fa-icon *ngIf="helpPanelOpen" [icon]="faChevronCircleRight"></fa-icon>
                     <fa-icon *ngIf="!helpPanelOpen" [icon]="faChevronCircleLeft"></fa-icon>
@@ -31,6 +31,8 @@
         </div>
     </div>
     <ng-template [ngIf]="helpPanelOpen">
-        <app-setup-wizard-help-content *ngIf="activePanel == 'help'"></app-setup-wizard-help-content>
+        <app-setup-wizard-help-content class="w-100" *ngIf="activePanel == 'help'"></app-setup-wizard-help-content>
+        <app-side-panel-results class="w-100" *ngIf="activePanel == 'results'"></app-side-panel-results>
+        <app-side-panel-system-diagram class="w-100" *ngIf="activePanel == 'system-diagram'"></app-side-panel-system-diagram>
     </ng-template>
 </div>

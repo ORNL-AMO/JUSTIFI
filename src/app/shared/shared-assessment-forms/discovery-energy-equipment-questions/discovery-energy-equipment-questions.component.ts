@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
-import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { BootstrapService } from '../../shared-services/bootstrap.service';
 import { faClipboardQuestion, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { EnergyEquipmentOperationsHelp, EnergyEquipmentTakeStockHelp } from '../../help-content/energy-equipment-help';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 
 @Component({
@@ -19,7 +15,7 @@ export class DiscoveryEnergyEquipmentQuestionsComponent {
   
   collapseTackStock: boolean = true;
   collapseOperations: boolean = true;
-  collapseSustainability: boolean = false;
+  collapseSustainability: boolean = true;
   collapseEmployeeEngagement: boolean = true;
 
   constructor(

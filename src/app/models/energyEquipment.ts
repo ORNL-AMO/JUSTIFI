@@ -28,6 +28,7 @@ export interface IdbEnergyEquipment extends IdbEntry {
     //linked items
     assessmentIds: Array<string>,
     energyEquipmentIds: Array<string>,
+    energyOpportunityIds: Array<string>,
 
     //questions
     //take stock
@@ -81,6 +82,7 @@ export function getNewIdbEnergyEquipment(userId: string, companyId: string, faci
         facilityUtilityUnit: facilityUtilityUnit,
         annualEnergyUseByUtility: 0,
         assessmentIds: new Array(),
+        energyOpportunityIds: new Array(),
         energyEquipmentIds: new Array(),
         howSupportPlant: '',
         adverseEffects: '',

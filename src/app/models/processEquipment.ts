@@ -36,7 +36,8 @@ export interface IdbProcessEquipment extends IdbEntry {
     describeRegulations: string
     //employeeEngagement
     describeSafetyConcerns: string,
-    describeWorkplaceEnvironment: string
+    describeWorkplaceEnvironment: string,
+    assessmentIds: Array<string>
 }
 
 export function getNewIdbProcessEquipment(userId: string, companyId: string, facilityId: string): IdbProcessEquipment {
@@ -69,6 +70,7 @@ export function getNewIdbProcessEquipment(userId: string, companyId: string, fac
         describeWaterInputDischarge: '',
         describeRegulations: '',
         describeSafetyConcerns: '',
-        describeWorkplaceEnvironment: ''
+        describeWorkplaceEnvironment: '',
+        assessmentIds: new Array()
     }
 }

@@ -21,12 +21,11 @@ export class SetupWizardSidePanelComponent {
   faChevronCircleRight: IconDefinition = faChevronCircleRight;
   faChevronCircleLeft: IconDefinition = faChevronCircleLeft;
 
-  routerSub: Subscription;
   helpPanelOpenSub: Subscription;
   helpPanelOpen: boolean;
 
   activePanel: 'help' | 'system-diagram' | 'results' = 'help';
-  constructor(private router: Router,
+  constructor(
     private setupWizardService: SetupWizardService
   ) {
 
@@ -43,7 +42,6 @@ export class SetupWizardSidePanelComponent {
   }
 
   ngOnDestroy() {
-    this.routerSub.unsubscribe();
     this.helpPanelOpenSub.unsubscribe();
   }
 
@@ -55,4 +53,5 @@ export class SetupWizardSidePanelComponent {
   setActivePanel(str: 'help' | 'system-diagram' | 'results') {
     this.activePanel = str;
   }
+  
 }

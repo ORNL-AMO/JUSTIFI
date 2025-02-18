@@ -28,7 +28,11 @@
 }
 
 .nav-link{
-    padding: .25rem;
+    padding-bottom: .1rem;
+    padding-top: .1rem;
+    padding-right: .2rem;
+    padding-left: .2rem;
+    font-size: 20px;
 }
 .navbar{
     padding-bottom: 0px;

@@ -23,6 +23,9 @@ import { ProcessEquipmentDiscoveryHelpComponent } from './setup-wizard-help-cont
 import { AssessmentDiscoveryHelpComponent } from './setup-wizard-help-content/assessment-discovery-help/assessment-discovery-help.component';
 import { SetupWizardSidePanelComponent } from './setup-wizard-side-panel.component';
 import { SetupWizardHelpContentComponent } from './setup-wizard-help-content/setup-wizard-help-content.component';
+import { SidePanelResultsComponent } from './side-panel-results/side-panel-results.component';
+import { SidePanelSystemDiagramComponent } from './side-panel-system-diagram/side-panel-system-diagram.component';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 
 
 
@@ -49,11 +52,14 @@ declarations: [
     RollupReportHelpComponent,
     EnergyEquipmentDiscoveryHelpComponent,
     ProcessEquipmentDiscoveryHelpComponent,
-    AssessmentDiscoveryHelpComponent
+    AssessmentDiscoveryHelpComponent,
+    SidePanelResultsComponent,
+    SidePanelSystemDiagramComponent
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HelperPipesModule
   ],
   exports: [
     SetupWizardSidePanelComponent
