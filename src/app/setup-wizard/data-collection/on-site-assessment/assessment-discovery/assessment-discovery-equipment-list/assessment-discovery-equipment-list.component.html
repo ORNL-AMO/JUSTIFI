@@ -9,7 +9,15 @@
     </div>
 </h6>
 
-<hr class="my-1">
+<p class="fw-light small">
+    Industrial systems and end use equipment that have been linked using the "<fa-icon [icon]="faLink"></fa-icon>"
+    buttons in the assessment are shown below. 
+    <!-- Additionally, a tree of items that are also associated with the systems
+    and end uses are shown. Click the "<fa-icon [icon]="faClipboardQuestion"></fa-icon> Discovery" links to explore
+    questions that may help you identify NEBs for an associated system or end use. -->
+</p>
+
+<hr>
 <h6>
     Industrial Systems
 </h6>
@@ -18,25 +26,66 @@
 <div class="list-group">
     <div class="list-group-item" *ngFor="let equipment of associatedEnergyEquipments">
         <div class="d-flex w-100 justify-content-between">
-            <div>
+            <div class="large">
                 <fa-icon [icon]="faCube"></fa-icon>
                 {{equipment.equipmentName}}
             </div>
             <div>
-                <button class="btn nav-btn btn-sm" (click)="goToEnergyEquipment(equipment)">
+                <a class="click-link" (click)="goToEnergyEquipment(equipment)">
                     <fa-icon [icon]="faClipboardQuestion"></fa-icon>
-                    Discovery
-                </button>
+                    System Discovery
+                </a>
             </div>
-            <div>
-                <span class="badge text-bg-warning me-1">
-                    {{equipment.equipmentType}}
-                </span>
-                <span class="badge text-bg-dark">
-                    {{equipment.utilityType}}
-                </span>
-            </div>
+        </div>
+        @let associatedEquipments = (equipment.guid | energyEquipmentList:'energyEquipment': energyEquipments);
+        <ng-template [ngIf]="associatedEquipments.length > 0">
+            <div class="d-flex">
+                <div class="associated-item">
 
+                </div>
+                <div class="ps-1" *ngFor="let equipment of associatedEquipments">
+                    <fa-icon [icon]="faCube"></fa-icon>
+                    {{equipment.equipmentName}}
+                </div>
+            </div>
+        </ng-template>
+
+        @let associatedProcessEquipments = (equipment.guid | processEquipmentList:'energyEquipment': processEquipments);
+        <ng-template [ngIf]="associatedProcessEquipments.length > 0">
+            <div class="d-flex" *ngFor="let equipment of associatedProcessEquipments">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1">
+                    <fa-icon [icon]="faSplotch"></fa-icon>
+                    {{equipment.equipmentName}}
+                </div>
+            </div>
+        </ng-template>
+
+        @let linkedContacts = (equipment.guid | associatedContacts:'energyEquipment': contacts);
+        <ng-template [ngIf]="linkedContacts.length > 0">
+            <div class="d-flex" *ngFor="let contact of linkedContacts">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                    {{contact | contactNameDisplay}}
+                </div>
+            </div>
+        </ng-template>
+
+        <div>
+            <hr class="my-1">
+        </div>
+        <div class="d-flex w-100 justify-content-end">
+            <span class="badge text-bg-warning me-1">
+                {{equipment.equipmentType}}
+            </span>
+            <span class="badge text-bg-dark">
+                {{equipment.utilityType}}
+            </span>
         </div>
     </div>
 </div>
@@ -48,15 +97,29 @@
 processEquipmentList:'assessment':processEquipments:energyOpportunities);
 <div class="list-group">
     <div class="list-group-item" *ngFor="let equipment of associatedProcessEquipments">
-        <div>
-            <fa-icon [icon]="faSplotch"></fa-icon>
-            {{equipment.equipmentName}}
+        <div class="d-flex w-100 justify-content-between">
+            <div>
+                <fa-icon [icon]="faSplotch"></fa-icon>
+                {{equipment.equipmentName}}
+            </div>
+            <div>
+                <a class="click-link" (click)="goToProcessEquipment(equipment)">
+                    <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+                    End Use Discovery
+                </a>
+            </div>
         </div>
-        <div>
-            <button class="btn nav-btn btn-sm" (click)="goToProcessEquipment(equipment)">
-                <fa-icon [icon]="faClipboardQuestion"></fa-icon>
-                Discovery
-            </button>
-        </div>
+        @let linkedContacts = (equipment.guid | associatedContacts:'processEquipment': contacts);
+        <ng-template [ngIf]="linkedContacts.length > 0">
+            <div class="d-flex" *ngFor="let contact of linkedContacts">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                    {{contact | contactNameDisplay}}
+                </div>
+            </div>
+        </ng-template>
     </div>
 </div>

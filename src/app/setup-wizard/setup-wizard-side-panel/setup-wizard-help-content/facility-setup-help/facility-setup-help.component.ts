@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SetupWizardService } from '../../setup-wizard.service';
+import { SetupWizardService } from '../../../setup-wizard.service';
 import { faExclamationCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

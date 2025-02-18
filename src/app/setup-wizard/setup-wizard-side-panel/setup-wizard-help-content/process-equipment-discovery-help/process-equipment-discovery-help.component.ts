@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { faClipboardQuestion, faExclamationCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
-import { SetupWizardService } from '../../setup-wizard.service';
+import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { ProcessEquipmentEmployeeEngagementHelp, ProcessEquipmentOperationsHelp, ProcessEquipmentSustainabilityHelp, ProcessEquipmentTakeStockHelp } from 'src/app/shared/help-content/process-equipment-help';
 
 @Component({

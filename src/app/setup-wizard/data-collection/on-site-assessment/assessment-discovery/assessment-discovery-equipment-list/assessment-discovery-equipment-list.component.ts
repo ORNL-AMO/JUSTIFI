@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faClipboardQuestion, faCube, faLink, faPlus, faSplotch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faClipboardQuestion, faCube, faLink, faPlus, faSplotch, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
+import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
+import { IdbContact } from 'src/app/models/contact';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
@@ -27,6 +29,7 @@ export class AssessmentDiscoveryEquipmentListComponent {
   faLink: IconDefinition = faLink;
   faPlus: IconDefinition = faPlus;
   faClipboardQuestion: IconDefinition = faClipboardQuestion;
+  faUser: IconDefinition = faUser;
 
   assessmentSub: Subscription;
   assessment: IdbAssessment;
@@ -39,12 +42,16 @@ export class AssessmentDiscoveryEquipmentListComponent {
 
   energyOpportunities: Array<IdbEnergyOpportunity>;
   energyOpportunitiesSub: Subscription;
+
+  contacts: Array<IdbContact>
+  contactsSub: Subscription;
   constructor(private assessmentIdbService: AssessmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private router: Router,
-    private onSiteVisitIdbService: OnSiteVisitIdbService
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private contactsIdbService: ContactIdbService
   ) { }
 
   ngOnInit() {
@@ -59,6 +66,9 @@ export class AssessmentDiscoveryEquipmentListComponent {
     });
     this.energyOpportunitiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(opportunities => {
       this.energyOpportunities = opportunities;
+    });
+    this.contactsSub = this.contactsIdbService.contacts.subscribe(contacts => {
+      this.contacts = contacts;
     })
   }
 
@@ -67,6 +77,7 @@ export class AssessmentDiscoveryEquipmentListComponent {
     this.energyEquipmentsSub.unsubscribe();
     this.processEquipmentsSub.unsubscribe();
     this.energyOpportunitiesSub.unsubscribe();
+    this.contactsSub.unsubscribe();
   }
 
   addEquipment() {

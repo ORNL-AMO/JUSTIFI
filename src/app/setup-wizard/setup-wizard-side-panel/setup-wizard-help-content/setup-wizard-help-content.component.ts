@@ -1,28 +1,26 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { faCircleQuestion, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Component } from '@angular/core';
 import { HelpContext } from './HelpContext';
 import { Subscription } from 'rxjs';
-import { SetupWizardService } from '../setup-wizard.service';
+import { NavigationEnd, Router } from '@angular/router';
+import { SetupWizardService } from '../../setup-wizard.service';
 
 @Component({
-    selector: 'app-setup-wizard-help-panel',
-    templateUrl: './setup-wizard-help-panel.component.html',
-    styleUrl: './setup-wizard-help-panel.component.css',
-    standalone: false
-})
-export class SetupWizardHelpPanelComponent {
-  @Output('emitToggleCollapse')
-  emitToggleCollapse: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+  selector: 'app-setup-wizard-help-content',
+  standalone: false,
 
-  faCircleQuestion: IconDefinition = faCircleQuestion;
+  templateUrl: './setup-wizard-help-content.component.html',
+  styleUrl: './setup-wizard-help-content.component.css'
+})
+export class SetupWizardHelpContentComponent {
+
 
   helpContext: HelpContext;
   helpLabel: string;
   routerSub: Subscription;
   helpPanelOpenSub: Subscription;
   helpPanelOpen: boolean;
-  
+
+  activePanel: 'help' | 'system-diagram' | 'results' = 'help';
   constructor(private router: Router,
     private setupWizardService: SetupWizardService
   ) {
@@ -45,13 +43,9 @@ export class SetupWizardHelpPanelComponent {
     this.setHelpContext(this.router.url);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.routerSub.unsubscribe();
     this.helpPanelOpenSub.unsubscribe();
-  }
-
-  toggleCollapseHelpPanel() {
-    this.emitToggleCollapse.emit(!this.helpPanelOpen);
   }
 
   setHelpContext(url: string) {
@@ -109,14 +103,14 @@ export class SetupWizardHelpPanelComponent {
     } else if (url.includes('visit-report')) {
       this.helpContext = 'rollup-report';
       this.helpLabel = 'Rollup Report Help';
-    }else if (url.includes('discovery')) {
-      if(url.includes('energy-equipment')){
+    } else if (url.includes('discovery')) {
+      if (url.includes('energy-equipment')) {
         this.helpContext = 'energy-equipment-discovery';
         this.helpLabel = 'Industrial System Inventory Discovery Help';
-      }else if(url.includes('process-equipment')){
+      } else if (url.includes('process-equipment')) {
         this.helpContext = 'process-equipment-discovery';
         this.helpLabel = 'End Uses Discovery Help';
-      }else{
+      } else {
         this.helpContext = 'discovery';
         this.helpLabel = 'Discovery Help';
       }

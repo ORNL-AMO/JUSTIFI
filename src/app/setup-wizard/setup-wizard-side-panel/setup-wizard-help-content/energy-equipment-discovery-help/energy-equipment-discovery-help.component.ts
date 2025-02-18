@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EnergyEquipmentEmployeeEngagementHelp, EnergyEquipmentOperationsHelp, EnergyEquipmentSustainabilityHelp, EnergyEquipmentTakeStockHelp } from 'src/app/shared/help-content/energy-equipment-help';
-import { SetupWizardService } from '../../setup-wizard.service';
+import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { faClipboardQuestion, faExclamationCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

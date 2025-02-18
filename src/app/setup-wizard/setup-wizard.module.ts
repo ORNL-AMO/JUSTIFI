@@ -30,7 +30,6 @@ import { ReportsModule } from '../shared/reports/reports.module';
 import { AssessmentEvaluationComponent } from './data-evaluation/assessment-evaluation/assessment-evaluation.component';
 import { OnSiteAssessmentResultsComponent } from './data-collection/on-site-assessment/on-site-assessment-results/on-site-assessment-results.component';
 import { PrimaryKpiBadgeModule } from "../shared/primary-kpi-badge/primary-kpi-badge.module";
-import { SetupWizardHelpPanelModule } from './setup-wizard-help-panel/setup-wizard-help-panel.module';
 import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-tooltip.module';
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
 import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/shared-assessment-forms.module';
@@ -56,6 +55,9 @@ import { EnergyEquipmentDiscoveryComponent } from './data-collection/on-site-ass
 import { ProcessEquipmentDiscoveryComponent } from './data-collection/on-site-assessment/assessment-discovery/process-equipment-discovery/process-equipment-discovery.component';
 import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protocol-questions/facility-protocol-questions.component';
 import { AssociatedEnergyEquipmentModule } from "../shared/associated-energy-equipment/associated-energy-equipment.module";
+import { SetupWizardSidePanelComponent } from './setup-wizard-side-panel/setup-wizard-side-panel.component';
+import { SetupWizardHelpContentComponent } from './setup-wizard-side-panel/setup-wizard-help-content/setup-wizard-help-content.component';
+import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wizard-side-panel.module';
 
 @NgModule({
   declarations: [
@@ -111,7 +113,7 @@ import { AssociatedEnergyEquipmentModule } from "../shared/associated-energy-equ
     PrimaryKpiBadgeModule,
     ReactiveFormsModule,
     ReportsModule,
-    SetupWizardHelpPanelModule,
+    SetupWizardSidePanelModule,
     LabelWithTooltipModule,
     KpmDetailsFormModule,
     SharedAssessmentFormsModule,
