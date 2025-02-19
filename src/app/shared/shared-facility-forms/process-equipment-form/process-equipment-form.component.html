@@ -23,21 +23,27 @@
         </form>
     </div>
     <div class="col-12">
-        <hr>
+        <hr class="my-1">
     </div>
     <div class="col-12">
-        <div class="d-flex justify-content-between">
-            <div class="col-6">
-                <app-associated-contacts-buttons [companyGuid]="processEquipment.companyId"
-                    [contactContext]="'processEquipment'"
-                    [contextGuid]="processEquipment.guid"></app-associated-contacts-buttons>
-            </div>
-            <div>
-                <button class="btn btn-sm btn-danger" (click)="openDeleteModal()">
-                    <fa-icon [icon]="faTrash"></fa-icon> Delete
-                </button>
-            </div>
-        </div>
+        <app-associated-contacts-buttons [companyGuid]="processEquipment.companyId"
+            [contactContext]="'processEquipment'"
+            [contextGuid]="processEquipment.guid"></app-associated-contacts-buttons>
+    </div>
+    <div class="col-12">
+        <hr class="my-1">
+    </div>
+    <div class="col-12">
+        <app-associated-energy-equipment-buttons [itemContext]="'processEquipment'"
+            [itemGuid]="processEquipment.guid"></app-associated-energy-equipment-buttons>
+    </div>
+    <div class="col-12">
+        <hr class="my-1">
+    </div>
+    <div class="col-12">
+        <button class="btn btn-sm btn-danger float-end" (click)="openDeleteModal()">
+            <fa-icon [icon]="faTrash"></fa-icon> Delete
+        </button>
     </div>
 </div>
 

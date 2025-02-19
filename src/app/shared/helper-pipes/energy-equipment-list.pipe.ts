@@ -24,6 +24,10 @@ export class EnergyEquipmentListPipe implements PipeTransform {
       return allEquipments.filter(equipment => {
         return equipment.energyEquipmentIds.includes(contextGuid);
       });
+    }else if (context == 'processEquipment') {
+      return allEquipments.filter(equipment => {
+        return equipment.processEquipmentIds.includes(contextGuid);
+      });
     }
     return [];
   }

@@ -126,7 +126,7 @@ export class UpdateDbEntriesService {
   async updateEnergyEquipment() {
     let energyEquipments: Array<IdbEnergyEquipment> = await firstValueFrom(this.energyEquipmentIdbService.getAll());
     let missingAssessmentIds: Array<IdbEnergyEquipment> = energyEquipments.filter(equipment => {
-      return equipment.assessmentIds == undefined || equipment.energyEquipmentIds == undefined || equipment.energyOpportunityIds == undefined;
+      return equipment.assessmentIds == undefined || equipment.energyEquipmentIds == undefined || equipment.energyOpportunityIds == undefined || equipment.processEquipmentIds == undefined;
     });
     for (let i = 0; i < missingAssessmentIds.length; i++) {
       if (missingAssessmentIds[i].assessmentIds == undefined) {
@@ -137,6 +137,9 @@ export class UpdateDbEntriesService {
       }
       if (missingAssessmentIds[i].energyOpportunityIds == undefined) {
         missingAssessmentIds[i].energyOpportunityIds = new Array();
+      }
+      if (missingAssessmentIds[i].processEquipmentIds == undefined) {
+        missingAssessmentIds[i].processEquipmentIds = new Array();
       }
       await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(missingAssessmentIds[i]));
     }

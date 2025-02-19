@@ -15,6 +15,9 @@ export class IncludesEnergyEquipmentPipe implements PipeTransform {
     else if (context == 'energyEquipment' && equipment.energyEquipmentIds.includes(guid)) {
       return true;
     }
+    else if (context == 'processEquipment' && equipment.processEquipmentIds.includes(guid)) {
+      return true;
+    }
     return null;
   }
 

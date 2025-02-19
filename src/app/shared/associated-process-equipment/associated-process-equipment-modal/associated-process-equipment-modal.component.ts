@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faChevronLeft, faCircle, faCircleCheck, faLink, faSave, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { firstValueFrom } from 'rxjs';
+import { first, firstValueFrom } from 'rxjs';
+import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
+import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Component({
@@ -31,8 +33,10 @@ export class AssociatedProcessEquipmentModalComponent {
   faCircle: IconDefinition = faCircle;
   faLink: IconDefinition = faLink;
 
+  energyEquipment: IdbEnergyEquipment
   constructor(
-    private processEquipmentIdbService: ProcessEquipmentIdbService
+    private processEquipmentIdbService: ProcessEquipmentIdbService,
+    private energyEquipmentIdbService: EnergyEquipmentIdbService
   ) {
   }
 
@@ -50,6 +54,10 @@ export class AssociatedProcessEquipmentModalComponent {
       })
     }
 
+    if (this.itemContext == 'energyEquipment') {
+      this.energyEquipment = this.energyEquipmentIdbService.getByGuid(this.contextGuid)
+    }
+
     setTimeout(() => {
       this.displayModal = true;
     }, 100)
@@ -63,8 +71,31 @@ export class AssociatedProcessEquipmentModalComponent {
   async saveChanges() {
     for (let i = 0; i < this.processEquipments.length; i++) {
       await firstValueFrom(this.processEquipmentIdbService.updateWithObservable(this.processEquipments[i]));
+      //update associated energy equipment
+      if (this.itemContext == 'energyEquipment') {
+        //equipment linked
+        if (this.processEquipments[i].energyEquipmentIds.includes(this.contextGuid)) {
+          //no link exists add
+          if (!this.energyEquipment.processEquipmentIds.includes(this.processEquipments[i].guid)) {
+            this.energyEquipment.processEquipmentIds.push(this.processEquipments[i].guid);
+          }
+        } else {
+          //equipment link removed
+          if (this.energyEquipment.processEquipmentIds.includes(this.processEquipments[i].guid)) {
+            this.energyEquipment.processEquipmentIds = this.energyEquipment.processEquipmentIds.filter(guid => {
+              return this.processEquipments[i].guid != guid;
+            })
+          }
+        }
+      }
+    }
+    if (this.itemContext == 'energyEquipment') {
+      await this.energyEquipmentIdbService.asyncUpdate(this.energyEquipment);
     }
     await this.processEquipmentIdbService.setProcessEquipments();
+
+
+
     this.closeModal();
   }
 
