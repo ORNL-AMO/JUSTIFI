@@ -54,7 +54,7 @@ import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/
     AssociatedContactsModule,
     AssociatedProcessEquipmentModule,
     AssociatedEnergyEquipmentModule
-  ],
+],
   exports: [
     FacilitySetupFormComponent,
     EnergyEquipmentFormComponent,

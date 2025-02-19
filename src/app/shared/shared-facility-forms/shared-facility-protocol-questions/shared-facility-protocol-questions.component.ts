@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { faMinus, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck, faCirclePlus, faCircleXmark, faMinus, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
-import { FacilityProtocolHelp } from '../../help-content/facility-protocol-help';
+import { AssociatedKPIs, FacilityProtocolHelp } from '../../help-content/facility-protocol-help';
 
 @Component({
   selector: 'app-shared-facility-protocol-questions',
@@ -15,13 +15,15 @@ import { FacilityProtocolHelp } from '../../help-content/facility-protocol-help'
 export class SharedFacilityProtocolQuestionsComponent {
 
   FacilityProtocolHelp = FacilityProtocolHelp;
+  AssociatedKpis = AssociatedKPIs;
 
   faPlus: IconDefinition = faPlus;
   faMinus: IconDefinition = faMinus;
-
+  faCirclePlus: IconDefinition = faCirclePlus;
+  faCircleCheck: IconDefinition = faCircleCheck;
+  faCircleXmark: IconDefinition = faCircleXmark
 
   doesFacilityTrackGHG: string;
-
   equipmentAcquisition: string;
   financialCriteria: string;
   howCostsTracked: string;

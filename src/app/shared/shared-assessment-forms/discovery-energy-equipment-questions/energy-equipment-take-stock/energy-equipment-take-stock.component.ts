@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
-// import { EnergyEquipmentTakeStockHelp } from 'src/app/shared/help-content/energy-equipment-help';
+import { EnergyEquipmentTakeStockHelp } from 'src/app/shared/help-content/energy-equipment-help';
 
 @Component({
   selector: 'app-energy-equipment-take-stock',
@@ -13,7 +13,7 @@ import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
   styleUrl: './energy-equipment-take-stock.component.css'
 })
 export class EnergyEquipmentTakeStockComponent {
-  // EnergyEquipmentTakeStockHelp = EnergyEquipmentTakeStockHelp;
+  EnergyEquipmentTakeStockHelp = EnergyEquipmentTakeStockHelp;
 
   energyEquipmentGuid: string;
 

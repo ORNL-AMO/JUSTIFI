@@ -26,6 +26,7 @@ import { SetupWizardHelpContentComponent } from './setup-wizard-help-content/set
 import { SidePanelResultsComponent } from './side-panel-results/side-panel-results.component';
 import { SidePanelSystemDiagramComponent } from './side-panel-system-diagram/side-panel-system-diagram.component';
 import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
+import { FacilityProtocolQuestionsHelpComponent } from './setup-wizard-help-content/facility-protocol-questions-help/facility-protocol-questions-help.component';
 
 
 
@@ -54,7 +55,8 @@ declarations: [
     ProcessEquipmentDiscoveryHelpComponent,
     AssessmentDiscoveryHelpComponent,
     SidePanelResultsComponent,
-    SidePanelSystemDiagramComponent
+    SidePanelSystemDiagramComponent,
+    FacilityProtocolQuestionsHelpComponent
   ],
   imports: [
     CommonModule,

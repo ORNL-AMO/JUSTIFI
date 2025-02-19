@@ -8,7 +8,8 @@
 <!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlantQs">
                 </p> -->
 <textarea id="howSupportPlant" name="howSupportPlant" class="form-control" [(ngModel)]="howSupportPlant"
-    (input)="saveChanges()" (focus)="focusField('howSupportPlant')" rows="3"></textarea>
+    (input)="saveChanges()" (focus)="focusField('howSupportPlant')" rows="3"
+    [placeholder]="EnergyEquipmentTakeStockHelp.howSupportPlantQs | formatPlaceholderText"></textarea>
 <hr class="my-1">
 <!--adverseEffects-->
 <label>

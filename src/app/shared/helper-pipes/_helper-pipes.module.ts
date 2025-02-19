@@ -42,6 +42,7 @@ import { AssessmentItemPipe } from './assessment-item.pipe';
 import { IncludesProcessEquipmentPipe } from './includes-process-equipment.pipe';
 import { IncludesEnergyEquipmentPipe } from './includes-energy-equipment.pipe';
 import { IncludedInAssessmentPipe } from './included-in-assessment.pipe';
+import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { IncludedInAssessmentPipe } from './included-in-assessment.pipe';
     AssessmentItemPipe,
     IncludesProcessEquipmentPipe,
     IncludesEnergyEquipmentPipe,
-    IncludedInAssessmentPipe
+    IncludedInAssessmentPipe,
+    FormatPlaceholderTextPipe
   ],
   imports: [
     CommonModule
@@ -133,7 +135,8 @@ import { IncludedInAssessmentPipe } from './included-in-assessment.pipe';
     AssessmentItemPipe,
     IncludesProcessEquipmentPipe,
     IncludesEnergyEquipmentPipe,
-    IncludedInAssessmentPipe
+    IncludedInAssessmentPipe,
+    FormatPlaceholderTextPipe
   ]
 })
 export class HelperPipesModule { }

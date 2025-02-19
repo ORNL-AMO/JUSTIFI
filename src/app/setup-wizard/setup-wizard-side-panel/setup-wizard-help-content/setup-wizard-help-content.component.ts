@@ -114,6 +114,9 @@ export class SetupWizardHelpContentComponent {
         this.helpContext = 'discovery';
         this.helpLabel = 'Discovery Help';
       }
+    } else if(url.includes('facility-questions')){
+      this.helpContext = 'facility-questions';
+      this.helpLabel = 'Facility Questions Help';
     }
     else {
       this.helpContext = undefined;

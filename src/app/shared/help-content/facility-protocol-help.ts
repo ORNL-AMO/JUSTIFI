@@ -1,3 +1,5 @@
+import { KeyPerformanceIndicatorValue } from "../constants/keyPerformanceIndicatorOptions"
+
 export const FacilityProtocolHelp = {
     sectionHelp: `The questions in this section aim
             to help you understand how the facility might react to the suggestion of large expenditures, how projects
@@ -37,4 +39,8 @@ export const FacilityProtocolHelp = {
             site have an energy / sustainability project budget? Does the company have an energy / sustainability
             project budget? Have they ever used Energy as a Service (EaaS), PACE loans, or other external avenues?`
 
+}
+
+export const AssociatedKPIs = {
+        doesFacilityTrackGHG: ['chemicalEmissions'] as Array<KeyPerformanceIndicatorValue>
 }
