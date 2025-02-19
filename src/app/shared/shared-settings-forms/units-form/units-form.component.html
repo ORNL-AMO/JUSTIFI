@@ -358,7 +358,7 @@
         </ng-container>
     </div>
     <hr />
-    <ng-container *ngIf="'energy' | utilityTracked : facility">
+    <ng-container *ngIf="'energy' | utilityTrackedFacility : facility.unitSettings">
         <div class="row">
             <div class="col-4 bold">
                 <label>
@@ -382,7 +382,7 @@
         </div>
     </ng-container>
     
-    <ng-container *ngIf="'water' | utilityTracked : facility">
+    <ng-container *ngIf="'water' | utilityTrackedFacility : facility.unitSettings">
         <div class="row">
             <div class="col-4 bold">
                 <label>

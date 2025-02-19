@@ -15,6 +15,8 @@ export interface IdbAssessment extends IdbEntry {
     utilityEnergyUses: Array<UtilityEnergyUse>, // track all utility energy uses
     equipmentId: string,
     energyUse: number,
+    energyCost: number,
+    waterCost: number,
     cost: number,
     energySavings: number,
     costSavings: number,
@@ -42,6 +44,8 @@ export function getNewIdbAssessment(userId: string, companyId: string, facilityI
         utilityEnergyUses: getDefaultUtilityEnergyUses(facilityUnitSettings),
         equipmentId: undefined,
         energyUse: 0,
+        energyCost: 0,
+        waterCost: 0,
         cost: 0,
         energySavings: 0,
         costSavings: 0,

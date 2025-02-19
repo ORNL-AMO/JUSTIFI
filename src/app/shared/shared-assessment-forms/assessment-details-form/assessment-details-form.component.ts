@@ -62,6 +62,7 @@ export class AssessmentDetailsFormComponent {
   assessmentEnergyOpportunities: Array<IdbEnergyOpportunity>;
   numberOfTrackedUtilities: number = 0;
   trackedEnergyUnit: string;
+  trackedWaterUnit: string = 'gal';
 
   currencyCode: string;
   currencySub: Subscription;
@@ -123,7 +124,7 @@ export class AssessmentDetailsFormComponent {
     let utilityTypes = AssessmentOptions.find(
       _assessmentOption => _assessmentOption.assessmentType == this.assessment.assessmentType)?.utilityTypes || [];
     this.assessment.utilityTypes = utilityTypes; // track all utility types
-    await this.calculateEnergyUseCost();
+    await this.calculateUtilityUseCost();
   }
 
   updateEnergyOpportunities() {
@@ -133,48 +134,73 @@ export class AssessmentDetailsFormComponent {
       this.assessmentEnergyOpportunities, this.assessment.utilityEnergyUses);
   }
 
-  async calculateEnergyUseCost() {
+  async calculateUtilityUseCost() {
     this.updateEnergyOpportunities();
     this.numberOfTrackedUtilities = this.assessment.utilityEnergyUses.filter(
-      _energyUse => _energyUse.include).length;
-    let use = 0, cost = 0;
+      _energyUse => 
+        _energyUse.include && 
+        _energyUse.utilityType !== 'Water' 
+        && _energyUse.utilityType !== 'Waste Water')
+      .length;
+    let energyUse = 0, energyCost = 0, waterCost = 0;
     this.assessment.utilityTypes.forEach(utilityType => {
       let utilityEnergyUse: UtilityEnergyUse = this.assessment.utilityEnergyUses.find(
         _energyUse => _energyUse.utilityType == utilityType);
       if (utilityEnergyUse.include) {
         let trimmedType = utilityType.replace(/\s+/g, ''); // Remove spaces
         let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
-        let convertedUse = 0, convertedCost = 0;
-        let selectedUtilityOption = UtilityOptions.find(
-          _option => _option.utilityType == utilityType);
-        let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
-          _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
-        // calculate use
-        if (selectedUtilityOption.isStandardEnergyUnit
-          && selectedUnitOption?.isStandard !== false) {
+        if (utilityType == 'Water' || utilityType == 'Waste Water') {
+          // determine tracked water unit (always use water if water is tracked)
+          this.trackedWaterUnit = utilityEnergyUse.energyUnit;
+          if (utilityType == 'Waste Water') {
+            let waterEnergyUse = this.assessment.utilityEnergyUses.find(
+              _energyUse => _energyUse.utilityType == 'Water');
+            if (waterEnergyUse.include) {
+              this.trackedWaterUnit = waterEnergyUse.energyUnit;
+            }
+          }
+          // calculate cost
+          let convertedUse = 0;
           convertedUse = this.convertValue.convertValue(
             utilityEnergyUse.energyUse,
             utilityEnergyUse.energyUnit,
-            this.companyEnergyUnit).convertedValue;
-          this.trackedEnergyUnit = utilityEnergyUse.energyUnit;
+            this.facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
+          waterCost += convertedUse * this.facilityUnitSettings[`${camelCaseType}Price`];
         } else {
-          convertedUse = this.convertValue.convertValue(
-            utilityEnergyUse.energyUse * utilityEnergyUse.energyHHV,
-            utilityEnergyUse.energyUnitStandard,
-            this.companyEnergyUnit).convertedValue;
-          this.trackedEnergyUnit = utilityEnergyUse.energyUnitStandard;
+          let convertedUse = 0, convertedCost = 0;
+          let selectedUtilityOption = UtilityOptions.find(
+            _option => _option.utilityType == utilityType);
+          let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
+            _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
+          // calculate use
+          if (selectedUtilityOption.isStandardEnergyUnit
+            && selectedUnitOption?.isStandard !== false) {
+            convertedUse = this.convertValue.convertValue(
+              utilityEnergyUse.energyUse,
+              utilityEnergyUse.energyUnit,
+              this.companyEnergyUnit).convertedValue;
+            this.trackedEnergyUnit = utilityEnergyUse.energyUnit;
+          } else {
+            convertedUse = this.convertValue.convertValue(
+              utilityEnergyUse.energyUse * utilityEnergyUse.energyHHV,
+              utilityEnergyUse.energyUnitStandard,
+              this.companyEnergyUnit).convertedValue;
+            this.trackedEnergyUnit = utilityEnergyUse.energyUnitStandard;
+          }
+          energyUse += convertedUse;
+          // calculate cost
+          convertedCost = this.convertValue.convertValue(
+            utilityEnergyUse.energyUse,
+            utilityEnergyUse.energyUnit,
+            this.facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
+          energyCost += convertedCost * this.facilityUnitSettings[`${camelCaseType}Price`];
         }
-        use += convertedUse;
-        // calculate cost
-        convertedCost = this.convertValue.convertValue(
-          utilityEnergyUse.energyUse,
-          utilityEnergyUse.energyUnit,
-          this.facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
-        cost += convertedCost * this.facilityUnitSettings[`${camelCaseType}Price`];
       }
     });
-    this.assessment.energyUse = use;
-    this.assessment.cost = cost;
+    this.assessment.energyUse = energyUse;
+    this.assessment.energyCost = energyCost;
+    this.assessment.waterCost = waterCost;
+    this.assessment.cost = energyCost + waterCost;
     await this.saveChanges();
   }
 

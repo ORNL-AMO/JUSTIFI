@@ -1,27 +1,27 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IdbFacility } from 'src/app/models/facility';
 import { UtilityOptions } from '../constants/utilityTypes';
+import { UnitSettings } from 'src/app/models/unitSettings';
 
 @Pipe({
-  name: 'utilityTracked',
+  name: 'utilityTrackedFacility',
   standalone: false,
 })
-export class UtilityTrackedPipe implements PipeTransform {
+export class UtilityTrackedFacilityPipe implements PipeTransform {
 
-  transform(utilityCategory: string, facility: IdbFacility): boolean {
+  transform(utilityCategory: string, unitSettings: UnitSettings): boolean {
     if (utilityCategory === 'energy') {
       for (const option of UtilityOptions) {
         let utilityType = option.utilityType;
         if (utilityType !== 'Water' && utilityType !== 'Waste Water') {
           let trimmedType = utilityType.replace(/\s+/g, '');
-          if (facility.unitSettings[`include${trimmedType}`]) {
+          if (unitSettings[`include${trimmedType}`]) {
             return true;
           }
         }
       }
     } else if (utilityCategory === 'water') {
-      if (facility.unitSettings[`includeWater`] ||
-        facility.unitSettings[`includeWasteWater`]
+      if (unitSettings[`includeWater`] ||
+        unitSettings[`includeWasteWater`]
       ) {
         return true;
       }
