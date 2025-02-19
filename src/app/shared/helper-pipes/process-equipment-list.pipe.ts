@@ -22,22 +22,27 @@ export class ProcessEquipmentListPipe implements PipeTransform {
         return equipment.energyOpportunityIds.includes(contextGuid);
       });
     } else if (context == 'assessment') {
-      let assessmentEnergyOpps: Array<IdbEnergyOpportunity> = energyOpportunities.filter(opportunity => {
-        return opportunity.assessmentId == contextGuid;
-      });
-      let assessmentEnergyOpIds: Array<string> = assessmentEnergyOpps.map(opp => {
-        return opp.guid
-      });
-      let filteredEquipment: Array<IdbProcessEquipment> = new Array();
-      assessmentEnergyOpIds.forEach(oppId => {
-        let tmpFilteredEquipment: Array<IdbProcessEquipment> = allEquipments.filter(equipment => {
-          return equipment.energyOpportunityIds.includes(oppId);
+      let filteredEquipment: Array<IdbProcessEquipment> = allEquipments.filter(equipment => {
+        return equipment.assessmentIds.includes(contextGuid);
+      })
+      if (energyOpportunities) {
+        let assessmentEnergyOpps: Array<IdbEnergyOpportunity> = energyOpportunities.filter(opportunity => {
+          return opportunity.assessmentId == contextGuid;
         });
-        filteredEquipment = filteredEquipment.concat(tmpFilteredEquipment);
-      });
-      return _.uniqBy(filteredEquipment, (equipment: IdbProcessEquipment) => {
-        return equipment.guid
-      });
+        let assessmentEnergyOpIds: Array<string> = assessmentEnergyOpps.map(opp => {
+          return opp.guid
+        });
+        assessmentEnergyOpIds.forEach(oppId => {
+          let tmpFilteredEquipment: Array<IdbProcessEquipment> = allEquipments.filter(equipment => {
+            return equipment.energyOpportunityIds.includes(oppId);
+          });
+          filteredEquipment = filteredEquipment.concat(tmpFilteredEquipment);
+        });
+        return _.uniqBy(filteredEquipment, (equipment: IdbProcessEquipment) => {
+          return equipment.guid
+        });
+      }
+      return filteredEquipment;
     } else if (context == 'energyEquipment') {
       return allEquipments.filter(equipment => {
         return equipment.energyEquipmentIds.includes(contextGuid);

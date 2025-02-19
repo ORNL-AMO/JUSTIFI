@@ -9,10 +9,12 @@ import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 export class IncludesProcessEquipmentPipe implements PipeTransform {
 
 
-  transform(guid: string, context: 'energyOpportunity' | 'energyEquipment' | 'processEquipment', equipment: IdbProcessEquipment): boolean {
+  transform(guid: string, context: 'energyOpportunity' | 'energyEquipment' | 'processEquipment' | 'assessment', equipment: IdbProcessEquipment): boolean {
     if (context == 'energyOpportunity' && equipment.energyOpportunityIds.includes(guid)) {
       return true;
     } else if (context == 'energyEquipment' && equipment.energyEquipmentIds.includes(guid)) {
+      return true;
+    } else if (context == 'assessment' && equipment.assessmentIds.includes(guid)) {
       return true;
     }
     return null;

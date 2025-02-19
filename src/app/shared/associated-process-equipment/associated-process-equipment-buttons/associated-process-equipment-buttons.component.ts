@@ -17,7 +17,7 @@ export class AssociatedProcessEquipmentButtonsComponent {
   @Input({ required: true })
   itemGuid: string;
   @Input({ required: true })
-  itemContext: 'energyOpportunity' | 'energyEquipment';
+  itemContext: 'energyOpportunity' | 'energyEquipment' | 'assessment';
 
   faLink: IconDefinition = faLink;
   faSplotch: IconDefinition = faSplotch;

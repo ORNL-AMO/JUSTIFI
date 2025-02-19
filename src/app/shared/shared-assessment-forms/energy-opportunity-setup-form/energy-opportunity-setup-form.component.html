@@ -117,6 +117,10 @@
                 id="opportunityNotes" (focus)="focusField('name')"></textarea>
         </div>
     </div>
+    <hr class="my-1">
+    <app-associated-energy-equipment-buttons [itemGuid]="energyOpportunity.guid"
+        [itemContext]="'energyOpportunity'"></app-associated-energy-equipment-buttons>
+    <hr class="my-1">
     <app-associated-process-equipment-buttons [itemGuid]="energyOpportunity.guid"
         [itemContext]="'energyOpportunity'"></app-associated-process-equipment-buttons>
 </form>

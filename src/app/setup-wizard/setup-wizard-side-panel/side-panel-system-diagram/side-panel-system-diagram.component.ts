@@ -30,7 +30,7 @@ export class SidePanelSystemDiagramComponent {
   faPlus: IconDefinition = faPlus;
   faClipboardQuestion: IconDefinition = faClipboardQuestion;
   faUser: IconDefinition = faUser;
-  faAsterisk: IconDefinition = faAsterisk;
+  faAsterisk: IconDefinition = faLink;
 
   assessmentSub: Subscription;
   assessment: IdbAssessment;

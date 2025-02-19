@@ -17,7 +17,7 @@ export class AssociatedProcessEquipmentModalComponent {
   @Input({ required: true })
   contextGuid: string;
   @Input({ required: true })
-  itemContext: 'energyOpportunity' | 'energyEquipment' | 'processEquipment';
+  itemContext: 'energyOpportunity' | 'energyEquipment' | 'processEquipment' | 'assessment';
   @Input({ required: true })
   selectedEquipment: IdbProcessEquipment;
   @Output('emitCancel')
@@ -119,6 +119,14 @@ export class AssociatedProcessEquipmentModalComponent {
         });
       } else {
         this.processEquipments[equipmentIndex].energyEquipmentIds.push(this.contextGuid);
+      }
+    } else if (this.itemContext == 'assessment') {
+      if (this.processEquipments[equipmentIndex].assessmentIds.includes(this.contextGuid)) {
+        this.processEquipments[equipmentIndex].assessmentIds = this.processEquipments[equipmentIndex].assessmentIds.filter(id => {
+          return id != this.contextGuid;
+        });
+      } else {
+        this.processEquipments[equipmentIndex].assessmentIds.push(this.contextGuid);
       }
     }
   }

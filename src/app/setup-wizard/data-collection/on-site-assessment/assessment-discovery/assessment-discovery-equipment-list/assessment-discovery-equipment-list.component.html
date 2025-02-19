@@ -22,7 +22,7 @@
     Industrial Systems
 </h6>
 
-@let associatedEnergyEquipments = (assessment.guid | energyEquipmentList:'assessment': energyEquipments);
+@let associatedEnergyEquipments = (assessment.guid | energyEquipmentList:'assessment': energyEquipments: energyOpportunities);
 <div class="list-group">
     <div class="list-group-item" *ngFor="let equipment of associatedEnergyEquipments">
         <div class="d-flex w-100 justify-content-between">
