@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { faAsterisk, faClipboardQuestion, faCube, faLink, faPlus, faSplotch, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faAsterisk, faClipboardQuestion, faCube, faFileLines, faLink, faPlus, faScrewdriverWrench, faSplotch, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -31,9 +31,14 @@ export class SidePanelSystemDiagramComponent {
   faClipboardQuestion: IconDefinition = faClipboardQuestion;
   faUser: IconDefinition = faUser;
   faAsterisk: IconDefinition = faLink;
+  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
+  faFileLines: IconDefinition = faFileLines;
 
   assessmentSub: Subscription;
   assessment: IdbAssessment;
+
+  assessments: Array<IdbAssessment>;
+  assessmentsSub: Subscription;
 
   energyEquipments: Array<IdbEnergyEquipment>;
   energyEquipmentsSub: Subscription;
@@ -79,6 +84,9 @@ export class SidePanelSystemDiagramComponent {
     });
     this.contactsSub = this.contactsIdbService.contacts.subscribe(contacts => {
       this.contacts = contacts;
+    });
+    this.assessmentsSub = this.assessmentIdbService.assessments.subscribe(assessments => {
+      this.assessments = assessments;
     })
 
     this.routerSub = this.router.events.subscribe(event => {
@@ -97,9 +105,10 @@ export class SidePanelSystemDiagramComponent {
     this.contactsSub.unsubscribe();
     this.facilitySub.unsubscribe();
     this.routerSub.unsubscribe();
+    this.assessmentsSub.unsubscribe();
   }
 
-  setInAssessment(){
+  setInAssessment() {
     this.inAssessment = this.router.url.includes('/assessment/');
   }
 

@@ -1,0 +1,61 @@
+<div class="list-group">
+    <div class="list-group-item assessment-label item-label">
+        Assessments
+    </div>
+    <div class="list-group-item" *ngFor="let assessmentId of onSiteVisit.assessmentIds">
+        @let assessment = (assessmentId | assessmentItem: assessments);
+        <div class="item-label">
+            <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+            {{assessment.name}}
+            <!-- <ng-template
+                [ngIf]="inAssessment && (equipment | includedInAssessment: assessment.guid: energyOpportunities)">
+                <fa-icon [icon]="faAsterisk"></fa-icon>
+            </ng-template> -->
+        </div>
+        @let nebs = (assessment.guid | nebList: 'assessment': nonEnergyBenefits:true);
+        <ng-template [ngIf]="nebs.length">
+            <ng-container *ngFor="let neb of nebs">
+                <div class="d-flex">
+                    <div class="associated-item">
+
+                    </div>
+                    <div class="ps-1 item-label">
+                        <fa-icon [icon]="faWeightHanging"></fa-icon>
+                        {{neb.name}}
+                    </div>
+                </div>
+            </ng-container>
+        </ng-template>
+        @let energyOppList = (assessmentId | energyOpportunityList: energyOpportunities: 'assessment' );
+        <ng-template [ngIf]="energyOppList.length">
+            <ng-container *ngFor="let energyOpp of energyOppList">
+                <div class="d-flex">
+                    <div class="associated-item">
+
+                    </div>
+                    <div class="ps-1 item-label">
+                        <fa-icon [icon]="faFileLines"></fa-icon>
+                        {{energyOpp.name}}
+                    </div>
+                </div>
+                @let nebs = (energyOpp.guid | nebList: 'energyOpportunity': nonEnergyBenefits);
+                <ng-template [ngIf]="nebs.length">
+                    <ng-container *ngFor="let neb of nebs">
+                        <div class="d-flex ms-4">
+                            <div class="associated-item">
+
+                            </div>
+                            <div class="ps-1 item-label">
+                                <fa-icon [icon]="faWeightHanging"></fa-icon>
+                                {{neb.name}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-template>
+            </ng-container>
+        </ng-template>
+
+
+
+    </div>
+</div>

@@ -21,6 +21,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" (click)="setActivePanel('nebs')"
+                            [ngClass]="{'active': activePanel == 'nebs'}">
+                            <fa-icon [icon]="faWeightHanging"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" (click)="setActivePanel('results')"
                             [ngClass]="{'active': activePanel == 'results'}">
                             <fa-icon [icon]="faChartPie"></fa-icon>
@@ -34,5 +40,6 @@
         <app-setup-wizard-help-content class="w-100" *ngIf="activePanel == 'help'"></app-setup-wizard-help-content>
         <app-side-panel-results class="w-100" *ngIf="activePanel == 'results'"></app-side-panel-results>
         <app-side-panel-system-diagram class="w-100" *ngIf="activePanel == 'system-diagram'"></app-side-panel-system-diagram>
+        <app-side-panel-nebs-diagram class="w-100" *ngIf="activePanel == 'nebs'"></app-side-panel-nebs-diagram>
     </ng-template>
 </div>

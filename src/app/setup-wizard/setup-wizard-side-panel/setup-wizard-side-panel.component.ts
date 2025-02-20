@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { faChartPie, faChevronCircleLeft, faChevronCircleRight, faChevronLeft, faChevronRight, faCircleQuestion, faDiagramProject, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChartPie, faChevronCircleLeft, faChevronCircleRight, faChevronLeft, faChevronRight, faCircleQuestion, faDiagramProject, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { SetupWizardService } from '../setup-wizard.service';
 
@@ -20,11 +20,12 @@ export class SetupWizardSidePanelComponent {
   faDiagramProject: IconDefinition = faDiagramProject
   faChevronCircleRight: IconDefinition = faChevronCircleRight;
   faChevronCircleLeft: IconDefinition = faChevronCircleLeft;
+  faWeightHanging: IconDefinition = faWeightHanging;
 
   helpPanelOpenSub: Subscription;
   helpPanelOpen: boolean;
 
-  activePanel: 'help' | 'system-diagram' | 'results' = 'help';
+  activePanel: 'help' | 'system-diagram' | 'results' | 'nebs' = 'help';
   constructor(
     private setupWizardService: SetupWizardService
   ) {
@@ -50,7 +51,7 @@ export class SetupWizardSidePanelComponent {
   }
 
 
-  setActivePanel(str: 'help' | 'system-diagram' | 'results') {
+  setActivePanel(str: 'help' | 'system-diagram' | 'results' | 'nebs') {
     this.activePanel = str;
   }
   

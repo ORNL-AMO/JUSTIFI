@@ -20,28 +20,26 @@
                 </a>
             </div> -->
         </div>
-        @let associatedEquipments = (equipment.guid | energyEquipmentList:'energyEquipment': energyEquipments);
-        <ng-template [ngIf]="associatedEquipments.length > 0">
-            <div class="d-flex" *ngFor="let associatedEquipment of associatedEquipments">
+        <ng-template [ngIf]="equipment.energyEquipmentIds">
+            <div class="d-flex" *ngFor="let equipmentGuid of equipment.energyEquipmentIds">
                 <div class="associated-item">
 
                 </div>
                 <div class="ps-1 item-label">
                     <fa-icon [icon]="faCube"></fa-icon>
-                    {{associatedEquipment.equipmentName}}
+                    {{equipmentGuid | energyEquipmentDisplay: energyEquipments}}
                 </div>
             </div>
         </ng-template>
 
-        @let associatedProcessEquipments = (equipment.guid | processEquipmentList:'energyEquipment': processEquipments);
-        <ng-template [ngIf]="associatedProcessEquipments.length > 0">
-            <div class="d-flex" *ngFor="let associatedEquipment of associatedProcessEquipments">
+        <ng-template [ngIf]="equipment.processEquipmentIds">
+            <div class="d-flex" *ngFor="let processEquipmentId of equipment.processEquipmentIds">
                 <div class="associated-item">
 
                 </div>
                 <div class="ps-1 item-label">
                     <fa-icon [icon]="faSplotch"></fa-icon>
-                    {{associatedEquipment.equipmentName}}
+                    {{processEquipmentId | processEquipmentDisplay: processEquipments}}
                 </div>
             </div>
         </ng-template>
@@ -55,6 +53,17 @@
                 <div class="ps-1 item-label">
                     <fa-icon [icon]="faUser"></fa-icon>
                     {{contact | contactNameDisplay}}
+                </div>
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="equipment.assessmentIds">
+            <div class="d-flex" *ngFor="let assessmentId of equipment.assessmentIds">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1 item-label">
+                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                    {{assessmentId | assessmentNameDisplay: assessments}}
                 </div>
             </div>
         </ng-template>
@@ -105,6 +114,28 @@ processEquipmentList:'facility':processEquipments:energyOpportunities);
                 <div class="ps-1 item-label">
                     <fa-icon [icon]="faUser"></fa-icon>
                     {{contact | contactNameDisplay}}
+                </div>
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="equipment.assessmentIds">
+            <div class="d-flex" *ngFor="let assessmentId of equipment.assessmentIds">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1 item-label">
+                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                    {{assessmentId | assessmentNameDisplay: assessments}}
+                </div>
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="equipment.energyOpportunityIds">
+            <div class="d-flex" *ngFor="let opportunityId of equipment.energyOpportunityIds">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1 item-label">
+                    <fa-icon [icon]="faFileLines"></fa-icon>
+                    {{opportunityId | energyOpportunityDisplay: energyOpportunities}}
                 </div>
             </div>
         </ng-template>
