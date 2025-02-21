@@ -16,6 +16,7 @@ import { UtilityOption, UtilityOptions, UtilityType, UtilityTypes } from 'src/ap
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
+import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 
 @Component({
     selector: 'app-energy-equipment-form',
@@ -66,7 +67,8 @@ export class EnergyEquipmentFormComponent {
     private activatedRoute: ActivatedRoute,
     private sharedDataService: SharedDataService,
     private toastNotificationService: ToastNotificationsService,
-    private router: Router
+    private router: Router,
+    private setupWizardService: SetupWizardService
   ) { }
 
   ngOnInit() {
@@ -93,6 +95,7 @@ export class EnergyEquipmentFormComponent {
   }
 
   ngOnDestroy() {
+    this.focusField(undefined);
     this.contactSub.unsubscribe();
     this.companySub.unsubscribe();
     this.facilitySub.unsubscribe();
@@ -206,5 +209,9 @@ export class EnergyEquipmentFormComponent {
       this.router.navigateByUrl('/portfolio/facility/' + this.energyEquipment.facilityId + '/system-inventory');
     }
     this.closeDeleteModal();
+  }
+
+  focusField(str: string){
+    this.setupWizardService.focusedHelp.next(str);
   }
 }

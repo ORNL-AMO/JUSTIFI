@@ -1,6 +1,6 @@
-<!-- <p class="fw-light small mb-0" [innerHTML]="EnergyEquipmentTakeStockHelp.sectionHelp">
-                </p>
-                <hr class="my-1"> -->
+<p class="fw-light small mb-0" [innerHTML]="EnergyEquipmentTakeStockHelp.sectionHelp">
+</p>
+<hr class="my-2">
 <!--howSupportPlant-->
 <label>
     How does this system support the plant?
@@ -8,8 +8,7 @@
 <!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlantQs">
                 </p> -->
 <textarea id="howSupportPlant" name="howSupportPlant" class="form-control" [(ngModel)]="howSupportPlant"
-    (input)="saveChanges()" (focus)="focusField('howSupportPlant')" rows="3"
-    [placeholder]="EnergyEquipmentTakeStockHelp.howSupportPlantQs | formatPlaceholderText"></textarea>
+    (input)="saveChanges()" (focus)="focusField('howSupportPlant')" rows="3"></textarea>
 <hr class="my-1">
 <!--adverseEffects-->
 <label>
