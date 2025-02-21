@@ -21,16 +21,6 @@ import { LabelWithTooltipModule } from "../label-with-tooltip/label-with-tooltip
 import { AssociatedProcessEquipmentModule } from '../associated-process-equipment/associated-process-equipment.module';
 import { AssociatedContactsModule } from "../associated-contacts/associated-contacts.module";
 import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/associated-energy-equipment.module';
-import { DiscoveryEnergyEquipmentQuestionsComponent } from './discovery-energy-equipment-questions/discovery-energy-equipment-questions.component';
-import { DiscoveryProcessEquipmentQuestionsComponent } from './discovery-process-equipment-questions/discovery-process-equipment-questions.component';
-import { EnergyEquipmentTakeStockComponent } from './discovery-energy-equipment-questions/energy-equipment-take-stock/energy-equipment-take-stock.component';
-import { EnergyEquipmentOperationsComponent } from './discovery-energy-equipment-questions/energy-equipment-operations/energy-equipment-operations.component';
-import { EnergyEquipmentSustainabilityComponent } from './discovery-energy-equipment-questions/energy-equipment-sustainability/energy-equipment-sustainability.component';
-import { EnergyEquipmentEmployeeEngagementComponent } from './discovery-energy-equipment-questions/energy-equipment-employee-engagement/energy-equipment-employee-engagement.component';
-import { ProcessEquipmentTakeStockComponent } from './discovery-process-equipment-questions/process-equipment-take-stock/process-equipment-take-stock.component';
-import { ProcessEquipmentOperationsComponent } from './discovery-process-equipment-questions/process-equipment-operations/process-equipment-operations.component';
-import { ProcessEquipmentEmployeeEngagementComponent } from './discovery-process-equipment-questions/process-equipment-employee-engagement/process-equipment-employee-engagement.component';
-import { ProcessEquipmentSustainablityComponent } from './discovery-process-equipment-questions/process-equipment-sustainablity/process-equipment-sustainablity.component';
 
 
 @NgModule({
@@ -45,16 +35,6 @@ import { ProcessEquipmentSustainablityComponent } from './discovery-process-equi
     AddNebsModalComponent,
     EnergyOpportunitySetupFormComponent,
     EnergyOpportunityNebsTableComponent,
-    DiscoveryEnergyEquipmentQuestionsComponent,
-    DiscoveryProcessEquipmentQuestionsComponent,
-    EnergyEquipmentTakeStockComponent,
-    EnergyEquipmentOperationsComponent,
-    EnergyEquipmentSustainabilityComponent,
-    EnergyEquipmentEmployeeEngagementComponent,
-    ProcessEquipmentTakeStockComponent,
-    ProcessEquipmentOperationsComponent,
-    ProcessEquipmentEmployeeEngagementComponent,
-    ProcessEquipmentSustainablityComponent
   ],
   imports: [
     CommonModule,
@@ -76,9 +56,7 @@ import { ProcessEquipmentSustainablityComponent } from './discovery-process-equi
     NebFormsAccordionComponent,
     AddNebsModalComponent,
     EnergyOpportunitySetupFormComponent,
-    EnergyOpportunityNebsTableComponent,
-    DiscoveryEnergyEquipmentQuestionsComponent,
-    DiscoveryProcessEquipmentQuestionsComponent
+    EnergyOpportunityNebsTableComponent
   ]
 })
 export class SharedAssessmentFormsModule { }
