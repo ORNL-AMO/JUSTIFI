@@ -27,9 +27,6 @@ import { ManageProcessEquipmentComponent } from "../setup-wizard/pre-visit/facil
 import { FacilityProcessEquipmentFormComponent } from "../setup-wizard/pre-visit/facility-process-equipment/facility-process-equipment-form/facility-process-equipment-form.component";
 import { PreAssessmentFormComponent } from "../setup-wizard/pre-visit/pre-assessments/pre-assessment-form/pre-assessment-form.component";
 import { ManagePreAssessmentsComponent } from "../setup-wizard/pre-visit/pre-assessments/manage-pre-assessments/manage-pre-assessments.component";
-import { AssessmentDiscoveryEquipmentListComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-discovery/assessment-discovery-equipment-list/assessment-discovery-equipment-list.component";
-import { ProcessEquipmentDiscoveryComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-discovery/process-equipment-discovery/process-equipment-discovery.component";
-import { EnergyEquipmentDiscoveryComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-discovery/energy-equipment-discovery/energy-equipment-discovery.component";
 import { FacilityProtocolQuestionsComponent } from "../setup-wizard/pre-visit/facility-protocol-questions/facility-protocol-questions.component";
 
 
@@ -139,24 +136,6 @@ export const SetupWizardRoutes: Route = {
                         {
                             path: 'nebs',
                             component: AssessmentNebsFormComponent
-                        },
-                        {
-                            path: 'discovery',
-                            children: [
-                                {
-                                    path: '',
-                                    component: AssessmentDiscoveryEquipmentListComponent
-                                },
-                                {
-                                    path: 'process-equipment/:id',
-                                    component: ProcessEquipmentDiscoveryComponent
-                                },
-                                {
-                                    path: 'energy-equipment/:id',
-                                    component: EnergyEquipmentDiscoveryComponent
-                                },
-                            ]
-                            
                         },
                         {
                             path: 'results',

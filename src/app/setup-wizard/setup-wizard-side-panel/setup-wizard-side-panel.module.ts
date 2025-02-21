@@ -18,9 +18,6 @@ import { AssessmentResultsHelpComponent } from './setup-wizard-help-content/asse
 import { DataFollowUpHelpComponent } from './setup-wizard-help-content/data-follow-up-help/data-follow-up-help.component';
 import { AssessmentReportHelpComponent } from './setup-wizard-help-content/assessment-report-help/assessment-report-help.component';
 import { RollupReportHelpComponent } from './setup-wizard-help-content/rollup-report-help/rollup-report-help.component';
-import { EnergyEquipmentDiscoveryHelpComponent } from './setup-wizard-help-content/energy-equipment-discovery-help/energy-equipment-discovery-help.component';
-import { ProcessEquipmentDiscoveryHelpComponent } from './setup-wizard-help-content/process-equipment-discovery-help/process-equipment-discovery-help.component';
-import { AssessmentDiscoveryHelpComponent } from './setup-wizard-help-content/assessment-discovery-help/assessment-discovery-help.component';
 import { SetupWizardSidePanelComponent } from './setup-wizard-side-panel.component';
 import { SetupWizardHelpContentComponent } from './setup-wizard-help-content/setup-wizard-help-content.component';
 import { SidePanelResultsComponent } from './side-panel-results/side-panel-results.component';
@@ -54,9 +51,6 @@ declarations: [
     DataFollowUpHelpComponent,
     AssessmentReportHelpComponent,
     RollupReportHelpComponent,
-    EnergyEquipmentDiscoveryHelpComponent,
-    ProcessEquipmentDiscoveryHelpComponent,
-    AssessmentDiscoveryHelpComponent,
     SidePanelResultsComponent,
     SidePanelSystemDiagramComponent,
     FacilityProtocolQuestionsHelpComponent,

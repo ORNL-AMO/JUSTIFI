@@ -250,46 +250,6 @@
                                 Energy Efficiency Opportunities
                             </a>
                         </div>
-
-                        <div class="nav-item">
-                            <a class="nav-link" (click)="toggleAssessmentSidebarDiscoveryOpen(assessment)"
-                                [ngClass]="routerUrl | navItemActive:'/assessment/'+assessmentGuid+'/discovery'">
-                                <fa-icon class="toggle"
-                                    [icon]="assessment.sidebarDiscoveryOpen ? faChevronDown : faChevronRight"></fa-icon>
-                                Discovery
-                            </a>
-                        </div>
-                        <div class="sidebar-section" *ngIf="assessment.sidebarDiscoveryOpen">
-                            <div class="nav-item">
-                                <a class="nav-link"
-                                    [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/discovery'"
-                                    [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-                                    <fa-icon [icon]="faList"></fa-icon>
-                                    Systems and Equipment
-                                </a>
-                            </div>
-
-                            @let assessmentEEs = (assessment.guid | energyEquipmentList:'assessment': energyEquipments);
-                            <div class="nav-item" *ngFor="let equipment of assessmentEEs">
-                                <a class="nav-link"
-                                    [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/discovery/energy-equipment/'+equipment.guid"
-                                    [routerLinkActive]="['active']">
-                                    <fa-icon [icon]="faCube"></fa-icon>
-                                    {{equipment.equipmentName}}
-                                </a>
-                            </div>
-
-                            @let assessmentPEs = (assessment.guid |
-                            processEquipmentList:'assessment':processEquipments:energyOpportunities);
-                            <div class="nav-item" *ngFor="let equipment of assessmentPEs">
-                                <a class="nav-link"
-                                    [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/discovery/process-equipment/'+equipment.guid"
-                                    [routerLinkActive]="['active']">
-                                    <fa-icon [icon]="faSplotch"></fa-icon>
-                                    {{equipment.equipmentName}}
-                                </a>
-                            </div>
-                        </div>
                         <div class="nav-item">
                             <a class="nav-link"
                                 [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/nebs'"

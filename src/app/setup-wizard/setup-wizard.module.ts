@@ -50,13 +50,8 @@ import { PreAssessmentFormComponent } from './pre-visit/pre-assessments/pre-asse
 import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
 import { AssociatedProcessEquipmentModule } from '../shared/associated-process-equipment/associated-process-equipment.module';
 import { AssociatedContactsModule } from '../shared/associated-contacts/associated-contacts.module';
-import { AssessmentDiscoveryEquipmentListComponent } from './data-collection/on-site-assessment/assessment-discovery/assessment-discovery-equipment-list/assessment-discovery-equipment-list.component';
-import { EnergyEquipmentDiscoveryComponent } from './data-collection/on-site-assessment/assessment-discovery/energy-equipment-discovery/energy-equipment-discovery.component';
-import { ProcessEquipmentDiscoveryComponent } from './data-collection/on-site-assessment/assessment-discovery/process-equipment-discovery/process-equipment-discovery.component';
 import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protocol-questions/facility-protocol-questions.component';
 import { AssociatedEnergyEquipmentModule } from "../shared/associated-energy-equipment/associated-energy-equipment.module";
-import { SetupWizardSidePanelComponent } from './setup-wizard-side-panel/setup-wizard-side-panel.component';
-import { SetupWizardHelpContentComponent } from './setup-wizard-side-panel/setup-wizard-help-content/setup-wizard-help-content.component';
 import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wizard-side-panel.module';
 
 @NgModule({
@@ -96,9 +91,6 @@ import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wiza
     ManagePreAssessmentsComponent,
     PreAssessmentFormComponent,
     NavItemActivePipe,
-    AssessmentDiscoveryEquipmentListComponent,
-    EnergyEquipmentDiscoveryComponent,
-    ProcessEquipmentDiscoveryComponent,
     FacilityProtocolQuestionsComponent
   ],
   imports: [
