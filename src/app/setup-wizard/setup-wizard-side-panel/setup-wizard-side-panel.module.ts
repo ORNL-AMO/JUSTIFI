@@ -29,6 +29,7 @@ import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.mod
 import { FacilityProtocolQuestionsHelpComponent } from './setup-wizard-help-content/facility-protocol-questions-help/facility-protocol-questions-help.component';
 import { EquipmentTreeComponent } from './side-panel-system-diagram/equipment-tree/equipment-tree.component';
 import { SidePanelNebsDiagramComponent } from './side-panel-nebs-diagram/side-panel-nebs-diagram.component';
+import { SidePanelAssessmentResultsComponent } from './side-panel-results/side-panel-assessment-results/side-panel-assessment-results.component';
 
 
 
@@ -60,7 +61,8 @@ declarations: [
     SidePanelSystemDiagramComponent,
     FacilityProtocolQuestionsHelpComponent,
     EquipmentTreeComponent,
-    SidePanelNebsDiagramComponent
+    SidePanelNebsDiagramComponent,
+    SidePanelAssessmentResultsComponent
   ],
   imports: [
     CommonModule,

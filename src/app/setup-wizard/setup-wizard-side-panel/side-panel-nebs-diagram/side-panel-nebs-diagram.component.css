@@ -6,15 +6,9 @@
     margin-bottom: 11px;
 }
 
-.end-use-label{
+.nebs-label{
     font-weight: bold;
-    border-bottom: 3px solid var(--end-use-color);
-}
-
-.assessment-label{
-    font-weight: bold;
-    border-bottom: 3px solid var(--assessment-color);
-
+    border-bottom: 3px solid var(--neb-color);
 }
 
 .item-label{

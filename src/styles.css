@@ -135,7 +135,7 @@
 
 .btn:hover .fa-cube, .btn:hover .fa-splotch, .btn:hover .fa-user,
 .nav-link.active .fa-cube, .nav-link.active .fa-splotch, .nav-link.active .fa-user, .nav-link.active .fa-weight-hanging,
-.nav-link.active .fa-file-lines, .nav-link.active .fa-screwdriver-wrench{
+.nav-link.active .fa-file-lines, .nav-link.active .fa-screwdriver-wrench, .nav-link.active .fa-bullseye{
     color: white;
 }
 

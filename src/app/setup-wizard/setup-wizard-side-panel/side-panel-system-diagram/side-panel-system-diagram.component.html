@@ -1,7 +1,7 @@
 @let associatedEnergyEquipments = (facility.guid | energyEquipmentList:'facility': energyEquipments);
 <div class="list-group">
     <div class="list-group-item energy-equipment-label item-label">
-        Industrial Systems
+        Industrial System Inventory &amp; Connections
     </div>
     <div class="list-group-item" *ngFor="let equipment of associatedEnergyEquipments">
         <div class="d-flex w-100 justify-content-between">
@@ -86,7 +86,7 @@
 processEquipmentList:'facility':processEquipments:energyOpportunities);
 <div class="list-group">
     <div class="list-group-item end-use-label item-label">
-        End Uses
+        End Uses Inventory &amp; Connections
     </div>
     <div class="list-group-item" *ngFor="let equipment of associatedProcessEquipments">
         <div class="d-flex w-100 justify-content-between">
