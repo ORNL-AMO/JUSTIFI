@@ -52,8 +52,8 @@ export class PreAssessmentFormComponent {
     });
     this.assessmentsSub = this.assessmentIdbService.assessments.subscribe(assessments => {
       this.assessments = assessments;
-      this.setAssessment();
     });
+    this.setAssessment();
   }
 
   ngOnDestroy() {
