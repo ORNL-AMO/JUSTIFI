@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+import { EnergyEquipmentSustainabilityHelp } from 'src/app/shared/help-content/energy-equipment-help';
 
 @Component({
   selector: 'app-energy-equipment-sustainability',
@@ -12,6 +13,10 @@ import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
   styleUrl: './energy-equipment-sustainability.component.css'
 })
 export class EnergyEquipmentSustainabilityComponent {
+  @Input()
+  inPortfolio: boolean;
+
+  EnergyEquipmentSustainabilityHelp = EnergyEquipmentSustainabilityHelp;
 
   energyEquipmentGuid: string;
   describeWasteStreams: string;

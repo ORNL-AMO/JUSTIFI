@@ -59,6 +59,7 @@ export class EnergyEquipmentFormComponent {
   facilitySub: Subscription;
   facilityUnitSettings: UnitSettings;
 
+  inPortfolio: boolean = false;
   constructor(private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private dbChangesService: DbChangesService,
     private contactIdbService: ContactIdbService,
@@ -72,6 +73,7 @@ export class EnergyEquipmentFormComponent {
   ) { }
 
   ngOnInit() {
+    this.inPortfolio = (this.router.url.includes('setup-wizard') == false);
     if (!this.energyEquipmentGuid) {
       this.activatedRoute.params.subscribe(params => {
         this.energyEquipmentGuid = params['id'];

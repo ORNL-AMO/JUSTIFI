@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
-// import { EnergyEquipmentOperationsHelp } from 'src/app/shared/help-content/energy-equipment-help';
+import { EnergyEquipmentOperationsHelp } from 'src/app/shared/help-content/energy-equipment-help';
 
 @Component({
   selector: 'app-energy-equipment-operations',
@@ -13,7 +13,10 @@ import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
   styleUrl: './energy-equipment-operations.component.css'
 })
 export class EnergyEquipmentOperationsComponent {
-  // EnergyEquipmentOperationsHelp = EnergyEquipmentOperationsHelp;
+  @Input()
+  inPortfolio: boolean;
+
+  EnergyEquipmentOperationsHelp = EnergyEquipmentOperationsHelp;
 
   energyEquipmentGuid: string;
 

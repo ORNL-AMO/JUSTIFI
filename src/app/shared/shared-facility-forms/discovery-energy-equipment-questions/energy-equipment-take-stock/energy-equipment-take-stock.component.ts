@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
@@ -13,6 +13,9 @@ import { EnergyEquipmentTakeStockHelp } from 'src/app/shared/help-content/energy
   styleUrl: './energy-equipment-take-stock.component.css'
 })
 export class EnergyEquipmentTakeStockComponent {
+  @Input()
+  inPortfolio: boolean;
+
   EnergyEquipmentTakeStockHelp = EnergyEquipmentTakeStockHelp;
 
   energyEquipmentGuid: string;

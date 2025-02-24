@@ -5,8 +5,11 @@
 <label>
     How does this system support the plant?
 </label>
-<!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlantQs">
-                </p> -->
+
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlantQs">
+    </p>
+</ng-container>
 <textarea id="howSupportPlant" name="howSupportPlant" class="form-control" [(ngModel)]="howSupportPlant"
     (input)="saveChanges()" (focus)="focusField('howSupportPlant')" rows="3"></textarea>
 <hr class="my-1">
@@ -14,8 +17,10 @@
 <label>
     How are other areas adversely affected by energy inefficiencies in the system?
 </label>
-<!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.adverseEffects">
-                </p> -->
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.adverseEffects">
+    </p>
+</ng-container>
 <textarea id="adverseEffects" name="adverseEffects" class="form-control" [(ngModel)]="adverseEffects"
     (input)="saveChanges()" (focus)="focusField('adverseEffects')" rows="3"></textarea>
 <hr class="my-1">
@@ -23,10 +28,12 @@
 <label>
     Describe the financial status of the equipment
 </label>
-<!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatus">
-                </p>
-                <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatusQs">
-                </p> -->
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatus">
+    </p>
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatusQs">
+    </p>
+</ng-container>
 <textarea id="equipmentFinancialStatus" name="equipmentFinancialStatus" class="form-control"
     [(ngModel)]="equipmentFinancialStatus" (input)="saveChanges()" (focus)="focusField('equipmentFinancialStatus')"
     rows="3"></textarea>

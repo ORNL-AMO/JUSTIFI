@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BootstrapService } from '../../shared-services/bootstrap.service';
 import { faClipboardQuestion, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
@@ -11,6 +11,9 @@ import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
   styleUrl: './discovery-energy-equipment-questions.component.css'
 })
 export class DiscoveryEnergyEquipmentQuestionsComponent {
+  @Input()
+  inPortfolio: boolean;
+
   faClipboardQuestion: IconDefinition = faClipboardQuestion;
   
   collapseTackStock: boolean = true;

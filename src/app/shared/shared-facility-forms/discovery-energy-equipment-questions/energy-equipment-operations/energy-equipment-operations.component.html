@@ -1,14 +1,17 @@
-<!-- <p class="fw-light small mb-0" [innerHTML]="EnergyEquipmentOperationsHelp.sectionHelp">
-                </p>
-                <hr class="my-1"> -->
+<p class="fw-light small mb-0" [innerHTML]="EnergyEquipmentOperationsHelp.sectionHelp">
+</p>
+
+<hr class="my-2">
 <!--describeOutputOfSystem-->
 <label>
     Describe the output of the system and how it aligns with plant needs
 </label>
-<!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeOutputOfSystem">
-                </p>
-                <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeOutputOfSystemQs">
-                </p> -->
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeOutputOfSystem">
+    </p>
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeOutputOfSystemQs">
+    </p>
+</ng-container>
 <!--TODO: Link KPIs-->
 <!--
                     **Provide link to Quality and Production KPI
@@ -23,10 +26,12 @@
 <label>
     Describe the maintenance and servicing needs of this system
 </label>
-<!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeServicingNeeds">
-                </p>
-                <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeServicingNeedsQs">
-                </p> -->
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeServicingNeeds">
+    </p>
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeServicingNeedsQs">
+    </p>
+</ng-container>
 <!--TODO: link kpis-->
 <!--
                     **Provide link to Maintainance KPI
@@ -40,10 +45,12 @@
 <label>
     Describe the labor requirements of this system.
 </label>
-<!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeLaborRequirements">
-                </p>
-                <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeLaborRequirementsQs">
-                </p> -->
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeLaborRequirements">
+    </p>
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeLaborRequirementsQs">
+    </p>
+</ng-container>
 <!--TODO: Link kpis-->
 <!--
                     **Provide link to Expense Cost KPI
@@ -58,10 +65,12 @@
     Describe the materials that are required by this system (raw materials, intermediate goods,
     treatment chemicals)?
 </label>
-<!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeSystemMaterials">
-                </p>
-                <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeSystemMaterialsQs">
-                </p> -->
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeSystemMaterials">
+    </p>
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentOperationsHelp.describeSystemMaterialsQs">
+    </p>
+</ng-container>
 <!--TODO: link kpis-->
 <!--
                     **Provide link to Expense Cost and Material Utilization KPI
