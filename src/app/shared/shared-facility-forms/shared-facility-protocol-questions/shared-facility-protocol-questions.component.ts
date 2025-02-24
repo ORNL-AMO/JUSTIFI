@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faCircleCheck, faCirclePlus, faCircleXmark, faMinus, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
-import { AssociatedKPIs, FacilityProtocolHelp } from '../../help-content/facility-protocol-help';
+import { FacilityProtocolHelp } from '../../help-content/facility-protocol-help';
 
 @Component({
   selector: 'app-shared-facility-protocol-questions',
@@ -13,9 +13,11 @@ import { AssociatedKPIs, FacilityProtocolHelp } from '../../help-content/facilit
   styleUrl: './shared-facility-protocol-questions.component.css'
 })
 export class SharedFacilityProtocolQuestionsComponent {
+  @Input()
+  inPortfolio: boolean;
+
 
   FacilityProtocolHelp = FacilityProtocolHelp;
-  AssociatedKpis = AssociatedKPIs;
 
   faPlus: IconDefinition = faPlus;
   faMinus: IconDefinition = faMinus;

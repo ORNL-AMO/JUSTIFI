@@ -10,6 +10,7 @@ import { IdbFacility } from 'src/app/models/facility';
 import { SetupWizardService } from '../../setup-wizard.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
+import { FacilityProtocolHelp } from 'src/app/shared/help-content/facility-protocol-help';
 
 @Component({
   selector: 'app-facility-protocol-questions',
@@ -19,6 +20,8 @@ import { SharedDataService } from 'src/app/shared/shared-services/shared-data.se
   styleUrl: './facility-protocol-questions.component.css'
 })
 export class FacilityProtocolQuestionsComponent {
+
+  FacilityProtocolHelp = FacilityProtocolHelp;
 
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
