@@ -24,7 +24,6 @@ import { SidePanelResultsComponent } from './side-panel-results/side-panel-resul
 import { SidePanelSystemDiagramComponent } from './side-panel-system-diagram/side-panel-system-diagram.component';
 import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { FacilityProtocolQuestionsHelpComponent } from './setup-wizard-help-content/facility-protocol-questions-help/facility-protocol-questions-help.component';
-import { EquipmentTreeComponent } from './side-panel-system-diagram/equipment-tree/equipment-tree.component';
 import { SidePanelNebsDiagramComponent } from './side-panel-nebs-diagram/side-panel-nebs-diagram.component';
 import { SidePanelAssessmentResultsComponent } from './side-panel-results/side-panel-assessment-results/side-panel-assessment-results.component';
 
@@ -54,7 +53,6 @@ declarations: [
     SidePanelResultsComponent,
     SidePanelSystemDiagramComponent,
     FacilityProtocolQuestionsHelpComponent,
-    EquipmentTreeComponent,
     SidePanelNebsDiagramComponent,
     SidePanelAssessmentResultsComponent
   ],

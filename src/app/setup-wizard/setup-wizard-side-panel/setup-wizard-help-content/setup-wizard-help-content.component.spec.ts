@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SetupWizardHelpContentComponent } from './setup-wizard-help-content.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('SetupWizardHelpContentComponent', () => {
   let component: SetupWizardHelpContentComponent;
@@ -8,7 +10,9 @@ describe('SetupWizardHelpContentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SetupWizardHelpContentComponent]
+      imports: [FontAwesomeModule],
+      declarations: [SetupWizardHelpContentComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

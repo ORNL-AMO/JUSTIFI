@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnergyEquipmentTakeStockComponent } from './energy-equipment-take-stock.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('EnergyEquipmentTakeStockComponent', () => {
   let component: EnergyEquipmentTakeStockComponent;
@@ -8,7 +11,9 @@ describe('EnergyEquipmentTakeStockComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EnergyEquipmentTakeStockComponent]
+      imports: [FontAwesomeModule, FormsModule],
+      declarations: [EnergyEquipmentTakeStockComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

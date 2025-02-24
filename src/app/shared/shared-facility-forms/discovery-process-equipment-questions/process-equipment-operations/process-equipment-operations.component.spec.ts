@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProcessEquipmentOperationsComponent } from './process-equipment-operations.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('ProcessEquipmentOperationsComponent', () => {
   let component: ProcessEquipmentOperationsComponent;
@@ -8,7 +11,9 @@ describe('ProcessEquipmentOperationsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProcessEquipmentOperationsComponent]
+      imports: [FontAwesomeModule, FormsModule],
+      declarations: [ProcessEquipmentOperationsComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 
