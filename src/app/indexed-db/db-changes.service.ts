@@ -245,7 +245,7 @@ export class DbChangesService {
       });
       await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(associatedEEs[i]));
     }
-    
+
     await firstValueFrom(this.energyOpportunityIdbService.deleteWithObservable(energyOpportunity.id));
     await this.energyOpportunityIdbService.setEnergyOpportunities();
   }
@@ -373,13 +373,15 @@ export class DbChangesService {
     let associatedEEs: Array<IdbEnergyEquipment> = energyEquipments.filter(equipment => {
       return equipment.processEquipmentIds.includes(processEquipment.guid);
     });
-    for (let i = 0; i < associatedEEs.length; i++) {
-      associatedEEs[i].processEquipmentIds = associatedEEs[i].processEquipmentIds.filter(guid => {
-        return guid != processEquipment.guid
-      });
-      await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(associatedEEs[i]));
+    if (associatedEEs.length > 0) {
+      for (let i = 0; i < associatedEEs.length; i++) {
+        associatedEEs[i].processEquipmentIds = associatedEEs[i].processEquipmentIds.filter(guid => {
+          return guid != processEquipment.guid
+        });
+        await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(associatedEEs[i]));
+      }
+      await this.energyEquipmentIdbService.setEnergyEquipments();
     }
-
     await firstValueFrom(this.processEquipmentIdbService.deleteWithObservable(processEquipment.id));
     await this.processEquipmentIdbService.setProcessEquipments();
   }
@@ -413,11 +415,14 @@ export class DbChangesService {
     let associatedEEs: Array<IdbEnergyEquipment> = energyEquipments.filter(equipment => {
       return equipment.energyEquipmentIds.includes(energyEquipment.guid);
     });
-    for (let i = 0; i < associatedEEs.length; i++) {
-      associatedEEs[i].energyEquipmentIds = associatedEEs[i].energyEquipmentIds.filter(guid => {
-        return guid != energyEquipment.guid
-      });
-      await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(associatedEEs[i]));
+    if (associatedEEs.length > 0) {
+      for (let i = 0; i < associatedEEs.length; i++) {
+        associatedEEs[i].energyEquipmentIds = associatedEEs[i].energyEquipmentIds.filter(guid => {
+          return guid != energyEquipment.guid
+        });
+        await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(associatedEEs[i]));
+      }
+      await this.energyEquipmentIdbService.setEnergyEquipments();
     }
     //update process equipments 
     let processEquipments: Array<IdbProcessEquipment> = this.processEquipmentIdbService.processEquipments.getValue();
