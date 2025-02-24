@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+import { ProcessEquipmentOperationsHelp } from 'src/app/shared/help-content/process-equipment-help';
 
 @Component({
   selector: 'app-process-equipment-operations',
@@ -12,6 +13,11 @@ import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
   styleUrl: './process-equipment-operations.component.css'
 })
 export class ProcessEquipmentOperationsComponent {
+  @Input()
+  inPortfolio: boolean;
+
+  ProcessEquipmentOperationsHelp = ProcessEquipmentOperationsHelp;
+
   processEquipmentGuid: string;
 
   describeOutputRate: string;

@@ -1,8 +1,16 @@
-
+<p class="fw-light small" [innerHTML]="ProcessEquipmentSustainablityHelp.sectionHelp">
+</p>
+<hr class="my-2">
 <!--describeRefrigerantProcessDustEmissions-->
 <label>
     Describe any refrigerant, process, or dust emissions that may come from this system
 </label>
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainablityHelp.describeRefrigerantProcessDustEmissions">
+    </p>
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainablityHelp.describeRefrigerantProcessDustEmissionsQs">
+    </p>
+</ng-container>
 <textarea id="describeRefrigerantProcessDustEmissions" name="describeRefrigerantProcessDustEmissions"
     class="form-control" [(ngModel)]="describeRefrigerantProcessDustEmissions" (input)="saveChanges()"
     (focus)="focusField('describeRefrigerantProcessDustEmissions')" rows="3"></textarea>
@@ -12,6 +20,12 @@
 <label>
     Describe the waste streams that result from this process
 </label>
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainablityHelp.describeWasteStreams">
+    </p>
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainablityHelp.describeWasteStreamsQs">
+    </p>
+</ng-container>
 <textarea id="describeWasteStreams" name="describeWasteStreams" class="form-control" [(ngModel)]="describeWasteStreams"
     (input)="saveChanges()" (focus)="focusField('describeWasteStreams')" rows="3"></textarea>
 <hr class="my-1">
@@ -20,6 +34,12 @@
 <label>
     Describe water input or discharge streams that result from this process
 </label>
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainablityHelp.describeWaterInputDischarge">
+    </p>
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainablityHelp.describeWaterInputDischargeQs">
+    </p>
+</ng-container>
 <textarea id="describeWaterInputDischarge" name="describeWaterInputDischarge" class="form-control"
     [(ngModel)]="describeWaterInputDischarge" (input)="saveChanges()"
     (focus)="focusField('describeWaterInputDischarge')" rows="3"></textarea>
@@ -30,5 +50,11 @@
 <label>
     Describe any environmental regulations or considerations impacting this process
 </label>
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainablityHelp.describeRegulations">
+    </p>
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentSustainablityHelp.describeRegulationsQs">
+    </p>
+</ng-container>
 <textarea id="describeRegulations" name="describeRegulations" class="form-control" [(ngModel)]="describeRegulations"
     (input)="saveChanges()" (focus)="focusField('describeRegulations')" rows="3"></textarea>

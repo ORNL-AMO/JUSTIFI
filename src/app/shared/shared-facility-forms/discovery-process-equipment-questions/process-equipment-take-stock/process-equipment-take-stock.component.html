@@ -1,7 +1,18 @@
+<p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.sectionHelp">
+</p>
+<p class="fw-light small mb-0" *ngIf="!inPortfolio">
+    Answering the questions is an <b><u>optional</u></b> exercise but a good practice. The help panel provides additional context for
+    the individual questions when a user clicks on the corresponding input fields
+</p>
+<hr class="my-2">
 <!--whatIsTheOutput-->
 <label>
     What is the output of this process?
 </label>
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.whatIsTheOutput">
+    </p>
+</ng-container>
 <textarea id="whatIsTheOutput" name="whatIsTheOutput" class="form-control" [(ngModel)]="whatIsTheOutput"
     (input)="saveChanges()" (focus)="focusField('whatIsTheOutput')" rows="3"></textarea>
 <hr class="my-1">
@@ -10,6 +21,10 @@
 <label>
     How does the process or manufacturing technology work?
 </label>
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.howDoesTheProcessWork">
+    </p>
+</ng-container>
 <textarea id="howDoesTheProcessWork" name="howDoesTheProcessWork" class="form-control" [(ngModel)]="howDoesTheProcessWork"
     (input)="saveChanges()" (focus)="focusField('howDoesTheProcessWork')" rows="3"></textarea>
 <hr class="my-1">
@@ -18,6 +33,12 @@
 <label>
     Describe the financial status of the equipment
 </label>
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipment">
+    </p>
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipmentQs">
+    </p>
+</ng-container>
 <textarea id="equipmentFinancialStatus" name="financialStatusOfEquipment" class="form-control"
     [(ngModel)]="financialStatusOfEquipment" (input)="saveChanges()" (focus)="focusField('financialStatusOfEquipment')"
     rows="3"></textarea>

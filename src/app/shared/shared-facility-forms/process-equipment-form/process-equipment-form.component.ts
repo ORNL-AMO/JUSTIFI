@@ -30,6 +30,7 @@ export class ProcessEquipmentFormComponent {
   displayDeleteModal: boolean = false;
   contacts: Array<IdbContact>;
   contactSub: Subscription;
+  inPortfolio: boolean;
   constructor(private processEquipmentIdbService: ProcessEquipmentIdbService,
     private dbChangesService: DbChangesService,
     private contactIdbService: ContactIdbService,
@@ -40,6 +41,7 @@ export class ProcessEquipmentFormComponent {
   ) { }
 
   ngOnInit() {
+    this.inPortfolio = (this.router.url.includes('setup-wizard') == false);
     if (!this.processEquipmentGuid) {
       this.activatedRoute.params.subscribe(params => {
         this.processEquipmentGuid = params['id'];

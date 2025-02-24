@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+import { ProcessEquipmentEmployeeEngagementHelp } from 'src/app/shared/help-content/process-equipment-help';
 
 @Component({
   selector: 'app-process-equipment-employee-engagement',
@@ -12,6 +13,11 @@ import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
   styleUrl: './process-equipment-employee-engagement.component.css'
 })
 export class ProcessEquipmentEmployeeEngagementComponent {
+  @Input()
+  inPortfolio: boolean;
+
+  ProcessEquipmentEmployeeEngagementHelp = ProcessEquipmentEmployeeEngagementHelp;
+
   processEquipmentGuid: string;
 
   describeSafetyConcerns: string;

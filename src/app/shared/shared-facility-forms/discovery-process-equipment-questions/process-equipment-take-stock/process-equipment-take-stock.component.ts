@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { faCaretRight, faCirclePlus, faCircleQuestion, faPersonCircleQuestion, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+import { ProcessEquipmentTakeStockHelp } from 'src/app/shared/help-content/process-equipment-help';
 
 @Component({
   selector: 'app-process-equipment-take-stock',
@@ -12,6 +14,11 @@ import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
   styleUrl: './process-equipment-take-stock.component.css'
 })
 export class ProcessEquipmentTakeStockComponent {
+  @Input()
+  inPortfolio: boolean;
+
+  ProcessEquipmentTakeStockHelp = ProcessEquipmentTakeStockHelp;
+  faCaretRight: IconDefinition = faCaretRight;
 
   processEquipmentGuid: string;
 

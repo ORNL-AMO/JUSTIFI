@@ -53,3 +53,8 @@ a.click-link.click-link-danger:hover{
 .pm-label{
     padding-left: 1.5rem;
 }
+
+.protocol-questions label{
+    /* text-decoration: underline; */
+    font-weight: bold;
+}

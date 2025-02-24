@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+import { ProcessEquipmentSustainabilityHelp } from 'src/app/shared/help-content/process-equipment-help';
 
 @Component({
   selector: 'app-process-equipment-sustainablity',
@@ -12,6 +13,11 @@ import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
   styleUrl: './process-equipment-sustainablity.component.css'
 })
 export class ProcessEquipmentSustainablityComponent {
+  @Input()
+  inPortfolio: boolean;
+
+  ProcessEquipmentSustainablityHelp = ProcessEquipmentSustainabilityHelp;
+
   processEquipmentGuid: string;
 
   describeRefrigerantProcessDustEmissions: string;
