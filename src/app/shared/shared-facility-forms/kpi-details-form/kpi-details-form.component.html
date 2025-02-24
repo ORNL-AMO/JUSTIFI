@@ -170,7 +170,8 @@
                 </ng-template>
                 <app-kpm-details-form [keyPerformanceMetric]="keyPerformanceMetric"
                     (emitSave)="saveChanges()" (emitCalculate)="calculateCost(keyPerformanceMetric)"
-                    [context]="'preVisit'"></app-kpm-details-form>
+                    [context]="'preVisit'"
+                    [currencyCode]="currencyCode"></app-kpm-details-form>
                 <ng-template
                     [ngIf]="(keyPerformanceMetricImpacts | keyPerformanceMetricImpactsList: keyPerformanceMetric.guid).length">
                     <div class="mt-3">

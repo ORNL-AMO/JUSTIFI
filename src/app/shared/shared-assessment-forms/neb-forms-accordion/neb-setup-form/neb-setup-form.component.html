@@ -61,7 +61,7 @@
                     name="{{'costImpact'+nonEnergyBenefit.guid}}" id="{{'costImpact'+nonEnergyBenefit.guid}}"
                     (input)="saveChanges()">
                 <span class="input-group-text">
-                    &dollar;/yr
+                    {{ currencyCode | currencySymbol }}/yr
                 </span>
             </div>
         </div>

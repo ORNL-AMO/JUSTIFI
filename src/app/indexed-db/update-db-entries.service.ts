@@ -11,6 +11,8 @@ import { IdbUser } from '../models/user';
 import { UserIdbService } from './user-idb.service';
 import { IdbKeyPerformanceMetricImpact } from '../models/keyPerformanceMetricImpact';
 import { getGUID } from '../shared/helpFunctions';
+import { LocaleService } from '../shared/shared-services/locale.service';
+import { localeCurrency } from '../shared/constants/localeCurrency';
 import { ProcessEquipmentIdbService } from './process-equipment-idb.service';
 import { IdbProcessEquipment } from '../models/processEquipment';
 import { EnergyEquipmentIdbService } from './energy-equipment-idb.service';
@@ -26,6 +28,7 @@ export class UpdateDbEntriesService {
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private facilityIdbService: FacilityIdbService,
     private userIdbService: UserIdbService,
+    private localeService: LocaleService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService
   ) { }
@@ -37,13 +40,27 @@ export class UpdateDbEntriesService {
       user.kpiFacilityMigrationDone = true;
       userNeedsUpdate = true;
     }
+
+    if (!user.locale) {
+      this.updateUserLocale(user);
+      userNeedsUpdate = true;
+    }
+    this.localeService.setCurrencyCode(user.locale);
+
     await this.updateProcessEquipment();
     await this.updateEnergyEquipment();
+    
     if (userNeedsUpdate) {
       user = await firstValueFrom(this.userIdbService.updateWithObservable(user));
       this.userIdbService.user.next(user);
     }
     return user;
+  }
+
+  updateUserLocale(user: IdbUser) {
+    const browserLang = navigator.language;
+    const currencyOption = localeCurrency.find(option => option.locale === browserLang);
+    user.locale = currencyOption ? currencyOption.locale : 'en-US';
   }
 
   //migration of KPIs to facility level

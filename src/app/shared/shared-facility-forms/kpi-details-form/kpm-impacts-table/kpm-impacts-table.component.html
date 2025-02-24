@@ -46,7 +46,7 @@
             </td>
             <td>
                 <ng-template [ngIf]="kpmImpact.modificationValue" [ngIfElse]="noChangeBlock">
-                    {{kpmImpact.costAdjustment | currency}}/yr
+                    {{kpmImpact.costAdjustment | currency:currencyCode}}/yr
                 </ng-template>
                 <ng-template #noChangeBlock>
                     &mdash;

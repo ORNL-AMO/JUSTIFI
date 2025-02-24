@@ -110,7 +110,7 @@
                         name="{{'costPerValue_'+keyPerformanceMetric.value}}" (input)="calculateCost(false)"
                         [disabled]="disableForm">
                     <span class="input-group-text">
-                        &dollar;/<span [innerHTML]="keyPerformanceMetric.totalUnit | unitsDisplay"></span>
+                        {{ currencyCode | currencySymbol }}/<span [innerHTML]="keyPerformanceMetric.totalUnit | unitsDisplay"></span>
                     </span>
                 </div>
             </div>
@@ -122,7 +122,7 @@
             </label>
             <div class="col-6">
                 <ng-template [ngIf]="keyPerformanceMetric.baselineCost" [ngIfElse]="noCostBlock">
-                    {{keyPerformanceMetric.baselineCost | currency}}/yr
+                    {{keyPerformanceMetric.baselineCost | currency:currencyCode}}/yr
                 </ng-template>
                 <ng-template #noCostBlock>
                     &mdash;
@@ -142,7 +142,7 @@
                         name="{{'baselineCost_'+keyPerformanceMetric.value}}" (input)="calculateCost(false)"
                         [disabled]="disableForm">
                     <span class="input-group-text">
-                        &dollar;/yr
+                        {{ currencyCode | currencySymbol }}/yr
                     </span>
                 </div>
             </div>

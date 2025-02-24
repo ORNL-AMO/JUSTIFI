@@ -130,7 +130,7 @@
             Utility
             Costs</label>
         <div class="col-sm-7" id="{{'cost_'+assessment.guid}}">
-            {{assessment.cost | currency:'USD':'symbol':'1.0-2'}}
+            {{assessment.cost | currency:currencyCode:'symbol':'1.0-2'}}
         </div>
     </div>
     <ng-container *ngIf="!inPreAssessment">
@@ -149,7 +149,7 @@
                     <input name="implementationCost" type="number" class="form-control"
                         [(ngModel)]="assessment.implementationCost" (input)="saveChanges()" id="implementationCost"
                         [disabled]="isDisabled">
-                    <span class="input-group-text">&dollar;</span>
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}</span>
                 </div>
             </div>
         </div>
@@ -171,7 +171,7 @@
                 <div class="input-group">
                     <input name="costSavings" type="number" class="form-control" [(ngModel)]="assessment.costSavings"
                         (input)="saveChanges()" id="costSavings" [disabled]="isDisabled">
-                    <span class="input-group-text">&dollar;</span>
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}</span>
                 </div>
             </div>
         </div>

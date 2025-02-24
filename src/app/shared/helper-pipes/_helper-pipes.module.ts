@@ -39,6 +39,8 @@ import { NebTotalSavingsPipe } from './neb-total-savings.pipe';
 import { FacilityKpiListPipe } from './facility-kpi-list.pipe';
 import { ProcessEquipmentListPipe } from './process-equipment-list.pipe';
 import { AssessmentItemPipe } from './assessment-item.pipe';
+import { CurrencySymbolPipe } from './currency-symbol.pipe';
+import { CurrencyPipe } from '@angular/common';
 import { IncludesProcessEquipmentPipe } from './includes-process-equipment.pipe';
 import { IncludesEnergyEquipmentPipe } from './includes-energy-equipment.pipe';
 import { IncludedInAssessmentPipe } from './included-in-assessment.pipe';
@@ -85,6 +87,7 @@ import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
     FacilityKpiListPipe,
     ProcessEquipmentListPipe,
     AssessmentItemPipe,
+    CurrencySymbolPipe,
     IncludesProcessEquipmentPipe,
     IncludesEnergyEquipmentPipe,
     IncludedInAssessmentPipe,
@@ -92,6 +95,9 @@ import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
   ],
   imports: [
     CommonModule
+  ],
+  providers: [
+    CurrencyPipe,
   ],
   exports: [
     CompanyNamePipe,
@@ -133,6 +139,7 @@ import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
     FacilityKpiListPipe,
     ProcessEquipmentListPipe,
     AssessmentItemPipe,
+    CurrencySymbolPipe,
     IncludesProcessEquipmentPipe,
     IncludesEnergyEquipmentPipe,
     IncludedInAssessmentPipe,

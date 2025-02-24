@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { NebFormsAccordionComponent } from '../neb-forms-accordion/neb-forms-accordion.component';
+import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
 import { AssociatedProcessEquipmentModule } from '../../associated-process-equipment/associated-process-equipment.module';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { AssociatedEnergyEquipmentModule } from '../../associated-energy-equipment/associated-energy-equipment.module';
@@ -14,7 +15,7 @@ describe('EnergyOpportunitySetupFormComponent', () => {
   let fixture: ComponentFixture<EnergyOpportunitySetupFormComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, RouterTestingModule, FormsModule, AssociatedProcessEquipmentModule, AssociatedEnergyEquipmentModule],
+      imports: [FontAwesomeModule, RouterTestingModule, FormsModule, AssociatedProcessEquipmentModule, AssociatedEnergyEquipmentModule, HelperPipesModule],
       declarations: [EnergyOpportunitySetupFormComponent, NebFormsAccordionComponent],
       providers: stubServiceProviders
 

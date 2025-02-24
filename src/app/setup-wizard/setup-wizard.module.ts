@@ -101,7 +101,6 @@ import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wiza
     SharedSettingsFormsModule,
     HelperPipesModule,
     TableEntriesModule,
-    ReportsModule,
     PrimaryKpiBadgeModule,
     ReactiveFormsModule,
     ReportsModule,

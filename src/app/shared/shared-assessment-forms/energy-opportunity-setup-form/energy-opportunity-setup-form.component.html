@@ -51,7 +51,7 @@
                     [(ngModel)]="energyOpportunity.implementationCost"
                     id="{{'implementationCost_'+energyOpportunity.guid}}" (input)="saveEnergyOpportunity()"
                     (focus)="focusField('implementationCost')">
-                <span class="input-group-text">&dollar;</span>
+                <span class="input-group-text">{{ currencyCode | currencySymbol }}</span>
             </div>
         </div>
     </div>
@@ -89,7 +89,7 @@
                     <input name="{{'costSavings_'+energyOpportunity.guid}}" type="number" class="form-control"
                         [(ngModel)]="energyOpportunity.costSavings" id="{{'costSavings_'+energyOpportunity.guid}}"
                         (input)="saveEnergyOpportunity()" (focus)="focusField('costSavings')">
-                    <span class="input-group-text">&dollar;</span>
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}</span>
                 </div>
             </div>
         </div>

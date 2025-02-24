@@ -15,6 +15,7 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { LocalStorageDataService } from '../../shared-services/local-storage-data.service';
 import * as _ from 'lodash';
+import { LocaleService } from '../../shared-services/locale.service';
 
 @Component({
     selector: 'app-energy-opportunity-nebs-table',
@@ -42,13 +43,17 @@ export class EnergyOpportunityNebsTableComponent {
   energyOpportunities: Array<IdbEnergyOpportunity>;
   energyOpportunitiesSub: Subscription;
 
+  currencyCode: string;
+  currencySub: Subscription;
+
   constructor(private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private contactIdbService: ContactIdbService,
     private keyPerformanceIndicatorsIdbService: KeyPerformanceIndicatorsIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private localStorageDataService: LocalStorageDataService
+    private localStorageDataService: LocalStorageDataService,
+    private localeService: LocaleService,
   ) { }
 
   ngOnInit() {
@@ -72,6 +77,10 @@ export class EnergyOpportunityNebsTableComponent {
     this.energyOpportunitiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(energyOpportunities => {
       this.energyOpportunities = energyOpportunities
     });
+
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
   }
 
   ngOnDestroy() {
@@ -79,6 +88,7 @@ export class EnergyOpportunityNebsTableComponent {
     this.contactsSub.unsubscribe();
     this.keyPerformanceIndicatorsSub.unsubscribe();
     this.energyOpportunitiesSub.unsubscribe();
+    this.currencySub.unsubscribe();
   }
 
   goToEnergyOpportunity(nonEnergyBenefit: IdbNonEnergyBenefit) {
