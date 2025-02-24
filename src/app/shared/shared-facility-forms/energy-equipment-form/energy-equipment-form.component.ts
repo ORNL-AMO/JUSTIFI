@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faContactBook, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faContactBook, faFilePen, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -17,6 +17,7 @@ import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+import { BootstrapService } from '../../shared-services/bootstrap.service';
 
 @Component({
     selector: 'app-energy-equipment-form',
@@ -33,6 +34,7 @@ export class EnergyEquipmentFormComponent {
   faTrash: IconDefinition = faTrash;
   faUser: IconDefinition = faUser;
   faContactBook: IconDefinition = faContactBook;
+  faFilePen: IconDefinition = faFilePen;
 
   equipmentTypes: Array<EquipmentType> = EquipmentTypes;
   equipmentTypeOptions: Array<{
@@ -60,6 +62,8 @@ export class EnergyEquipmentFormComponent {
   facilityUnitSettings: UnitSettings;
 
   inPortfolio: boolean = false;
+
+  collapseEnergyDetails: boolean = true;
   constructor(private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private dbChangesService: DbChangesService,
     private contactIdbService: ContactIdbService,
@@ -69,7 +73,8 @@ export class EnergyEquipmentFormComponent {
     private sharedDataService: SharedDataService,
     private toastNotificationService: ToastNotificationsService,
     private router: Router,
-    private setupWizardService: SetupWizardService
+    private setupWizardService: SetupWizardService,
+    private bootstrapService: BootstrapService
   ) { }
 
   ngOnInit() {
@@ -215,5 +220,10 @@ export class EnergyEquipmentFormComponent {
 
   focusField(str: string){
     this.setupWizardService.focusedHelp.next(str);
+  }
+
+  toggleBsEnergyDetails() {
+    this.bootstrapService.bsCollapse('#energyDetails');
+    this.collapseEnergyDetails = !this.collapseEnergyDetails;
   }
 }
