@@ -67,8 +67,9 @@
 
     <ng-container *ngIf="energyOpportunity.includeSavings">
         <div class="row">
-            <label class="col-sm-5 col-form-label" for="{{'energySavings_'+energyOpportunity.guid}}">Energy
-                Savings</label>
+            <label class="col-sm-5 col-form-label" for="{{'energySavings_'+energyOpportunity.guid}}">
+                {{isWaterRelatedUtilityType() ? 'Water Savings' : 'Energy Savings'}}
+                </label>
             <div class="col-sm-7">
                 <div class="input-group">
                     <input name="{{'energySavings_'+energyOpportunity.guid}}" type="number" class="form-control"
@@ -92,7 +93,9 @@
         </div>
         <div class="row">
             <div class="col-sm-5">
-                <button class="btn btn-outline-primary btn-sm border-0" (click)="calculateCostSavings()">
+                <button class="btn btn-outline-primary btn-sm border-0"
+                    [disabled]="!isUtilityTracked(energyOpportunity.utilityType)" 
+                    (click)="calculateCostSavings()">
                     <fa-icon [icon]="faCalculator"></fa-icon> Calculate Savings
                 </button>
             </div>

@@ -173,4 +173,14 @@ export class EnergyOpportunitySetupFormComponent {
     this.showAddNebDropdown = !this.showAddNebDropdown;
   }
 
+  isWaterRelatedUtilityType() {
+    return this.energyOpportunity.utilityType === 'Water' || 
+      this.energyOpportunity.utilityType === 'Waste Water';
+  }
+
+  isUtilityTracked(utilityType: string): boolean {
+    let trimmed = utilityType.replace(/\s+/g, '');
+    return this.facilityUnitSettings[`include${trimmed}`];
+  }
+
 }
