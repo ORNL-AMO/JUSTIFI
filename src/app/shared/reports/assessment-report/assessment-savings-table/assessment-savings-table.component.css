@@ -6,3 +6,7 @@
     padding: .25rem;
     font-size: 14px;
 }
+
+.table.table-bordered.side-panel-report td, .table.table-bordered.side-panel-report th{
+    font-size: 12px;
+}

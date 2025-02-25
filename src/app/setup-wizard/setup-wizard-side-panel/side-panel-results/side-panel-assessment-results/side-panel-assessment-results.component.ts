@@ -1,11 +1,14 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { PlotlyService } from 'angular-plotly.js';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import { faFileLines, faScrewdriverWrench, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
+import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
+import { IdbCompany } from 'src/app/models/company';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
@@ -21,12 +24,11 @@ import { AssessmentReport, getAssessmentReport } from 'src/app/shared/reports/ca
 })
 export class SidePanelAssessmentResultsComponent {
   @Input({ required: true })
-  assessment: IdbAssessment;
+  selectedAssessmentId: string;
 
-
-  @ViewChild('percentSavingsGauge', { static: false }) percentSavingsGauge: ElementRef;
-  @ViewChild('percentSavingsWithNebsGauge', { static: false }) percentSavingsWithNebsGauge: ElementRef;
-
+  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
+  faFileLines: IconDefinition = faFileLines;
+  faWeightHanging: IconDefinition = faWeightHanging;
 
   assessmentReport: AssessmentReport;
 
@@ -42,36 +44,52 @@ export class SidePanelAssessmentResultsComponent {
   keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>;
   keyPerformanceMetricImpactsSub: Subscription;
 
+  onInit: boolean = true;
+  percentSavings: number;
+  percentSavingsNebs: number;
+
+  assessmentsSub: Subscription;
+  assessments: Array<IdbAssessment>
+
+  assessment: IdbAssessment;
   constructor(private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
-    private plotlyService: PlotlyService
+    private assessmentIdbService: AssessmentIdbService,
+    private companyIdbService: CompanyIdbService
   ) {
 
   }
 
   ngOnInit() {
+    this.assessmentsSub = this.assessmentIdbService.assessments.subscribe(assessments => {
+      this.setReportResults();
+    })
+
     this.energyOpportunitiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(opportunities => {
       this.energyOpportunities = opportunities;
-      this.drawGaugeCharts();
+      this.setReportResults();
     });
     this.nonEnergyBenefitsSub = this.nonEnergyBenefitIdbService.nonEnergyBenefits.subscribe(nebs => {
       this.nonEnergyBenefits = nebs;
-      this.drawGaugeCharts();
+      this.setReportResults();
     });
     this.keyPerformanceMetricsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(() => {
-      this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(this.assessment.companyId);
-      this.drawGaugeCharts();
+      let company: IdbCompany = this.companyIdbService.selectedCompany.getValue();
+      this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(company.guid);
+      this.setReportResults();
     });
     this.keyPerformanceMetricImpactsSub = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.subscribe(impacts => {
       this.keyPerformanceMetricImpacts = impacts
-      this.drawGaugeCharts();
+      this.setReportResults();
     });
   }
 
-  ngAfterViewInit() {
-    this.drawGaugeCharts();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['selectedAssessmentId'] && !changes['selectedAssessmentId'].firstChange) {
+      this.setReportResults();
+    }
   }
 
   ngOnDestroy() {
@@ -81,76 +99,12 @@ export class SidePanelAssessmentResultsComponent {
     this.keyPerformanceMetricImpactsSub.unsubscribe();
   }
 
-
-  drawGaugeCharts() {
-    if (this.percentSavingsGauge && this.percentSavingsWithNebsGauge) {
+  setReportResults() {
+    if (this.energyOpportunities && this.nonEnergyBenefits && this.keyPerformanceMetrics && this.keyPerformanceMetricImpacts && this.selectedAssessmentId) {
+      this.assessment = this.assessmentIdbService.getByGuid(this.selectedAssessmentId);
       this.assessmentReport = getAssessmentReport(this.assessment, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceMetricImpacts);
-      let percentSavings = (this.assessmentReport.totalEnergyCostSavings / this.assessmentReport.assessment.cost) * 100
-      var savingsData = [
-        {
-          domain: { x: [0, 1], y: [0, 1] },
-          value: percentSavings,
-          title: {
-            text: "Energy Cost Savings",
-
-            font: {
-              // family: 'Courier New, monospace',
-              size: 12
-            },
-          },
-          type: "indicator",
-          mode: "gauge+number",
-          number: { suffix: '%' },
-          gauge: {
-            axis: { range: [null, 100], automargin: true },
-          }
-        },
-      ];
-
-      var layout = {
-        height: 100,
-        margin: {
-          l: 10,
-          b: 10,
-          r: 20,
-          t: 50,
-          pad: 4,
-          automargin: true,
-          // autoexpand: true,
-        },
-        yaxis: {
-          tickprefix: '$'
-        }
-      };
-
-      let config = {
-        modeBarButtonsToRemove: ['autoScale2d', 'lasso2d', 'pan2d', 'select2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
-        displaylogo: false,
-        responsive: true,
-      };
-      this.plotlyService.newPlot(this.percentSavingsGauge.nativeElement, savingsData, layout, config);
-
-      let percentSavingsNebs = (this.assessmentReport.totalCostSavings / this.assessmentReport.assessment.cost) * 100
-      var savingsDataWithNebs = [
-        {
-          domain: { x: [0, 1], y: [0, 1] },
-          value: percentSavingsNebs,
-          number: { suffix: '%' },
-          title: {
-            text: "Savings W/ NEBs",
-            font: {
-              size: 12
-            },
-          },
-          type: "indicator",
-          mode: "gauge+number",
-          gauge: {
-            axis: { range: [null, 100] },
-          }
-        },
-      ];
-      this.plotlyService.newPlot(this.percentSavingsWithNebsGauge.nativeElement, savingsDataWithNebs, layout, config);
+      this.percentSavings = (this.assessmentReport.totalEnergyCostSavings / this.assessmentReport.assessment.cost) * 100;
+      this.percentSavingsNebs = (this.assessmentReport.totalCostSavings / this.assessmentReport.assessment.cost) * 100
     }
   }
-
 }

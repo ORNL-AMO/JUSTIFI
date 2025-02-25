@@ -1,4 +1,29 @@
-<div class="list-group">
+<select class="form-select" [(ngModel)]="selectedAssessmentId" name="selectedAssessmentId" id="selectedAssessmentId">
+    <option [ngValue]="undefined">
+        Visit Results
+    </option>
+    <option *ngFor="let assessmentGuid of onSiteVisit.assessmentIds" [ngValue]="assessmentGuid">
+        <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+        {{assessmentGuid | assessmentNameDisplay: assessments}} Results
+    </option>
+</select>
+
+<ng-container *ngIf="onSiteVisit.assessmentIds.length == 0">
+    <div class="mt-2 p-1 alert alert-warning small">
+        No assessments found. Add assessments to view results.
+    </div>
+</ng-container>
+
+<ng-template [ngIf]="selectedAssessmentId" [ngIfElse]="visitResultsBlock">
+    <!-- @let assessment = (selectedAssessmentId | assessmentItem: assessments); -->
+    <app-side-panel-assessment-results [selectedAssessmentId]="selectedAssessmentId"></app-side-panel-assessment-results>
+</ng-template>
+
+<ng-template #visitResultsBlock>
+
+</ng-template>
+
+<!-- <div class="list-group">
     <div class="list-group-item assessment-label item-label">
         Assessments
     </div>
@@ -8,4 +33,4 @@
         {{assessment.name}}
         <app-side-panel-assessment-results [assessment]="assessment"></app-side-panel-assessment-results>
     </div>
-</div>
+</div> -->

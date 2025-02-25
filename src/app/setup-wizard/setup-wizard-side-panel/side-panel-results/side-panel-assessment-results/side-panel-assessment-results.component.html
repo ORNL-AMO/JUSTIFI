@@ -1,8 +1,165 @@
-<div class="d-flex flex-column w-100">
-    <div class="w-100">
-        <div #percentSavingsGauge></div>
+<div class="list-group mt-2" *ngIf="assessmentReport">
+    <div class="list-group-item">
+        Energy Cost Savings
+        <div class="progress mt-1" role="progressbar" aria-label="Example with label" [ariaValueNow]="percentSavings"
+            aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar bg-success" [ngStyle]="{'width.%': percentSavings}">
+                <!-- {{percentSavings | number:'1.0-0'}} &percnt; -->
+                <app-single-cell-item [numValue]="assessmentReport.totalEnergyCostSavings"
+                    [isCurrency]="true"></app-single-cell-item>
+            </div>
+        </div>
+        <hr>
+        Savings W/ NEBs
+        <div class="progress mt-1" role="progressbar" aria-label="Example with label"
+            [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar bg-success" [ngStyle]="{'width.%': percentSavingsNebs}">
+                <div>
+                    <!-- {{percentSavingsNebs | number:'1.0-0'}} &percnt; -->
+                    <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
+                        [isCurrency]="true"></app-single-cell-item>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="w-100">
-        <div #percentSavingsWithNebsGauge></div>
+
+    <div class="list-group-item">
+        <table class="table table-bordered table-sm mt-3">
+            <thead>
+                <tr>
+                    <th>
+                        Energy Savings
+                    </th>
+                    <th class="text-right w-25">
+                        (&dollar; / yr)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                        {{assessment.name}}
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                </tr>
+                <tr *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
+                    <td>
+                        <fa-icon class="ms-3" [icon]="faFileLines"></fa-icon>
+                        {{energyOpportunityReport.energyOpportunity.name}}
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="energyOpportunityReport.totalEnergyCostSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        Total
+                    </th>
+                    <th class="text-right">
+                        <app-single-cell-item [numValue]="assessmentReport.totalEnergyCostSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <table class="table table-bordered table-sm mt-3">
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        Additional Opperation Benfits
+                    </th>
+                    <!-- <th class="text-right w-25">
+                        (&dollar; / yr)
+                    </th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                        {{assessment.name}}
+                    </td>
+                </tr>
+                <tr *ngFor="let nebReport of assessmentReport.assessmentNebReports">
+                    <td>
+                        <fa-icon class="ms-3" [icon]="faWeightHanging"></fa-icon>
+                        {{nebReport.nonEnergyBenefit.name}}
+                    </td>
+                    <td class="text-right w-25">
+                        <app-single-cell-item [numValue]="nebReport.totalCostSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                </tr>
+                <ng-container *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
+                    <ng-container *ngIf="energyOpportunityReport.nebReports.length != 0">
+                        <tr>
+                            <td colspan="2">
+                                <fa-icon [icon]="faFileLines"></fa-icon>
+                                {{energyOpportunityReport.energyOpportunity.name}}
+                            </td>
+                        </tr>
+                        <tr *ngFor="let nebReport of energyOpportunityReport.nebReports">
+                            <td>
+                                <fa-icon class="ms-3" [icon]="faWeightHanging"></fa-icon>
+                                {{nebReport.nonEnergyBenefit.name}}
+                            </td>
+                            <td class="text-right">
+                                <app-single-cell-item [numValue]="nebReport.totalCostSavings"
+                                    [isCurrency]="true"></app-single-cell-item>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        Total
+                    </th>
+                    <th class="text-right">
+                        <app-single-cell-item [numValue]="assessmentReport.totalNebSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <table class="table table-bordered table-sm mt-3">
+            <tbody>
+                <tr>
+                    <th>
+                        Total Energy Savings
+                    </th>
+                    <th class="text-right w-25">
+                        <app-single-cell-item [numValue]="assessmentReport.totalEnergyCostSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Total Additional Operational Benefits
+                    </th>
+                    <th class="text-right">
+                        <app-single-cell-item [numValue]="assessmentReport.totalNebSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Total Savings
+                    </th>
+                    <th class="text-right">
+                        <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
