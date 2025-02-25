@@ -12,4 +12,12 @@
 
 .progress{
     height: 1.5rem;
+    border-radius: 100px;
+}
+
+.list-group-item{
+    padding-left: .25rem;
+    padding-right: .25rem;
+    padding-top: 0px;
+    padding-bottom: .25rem;
 }
