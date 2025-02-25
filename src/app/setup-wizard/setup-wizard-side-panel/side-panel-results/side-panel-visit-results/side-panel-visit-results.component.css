@@ -9,7 +9,13 @@
     font-size: 14px;
     background-color: #35b96c !important;
 }
-
 .progress{
     height: 1.5rem;
+}
+
+.list-group-item{
+    padding-left: .25rem;
+    padding-right: .25rem;
+    padding-top: 0px;
+    padding-bottom: .25rem;
 }

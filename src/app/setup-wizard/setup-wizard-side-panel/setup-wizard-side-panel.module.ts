@@ -29,6 +29,7 @@ import { SidePanelAssessmentResultsComponent } from './side-panel-results/side-p
 import { FormsModule } from '@angular/forms';
 import { TableEntriesModule } from "../../shared/table-entries/table-entries.module";
 import { ReportsModule } from 'src/app/shared/reports/reports.module';
+import { SidePanelVisitResultsComponent } from './side-panel-results/side-panel-visit-results/side-panel-visit-results.component';
 
 
 
@@ -57,7 +58,8 @@ declarations: [
     SidePanelSystemDiagramComponent,
     FacilityProtocolQuestionsHelpComponent,
     SidePanelNebsDiagramComponent,
-    SidePanelAssessmentResultsComponent
+    SidePanelAssessmentResultsComponent,
+    SidePanelVisitResultsComponent
   ],
   imports: [
     CommonModule,

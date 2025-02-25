@@ -7,31 +7,30 @@ import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportuni
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
+import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
+import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
 import { AssessmentReport, getAssessmentReport } from 'src/app/shared/reports/calculations/assessmentReport';
+import { getOnSiteVisitReport, OnSiteVisitReport } from 'src/app/shared/reports/calculations/visitReport';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 
 @Component({
-  selector: 'app-side-panel-assessment-results',
+  selector: 'app-side-panel-visit-results',
   standalone: false,
 
-  templateUrl: './side-panel-assessment-results.component.html',
-  styleUrl: './side-panel-assessment-results.component.css'
+  templateUrl: './side-panel-visit-results.component.html',
+  styleUrl: './side-panel-visit-results.component.css'
 })
-export class SidePanelAssessmentResultsComponent {
-  @Input({ required: true })
-  selectedAssessmentId: string;
+export class SidePanelVisitResultsComponent {
 
   faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faFileLines: IconDefinition = faFileLines;
   faWeightHanging: IconDefinition = faWeightHanging;
-
-  assessmentReport: AssessmentReport;
 
   energyOpportunities: Array<IdbEnergyOpportunity>;
   energyOpportunitiesSub: Subscription;
@@ -50,9 +49,13 @@ export class SidePanelAssessmentResultsComponent {
   percentSavingsNebs: number;
 
   assessmentsSub: Subscription;
-  assessments: Array<IdbAssessment>
+  assessments: Array<IdbAssessment>;
 
-  assessment: IdbAssessment;
+  onSiteVisit: IdbOnSiteVisit;
+  onSiteVisitSub: Subscription;
+
+  onSiteVisitReport: OnSiteVisitReport;
+
   currencyCode: string;
   currencyCodeSub: Subscription;
   constructor(private energyOpportunityIdbService: EnergyOpportunityIdbService,
@@ -61,16 +64,21 @@ export class SidePanelAssessmentResultsComponent {
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private companyIdbService: CompanyIdbService,
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
     private localeService: LocaleService
   ) {
 
   }
 
   ngOnInit() {
-    this.assessmentsSub = this.assessmentIdbService.assessments.subscribe(assessments => {
+    this.onSiteVisitSub = this.onSiteVisitIdbService.selectedVisit.subscribe(visit => {
+      this.onSiteVisit = visit;
       this.setReportResults();
     })
-
+    this.assessmentsSub = this.assessmentIdbService.assessments.subscribe(assessments => {
+      this.assessments = assessments;
+      this.setReportResults();
+    });
     this.energyOpportunitiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(opportunities => {
       this.energyOpportunities = opportunities;
       this.setReportResults();
@@ -93,27 +101,21 @@ export class SidePanelAssessmentResultsComponent {
     })
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['selectedAssessmentId'] && !changes['selectedAssessmentId'].firstChange) {
-      this.setReportResults();
-    }
-  }
-
   ngOnDestroy() {
     this.energyOpportunitiesSub.unsubscribe();
     this.nonEnergyBenefitsSub.unsubscribe();
     this.keyPerformanceMetricsSub.unsubscribe();
     this.keyPerformanceMetricImpactsSub.unsubscribe();
+    this.onSiteVisitSub.unsubscribe();
     this.assessmentsSub.unsubscribe();
     this.currencyCodeSub.unsubscribe();
   }
 
   setReportResults() {
-    if (this.energyOpportunities && this.nonEnergyBenefits && this.keyPerformanceMetrics && this.keyPerformanceMetricImpacts && this.selectedAssessmentId) {
-      this.assessment = this.assessmentIdbService.getByGuid(this.selectedAssessmentId);
-      this.assessmentReport = getAssessmentReport(this.assessment, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceMetricImpacts);
-      this.percentSavings = (this.assessmentReport.totalEnergyCostSavings / this.assessmentReport.assessment.cost) * 100;
-      this.percentSavingsNebs = (this.assessmentReport.totalCostSavings / this.assessmentReport.assessment.cost) * 100
+    if (this.energyOpportunities && this.nonEnergyBenefits && this.keyPerformanceMetrics && this.keyPerformanceMetricImpacts && this.assessments && this.onSiteVisit) {
+      this.onSiteVisitReport = getOnSiteVisitReport(this.onSiteVisit.assessmentIds, this.assessments, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceMetricImpacts);
+      this.percentSavings = (this.onSiteVisitReport.totalEnergyCostSavings / this.onSiteVisitReport.totalEnergyCosts) * 100;
+      this.percentSavingsNebs = (this.onSiteVisitReport.totalCostSavings / this.onSiteVisitReport.totalEnergyCosts) * 100
     }
   }
 }
