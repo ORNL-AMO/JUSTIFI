@@ -35,7 +35,7 @@
             </th>
             <td>
                 <ng-template [ngIf]="assessment.cost" [ngIfElse]="noCostMdash">
-                    {{assessment.cost | currency}}
+                    {{assessment.cost | currency: currencyCode}}/yr
                 </ng-template>
                 <ng-template #noCostMdash>
                     &mdash;

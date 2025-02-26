@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserPortfolioComponent } from './user-portfolio.component';
 import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/shared-assessment-forms.module';
-import { ContactModalModule } from '../shared/contact-modal/contact-modal.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { stubServiceProviders } from '../spec-helpers/spec-test-service-stub';
+import { AssociatedContactsModule } from '../shared/associated-contacts/associated-contacts.module';
 
 describe('UserPortfolioComponent', () => {
   let component: UserPortfolioComponent;
@@ -14,7 +14,7 @@ describe('UserPortfolioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedAssessmentFormsModule, ContactModalModule, RouterTestingModule, FontAwesomeModule],
+      imports: [SharedAssessmentFormsModule, RouterTestingModule, FontAwesomeModule, AssociatedContactsModule],
       declarations: [UserPortfolioComponent],
       providers: stubServiceProviders
     })

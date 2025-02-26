@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { IconDefinition, faChevronLeft, faCircle, faCircleCheck, faContactBook, faSave, faUser } from '@fortawesome/free-solid-svg-icons';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IconDefinition, faChevronLeft, faCircle, faCircleCheck, faLink, faSave, faUser } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { ContactContext, IdbContact } from 'src/app/models/contact';
 
 @Component({
-    selector: 'app-contact-modal',
-    templateUrl: './contact-modal.component.html',
-    styleUrl: './contact-modal.component.css',
-    standalone: false
+  selector: 'app-associated-contacts-modal',
+  standalone: false,
+
+  templateUrl: './associated-contacts-modal.component.html',
+  styleUrl: './associated-contacts-modal.component.css'
 })
-export class ContactModalComponent implements OnInit {
+export class AssociatedContactsModalComponent {
   @Input({ required: true })
   contextGuid: string;
   @Input({ required: true })
@@ -28,7 +29,7 @@ export class ContactModalComponent implements OnInit {
   faCircleCheck: IconDefinition = faCircleCheck;
   faChevronLeft: IconDefinition = faChevronLeft;
   faUser: IconDefinition = faUser;
-  faContactBook: IconDefinition = faContactBook;
+  faLink: IconDefinition = faLink;
   faCircle: IconDefinition = faCircle;
   constructor(
     private contactIdbService: ContactIdbService

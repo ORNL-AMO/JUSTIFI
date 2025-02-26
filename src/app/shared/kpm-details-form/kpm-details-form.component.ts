@@ -18,6 +18,8 @@ export class KpmDetailsFormComponent {
   emitCalculate: EventEmitter<{modifiedMethod: boolean, updateBaseline: boolean}> = new EventEmitter();
   @Input({required: true})
   context: 'preVisit' | 'onSite';
+  @Input({required: true})
+  currencyCode: string;
 
 
   saveChanges() {

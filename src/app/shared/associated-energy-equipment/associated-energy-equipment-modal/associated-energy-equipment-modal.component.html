@@ -1,0 +1,149 @@
+<div [ngClass]="{'window-overlay': displayModal}"></div>
+<div class="popup" [ngClass]="{'open': displayModal }">
+    <div class="popup-header">
+        <fa-icon [icon]="faLink"></fa-icon>
+        Select Linked Industrial Systems
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="popup-body">
+        <ng-template [ngIf]="!selectedEquipment" [ngIfElse]="equipmentCard">
+            <ng-template [ngIf]="energyEquipments.length != 0" [ngIfElse]="noEquipmentBlock">
+                <div class="list-group">
+                    <div class="list-group-item list-group-item-action"
+                        *ngFor="let equipment of energyEquipments; let index = index;" (click)="toggleActive(index)">
+                        <div class="d-flex justify-content-between w-100">
+                            <div class="p-0">
+                                <ng-template [ngIf]="(contextGuid | includesEnergyEquipment:itemContext: equipment)"
+                                    [ngIfElse]="notSelectedBlock">
+                                    <fa-icon class="success" [icon]="faCircleCheck"></fa-icon>
+                                </ng-template>
+                                <ng-template #notSelectedBlock>
+                                    <fa-icon [icon]="faCircle"></fa-icon>
+                                </ng-template>
+                                {{equipment.equipmentName}}
+                            </div>
+                            <button class="btn btn-sm btn-primary btn-sm" (click)="viewEquipment(equipment)">
+                                View
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template #noEquipmentBlock>
+                <div class="alert alert-warning">
+                    No Industrial Systems Found.
+                </div>
+            </ng-template>
+        </ng-template>
+        <ng-template #equipmentCard>
+            <a class="click-link" (click)="viewEquipment(undefined)">
+                <fa-icon [icon]="faChevronLeft"></fa-icon> View All Industrial Systems
+            </a>
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>
+                            Equipment Name
+                        </th>
+                        <th>
+                            <ng-template
+                                [ngIf]="(contextGuid | includesEnergyEquipment:itemContext: selectedEquipment)">
+                                <fa-icon class="success" [icon]="faCircleCheck"></fa-icon>
+                            </ng-template>
+                            {{selectedEquipment.equipmentName}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            Industrial System
+                        </th>
+                        <th>
+                            {{selectedEquipment.equipmentType}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Utility Type
+                        </td>
+                        <td>
+                            {{selectedEquipment.utilityType}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Total Size
+                        </td>
+                        <td>
+                            {{selectedEquipment.size}} {{selectedEquipment.sizeUnit}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Operating Hours
+                        </td>
+                        <td>
+                            {{selectedEquipment.operatingHours}} Hrs/yr
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Load Factor
+                        </td>
+                        <td>
+                            {{selectedEquipment.loadFactor}} &percnt;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Efficiency
+                        </td>
+                        <td>
+                            {{selectedEquipment.efficiency}} &percnt;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Number of Equipment
+                        </td>
+                        <td>
+                            {{selectedEquipment.numberOfEquipment}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Annual Energy Use
+                        </td>
+                        <td>
+                            {{selectedEquipment.annualEnergyUse | number:'1.0-2'}}
+                            {{companyEnergyUnit | unitsDisplay}}
+                            <div *ngIf="companyEnergyUnit !== selectedEquipment.facilityUtilityUnit">
+                                &nbsp;/&nbsp;{{selectedEquipment.annualEnergyUseByUtility | number:'1.0-2'}}
+                                {{selectedEquipment.facilityUtilityUnit | unitsDisplay}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Notes
+                        </td>
+                        <td>
+                            {{selectedEquipment.notes}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+        <hr class="my-1">
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary me-2 btn-sm" (click)="closeModal()">Cancel</button>
+        <button class="btn btn-sm btn-outline-energy-equipment" (click)="saveChanges()"><fa-icon
+                [icon]="faSave"></fa-icon> Set
+            Linked Industrial Systems</button>
+    </div>
+</div>

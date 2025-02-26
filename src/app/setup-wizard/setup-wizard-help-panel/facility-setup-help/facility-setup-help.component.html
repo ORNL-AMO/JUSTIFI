@@ -3,21 +3,51 @@
 </p>
 <hr>
 <p>
-    <span class="bold">Facility Name</span> is the only required field, all others are optional. Tracked Utilities is highly recommended.
+    <span class="bold">Facility Name</span> is the only required field, all others are optional. Tracked Utilities is
+    highly recommended.
 </p>
 <hr>
-<p>
-   <span class="bold">Tracked Utilities</span> is the place to enter annual data regarding different utilities (electricity, natural gas, water,
-    etc.)
+<ng-template [ngIf]="focusedHelp == 'locationDetails'">
+    <p>
+        Street address of the facility receiving an assessment.
+    </p>
+    <hr>
+</ng-template>
+
+<ng-template [ngIf]="focusedHelp == 'trackedUtilities'">
+    <p>
+        Tracked Utilities is the place to enter annual data regarding different utilities (electricity, natural gas,
+        water, etc.)
+    </p>
+    <hr>
+    <p>
+        Focus on utilities connected to the system being assessed (electricity for pumps, fans, motors, etc.; natural
+        gas for heating, steam, etc.).
+    </p>
+    <hr>
+    <p>
+        The "Compressed Air" and "Steam" utilities are used when compressed air and steam cross the facility fence and
+        are not produced on-site.
+    </p>
+    <hr>
+    <p>
+        Select the unit for energy or utility use with the dropdown. This will set the unit used for this utility
+        elsewhere in the app, including the immediate unit cost of utilities.
+    </p>
+    <hr>
+    <p>
+        Use an approximate, blended unit cost for utilities as of the time of the assessment.
+    </p>
+    <hr>
+</ng-template>
+<ng-template [ngIf]="focusedHelp == 'additionalDetails'">
+    <p>
+        Enter the North American Industrial Classification System (NAICS) code for the facility using the dropdown. This
+        is used only for reference purposes later.
+    </p>
+    <hr>
+</ng-template>
+<p class="fw-light help-disclaimer my-auto">
+    <fa-icon [icon]="faExclamationCircle"></fa-icon>
+    Help panel content is dynamic. Click on input fields to view field-by-field help.
 </p>
-<hr>
-<p>
-    Focus on utilities connected to the system being assessed (electricity for pumps, fans, motors, etc.; natural gas
-    for heating, steam, etc.).
-</p>
-<hr>
-<p>
-    The "Compressed Air" and "Steam" utilities are used when compressed air and steam cross the facility fence and are
-    not produced on-site.
-</p>
-<hr>

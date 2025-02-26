@@ -90,7 +90,7 @@ export class KeyPerformanceIndicatorsIdbService {
 
   async addKpmToKpi(companyId: string, performanceMetricToAdd: KeyPerformanceMetric | KeyPerformanceMetricOption, userId: string, facilityId: string): Promise<KeyPerformanceMetric> {
     let addedMetric: KeyPerformanceMetric;
-    let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.getKpiFromKpm(companyId, performanceMetricToAdd.kpiValue);
+    let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.getKpiFromKpm(facilityId, performanceMetricToAdd.kpiValue);
     if (keyPerformanceIndicator) {
       //check metric is being tracked in existing KPI
       addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {

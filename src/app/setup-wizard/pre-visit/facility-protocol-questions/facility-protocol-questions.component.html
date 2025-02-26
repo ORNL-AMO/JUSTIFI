@@ -1,0 +1,30 @@
+<div [ngClass]="{'setup-wizard-content': !print}">
+    <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
+        <div [ngClass]="{'col-10 pt-4 pb-4': !print}">
+            <div [ngClass]="{'form-paper shadow': !print}">
+                <h5>
+                    <fa-icon [icon]="faClipboardQuestion" class="me-2"></fa-icon>
+                    Facility Questions
+                </h5>
+                <hr>
+                <app-shared-facility-protocol-questions></app-shared-facility-protocol-questions>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="setup-wizard-footer navbar shadow" *ngIf="!print">
+    <div class="container-fluid justify-content-between">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+            Go Back
+        </button>
+        <button class="btn btn-success btn-sm" (click)="togglePrint()">
+            <fa-icon [icon]="faFilePdf"></fa-icon>
+            Generate PDF
+        </button>
+        <button class="btn nav-btn btn-sm" (click)="goToKpis()">
+            Select KPIs
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
+    </div>
+</nav>

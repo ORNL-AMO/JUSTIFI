@@ -1,0 +1,14 @@
+@let energyEquipments = (itemGuid | energyEquipmentList:itemContext: energyEquipmentOptions);
+<button class="btn btn-sm btn-outline-energy-equipment" (click)="openModal(undefined)">
+    <fa-icon [icon]="faLink"></fa-icon>
+    Industrial Systems
+</button>
+
+<button class="btn btn-sm btn-outline-energy-equipment" *ngFor="let energyEquipment of energyEquipments"
+    (click)="openModal(energyEquipment)">
+    <fa-icon [icon]="faCube"></fa-icon>
+    {{energyEquipment.equipmentName}}
+</button>
+<app-associated-energy-equipment-modal *ngIf="showModal" [contextGuid]="itemGuid" [itemContext]="itemContext"
+    [selectedEquipment]="selectedEquipment" [facilityGuid]="facility.guid"
+    (emitCancel)="closeModal()"></app-associated-energy-equipment-modal>

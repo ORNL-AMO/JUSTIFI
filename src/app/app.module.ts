@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './routing/app-routing.module';
@@ -24,6 +24,7 @@ import { HelpComponent } from './core-components/help/help.component';
 import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
 import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
+import { localeCurrency } from './shared/constants/localeCurrency';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,19 @@ import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
     PlotlyViaWindowModule,
     NebsDatabaseModule
   ],
-  providers: [],
+  providers: [
+    { 
+      // Set the initial currency code based on browser language
+      provide: DEFAULT_CURRENCY_CODE,
+      useFactory: () => {
+        const browserLang = navigator.language;
+        const currencyOption = localeCurrency.find(option => 
+          option.locale === browserLang
+        );
+        return currencyOption ? currencyOption.currencyCode : 'USD';
+      },
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-<ng-template [ngIf]="keyPerformanceMetricImpact" [ngIfElse]="missingMetricBlock">
+<ng-template [ngIf]="keyPerformanceMetricImpact && keyPerformanceMetric" [ngIfElse]="missingMetricBlock">
     <div class="ps-2">
         <div class="pb-2 d-flex w-100 justify-content-between">
             <div class="d-flex">
@@ -56,7 +56,8 @@
         <div class="form-block">
             <app-kpm-details-form [keyPerformanceMetric]="keyPerformanceMetric"
                 [disableForm]="(metricHasOtherImpacts && !overrideBaseline)" (emitSave)="savePerformanceMetric()"
-                (emitCalculate)="calculateCostFromKPM($event)" [context]="'onSite'"></app-kpm-details-form>
+                (emitCalculate)="calculateCostFromKPM($event)" [context]="'onSite'"
+                [currencyCode]="currencyCode"></app-kpm-details-form>
 
 
             <ng-template [ngIf]="keyPerformanceMetric.isQuantitative">
@@ -82,7 +83,7 @@
                                     <span [innerHTML]="keyPerformanceMetric.totalUnit | unitsDisplay"></span>/yr
                                 </ng-template>
                                 <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'directCost'">
-                                    &dollar;/yr
+                                    {{ currencyCode | currencySymbol }}/yr
                                 </ng-template>
                                 <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'percentTotal'">
                                     &percnt;
@@ -105,7 +106,7 @@
                             <ng-template #minusBlock>
                                 &minus;
                             </ng-template>
-                            {{keyPerformanceMetricImpact.costAdjustment | currency}}/yr
+                            {{keyPerformanceMetricImpact.costAdjustment | currency:currencyCode}}/yr
                         </ng-template>
                         <ng-template #noCostAdjustmentBlock>
                             &mdash;

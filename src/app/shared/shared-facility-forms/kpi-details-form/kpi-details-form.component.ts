@@ -13,6 +13,7 @@ import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { SharedDataService } from '../../shared-services/shared-data.service';
+import { LocaleService } from '../../shared-services/locale.service';
 
 @Component({
     selector: 'app-kpi-details-form',
@@ -54,13 +55,18 @@ export class KpiDetailsFormComponent {
 
   displayAddMetricModal: boolean = false;
   showAddMetricDropdown: boolean = false;
+
+  currencyCode: string;
+  currencySub: Subscription;
+
   constructor(
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private activatedRoute: ActivatedRoute,
     private companyIdbService: CompanyIdbService,
     private contactIdbService: ContactIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private localeService: LocaleService,
   ) {
   }
 
@@ -81,12 +87,17 @@ export class KpiDetailsFormComponent {
       this.keyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getByGuid(kpiGuid);
       this.showAddMetricDropdown = false;
     });
+
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
   }
 
   ngOnDestroy() {
     this.companySub.unsubscribe();
     this.contactsSub.unsubscribe();
     this.keyPerformanceMetricImpactsSub.unsubscribe();
+    this.currencySub.unsubscribe();
   }
 
   ngOnChanges() {
@@ -109,10 +120,6 @@ export class KpiDetailsFormComponent {
   async calculateCost(keyPerformanceMetric: KeyPerformanceMetric) {
     await this.keyPerformanceMetricImpactIdbService.updatePerformanceMetricBaseline(this.keyPerformanceIndicator, keyPerformanceMetric);
     await this.saveChanges();
-  }
-
-  openContactModal(contact: IdbContact) {
-    this.sharedDataService.displayContactModal.next({context: 'KPI', viewContact: contact, contextGuid: this.keyPerformanceIndicator.guid, companyId: this.keyPerformanceIndicator.companyId});
   }
 
   addPerformanceMetric() {

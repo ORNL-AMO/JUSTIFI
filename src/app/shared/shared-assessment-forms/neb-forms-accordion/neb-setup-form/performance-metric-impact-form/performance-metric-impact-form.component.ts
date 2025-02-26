@@ -10,6 +10,7 @@ import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetr
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
+import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 
 @Component({
     selector: 'app-performance-metric-impact-form',
@@ -42,10 +43,15 @@ export class PerformanceMetricImpactFormComponent {
 
   isFormChange: boolean = false;
   showDropdownMenu: boolean = false;
+
+  currencyCode: string;
+  currencySub: Subscription;
+
   constructor(private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService
+    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
+    private localeService: LocaleService,
   ) {
 
   }
@@ -64,10 +70,14 @@ export class PerformanceMetricImpactFormComponent {
         this.setDisabledBaseline(_kpmImpacts);
       }
     });
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
   }
 
   ngOnDestroy() {
     this.keyPerformanceMetricImpactsSub.unsubscribe();
+    this.currencySub.unsubscribe();
   }
 
   setDisabledBaseline(allKpmImpacts: Array<IdbKeyPerformanceMetricImpact>) {

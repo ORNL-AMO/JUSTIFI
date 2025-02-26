@@ -1,0 +1,13 @@
+@let linkedContacts = (contextGuid | associatedContacts:contactContext: contacts);
+<button class="btn btn-sm btn-outline-contact" (click)="openModal(undefined)">
+    <fa-icon [icon]="faLink"></fa-icon>
+    Stakeholders
+</button>
+<button class="btn btn-sm btn-outline-contact" *ngFor="let contact of linkedContacts" (click)="openModal(contact)">
+    <fa-icon [icon]="faUser"></fa-icon>
+    {{contact | contactNameDisplay}}
+</button>
+
+<app-associated-contacts-modal *ngIf="showModal" [companyGuid]="companyGuid" [contactContext]="contactContext"
+    [contextGuid]="contextGuid" [selectedContact]="selectedContact"
+    (emitCancelContact)="closeModal()"></app-associated-contacts-modal>
