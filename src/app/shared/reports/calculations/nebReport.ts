@@ -4,11 +4,11 @@ import * as _ from 'lodash';
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
 
 ///NEB REPORT
-export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, companyPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpact: Array<IdbKeyPerformanceMetricImpact>): NebReport {
+export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, facilityPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpact: Array<IdbKeyPerformanceMetricImpact>): NebReport {
     let reportPerformanceMetrics: Array<ReportPerformanceMetric> = new Array();
     keyPerformanceMetricImpact.forEach(performanceMetricImpact => {
         if (nonEnergyBenefit.guid == performanceMetricImpact.nebId) {
-            let keyPerformanceMetric: KeyPerformanceMetric = companyPerformanceMetrics.find(companyKPM => {
+            let keyPerformanceMetric: KeyPerformanceMetric = facilityPerformanceMetrics.find(companyKPM => {
                 if (companyKPM.isCustom == false) {
                     return companyKPM.value == performanceMetricImpact.kpmValue
                 } else {

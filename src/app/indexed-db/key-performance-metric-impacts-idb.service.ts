@@ -60,10 +60,10 @@ export class KeyPerformanceMetricImpactsIdbService {
     });
   }
 
-  getByCompanyGuid(companyGuid: string): Array<IdbKeyPerformanceMetricImpact> {
+  getByFacilityGuid(facilityId: string): Array<IdbKeyPerformanceMetricImpact> {
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpacts.getValue();
     return keyPerformanceMetricImpacts.filter(kpmImpact => {
-      return kpmImpact.companyId == companyGuid
+      return kpmImpact.facilityId == facilityId
     });
   }
 

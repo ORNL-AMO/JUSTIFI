@@ -116,9 +116,9 @@ let stubKpi: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator('123', '
 stubKpi.guid = '123';
 let keyPerformanceIndicatorService: Partial<KeyPerformanceIndicatorsIdbService> = {
     keyPerformanceIndicators: new BehaviorSubject<Array<IdbKeyPerformanceIndicator>>([stubKpi]),
-    getByCompanyGuid: () => { return [stubKpi] },
+    getByFacilityGuid: () => { return [stubKpi] },
     getByGuid: () => { return stubKpi },
-    getCompanyKeyPerformanceMetrics: () => { return [] }
+    getFacilityKeyPerformanceMetrics: () => { return [] }
 }
 
 let stubEnergyEquipment: IdbEnergyEquipment = getNewIdbEnergyEquipment('123', '123', '123', getDefaultUnitSettings());
