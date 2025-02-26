@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { faFileLines, faScrewdriverWrench, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
@@ -10,14 +10,12 @@ import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-pe
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
-import { IdbCompany } from 'src/app/models/company';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
-import { AssessmentReport, getAssessmentReport } from 'src/app/shared/reports/calculations/assessmentReport';
 import { getOnSiteVisitReport, OnSiteVisitReport } from 'src/app/shared/reports/calculations/visitReport';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 

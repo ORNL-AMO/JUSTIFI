@@ -1,5 +1,4 @@
-<table class="table table-bordered savings-table table-hover" *ngIf="assessmentReport"
-    [ngClass]="{'side-panel-report': inSidePanel}">
+<table class="table table-bordered savings-table table-hover" *ngIf="assessmentReport">
     <thead>
         <tr>
             <th>
@@ -8,7 +7,7 @@
             <th class="text-right">
                 Cost ({{ currencyCode | currencySymbol }}/yr)
             </th>
-            <th class="text-right" *ngIf="!inSidePanel">
+            <th class="text-right">
                 Energy (MMBtu/yr)
             </th>
         </tr>
@@ -28,7 +27,7 @@
                 <app-single-cell-item [numValue]="assessmentReport.assessment.cost"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
-            <td class="text-right" *ngIf="!inSidePanel">
+            <td class="text-right">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.energyUse"
                     [isCurrency]="false"></app-single-cell-item>
             </td>
@@ -46,7 +45,7 @@
                 <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
-            <td class="text-right" *ngIf="!inSidePanel">
+            <td class="text-right">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.energySavings"
                     [isCurrency]="false"></app-single-cell-item>
             </td>
@@ -65,7 +64,7 @@
                 <app-single-cell-item [numValue]="nebReport.totalCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
-            <td class="text-right" *ngIf="!inSidePanel">
+            <td class="text-right">
                 &mdash;
             </td>
         </tr>
@@ -77,7 +76,7 @@
                 <app-single-cell-item [numValue]="assessmentReport.totalNonOpportunitySavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
-            <td class="text-right bold" *ngIf="!inSidePanel">
+            <td class="text-right bold">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.energySavings"
                     [isCurrency]="false"></app-single-cell-item>
             </td>
@@ -96,7 +95,7 @@
                     <app-single-cell-item [numValue]="energyOpportunityReport.energyOpportunity.costSavings"
                         [isCurrency]="true"></app-single-cell-item>
                 </td>
-                <td class="text-right" *ngIf="!inSidePanel">
+                <td class="text-right">
                     <app-single-cell-item [numValue]="energyOpportunityReport.energyOpportunity.energySavings"
                         [isCurrency]="false"></app-single-cell-item>
                 </td>
@@ -110,7 +109,7 @@
                     <app-single-cell-item [numValue]="nebReport.totalCostSavings"
                         [isCurrency]="true"></app-single-cell-item>
                 </td>
-                <td class="text-right" *ngIf="!inSidePanel">
+                <td class="text-right">
                     &mdash;
                 </td>
             </tr>
@@ -122,7 +121,7 @@
                     <app-single-cell-item [numValue]="energyOpportunityReport.totalCostSavings"
                         [isCurrency]="true"></app-single-cell-item>
                 </td>
-                <td class="text-right bold" *ngIf="!inSidePanel">
+                <td class="text-right bold">
                     <app-single-cell-item [numValue]="energyOpportunityReport.energyOpportunity.energySavings"
                         [isCurrency]="false"></app-single-cell-item>
                 </td>
@@ -136,7 +135,7 @@
                 <app-single-cell-item [numValue]="assessmentReport.totalEnergyCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
-            <td class="text-right bold" *ngIf="!inSidePanel">
+            <td class="text-right bold">
                 <app-single-cell-item [numValue]="assessmentReport.totalEnergySavings"
                     [isCurrency]="false"></app-single-cell-item>
             </td>
@@ -149,7 +148,7 @@
                 <app-single-cell-item [numValue]="assessmentReport.totalNebSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
-            <td class="text-right bold" *ngIf="!inSidePanel">
+            <td class="text-right bold">
                 <app-single-cell-item [numValue]="0"
                     [isCurrency]="false"></app-single-cell-item>
             </td>
@@ -162,7 +161,7 @@
                 <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
-            <td class="text-right bold" *ngIf="!inSidePanel">
+            <td class="text-right bold">
                 <app-single-cell-item [numValue]="assessmentReport.totalEnergySavings"
                     [isCurrency]="false"></app-single-cell-item>
             </td>

@@ -7,7 +7,6 @@
         <div class="progress" role="progressbar" [ariaValueNow]="percentSavings"
             aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavings}">
-                <!-- {{percentSavings | number:'1.0-0'}} &percnt; -->
                 <app-single-cell-item [numValue]="assessmentReport.totalEnergyCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </div>
@@ -18,7 +17,6 @@
             [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
                 <div>
-                    <!-- {{percentSavingsNebs | number:'1.0-0'}} &percnt; -->
                     <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
                         [isCurrency]="true"></app-single-cell-item>
                 </div>
@@ -78,9 +76,6 @@
                     <th colspan="2">
                         Additional Opperation Benfits
                     </th>
-                    <!-- <th class="text-right w-25">
-                        (&dollar; / yr)
-                    </th> -->
                 </tr>
             </thead>
             <tbody>

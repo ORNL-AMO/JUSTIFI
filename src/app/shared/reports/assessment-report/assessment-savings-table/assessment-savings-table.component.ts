@@ -13,8 +13,6 @@ import { Subscription } from 'rxjs';
 export class AssessmentSavingsTableComponent {
   @Input({required: true})
   assessmentReport: AssessmentReport;
-  @Input()
-  inSidePanel: boolean;
 
 
   faWeightHanging: IconDefinition = faWeightHanging;

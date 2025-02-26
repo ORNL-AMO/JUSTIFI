@@ -8,7 +8,6 @@
         <div class="progress" role="progressbar" [ariaValueNow]="percentSavings" aria-valuemin="0"
             aria-valuemax="100">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" [ngStyle]="{'width.%': percentSavings}">
-                <!-- {{percentSavings | number:'1.0-0'}} &percnt; -->
                 <app-single-cell-item [numValue]="onSiteVisitReport.totalEnergyCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </div>
@@ -21,7 +20,6 @@
             <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
                 aria-valuemax="100">
                 <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
-                    <!-- {{percentSavings | number:'1.0-0'}} &percnt; -->
                     <div class="progress-text">
                         <app-single-cell-item [numValue]="assessmentReport.totalEnergyCostSavings"
                             [isCurrency]="true"></app-single-cell-item>
@@ -36,7 +34,6 @@
             [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
                 <div>
-                    <!-- {{percentSavingsNebs | number:'1.0-0'}} &percnt; -->
                     <app-single-cell-item [numValue]="onSiteVisitReport.totalCostSavings"
                         [isCurrency]="true"></app-single-cell-item>
                 </div>
@@ -50,7 +47,6 @@
             <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
                 aria-valuemax="100">
                 <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
-                    <!-- {{percentSavings | number:'1.0-0'}} &percnt; -->
                     <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
                         [isCurrency]="true"></app-single-cell-item>
                 </div>
@@ -99,9 +95,6 @@
                     <th colspan="2">
                         Additional Opperation Benfits
                     </th>
-                    <!-- <th class="text-right w-25">
-                        (&dollar; / yr)
-                    </th> -->
                 </tr>
             </thead>
             <tbody>
