@@ -65,7 +65,7 @@ describe('OnSiteVisitReportComponent', () => {
   };
   let keyPerformanceIndicatorService: Partial<KeyPerformanceIndicatorsIdbService> = {
     keyPerformanceIndicators: new BehaviorSubject<Array<IdbKeyPerformanceIndicator>>([]),
-    getCompanyKeyPerformanceMetrics: () => { return [] }
+    getFacilityKeyPerformanceMetrics: () => { return [] }
   };
 
 

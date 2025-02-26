@@ -53,29 +53,21 @@ export class KeyPerformanceIndicatorsIdbService {
     });
   }
 
-  getByCompanyGuid(companyGuid: string): Array<IdbKeyPerformanceIndicator> {
-    let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicators.getValue();
-    let companyKPIs: Array<IdbKeyPerformanceIndicator> = keyPerformanceIndicators.filter(kpi => {
-      return kpi.companyId == companyGuid;
-    });
-    return companyKPIs;
-  }
-
-  getCompanyKeyPerformanceMetrics(companyGuid: string): Array<KeyPerformanceMetric> {
-    let companyKPIs: Array<IdbKeyPerformanceIndicator> = this.getByCompanyGuid(companyGuid);
-    let companyKPMs: Array<KeyPerformanceMetric> = new Array();
-    companyKPIs.forEach(kpi => {
+  getFacilityKeyPerformanceMetrics(facilityId: string): Array<KeyPerformanceMetric> {
+    let facilityKPIs: Array<IdbKeyPerformanceIndicator> = this.getByFacilityGuid(facilityId);
+    let facilityKPMs: Array<KeyPerformanceMetric> = new Array();
+    facilityKPIs.forEach(kpi => {
       kpi.performanceMetrics.forEach(kpiMetric => {
-        if (kpiMetric.isCustom || companyKPMs.findIndex(_kpiMetric => { return _kpiMetric.value == kpiMetric.value }) == -1) {
-          companyKPMs.push(kpiMetric)
+        if (kpiMetric.isCustom || facilityKPMs.findIndex(_kpiMetric => { return _kpiMetric.value == kpiMetric.value }) == -1) {
+          facilityKPMs.push(kpiMetric)
         }
       });
     });
-    return companyKPMs;
+    return facilityKPMs;
   }
 
-  getKeyPerformanceMetric(companyGuid: string, kpmGuid: string): KeyPerformanceMetric {
-    let companyKeyPerformanceMetrics: Array<KeyPerformanceMetric> = this.getCompanyKeyPerformanceMetrics(companyGuid);
+  getKeyPerformanceMetric(facilityId: string, kpmGuid: string): KeyPerformanceMetric {
+    let companyKeyPerformanceMetrics: Array<KeyPerformanceMetric> = this.getFacilityKeyPerformanceMetrics(facilityId);
     return companyKeyPerformanceMetrics.find(metric => {
       return metric.guid == kpmGuid
     });
@@ -90,7 +82,7 @@ export class KeyPerformanceIndicatorsIdbService {
 
   async addKpmToKpi(companyId: string, performanceMetricToAdd: KeyPerformanceMetric | KeyPerformanceMetricOption, userId: string, facilityId: string): Promise<KeyPerformanceMetric> {
     let addedMetric: KeyPerformanceMetric;
-    let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.getKpiFromKpm(companyId, performanceMetricToAdd.kpiValue);
+    let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.getKpiFromKpm(facilityId, performanceMetricToAdd.kpiValue);
     if (keyPerformanceIndicator) {
       //check metric is being tracked in existing KPI
       addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {

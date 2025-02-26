@@ -94,7 +94,7 @@ export class PerformanceMetricsModalComponent {
     });
 
     if (this.filterAssociatedMetrics == false) {
-      let companyKPMs: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(this.nonEnergyBenefit.companyId);
+      let companyKPMs: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.nonEnergyBenefit.facilityId);
       let customMetrics: Array<KeyPerformanceMetric> = companyKPMs.filter(kpm => {
         return kpm.isCustom == true
       });
