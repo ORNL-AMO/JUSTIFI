@@ -23,7 +23,7 @@ describe('NebsDatabaseComponent', () => {
   let fixture: ComponentFixture<NebsDatabaseComponent>;
   let keyPerformanceIndicatorIdbService: Partial<KeyPerformanceIndicatorsIdbService> = {
     keyPerformanceIndicators: new BehaviorSubject<Array<IdbKeyPerformanceIndicator>>([]),
-    getCompanyKeyPerformanceMetrics: () => { return [] }
+    getFacilityKeyPerformanceMetrics: () => { return [] }
   };
   let nonEnergyBenefitIdbService: Partial<NonEnergyBenefitsIdbService> = {
     getAssessmentNonEnergyBenefits: () => { return [] }

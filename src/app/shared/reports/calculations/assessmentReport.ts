@@ -9,7 +9,7 @@ import { KeyPerformanceIndicatorReport, getKeyPerfomanceIndicatorReport } from "
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
 
 ///ASSESSMENT REPORT
-export function getAssessmentReport(assessment: IdbAssessment, energyOpportunities: Array<IdbEnergyOpportunity>, nonEnergyBenefits: Array<IdbNonEnergyBenefit>, companyPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>): AssessmentReport {
+export function getAssessmentReport(assessment: IdbAssessment, energyOpportunities: Array<IdbEnergyOpportunity>, nonEnergyBenefits: Array<IdbNonEnergyBenefit>, facilityPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>): AssessmentReport {
 
     if (!assessment.energySavings) {
         assessment.energySavings = 0;
@@ -28,7 +28,7 @@ export function getAssessmentReport(assessment: IdbAssessment, energyOpportuniti
         return energyOpportunity.assessmentId == assessment.guid;
     })
     assessmentEnergyOpportunities.forEach(energyOpportunity => {
-        let energyOpportunityReport: EnergyOpportunityReport = getEnergyOpportunityReport(energyOpportunity, nonEnergyBenefits, companyPerformanceMetrics, keyPerformanceMetricImpacts);
+        let energyOpportunityReport: EnergyOpportunityReport = getEnergyOpportunityReport(energyOpportunity, nonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts);
         energyOpportunityReports.push(energyOpportunityReport);
     });
 
@@ -37,7 +37,7 @@ export function getAssessmentReport(assessment: IdbAssessment, energyOpportuniti
         return neb.assessmentId == assessment.guid && !neb.energyOpportunityId
     });
     assessmentNebs.forEach(neb => {
-        let nebReport: NebReport = getNebReport(neb, companyPerformanceMetrics, keyPerformanceMetricImpacts);
+        let nebReport: NebReport = getNebReport(neb, facilityPerformanceMetrics, keyPerformanceMetricImpacts);
         assessmentNebReports.push(nebReport);
     });
 
