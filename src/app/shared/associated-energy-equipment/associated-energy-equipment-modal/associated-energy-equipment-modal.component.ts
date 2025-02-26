@@ -47,9 +47,7 @@ export class AssociatedEnergyEquipmentModalComponent {
     this.companyEnergyUnit = this.companyIdbService.selectedCompany.getValue().companyEnergyUnit;
     this.energyEquipments = this.energyEquipmentIdbService.getByOtherGuid(this.facilityGuid, 'facility').map(equipment => {
       //need to use shallow copy
-      return {
-        ...equipment
-      }
+      return JSON.parse(JSON.stringify(equipment))
     });
     if (this.itemContext == 'energyEquipment') {
       this.energyEquipments = this.energyEquipments.filter(equipment => {

@@ -43,9 +43,7 @@ export class AssociatedProcessEquipmentModalComponent {
   ngOnInit() {
     this.processEquipments = this.processEquipmentIdbService.getFacilityProcessEquipment(this.facilityGuid).map(equipment => {
       //need to use shallow copy
-      return {
-        ...equipment
-      }
+      return JSON.parse(JSON.stringify(equipment))
     });
     //don't link to self
     if (this.itemContext == 'processEquipment') {

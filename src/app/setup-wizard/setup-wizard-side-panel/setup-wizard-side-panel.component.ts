@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { faChartPie, faChevronCircleLeft, faChevronCircleRight, faChevronLeft, faChevronRight, faCircleQuestion, faDiagramProject, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChartPie, faChevronCircleLeft, faChevronCircleRight, faCircleQuestion, faDiagramProject, faLink, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { SetupWizardService } from '../setup-wizard.service';
 
@@ -21,6 +20,7 @@ export class SetupWizardSidePanelComponent {
   faChevronCircleRight: IconDefinition = faChevronCircleRight;
   faChevronCircleLeft: IconDefinition = faChevronCircleLeft;
   faWeightHanging: IconDefinition = faWeightHanging;
+  faLink: IconDefinition = faLink;
 
   helpPanelOpenSub: Subscription;
   helpPanelOpen: boolean;
