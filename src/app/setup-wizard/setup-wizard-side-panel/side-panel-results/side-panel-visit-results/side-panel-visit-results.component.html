@@ -1,6 +1,6 @@
 <div class="list-group list-group-flush mt-2" *ngIf="onSiteVisitReport">
     <div class="list-group-item">
-        Current Facility Energy Costs  <span class="float-right">{{facilityEnergyCost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
+        Current Facility Energy Costs  <span class="float-right">{{facility.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
     </div>
     <div class="list-group-item">
         Total Energy Cost Savings
@@ -14,7 +14,7 @@
             </div>
         </div>
         <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-            @let assessmentPercentSavings = (assessmentReport.totalEnergyCostSavings / facilityEnergyCost)
+            @let assessmentPercentSavings = (assessmentReport.totalEnergyCostSavings / facility.cost)
             * 100;
             {{assessmentReport.assessment.name}}
             <span class="float-right small">({{assessmentPercentSavings | number:'1.0-0'}} &percnt;)</span>
@@ -43,7 +43,7 @@
             </div>
         </div>
         <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-            @let assessmentPercentSavings = (assessmentReport.totalCostSavings / facilityEnergyCost) *
+            @let assessmentPercentSavings = (assessmentReport.totalCostSavings / facility.cost) *
             100;
             {{assessmentReport.assessment.name}}
             <span class="float-right small">({{assessmentPercentSavings | number:'1.0-0'}} &percnt;)</span>

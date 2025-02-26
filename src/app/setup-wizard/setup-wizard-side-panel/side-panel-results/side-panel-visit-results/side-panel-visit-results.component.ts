@@ -62,7 +62,7 @@ export class SidePanelVisitResultsComponent {
   currencyCodeSub: Subscription;
 
   facilitySub: Subscription;
-  facilityEnergyCost: number;
+  facility: IdbFacility;
   constructor(private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
@@ -77,6 +77,10 @@ export class SidePanelVisitResultsComponent {
   }
 
   ngOnInit() {
+    this.facilitySub = this.facilityDbService.selectedFacility.subscribe(facility => {
+      this.facility = facility;
+      this.setReportResults();
+    })
     this.onSiteVisitSub = this.onSiteVisitIdbService.selectedVisit.subscribe(visit => {
       this.onSiteVisit = visit;
       this.setReportResults();
@@ -94,8 +98,7 @@ export class SidePanelVisitResultsComponent {
       this.setReportResults();
     });
     this.keyPerformanceMetricsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(() => {
-      let company: IdbCompany = this.companyIdbService.selectedCompany.getValue();
-      this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(company.guid);
+      this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.facility.guid);
       this.setReportResults();
     });
     this.keyPerformanceMetricImpactsSub = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.subscribe(impacts => {
@@ -105,10 +108,6 @@ export class SidePanelVisitResultsComponent {
     this.currencyCodeSub = this.localeService.currencyCode.subscribe(currencyCode => {
       this.currencyCode = currencyCode;
     });
-    this.facilitySub = this.facilityDbService.selectedFacility.subscribe(facility => {
-      this.facilityEnergyCost = facility?.cost;
-      this.setReportResults();
-    })
 
   }
 
@@ -123,10 +122,10 @@ export class SidePanelVisitResultsComponent {
   }
 
   setReportResults() {
-    if (this.energyOpportunities && this.nonEnergyBenefits && this.keyPerformanceMetrics && this.keyPerformanceMetricImpacts && this.assessments && this.onSiteVisit && this.facilityEnergyCost) {
+    if (this.energyOpportunities && this.nonEnergyBenefits && this.keyPerformanceMetrics && this.keyPerformanceMetricImpacts && this.assessments && this.onSiteVisit && this.facility) {
       this.onSiteVisitReport = getOnSiteVisitReport(this.onSiteVisit.assessmentIds, this.assessments, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceMetricImpacts);
-      this.percentSavings = (this.onSiteVisitReport.totalEnergyCostSavings / this.facilityEnergyCost) * 100;
-      this.percentSavingsNebs = (this.onSiteVisitReport.totalCostSavings / this.facilityEnergyCost) * 100
+      this.percentSavings = (this.onSiteVisitReport.totalEnergyCostSavings / this.facility.cost) * 100;
+      this.percentSavingsNebs = (this.onSiteVisitReport.totalCostSavings / this.facility.cost) * 100
     }
   }
 }
