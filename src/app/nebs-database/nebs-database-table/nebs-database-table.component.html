@@ -18,7 +18,7 @@
             <option [ngValue]="undefined">All KPI</option>
             <option *ngFor="let kpi of keyPerformanceIndicatorOptions" [ngValue]="kpi.optionValue">
                 <div class="d-flex">
-                    <ng-template [ngIf]="companyTrackedKpis.includes(kpi.optionValue)">
+                    <ng-template [ngIf]="facilityTrackedKpis.includes(kpi.optionValue)">
                         <div class="p-1">
                             &ast;
                         </div>
@@ -38,7 +38,7 @@
             <option [ngValue]="undefined">All KPM</option>
             <option *ngFor="let kpm of keyPerformanceMetricOptions" [ngValue]="kpm.value">
                 <div class="d-flex">
-                    <ng-template [ngIf]="companyTrackedKpms.includes(kpm.value)">
+                    <ng-template [ngIf]="facilityTrackedKpms.includes(kpm.value)">
                         <div class="p-1">
                             &ast;
                         </div>
@@ -102,7 +102,7 @@ nebSearchStr;
                                                 [checked]="neb.selectedKPM.includes(metric)">
                                             <label class="form-check-label" for="{{'check_'+metric+neb.optionValue}}">
                                                 <div class="d-flex">
-                                                    <ng-template [ngIf]="companyTrackedKpms.includes(metric)">
+                                                    <ng-template [ngIf]="facilityTrackedKpms.includes(metric)">
                                                         <div class="pe-1">
                                                             &ast;
                                                         </div>

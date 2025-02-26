@@ -43,7 +43,7 @@ export class EnergyEquipmentSustainabilityComponent {
     });
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     this.setupWizardService.focusedHelp.next(undefined);
   }
 

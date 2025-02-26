@@ -39,7 +39,7 @@ export class EnergyEquipmentEmployeeEngagementComponent {
     });
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     this.setupWizardService.focusedHelp.next(undefined);
   }
 

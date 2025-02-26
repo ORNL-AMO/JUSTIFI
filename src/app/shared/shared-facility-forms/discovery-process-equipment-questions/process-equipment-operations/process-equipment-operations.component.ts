@@ -46,7 +46,7 @@ export class ProcessEquipmentOperationsComponent {
     });
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     this.setupWizardService.focusedHelp.next(undefined);
   }
 

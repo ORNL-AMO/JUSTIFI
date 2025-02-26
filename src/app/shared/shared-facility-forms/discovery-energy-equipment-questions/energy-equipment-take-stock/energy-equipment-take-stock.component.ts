@@ -40,7 +40,7 @@ export class EnergyEquipmentTakeStockComponent {
     });
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     this.setupWizardService.focusedHelp.next(undefined);
   }
 

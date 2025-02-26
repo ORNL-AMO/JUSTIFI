@@ -44,7 +44,7 @@ export class ProcessEquipmentTakeStockComponent {
     });
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     this.setupWizardService.focusedHelp.next(undefined);
   }
 

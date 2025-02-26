@@ -30,7 +30,7 @@ export class DiscoveryProcessEquipmentQuestionsComponent {
   ngOnInit() {
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     this.setupWizardService.focusedHelp.next(undefined);
   }
 

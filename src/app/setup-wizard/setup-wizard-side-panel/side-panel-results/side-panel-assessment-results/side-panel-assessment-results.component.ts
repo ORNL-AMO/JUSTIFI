@@ -2,13 +2,11 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { faFileLines, faScrewdriverWrench, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
-import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
-import { IdbCompany } from 'src/app/models/company';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
@@ -60,7 +58,6 @@ export class SidePanelAssessmentResultsComponent {
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private assessmentIdbService: AssessmentIdbService,
-    private companyIdbService: CompanyIdbService,
     private localeService: LocaleService
   ) {
 
@@ -80,8 +77,7 @@ export class SidePanelAssessmentResultsComponent {
       this.setReportResults();
     });
     this.keyPerformanceMetricsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(() => {
-      let company: IdbCompany = this.companyIdbService.selectedCompany.getValue();
-      this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(company.guid);
+      this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.assessment.facilityId);
       this.setReportResults();
     });
     this.keyPerformanceMetricImpactsSub = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.subscribe(impacts => {

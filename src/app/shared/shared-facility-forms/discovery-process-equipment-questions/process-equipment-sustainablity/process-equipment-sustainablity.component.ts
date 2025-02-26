@@ -44,7 +44,7 @@ export class ProcessEquipmentSustainablityComponent {
     });
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     this.setupWizardService.focusedHelp.next(undefined);
   }
 
