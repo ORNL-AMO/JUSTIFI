@@ -6,17 +6,20 @@
                     Name <span class="required-asterisk">*</span></label>
                 <div class="col-sm-7">
                     <input name="equipmentName" type="text" class="form-control"
-                        [(ngModel)]="energyEquipment.equipmentName" id="equipmentName" (input)="saveChanges()" required>
+                        [(ngModel)]="energyEquipment.equipmentName" id="equipmentName" (input)="saveChanges()" required
+                        (focus)="focusField('equipmentName')">
                     <div class="alert alert-danger p-1" *ngIf="!energyEquipment.equipmentName">
                         Equipment name required.
                     </div>
                 </div>
             </div>
             <div class="row">
-                <label class="col-sm-5 col-form-label" for="equipmentType">Industrial System</label>
+                <label class="col-sm-5 col-form-label" for="equipmentType">Industrial System <span
+                        class="required-asterisk">*</span></label>
                 <div class="col-sm-7">
                     <select name="equipmentType" class="form-select" id="equipmentType"
-                        [(ngModel)]="energyEquipment.equipmentType" (change)="industrialSystemChange()">
+                        [(ngModel)]="energyEquipment.equipmentType" (change)="industrialSystemChange()"
+                        (focus)="focusField('equipmentType')">
                         <option *ngFor="let option of equipmentTypes" [ngValue]="option">
                             {{option}}
                         </option>
@@ -24,162 +27,234 @@
                 </div>
             </div>
             <div class="row">
-                <label class="col-sm-5 col-form-label" for="utilityType">Utility
-                    Type</label>
-                <div class="col-sm-7">
-                    <select name="utilityType" class="form-select" id="utilityType"
-                        [(ngModel)]="energyEquipment.utilityType" (change)="utilityTypeChange()">
-                        <option
-                            *ngFor="let option of energyEquipment.equipmentType | linkedUtilityOptions : 'equipment'"
-                            [ngValue]="option">
-                            {{option}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-5 d-flex">
-                    <label class="col-form-label me-2" for="size">Total Size</label>
-                    <div class="form-check form-switch" *ngIf="energyEquipment.utilityType === 'Other Fuels'">
-                        <input class="form-check-input" type="checkbox" role="switch" id="calculationMode"
-                            name="calculationMode" [(ngModel)]="energyEquipment.autoCalculate"
-                            (change)="updateEnergyCalculations()">
-                        <label class="form-check-label" for="calculationMode">
-                            Auto Calculate
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-7">
-                    <div class="input-group">
-                        <input type="number" id="size" name="size" step="0.001" [ngClass]="(energyEquipment.utilityType === 'Other Fuels' && energyEquipment.autoCalculate) ?
-                                 'form-control-plaintext' : 'form-control'" [(ngModel)]="energyEquipment.size"
-                            [readOnly]="energyEquipment.autoCalculate" (input)="calculateAnnualEnergyUse()">
-                        <select class="input-group-text" id="sizeUnit" name="sizeUnit"
-                            [(ngModel)]="energyEquipment.sizeUnit" (change)="updateEnergyCalculations()">
-                            <option
-                                *ngFor="let option of (energyEquipment.equipmentType === 'Process Cooling' ?
-                                processCoolingUnitOptions : (energyEquipment.utilityType | linkedUnitOptions: 'Power'))"
-                                [ngValue]="option.value">
-                                <span [innerHTML]="option.value | unitsDisplay"></span>
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="energyEquipment.utilityType === 'Other Fuels' && energyEquipment.autoCalculate">
-                <div class="row">
-                    <label class="col-sm-5 col-form-label" for="fuelConsumption" name="fuelConsumptionLabel"
-                        id="fuelConsumptionLabel">Fuel Consumption</label>
-                    <div class="col-sm-7">
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="fuelConsumption" name="fuelConsumption"
-                                [(ngModel)]="energyEquipment.fuelConsumption" (input)="updateEnergyCalculations()">
-                            <select class="input-group-text" id="fuelUnit" name="fuelUnit"
-                                [(ngModel)]="energyEquipment.fuelVolumeUnit" (change)="updateEnergyCalculations()">
-                                <option *ngFor="let option of fuelVolumeUnitOptions" [ngValue]="option.value">
-                                    <span [innerHTML]="option.value | unitsDisplay: 'hr'"></span>
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-sm-5 col-form-label" for="heatingValue">Higher Heating Value</label>
-                    <div class="col-sm-7">
-                        <div class="input-group">
-                            <input type="number" class="form-control" name="heatingValue" id="heatingValue"
-                                [(ngModel)]="energyEquipment.fuelHHV" (input)="updateEnergyCalculations()">
-                            <select class="input-group-text" id="heatingUnit" name="heatingUnit"
-                                [(ngModel)]="energyEquipment.fuelEnergyUnit" (change)="updateEnergyCalculations()">
-                                <option *ngFor="let option of fuelEnergyUnitOptions" [ngValue]="option.value">
-                                    <span
-                                        [innerHTML]="option.value | unitsDisplay: (energyEquipment.fuelVolumeUnit | unitsDisplay)"></span>
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-sm-5 col-form-label" for="operatingHours">Operating
-                    Hours</label>
-                <div class="col-sm-7">
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="operatingHours" name="operatingHours"
-                            [(ngModel)]="energyEquipment.operatingHours" (input)="calculateAnnualEnergyUse()">
-                        <span class="input-group-text">Hrs/yr</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-sm-5 col-form-label" for="loadFactor">Load
-                    Factor</label>
-                <div class="col-sm-7">
-                    <div class="input-group">
-                        <input type="number" class="form-control" name="loadFactor" id="loadFactor"
-                            [(ngModel)]="energyEquipment.loadFactor" (input)="calculateAnnualEnergyUse()">
-                        <span class="input-group-text">&percnt;</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-sm-5 col-form-label" for="efficiency">Efficiency</label>
-                <div class="col-sm-7">
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="efficiency" name="efficiency"
-                            [(ngModel)]="energyEquipment.efficiency" (input)="calculateAnnualEnergyUse()">
-                        <span class="input-group-text">&percnt;</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-sm-5 col-form-label" for="numberOfEquipment">Number of Equipment</label>
-                <div class="col-sm-7">
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="numberOfEquipment" name="numberOfEquipment"
-                            [(ngModel)]="energyEquipment.numberOfEquipment" (input)="calculateAnnualEnergyUse()">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
                 <label class="col-sm-5 col-form-label" for="notes">Notes</label>
                 <div class="col-sm-7">
                     <textarea class="form-control" name="notes" id="notes" [(ngModel)]="energyEquipment.notes"
-                        (input)="saveChanges()" rows="4"></textarea>
-                </div>
-            </div>
-            <div class="row">
-                <label class="col-sm-5 col-form-label">Annual Energy Use</label>
-                <div class="col-sm-7">
-                    <span class="d-flex justify-content-center bold" id="energyUse" name="energyUse">
-                        {{energyEquipment.annualEnergyUse | number:'1.0-2'}}
-                        {{companyEnergyUnit | unitsDisplay}}
-                        <div *ngIf="companyEnergyUnit !== energyEquipment.facilityUtilityUnit">
-                            &nbsp;/&nbsp;{{energyEquipment.annualEnergyUseByUtility | number:'1.0-2'}}
-                            {{energyEquipment.facilityUtilityUnit | unitsDisplay}}
-                        </div>
-                    </span>
+                        (input)="saveChanges()" (focus)="focusField('notes')"></textarea>
                 </div>
             </div>
         </form>
     </div>
     <div class="col-12">
+        <hr class="my-1">
+    </div>
+    <div class="col-12">
+        <app-associated-contacts-buttons [companyGuid]="energyEquipment.companyId" [contactContext]="'energyEquipment'"
+            [contextGuid]="energyEquipment.guid"></app-associated-contacts-buttons>
+    </div>
+    <div class="col-12">
+        <hr class="my-1">
+    </div>
+    <div class="col-12">
+        <app-associated-process-equipment-buttons [itemContext]="'energyEquipment'"
+            [itemGuid]="energyEquipment.guid"></app-associated-process-equipment-buttons>
+    </div>
+    <div class="col-12">
+        <hr class="my-1">
+    </div>
+    <div class="col-12">
+        <app-associated-energy-equipment-buttons [itemContext]="'energyEquipment'"
+            [itemGuid]="energyEquipment.guid"></app-associated-energy-equipment-buttons>
+    </div>
+    <div class="col-12">
+        <hr class="my-1">
+    </div>
+    <!--ENERGY DETAILS-->
+    <div class="col-12">
+        <div class="accordion" [id]="'energyDetailsAccordion'">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" [attr.data-bs-target]="'#energyDetails'"
+                        aria-expanded="true" [attr.aria-controls]="'energyDetails'" (click)="toggleBsEnergyDetails()"
+                        [ngClass]="{'collapsed': collapseEnergyDetails}">
+                        <fa-icon [icon]="faFilePen" class="me-1"></fa-icon>
+                        System Details
+                    </button>
+                </h2>
+                <div [id]="'#energyDetails'" class="accordion-collapse collapse"
+                    [attr.data-bs-parent]="'#energyDetailsAccordion'" [ngClass]="{'show': !collapseEnergyDetails}">
+                    <div class="accordion-body">
+                        <p class="fw-light small">
+                            The following system details are <b><u>optional</u></b> and can be added at a later time if
+                            the information is not currently available.
+                        </p>
+                        <hr class="my-1">
+                        <form>
+                            <div class="row">
+                                <label class="col-sm-5 col-form-label" for="utilityType">Utility
+                                    Type</label>
+                                <div class="col-sm-7">
+                                    <select name="utilityType" class="form-select" id="utilityType"
+                                        [(ngModel)]="energyEquipment.utilityType" (change)="utilityTypeChange()"
+                                        (focus)="focusField('utlityType')">
+                                        <option
+                                            *ngFor="let option of energyEquipment.equipmentType | linkedUtilityOptions : 'equipment'"
+                                            [ngValue]="option">
+                                            {{option}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-5 d-flex">
+                                    <label class="col-form-label me-2" for="size">Total Size</label>
+                                    <div class="form-check form-switch"
+                                        *ngIf="energyEquipment.utilityType === 'Other Fuels'">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            id="calculationMode" name="calculationMode"
+                                            [(ngModel)]="energyEquipment.autoCalculate"
+                                            (change)="updateEnergyCalculations()" (focus)="focusField('size')">
+                                        <label class="form-check-label" for="calculationMode">
+                                            Auto Calculate
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input type="number" id="size" name="size" step="0.001"
+                                            [ngClass]="(energyEquipment.utilityType === 'Other Fuels' && energyEquipment.autoCalculate) ?                                 'form-control-plaintext' : 'form-control'"
+                                            [(ngModel)]="energyEquipment.size"
+                                            [readOnly]="energyEquipment.autoCalculate"
+                                            (input)="calculateAnnualEnergyUse()" (focus)="focusField('size')">
+                                        <select class="input-group-text" id="sizeUnit" name="sizeUnit"
+                                            [(ngModel)]="energyEquipment.sizeUnit" (change)="updateEnergyCalculations()"
+                                            (focus)="focusField('size')">
+                                            <option
+                                                *ngFor="let option of (energyEquipment.equipmentType === 'Process Cooling' ?
+                                processCoolingUnitOptions : (energyEquipment.utilityType | linkedUnitOptions: 'Power'))"
+                                                [ngValue]="option.value">
+                                                <span [innerHTML]="option.value | unitsDisplay"></span>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="energyEquipment.utilityType === 'Other Fuels' && energyEquipment.autoCalculate">
+                                <div class="row">
+                                    <label class="col-sm-5 col-form-label" for="fuelConsumption"
+                                        name="fuelConsumptionLabel" id="fuelConsumptionLabel">Fuel Consumption</label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="fuelConsumption"
+                                                name="fuelConsumption" [(ngModel)]="energyEquipment.fuelConsumption"
+                                                (input)="updateEnergyCalculations()"
+                                                (focus)="focusField('fuelConsumption')">
+                                            <select class="input-group-text" id="fuelUnit" name="fuelUnit"
+                                                [(ngModel)]="energyEquipment.fuelVolumeUnit"
+                                                (change)="updateEnergyCalculations()"
+                                                (focus)="focusField('fuelConsumption')">
+                                                <option *ngFor="let option of fuelVolumeUnitOptions"
+                                                    [ngValue]="option.value">
+                                                    <span [innerHTML]="option.value | unitsDisplay: 'hr'"></span>
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-5 col-form-label" for="heatingValue">Higher Heating
+                                        Value</label>
+                                    <div class="col-sm-7">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="heatingValue"
+                                                id="heatingValue" [(ngModel)]="energyEquipment.fuelHHV"
+                                                (input)="updateEnergyCalculations()"
+                                                (focus)="focusField('heatingValue')">
+                                            <select class="input-group-text" id="heatingUnit" name="heatingUnit"
+                                                [(ngModel)]="energyEquipment.fuelEnergyUnit"
+                                                (change)="updateEnergyCalculations()"
+                                                (focus)="focusField('heatingValue')">
+                                                <option *ngFor="let option of fuelEnergyUnitOptions"
+                                                    [ngValue]="option.value">
+                                                    <span
+                                                        [innerHTML]="option.value | unitsDisplay: (energyEquipment.fuelVolumeUnit | unitsDisplay)"></span>
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-5 col-form-label" for="operatingHours">Operating
+                                    Hours</label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="operatingHours"
+                                            name="operatingHours" [(ngModel)]="energyEquipment.operatingHours"
+                                            (input)="calculateAnnualEnergyUse()" (focus)="focusField('operatingHours')">
+                                        <span class="input-group-text">Hrs/yr</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-5 col-form-label" for="loadFactor">Load
+                                    Factor</label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="loadFactor" id="loadFactor"
+                                            [(ngModel)]="energyEquipment.loadFactor"
+                                            (input)="calculateAnnualEnergyUse()" (focus)="focusField('loadFactor')">
+                                        <span class="input-group-text">&percnt;</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-5 col-form-label" for="efficiency">Efficiency</label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="efficiency" name="efficiency"
+                                            [(ngModel)]="energyEquipment.efficiency"
+                                            (input)="calculateAnnualEnergyUse()" (focus)="focusField('efficiency')">
+                                        <span class="input-group-text">&percnt;</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-5 col-form-label" for="numberOfEquipment">Number of
+                                    Equipment</label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="numberOfEquipment"
+                                            name="numberOfEquipment" [(ngModel)]="energyEquipment.numberOfEquipment"
+                                            (input)="calculateAnnualEnergyUse()"
+                                            (focus)="focusField('numberOfEquipment')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-5 col-form-label">Annual Energy Use</label>
+                                <div class="col-sm-7">
+                                    <span class="d-flex justify-content-center bold" id="energyUse" name="energyUse">
+                                        {{energyEquipment.annualEnergyUse | number:'1.0-2'}}
+                                        {{companyEnergyUnit | unitsDisplay}}
+                                        <div *ngIf="companyEnergyUnit !== energyEquipment.facilityUtilityUnit">
+                                            &nbsp;/&nbsp;{{energyEquipment.annualEnergyUseByUtility | number:'1.0-2'}}
+                                            {{energyEquipment.facilityUtilityUnit | unitsDisplay}}
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <hr class="my-1">
+    </div>
+    <div class="col-12">
+        <app-discovery-energy-equipment-questions
+            [inPortfolio]="inPortfolio"></app-discovery-energy-equipment-questions>
+    </div>
+    <div class="col-12">
         <hr>
     </div>
     <div class="col-12">
-        <div class="d-flex justify-content-between">
-            <div class="col-6">
-                <app-associated-contacts-buttons [companyGuid]="energyEquipment.companyId"
-                    [contactContext]="'energyEquipment'"
-                    [contextGuid]="energyEquipment.guid"></app-associated-contacts-buttons>
-            </div>
-            <div>
-                <button class="btn btn-sm btn-danger" (click)="openDeleteModal()">
-                    <fa-icon [icon]="faTrash"></fa-icon> Delete
-                </button>
-            </div>
-        </div>
+        <button class="btn btn-sm btn-danger float-end" (click)="openDeleteModal()">
+            <fa-icon [icon]="faTrash"></fa-icon> Delete
+        </button>
     </div>
 </div>
 
@@ -197,7 +272,8 @@
     </div>
     <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-secondary me-2 btn-sm" (click)="closeDeleteModal()">Cancel</button>
-        <button class="btn btn-danger btn-sm" (click)="deleteEquipment()"><fa-icon [icon]="faTrash"></fa-icon> Delete
+        <button class="btn btn-danger btn-sm" (click)="deleteEquipment()"><fa-icon [icon]="faTrash"></fa-icon>
+            Delete
             Equipment</button>
     </div>
 </div>

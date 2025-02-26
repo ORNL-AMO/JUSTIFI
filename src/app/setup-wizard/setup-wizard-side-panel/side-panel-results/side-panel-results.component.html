@@ -1,0 +1,11 @@
+<div class="list-group">
+    <div class="list-group-item assessment-label item-label">
+        Assessments
+    </div>
+    <div class="list-group-item text-center" *ngFor="let assessmentId of onSiteVisit.assessmentIds">
+        @let assessment = (assessmentId | assessmentItem: assessments);
+        <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+        {{assessment.name}}
+        <app-side-panel-assessment-results [assessment]="assessment"></app-side-panel-assessment-results>
+    </div>
+</div>

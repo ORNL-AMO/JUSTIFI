@@ -43,6 +43,7 @@ import { CompanyStakeholdersHomeComponent } from './company-dashboard/company-st
 import { TableEntriesModule } from "../shared/table-entries/table-entries.module";
 import { FacilityPerformanceIndicatorsComponent } from './facility-dashboard/facility-performance-indicators/facility-performance-indicators.component';
 import { AssociatedContactsModule } from '../shared/associated-contacts/associated-contacts.module';
+import { FacilityDashboardProtocolQuestionsComponent } from './facility-dashboard/facility-dashboard-protocol-questions/facility-dashboard-protocol-questions.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { AssociatedContactsModule } from '../shared/associated-contacts/associat
     IndustrialSystemInventoryHomeComponent,
     EndUseInventoryHomeComponent,
     CompanyStakeholdersHomeComponent,
-    FacilityPerformanceIndicatorsComponent
+    FacilityPerformanceIndicatorsComponent,
+    FacilityDashboardProtocolQuestionsComponent
   ],
   imports: [
     CommonModule,

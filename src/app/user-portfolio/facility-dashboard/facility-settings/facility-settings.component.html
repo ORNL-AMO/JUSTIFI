@@ -1,39 +1,46 @@
-<div class="card portfolio">
-    <div class="card-body">
-        <app-facility-setup-form></app-facility-setup-form>
-        <hr>
-        <div class="row">
-            <div class="col-6">
-                <h6>
-                    Create Facility Copy
-                </h6>
-                <p class="fw-light">
-                    Use the button below to create a copy of this facility. A copy of this facility will be added to
-                    your
-                    JUSTIFI portfolio.
-                </p>
-                <button class="btn btn-secondary btn-sm" (click)="openCreateCopyModal()">
-                    <fa-icon [icon]="faCopy"></fa-icon>
-                    Copy Facility
-                </button>
-            </div>
-            <div class="col-6">
-                <h6>
-                    Delete Facility
-                </h6>
-                <p class="fw-light">
-                    Use the button below to delete this facility and all of its corresponding data. This action cannot
-                    be
-                    undone.
-                </p>
-                <button class="btn btn-danger btn-sm" (click)="openDeleteFacilityModal()">
-                    <fa-icon [icon]="faTrash"></fa-icon>
-                    Delete Facility
-                </button>
+<div class="row justify-content-center">
+    <div class="col-sm-12 col-md-10">
+        <div class="card portfolio">
+            <div class="card-body">
+                <app-facility-setup-form></app-facility-setup-form>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <h6>
+                            Create Facility Copy
+                        </h6>
+                        <p class="fw-light">
+                            Use the button below to create a copy of this facility. A copy of this facility will be
+                            added to
+                            your
+                            JUSTIFI portfolio.
+                        </p>
+                        <button class="btn btn-secondary btn-sm" (click)="openCreateCopyModal()">
+                            <fa-icon [icon]="faCopy"></fa-icon>
+                            Copy Facility
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <h6>
+                            Delete Facility
+                        </h6>
+                        <p class="fw-light">
+                            Use the button below to delete this facility and all of its corresponding data. This action
+                            cannot
+                            be
+                            undone.
+                        </p>
+                        <button class="btn btn-danger btn-sm" (click)="openDeleteFacilityModal()">
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                            Delete Facility
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <div [ngClass]="{'window-overlay': routeGuardWarningModal ||  showDeleteFacilityModal || showCreateCopyModal}"></div>

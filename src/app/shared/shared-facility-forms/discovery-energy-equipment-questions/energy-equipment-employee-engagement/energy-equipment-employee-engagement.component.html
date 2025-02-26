@@ -1,0 +1,28 @@
+
+<p class="fw-light small" [innerHTML]="EnergyEquipmentEmployeeEngagementHelp.sectionHelp">
+</p>
+<hr class="my-2">
+<!--describeSafetyConcerns-->
+<label>
+    Describe any safety concerns related to this system
+</label>
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentEmployeeEngagementHelp.describeSafetyConcerns">
+    </p>
+</ng-container>
+<textarea id="describeSafetyConcerns" name="describeSafetyConcerns" class="form-control"
+    [(ngModel)]="describeSafetyConcerns" (input)="saveChanges()" (focus)="focusField('describeSafetyConcerns')"
+    rows="3"></textarea>
+<hr class="my-1">
+
+<!--describeWorkplaceEnvironment-->
+<label>
+    Describe any other workplace environment details related to the system
+</label>
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentEmployeeEngagementHelp.describeWorkplaceEnvironment">
+    </p>
+</ng-container>
+<textarea id="describeWorkplaceEnvironment" name="describeWorkplaceEnvironment" class="form-control"
+    [(ngModel)]="describeWorkplaceEnvironment" (input)="saveChanges()"
+    (focus)="focusField('describeWorkplaceEnvironment')" rows="3"></textarea>

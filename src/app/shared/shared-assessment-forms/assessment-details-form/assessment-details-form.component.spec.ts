@@ -8,6 +8,7 @@ import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.mod
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { AssociatedContactsModule } from '../../associated-contacts/associated-contacts.module';
 import { AssociatedEnergyEquipmentModule } from '../../associated-energy-equipment/associated-energy-equipment.module';
+import { AssociatedProcessEquipmentModule } from '../../associated-process-equipment/associated-process-equipment.module';
 
 describe('AssessmentDetailsFormComponent', () => {
   let component: AssessmentDetailsFormComponent;
@@ -15,7 +16,7 @@ describe('AssessmentDetailsFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule, AssociatedContactsModule, AssociatedEnergyEquipmentModule],
+      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule, AssociatedContactsModule, AssociatedEnergyEquipmentModule, AssociatedProcessEquipmentModule],
       declarations: [AssessmentDetailsFormComponent],
       providers: stubServiceProviders
     })

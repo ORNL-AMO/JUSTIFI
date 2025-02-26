@@ -1,0 +1,45 @@
+<div class="h-100 d-flex flex-column align-items-start justify-content-start shadow help-text help-container"
+    [ngClass]="{'collapsed': !helpPanelOpen}">
+    <div class="w-100 pb-1 d-flex">
+        <div class="toggle-collapse d-flex flex-column w-100">
+            <nav class="navbar pt-0">
+                <a class="click-link" (click)="toggleCollapseHelpPanel()">
+                    <fa-icon *ngIf="helpPanelOpen" [icon]="faChevronCircleRight"></fa-icon>
+                    <fa-icon *ngIf="!helpPanelOpen" [icon]="faChevronCircleLeft"></fa-icon>
+                </a>
+                <ul class="nav nav-tabs" *ngIf="helpPanelOpen">
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="setActivePanel('help')"
+                            [ngClass]="{'active': activePanel == 'help'}">
+                            <fa-icon [icon]="faCircleQuestion"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="setActivePanel('system-diagram')"
+                            [ngClass]="{'active': activePanel == 'system-diagram'}">
+                            <fa-icon [icon]="faDiagramProject"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="setActivePanel('nebs')"
+                            [ngClass]="{'active': activePanel == 'nebs'}">
+                            <fa-icon [icon]="faWeightHanging"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="setActivePanel('results')"
+                            [ngClass]="{'active': activePanel == 'results'}">
+                            <fa-icon [icon]="faChartPie"></fa-icon>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <ng-template [ngIf]="helpPanelOpen">
+        <app-setup-wizard-help-content class="w-100" *ngIf="activePanel == 'help'"></app-setup-wizard-help-content>
+        <app-side-panel-results class="w-100" *ngIf="activePanel == 'results'"></app-side-panel-results>
+        <app-side-panel-system-diagram class="w-100" *ngIf="activePanel == 'system-diagram'"></app-side-panel-system-diagram>
+        <app-side-panel-nebs-diagram class="w-100" *ngIf="activePanel == 'nebs'"></app-side-panel-nebs-diagram>
+    </ng-template>
+</div>

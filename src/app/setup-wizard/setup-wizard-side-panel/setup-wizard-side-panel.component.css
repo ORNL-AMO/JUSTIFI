@@ -1,0 +1,55 @@
+.navbar.collapsed{
+    width: auto;
+}
+
+.toggle-collapse{
+    font-size: x-large;
+}
+
+.toggle-collapse:hover{
+    cursor: pointer;
+}
+
+.help-container {
+    container-type: inline-size;
+    background-color: white;
+    overflow-y: auto;
+}
+
+.help-content {
+    display: block;
+}
+
+@container (max-width: 45px) {
+    .help-content, .panel-label {
+        display: none;
+    }
+}
+
+.nav-link{
+    padding-bottom: .1rem;
+    padding-top: .1rem;
+    padding-right: .2rem;
+    padding-left: .2rem;
+    font-size: 20px;
+}
+.navbar{
+    padding-bottom: 0px;
+    border-bottom: 1px var(--portfolio-nav-color) solid;
+}
+
+nav.navbar .nav.nav-tabs .nav-item .nav-link{
+    border-color: var(--portfolio-nav-color);
+    color: var(--portfolio-nav-color);
+}
+
+
+nav.navbar .nav.nav-tabs .nav-item .nav-link.active {
+    background-color: var(--portfolio-nav-color);
+    color: white;
+    border-bottom-color: black;
+}
+nav.navbar .nav.nav-tabs .nav-item .nav-link:hover {
+    background-color: #8DABBE;
+    color: black;
+}

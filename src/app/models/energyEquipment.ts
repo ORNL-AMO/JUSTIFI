@@ -25,7 +25,30 @@ export interface IdbEnergyEquipment extends IdbEntry {
     annualEnergyUse: number,
     facilityUtilityUnit: string;
     annualEnergyUseByUtility: number;
-    assessmentIds: Array<string>
+    //linked items
+    assessmentIds: Array<string>,
+    energyEquipmentIds: Array<string>,
+    energyOpportunityIds: Array<string>,
+    processEquipmentIds: Array<string>,
+
+    //questions
+    //take stock
+    howSupportPlant: string,
+    adverseEffects: string,
+    equipmentFinancialStatus: string,
+    //operations
+    describeOutputOfSystem: string,
+    describeServicingNeeds: string,
+    describeLaborRequirements: string,
+    describeSystemMaterials: string;
+    //sustainability
+    describeWasteStreams: string,
+    describeWaterInputDischarge: string,
+    describeRefrigerantProcessDustEmissions: string,
+    describeRegulations: string,
+    //employeeEngagement
+    describeSafetyConcerns: string,
+    describeWorkplaceEnvironment: string
 }
 
 export function getNewIdbEnergyEquipment(userId: string, companyId: string, facilityId: string,
@@ -59,6 +82,22 @@ export function getNewIdbEnergyEquipment(userId: string, companyId: string, faci
         annualEnergyUse: 0,
         facilityUtilityUnit: facilityUtilityUnit,
         annualEnergyUseByUtility: 0,
-        assessmentIds: new Array()
+        assessmentIds: new Array(),
+        energyOpportunityIds: new Array(),
+        energyEquipmentIds: new Array(),
+        processEquipmentIds: new Array(),
+        howSupportPlant: '',
+        adverseEffects: '',
+        equipmentFinancialStatus: '',
+        describeOutputOfSystem: '',
+        describeServicingNeeds: '',
+        describeLaborRequirements: '',
+        describeSystemMaterials: '',
+        describeWasteStreams: '',
+        describeWaterInputDischarge: '',
+        describeRefrigerantProcessDustEmissions: '',
+        describeRegulations: '',
+        describeSafetyConcerns: '',
+        describeWorkplaceEnvironment: ''
     }
 }

@@ -8,6 +8,11 @@
     font-weight: 300;
     font-size: .875rem;
 }
+.help-text p.fw-light.small{
+    font-weight: 100;
+    font-size: .75rem;
+}
+
 
 .help-text p{
     margin-bottom: 0px;

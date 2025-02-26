@@ -1,0 +1,149 @@
+@let associatedEnergyEquipments = (facility.guid | energyEquipmentList:'facility': energyEquipments);
+<div class="list-group">
+    <div class="list-group-item energy-equipment-label item-label">
+        Industrial System Inventory &amp; Connections
+    </div>
+    <div class="list-group-item" *ngFor="let equipment of associatedEnergyEquipments">
+        <div class="d-flex w-100 justify-content-between">
+            <div class="item-label">
+                <fa-icon [icon]="faCube"></fa-icon>
+                {{equipment.equipmentName}}
+                <ng-template
+                    [ngIf]="inAssessment && (equipment | includedInAssessment: assessment.guid: energyOpportunities)">
+                    <fa-icon [icon]="faAsterisk"></fa-icon>
+                </ng-template>
+            </div>
+            <!-- <div>
+                <a class="click-link" (click)="goToEnergyEquipment(equipment)">
+                    <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+                    System Discovery
+                </a>
+            </div> -->
+        </div>
+        <ng-template [ngIf]="equipment.energyEquipmentIds">
+            <div class="d-flex" *ngFor="let equipmentGuid of equipment.energyEquipmentIds">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1 item-label">
+                    <fa-icon [icon]="faCube"></fa-icon>
+                    {{equipmentGuid | energyEquipmentDisplay: energyEquipments}}
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template [ngIf]="equipment.processEquipmentIds">
+            <div class="d-flex" *ngFor="let processEquipmentId of equipment.processEquipmentIds">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1 item-label">
+                    <fa-icon [icon]="faSplotch"></fa-icon>
+                    {{processEquipmentId | processEquipmentDisplay: processEquipments}}
+                </div>
+            </div>
+        </ng-template>
+
+        @let linkedContacts = (equipment.guid | associatedContacts:'energyEquipment': contacts);
+        <ng-template [ngIf]="linkedContacts.length > 0">
+            <div class="d-flex" *ngFor="let contact of linkedContacts">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1 item-label">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                    {{contact | contactNameDisplay}}
+                </div>
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="equipment.assessmentIds">
+            <div class="d-flex" *ngFor="let assessmentId of equipment.assessmentIds">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1 item-label">
+                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                    {{assessmentId | assessmentNameDisplay: assessments}}
+                </div>
+            </div>
+        </ng-template>
+
+        <!-- <div>
+            <hr class="my-1">
+        </div>
+        <div class="d-flex w-100 justify-content-end">
+            <span class="badge text-bg-warning me-1">
+                {{equipment.equipmentType}}
+            </span>
+            <span class="badge text-bg-dark">
+                {{equipment.utilityType}}
+            </span>
+        </div> -->
+    </div>
+</div>
+<hr>
+@let associatedProcessEquipments = (facility.guid |
+processEquipmentList:'facility':processEquipments:energyOpportunities);
+<div class="list-group">
+    <div class="list-group-item end-use-label item-label">
+        End Uses Inventory &amp; Connections
+    </div>
+    <div class="list-group-item" *ngFor="let equipment of associatedProcessEquipments">
+        <div class="d-flex w-100 justify-content-between">
+            <div class="item-label">
+                <fa-icon [icon]="faSplotch"></fa-icon>
+                {{equipment.equipmentName}}
+                <ng-template
+                    [ngIf]="inAssessment && (equipment | includedInAssessment: assessment.guid: energyOpportunities)">
+                    <fa-icon [icon]="faAsterisk"></fa-icon>
+                </ng-template>
+            </div>
+            <!-- <div>
+                <a class="click-link" (click)="goToProcessEquipment(equipment)">
+                    <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+                    End Use Discovery
+                </a>
+            </div> -->
+        </div>
+        @let linkedContacts = (equipment.guid | associatedContacts:'processEquipment': contacts);
+        <ng-template [ngIf]="linkedContacts.length > 0">
+            <div class="d-flex" *ngFor="let contact of linkedContacts">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1 item-label">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                    {{contact | contactNameDisplay}}
+                </div>
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="equipment.assessmentIds">
+            <div class="d-flex" *ngFor="let assessmentId of equipment.assessmentIds">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1 item-label">
+                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                    {{assessmentId | assessmentNameDisplay: assessments}}
+                </div>
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="equipment.energyOpportunityIds">
+            <div class="d-flex" *ngFor="let opportunityId of equipment.energyOpportunityIds">
+                <div class="associated-item">
+
+                </div>
+                <div class="ps-1 item-label">
+                    <fa-icon [icon]="faFileLines"></fa-icon>
+                    {{opportunityId | energyOpportunityDisplay: energyOpportunities}}
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
+<hr class="my-1">
+<div class="alert alert-info p-1 small" *ngIf="inAssessment">
+    <fa-icon [icon]="faAsterisk"></fa-icon> Indicates the industrial system or end use has been linked to
+    <b>{{assessment.name}}</b>. Use the "Discovery" tab to discover questions that assessors should take into
+    consideration for each connected system or end use.
+</div>

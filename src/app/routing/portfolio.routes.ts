@@ -32,6 +32,7 @@ import { ProcessEquipmentFormComponent } from "../shared/shared-facility-forms/p
 import { CompanyStakeholdersHomeComponent } from "../user-portfolio/company-dashboard/company-stakeholders/company-stakeholders-home/company-stakeholders-home.component";
 import { CompanyContactsFormComponent } from "../shared/shared-company-forms/company-contacts-form/company-contacts-form.component";
 import { FacilityPerformanceIndicatorsComponent } from "../user-portfolio/facility-dashboard/facility-performance-indicators/facility-performance-indicators.component";
+import { FacilityDashboardProtocolQuestionsComponent } from "../user-portfolio/facility-dashboard/facility-dashboard-protocol-questions/facility-dashboard-protocol-questions.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -125,6 +126,10 @@ export const PortfolioRoutes: Route = {
                             component: ProcessEquipmentFormComponent
                         }
                     ]
+                },
+                {
+                    path: 'questions',
+                    component: FacilityDashboardProtocolQuestionsComponent
                 },
                 {
                     path: 'reports',

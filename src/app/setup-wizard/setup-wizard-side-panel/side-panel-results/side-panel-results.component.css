@@ -1,0 +1,14 @@
+
+.assessment-label{
+    font-weight: bold;
+    border-bottom: 3px solid var(--assessment-color);
+}
+
+.item-label{
+    display: inline-block;
+    /* line-height: normal; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}

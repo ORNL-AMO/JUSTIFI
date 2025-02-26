@@ -27,7 +27,7 @@ export class LoadingComponent {
     });
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     this.loadingSub.unsubscribe();
     this.loadingMessageSub.unsubscribe();
   }
