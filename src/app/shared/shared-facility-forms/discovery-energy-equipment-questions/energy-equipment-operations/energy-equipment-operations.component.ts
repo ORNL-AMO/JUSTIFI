@@ -44,7 +44,7 @@ export class EnergyEquipmentOperationsComponent {
     });
   }
 
-  ngOnDestory(){
+  ngOnDestroy(){
     this.setupWizardService.focusedHelp.next(undefined);
   }
 
