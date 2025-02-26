@@ -1,5 +1,5 @@
-.table.table-sm{
-    font-size: 12px;
+.table.table-sm, .list-group-item{
+    font-size: 14px;
 }
 
 .progress-bar{
@@ -19,4 +19,8 @@
     padding-right: .25rem;
     padding-top: 0px;
     padding-bottom: .25rem;
+}
+
+.float-right{
+    float: right;
 }

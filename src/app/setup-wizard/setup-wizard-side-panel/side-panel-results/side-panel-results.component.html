@@ -1,6 +1,6 @@
 <select class="form-select" [(ngModel)]="selectedAssessmentId" name="selectedAssessmentId" id="selectedAssessmentId">
     <option [ngValue]="undefined">
-        All Assessment Results
+        Visit Results
     </option>
     <option *ngFor="let assessmentGuid of onSiteVisit.assessmentIds" [ngValue]="assessmentGuid">
         <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
@@ -8,16 +8,18 @@
     </option>
 </select>
 
-<ng-container *ngIf="onSiteVisit.assessmentIds.length == 0">
+<ng-template [ngIf]="onSiteVisit.assessmentIds.length == 0" [ngIfElse]="resultsBlock">
     <div class="mt-2 p-1 alert alert-warning small">
         No assessments found. Add assessments to view results.
     </div>
-</ng-container>
-
-<ng-template [ngIf]="selectedAssessmentId" [ngIfElse]="visitResultsBlock">
-    <app-side-panel-assessment-results [selectedAssessmentId]="selectedAssessmentId"></app-side-panel-assessment-results>
 </ng-template>
+<ng-template #resultsBlock>
+    <ng-template [ngIf]="selectedAssessmentId" [ngIfElse]="visitResultsBlock">
+        <app-side-panel-assessment-results
+            [selectedAssessmentId]="selectedAssessmentId"></app-side-panel-assessment-results>
+    </ng-template>
 
-<ng-template #visitResultsBlock>
-    <app-side-panel-visit-results></app-side-panel-visit-results>
+    <ng-template #visitResultsBlock>
+        <app-side-panel-visit-results></app-side-panel-visit-results>
+    </ng-template>
 </ng-template>

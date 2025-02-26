@@ -1,7 +1,11 @@
 <div class="list-group list-group-flush mt-2" *ngIf="onSiteVisitReport">
     <div class="list-group-item">
+        Current Facility Energy Costs  <span class="float-right">{{facilityEnergyCost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
+    </div>
+    <div class="list-group-item">
         Total Energy Cost Savings
-        <div class="progress mt-1" role="progressbar" [ariaValueNow]="percentSavings" aria-valuemin="0"
+        <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
+        <div class="progress" role="progressbar" [ariaValueNow]="percentSavings" aria-valuemin="0"
             aria-valuemax="100">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" [ngStyle]="{'width.%': percentSavings}">
                 <!-- {{percentSavings | number:'1.0-0'}} &percnt; -->
@@ -10,10 +14,11 @@
             </div>
         </div>
         <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-            @let assessmentPercentSavings = (assessmentReport.totalEnergyCostSavings / onSiteVisitReport.totalEnergyCosts)
+            @let assessmentPercentSavings = (assessmentReport.totalEnergyCostSavings / facilityEnergyCost)
             * 100;
             {{assessmentReport.assessment.name}}
-            <div class="progress mt-1" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
+            <span class="float-right small">({{assessmentPercentSavings | number:'1.0-0'}} &percnt;)</span>
+            <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
                 aria-valuemax="100">
                 <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
                     <!-- {{percentSavings | number:'1.0-0'}} &percnt; -->
@@ -26,7 +31,8 @@
         </ng-container>
         <hr>
         Total Savings W/ NEBs
-        <div class="progress mt-1" role="progressbar" aria-label="Example with label"
+        <span class="float-right small">({{percentSavingsNebs | number:'1.0-0'}} &percnt;)</span>
+        <div class="progress" role="progressbar" aria-label="Example with label"
             [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
                 <div>
@@ -37,10 +43,11 @@
             </div>
         </div>
         <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-            @let assessmentPercentSavings = (assessmentReport.totalCostSavings / onSiteVisitReport.totalEnergyCosts) *
+            @let assessmentPercentSavings = (assessmentReport.totalCostSavings / facilityEnergyCost) *
             100;
             {{assessmentReport.assessment.name}}
-            <div class="progress mt-1" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
+            <span class="float-right small">({{assessmentPercentSavings | number:'1.0-0'}} &percnt;)</span>
+            <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
                 aria-valuemax="100">
                 <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
                     <!-- {{percentSavings | number:'1.0-0'}} &percnt; -->

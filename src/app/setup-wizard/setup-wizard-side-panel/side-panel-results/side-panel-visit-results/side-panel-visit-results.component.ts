@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
@@ -11,6 +12,7 @@ import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.serv
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
+import { IdbFacility } from 'src/app/models/facility';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
@@ -58,6 +60,9 @@ export class SidePanelVisitResultsComponent {
 
   currencyCode: string;
   currencyCodeSub: Subscription;
+
+  facilitySub: Subscription;
+  facilityEnergyCost: number;
   constructor(private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
@@ -65,7 +70,8 @@ export class SidePanelVisitResultsComponent {
     private assessmentIdbService: AssessmentIdbService,
     private companyIdbService: CompanyIdbService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private localeService: LocaleService
+    private localeService: LocaleService,
+    private facilityDbService: FacilityIdbService
   ) {
 
   }
@@ -98,7 +104,12 @@ export class SidePanelVisitResultsComponent {
     });
     this.currencyCodeSub = this.localeService.currencyCode.subscribe(currencyCode => {
       this.currencyCode = currencyCode;
+    });
+    this.facilitySub = this.facilityDbService.selectedFacility.subscribe(facility => {
+      this.facilityEnergyCost = facility?.cost;
+      this.setReportResults();
     })
+
   }
 
   ngOnDestroy() {
@@ -112,10 +123,10 @@ export class SidePanelVisitResultsComponent {
   }
 
   setReportResults() {
-    if (this.energyOpportunities && this.nonEnergyBenefits && this.keyPerformanceMetrics && this.keyPerformanceMetricImpacts && this.assessments && this.onSiteVisit) {
+    if (this.energyOpportunities && this.nonEnergyBenefits && this.keyPerformanceMetrics && this.keyPerformanceMetricImpacts && this.assessments && this.onSiteVisit && this.facilityEnergyCost) {
       this.onSiteVisitReport = getOnSiteVisitReport(this.onSiteVisit.assessmentIds, this.assessments, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceMetricImpacts);
-      this.percentSavings = (this.onSiteVisitReport.totalEnergyCostSavings / this.onSiteVisitReport.totalEnergyCosts) * 100;
-      this.percentSavingsNebs = (this.onSiteVisitReport.totalCostSavings / this.onSiteVisitReport.totalEnergyCosts) * 100
+      this.percentSavings = (this.onSiteVisitReport.totalEnergyCostSavings / this.facilityEnergyCost) * 100;
+      this.percentSavingsNebs = (this.onSiteVisitReport.totalCostSavings / this.facilityEnergyCost) * 100
     }
   }
 }

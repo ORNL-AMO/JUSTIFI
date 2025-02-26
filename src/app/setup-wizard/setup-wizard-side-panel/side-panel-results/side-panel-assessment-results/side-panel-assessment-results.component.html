@@ -1,7 +1,10 @@
 <div class="list-group list-group-flush mt-2" *ngIf="assessmentReport">
     <div class="list-group-item">
-        Energy Cost Savings
-        <div class="progress mt-1" role="progressbar" [ariaValueNow]="percentSavings"
+        Current Energy Costs  <span class="float-right">{{assessmentReport.assessment.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
+    </div>
+    <div class="list-group-item pt-1">
+        Energy Cost Savings <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
+        <div class="progress" role="progressbar" [ariaValueNow]="percentSavings"
             aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavings}">
                 <!-- {{percentSavings | number:'1.0-0'}} &percnt; -->
@@ -10,8 +13,8 @@
             </div>
         </div>
         <hr>
-        Savings W/ NEBs
-        <div class="progress mt-1" role="progressbar"
+        Savings W/ NEBs <span class="float-right small">({{percentSavingsNebs | number:'1.0-0'}} &percnt;)</span>
+        <div class="progress" role="progressbar"
             [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
                 <div>

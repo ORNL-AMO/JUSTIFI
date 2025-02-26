@@ -20,7 +20,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeElectricity"
-                        (change)="saveChanges()" (focus)="focusField()">
+                        (input)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Electricity'" [disabled]="true">
             </div>
@@ -29,7 +29,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="electricityUse"
-                        name="electricityUse" (change)="saveChanges()" (focus)="focusField()">
+                        name="electricityUse" (input)="saveChanges()" (focus)="focusField()">
                     <select class="input-group-text" formControlName="electricityUnit" (change)="savePriceChanges()"
                         (focus)="focusField()">
                         <option *ngFor="let energyUnitOption of ('Electricity' | linkedUnitOptions  : 'Energy')"
@@ -42,7 +42,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="electricityPrice"
-                        name="electricityPrice" (change)="savePriceChanges()" (focus)="focusField()">
+                        name="electricityPrice" (input)="savePriceChanges()" (focus)="focusField()">
                     <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['electricityUnit'].value | unitsDisplay"></span>
                     </span>
@@ -63,7 +63,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeNaturalGas"
-                        (change)="saveChanges()" (focus)="focusField()">
+                        (input)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Natural Gas'" [disabled]="true">
             </div>
@@ -72,7 +72,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="naturalGasUse"
-                        name="naturalGasUse" (change)="saveChanges()" (focus)="focusField()">
+                        name="naturalGasUse" (input)="saveChanges()" (focus)="focusField()">
                     <select class="input-group-text" formControlName="naturalGasUnit" (change)="savePriceChanges()"
                         (focus)="focusField()">
                         <option *ngFor="let energyUnitOption of ('Natural Gas' | linkedUnitOptions  : 'Energy')"
@@ -85,7 +85,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="naturalGasPrice"
-                        name="naturalGasPrice" (change)="savePriceChanges()" (focus)="focusField()">
+                        name="naturalGasPrice" (input)="savePriceChanges()" (focus)="focusField()">
                     <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['naturalGasUnit'].value | unitsDisplay"></span>
                     </span>
@@ -106,7 +106,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeOtherFuels"
-                        (change)="saveChanges()" (focus)="focusField()">
+                        (input)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Other Fuels'" [disabled]="true">
             </div>
@@ -115,7 +115,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="otherFuelsUse"
-                        name="otherFuelsUse" (change)="saveChanges()" (focus)="focusField()">
+                        name="otherFuelsUse" (input)="saveChanges()" (focus)="focusField()">
                     <select class="input-group-text" formControlName="otherFuelsUnit" (change)="savePriceChanges()"
                         (focus)="focusField()">
                         <option *ngFor="let energyUnitOption of ('Other Fuels' | linkedUnitOptions  : 'Energy')"
@@ -128,7 +128,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="otherFuelsPrice"
-                        name="otherFuelsPrice" (change)="savePriceChanges()" (focus)="focusField()">
+                        name="otherFuelsPrice" (input)="savePriceChanges()" (focus)="focusField()">
                     <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['otherFuelsUnit'].value | unitsDisplay"></span></span>
                 </div>
@@ -148,7 +148,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeWater"
-                        (change)="saveChanges()" (focus)="focusField()">
+                        (input)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Water'" [disabled]="true">
             </div>
@@ -157,7 +157,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="waterUse"
-                        name="waterUse" (change)="saveChanges()" (focus)="focusField()">
+                        name="waterUse" (input)="saveChanges()" (focus)="focusField()">
                     <select class="input-group-text" formControlName="waterUnit" (change)="savePriceChanges()"
                         (focus)="focusField()">
                         <option *ngFor="let liquidOption of ('Water' | linkedUnitOptions  : 'Energy')"
@@ -170,7 +170,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="waterPrice"
-                        name="waterPrice" (change)="savePriceChanges()" (focus)="focusField()">
+                        name="waterPrice" (input)="savePriceChanges()" (focus)="focusField()">
                     <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['waterUnit'].value | unitsDisplay"></span></span>
                 </div>
@@ -189,7 +189,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeWasteWater"
-                        (change)="saveChanges()" (focus)="focusField()">
+                        (input)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Waste Water'" [disabled]="true">
             </div>
@@ -198,7 +198,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="wasteWaterUse"
-                        name="wasteWaterUse" (change)="saveChanges()" (focus)="focusField()">
+                        name="wasteWaterUse" (input)="saveChanges()" (focus)="focusField()">
                     <select class="input-group-text" formControlName="wasteWaterUnit" (change)="savePriceChanges()"
                         (focus)="focusField()">
                         <option *ngFor="let liquidOption of ('Waste Water' | linkedUnitOptions  : 'Energy')"
@@ -211,7 +211,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="wasteWaterPrice"
-                        name="wasteWaterPrice" (change)="savePriceChanges()" (focus)="focusField()">
+                        name="wasteWaterPrice" (input)="savePriceChanges()" (focus)="focusField()">
                     <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['wasteWaterUnit'].value | unitsDisplay"></span></span>
                 </div>
@@ -231,7 +231,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeSteam"
-                        (change)="saveChanges()" (focus)="focusField()">
+                        (input)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Steam (as Utility)'"
                     [disabled]="true">
@@ -241,7 +241,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="steamUse"
-                        name="steamUse" (change)="saveChanges()" (focus)="focusField()">
+                        name="steamUse" (input)="saveChanges()" (focus)="focusField()">
                     <select class="input-group-text" formControlName="steamUnit" (change)="savePriceChanges()"
                         (focus)="focusField()">
                         <option *ngFor="let massUnitOption of ('Steam' | linkedUnitOptions  : 'Energy')"
@@ -254,7 +254,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="steamPrice"
-                        name="steamPrice" (change)="savePriceChanges()" (focus)="focusField()">
+                        name="steamPrice" (input)="savePriceChanges()" (focus)="focusField()">
                     <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['steamUnit'].value | unitsDisplay"></span>
                     </span>
@@ -278,7 +278,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="steamHHV"
-                        name="steamHHV" (change)="savePriceChanges()" (focus)="focusField()">
+                        name="steamHHV" (input)="savePriceChanges()" (focus)="focusField()">
                     <select class="input-group-text" formControlName="steamEnergyUnit" (change)="savePriceChanges()"
                         (focus)="focusField()">
                         <option *ngFor="let energyUnitOption of energyUnitOptions" [ngValue]="energyUnitOption.value">
@@ -297,7 +297,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeCompressedAir"
-                        (change)="saveChanges()" (focus)="focusField()">
+                        (input)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Compressed Air (as Utility)'"
                     [disabled]="true">
@@ -307,7 +307,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="compressedAirUse"
-                        name="compressedAirUse" (change)="saveChanges()" (focus)="focusField()">
+                        name="compressedAirUse" (input)="saveChanges()" (focus)="focusField()">
                     <select class="input-group-text" formControlName="compressedAirUnit" (change)="savePriceChanges()">
                         <option *ngFor="let volumeGasOption of ('Compressed Air' | linkedUnitOptions  : 'Energy')"
                             [ngValue]="volumeGasOption.value">
@@ -319,7 +319,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="compressedAirPrice"
-                        name="compressedAirPrice" (change)="savePriceChanges()" (focus)="focusField()">
+                        name="compressedAirPrice" (input)="savePriceChanges()" (focus)="focusField()">
                     <span class="input-group-text">{{ currencyCode | currencySymbol }}/<span
                             [innerHTML]="form.controls['compressedAirUnit'].value | unitsDisplay"></span>
                     </span>
@@ -344,7 +344,7 @@
             <div class="col-4">
                 <div class="input-group">
                     <input class="form-control" type="number" step="any" min="0" formControlName="compressedAirHHV"
-                        name="compressedAirHHV" (change)="savePriceChanges()" (focus)="focusField()">
+                        name="compressedAirHHV" (input)="savePriceChanges()" (focus)="focusField()">
                     <select class="input-group-text" formControlName="compressedAirEnergyUnit"
                         (change)="savePriceChanges()" (focus)="focusField()">
                         <option *ngFor="let energyUnitOption of energyUnitOptions" [ngValue]="energyUnitOption.value">

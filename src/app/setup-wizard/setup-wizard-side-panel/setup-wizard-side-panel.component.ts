@@ -25,7 +25,7 @@ export class SetupWizardSidePanelComponent {
   helpPanelOpenSub: Subscription;
   helpPanelOpen: boolean;
 
-  activePanel: 'help' | 'system-diagram' | 'results' | 'nebs' = 'results';
+  activePanel: 'help' | 'system-diagram' | 'results' | 'nebs' = 'help';
   constructor(
     private setupWizardService: SetupWizardService
   ) {

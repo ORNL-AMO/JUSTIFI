@@ -15,4 +15,7 @@
 
 select.form-select{
     line-height: inherit;
+    border-color: var(--portfolio-nav-color);
+    border-width: 2px;
+    font-size: 14px;
 }
