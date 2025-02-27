@@ -84,7 +84,7 @@ export class OnSiteAssessmentComponent {
   goBack() {
     if (this.router.url.includes('details')) {
       if (this.assessmentIndex != 0) {
-        this.navigateToOnSiteAssessment(this.onSiteVisit.assessmentIds[this.assessmentIndex - 1], 'results');
+        this.navigateToOnSiteAssessment(this.onSiteVisit.assessmentIds[this.assessmentIndex - 1], 'nebs');
       } else {
         this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/manage-assessments');
       }
@@ -92,8 +92,6 @@ export class OnSiteAssessmentComponent {
       this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/details');
     } else if (this.router.url.includes('nebs')) {
       this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/energy-opportunities');
-    } else if (this.router.url.includes('results')) {
-      this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/nebs');
     }
   }
 
@@ -111,8 +109,6 @@ export class OnSiteAssessmentComponent {
     } else if (this.router.url.includes('energy-opportunities')) {
       this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/nebs');
     } else if (this.router.url.includes('nebs')) {
-      this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/results');
-    } else if (this.router.url.includes('results')) {
       if (this.assessmentIndex != this.onSiteVisit.assessmentIds.length - 1) {
         this.goToNextAssessment();
       } else {

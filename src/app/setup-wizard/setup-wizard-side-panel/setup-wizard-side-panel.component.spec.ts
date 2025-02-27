@@ -7,6 +7,8 @@ import { SetupWizardHelpContentComponent } from './setup-wizard-help-content/set
 import { SidePanelNebsDiagramComponent } from './side-panel-nebs-diagram/side-panel-nebs-diagram.component';
 import { SidePanelSystemDiagramComponent } from './side-panel-system-diagram/side-panel-system-diagram.component';
 import { SidePanelResultsComponent } from './side-panel-results/side-panel-results.component';
+import { FormsModule } from '@angular/forms';
+import { SidePanelVisitResultsComponent } from './side-panel-results/side-panel-visit-results/side-panel-visit-results.component';
 
 describe('SetupWizardSidePanelComponent', () => {
   let component: SetupWizardSidePanelComponent;
@@ -14,8 +16,8 @@ describe('SetupWizardSidePanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule],
-      declarations: [SetupWizardSidePanelComponent, SetupWizardHelpContentComponent, SidePanelNebsDiagramComponent, SidePanelSystemDiagramComponent, SidePanelResultsComponent],
+      imports: [FontAwesomeModule, FormsModule],
+      declarations: [SetupWizardSidePanelComponent, SetupWizardHelpContentComponent, SidePanelNebsDiagramComponent, SidePanelSystemDiagramComponent, SidePanelResultsComponent, SidePanelVisitResultsComponent],
       providers: stubServiceProviders
     })
     .compileComponents();

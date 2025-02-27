@@ -26,6 +26,10 @@ import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.mod
 import { FacilityProtocolQuestionsHelpComponent } from './setup-wizard-help-content/facility-protocol-questions-help/facility-protocol-questions-help.component';
 import { SidePanelNebsDiagramComponent } from './side-panel-nebs-diagram/side-panel-nebs-diagram.component';
 import { SidePanelAssessmentResultsComponent } from './side-panel-results/side-panel-assessment-results/side-panel-assessment-results.component';
+import { FormsModule } from '@angular/forms';
+import { TableEntriesModule } from "../../shared/table-entries/table-entries.module";
+import { ReportsModule } from 'src/app/shared/reports/reports.module';
+import { SidePanelVisitResultsComponent } from './side-panel-results/side-panel-visit-results/side-panel-visit-results.component';
 
 
 
@@ -54,13 +58,17 @@ declarations: [
     SidePanelSystemDiagramComponent,
     FacilityProtocolQuestionsHelpComponent,
     SidePanelNebsDiagramComponent,
-    SidePanelAssessmentResultsComponent
+    SidePanelAssessmentResultsComponent,
+    SidePanelVisitResultsComponent
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
-    HelperPipesModule
-  ],
+    HelperPipesModule,
+    FormsModule,
+    TableEntriesModule,
+    ReportsModule
+],
   exports: [
     SetupWizardSidePanelComponent
   ]
