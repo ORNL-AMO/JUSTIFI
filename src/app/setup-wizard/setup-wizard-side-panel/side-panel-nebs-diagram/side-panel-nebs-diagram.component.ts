@@ -3,23 +3,12 @@ import { faFileLines, faScrewdriverWrench, faWeightHanging, IconDefinition } fro
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
-import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
-import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
-import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
-import { IdbFacility } from 'src/app/models/facility';
-import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
-import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
-import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
-import { KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem } from 'src/app/shared/reports/calculations/keyPerformanceIndicatorReport';
-import { getOnSiteVisitReport, OnSiteVisitReport } from 'src/app/shared/reports/calculations/visitReport';
-import { LocaleService } from 'src/app/shared/shared-services/locale.service';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-side-panel-nebs-diagram',
