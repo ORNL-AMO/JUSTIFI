@@ -2,86 +2,62 @@
     <div class="list-group-item nebs-label item-label">
         Identified NEBs
     </div>
-    <div class="list-group-item" *ngFor="let assessmentId of onSiteVisit.assessmentIds">
-        @let assessment = (assessmentId | assessmentItem: assessments);
-        <div class="item-label">
-            <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
-            {{assessment.name}}
-            <!-- <ng-template
-                [ngIf]="inAssessment && (equipment | includedInAssessment: assessment.guid: energyOpportunities)">
-                <fa-icon [icon]="faAsterisk"></fa-icon>
-            </ng-template> -->
-        </div>
-        @let nebs = (assessment.guid | nebList: 'assessment': nonEnergyBenefits:true);
-        <ng-template [ngIf]="nebs.length">
-            <ng-container *ngFor="let neb of nebs">
-                <div class="d-flex">
-                    <div class="associated-item">
-
-                    </div>
-                    <div class="ps-1 item-label">
-                        <fa-icon [icon]="faWeightHanging"></fa-icon>
-                        {{neb.name}}
-                    </div>
-                </div>
-            </ng-container>
-        </ng-template>
-        @let energyOppList = (assessmentId | energyOpportunityList: energyOpportunities: 'assessment' );
-        <ng-template [ngIf]="energyOppList.length">
-            <ng-container *ngFor="let energyOpp of energyOppList">
-                <div class="d-flex">
-                    <div class="associated-item">
-
-                    </div>
-                    <div class="ps-1 item-label">
-                        <fa-icon [icon]="faFileLines"></fa-icon>
-                        {{energyOpp.name}}
-                    </div>
-                </div>
-                @let nebs = (energyOpp.guid | nebList: 'energyOpportunity': nonEnergyBenefits);
-                <ng-template [ngIf]="nebs.length">
-                    <ng-container *ngFor="let neb of nebs">
-                        <div class="d-flex ms-4">
-                            <div class="associated-item">
-
-                            </div>
-                            <div class="ps-1 item-label">
-                                <fa-icon [icon]="faWeightHanging"></fa-icon>
-                                {{neb.name}}
-                            </div>
-                        </div>
-                    </ng-container>
-                </ng-template>
-            </ng-container>
-        </ng-template>
-    </div>
-    <div class="list-group-item pb-2">
-        Total Cost Savings
-        <span class="float-right small">({{keyPerformanceIndicatorReport.total.percentSavings | number:'1.0-0'}}
-            &percnt;)</span>
-        <div class="progress" role="progressbar" [ariaValueNow]="keyPerformanceIndicatorReport.total.percentSavings"
-            aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                [ngStyle]="{'width.%': keyPerformanceIndicatorReport.total.percentSavings}">
-                <app-single-cell-item [numValue]="keyPerformanceIndicatorReport.total.annualSavings"
-                    [isCurrency]="true"></app-single-cell-item>
+</div>
+<ng-template [ngIf]="onSiteVisit.assessmentIds.length" [ngIfElse]="noAssessmentsBlock">
+    <div class="list-group mt-2" *ngFor="let assessmentId of onSiteVisit.assessmentIds">
+        <div class="list-group-item">
+            @let assessment = (assessmentId | assessmentItem: assessments);
+            <div class="item-label">
+                <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                {{assessment.name}}
             </div>
-        </div>
-        <ng-container *ngFor="let reportItem of kpiReportItems">
-            <ng-container>
-                <span [innerHTML]="reportItem.kpiValue| kpiValueDisplay:keyPerformanceIndicators"></span>
-                <span class="float-right small">({{reportItem.percentSavings | number:'1.0-0'}}
-                    &percnt;)</span>
-                <div class="progress" role="progressbar" [ariaValueNow]="reportItem.percentSavings" aria-valuemin="0"
-                    aria-valuemax="100">
-                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
-                        [ngStyle]="{'width.%': reportItem.percentSavings}">
-                        <div class="progress-text">
-                            <app-single-cell-item [numValue]="reportItem.annualCostSavings"
-                                [isCurrency]="true"></app-single-cell-item>
+            @let nebs = (assessment.guid | nebList: 'assessment': nonEnergyBenefits:true);
+            <ng-template [ngIf]="nebs.length">
+                <ng-container *ngFor="let neb of nebs">
+                    <div class="d-flex">
+                        <div class="associated-item">
+
+                        </div>
+                        <div class="ps-1 item-label">
+                            <fa-icon [icon]="faWeightHanging"></fa-icon>
+                            {{neb.name}}
                         </div>
                     </div>
-                </div>
-            </ng-container>
-        </ng-container>
+                </ng-container>
+            </ng-template>
+            @let energyOppList = (assessmentId | energyOpportunityList: energyOpportunities: 'assessment' );
+            <ng-template [ngIf]="energyOppList.length">
+                <ng-container *ngFor="let energyOpp of energyOppList">
+                    <div class="d-flex">
+                        <div class="associated-item">
+
+                        </div>
+                        <div class="ps-1 item-label">
+                            <fa-icon [icon]="faFileLines"></fa-icon>
+                            {{energyOpp.name}}
+                        </div>
+                    </div>
+                    @let nebs = (energyOpp.guid | nebList: 'energyOpportunity': nonEnergyBenefits);
+                    <ng-template [ngIf]="nebs.length">
+                        <ng-container *ngFor="let neb of nebs">
+                            <div class="d-flex ms-4">
+                                <div class="associated-item">
+
+                                </div>
+                                <div class="ps-1 item-label">
+                                    <fa-icon [icon]="faWeightHanging"></fa-icon>
+                                    {{neb.name}}
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-template>
+                </ng-container>
+            </ng-template>
+        </div>
     </div>
+</ng-template>
+<ng-template #noAssessmentsBlock>
+    <div class="alert alert-info small p-2">
+        No assessments added to the visit. Once assessments are added the related NEBs will be found here.
+    </div>
+</ng-template>

@@ -45,88 +45,32 @@ export class SidePanelNebsDiagramComponent {
 
   nonEnergyBenefits: Array<IdbNonEnergyBenefit>;
   nonEnergyBenefitsSub: Subscription;
-
-  keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport;
-  kpiReportItems: Array<KeyPerformanceIndicatorReportItem>
-
-  currencyCode: string;
-  currencyCodeSub: Subscription;
-
-  facilitySub: Subscription;
-  facility: IdbFacility;
-  keyPerformanceMetrics: Array<KeyPerformanceMetric>;
-  keyPerformanceMetricsSub: Subscription;
-
-  keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>;
-  keyPerformanceMetricImpactsSub: Subscription;
-
-  keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>
   constructor(private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
-    private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
-    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
-    private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
-    private facilityIdbService: FacilityIdbService,
-    private localeService: LocaleService
+    private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService
   ) {
   }
 
   ngOnInit() {
-    this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
-      this.facility = facility;
-      this.setReportResults();
-    })
     this.onSiteVisitSub = this.onSiteVisitIdbService.selectedVisit.subscribe(visit => {
       this.onSiteVisit = visit;
-      this.setReportResults();
     })
     this.assessmentsSub = this.assessmentIdbService.assessments.subscribe(assessments => {
       this.assessments = assessments;
-      this.setReportResults();
     });
     this.energyOpportunitiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(opportunities => {
       this.energyOpportunities = opportunities;
-      this.setReportResults();
     });
     this.nonEnergyBenefitsSub = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.subscribe(nebs => {
       this.nonEnergyBenefits = nebs;
-      this.setReportResults();
-    });
-    this.keyPerformanceMetricsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(keyPerformanceIndicators => {
-      this.keyPerformanceIndicators = keyPerformanceIndicators;
-      this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.facility.guid);
-      this.setReportResults();
-    });
-    this.keyPerformanceMetricImpactsSub = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.subscribe(impacts => {
-      this.keyPerformanceMetricImpacts = impacts
-      this.setReportResults();
-    });
-    this.currencyCodeSub = this.localeService.currencyCode.subscribe(currencyCode => {
-      this.currencyCode = currencyCode;
     });
   }
 
   ngOnDestroy() {
-    this.facilitySub.unsubscribe();
     this.onSiteVisitSub.unsubscribe();
     this.assessmentsSub.unsubscribe();
     this.energyOpportunitiesSub.unsubscribe();
     this.nonEnergyBenefitsSub.unsubscribe();
-    this.keyPerformanceMetricsSub.unsubscribe();
-    this.keyPerformanceMetricImpactsSub.unsubscribe
-    this.currencyCodeSub.unsubscribe();
-  }
-
-
-
-  setReportResults() {
-    if (this.energyOpportunities && this.nonEnergyBenefits && this.keyPerformanceMetrics && this.keyPerformanceMetricImpacts && this.assessments && this.onSiteVisit && this.facility) {
-      let onSiteVisitReport: OnSiteVisitReport = getOnSiteVisitReport(this.onSiteVisit.assessmentIds, this.assessments, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceMetricImpacts);
-      this.keyPerformanceIndicatorReport = onSiteVisitReport.keyPerformanceIndicatorReport;
-      this.kpiReportItems = _.orderBy(this.keyPerformanceIndicatorReport.kpiReportItems, (reportItem: KeyPerformanceIndicatorReportItem) => {
-        return reportItem.annualCostSavings
-      }, 'desc')
-    }
   }
 }
