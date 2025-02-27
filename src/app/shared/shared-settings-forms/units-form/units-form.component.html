@@ -20,7 +20,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeElectricity"
-                        (input)="saveChanges()" (focus)="focusField()">
+                        (change)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Electricity'" [disabled]="true">
             </div>
@@ -63,7 +63,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeNaturalGas"
-                        (input)="saveChanges()" (focus)="focusField()">
+                        (change)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Natural Gas'" [disabled]="true">
             </div>
@@ -106,7 +106,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeOtherFuels"
-                        (input)="saveChanges()" (focus)="focusField()">
+                        (change)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Other Fuels'" [disabled]="true">
             </div>
@@ -148,7 +148,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeWater"
-                        (input)="saveChanges()" (focus)="focusField()">
+                        (change)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Water'" [disabled]="true">
             </div>
@@ -189,7 +189,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeWasteWater"
-                        (input)="saveChanges()" (focus)="focusField()">
+                        (change)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Waste Water'" [disabled]="true">
             </div>
@@ -231,7 +231,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeSteam"
-                        (input)="saveChanges()" (focus)="focusField()">
+                        (change)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Steam (as Utility)'"
                     [disabled]="true">
@@ -297,7 +297,7 @@
             <div class="input-group">
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" formControlName="includeCompressedAir"
-                        (input)="saveChanges()" (focus)="focusField()">
+                        (change)="saveChanges()" (focus)="focusField()">
                 </div>
                 <input type="text" class="form-control disabled-input-label" [value]="'Compressed Air (as Utility)'"
                     [disabled]="true">
