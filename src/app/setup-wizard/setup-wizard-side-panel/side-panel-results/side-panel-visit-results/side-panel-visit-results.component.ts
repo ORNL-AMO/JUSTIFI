@@ -117,6 +117,7 @@ export class SidePanelVisitResultsComponent {
     this.onSiteVisitSub.unsubscribe();
     this.assessmentsSub.unsubscribe();
     this.currencyCodeSub.unsubscribe();
+    this.facilitySub.unsubscribe();
   }
 
   setReportResults() {
