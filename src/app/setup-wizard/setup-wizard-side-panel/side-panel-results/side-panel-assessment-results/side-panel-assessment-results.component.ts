@@ -3,11 +3,13 @@ import { faFileLines, faScrewdriverWrench, faWeightHanging, IconDefinition } fro
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
+import { IdbFacility } from 'src/app/models/facility';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
@@ -58,7 +60,8 @@ export class SidePanelAssessmentResultsComponent {
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private assessmentIdbService: AssessmentIdbService,
-    private localeService: LocaleService
+    private localeService: LocaleService,
+    private facilityIdbService: FacilityIdbService
   ) {
 
   }
@@ -77,7 +80,8 @@ export class SidePanelAssessmentResultsComponent {
       this.setReportResults();
     });
     this.keyPerformanceMetricsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(() => {
-      this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.assessment.facilityId);
+      let selectedFacility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+      this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(selectedFacility.guid);
       this.setReportResults();
     });
     this.keyPerformanceMetricImpactsSub = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.subscribe(impacts => {
