@@ -54,8 +54,34 @@
                 </ng-template>
             </ng-container>
         </ng-template>
-
-
-
     </div>
-</div>
+    <div class="list-group-item pb-2">
+        Total Cost Savings
+        <span class="float-right small">({{keyPerformanceIndicatorReport.total.percentSavings | number:'1.0-0'}}
+            &percnt;)</span>
+        <div class="progress" role="progressbar" [ariaValueNow]="keyPerformanceIndicatorReport.total.percentSavings"
+            aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                [ngStyle]="{'width.%': keyPerformanceIndicatorReport.total.percentSavings}">
+                <app-single-cell-item [numValue]="keyPerformanceIndicatorReport.total.annualSavings"
+                    [isCurrency]="true"></app-single-cell-item>
+            </div>
+        </div>
+        <ng-container *ngFor="let reportItem of kpiReportItems">
+            <ng-container>
+                <span [innerHTML]="reportItem.kpiValue| kpiValueDisplay:keyPerformanceIndicators"></span>
+                <span class="float-right small">({{reportItem.percentSavings | number:'1.0-0'}}
+                    &percnt;)</span>
+                <div class="progress" role="progressbar" [ariaValueNow]="reportItem.percentSavings" aria-valuemin="0"
+                    aria-valuemax="100">
+                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                        [ngStyle]="{'width.%': reportItem.percentSavings}">
+                        <div class="progress-text">
+                            <app-single-cell-item [numValue]="reportItem.annualCostSavings"
+                                [isCurrency]="true"></app-single-cell-item>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>

@@ -19,3 +19,27 @@
     white-space: nowrap;
     width: 100%;
 }
+.list-group-item{
+    font-size: 14px;
+    padding-left: .25rem;
+    padding-right: .25rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.progress-bar{
+    overflow: visible;
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: #35b96c !important;
+}
+.progress{
+    height: 1.5rem;
+    border-radius: 100px;
+}
+
+
+.float-right{
+    float: right;
+}

@@ -74,10 +74,17 @@ export class KeyPerformanceMetricImpactsIdbService {
     });
   }
 
-  async updatePerformanceMetricBaseline(keyPerformanceIndicator: IdbKeyPerformanceIndicator, keyPerformanceMetric: KeyPerformanceMetric) {
-    let companyMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.getByKpiGuid(keyPerformanceIndicator.guid);
-    for (let i = 0; i < companyMetricImpacts.length; i++) {
-      let metricImpact: IdbKeyPerformanceMetricImpact = companyMetricImpacts[i];
+  getByKpmGuid(kpmGuid: string): Array<IdbKeyPerformanceMetricImpact> {
+    let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpacts.getValue();
+    return keyPerformanceMetricImpacts.filter(kpmImpact => {
+      return kpmImpact.kpmGuid == kpmGuid
+    });
+  }
+
+  async updatePerformanceMetricBaseline(keyPerformanceMetric: KeyPerformanceMetric) {
+    let facilityMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.getByKpmGuid(keyPerformanceMetric.guid);
+    for (let i = 0; i < facilityMetricImpacts.length; i++) {
+      let metricImpact: IdbKeyPerformanceMetricImpact = facilityMetricImpacts[i];
       if (keyPerformanceMetric.calculationMethod == 'costPerUnit') {
         metricImpact.costAdjustment = (metricImpact.modificationValue * keyPerformanceMetric.costPerValue);
       } else if (keyPerformanceMetric.calculationMethod == 'percentTotal') {
