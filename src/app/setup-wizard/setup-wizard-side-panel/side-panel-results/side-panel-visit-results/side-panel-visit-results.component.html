@@ -1,0 +1,156 @@
+<div class="list-group list-group-flush mt-2" *ngIf="onSiteVisitReport">
+    <div class="list-group-item">
+        Current Facility Energy Costs  <span class="float-right">{{facility.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
+    </div>
+    <div class="list-group-item">
+        Total Energy Cost Savings
+        <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
+        <div class="progress" role="progressbar" [ariaValueNow]="percentSavings" aria-valuemin="0"
+            aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" [ngStyle]="{'width.%': percentSavings}">
+                <app-single-cell-item [numValue]="onSiteVisitReport.totalEnergyCostSavings"
+                    [isCurrency]="true"></app-single-cell-item>
+            </div>
+        </div>
+        <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
+            @let assessmentPercentSavings = (assessmentReport.totalEnergyCostSavings / facility.cost)
+            * 100;
+            {{assessmentReport.assessment.name}}
+            <span class="float-right small">({{assessmentPercentSavings | number:'1.0-0'}} &percnt;)</span>
+            <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
+                aria-valuemax="100">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
+                    <div class="progress-text">
+                        <app-single-cell-item [numValue]="assessmentReport.totalEnergyCostSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <hr>
+        Total Savings W/ NEBs
+        <span class="float-right small">({{percentSavingsNebs | number:'1.0-0'}} &percnt;)</span>
+        <div class="progress" role="progressbar" aria-label="Example with label"
+            [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
+                <div>
+                    <app-single-cell-item [numValue]="onSiteVisitReport.totalCostSavings"
+                        [isCurrency]="true"></app-single-cell-item>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
+            @let assessmentPercentSavings = (assessmentReport.totalCostSavings / facility.cost) *
+            100;
+            {{assessmentReport.assessment.name}}
+            <span class="float-right small">({{assessmentPercentSavings | number:'1.0-0'}} &percnt;)</span>
+            <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
+                aria-valuemax="100">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
+                    <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
+                        [isCurrency]="true"></app-single-cell-item>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="list-group-item">
+        <table class="table table-bordered table-sm mt-3">
+            <thead>
+                <tr>
+                    <th>
+                        Energy Cost Savings
+                    </th>
+                    <th class="text-right w-25">
+                        ({{currencyCode | currencySymbol}} / yr)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
+                    <td>
+                        <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                        {{assessmentReport.assessment.name}}
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="assessmentReport.totalEnergyCostSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        Total
+                    </th>
+                    <th class="text-right">
+                        <app-single-cell-item [numValue]="onSiteVisitReport.totalEnergyCostSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <table class="table table-bordered table-sm mt-3">
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        Additional Opperation Benfits
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
+                    <td>
+                        <fa-icon [icon]="faWeightHanging"></fa-icon>
+                        {{assessmentReport.assessment.name}}
+                    </td>
+                    <td class="text-right w-25">
+                        <app-single-cell-item [numValue]="assessmentReport.totalNebSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        Total
+                    </th>
+                    <th class="text-right">
+                        <app-single-cell-item [numValue]="onSiteVisitReport.totalNebSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <table class="table table-bordered table-sm mt-3">
+            <tbody>
+                <tr>
+                    <th>
+                        Total Energy Savings
+                    </th>
+                    <th class="text-right w-25">
+                        <app-single-cell-item [numValue]="onSiteVisitReport.totalEnergyCostSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Total Additional Operational Benefits
+                    </th>
+                    <th class="text-right">
+                        <app-single-cell-item [numValue]="onSiteVisitReport.totalNebSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Total Savings
+                    </th>
+                    <th class="text-right">
+                        <app-single-cell-item [numValue]="onSiteVisitReport.totalCostSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -37,7 +37,7 @@
                         <input class="form-check-input" type="checkbox"
                             name="{{'include_utilityType_' + use.utilityType + assessment.guid}}"
                             id="{{'include_utilityType_' + use.utilityType + assessment.guid}}"
-                            [(ngModel)]="use.include" (change)="calculateEnergyUseCost()" [disabled]="isDisabled">
+                            [(ngModel)]="use.include" (input)="calculateEnergyUseCost()" [disabled]="isDisabled">
                     </div>
                     <input type="text" class="form-control disabled-input-label" [value]="use.utilityType"
                         [disabled]="true">
@@ -78,7 +78,7 @@
                         <input class="form-control" type="number" step="any" min="0"
                             name="{{'energyHHV_' + use.utilityType + assessment.guid}}"
                             id="{{'energyHHV_' + use.utilityType + assessment.guid}}" [(ngModel)]="use.energyHHV"
-                            (change)="calculateEnergyUseCost()" [disabled]="isDisabled">
+                            (input)="calculateEnergyUseCost()" [disabled]="isDisabled">
                         <select class="input-group-text"
                             name="{{'energyUnitStandard_' + use.utilityType + assessment.guid}}"
                             id="{{'energyUnitStandard_' + use.utilityType + assessment.guid}}"
@@ -189,6 +189,13 @@
     <div class="col-12">
         <app-associated-energy-equipment-buttons [itemGuid]="assessment.guid"
             [itemContext]="'assessment'"></app-associated-energy-equipment-buttons>
+    </div>
+</div>
+<hr class="my-1">
+<div class="row">
+    <div class="col-12">
+        <app-associated-process-equipment-buttons [itemGuid]="assessment.guid"
+            [itemContext]="'assessment'"></app-associated-process-equipment-buttons>
     </div>
 </div>
 <hr class="my-1">

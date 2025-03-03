@@ -129,7 +129,7 @@ export class PerformanceMetricImpactFormComponent {
         _metric.costPerValue = this.keyPerformanceMetric.costPerValue;
       }
     });
-    await this.keyPerformanceMetricImpactIdbService.updatePerformanceMetricBaseline(keyPerformanceIndicator, this.keyPerformanceMetric);
+    await this.keyPerformanceMetricImpactIdbService.updatePerformanceMetricBaseline(this.keyPerformanceMetric);
     await this.keyPerformanceIndicatorIdbService.asyncUpdate(keyPerformanceIndicator);
   }
 

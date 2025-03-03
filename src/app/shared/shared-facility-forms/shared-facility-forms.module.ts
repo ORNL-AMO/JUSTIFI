@@ -19,6 +19,19 @@ import { KpiDescriptionPipe } from './kpi-details-form/kpi-description.pipe';
 import { KpiDetailsFormComponent } from './kpi-details-form/kpi-details-form.component';
 import { AssociatedContactsModule } from '../associated-contacts/associated-contacts.module';
 import { SharedFacilityProtocolQuestionsComponent } from './shared-facility-protocol-questions/shared-facility-protocol-questions.component';
+import { SharedAssessmentFormsModule } from "../shared-assessment-forms/shared-assessment-forms.module";
+import { AssociatedProcessEquipmentModule } from "../associated-process-equipment/associated-process-equipment.module";
+import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/associated-energy-equipment.module';
+import { DiscoveryEnergyEquipmentQuestionsComponent } from './discovery-energy-equipment-questions/discovery-energy-equipment-questions.component';
+import { EnergyEquipmentEmployeeEngagementComponent } from './discovery-energy-equipment-questions/energy-equipment-employee-engagement/energy-equipment-employee-engagement.component';
+import { EnergyEquipmentSustainabilityComponent } from './discovery-energy-equipment-questions/energy-equipment-sustainability/energy-equipment-sustainability.component';
+import { EnergyEquipmentOperationsComponent } from './discovery-energy-equipment-questions/energy-equipment-operations/energy-equipment-operations.component';
+import { EnergyEquipmentTakeStockComponent } from './discovery-energy-equipment-questions/energy-equipment-take-stock/energy-equipment-take-stock.component';
+import { DiscoveryProcessEquipmentQuestionsComponent } from './discovery-process-equipment-questions/discovery-process-equipment-questions.component';
+import { ProcessEquipmentTakeStockComponent } from './discovery-process-equipment-questions/process-equipment-take-stock/process-equipment-take-stock.component';
+import { ProcessEquipmentOperationsComponent } from './discovery-process-equipment-questions/process-equipment-operations/process-equipment-operations.component';
+import { ProcessEquipmentEmployeeEngagementComponent } from './discovery-process-equipment-questions/process-equipment-employee-engagement/process-equipment-employee-engagement.component';
+import { ProcessEquipmentSustainablityComponent } from './discovery-process-equipment-questions/process-equipment-sustainablity/process-equipment-sustainablity.component';
 
 
 
@@ -35,7 +48,17 @@ import { SharedFacilityProtocolQuestionsComponent } from './shared-facility-prot
     KpmImpactsTableComponent,
     KpiDescriptionPipe,
     KpiDetailsFormComponent,
-    SharedFacilityProtocolQuestionsComponent
+    SharedFacilityProtocolQuestionsComponent,
+    DiscoveryEnergyEquipmentQuestionsComponent,
+    EnergyEquipmentTakeStockComponent,
+    EnergyEquipmentOperationsComponent,
+    EnergyEquipmentSustainabilityComponent,
+    EnergyEquipmentEmployeeEngagementComponent,
+    DiscoveryProcessEquipmentQuestionsComponent,
+    ProcessEquipmentTakeStockComponent,
+    ProcessEquipmentOperationsComponent,
+    ProcessEquipmentEmployeeEngagementComponent,
+    ProcessEquipmentSustainablityComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +69,11 @@ import { SharedFacilityProtocolQuestionsComponent } from './shared-facility-prot
     FontAwesomeModule,
     KpmDetailsFormModule,
     PrimaryKpiBadgeModule,
-    AssociatedContactsModule
+    AssociatedContactsModule,
+    SharedAssessmentFormsModule,
+    AssociatedContactsModule,
+    AssociatedProcessEquipmentModule,
+    AssociatedEnergyEquipmentModule
   ],
   exports: [
     FacilitySetupFormComponent,

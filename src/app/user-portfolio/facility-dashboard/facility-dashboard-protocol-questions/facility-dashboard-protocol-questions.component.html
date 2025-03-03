@@ -1,0 +1,23 @@
+<div class="row justify-content-center">
+    <div class="col-sm-12 col-md-10">
+        <div class="card portfolio">
+            <div class="card-body">
+                <h5>
+                    <fa-icon [icon]="faClipboardQuestion" class="me-2"></fa-icon>
+                    Facility Questions
+                </h5>
+                <hr>
+                <p class="fw-light small">
+                    {{FacilityProtocolHelp.sectionHelp}}
+                </p>
+                <p class="fw-light small">
+                    Answering the questions is an <b><u>optional</u></b> exercise but good practice. The help panel
+                    provides additional context for the individual questions when a user clicks on the corresponding
+                    input fields.
+                </p>
+                <hr>
+                <app-shared-facility-protocol-questions [inPortfolio]="true"></app-shared-facility-protocol-questions>
+            </div>
+        </div>
+    </div>
+</div>

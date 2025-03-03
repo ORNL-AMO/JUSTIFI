@@ -8,19 +8,14 @@ import { NebFormsAccordionComponent } from '../neb-forms-accordion/neb-forms-acc
 import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
 import { AssociatedProcessEquipmentModule } from '../../associated-process-equipment/associated-process-equipment.module';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { AssociatedEnergyEquipmentModule } from '../../associated-energy-equipment/associated-energy-equipment.module';
 
 describe('EnergyOpportunitySetupFormComponent', () => {
   let component: EnergyOpportunitySetupFormComponent;
   let fixture: ComponentFixture<EnergyOpportunitySetupFormComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        FontAwesomeModule, 
-        RouterTestingModule, 
-        FormsModule, 
-        HelperPipesModule,
-        AssociatedProcessEquipmentModule,
-      ],
+      imports: [FontAwesomeModule, RouterTestingModule, FormsModule, AssociatedProcessEquipmentModule, AssociatedEnergyEquipmentModule, HelperPipesModule],
       declarations: [EnergyOpportunitySetupFormComponent, NebFormsAccordionComponent],
       providers: stubServiceProviders
 

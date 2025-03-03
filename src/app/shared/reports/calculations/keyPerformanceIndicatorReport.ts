@@ -2,16 +2,21 @@ import { KeyPerformanceMetric } from "../../constants/keyPerformanceMetrics";
 import * as _ from 'lodash';
 import { NebReport } from "./nebReport";
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
+import { KeyPerformanceIndicatorValue } from "../../constants/keyPerformanceIndicatorOptions";
 
 
 export function getKeyPerfomanceIndicatorReport(nebReports: Array<NebReport>): KeyPerformanceIndicatorReport {
-    let kpiReportItems: Array<KeyPerformanceIndicatorReportItem> = new Array();
+    let kpmReportItems: Array<KeyPerformanceMetricReportItem> = new Array();
     nebReports.forEach(nebReport => {
         nebReport.reportPerformanceMetrics.forEach(performanceMetric => {
             if (isNaN(performanceMetric.performanceMetricImpact.costAdjustment)) {
                 performanceMetric.performanceMetricImpact.costAdjustment = 0;
             }
-            let itemExistIndex: number = kpiReportItems.findIndex(reportItem => {
+            if (isNaN(performanceMetric.keyPerformanceMetric.baselineCost)) {
+                performanceMetric.keyPerformanceMetric.baselineCost = 0;
+            }
+
+            let itemExistIndex: number = kpmReportItems.findIndex(reportItem => {
                 if (reportItem.keyPerformanceMetric.isCustom == false) {
                     return reportItem.keyPerformanceMetric.value == performanceMetric.keyPerformanceMetric.value;
                 } else {
@@ -20,15 +25,15 @@ export function getKeyPerfomanceIndicatorReport(nebReports: Array<NebReport>): K
             });
             if (itemExistIndex != -1) {
                 if (performanceMetric.performanceMetricImpact.costAdjustment) {
-                    kpiReportItems[itemExistIndex].performanceMetricImpact.costAdjustment += performanceMetric.performanceMetricImpact.costAdjustment;
+                    kpmReportItems[itemExistIndex].performanceMetricImpact.costAdjustment += performanceMetric.performanceMetricImpact.costAdjustment;
                 }
                 if (performanceMetric.performanceMetricImpact.modificationValue) {
-                    kpiReportItems[itemExistIndex].performanceMetricImpact.modificationValue += performanceMetric.performanceMetricImpact.modificationValue;
+                    kpmReportItems[itemExistIndex].performanceMetricImpact.modificationValue += performanceMetric.performanceMetricImpact.modificationValue;
                 }
-                if (kpiReportItems[itemExistIndex].keyPerformanceMetric.baselineCost) {
-                    kpiReportItems[itemExistIndex].performanceMetricImpact.percentSavings = (kpiReportItems[itemExistIndex].performanceMetricImpact.costAdjustment / kpiReportItems[itemExistIndex].keyPerformanceMetric.baselineCost) * 100;
-                } else if (kpiReportItems[itemExistIndex].keyPerformanceMetric.baselineValue && kpiReportItems[itemExistIndex].performanceMetricImpact.modificationValue) {
-                    kpiReportItems[itemExistIndex].performanceMetricImpact.percentSavings = (kpiReportItems[itemExistIndex].performanceMetricImpact.modificationValue / kpiReportItems[itemExistIndex].keyPerformanceMetric.baselineValue) * 100;
+                if (kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineCost) {
+                    kpmReportItems[itemExistIndex].performanceMetricImpact.percentSavings = (kpmReportItems[itemExistIndex].performanceMetricImpact.costAdjustment / kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineCost) * 100;
+                } else if (kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineValue && kpmReportItems[itemExistIndex].performanceMetricImpact.modificationValue) {
+                    kpmReportItems[itemExistIndex].performanceMetricImpact.percentSavings = (kpmReportItems[itemExistIndex].performanceMetricImpact.modificationValue / kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineValue) * 100;
                 }
             } else {
                 if (performanceMetric.keyPerformanceMetric.isCustom) {
@@ -42,7 +47,7 @@ export function getKeyPerfomanceIndicatorReport(nebReports: Array<NebReport>): K
                     percentSavings = (performanceMetric.performanceMetricImpact.modificationValue / performanceMetric.keyPerformanceMetric.baselineValue) * 100;
                 }
 
-                kpiReportItems.push({
+                kpmReportItems.push({
                     keyPerformanceMetric: performanceMetric.keyPerformanceMetric,
                     performanceMetricImpact: {
                         ...performanceMetric.performanceMetricImpact,
@@ -60,13 +65,13 @@ export function getKeyPerfomanceIndicatorReport(nebReports: Array<NebReport>): K
         })
     })
 
-    let baselineCost: number = _.sumBy(kpiReportItems, (reportItem: KeyPerformanceIndicatorReportItem) => {
+    let baselineCost: number = _.sumBy(kpmReportItems, (reportItem: KeyPerformanceMetricReportItem) => {
         if (reportItem.keyPerformanceMetric.isQuantitative && reportItem.keyPerformanceMetric.baselineCost) {
             return reportItem.keyPerformanceMetric.baselineCost;
         }
         return 0
     });
-    let annualSavings: number = _.sumBy(kpiReportItems, (reportItem: KeyPerformanceIndicatorReportItem) => {
+    let annualSavings: number = _.sumBy(kpmReportItems, (reportItem: KeyPerformanceMetricReportItem) => {
         if (reportItem.keyPerformanceMetric.isQuantitative && reportItem.performanceMetricImpact.costAdjustment) {
             return reportItem.performanceMetricImpact.costAdjustment;
         }
@@ -75,7 +80,8 @@ export function getKeyPerfomanceIndicatorReport(nebReports: Array<NebReport>): K
     let modifiedCost: number = baselineCost - annualSavings;
     let percentSavings: number = (annualSavings / baselineCost) * 100
     return {
-        kpiReportItems: kpiReportItems,
+        kpmReportItems: kpmReportItems,
+        kpiReportItems: getKeyPerformanceIndicatorReportItems(kpmReportItems),
         total: {
             baselineCost: baselineCost,
             annualSavings: annualSavings,
@@ -85,10 +91,43 @@ export function getKeyPerfomanceIndicatorReport(nebReports: Array<NebReport>): K
     }
 }
 
+export function getKeyPerformanceIndicatorReportItems(kpmReportItems: Array<KeyPerformanceMetricReportItem>): Array<KeyPerformanceIndicatorReportItem> {
+    let results: Array<KeyPerformanceIndicatorReportItem> = new Array();
+    let kpiValues: Array<KeyPerformanceIndicatorValue> = kpmReportItems.map(item => {
+        return item.keyPerformanceMetric.kpiValue;
+    });
+    let uniqValues: Array<KeyPerformanceIndicatorValue> = _.uniq(kpiValues);
+    uniqValues.forEach(kpiValue => {
+        let kpiReportsItems = kpmReportItems.filter(item => {
+            return item.keyPerformanceMetric.kpiValue == kpiValue && item.keyPerformanceMetric.isQuantitative && !isNaN(item.keyPerformanceMetric.baselineCost) && !isNaN(item.performanceMetricImpact.costAdjustment);
+        });
 
+        let baselineCost: number = _.sumBy(kpiReportsItems, (item: KeyPerformanceMetricReportItem) => { return item.keyPerformanceMetric.baselineCost });
+        let annualCostSavings: number = _.sumBy(kpiReportsItems, (item: KeyPerformanceMetricReportItem) => { return item.performanceMetricImpact.costAdjustment });
+        let modifiedCost: number = baselineCost - annualCostSavings;
+        let percentSavings: number = (annualCostSavings / baselineCost) * 100;
+        results.push({
+            kpiValue: kpiValue,
+            baselineCost: _.sumBy(kpiReportsItems, (item: KeyPerformanceMetricReportItem) => { return item.keyPerformanceMetric.baselineCost }),
+            annualCostSavings: annualCostSavings,
+            modifiedCost: modifiedCost,
+            percentSavings: percentSavings
+        })
+    });
+    return results;
+}
+
+export interface KeyPerformanceIndicatorReportItem {
+    kpiValue: KeyPerformanceIndicatorValue,
+    baselineCost: number,
+    annualCostSavings: number,
+    modifiedCost: number,
+    percentSavings: number
+}
 
 
 export interface KeyPerformanceIndicatorReport {
+    kpmReportItems: Array<KeyPerformanceMetricReportItem>,
     kpiReportItems: Array<KeyPerformanceIndicatorReportItem>,
     total: {
         baselineCost: number,
@@ -98,7 +137,7 @@ export interface KeyPerformanceIndicatorReport {
     }
 }
 
-export interface KeyPerformanceIndicatorReportItem {
+export interface KeyPerformanceMetricReportItem {
     keyPerformanceMetric: KeyPerformanceMetric,
     performanceMetricImpact: IdbKeyPerformanceMetricImpact
     // nebsImpacts: Array<{

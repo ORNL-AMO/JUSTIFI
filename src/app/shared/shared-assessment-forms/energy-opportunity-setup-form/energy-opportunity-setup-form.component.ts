@@ -73,6 +73,7 @@ export class EnergyOpportunitySetupFormComponent {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toastNotificationService: ToastNotificationsService,
+    private setupWizardService: SetupWizardService,
     private localeService: LocaleService,
   ) {
   }
@@ -173,4 +174,7 @@ export class EnergyOpportunitySetupFormComponent {
     this.showAddNebDropdown = !this.showAddNebDropdown;
   }
 
+  focusField(str: string){
+    this.setupWizardService.focusedHelp.next(str);
+  }
 }

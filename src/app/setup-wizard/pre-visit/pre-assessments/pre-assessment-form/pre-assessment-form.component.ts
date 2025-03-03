@@ -11,10 +11,10 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-    selector: 'app-pre-assessment-form',
-    templateUrl: './pre-assessment-form.component.html',
-    styleUrl: './pre-assessment-form.component.css',
-    standalone: false
+  selector: 'app-pre-assessment-form',
+  templateUrl: './pre-assessment-form.component.html',
+  styleUrl: './pre-assessment-form.component.css',
+  standalone: false
 })
 export class PreAssessmentFormComponent {
   faChevronLeft: IconDefinition = faChevronLeft;
@@ -68,7 +68,10 @@ export class PreAssessmentFormComponent {
       if (!this.assessment) {
         this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-pre-assessment')
       } else {
-        this.assessmentIdbService.selectedAssessment.next(this.assessment);
+        let selectedAssessment: IdbAssessment = this.assessmentIdbService.selectedAssessment.getValue();
+        if (!selectedAssessment || this.assessment.guid != selectedAssessment.guid) {
+          this.assessmentIdbService.selectedAssessment.next(this.assessment);
+        }
       }
     }
   }

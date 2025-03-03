@@ -9,7 +9,6 @@ import { DataCollectionComponent } from "../setup-wizard/data-collection/data-co
 import { DataCollectionManageAssessmentsComponent } from "../setup-wizard/data-collection/data-collection-manage-assessments/data-collection-manage-assessments.component";
 import { OnSiteAssessmentComponent } from "../setup-wizard/data-collection/on-site-assessment/on-site-assessment.component";
 import { AssessmentNebsFormComponent } from "../setup-wizard/data-collection/on-site-assessment/assessment-nebs-form/assessment-nebs-form.component";
-import { OnSiteAssessmentResultsComponent } from "../setup-wizard/data-collection/on-site-assessment/on-site-assessment-results/on-site-assessment-results.component";
 import { ReviewOnSiteComponent } from "../setup-wizard/data-collection/review-on-site/review-on-site.component";
 import { DataEvaluationComponent } from "../setup-wizard/data-evaluation/data-evaluation.component";
 import { DataFollowUpComponent } from "../setup-wizard/data-evaluation/data-follow-up/data-follow-up.component";
@@ -136,10 +135,6 @@ export const SetupWizardRoutes: Route = {
                         {
                             path: 'nebs',
                             component: AssessmentNebsFormComponent
-                        },
-                        {
-                            path: 'results',
-                            component: OnSiteAssessmentResultsComponent
                         }
                     ]
                 },
