@@ -25,3 +25,15 @@
     white-space: nowrap;
     width: 100%;
 }
+
+.list-group-item{
+    font-size: 14px;
+    padding-left: .25rem;
+    padding-right: .25rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.alert.small{
+    font-size: 12px;
+}

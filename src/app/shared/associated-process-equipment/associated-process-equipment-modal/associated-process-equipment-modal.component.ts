@@ -5,6 +5,7 @@ import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-i
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-associated-process-equipment-modal',
@@ -42,10 +43,8 @@ export class AssociatedProcessEquipmentModalComponent {
 
   ngOnInit() {
     this.processEquipments = this.processEquipmentIdbService.getFacilityProcessEquipment(this.facilityGuid).map(equipment => {
-      //need to use shallow copy
-      return {
-        ...equipment
-      }
+      //need to use deep copy
+      return _.cloneDeep(equipment);
     });
     //don't link to self
     if (this.itemContext == 'processEquipment') {
