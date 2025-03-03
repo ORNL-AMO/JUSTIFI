@@ -34,7 +34,6 @@ export class SidePanelNebsDiagramComponent {
 
   nonEnergyBenefits: Array<IdbNonEnergyBenefit>;
   nonEnergyBenefitsSub: Subscription;
-
   constructor(private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
@@ -45,16 +44,16 @@ export class SidePanelNebsDiagramComponent {
   ngOnInit() {
     this.onSiteVisitSub = this.onSiteVisitIdbService.selectedVisit.subscribe(visit => {
       this.onSiteVisit = visit;
-    });
+    })
     this.assessmentsSub = this.assessmentIdbService.assessments.subscribe(assessments => {
       this.assessments = assessments;
     });
-    this.energyOpportunitiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(energyOpps => {
-      this.energyOpportunities = energyOpps;
+    this.energyOpportunitiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(opportunities => {
+      this.energyOpportunities = opportunities;
     });
     this.nonEnergyBenefitsSub = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.subscribe(nebs => {
       this.nonEnergyBenefits = nebs;
-    })
+    });
   }
 
   ngOnDestroy() {
@@ -63,6 +62,4 @@ export class SidePanelNebsDiagramComponent {
     this.energyOpportunitiesSub.unsubscribe();
     this.nonEnergyBenefitsSub.unsubscribe();
   }
-
-
 }

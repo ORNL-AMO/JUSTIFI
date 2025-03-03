@@ -29,6 +29,9 @@ export class KpmDetailsFormComponent {
   calculateCost(modifiedMethod: boolean) {
     if (this.keyPerformanceMetric.calculationMethod == 'costPerUnit') {
       this.keyPerformanceMetric.baselineCost = (this.keyPerformanceMetric.costPerValue * this.keyPerformanceMetric.baselineValue);
+      if(isNaN(this.keyPerformanceMetric.baselineCost)){
+        this.keyPerformanceMetric.baselineCost = 0;
+      }
     }
     this.emitCalculate.emit({modifiedMethod: modifiedMethod, updateBaseline: true});
     // if (this.context == 'onSite') {

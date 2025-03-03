@@ -118,7 +118,7 @@ export class KpiDetailsFormComponent {
   }
 
   async calculateCost(keyPerformanceMetric: KeyPerformanceMetric) {
-    await this.keyPerformanceMetricImpactIdbService.updatePerformanceMetricBaseline(this.keyPerformanceIndicator, keyPerformanceMetric);
+    await this.keyPerformanceMetricImpactIdbService.updatePerformanceMetricBaseline(keyPerformanceMetric);
     await this.saveChanges();
   }
 
