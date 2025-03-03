@@ -51,6 +51,19 @@ PORTFOLIO TABS
     color: var(--portfolio-nav-color);
 }
 
+.portfolio .nav-item .nav-link .svg-inline--fa {
+    color: var(--portfolio-nav-color);
+}
+
+.portfolio .nav-item .nav-link.active .svg-inline--fa {
+    color: white;
+}
+
+tr.table-dark .svg-inline--fa{
+    color: white;
+}
+
+
 a {
     color: var(--portfolio-nav-color);
 }
