@@ -3,6 +3,7 @@ import { IconDefinition, faChevronLeft, faCircle, faCircleCheck, faLink, faSave,
 import { firstValueFrom } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { ContactContext, IdbContact } from 'src/app/models/contact';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-associated-contacts-modal',
@@ -43,7 +44,7 @@ export class AssociatedContactsModalComponent {
     this.contacts = new Array();
     allContacts.forEach(contact => {
       if (contact.companyId == this.companyGuid) {
-        this.contacts.push(JSON.parse(JSON.stringify(contact)));
+        this.contacts.push(_.cloneDeep(contact));
       }
     })
 
