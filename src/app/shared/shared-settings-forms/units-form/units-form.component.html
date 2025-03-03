@@ -28,7 +28,7 @@
         <ng-container *ngIf="form.controls['includeElectricity'].value">
             <div class="col-4">
                 <div class="input-group">
-                    <input class="form-control" type="number" step="any" min="0" formControlName="electricityUse"
+                    <input class="form-control" type="number" step="any" formControlName="electricityUse"
                         name="electricityUse" (input)="saveChanges()" (focus)="focusField()">
                     <select class="input-group-text" formControlName="electricityUnit" (change)="savePriceChanges()"
                         (focus)="focusField()">
