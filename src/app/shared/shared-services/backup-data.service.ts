@@ -262,40 +262,72 @@ export class BackupDataService {
       let energyEquipment: IdbEnergyEquipment = allEnergyEquipments.find(equipment => {
         return equipment.guid == energyEquipmentGUIDs[i].newId;
       });
-      energyEquipment.processEquipmentIds.forEach((processEquipmentId, idx) => {
-        energyEquipment.processEquipmentIds[idx] = getNewId(processEquipmentId, processEquipmentGUIDs);
-      });
-      energyEquipment.energyEquipmentIds.forEach((energyEquipmentId, idx) => {
-        energyEquipment.energyEquipmentIds[idx] = getNewId(energyEquipmentId, energyEquipmentGUIDs);
-      });
-      energyEquipment.assessmentIds.forEach((assessmentId, idx) => {
-        energyEquipment.assessmentIds[idx] = getNewId(assessmentId, assessmentGUIDs);
-      });
-      energyEquipment.energyOpportunityIds.forEach((energyOpportunityId, idx) => {
-        energyEquipment.energyOpportunityIds[idx] = getNewId(energyOpportunityId, energyOpportunityGUIDs);
-      });
+      if (energyEquipment.processEquipmentIds) {
+        energyEquipment.processEquipmentIds.forEach((processEquipmentId, idx) => {
+          energyEquipment.processEquipmentIds[idx] = getNewId(processEquipmentId, processEquipmentGUIDs);
+        });
+      } else {
+        energyEquipment.processEquipmentIds = [];
+      }
+      if (energyEquipment.energyEquipmentIds) {
+        energyEquipment.energyEquipmentIds.forEach((energyEquipmentId, idx) => {
+          energyEquipment.energyEquipmentIds[idx] = getNewId(energyEquipmentId, energyEquipmentGUIDs);
+        });
+      } else {
+        energyEquipment.energyEquipmentIds = [];
+      }
+      if (energyEquipment.assessmentIds) {
+        energyEquipment.assessmentIds.forEach((assessmentId, idx) => {
+          energyEquipment.assessmentIds[idx] = getNewId(assessmentId, assessmentGUIDs);
+        });
+      } else {
+        energyEquipment.assessmentIds = [];
+      }
+      if (energyEquipment.energyOpportunityIds) {
+        energyEquipment.energyOpportunityIds.forEach((energyOpportunityId, idx) => {
+          energyEquipment.energyOpportunityIds[idx] = getNewId(energyOpportunityId, energyOpportunityGUIDs);
+        });
+      } else {
+        energyEquipment.energyEquipmentIds = [];
+      }
       await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(energyEquipment));
     }
 
 
     //update process equipment
     let allProcessEquipments: Array<IdbProcessEquipment> = await firstValueFrom(this.processEquipmentIdbService.getAll());
-    for (let i = 0; i < allProcessEquipments.length; i++) {
+    for (let i = 0; i < processEquipmentGUIDs.length; i++) {
       let processEquipment: IdbProcessEquipment = allProcessEquipments.find(equipment => {
         return equipment.guid == processEquipmentGUIDs[i].newId;
       });
-      processEquipment.processEquipmentIds.forEach((processEquipmentId, idx) => {
-        processEquipment.processEquipmentIds[idx] = getNewId(processEquipmentId, processEquipmentGUIDs);
-      });
-      processEquipment.energyEquipmentIds.forEach((energyEquipmentId, idx) => {
-        processEquipment.energyEquipmentIds[idx] = getNewId(energyEquipmentId, energyEquipmentGUIDs);
-      });
-      processEquipment.assessmentIds.forEach((assessmentId, idx) => {
-        processEquipment.assessmentIds[idx] = getNewId(assessmentId, assessmentGUIDs);
-      });
-      processEquipment.energyOpportunityIds.forEach((energyOpportunityId, idx) => {
-        processEquipment.energyOpportunityIds[idx] = getNewId(energyOpportunityId, energyOpportunityGUIDs);
-      });
+      if (processEquipment.processEquipmentIds) {
+        processEquipment.processEquipmentIds.forEach((processEquipmentId, idx) => {
+          processEquipment.processEquipmentIds[idx] = getNewId(processEquipmentId, processEquipmentGUIDs);
+        });
+      } else {
+        processEquipment.processEquipmentIds = [];
+      }
+      if (processEquipment.energyEquipmentIds) {
+        processEquipment.energyEquipmentIds.forEach((energyEquipmentId, idx) => {
+          processEquipment.energyEquipmentIds[idx] = getNewId(energyEquipmentId, energyEquipmentGUIDs);
+        });
+      } else {
+        processEquipment.energyEquipmentIds = [];
+      }
+      if (processEquipment.assessmentIds) {
+        processEquipment.assessmentIds.forEach((assessmentId, idx) => {
+          processEquipment.assessmentIds[idx] = getNewId(assessmentId, assessmentGUIDs);
+        });
+      } else {
+        processEquipment.assessmentIds = [];
+      }
+      if (processEquipment.energyOpportunityIds) {
+        processEquipment.energyOpportunityIds.forEach((energyOpportunityId, idx) => {
+          processEquipment.energyOpportunityIds[idx] = getNewId(energyOpportunityId, energyOpportunityGUIDs);
+        });
+      } else {
+        processEquipment.energyOpportunityIds = [];
+      }
       await firstValueFrom(this.processEquipmentIdbService.updateWithObservable(processEquipment));
     }
 
