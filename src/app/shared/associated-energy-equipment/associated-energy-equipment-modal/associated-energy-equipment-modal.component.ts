@@ -37,6 +37,7 @@ export class AssociatedEnergyEquipmentModalComponent {
   companyEnergyUnit: string;
 
   processEquipment: IdbProcessEquipment;
+  energyEquipmentParent: IdbEnergyEquipment;
   constructor(
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private companyIdbService: CompanyIdbService,
@@ -54,9 +55,8 @@ export class AssociatedEnergyEquipmentModalComponent {
       this.energyEquipments = this.energyEquipments.filter(equipment => {
         return equipment.guid != this.contextGuid
       });
-    }
-
-    if (this.itemContext == 'processEquipment') {
+      this.energyEquipmentParent = this.energyEquipmentIdbService.getByGuid(this.contextGuid);
+    } else if (this.itemContext == 'processEquipment') {
       this.processEquipment = this.processEquipmentIdbService.getByGuid(this.contextGuid);
     }
 
@@ -73,7 +73,8 @@ export class AssociatedEnergyEquipmentModalComponent {
   async saveChanges() {
     for (let i = 0; i < this.energyEquipments.length; i++) {
       await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(this.energyEquipments[i]));
-      //update associated energy equipment
+      //update linked equipment by add or removing
+      //update associated process equipment
       if (this.itemContext == 'processEquipment') {
         //equipment linked
         if (this.energyEquipments[i].processEquipmentIds.includes(this.contextGuid)) {
@@ -89,7 +90,25 @@ export class AssociatedEnergyEquipmentModalComponent {
             })
           }
         }
+      } else if (this.itemContext == 'energyEquipment') {
+        //update associated energy equipment linked
+        if (this.energyEquipments[i].energyEquipmentIds.includes(this.contextGuid)) {
+          //no link exists add
+          if (!this.energyEquipmentParent.energyEquipmentIds.includes(this.energyEquipments[i].guid)) {
+            this.energyEquipmentParent.energyEquipmentIds.push(this.energyEquipments[i].guid);
+          }
+        } else {
+          //equipment link removed
+          if (this.energyEquipmentParent.energyEquipmentIds.includes(this.energyEquipments[i].guid)) {
+            this.energyEquipmentParent.energyEquipmentIds = this.energyEquipmentParent.energyEquipmentIds.filter(guid => {
+              return this.energyEquipments[i].guid != guid;
+            })
+          }
+        }
       }
+    }
+    if (this.itemContext == 'energyEquipment') {
+      await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(this.energyEquipmentParent))
     }
     if (this.itemContext == 'processEquipment') {
       await this.processEquipmentIdbService.asyncUpdate(this.processEquipment);
