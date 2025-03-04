@@ -36,8 +36,8 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Operations',
-        label: 'Other Cost',
-        htmlLabel: 'Other Cost',
+        label: 'Other Costs',
+        htmlLabel: 'Other Costs',
         optionValue: 'reduceExpenseCost'
     },
     {
