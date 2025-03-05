@@ -231,6 +231,7 @@ export class BackupDataService {
       delete keyPerformanceIndicator.id;
       keyPerformanceIndicator.userId = userGUIDs.newId;
       keyPerformanceIndicator.companyId = getNewId(keyPerformanceIndicator.companyId, companyGUIDs);
+      keyPerformanceIndicator.facilityId = getNewId(keyPerformanceIndicator.facilityId, facilityGUIDs);
       await firstValueFrom(this.keyPerformanceIndicatorsIdbService.addWithObservable(keyPerformanceIndicator));
     }
 
@@ -354,6 +355,18 @@ export class BackupDataService {
       contact.energyEquipmentIds.forEach((energyEquipmentId, idx) => {
         contact.energyEquipmentIds[idx] = getNewId(energyEquipmentId, energyEquipmentGUIDs);
       });
+      contact.kpiIds.forEach((kpiId, idx) => {
+        contact.kpiIds[idx] = getNewId(kpiId, keyPerformanceIndicatorGUIDs);
+      });
+
+      contact.assessmentIds.forEach((assessmentId, idx) => {
+        contact.assessmentIds[idx] = getNewId(assessmentId, assessmentGUIDs);
+      });
+
+      contact.nonEnergyBenefitIds.forEach((nebId, idx) => {
+        contact.nonEnergyBenefitIds[idx] = getNewId(nebId, nonEnergyBenefitGUIDs);
+      });
+      
       await firstValueFrom(this.contactIdbService.addWithObservable(contact));
     }
 
