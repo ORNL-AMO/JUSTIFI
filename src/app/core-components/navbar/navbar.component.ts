@@ -10,6 +10,7 @@ import { firstValueFrom, Subscription } from 'rxjs';
 import { localeCurrency, LocaleCurrencyOption } from 'src/app/shared/constants/localeCurrency';
 import { IdbUser } from 'src/app/models/user';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-navbar',
@@ -43,6 +44,7 @@ export class NavbarComponent{
     private importBackupModalService: ImportBackupModalService,
     private backupDataService: BackupDataService,
     private localeService: LocaleService,
+    private router: Router
   ) {}
 
   ngOnInit(){
@@ -71,6 +73,7 @@ export class NavbarComponent{
 
   resetDatabase() {
     this.closeResetDatabaseModal();
+    this.router.navigateByUrl('/welcome')
     this.loadingService.setLoadingMessage('Resetting Database... This may take a moment. The page will refresh after the database is reset. If this takes more than a minute, refresh the page.');
     this.loadingService.setLoadingStatus(true);
     this.userIdbService.deleteDatabase();

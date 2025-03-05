@@ -2,10 +2,12 @@
     <option [ngValue]="undefined">
         Visit Results
     </option>
-    <option *ngFor="let assessmentGuid of onSiteVisit.assessmentIds" [ngValue]="assessmentGuid">
-        <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
-        {{assessmentGuid | assessmentNameDisplay: assessments}} Results
-    </option>
+    <optgroup label="Assessment Results">
+        <option *ngFor="let assessmentGuid of onSiteVisit.assessmentIds" [ngValue]="assessmentGuid">
+            <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+            {{assessmentGuid | assessmentNameDisplay: assessments}} Results
+        </option>
+    </optgroup>
 </select>
 
 <ng-template [ngIf]="onSiteVisit.assessmentIds.length == 0" [ngIfElse]="resultsBlock">
