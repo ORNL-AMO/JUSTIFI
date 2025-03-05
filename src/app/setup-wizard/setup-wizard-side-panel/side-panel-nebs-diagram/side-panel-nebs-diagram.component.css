@@ -1,0 +1,28 @@
+.associated-item{
+    margin-left: .5rem;
+    padding-left: .75rem;
+    border-left: solid 1px;
+    border-bottom: solid 1px;
+    margin-bottom: 11px;
+}
+
+.nebs-label{
+    font-weight: bold;
+    border-bottom: 3px solid var(--neb-color);
+}
+
+.item-label{
+    display: inline-block;
+    /* line-height: normal; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+.list-group-item{
+    font-size: 14px;
+    padding-left: .25rem;
+    padding-right: .25rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}

@@ -19,9 +19,10 @@ import { Subscription } from 'rxjs';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-assessment-report',
-  templateUrl: './assessment-report.component.html',
-  styleUrl: './assessment-report.component.css'
+    selector: 'app-assessment-report',
+    templateUrl: './assessment-report.component.html',
+    styleUrl: './assessment-report.component.css',
+    standalone: false
 })
 export class AssessmentReportComponent {
   @Input({ required: true })
@@ -61,8 +62,8 @@ export class AssessmentReportComponent {
   ngOnChanges() {
     let allEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue();
     let allNonEnergyBenefits: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefitIdbService.nonEnergyBenefits.getValue();
-    let companyPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(this.assessment.companyId);
+    let facilityPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.assessment.facilityId);
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
-    this.assessmentReport = getAssessmentReport(this.assessment, allEnergyOpportunities, allNonEnergyBenefits, companyPerformanceMetrics, keyPerformanceMetricImpacts);
+    this.assessmentReport = getAssessmentReport(this.assessment, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts);
   }
 }

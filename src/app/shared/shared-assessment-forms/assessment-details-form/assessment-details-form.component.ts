@@ -3,14 +3,13 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { IdbContact } from 'src/app/models/contact';
-import { IconDefinition, faContactBook, faPeopleGroup, faUser, faIndustry } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faContactBook, faUser, faIndustry } from '@fortawesome/free-solid-svg-icons';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
-import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { AssessmentOptions, AssessmentType, AssessmentTypes } from 'src/app/shared/constants/assessmentTypes';
 import { EnergyUnitOptions, UnitOption } from 'src/app/shared/constants/unitOptions';
-import { UtilityOptions, UtilityType } from 'src/app/shared/constants/utilityTypes';
+import { UtilityOptions } from 'src/app/shared/constants/utilityTypes';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { UtilityEnergyUse } from 'src/app/models/utilityEnergyUses';
 import { UnitSettings } from 'src/app/models/unitSettings';
@@ -19,15 +18,16 @@ import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { AssessmentEnergyOpportunitiesFormService } from '../../../setup-wizard/data-collection/on-site-assessment/assessment-energy-opportunities-form/assessment-energy-opportunities-form.service';
-import { SharedDataService } from '../../shared-services/shared-data.service';
 import { Router } from '@angular/router';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
+import { LocaleService } from '../../shared-services/locale.service';
 
 @Component({
-  selector: 'app-assessment-details-form',
-  templateUrl: './assessment-details-form.component.html',
-  styleUrl: './assessment-details-form.component.css'
+    selector: 'app-assessment-details-form',
+    templateUrl: './assessment-details-form.component.html',
+    styleUrl: './assessment-details-form.component.css',
+    standalone: false
 })
 export class AssessmentDetailsFormComponent {
   @Input()
@@ -35,7 +35,6 @@ export class AssessmentDetailsFormComponent {
   @Input()
   inPreAssessment: boolean;
 
-  faPeopleGroup: IconDefinition = faPeopleGroup;
   faUser: IconDefinition = faUser;
   faContactBook: IconDefinition = faContactBook;
   faIndustry: IconDefinition = faIndustry;
@@ -64,10 +63,12 @@ export class AssessmentDetailsFormComponent {
   numberOfTrackedUtilities: number = 0;
   trackedEnergyUnit: string;
 
+  currencyCode: string;
+  currencySub: Subscription;
+
   constructor(
     private assessmentIdbService: AssessmentIdbService,
     private contactIdbService: ContactIdbService,
-    private sharedDataService: SharedDataService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,
@@ -75,6 +76,7 @@ export class AssessmentDetailsFormComponent {
     private assessmentEnergyOpportunitiesFormService: AssessmentEnergyOpportunitiesFormService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private router: Router,
+    private localeService: LocaleService,
 
   ) { }
 
@@ -102,6 +104,10 @@ export class AssessmentDetailsFormComponent {
     this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(_facility => {
       this.facilityUnitSettings = _facility.unitSettings;
     });
+
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
   }
 
   ngOnDestroy() {
@@ -110,6 +116,7 @@ export class AssessmentDetailsFormComponent {
     this.energyEquipmentSub.unsubscribe();
     this.facilitySub.unsubscribe();
     this.companySub.unsubscribe();
+    this.currencySub.unsubscribe();
   }
 
   async assessmentTypeChange() {
@@ -174,14 +181,6 @@ export class AssessmentDetailsFormComponent {
   async saveChanges() {
     this.isFormChange = true;
     await this.assessmentIdbService.asyncUpdate(this.assessment);
-  }
-
-  openContactModal(viewContact: IdbContact) {
-    this.sharedDataService.displayContactModal.next(
-      {
-        context: 'assessment', viewContact: viewContact, contextGuid: this.assessment.guid, companyId: this.assessment.companyId
-      });
-
   }
 
   isUtilityTracked(utilityType: string): boolean {

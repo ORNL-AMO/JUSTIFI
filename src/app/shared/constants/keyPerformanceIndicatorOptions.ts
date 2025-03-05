@@ -10,19 +10,14 @@ export type KeyPerformanceIndicatorValue =
     'reduceRefrigerantGasEmissions' |
     'chemicalEmissions' |
     'dustEmissions' |
-    'sewageVolume' |
     'waterConsumption' |
-    'reduceNonconformingProductWaste' |
-    'wasteReductionNonHazardous' |
-    'wasteReductionHazardous' |
+    'waste' |
     'reduceExpenseCost' |
-    'improveSpaceUtilization' |
     'employeeEngagementWorkforceDevelopment' |
     'employeeEngagementWorkingEnvironment' |
     'maintenanceExpense' |
     'other' |
-    'airPollutantEmissions' |
-    'waterPollutantEmissions';
+    'airPollutantEmissions';
 
 export interface KeyPerformanceIndicatorOption {
     primaryKPI: PrimaryKPI,
@@ -41,8 +36,8 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Operations',
-        label: 'Expense Cost',
-        htmlLabel: 'Expense Cost',
+        label: 'Other Costs',
+        htmlLabel: 'Other Costs',
         optionValue: 'reduceExpenseCost'
     },
     {
@@ -65,12 +60,6 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Operations',
-        label: 'Improve Space Utilization',
-        htmlLabel: 'Improve Space Utilization',
-        optionValue: 'improveSpaceUtilization'
-    },
-    {
-        primaryKPI: 'Operations',
         label: 'Maintenance Expense',
         htmlLabel: 'Maintenance Expense',
         optionValue: 'maintenanceExpense'
@@ -84,14 +73,14 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Employee and Workplace Environment',
-        label: 'Employee Engagement - Workforce Development',
-        htmlLabel: 'Employee Engagement - Workforce Development',
+        label: 'Workforce Development',
+        htmlLabel: 'Workforce Development',
         optionValue: 'employeeEngagementWorkforceDevelopment'
     },
     {
         primaryKPI: 'Employee and Workplace Environment',
-        label: 'Employee Engagement - Working Environment',
-        htmlLabel: 'Employee Engagement - Working Environment',
+        label: 'Working Environment',
+        htmlLabel: 'Working Environment',
         optionValue: 'employeeEngagementWorkingEnvironment'
     },
     //Sustainability (Environmental Impact)
@@ -103,33 +92,15 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Waste Reduction: Hazardous',
-        htmlLabel: 'Waste Reduction: Hazardous',
-        optionValue: 'wasteReductionHazardous'
+        label: 'Waste',
+        htmlLabel: 'Waste',
+        optionValue: 'waste'
     },
     {
         primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Waste Reduction: Non-Hazardous',
-        htmlLabel: 'Waste Reduction: Non-Hazardous',
-        optionValue: 'wasteReductionNonHazardous'
-    },
-    {
-        primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Reduce Nonconforming and Product Waste',
-        htmlLabel: 'Reduce Nonconforming &amp; Product Waste',
-        optionValue: 'reduceNonconformingProductWaste'
-    },
-    {
-        primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Water Consumption',
-        htmlLabel: 'Water Consumption',
+        label: 'Water Use, Disposal, Quality',
+        htmlLabel: 'Water Use, Disposal, Quality',
         optionValue: 'waterConsumption'
-    },
-    {
-        primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Sewage Volume',
-        htmlLabel: 'Sewage Volume',
-        optionValue: 'sewageVolume'
     },
     {
         primaryKPI: 'Sustainability (Environmental Impact)',
@@ -142,12 +113,6 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
         label: 'Air Pollutant Emissions',
         htmlLabel: 'Air Pollutant Emissions',
         optionValue: 'airPollutantEmissions'
-    },
-    {
-        primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Water Pollutant Emissions',
-        htmlLabel: 'Water Pollutant Emissions',
-        optionValue: 'waterPollutantEmissions'
     },
     {
         primaryKPI: 'Sustainability (Environmental Impact)',

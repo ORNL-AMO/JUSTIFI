@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 
 @Pipe({
-  name: 'selectedKpiOption'
+    name: 'selectedKpiOption',
+    standalone: false
 })
 export class SelectedKpiOptionPipe implements PipeTransform {
 

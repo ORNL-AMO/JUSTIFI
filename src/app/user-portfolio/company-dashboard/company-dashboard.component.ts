@@ -5,9 +5,10 @@ import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { IdbCompany } from 'src/app/models/company';
 
 @Component({
-  selector: 'app-company-dashboard',
-  templateUrl: './company-dashboard.component.html',
-  styleUrl: './company-dashboard.component.css'
+    selector: 'app-company-dashboard',
+    templateUrl: './company-dashboard.component.html',
+    styleUrl: './company-dashboard.component.css',
+    standalone: false
 })
 export class CompanyDashboardComponent {
 

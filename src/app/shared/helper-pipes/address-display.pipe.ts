@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { GeneralInformation } from 'src/app/models/generalInformation';
 
 @Pipe({
-  name: 'addressDisplay'
+    name: 'addressDisplay',
+    standalone: false
 })
 export class AddressDisplayPipe implements PipeTransform {
 

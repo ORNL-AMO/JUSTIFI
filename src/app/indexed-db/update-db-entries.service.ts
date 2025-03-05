@@ -11,6 +11,12 @@ import { IdbUser } from '../models/user';
 import { UserIdbService } from './user-idb.service';
 import { IdbKeyPerformanceMetricImpact } from '../models/keyPerformanceMetricImpact';
 import { getGUID } from '../shared/helpFunctions';
+import { LocaleService } from '../shared/shared-services/locale.service';
+import { localeCurrency } from '../shared/constants/localeCurrency';
+import { ProcessEquipmentIdbService } from './process-equipment-idb.service';
+import { IdbProcessEquipment } from '../models/processEquipment';
+import { EnergyEquipmentIdbService } from './energy-equipment-idb.service';
+import { IdbEnergyEquipment } from '../models/energyEquipment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +27,10 @@ export class UpdateDbEntriesService {
     private keyPerformanceIndicatorsIdbService: KeyPerformanceIndicatorsIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private facilityIdbService: FacilityIdbService,
-    private userIdbService: UserIdbService
+    private userIdbService: UserIdbService,
+    private localeService: LocaleService,
+    private processEquipmentIdbService: ProcessEquipmentIdbService,
+    private energyEquipmentIdbService: EnergyEquipmentIdbService
   ) { }
 
   async updateDbEntries(user: IdbUser): Promise<IdbUser> {
@@ -32,11 +41,26 @@ export class UpdateDbEntriesService {
       userNeedsUpdate = true;
     }
 
+    if (!user.locale) {
+      this.updateUserLocale(user);
+      userNeedsUpdate = true;
+    }
+    this.localeService.setCurrencyCode(user.locale);
+
+    await this.updateProcessEquipment();
+    await this.updateEnergyEquipment();
+    
     if (userNeedsUpdate) {
       user = await firstValueFrom(this.userIdbService.updateWithObservable(user));
       this.userIdbService.user.next(user);
     }
     return user;
+  }
+
+  updateUserLocale(user: IdbUser) {
+    const browserLang = navigator.language;
+    const currencyOption = localeCurrency.find(option => option.locale === browserLang);
+    user.locale = currencyOption ? currencyOption.locale : 'en-US';
   }
 
   //migration of KPIs to facility level
@@ -91,6 +115,50 @@ export class UpdateDbEntriesService {
           }
         }
       }
+    }
+  }
+
+  async updateProcessEquipment() {
+    let processEquipments: Array<IdbProcessEquipment> = await firstValueFrom(this.processEquipmentIdbService.getAll());
+    let missingOpportunityIds: Array<IdbProcessEquipment> = processEquipments.filter(equipment => {
+      return equipment.energyOpportunityIds == undefined || equipment.energyEquipmentIds == undefined || equipment.processEquipmentIds == undefined || equipment.assessmentIds == undefined;
+    });
+    for (let i = 0; i < missingOpportunityIds.length; i++) {
+      if (missingOpportunityIds[i].energyOpportunityIds == undefined) {
+        missingOpportunityIds[i].energyOpportunityIds = new Array();
+      }
+      if (missingOpportunityIds[i].energyEquipmentIds == undefined) {
+        missingOpportunityIds[i].energyEquipmentIds = new Array();
+      }
+      if (missingOpportunityIds[i].processEquipmentIds == undefined) {
+        missingOpportunityIds[i].processEquipmentIds = new Array();
+      }
+      if (missingOpportunityIds[i].assessmentIds == undefined) {
+        missingOpportunityIds[i].assessmentIds = new Array();
+      }
+      await firstValueFrom(this.processEquipmentIdbService.updateWithObservable(missingOpportunityIds[i]));
+    }
+  }
+
+  async updateEnergyEquipment() {
+    let energyEquipments: Array<IdbEnergyEquipment> = await firstValueFrom(this.energyEquipmentIdbService.getAll());
+    let missingAssessmentIds: Array<IdbEnergyEquipment> = energyEquipments.filter(equipment => {
+      return equipment.assessmentIds == undefined || equipment.energyEquipmentIds == undefined || equipment.energyOpportunityIds == undefined || equipment.processEquipmentIds == undefined;
+    });
+    for (let i = 0; i < missingAssessmentIds.length; i++) {
+      if (missingAssessmentIds[i].assessmentIds == undefined) {
+        missingAssessmentIds[i].assessmentIds = new Array();
+      }
+      if (missingAssessmentIds[i].energyEquipmentIds == undefined) {
+        missingAssessmentIds[i].energyEquipmentIds = new Array();
+      }
+      if (missingAssessmentIds[i].energyOpportunityIds == undefined) {
+        missingAssessmentIds[i].energyOpportunityIds = new Array();
+      }
+      if (missingAssessmentIds[i].processEquipmentIds == undefined) {
+        missingAssessmentIds[i].processEquipmentIds = new Array();
+      }
+      await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(missingAssessmentIds[i]));
     }
   }
 }

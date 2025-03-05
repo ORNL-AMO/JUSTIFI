@@ -79,6 +79,14 @@
                             General Details
                         </a>
                     </div>
+                    <!--TODO: PROTOCOL QUESTIONS-->
+                    <!-- <div class="nav-item">
+                        <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/facility-questions'"
+                            [routerLinkActive]="['active']">
+                            <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+                            Questions
+                        </a>
+                    </div> -->
                     <div class="nav-item">
                         <a class="nav-link" (click)="toggleKPIsOpen()" [ngClass]="routerUrl | navItemActive:'kpi'">
                             <fa-icon class="toggle"
@@ -240,7 +248,7 @@
                                 [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/energy-opportunities'"
                                 [routerLinkActive]="['active']">
                                 <fa-icon [icon]="faFileLines"></fa-icon>
-                                Energy Efficiency Opportunities
+                                EEOs
                             </a>
                         </div>
                         <div class="nav-item">
@@ -249,14 +257,6 @@
                                 [routerLinkActive]="['active']">
                                 <fa-icon [icon]="faWeightHanging"></fa-icon>
                                 NEBs
-                            </a>
-                        </div>
-                        <div class="nav-item">
-                            <a class="nav-link"
-                                [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/results'"
-                                [routerLinkActive]="['active']">
-                                <fa-icon [icon]="faChartPie"></fa-icon>
-                                Results
                             </a>
                         </div>
                     </div>

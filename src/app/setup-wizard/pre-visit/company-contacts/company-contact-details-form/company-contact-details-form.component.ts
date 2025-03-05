@@ -14,9 +14,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { CompanyContactsFormService } from 'src/app/shared/shared-company-forms/company-contacts-form/company-contacts-form.service';
 
 @Component({
-  selector: 'app-company-contact-details-form',
-  templateUrl: './company-contact-details-form.component.html',
-  styleUrl: './company-contact-details-form.component.css'
+    selector: 'app-company-contact-details-form',
+    templateUrl: './company-contact-details-form.component.html',
+    styleUrl: './company-contact-details-form.component.css',
+    standalone: false
 })
 export class CompanyContactDetailsFormComponent {
 

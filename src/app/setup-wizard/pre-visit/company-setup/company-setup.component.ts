@@ -9,9 +9,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-company-setup',
-  templateUrl: './company-setup.component.html',
-  styleUrl: './company-setup.component.css'
+    selector: 'app-company-setup',
+    templateUrl: './company-setup.component.html',
+    styleUrl: './company-setup.component.css',
+    standalone: false
 })
 export class CompanySetupComponent implements OnInit, OnDestroy {
 

@@ -15,7 +15,7 @@
             {{numValue | number:numValueDigits}}
         </ng-template>
         <ng-template #currencyBlock>
-            {{numValue | currency : 'USD' : 'symbol' : '1.0-0'}}
+            {{numValue | currency : currencyCode : 'symbol' : '1.0-0'}}
         </ng-template>
         <ng-template [ngIf]="units && !per">
             <span [innerHTML]="units | unitsDisplay"></span>

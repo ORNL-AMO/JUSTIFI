@@ -37,12 +37,13 @@ import { SharedFacilityFormsModule } from '../shared/shared-facility-forms/share
 import { AssessmentEnergyOpportunitiesHomeComponent } from './assessment-dashboard/assessment-energy-opportunities/assessment-energy-opportunities-home/assessment-energy-opportunities-home.component';
 import { AssessmentNebsComponent } from './assessment-dashboard/assessment-nebs/assessment-nebs.component';
 import { AssessmentNebsHomeComponent } from './assessment-dashboard/assessment-nebs/assessment-nebs-home/assessment-nebs-home.component';
-import { ContactModalModule } from '../shared/contact-modal/contact-modal.module';
 import { IndustrialSystemInventoryHomeComponent } from './facility-dashboard/industrial-system-inventory/industrial-system-inventory-home/industrial-system-inventory-home.component';
 import { EndUseInventoryHomeComponent } from './facility-dashboard/end-use-inventory/end-use-inventory-home/end-use-inventory-home.component';
 import { CompanyStakeholdersHomeComponent } from './company-dashboard/company-stakeholders/company-stakeholders-home/company-stakeholders-home.component';
 import { TableEntriesModule } from "../shared/table-entries/table-entries.module";
 import { FacilityPerformanceIndicatorsComponent } from './facility-dashboard/facility-performance-indicators/facility-performance-indicators.component';
+import { AssociatedContactsModule } from '../shared/associated-contacts/associated-contacts.module';
+import { FacilityDashboardProtocolQuestionsComponent } from './facility-dashboard/facility-dashboard-protocol-questions/facility-dashboard-protocol-questions.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { FacilityPerformanceIndicatorsComponent } from './facility-dashboard/fac
     IndustrialSystemInventoryHomeComponent,
     EndUseInventoryHomeComponent,
     CompanyStakeholdersHomeComponent,
-    FacilityPerformanceIndicatorsComponent
+    FacilityPerformanceIndicatorsComponent,
+    FacilityDashboardProtocolQuestionsComponent
   ],
   imports: [
     CommonModule,
@@ -90,9 +92,9 @@ import { FacilityPerformanceIndicatorsComponent } from './facility-dashboard/fac
     ReportsModule,
     SharedCompanyFormsModule,
     SharedFacilityFormsModule,
-    ContactModalModule,
     TableEntriesModule,
-    TableEntriesModule
+    TableEntriesModule,
+    AssociatedContactsModule
 ]
 })
 export class UserPortfolioModule { }

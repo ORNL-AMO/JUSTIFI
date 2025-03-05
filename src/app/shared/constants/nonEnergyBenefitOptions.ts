@@ -138,7 +138,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "increasedProductivity",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "salesGrowth", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "percentCapacityUtilization", "overallEquipmentEffectiveness", "timeToIntroduceNewProducts"],
+        KPM: ["contributeCompanyVision", "salesGrowth", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "percentCapacityUtilization", "overallEquipmentEffectiveness", "timeToIntroduceNewProducts"],
         selectedKPM: []
     },
     {
@@ -147,7 +147,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "shorterCycleTime",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "salesGrowth", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "percentCapacityUtilization", "overallEquipmentEffectiveness", "timeToIntroduceNewProducts", "workInProcess"],
+        KPM: ["contributeCompanyVision", "salesGrowth", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "percentCapacityUtilization", "overallEquipmentEffectiveness", "timeToIntroduceNewProducts", "workInProcess"],
         selectedKPM: []
     },
     {
@@ -201,7 +201,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improvedProductQualityMachineSource",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "numberEquipmentCausedDefects", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "maintenanceCost", "engineeringSupport", "laborCosts"],
+        KPM: ["productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "numberEquipmentCausedDefects", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "maintenanceCost", "engineeringSupport", "laborCosts"],
         selectedKPM: []
     },
     {
@@ -210,7 +210,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improvedProductQualityOperatorSource",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "maintenanceCost", "engineeringSupport", "employeeEngagementSatisfaction"],
+        KPM: ["productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "maintenanceCost", "engineeringSupport", "employeeEngagementSatisfaction"],
         selectedKPM: []
     },
     {
@@ -228,7 +228,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceProductionLossLaborMaterial",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "productionCosts", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "defectiveProductionDollar", "defectRatePPMorDPM", "percentProductionYield", "percentShrinkage"],
+        KPM: ["productionCosts", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "defectiveProductionDollar", "defectRatePPMorDPM", "percentProductionYield", "percentShrinkage"],
         selectedKPM: []
     },
     {
@@ -255,7 +255,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "additionalSpaceFromLayoutChanges",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "percentOptimizedSpace", "employeeEngagementSatisfaction"],
+        KPM: ["percentOptimizedSpace", "employeeEngagementSatisfaction"],
         selectedKPM: []
     },
     {
@@ -264,7 +264,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reducedWearAndTear",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
+        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
         selectedKPM: []
     },
     {
@@ -273,7 +273,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reducedWearAndTear",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
+        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
         selectedKPM: []
     },
     {
@@ -282,7 +282,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceCostsForLabor",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
+        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
         selectedKPM: []
     },
     {
@@ -291,7 +291,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reducedLaborCostsForProblemSolvingAndRepair",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "maintenanceCost", "engineeringSupport", "laborCosts"],
+        KPM: ["maintenanceCost", "engineeringSupport", "laborCosts"],
         selectedKPM: []
     },
     {
@@ -336,7 +336,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceSewageVolume",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "consumptionCostSewage", "sewageCosts"],
+        KPM: ["contributeCompanyVision", "consumptionCostWater", "sewageCosts"],
         selectedKPM: []
     },
     {
@@ -363,7 +363,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceOccupationalDangers",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "productivityRateThroughput", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate", "rawMaterials", "intermediateGoods", "serviceParts", "treatmentChemicals"],
+        KPM: ["contributeCompanyVision", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate", "rawMaterials", "intermediateGoods", "serviceParts", "treatmentChemicals"],
         selectedKPM: []
     },
     {
@@ -372,7 +372,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceUnsafeOperatorActs",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "productivityRateThroughput", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate", "rawMaterials", "intermediateGoods", "serviceParts", "treatmentChemicals"],
+        KPM: ["contributeCompanyVision", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate", "rawMaterials", "intermediateGoods", "serviceParts", "treatmentChemicals"],
         selectedKPM: []
     },
     {
@@ -381,7 +381,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceLikelinessOfOccupationalDangers",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "productivityRateThroughput", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate", "rawMaterials", "intermediateGoods", "serviceParts", "treatmentChemicals"],
+        KPM: ["contributeCompanyVision", "TRIR", "oshaRecordableIncidents", "oshaNonRecordables", "daysAwayFromWork", "lostTimeInjuryRate", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate", "rawMaterials", "intermediateGoods", "serviceParts", "treatmentChemicals"],
         selectedKPM: []
     },
     {
@@ -426,7 +426,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improvedThermalComfort",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -435,7 +435,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceUnscheduledBreaks",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -444,7 +444,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceWorkplaceIncidentsRelatedToHeat",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -453,7 +453,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "increaseWorkplaceSecurity",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -462,7 +462,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improvedVisualComfort",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["productivityRateThroughput", "cycleTimeToMakeGoods", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["cycleTimeToMakeGoods", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -471,7 +471,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "increaseEmployeeEngagement",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "workInProcess", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["contributeCompanyVision", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "workInProcess", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -507,7 +507,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improvedStaffSatisfaction",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["contributeCompanyVision", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -516,7 +516,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "increaseAverageYearsEmployed",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["contributeCompanyVision", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -525,7 +525,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceStaffTurnover",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "productivityRateThroughput", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["contributeCompanyVision", "productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "dollarConsumables", "TRIR", "oshaNonRecordables", "oshaRecordableIncidents", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -543,7 +543,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceRegulatoryCosts",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["scope1Emissions", "scope2Emissions", "scope3Emissions", "particulateEmissions", "noxSoxCoEmissions", "percentTestsMeetingStandardsAirPollutants", "percentTestsMeetingStandardsWaterPollutants"],
+        KPM: ["scope1Emissions", "scope2Emissions", "scope3Emissions", "particulateEmissions", "noxSoxCoEmissions", "percentTestsMeetingStandardsAirPollutants", "waterPolutantEmissions"],
         selectedKPM: []
     },
     {
@@ -552,7 +552,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improvedWaterQuality",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["percentTestsMeetingStandardsWaterPollutants"],
+        KPM: ["waterPolutantEmissions"],
         selectedKPM: []
     }
 ]

@@ -11,11 +11,13 @@ import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbContact } from 'src/app/models/contact';
+import { SetupWizardService } from '../../setup-wizard.service';
 
 @Component({
-  selector: 'app-facility-setup',
-  templateUrl: './facility-setup.component.html',
-  styleUrl: './facility-setup.component.css'
+    selector: 'app-facility-setup',
+    templateUrl: './facility-setup.component.html',
+    styleUrl: './facility-setup.component.css',
+    standalone: false
 })
 export class FacilitySetupComponent implements OnInit {
 
@@ -34,7 +36,8 @@ export class FacilitySetupComponent implements OnInit {
   constructor(private facilityIdbService: FacilityIdbService, private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private contactIdbService: ContactIdbService,
-    private companyIdbService: CompanyIdbService
+    private companyIdbService: CompanyIdbService,
+    private setupWizardService: SetupWizardService
   ) {
 
   }
@@ -52,12 +55,7 @@ export class FacilitySetupComponent implements OnInit {
 
   ngOnDestroy() {
     this.facilitySub.unsubscribe();
-  }
-
-  async saveChanges() {
-    let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
-    facility.generalInformation.name = this.name.value;
-    await this.facilityIdbService.asyncUpdate(facility);
+    this.setupWizardService.focusedHelp.next(undefined);
   }
 
   async goBack() {
@@ -76,12 +74,10 @@ export class FacilitySetupComponent implements OnInit {
     }
   }
 
-  async goToEnergyEquipment() {
+  async goToQuestions() {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    if (!this.facility.sidebarKPIsOpen) {
-      this.facility.sidebarKPIsOpen = true;
-      await this.facilityIdbService.asyncUpdate(this.facility);
-    }
+    //TODO: PROTOCOL QUESTIONS
+    // this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-questions');
     this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-kpi-select');
   }
 

@@ -10,9 +10,10 @@ import { IdbFacility } from 'src/app/models/facility';
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
 
 @Component({
-  selector: 'app-company-list-item',
-  templateUrl: './company-list-item.component.html',
-  styleUrl: './company-list-item.component.css'
+    selector: 'app-company-list-item',
+    templateUrl: './company-list-item.component.html',
+    styleUrl: './company-list-item.component.css',
+    standalone: false
 })
 export class CompanyListItemComponent {
   @Input({ required: true })

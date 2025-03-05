@@ -9,15 +9,15 @@
             </th>
             <th class="text-right" (click)="setOrderByField('baselineCost')"
                 [ngClass]="{'ordered-th': orderByField == 'baselineCost'}">
-                Baseline Cost (&dollar;/yr)
+                Baseline Cost ({{ currencyCode | currencySymbol }}/yr)
             </th>
             <th class="text-right" (click)="setOrderByField('costAdjustment')"
                 [ngClass]="{'ordered-th': orderByField == 'costAdjustment'}">
-                Annual Savings (&dollar;/yr)
+                Annual Savings ({{ currencyCode | currencySymbol }}/yr)
             </th>
             <th class="text-right" (click)="setOrderByField('modifiedCost')"
                 [ngClass]="{'ordered-th': orderByField == 'modifiedCost'}">
-                Modified Cost (&dollar;/yr)
+                Modified Cost ({{ currencyCode | currencySymbol }}/yr)
             </th>
             <th class="text-right" (click)="setOrderByField('percentSavings')"
                 [ngClass]="{'ordered-th': orderByField == 'percentSavings'}">
@@ -27,7 +27,7 @@
     </thead>
     <tbody>
         <tr
-            *ngFor="let kpiReportItem of keyPerformanceIndicatorReport.kpiReportItems | performanceMetricsTable: orderByField : orderByDir">
+            *ngFor="let kpiReportItem of keyPerformanceIndicatorReport.kpmReportItems | performanceMetricsTable: orderByField : orderByDir">
             <td class="">
                 <span
                     [innerHTML]="kpiReportItem.keyPerformanceMetric.kpiGuid | kpiLabel:keyPerformanceIndicators"></span>

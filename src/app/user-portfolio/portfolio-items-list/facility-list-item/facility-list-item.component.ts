@@ -12,9 +12,10 @@ import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.servi
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-facility-list-item',
-  templateUrl: './facility-list-item.component.html',
-  styleUrl: './facility-list-item.component.css'
+    selector: 'app-facility-list-item',
+    templateUrl: './facility-list-item.component.html',
+    styleUrl: './facility-list-item.component.css',
+    standalone: false
 })
 export class FacilityListItemComponent {
   @Input({ required: true })

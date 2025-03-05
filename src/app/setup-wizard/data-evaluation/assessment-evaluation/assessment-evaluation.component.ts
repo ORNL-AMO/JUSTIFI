@@ -9,9 +9,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-assessment-evaluation',
-  templateUrl: './assessment-evaluation.component.html',
-  styleUrl: './assessment-evaluation.component.css'
+    selector: 'app-assessment-evaluation',
+    templateUrl: './assessment-evaluation.component.html',
+    styleUrl: './assessment-evaluation.component.css',
+    standalone: false
 })
 export class AssessmentEvaluationComponent {
   faChevronRight: IconDefinition = faChevronRight;

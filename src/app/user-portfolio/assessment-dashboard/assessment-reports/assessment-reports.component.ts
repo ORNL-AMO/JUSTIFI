@@ -13,9 +13,10 @@ import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMet
 import { AssessmentReport, getAssessmentReport } from 'src/app/shared/reports/calculations/assessmentReport';
 
 @Component({
-  selector: 'app-assessment-reports',
-  templateUrl: './assessment-reports.component.html',
-  styleUrl: './assessment-reports.component.css'
+    selector: 'app-assessment-reports',
+    templateUrl: './assessment-reports.component.html',
+    styleUrl: './assessment-reports.component.css',
+    standalone: false
 })
 export class AssessmentReportsComponent {
 
@@ -47,8 +48,8 @@ export class AssessmentReportsComponent {
   setAssessmentReport() {
     let allEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue();
     let allNonEnergyBenefits: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefitIdbService.nonEnergyBenefits.getValue();
-    let companyPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(this.assessment.companyId);
+    let facilityPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.assessment.facilityId);
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
-    this.assessmentReport = getAssessmentReport(this.assessment, allEnergyOpportunities, allNonEnergyBenefits, companyPerformanceMetrics, keyPerformanceMetricImpacts);
+    this.assessmentReport = getAssessmentReport(this.assessment, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts);
   }
 }

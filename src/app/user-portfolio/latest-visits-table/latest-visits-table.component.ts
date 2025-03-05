@@ -12,9 +12,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-latest-visits-table',
-  templateUrl: './latest-visits-table.component.html',
-  styleUrl: './latest-visits-table.component.css'
+    selector: 'app-latest-visits-table',
+    templateUrl: './latest-visits-table.component.html',
+    styleUrl: './latest-visits-table.component.css',
+    standalone: false
 })
 export class LatestVisitsTableComponent {
 

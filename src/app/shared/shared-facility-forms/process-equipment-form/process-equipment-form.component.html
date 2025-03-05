@@ -23,28 +23,34 @@
         </form>
     </div>
     <div class="col-12">
-        <hr>
+        <hr class="my-1">
     </div>
     <div class="col-12">
-        <div class="d-flex justify-content-between">
-            <div class="col-6">
-                <button class="btn btn-sm btn-primary me-1"
-                    *ngFor="let contact of processEquipment.guid | associatedContacts:'processEquipment': contacts;"
-                    (click)="openContactModal(contact)">
-                    <fa-icon [icon]="faUser"></fa-icon>
-                    {{contact | contactNameDisplay}}
-                </button>
-                <button class="btn btn-sm btn-secondary" (click)="openContactModal(undefined)">
-                    <fa-icon [icon]="faContactBook"></fa-icon>
-                    Stakeholders
-                </button>
-            </div>
-            <div>
-                <button class="btn btn-sm btn-danger" (click)="openDeleteModal()">
-                    <fa-icon [icon]="faTrash"></fa-icon> Delete
-                </button>
-            </div>
-        </div>
+        <app-associated-contacts-buttons [companyGuid]="processEquipment.companyId"
+            [contactContext]="'processEquipment'"
+            [contextGuid]="processEquipment.guid"></app-associated-contacts-buttons>
+    </div>
+    <div class="col-12">
+        <hr class="my-1">
+    </div>
+    <div class="col-12">
+        <app-associated-energy-equipment-buttons [itemContext]="'processEquipment'"
+            [itemGuid]="processEquipment.guid"></app-associated-energy-equipment-buttons>
+    </div>
+    <!--TODO: PROTOCOL QUESTIONS-->
+    <!-- <div class="col-12">
+        <hr class="my-1">
+    </div>
+    <div class="col-12">
+        <app-discovery-process-equipment-questions [inPortfolio]="inPortfolio"></app-discovery-process-equipment-questions>
+    </div> -->
+    <div class="col-12">
+        <hr class="my-1">
+    </div>
+    <div class="col-12">
+        <button class="btn btn-sm btn-danger float-end" (click)="openDeleteModal()">
+            <fa-icon [icon]="faTrash"></fa-icon> Delete
+        </button>
     </div>
 </div>
 

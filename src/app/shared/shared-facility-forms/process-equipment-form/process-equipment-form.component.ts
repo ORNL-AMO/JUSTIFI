@@ -11,9 +11,10 @@ import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-process-equipment-form',
-  templateUrl: './process-equipment-form.component.html',
-  styleUrl: './process-equipment-form.component.css'
+    selector: 'app-process-equipment-form',
+    templateUrl: './process-equipment-form.component.html',
+    styleUrl: './process-equipment-form.component.css',
+    standalone: false
 })
 export class ProcessEquipmentFormComponent {
   @Input({ required: true })
@@ -29,6 +30,7 @@ export class ProcessEquipmentFormComponent {
   displayDeleteModal: boolean = false;
   contacts: Array<IdbContact>;
   contactSub: Subscription;
+  inPortfolio: boolean;
   constructor(private processEquipmentIdbService: ProcessEquipmentIdbService,
     private dbChangesService: DbChangesService,
     private contactIdbService: ContactIdbService,
@@ -39,6 +41,7 @@ export class ProcessEquipmentFormComponent {
   ) { }
 
   ngOnInit() {
+    this.inPortfolio = (this.router.url.includes('setup-wizard') == false);
     if (!this.processEquipmentGuid) {
       this.activatedRoute.params.subscribe(params => {
         this.processEquipmentGuid = params['id'];
@@ -81,13 +84,5 @@ export class ProcessEquipmentFormComponent {
       this.router.navigateByUrl('/portfolio/facility/' + this.processEquipment.facilityId + '/end-use-inventory');
     }
     this.closeDeleteModal();
-  }
-
-  openContactModal(viewContact: IdbContact) {
-    this.sharedDataService.displayContactModal.next({ context: 'processEquipment', viewContact: viewContact, contextGuid: this.processEquipment.guid, companyId: this.processEquipment.companyId });
-  }
-
-  closeContactModal() {
-    this.sharedDataService.displayContactModal.next(undefined)
   }
 }

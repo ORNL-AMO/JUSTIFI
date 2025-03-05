@@ -3,9 +3,10 @@ import { LoadingService } from './loading.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-loading',
-  templateUrl: './loading.component.html',
-  styleUrls: ['./loading.component.css']
+    selector: 'app-loading',
+    templateUrl: './loading.component.html',
+    styleUrls: ['./loading.component.css'],
+    standalone: false
 })
 export class LoadingComponent {
 
@@ -26,7 +27,7 @@ export class LoadingComponent {
     });
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     this.loadingSub.unsubscribe();
     this.loadingMessageSub.unsubscribe();
   }

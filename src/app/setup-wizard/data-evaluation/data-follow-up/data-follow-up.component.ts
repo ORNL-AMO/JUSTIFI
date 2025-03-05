@@ -5,9 +5,10 @@ import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.serv
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-  selector: 'app-data-follow-up',
-  templateUrl: './data-follow-up.component.html',
-  styleUrl: './data-follow-up.component.css'
+    selector: 'app-data-follow-up',
+    templateUrl: './data-follow-up.component.html',
+    styleUrl: './data-follow-up.component.css',
+    standalone: false
 })
 export class DataFollowUpComponent {
 

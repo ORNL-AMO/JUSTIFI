@@ -8,9 +8,10 @@ import { IdbKeyPerformanceIndicator, getNewKeyPerformanceIndicator } from 'src/a
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, PrimaryKPI, PrimaryKPIs } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 
 @Component({
-  selector: 'app-add-kpi-search',
-  templateUrl: './add-kpi-search.component.html',
-  styleUrl: './add-kpi-search.component.css'
+    selector: 'app-add-kpi-search',
+    templateUrl: './add-kpi-search.component.html',
+    styleUrl: './add-kpi-search.component.css',
+    standalone: false
 })
 export class AddKpiSearchComponent {
 

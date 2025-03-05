@@ -33,6 +33,9 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         return report.totalCostSavings
     });
 
+    let totalNebSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.totalNebSavings
+    });
     let totalEnergyCosts: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
         return report.assessment.cost
     });
@@ -60,7 +63,8 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         totalEnergyCosts: totalEnergyCosts,
         totalPaybackWithNebs: totalPaybackWithNebs,
         totalPaybackWithoutNebs: totalPaybackWithoutNebs,
-        totalImplementationCost: totalImplementationCost
+        totalImplementationCost: totalImplementationCost,
+        totalNebSavings: totalNebSavings
     };
 }
 
@@ -74,5 +78,6 @@ export interface OnSiteVisitReport {
     totalCostSavings: number,
     totalImplementationCost: number,
     totalPaybackWithoutNebs: number,
-    totalPaybackWithNebs: number
+    totalPaybackWithNebs: number,
+    totalNebSavings: number
 }

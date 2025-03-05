@@ -9,11 +9,13 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
+import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 
 @Component({
-  selector: 'app-kpm-impacts-table',
-  templateUrl: './kpm-impacts-table.component.html',
-  styleUrl: './kpm-impacts-table.component.css'
+    selector: 'app-kpm-impacts-table',
+    templateUrl: './kpm-impacts-table.component.html',
+    styleUrl: './kpm-impacts-table.component.css',
+    standalone: false
 })
 export class KpmImpactsTableComponent {
   @Input({ required: true })
@@ -39,11 +41,16 @@ export class KpmImpactsTableComponent {
 
   nonEnergyBenefits: Array<IdbNonEnergyBenefit>;
   nonEnergyBenefitsSub: Subscription;
+
+  currencyCode: string;
+  currencySub: Subscription;
+
   constructor(
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
-    private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService
+    private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
+    private localeService: LocaleService,
   ) {
 
   }
@@ -63,7 +70,11 @@ export class KpmImpactsTableComponent {
 
     this.nonEnergyBenefitsSub = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.subscribe(_nebs => {
       this.nonEnergyBenefits = _nebs;
-    })
+    });
+
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
   }
 
   ngOnDestroy() {
@@ -71,6 +82,7 @@ export class KpmImpactsTableComponent {
     this.assessmentsSub.unsubscribe();
     this.energyOpportunitiesSub.unsubscribe();
     this.nonEnergyBenefitsSub.unsubscribe();
+    this.currencySub.unsubscribe();
   }
 
   toggleDisplayTable(){

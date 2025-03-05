@@ -1,8 +1,7 @@
-
 <form>
     <label class="bold" for="facilityName">Facility Name <span class="required-asterisk">*</span></label>
-    <input name="facilityName" type="text" class="form-control" [formControl]="name"
-        (input)="saveChanges()" id="facilityName">
+    <input name="facilityName" type="text" class="form-control" [formControl]="name" (input)="saveChanges()"
+        id="facilityName">
     <div class="form-error alert alert-danger" *ngIf="name.touched && name.errors?.['required']">
         Facility name required.
     </div>

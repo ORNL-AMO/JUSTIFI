@@ -7,9 +7,10 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Component({
-  selector: 'app-end-use-inventory',
-  templateUrl: './end-use-inventory.component.html',
-  styleUrl: './end-use-inventory.component.css'
+    selector: 'app-end-use-inventory',
+    templateUrl: './end-use-inventory.component.html',
+    styleUrl: './end-use-inventory.component.css',
+    standalone: false
 })
 export class EndUseInventoryComponent {
 

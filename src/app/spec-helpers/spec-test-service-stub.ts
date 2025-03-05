@@ -101,7 +101,8 @@ let onSiteVisitIdbService: Partial<OnSiteVisitIdbService> = {
 
 let setupWizardService: Partial<SetupWizardService> = {
     sidebarOpen: new BehaviorSubject<boolean>(true),
-    helpPanelOpen: new BehaviorSubject<boolean>(true)
+    helpPanelOpen: new BehaviorSubject<boolean>(true),
+    focusedHelp: new BehaviorSubject<string>(undefined)
 };
 
 let option: KeyPerformanceIndicatorOption =
@@ -115,9 +116,9 @@ let stubKpi: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator('123', '
 stubKpi.guid = '123';
 let keyPerformanceIndicatorService: Partial<KeyPerformanceIndicatorsIdbService> = {
     keyPerformanceIndicators: new BehaviorSubject<Array<IdbKeyPerformanceIndicator>>([stubKpi]),
-    getByCompanyGuid: () => { return [stubKpi] },
+    getByFacilityGuid: () => { return [stubKpi] },
     getByGuid: () => { return stubKpi },
-    getCompanyKeyPerformanceMetrics: () => { return [] }
+    getFacilityKeyPerformanceMetrics: () => { return [] }
 }
 
 let stubEnergyEquipment: IdbEnergyEquipment = getNewIdbEnergyEquipment('123', '123', '123', getDefaultUnitSettings());
@@ -146,7 +147,6 @@ let sharedDataService: Partial<SharedDataService> = {
     createAssessmentModalOpen: new BehaviorSubject<boolean>(false),
     sidebarOpen: new BehaviorSubject<boolean>(false),
     displayAddNebsModal: new BehaviorSubject<{ assessmentId: string, energyOpportunityId: string }>(undefined),
-    displayContactModal: new BehaviorSubject<{ context: ContactContext, viewContact: IdbContact, contextGuid: string, companyId: string }>(undefined),
     print: new BehaviorSubject<boolean>(false)
 }
 

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 
 @Pipe({
-  name: 'energyEquipmentDisplay'
+    name: 'energyEquipmentDisplay',
+    standalone: false
 })
 export class EnergyEquipmentDisplayPipe implements PipeTransform {
 

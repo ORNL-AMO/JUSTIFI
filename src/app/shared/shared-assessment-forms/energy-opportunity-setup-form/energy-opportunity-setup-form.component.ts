@@ -18,11 +18,13 @@ import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
+import { LocaleService } from '../../shared-services/locale.service';
 
 @Component({
-  selector: 'app-energy-opportunity-setup-form',
-  templateUrl: './energy-opportunity-setup-form.component.html',
-  styleUrl: './energy-opportunity-setup-form.component.css'
+    selector: 'app-energy-opportunity-setup-form',
+    templateUrl: './energy-opportunity-setup-form.component.html',
+    styleUrl: './energy-opportunity-setup-form.component.css',
+    standalone: false
 })
 export class EnergyOpportunitySetupFormComponent {
   @Input({ required: true })
@@ -57,6 +59,9 @@ export class EnergyOpportunitySetupFormComponent {
 
   convertValue = new ConvertValue();
 
+  currencyCode: string;
+  currencySub: Subscription;
+
   constructor(
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private dbChangesService: DbChangesService,
@@ -67,7 +72,9 @@ export class EnergyOpportunitySetupFormComponent {
     private facilityIdbService: FacilityIdbService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private toastNotificationService: ToastNotificationsService
+    private toastNotificationService: ToastNotificationsService,
+    private setupWizardService: SetupWizardService,
+    private localeService: LocaleService,
   ) {
   }
 
@@ -90,12 +97,17 @@ export class EnergyOpportunitySetupFormComponent {
     this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
       this.facilityUnitSettings = facility.unitSettings;
     });
+
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
   }
 
   ngOnDestroy() {
     this.companySub.unsubscribe();
     this.assessmentSub.unsubscribe();
     this.facilitySub.unsubscribe();
+    this.currencySub.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -162,4 +174,7 @@ export class EnergyOpportunitySetupFormComponent {
     this.showAddNebDropdown = !this.showAddNebDropdown;
   }
 
+  focusField(str: string){
+    this.setupWizardService.focusedHelp.next(str);
+  }
 }

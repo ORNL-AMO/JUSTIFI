@@ -3,10 +3,12 @@ import { faCheck, faChevronDown, faChevronUp, faMagnifyingGlass, faPlus, IconDef
 import * as _ from 'lodash';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbCompany } from 'src/app/models/company';
+import { IdbFacility } from 'src/app/models/facility';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
@@ -15,9 +17,10 @@ import { NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefit
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-  selector: 'app-nebs-database-table',
-  templateUrl: './nebs-database-table.component.html',
-  styleUrl: './nebs-database-table.component.css'
+    selector: 'app-nebs-database-table',
+    templateUrl: './nebs-database-table.component.html',
+    styleUrl: './nebs-database-table.component.css',
+    standalone: false
 })
 export class NebsDatabaseTableComponent {
   @Input()
@@ -41,19 +44,20 @@ export class NebsDatabaseTableComponent {
   keyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = KeyPerformanceIndicatorOptions;
   keyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [];
 
-  companyTrackedKpis: Array<KeyPerformanceIndicatorValue> = [];
-  companyTrackedKpms: Array<KeyPerformanceMetricValue> = [];
+  facilityTrackedKpis: Array<KeyPerformanceIndicatorValue> = [];
+  facilityTrackedKpms: Array<KeyPerformanceMetricValue> = [];
 
   constructor(private cd: ChangeDetectorRef, private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private companyIdbService: CompanyIdbService,
     private sharedDataService: SharedDataService,
     private assessmentIdbService: AssessmentIdbService,
-    private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService
+    private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
+    private facilityIdbService: FacilityIdbService
   ) { }
 
   ngOnInit() {
     if (this.inAddModal) {
-      this.setCompanyKpis();
+      this.setFacilityKpis();
     }
     this.setNebOptions();
     this.keyPerformanceIndicatorOptions = _.orderBy(KeyPerformanceIndicatorOptions, (option: KeyPerformanceIndicatorOption) => {
@@ -76,12 +80,12 @@ export class NebsDatabaseTableComponent {
       }, 'asc');
     }
 
-    if (this.companyTrackedKpis && this.companyTrackedKpms) {
+    if (this.facilityTrackedKpis && this.facilityTrackedKpms) {
       this.keyPerformanceIndicatorOptions = _.orderBy(this.keyPerformanceIndicatorOptions, (option: KeyPerformanceIndicatorOption) => {
-        return this.companyTrackedKpis.includes(option.optionValue)
+        return this.facilityTrackedKpis.includes(option.optionValue)
       }, 'desc');
       this.keyPerformanceMetricOptions = _.orderBy(this.keyPerformanceMetricOptions, (option: KeyPerformanceMetricOption) => {
-        return this.companyTrackedKpms.includes(option.value)
+        return this.facilityTrackedKpms.includes(option.value)
       }, 'desc');
     }
     let selectedIndex: number = this.keyPerformanceMetricOptions.findIndex(option => {
@@ -130,12 +134,12 @@ export class NebsDatabaseTableComponent {
     }
   }
 
-  setCompanyKpis() {
-    let company: IdbCompany = this.companyIdbService.selectedCompany.getValue();
-    let companyKpis: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByCompanyGuid(company.guid);
-    let companyKpms: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(company.guid);
-    this.companyTrackedKpis = companyKpis.map(kpi => { return kpi.optionValue });
-    this.companyTrackedKpms = companyKpms.map(kpm => { return kpm.value });
+  setFacilityKpis() {
+    let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+    let facilityKpis: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(facility.guid);
+    let facilityKpms: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(facility.guid);
+    this.facilityTrackedKpis = facilityKpis.map(kpi => { return kpi.optionValue });
+    this.facilityTrackedKpms = facilityKpms.map(kpm => { return kpm.value });
   }
 
   selectNeb(neb: NebOption) {

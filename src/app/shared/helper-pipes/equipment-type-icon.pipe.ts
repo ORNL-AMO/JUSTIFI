@@ -4,7 +4,8 @@ import { EquipmentType } from '../constants/equipmentTypes';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 
 @Pipe({
-  name: 'equipmentTypeIcon'
+    name: 'equipmentTypeIcon',
+    standalone: false
 })
 export class EquipmentTypeIconPipe implements PipeTransform {
 

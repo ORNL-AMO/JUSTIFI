@@ -19,10 +19,12 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 @Component({
-  selector: 'app-neb-setup-form',
-  templateUrl: './neb-setup-form.component.html',
-  styleUrl: './neb-setup-form.component.css'
+    selector: 'app-neb-setup-form',
+    templateUrl: './neb-setup-form.component.html',
+    styleUrl: './neb-setup-form.component.css',
+    standalone: false
 })
 export class NebSetupFormComponent {
   @Input({ required: true })
@@ -62,6 +64,10 @@ export class NebSetupFormComponent {
 
   energyOpportunities: Array<IdbEnergyOpportunity>;
   energyOpportunitiesSub: Subscription;
+
+  currencyCode: string;
+  currencySub: Subscription;
+
   constructor(
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private dbChangesService: DbChangesService,
@@ -73,7 +79,9 @@ export class NebSetupFormComponent {
     private toastNotificationService: ToastNotificationsService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private localStorageDataService: LocalStorageDataService,
-    private onSiteVisitIdbService: OnSiteVisitIdbService) {
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private localeService: LocaleService,
+  ) {
   }
 
   ngOnInit() {
@@ -99,12 +107,17 @@ export class NebSetupFormComponent {
     this.energyOpportunitiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(opps => {
       this.energyOpportunities = opps.filter(opp => { return opp.assessmentId == this.nonEnergyBenefit.assessmentId });
     });
+
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
   }
 
   ngOnDestroy() {
     this.contactsSub.unsubscribe();
     this.kpmImpactsSub.unsubscribe();
     this.energyOpportunitiesSub.unsubscribe();
+    this.currencySub.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -164,10 +177,6 @@ export class NebSetupFormComponent {
     } else {
       this.performanceMetricImpactGuids = [];
     }
-  }
-
-  openContactModal(viewContact: IdbContact) {
-    this.sharedDataService.displayContactModal.next({ context: 'nonEnergyBenefit', viewContact: viewContact, contextGuid: this.nonEnergyBenefit.guid, companyId: this.nonEnergyBenefit.companyId });
   }
 
   toggleUntrackedNebs() {

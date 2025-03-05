@@ -3,7 +3,8 @@ import { KeyPerformanceIndicatorOption, PrimaryKPI } from 'src/app/shared/consta
 import * as _ from 'lodash';
 
 @Pipe({
-  name: 'kpiListFilter'
+    name: 'kpiListFilter',
+    standalone: false
 })
 export class KpiListFilterPipe implements PipeTransform {
 

@@ -1,0 +1,11 @@
+
+
+.panel-label{
+    display: inline-block !important;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    font-size: large;
+}

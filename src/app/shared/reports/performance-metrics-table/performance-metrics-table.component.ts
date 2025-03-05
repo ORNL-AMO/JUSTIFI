@@ -3,11 +3,14 @@ import { KeyPerformanceIndicatorReport } from '../calculations/keyPerformanceInd
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { OrderMetricsTableFields } from './performance-metrics-table.pipe';
+import { Subscription } from 'rxjs';
+import { LocaleService } from '../../shared-services/locale.service';
 
 @Component({
-  selector: 'app-performance-metrics-table',
-  templateUrl: './performance-metrics-table.component.html',
-  styleUrl: './performance-metrics-table.component.css'
+    selector: 'app-performance-metrics-table',
+    templateUrl: './performance-metrics-table.component.html',
+    styleUrl: './performance-metrics-table.component.css',
+    standalone: false
 })
 export class PerformanceMetricsTableComponent {
   @Input({ required: true })
@@ -17,12 +20,24 @@ export class PerformanceMetricsTableComponent {
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   orderByDir: 'asc' | 'desc' = 'desc';
   orderByField: OrderMetricsTableFields = 'costAdjustment';
-  constructor(private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService) {
 
-  }
+  currencyCode: string;
+  currencySub: Subscription;
+  
+  constructor(
+    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
+    private localeService: LocaleService,
+  ) { }
 
   ngOnInit() {
     this.keyPerformanceIndicators = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
+  }
+
+  ngOnDestroy() {
+    this.currencySub.unsubscribe();
   }
 
   setOrderByField(orderByField: OrderMetricsTableFields) {

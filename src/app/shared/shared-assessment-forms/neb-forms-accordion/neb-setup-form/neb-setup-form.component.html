@@ -1,16 +1,9 @@
 <!--ACTIONS-->
 <div class="d-flex w-100 justify-content-between pb-3">
     <div class="pe-2">
-        <button class="btn btn-sm btn-primary me-1"
-            *ngFor="let contact of nonEnergyBenefit.guid | associatedContacts:'nonEnergyBenefit': contacts;"
-            (click)="openContactModal(contact)">
-            <fa-icon [icon]="faUser"></fa-icon>
-            {{contact | contactNameDisplay}}
-        </button>
-        <button class="btn btn-sm btn-secondary" (click)="openContactModal(undefined)">
-            <fa-icon [icon]="faContactBook"></fa-icon>
-            Stakeholders
-        </button>
+        <app-associated-contacts-buttons [companyGuid]="nonEnergyBenefit.companyId"
+            [contactContext]="'nonEnergyBenefit'"
+            [contextGuid]="nonEnergyBenefit.guid"></app-associated-contacts-buttons>
     </div>
     <div class="d-flex">
         <button class="btn btn-danger btn-sm" (click)="showDeleteModal()">
@@ -68,7 +61,7 @@
                     name="{{'costImpact'+nonEnergyBenefit.guid}}" id="{{'costImpact'+nonEnergyBenefit.guid}}"
                     (input)="saveChanges()">
                 <span class="input-group-text">
-                    &dollar;/yr
+                    {{ currencyCode | currencySymbol }}/yr
                 </span>
             </div>
         </div>

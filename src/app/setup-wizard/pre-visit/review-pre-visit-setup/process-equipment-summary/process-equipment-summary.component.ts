@@ -8,9 +8,10 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Component({
-  selector: 'app-process-equipment-summary',
-  templateUrl: './process-equipment-summary.component.html',
-  styleUrl: './process-equipment-summary.component.css'
+    selector: 'app-process-equipment-summary',
+    templateUrl: './process-equipment-summary.component.html',
+    styleUrl: './process-equipment-summary.component.css',
+    standalone: false
 })
 export class ProcessEquipmentSummaryComponent {
 

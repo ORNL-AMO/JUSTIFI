@@ -1,8 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
-import { GeneralInformation } from 'src/app/models/generalInformation';
 import { State, States } from '../form-data-options/states';
 import { Countries, Country } from '../form-data-options/countries';
 import { Subscription } from 'rxjs';
@@ -10,13 +9,15 @@ import { IdbCompany } from 'src/app/models/company';
 import { IdbFacility } from 'src/app/models/facility';
 import { IconDefinition, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { SharedSettingsFormsService } from '../shared-settings-forms.service';
+import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 
 @Component({
   selector: 'app-location-form',
   templateUrl: './location-form.component.html',
-  styleUrls: ['./location-form.component.css']
+  styleUrls: ['./location-form.component.css'],
+  standalone: false
 })
-export class LocationFormComponent implements OnInit, OnDestroy{
+export class LocationFormComponent implements OnInit, OnDestroy {
   @Input()
   inCompany: boolean;
 
@@ -29,8 +30,9 @@ export class LocationFormComponent implements OnInit, OnDestroy{
   zipCountrySub: Subscription;
   countries: Array<Country> = Countries;
   states: Array<State> = States;
-  constructor(private formBuilder: FormBuilder, private companyIdbService: CompanyIdbService,
-    private facilityIdbService: FacilityIdbService, private sharedSettingsFormService: SharedSettingsFormsService) {
+  constructor(private companyIdbService: CompanyIdbService,
+    private facilityIdbService: FacilityIdbService, private sharedSettingsFormService: SharedSettingsFormsService,
+    private setupWizardService: SetupWizardService) {
   }
 
   ngOnInit() {
@@ -75,5 +77,7 @@ export class LocationFormComponent implements OnInit, OnDestroy{
     }
   }
 
-
+  focusField(){
+    this.setupWizardService.focusedHelp.next('locationDetails');
+  }
 }

@@ -39,6 +39,12 @@ import { NebTotalSavingsPipe } from './neb-total-savings.pipe';
 import { FacilityKpiListPipe } from './facility-kpi-list.pipe';
 import { ProcessEquipmentListPipe } from './process-equipment-list.pipe';
 import { AssessmentItemPipe } from './assessment-item.pipe';
+import { CurrencySymbolPipe } from './currency-symbol.pipe';
+import { CurrencyPipe } from '@angular/common';
+import { IncludesProcessEquipmentPipe } from './includes-process-equipment.pipe';
+import { IncludesEnergyEquipmentPipe } from './includes-energy-equipment.pipe';
+import { IncludedInAssessmentPipe } from './included-in-assessment.pipe';
+import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
 
 @NgModule({
   declarations: [
@@ -80,10 +86,18 @@ import { AssessmentItemPipe } from './assessment-item.pipe';
     NebTotalSavingsPipe,
     FacilityKpiListPipe,
     ProcessEquipmentListPipe,
-    AssessmentItemPipe
+    AssessmentItemPipe,
+    CurrencySymbolPipe,
+    IncludesProcessEquipmentPipe,
+    IncludesEnergyEquipmentPipe,
+    IncludedInAssessmentPipe,
+    FormatPlaceholderTextPipe
   ],
   imports: [
     CommonModule
+  ],
+  providers: [
+    CurrencyPipe,
   ],
   exports: [
     CompanyNamePipe,
@@ -124,7 +138,12 @@ import { AssessmentItemPipe } from './assessment-item.pipe';
     NebTotalSavingsPipe,
     FacilityKpiListPipe,
     ProcessEquipmentListPipe,
-    AssessmentItemPipe
+    AssessmentItemPipe,
+    CurrencySymbolPipe,
+    IncludesProcessEquipmentPipe,
+    IncludesEnergyEquipmentPipe,
+    IncludedInAssessmentPipe,
+    FormatPlaceholderTextPipe
   ]
 })
 export class HelperPipesModule { }

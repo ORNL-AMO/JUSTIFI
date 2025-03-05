@@ -11,9 +11,10 @@ import { environment } from 'src/environments/environment';
 import { UpdateDbEntriesService } from 'src/app/indexed-db/update-db-entries.service';
 
 @Component({
-  selector: 'app-import-backup-modal',
-  templateUrl: './import-backup-modal.component.html',
-  styleUrl: './import-backup-modal.component.css'
+    selector: 'app-import-backup-modal',
+    templateUrl: './import-backup-modal.component.html',
+    styleUrl: './import-backup-modal.component.css',
+    standalone: false
 })
 export class ImportBackupModalComponent implements OnInit, OnDestroy {
   
@@ -101,6 +102,7 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
   }
 
   async importBackupFile() {
+    this.router.navigateByUrl('welcome');
     this.showImportModal = false;
     this.loadingService.setLoadingStatus(true);
     this.loadingService.setLoadingMessage("Importing backup file...")
@@ -115,7 +117,6 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
       }
       this.loadingService.setLoadingStatus(false);
       this.cancelImportBackup();
-      this.router.navigateByUrl('user');
     } catch (err) {
       console.log(err);
       alert('Error importing backup'); // TODO: implement a toast service

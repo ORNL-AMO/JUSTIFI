@@ -1,11 +1,12 @@
 import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { PlotlyService } from 'angular-plotly.js';
-import { KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem } from '../calculations/keyPerformanceIndicatorReport';
+import { KeyPerformanceIndicatorReport, KeyPerformanceMetricReportItem } from '../calculations/keyPerformanceIndicatorReport';
 import * as _ from 'lodash';
 @Component({
-  selector: 'app-performance-metrics-chart',
-  templateUrl: './performance-metrics-chart.component.html',
-  styleUrl: './performance-metrics-chart.component.css'
+    selector: 'app-performance-metrics-chart',
+    templateUrl: './performance-metrics-chart.component.html',
+    styleUrl: './performance-metrics-chart.component.css',
+    standalone: false
 })
 export class PerformanceMetricsChartComponent {
   @Input({ required: true })
@@ -29,19 +30,19 @@ export class PerformanceMetricsChartComponent {
   }
 
   drawChart() {
-    let kpiReportItems: Array<KeyPerformanceIndicatorReportItem> = this.keyPerformanceIndicatorReport.kpiReportItems.filter(kpiReportItem => {
-      return kpiReportItem.keyPerformanceMetric.isQuantitative
+    let kpmReportItems: Array<KeyPerformanceMetricReportItem> = this.keyPerformanceIndicatorReport.kpmReportItems.filter(kpmReportItem => {
+      return kpmReportItem.keyPerformanceMetric.isQuantitative
     });
-    kpiReportItems = _.orderBy(kpiReportItems, (reportItem: KeyPerformanceIndicatorReportItem) => {
+    kpmReportItems = _.orderBy(kpmReportItems, (reportItem: KeyPerformanceMetricReportItem) => {
       return reportItem.keyPerformanceMetric.baselineCost;
     }, 'desc')
 
     var trace1 = {
-      x: kpiReportItems.map(kpiReport => {
-        return kpiReport.keyPerformanceMetric.label
+      x: kpmReportItems.map(kpmReport => {
+        return kpmReport.keyPerformanceMetric.label
       }),
-      y: kpiReportItems.map(kpiReportItem => {
-        return kpiReportItem.keyPerformanceMetric.baselineCost - kpiReportItem.performanceMetricImpact.costAdjustment
+      y: kpmReportItems.map(kpmReportItem => {
+        return kpmReportItem.keyPerformanceMetric.baselineCost - kpmReportItem.performanceMetricImpact.costAdjustment
       }),
       name: 'Modified Cost',
       type: 'bar',
@@ -51,10 +52,10 @@ export class PerformanceMetricsChartComponent {
     };
 
     var trace2 = {
-      x: kpiReportItems.map(kpiReport => {
+      x: kpmReportItems.map(kpiReport => {
         return kpiReport.keyPerformanceMetric.label
       }),
-      y: kpiReportItems.map(kpiReportItem => {
+      y: kpmReportItems.map(kpiReportItem => {
         return kpiReportItem.performanceMetricImpact.costAdjustment
       }),
       name: 'Annual Savings',

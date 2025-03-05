@@ -15,9 +15,10 @@ import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicat
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-  selector: 'app-manage-energy-equipment',
-  templateUrl: './manage-energy-equipment.component.html',
-  styleUrl: './manage-energy-equipment.component.css'
+    selector: 'app-manage-energy-equipment',
+    templateUrl: './manage-energy-equipment.component.html',
+    styleUrl: './manage-energy-equipment.component.css',
+    standalone: false
 })
 export class ManageEnergyEquipmentComponent {
 

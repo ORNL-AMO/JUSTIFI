@@ -14,9 +14,10 @@ import { FormGroup } from '@angular/forms';
 import { CompanyContactsFormService } from 'src/app/shared/shared-company-forms/company-contacts-form/company-contacts-form.service';
 
 @Component({
-  selector: 'app-manage-company-contacts',
-  templateUrl: './manage-company-contacts.component.html',
-  styleUrl: './manage-company-contacts.component.css'
+    selector: 'app-manage-company-contacts',
+    templateUrl: './manage-company-contacts.component.html',
+    styleUrl: './manage-company-contacts.component.css',
+    standalone: false
 })
 export class ManageCompanyContactsComponent {
   companyContacts: Array<IdbContact>;

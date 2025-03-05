@@ -18,7 +18,7 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
-import { Observable, firstValueFrom } from 'rxjs';
+import { Observable, first, firstValueFrom } from 'rxjs';
 import { LoadingService } from 'src/app/core-components/loading/loading.service';
 import { environment } from 'src/environments/environment';
 import * as semver from 'semver';
@@ -145,6 +145,7 @@ export class BackupDataService {
         newId: newGUID,
         oldId: energyEquipment.guid
       });
+      energyEquipment.guid = newGUID;
       delete energyEquipment.id;
       energyEquipment.userId = userGUIDs.newId;
       energyEquipment.companyId = getNewId(energyEquipment.companyId, companyGUIDs);
@@ -162,6 +163,7 @@ export class BackupDataService {
         newId: newGUID,
         oldId: processEquipment.guid
       });
+      processEquipment.guid = newGUID;
       delete processEquipment.id;
       processEquipment.userId = userGUIDs.newId;
       processEquipment.companyId = getNewId(processEquipment.companyId, companyGUIDs);
@@ -229,6 +231,7 @@ export class BackupDataService {
       delete keyPerformanceIndicator.id;
       keyPerformanceIndicator.userId = userGUIDs.newId;
       keyPerformanceIndicator.companyId = getNewId(keyPerformanceIndicator.companyId, companyGUIDs);
+      keyPerformanceIndicator.facilityId = getNewId(keyPerformanceIndicator.facilityId, facilityGUIDs);
       await firstValueFrom(this.keyPerformanceIndicatorsIdbService.addWithObservable(keyPerformanceIndicator));
     }
 
@@ -251,6 +254,82 @@ export class BackupDataService {
       nonEnergyBenefit.assessmentId = getNewId(nonEnergyBenefit.assessmentId, assessmentGUIDs);
       nonEnergyBenefit.energyOpportunityId = getNewId(nonEnergyBenefit.energyOpportunityId, energyOpportunityGUIDs);
       await firstValueFrom(this.nonEnergyBenefitsIdbService.addWithObservable(nonEnergyBenefit));
+    }
+
+    //update energy equipment
+    this.loadingService.setLoadingMessage("Updating item connections...");
+    let allEnergyEquipments: Array<IdbEnergyEquipment> = await firstValueFrom(this.energyEquipmentIdbService.getAll());
+    for (let i = 0; i < energyEquipmentGUIDs.length; i++) {
+      let energyEquipment: IdbEnergyEquipment = allEnergyEquipments.find(equipment => {
+        return equipment.guid == energyEquipmentGUIDs[i].newId;
+      });
+      if (energyEquipment.processEquipmentIds) {
+        energyEquipment.processEquipmentIds.forEach((processEquipmentId, idx) => {
+          energyEquipment.processEquipmentIds[idx] = getNewId(processEquipmentId, processEquipmentGUIDs);
+        });
+      } else {
+        energyEquipment.processEquipmentIds = [];
+      }
+      if (energyEquipment.energyEquipmentIds) {
+        energyEquipment.energyEquipmentIds.forEach((energyEquipmentId, idx) => {
+          energyEquipment.energyEquipmentIds[idx] = getNewId(energyEquipmentId, energyEquipmentGUIDs);
+        });
+      } else {
+        energyEquipment.energyEquipmentIds = [];
+      }
+      if (energyEquipment.assessmentIds) {
+        energyEquipment.assessmentIds.forEach((assessmentId, idx) => {
+          energyEquipment.assessmentIds[idx] = getNewId(assessmentId, assessmentGUIDs);
+        });
+      } else {
+        energyEquipment.assessmentIds = [];
+      }
+      if (energyEquipment.energyOpportunityIds) {
+        energyEquipment.energyOpportunityIds.forEach((energyOpportunityId, idx) => {
+          energyEquipment.energyOpportunityIds[idx] = getNewId(energyOpportunityId, energyOpportunityGUIDs);
+        });
+      } else {
+        energyEquipment.energyEquipmentIds = [];
+      }
+      await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(energyEquipment));
+    }
+
+
+    //update process equipment
+    let allProcessEquipments: Array<IdbProcessEquipment> = await firstValueFrom(this.processEquipmentIdbService.getAll());
+    for (let i = 0; i < processEquipmentGUIDs.length; i++) {
+      let processEquipment: IdbProcessEquipment = allProcessEquipments.find(equipment => {
+        return equipment.guid == processEquipmentGUIDs[i].newId;
+      });
+      if (processEquipment.processEquipmentIds) {
+        processEquipment.processEquipmentIds.forEach((processEquipmentId, idx) => {
+          processEquipment.processEquipmentIds[idx] = getNewId(processEquipmentId, processEquipmentGUIDs);
+        });
+      } else {
+        processEquipment.processEquipmentIds = [];
+      }
+      if (processEquipment.energyEquipmentIds) {
+        processEquipment.energyEquipmentIds.forEach((energyEquipmentId, idx) => {
+          processEquipment.energyEquipmentIds[idx] = getNewId(energyEquipmentId, energyEquipmentGUIDs);
+        });
+      } else {
+        processEquipment.energyEquipmentIds = [];
+      }
+      if (processEquipment.assessmentIds) {
+        processEquipment.assessmentIds.forEach((assessmentId, idx) => {
+          processEquipment.assessmentIds[idx] = getNewId(assessmentId, assessmentGUIDs);
+        });
+      } else {
+        processEquipment.assessmentIds = [];
+      }
+      if (processEquipment.energyOpportunityIds) {
+        processEquipment.energyOpportunityIds.forEach((energyOpportunityId, idx) => {
+          processEquipment.energyOpportunityIds[idx] = getNewId(energyOpportunityId, energyOpportunityGUIDs);
+        });
+      } else {
+        processEquipment.energyOpportunityIds = [];
+      }
+      await firstValueFrom(this.processEquipmentIdbService.updateWithObservable(processEquipment));
     }
 
     // Adding contacts
@@ -276,6 +355,18 @@ export class BackupDataService {
       contact.energyEquipmentIds.forEach((energyEquipmentId, idx) => {
         contact.energyEquipmentIds[idx] = getNewId(energyEquipmentId, energyEquipmentGUIDs);
       });
+      contact.kpiIds.forEach((kpiId, idx) => {
+        contact.kpiIds[idx] = getNewId(kpiId, keyPerformanceIndicatorGUIDs);
+      });
+
+      contact.assessmentIds.forEach((assessmentId, idx) => {
+        contact.assessmentIds[idx] = getNewId(assessmentId, assessmentGUIDs);
+      });
+
+      contact.nonEnergyBenefitIds.forEach((nebId, idx) => {
+        contact.nonEnergyBenefitIds[idx] = getNewId(nebId, nonEnergyBenefitGUIDs);
+      });
+      
       await firstValueFrom(this.contactIdbService.addWithObservable(contact));
     }
 

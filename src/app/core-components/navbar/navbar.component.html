@@ -10,6 +10,12 @@
             <span class="d-none d-sm-inline badge bg-secondary">v{{version}}</span>
         </div>
         <div>
+            <button class="btn btn-dark btn-sm me-2" (click)="openSettingsModal()">
+                <fa-icon [icon]="faCog"></fa-icon>
+                <span class="d-none d-sm-none d-md-none d-lg-inline">
+                    Settings
+                </span>
+            </button>
             <button class="btn btn-dark btn-sm me-2" (click)="openFeedbackModal()">
                 <fa-icon [icon]="faInbox"></fa-icon>
                 <span class="d-none d-sm-none d-md-none d-lg-inline">
@@ -35,8 +41,33 @@
     </div>
 </nav>
 
+<div class="popup" [ngClass]="{'open': showSettingsModal}">
+    <div class="popup-header">Settings
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeSettingsModal()"></button>
+    </div>
+    <div class="popup-body">
+        <div class="alert alert-info">
+            Adjust system settings.
+        </div>
+        <div class="input-group">
+            <label class="col-sm-5 col-form-label" for="userLocale">Currency Settings:</label>
+            <select class="form-select" name="userLocale" 
+                [(ngModel)]="userLocale" 
+                (change)="saveSettings()">
+                <option *ngFor="let option of localeCurrency"
+                    [ngValue]="option.locale">
+                    {{option.locale}}: {{option.currencyCode}} ({{option.currencyCode | currencySymbol}})
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-sm btn-secondary me-2" (click)="closeSettingsModal()">Close</button>
+    </div>
+</div>
 
-<div [ngClass]="{'window-overlay': showResetModal || showBackupDataModal || showFeedbackModal}"></div>
+
+<div [ngClass]="{'window-overlay': showResetModal || showBackupDataModal || showFeedbackModal || showSettingsModal}"></div>
 <div class="popup" [ngClass]="{'open': showResetModal }">
     <div class="popup-header">Reset Your Database
         <button type="button" class="btn-close float-end" aria-label="Close"

@@ -18,6 +18,9 @@ import { EnergyOpportunitySetupFormComponent } from './energy-opportunity-setup-
 import { EnergyOpportunityNebsTableComponent } from './energy-opportunity-nebs-table/energy-opportunity-nebs-table.component';
 import { TableEntriesModule } from '../table-entries/table-entries.module';
 import { LabelWithTooltipModule } from "../label-with-tooltip/label-with-tooltip.module";
+import { AssociatedProcessEquipmentModule } from '../associated-process-equipment/associated-process-equipment.module';
+import { AssociatedContactsModule } from "../associated-contacts/associated-contacts.module";
+import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/associated-energy-equipment.module';
 
 
 @NgModule({
@@ -31,7 +34,7 @@ import { LabelWithTooltipModule } from "../label-with-tooltip/label-with-tooltip
     PerformanceMetricImpactFormComponent,
     AddNebsModalComponent,
     EnergyOpportunitySetupFormComponent,
-    EnergyOpportunityNebsTableComponent
+    EnergyOpportunityNebsTableComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +46,10 @@ import { LabelWithTooltipModule } from "../label-with-tooltip/label-with-tooltip
     NebsDatabaseModule,
     TableEntriesModule,
     LabelWithTooltipModule,
-    LabelWithTooltipModule
+    LabelWithTooltipModule,
+    AssociatedProcessEquipmentModule,
+    AssociatedContactsModule,
+    AssociatedEnergyEquipmentModule
 ],
   exports: [
     AssessmentDetailsFormComponent,

@@ -10,7 +10,6 @@ import { SharedSettingsFormsModule } from '../shared/shared-settings-forms/share
 import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
 import { SetupWizardSidebarComponent } from './setup-wizard-sidebar/setup-wizard-sidebar.component';
 import { ReviewPreVisitSetupComponent } from './pre-visit/review-pre-visit-setup/review-pre-visit-setup.component';
-import { ContactModalModule } from '../shared/contact-modal/contact-modal.module';
 import { ReviewOnSiteComponent } from './data-collection/review-on-site/review-on-site.component';
 import { CompanyDetailsSummaryComponent } from './pre-visit/review-pre-visit-setup/company-details-summary/company-details-summary.component';
 import { TeamDetailsSummaryComponent } from './pre-visit/review-pre-visit-setup/team-details-summary/team-details-summary.component';
@@ -29,9 +28,7 @@ import { DataFollowUpComponent } from './data-evaluation/data-follow-up/data-fol
 import { VisitReportComponent } from './data-evaluation/visit-report/visit-report.component';
 import { ReportsModule } from '../shared/reports/reports.module';
 import { AssessmentEvaluationComponent } from './data-evaluation/assessment-evaluation/assessment-evaluation.component';
-import { OnSiteAssessmentResultsComponent } from './data-collection/on-site-assessment/on-site-assessment-results/on-site-assessment-results.component';
 import { PrimaryKpiBadgeModule } from "../shared/primary-kpi-badge/primary-kpi-badge.module";
-import { SetupWizardHelpPanelModule } from './setup-wizard-help-panel/setup-wizard-help-panel.module';
 import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-tooltip.module';
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
 import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/shared-assessment-forms.module';
@@ -50,6 +47,11 @@ import { FacilityProcessEquipmentFormComponent } from './pre-visit/facility-proc
 import { ManagePreAssessmentsComponent } from './pre-visit/pre-assessments/manage-pre-assessments/manage-pre-assessments.component';
 import { PreAssessmentFormComponent } from './pre-visit/pre-assessments/pre-assessment-form/pre-assessment-form.component';
 import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
+import { AssociatedProcessEquipmentModule } from '../shared/associated-process-equipment/associated-process-equipment.module';
+import { AssociatedContactsModule } from '../shared/associated-contacts/associated-contacts.module';
+import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protocol-questions/facility-protocol-questions.component';
+import { AssociatedEnergyEquipmentModule } from "../shared/associated-energy-equipment/associated-energy-equipment.module";
+import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wizard-side-panel.module';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,6 @@ import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
     DataFollowUpComponent,
     VisitReportComponent,
     AssessmentEvaluationComponent,
-    OnSiteAssessmentResultsComponent,
     AssessmentEnergyOpportunitiesFormComponent,
     SystemInventorySummaryComponent,
     ManageCompanyContactsComponent,
@@ -87,7 +88,8 @@ import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
     FacilityProcessEquipmentFormComponent,
     ManagePreAssessmentsComponent,
     PreAssessmentFormComponent,
-    NavItemActivePipe
+    NavItemActivePipe,
+    FacilityProtocolQuestionsComponent
   ],
   imports: [
     CommonModule,
@@ -96,18 +98,19 @@ import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
     FormsModule,
     SharedSettingsFormsModule,
     HelperPipesModule,
-    ContactModalModule,
     TableEntriesModule,
-    ReportsModule,
     PrimaryKpiBadgeModule,
     ReactiveFormsModule,
     ReportsModule,
-    SetupWizardHelpPanelModule,
+    SetupWizardSidePanelModule,
     LabelWithTooltipModule,
     KpmDetailsFormModule,
     SharedAssessmentFormsModule,
     SharedCompanyFormsModule,
-    SharedFacilityFormsModule
+    SharedFacilityFormsModule,
+    AssociatedContactsModule,
+    AssociatedEnergyEquipmentModule,
+    AssociatedProcessEquipmentModule
 ]
 })
 export class SetupWizardModule { }

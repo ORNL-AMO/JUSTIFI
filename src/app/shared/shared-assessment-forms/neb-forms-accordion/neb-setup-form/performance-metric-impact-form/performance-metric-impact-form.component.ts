@@ -10,11 +10,13 @@ import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetr
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
+import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 
 @Component({
-  selector: 'app-performance-metric-impact-form',
-  templateUrl: './performance-metric-impact-form.component.html',
-  styleUrl: './performance-metric-impact-form.component.css'
+    selector: 'app-performance-metric-impact-form',
+    templateUrl: './performance-metric-impact-form.component.html',
+    styleUrl: './performance-metric-impact-form.component.css',
+    standalone: false
 })
 export class PerformanceMetricImpactFormComponent {
   @Input({ required: true })
@@ -41,10 +43,15 @@ export class PerformanceMetricImpactFormComponent {
 
   isFormChange: boolean = false;
   showDropdownMenu: boolean = false;
+
+  currencyCode: string;
+  currencySub: Subscription;
+
   constructor(private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService
+    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
+    private localeService: LocaleService,
   ) {
 
   }
@@ -54,7 +61,7 @@ export class PerformanceMetricImpactFormComponent {
       if (!this.isFormChange) {
         this.keyPerformanceMetricImpact = this.keyPerformanceMetricImpactIdbService.getByGuid(this.impactGuid);
         if (this.keyPerformanceMetricImpact) {
-          this.keyPerformanceMetric = this.keyPerformanceIndicatorIdbService.getKeyPerformanceMetric(this.keyPerformanceMetricImpact.companyId, this.keyPerformanceMetricImpact.kpmGuid);
+          this.keyPerformanceMetric = this.keyPerformanceIndicatorIdbService.getKeyPerformanceMetric(this.keyPerformanceMetricImpact.facilityId, this.keyPerformanceMetricImpact.kpmGuid);
         }
       } else {
         this.isFormChange = false;
@@ -63,10 +70,14 @@ export class PerformanceMetricImpactFormComponent {
         this.setDisabledBaseline(_kpmImpacts);
       }
     });
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
   }
 
   ngOnDestroy() {
     this.keyPerformanceMetricImpactsSub.unsubscribe();
+    this.currencySub.unsubscribe();
   }
 
   setDisabledBaseline(allKpmImpacts: Array<IdbKeyPerformanceMetricImpact>) {
@@ -118,7 +129,7 @@ export class PerformanceMetricImpactFormComponent {
         _metric.costPerValue = this.keyPerformanceMetric.costPerValue;
       }
     });
-    await this.keyPerformanceMetricImpactIdbService.updatePerformanceMetricBaseline(keyPerformanceIndicator, this.keyPerformanceMetric);
+    await this.keyPerformanceMetricImpactIdbService.updatePerformanceMetricBaseline(this.keyPerformanceMetric);
     await this.keyPerformanceIndicatorIdbService.asyncUpdate(keyPerformanceIndicator);
   }
 

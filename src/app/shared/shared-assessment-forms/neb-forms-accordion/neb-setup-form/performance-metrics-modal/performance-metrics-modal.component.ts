@@ -10,9 +10,10 @@ import { convertOptionTypeToMetricType, KeyPerformanceMetric, KeyPerformanceMetr
 import { NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefitOptions';
 
 @Component({
-  selector: 'app-performance-metrics-modal',
-  templateUrl: './performance-metrics-modal.component.html',
-  styleUrl: './performance-metrics-modal.component.css'
+    selector: 'app-performance-metrics-modal',
+    templateUrl: './performance-metrics-modal.component.html',
+    styleUrl: './performance-metrics-modal.component.css',
+    standalone: false
 })
 export class PerformanceMetricsModalComponent {
   @Input({ required: true })
@@ -93,7 +94,7 @@ export class PerformanceMetricsModalComponent {
     });
 
     if (this.filterAssociatedMetrics == false) {
-      let companyKPMs: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getCompanyKeyPerformanceMetrics(this.nonEnergyBenefit.companyId);
+      let companyKPMs: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.nonEnergyBenefit.facilityId);
       let customMetrics: Array<KeyPerformanceMetric> = companyKPMs.filter(kpm => {
         return kpm.isCustom == true
       });
