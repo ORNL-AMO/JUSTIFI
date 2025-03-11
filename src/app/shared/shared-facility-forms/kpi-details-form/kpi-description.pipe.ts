@@ -14,7 +14,7 @@ export class KpiDescriptionPipe implements PipeTransform {
       case 'quality':
         return "Quality metrics are quantifiable measurements used to evaluate performance, quality, or effectiveness for a product, process or system. They are used to measure success towards a goal and drive continuous improvement.";
       case 'reduceExpenseCost':
-        return "Reduce Expense Cost is a strategic process that identifies and eliminates unnecessary operational expenses to increase profitability.  The goal is always to maximize value and efficiency without compromising quality or core operations.";
+        return "Reducing costs is a strategic process that identifies and eliminates unnecessary operational expenses to increase profitability. The goal is always to maximize value and efficiency without compromising quality or core operations.";
       case 'safety':
         return "Safety metrics are qualitative and quantitative measurements that help organizations to monitor and improve their safety performance. They help identify areas for improvement, ensure compliance with regulations, and prevent accidents and injuries.";
       case 'waterConsumption':

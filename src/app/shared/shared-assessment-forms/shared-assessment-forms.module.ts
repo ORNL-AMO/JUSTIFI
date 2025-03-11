@@ -34,7 +34,7 @@ import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/
     PerformanceMetricImpactFormComponent,
     AddNebsModalComponent,
     EnergyOpportunitySetupFormComponent,
-    EnergyOpportunityNebsTableComponent
+    EnergyOpportunityNebsTableComponent,
   ],
   imports: [
     CommonModule,
@@ -56,8 +56,7 @@ import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/
     NebFormsAccordionComponent,
     AddNebsModalComponent,
     EnergyOpportunitySetupFormComponent,
-    EnergyOpportunityNebsTableComponent,
-    AssociatedProcessEquipmentModule
+    EnergyOpportunityNebsTableComponent
   ]
 })
 export class SharedAssessmentFormsModule { }

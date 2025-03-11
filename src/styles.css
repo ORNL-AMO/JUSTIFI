@@ -2,16 +2,17 @@
 
 
 :root {
-    --energy-opp-color: #2e4053;
+    --energy-opp-color: #6d2704;
     --metric-color: #1f618d;
     --neb-color: #085646;
     --company-color: #5b2c6f;
     --facility-color: #212f3c;
-    --assessment-color: #196f3d;
+    --assessment-color: #b57f02;
     --portfolio-nav-color: #006aaa;
     --end-use-color: #994006;
-    --contact-color: #272c29;
-    --energy-equipment-color: #0e0b76;
+    --contact-color: #5b2c6f;
+    --energy-equipment-color: #117a65;
+    --kpi-color:#0212b5;
 }
 
 
@@ -107,6 +108,8 @@
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: var(--contact-color);
     --bs-gradient: none;
+    padding-top: .1rem;
+    padding-bottom: .1rem;
 }
 
 .btn.btn-outline-energy-equipment {
@@ -125,14 +128,52 @@
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: var(--energy-equipment-color);
     --bs-gradient: none;
+    padding-top: .1rem;
+    padding-bottom: .1rem;
 }
 
 
+.btn:hover .fa-cube, .btn:hover .fa-splotch, .btn:hover .fa-user,
+.nav-link.active .fa-cube, .nav-link.active .fa-splotch, .nav-link.active .fa-user, .nav-link.active .fa-weight-hanging,
+.nav-link.active .fa-file-lines, .nav-link.active .fa-screwdriver-wrench, .nav-link.active .fa-bullseye{
+    color: white;
+}
+
+.fa-cube{
+    color: var(--energy-equipment-color)
+}
+
+.fa-splotch{
+    color: var(--end-use-color)
+}
+
+.fa-user{
+    color: var(--contact-color);
+}
+
+.fa-weight-hanging{
+    color: var(--neb-color)
+}
+
+.fa-file-lines{
+    color: var(--energy-opp-color)
+}
+
+.fa-screwdriver-wrench{
+    color: var(--assessment-color);
+}
+
+.fa-bullseye{
+    color: var(--kpi-color);
+}
 
 .neb-button {
     background-color: var(--neb-color);
 }
 
+.nav-tabs .nav-link:not(.active) .fa-weight-hanging{
+    color: var(--portfolio-nav-color)
+}
 
 .list-group-item-action:hover {
     cursor: pointer;
@@ -157,7 +198,7 @@
 }
 
 .neb-container ::-webkit-scrollbar-button {
-    display:none;
+    display: none;
 }
 
 

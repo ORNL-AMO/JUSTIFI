@@ -27,7 +27,7 @@
     </thead>
     <tbody>
         <tr
-            *ngFor="let kpiReportItem of keyPerformanceIndicatorReport.kpiReportItems | performanceMetricsTable: orderByField : orderByDir">
+            *ngFor="let kpiReportItem of keyPerformanceIndicatorReport.kpmReportItems | performanceMetricsTable: orderByField : orderByDir">
             <td class="">
                 <span
                     [innerHTML]="kpiReportItem.keyPerformanceMetric.kpiGuid | kpiLabel:keyPerformanceIndicators"></span>

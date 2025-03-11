@@ -61,7 +61,7 @@ export class PerformanceMetricImpactFormComponent {
       if (!this.isFormChange) {
         this.keyPerformanceMetricImpact = this.keyPerformanceMetricImpactIdbService.getByGuid(this.impactGuid);
         if (this.keyPerformanceMetricImpact) {
-          this.keyPerformanceMetric = this.keyPerformanceIndicatorIdbService.getKeyPerformanceMetric(this.keyPerformanceMetricImpact.companyId, this.keyPerformanceMetricImpact.kpmGuid);
+          this.keyPerformanceMetric = this.keyPerformanceIndicatorIdbService.getKeyPerformanceMetric(this.keyPerformanceMetricImpact.facilityId, this.keyPerformanceMetricImpact.kpmGuid);
         }
       } else {
         this.isFormChange = false;
@@ -129,7 +129,7 @@ export class PerformanceMetricImpactFormComponent {
         _metric.costPerValue = this.keyPerformanceMetric.costPerValue;
       }
     });
-    await this.keyPerformanceMetricImpactIdbService.updatePerformanceMetricBaseline(keyPerformanceIndicator, this.keyPerformanceMetric);
+    await this.keyPerformanceMetricImpactIdbService.updatePerformanceMetricBaseline(this.keyPerformanceMetric);
     await this.keyPerformanceIndicatorIdbService.asyncUpdate(keyPerformanceIndicator);
   }
 

@@ -73,6 +73,7 @@ export class EnergyOpportunitySetupFormComponent {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toastNotificationService: ToastNotificationsService,
+    private setupWizardService: SetupWizardService,
     private localeService: LocaleService,
   ) {
   }
@@ -183,4 +184,7 @@ export class EnergyOpportunitySetupFormComponent {
     return this.facilityUnitSettings[`include${trimmed}`];
   }
 
+  focusField(str: string){
+    this.setupWizardService.focusedHelp.next(str);
+  }
 }

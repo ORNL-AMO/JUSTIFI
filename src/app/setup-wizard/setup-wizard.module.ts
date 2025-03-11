@@ -28,9 +28,7 @@ import { DataFollowUpComponent } from './data-evaluation/data-follow-up/data-fol
 import { VisitReportComponent } from './data-evaluation/visit-report/visit-report.component';
 import { ReportsModule } from '../shared/reports/reports.module';
 import { AssessmentEvaluationComponent } from './data-evaluation/assessment-evaluation/assessment-evaluation.component';
-import { OnSiteAssessmentResultsComponent } from './data-collection/on-site-assessment/on-site-assessment-results/on-site-assessment-results.component';
 import { PrimaryKpiBadgeModule } from "../shared/primary-kpi-badge/primary-kpi-badge.module";
-import { SetupWizardHelpPanelModule } from './setup-wizard-help-panel/setup-wizard-help-panel.module';
 import { LabelWithTooltipModule } from '../shared/label-with-tooltip/label-with-tooltip.module';
 import { KpmDetailsFormModule } from '../shared/kpm-details-form/kpm-details-form.module';
 import { SharedAssessmentFormsModule } from '../shared/shared-assessment-forms/shared-assessment-forms.module';
@@ -52,6 +50,8 @@ import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
 import { AssociatedProcessEquipmentModule } from '../shared/associated-process-equipment/associated-process-equipment.module';
 import { AssociatedContactsModule } from '../shared/associated-contacts/associated-contacts.module';
 import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protocol-questions/facility-protocol-questions.component';
+import { AssociatedEnergyEquipmentModule } from "../shared/associated-energy-equipment/associated-energy-equipment.module";
+import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wizard-side-panel.module';
 
 @NgModule({
   declarations: [
@@ -78,7 +78,6 @@ import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protoco
     DataFollowUpComponent,
     VisitReportComponent,
     AssessmentEvaluationComponent,
-    OnSiteAssessmentResultsComponent,
     AssessmentEnergyOpportunitiesFormComponent,
     SystemInventorySummaryComponent,
     ManageCompanyContactsComponent,
@@ -103,13 +102,15 @@ import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protoco
     PrimaryKpiBadgeModule,
     ReactiveFormsModule,
     ReportsModule,
-    SetupWizardHelpPanelModule,
+    SetupWizardSidePanelModule,
     LabelWithTooltipModule,
     KpmDetailsFormModule,
     SharedAssessmentFormsModule,
     SharedCompanyFormsModule,
     SharedFacilityFormsModule,
-    AssociatedContactsModule
+    AssociatedContactsModule,
+    AssociatedEnergyEquipmentModule,
+    AssociatedProcessEquipmentModule
 ]
 })
 export class SetupWizardModule { }

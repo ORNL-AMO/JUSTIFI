@@ -1,0 +1,73 @@
+<div class="accordion protocol-questions" [id]="'energyEquipmentDiscoveryAccordion'">
+    <!--TAKE STOCK-->
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" [attr.data-bs-target]="'#takeStock'" aria-expanded="true"
+                [attr.aria-controls]="'takeStock'" (click)="toggleBS('takeStock')"
+                [ngClass]="{'collapsed': collapseTackStock}">
+                <fa-icon [icon]="faClipboardQuestion" class="me-1"></fa-icon>
+                Take Stock
+            </button>
+        </h2>
+        <div [id]="'#takeStock'" class="accordion-collapse collapse"
+            [attr.data-bs-parent]="'#energyEquipmentDiscoveryAccordion'">
+            <div class="accordion-body">
+                <app-energy-equipment-take-stock [inPortfolio]="inPortfolio"></app-energy-equipment-take-stock>
+            </div>
+        </div>
+    </div>
+    <!--TODO: issue 397-->
+    <!--OPERATIONS-->
+    <div class="accordion-item" *ngIf="inPortfolio">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" [attr.data-bs-target]="'#operations'" aria-expanded="true"
+                [attr.aria-controls]="'operations'" (click)="toggleBS('operations')"
+                [ngClass]="{'collapsed': collapseOperations}">
+                <fa-icon [icon]="faClipboardQuestion" class="me-1"></fa-icon>
+                Operations
+            </button>
+        </h2>
+        <div [id]="'#operations'" class="accordion-collapse collapse" [ngClass]="{'show': !collapseOperations}"
+            [attr.data-bs-parent]="'#energyEquipmentDiscoveryAccordion'">
+            <div class="accordion-body">
+                <app-energy-equipment-operations [inPortfolio]="inPortfolio"></app-energy-equipment-operations>
+            </div>
+        </div>
+    </div>
+    <!--Sustainability (Environmental Impact)-->
+    <div class="accordion-item" *ngIf="inPortfolio">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" [attr.data-bs-target]="'#sustainability'"
+                aria-expanded="true" [attr.aria-controls]="'sustainability'" (click)="toggleBS('sustainability')"
+                [ngClass]="{'collapsed': collapseSustainability}">
+                <fa-icon [icon]="faClipboardQuestion" class="me-1"></fa-icon>
+                Sustainability (Environmental Impact)
+            </button>
+        </h2>
+        <div [id]="'#sustainability'" class="accordion-collapse collapse" [ngClass]="{'show': !collapseSustainability}"
+            [attr.data-bs-parent]="'#energyEquipmentDiscoveryAccordion'">
+            <div class="accordion-body">
+                <app-energy-equipment-sustainability [inPortfolio]="inPortfolio"></app-energy-equipment-sustainability>
+            </div>
+        </div>
+    </div>
+    <!--Employee and Workplace Environment-->
+    <div class="accordion-item" *ngIf="inPortfolio">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" [attr.data-bs-target]="'#employeeEngagement'"
+                aria-expanded="true" [attr.aria-controls]="'employeeEngagement'"
+                (click)="toggleBS('employeeEngagement')" [ngClass]="{'collapsed': collapseEmployeeEngagement}">
+                <fa-icon [icon]="faClipboardQuestion" class="me-1"></fa-icon>
+                Employee and Workplace Environment
+            </button>
+        </h2>
+        <div [id]="'#employeeEngagement'" class="accordion-collapse collapse"
+            [ngClass]="{'show': !collapseEmployeeEngagement}"
+            [attr.data-bs-parent]="'#energyEquipmentDiscoveryAccordion'">
+            <div class="accordion-body">
+                <app-energy-equipment-employee-engagement
+                    [inPortfolio]="inPortfolio"></app-energy-equipment-employee-engagement>
+            </div>
+        </div>
+    </div>
+</div>
