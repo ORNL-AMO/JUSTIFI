@@ -60,7 +60,8 @@ export class AssessmentDetailsFormComponent {
   convertValue = new ConvertValue();
 
   assessmentEnergyOpportunities: Array<IdbEnergyOpportunity>;
-  numberOfTrackedUtilities: number = 0;
+  trackedEnergyUtilities: Array<UtilityEnergyUse>;
+  numberOfTrackedEnergyUtilities: number = 0;
   trackedEnergyUnit: string;
   trackedWaterUnit: string = 'gal';
 
@@ -136,12 +137,6 @@ export class AssessmentDetailsFormComponent {
 
   async calculateUtilityUseCost() {
     this.updateEnergyOpportunities();
-    this.numberOfTrackedUtilities = this.assessment.utilityEnergyUses.filter(
-      _energyUse => 
-        _energyUse.include && 
-        _energyUse.utilityType !== 'Water' 
-        && _energyUse.utilityType !== 'Waste Water')
-      .length;
     let energyUse = 0, energyCost = 0, waterCost = 0;
     this.assessment.utilityTypes.forEach(utilityType => {
       let utilityEnergyUse: UtilityEnergyUse = this.assessment.utilityEnergyUses.find(
@@ -207,6 +202,27 @@ export class AssessmentDetailsFormComponent {
   async saveChanges() {
     this.isFormChange = true;
     await this.assessmentIdbService.asyncUpdate(this.assessment);
+    // update the unit for energy savings unit
+    this.trackedEnergyUtilities = this.assessment.utilityEnergyUses.filter(
+      _energyUse =>
+        _energyUse.include && 
+        _energyUse.utilityType !== 'Water' 
+        && _energyUse.utilityType !== 'Waste Water');
+    this.numberOfTrackedEnergyUtilities = this.trackedEnergyUtilities.length;
+    if (this.numberOfTrackedEnergyUtilities == 1) {
+      let utilityEnergyUse = this.trackedEnergyUtilities[0];
+      let selectedUtilityOption = UtilityOptions.find(
+        _option => _option.utilityType == utilityEnergyUse.utilityType);
+      let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
+        _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
+      // calculate use
+      if (selectedUtilityOption.isStandardEnergyUnit
+        && selectedUnitOption?.isStandard !== false) {
+        this.trackedEnergyUnit = utilityEnergyUse.energyUnit;
+      } else {
+        this.trackedEnergyUnit = utilityEnergyUse.energyUnitStandard;
+      }
+    }
   }
 
   isUtilityTracked(utilityType: string): boolean {

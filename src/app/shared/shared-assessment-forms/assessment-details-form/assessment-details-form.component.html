@@ -182,7 +182,7 @@
                     <input name="energySavings" type="number" class="form-control"
                         [(ngModel)]="assessment.energySavings" (input)="saveChanges()" id="energySavings"
                         [disabled]="isDisabled">
-                    <span class="input-group-text" [innerHTML]="numberOfTrackedUtilities === 1?
+                    <span class="input-group-text" [innerHTML]="numberOfTrackedEnergyUtilities === 1?
                      (trackedEnergyUnit | unitsDisplay) + '/yr': (companyEnergyUnit | unitsDisplay) + '/yr'"></span>
                 </div>
             </div>
