@@ -8,10 +8,10 @@
                 Implementation Cost<br> ({{ currencyCode | currencySymbol }})
             </th>
             <th>
-                Annual Energy Savings<br> ({{ currencyCode | currencySymbol }}/yr)
+                Annual Cost Savings<br> ({{ currencyCode | currencySymbol }}/yr)
             </th>
             <th>
-                Annual Savings W/ NEBs<br> ({{ currencyCode | currencySymbol }}/yr)
+                Annual Cost Savings With NEBs<br> ({{ currencyCode | currencySymbol }}/yr)
             </th>
             <th>
                 Simple Payback<br> (yrs)
@@ -36,7 +36,7 @@
             </td>
             <td>
                 <app-single-cell-item [isCurrency]="true"
-                    [numValue]="assessmentReport.totalNonOpportunityAssessmentSavings"></app-single-cell-item>
+                    [numValue]="assessmentReport.totalNonOpportunityCostSavings"></app-single-cell-item>
             </td>
             <td>
                 <app-single-cell-item [isCurrency]="false"
@@ -57,7 +57,7 @@
             </td>
             <td>
                 <app-single-cell-item [isCurrency]="true"
-                    [numValue]="energyOpportunityReport.totalEnergyCostSavings"></app-single-cell-item>
+                    [numValue]="energyOpportunityReport.totalNonNebCostSavings"></app-single-cell-item>
             </td>
             <td>
                 <app-single-cell-item [isCurrency]="true"
@@ -84,7 +84,7 @@
             </th>
             <th>
                 <app-single-cell-item [isCurrency]="true"
-                    [numValue]="assessmentReport.totalEnergyCostSavings"></app-single-cell-item>
+                    [numValue]="assessmentReport.totalNonNebCostSavings"></app-single-cell-item>
             </th>
             <th>
                 <app-single-cell-item [isCurrency]="true"
