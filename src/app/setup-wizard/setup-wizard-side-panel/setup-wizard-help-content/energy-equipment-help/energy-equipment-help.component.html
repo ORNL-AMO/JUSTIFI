@@ -4,7 +4,8 @@
 <p>
     This inventory focuses on equipment related to assessments that are being conducted: larger motor driven systems
     (pumps, fans, compressors), process heating equipment, steam equipment. Systems like lighting equipment, HVAC
-    systems, and mobile equipment can also be tracked.
+    systems, and mobile equipment can also be tracked.<br><br>
+    Additionally, this system likely supplies other systems or processes with their needs.
 </p>
 <hr>
 <p>
@@ -93,6 +94,8 @@
     <!-- <hr> -->
     <ng-template [ngIf]="focusedHelp == 'howSupportPlant'">
         <label>How does this system support the plant?</label>
+        <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlant">
+        </p>
         <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlantQs">
         </p>
         <hr>
