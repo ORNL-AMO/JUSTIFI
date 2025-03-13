@@ -88,6 +88,10 @@ export class EnergyOpportunitySetupFormComponent {
       this.energyOpportunity = this.energyOpportunityIdbService.getByGuid(this.energyOpportunityGuid);
     }
 
+    if (!this.energyOpportunity.utilityCategory) {
+      this.setUtilityCategory();
+    }
+
     this.companySub = this.companyIdbService.selectedCompany.subscribe(company => {
       this.companyEnergyUnit = company.companyEnergyUnit;
     });
@@ -127,7 +131,17 @@ export class EnergyOpportunitySetupFormComponent {
     let energyUse = this.assessmentEnergyUses.find(use =>
       use.utilityType === this.energyOpportunity.utilityType);
     this.energyOpportunity.energyUnit = energyUse.energyUnit;
+    this.setUtilityCategory();
     await this.saveEnergyOpportunity();
+  }
+
+  setUtilityCategory() {
+    if (this.energyOpportunity.utilityType === 'Water' || 
+      this.energyOpportunity.utilityType === 'Waste Water') {
+        this.energyOpportunity.utilityCategory = 'water';
+    } else {
+      this.energyOpportunity.utilityCategory = 'energy';
+    }
   }
 
   async calculateCostSavings() {
@@ -175,8 +189,7 @@ export class EnergyOpportunitySetupFormComponent {
   }
 
   isWaterRelatedUtilityType() {
-    return this.energyOpportunity.utilityType === 'Water' || 
-      this.energyOpportunity.utilityType === 'Waste Water';
+    return 
   }
 
   isUtilityTracked(utilityType: string): boolean {
