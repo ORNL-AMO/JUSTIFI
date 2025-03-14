@@ -37,12 +37,12 @@ export class AssessmentSavingsChartComponent {
   }
 
   drawGaugeCharts() {
-    let percentSavings = (this.assessmentReport.totalEnergyCostSavings / this.assessmentReport.assessment.cost) * 100
+    let percentSavings = (this.assessmentReport.totalNonNebCostSavings / this.assessmentReport.assessment.cost) * 100
     var savingsData = [
       {
         domain: { x: [0, 1], y: [0, 1] },
         value: percentSavings,
-        title: { text: "Energy Cost Savings" },
+        title: { text: "Cost Savings" },
         type: "indicator",
         mode: "gauge+number",
         number: { suffix: '%' },
@@ -78,7 +78,7 @@ export class AssessmentSavingsChartComponent {
         domain: { x: [0, 1], y: [0, 1] },
         value: percentSavingsNebs,
         number: { suffix: '%' },
-        title: { text: "Savings W/ NEBs" },
+        title: { text: "Cost Savings W/ NEBs" },
         type: "indicator",
         mode: "gauge+number",
         gauge: {
