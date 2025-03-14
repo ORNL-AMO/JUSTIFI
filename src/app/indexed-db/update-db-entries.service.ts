@@ -17,6 +17,9 @@ import { ProcessEquipmentIdbService } from './process-equipment-idb.service';
 import { IdbProcessEquipment } from '../models/processEquipment';
 import { EnergyEquipmentIdbService } from './energy-equipment-idb.service';
 import { IdbEnergyEquipment } from '../models/energyEquipment';
+import { updateAssessmentUtilityUseCost, updateFacilityUtilityUseCost } from '../shared/reports/calculations/utilityCalculation';
+import { AssessmentIdbService } from './assessment-idb.service';
+import { IdbAssessment } from '../models/assessment';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +29,9 @@ export class UpdateDbEntriesService {
   constructor(
     private keyPerformanceIndicatorsIdbService: KeyPerformanceIndicatorsIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
+    private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,
+    private assessmentIdbService: AssessmentIdbService,
     private userIdbService: UserIdbService,
     private localeService: LocaleService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
@@ -49,6 +54,9 @@ export class UpdateDbEntriesService {
 
     await this.updateProcessEquipment();
     await this.updateEnergyEquipment();
+    await this.updateCompany();
+    await this.updateFacility();
+    await this.updateAssessment();
     
     if (userNeedsUpdate) {
       user = await firstValueFrom(this.userIdbService.updateWithObservable(user));
@@ -160,5 +168,52 @@ export class UpdateDbEntriesService {
       }
       await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(missingAssessmentIds[i]));
     }
+  }
+
+  async updateCompany() {
+    let companies: Array<IdbCompany> = await firstValueFrom(this.companyIdbService.getAll());
+    // back-compatibility for company energy unit
+    for (let i = 0; i < companies.length; i++) {
+      let company: IdbCompany = companies[i];
+      if (company.companyEnergyUnit == undefined) {
+        company.companyEnergyUnit = 'MMBtu';
+      }
+      await firstValueFrom(this.companyIdbService.updateWithObservable(company));
+    }
+    await this.companyIdbService.setCompanies();
+  }
+
+  async updateFacility() {
+    let facilities: Array<IdbFacility> = await firstValueFrom(this.facilityIdbService.getAll());
+    // back-compatibility for water use and costs
+    for (let i = 0; i < facilities.length; i++) {
+      let facility: IdbFacility = facilities[i];
+      if (facility.waterCost == undefined) {
+        // need recalculate uses and costs
+        let company: IdbCompany = this.companyIdbService.getByGUID(facility.companyId);
+        facility = updateFacilityUtilityUseCost(facility, company.companyEnergyUnit);
+      }
+      await firstValueFrom(this.facilityIdbService.updateWithObservable(facility));
+    }
+    await this.facilityIdbService.setFacilities();
+  }
+  
+  async updateAssessment() {
+    let assessments: Array<IdbAssessment> = await firstValueFrom(this.assessmentIdbService.getAll());
+    // back-compatibility for water use and costs
+    for (let i = 0; i < assessments.length; i++) {
+      let assessment: IdbAssessment = assessments[i];
+      if (assessment.waterCost == undefined) {
+        // need recalculate uses and costs
+        let facility: IdbFacility = this.facilityIdbService.getByGUID(assessment.facilityId);
+        let company: IdbCompany = this.companyIdbService.getByGUID(facility.companyId);
+        assessment = updateAssessmentUtilityUseCost(assessment, facility, company.companyEnergyUnit);
+        if (assessment.energyCostSavings == undefined) {
+          assessment.energyCostSavings = 0;
+        }
+      }
+      await firstValueFrom(this.assessmentIdbService.updateWithObservable(assessment));
+    }
+    await this.assessmentIdbService.setAssessments();
   }
 }
