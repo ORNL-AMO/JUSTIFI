@@ -188,6 +188,17 @@
             </div>
         </div>
         <div class="row">
+            <label class="col-sm-5 col-form-label" for="energyCostSavings">Annual Energy Cost Savings</label>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <input name="energyCostSavings" type="number" class="form-control"
+                        [(ngModel)]="assessment.energyCostSavings" (input)="saveChanges()" id="energyCostSavings"
+                        [disabled]="isDisabled">
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <label class="col-sm-5 col-form-label" for="costSavings">Annual Cost Savings</label>
             <div class="col-sm-7">
                 <div class="input-group">

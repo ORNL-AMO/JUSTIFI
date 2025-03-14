@@ -59,18 +59,25 @@ export function getAssessmentReport(
     let energyOpportunityWaterCostSavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
         return report.totalWaterCostSavings
     });
-    let totalEnergyCostSavings: number = 0;
-    let totalWaterCostSavings: number = 0;
+    let totalNonNebEnergyCostSavings: number = 0;
+    let totalNonNebWaterCostSavings: number = 0;
+    let totalNonNebCostSavings: number = 0;
 
     if (energyOpportunityEnergyCostSavings) {
-        totalEnergyCostSavings += energyOpportunityEnergyCostSavings;
+        totalNonNebEnergyCostSavings += energyOpportunityEnergyCostSavings;
+        totalNonNebCostSavings += energyOpportunityEnergyCostSavings;   
     };
     if (energyOpportunityWaterCostSavings) {
-        totalWaterCostSavings += energyOpportunityWaterCostSavings;
+        totalNonNebWaterCostSavings += energyOpportunityWaterCostSavings;
+        totalNonNebCostSavings += energyOpportunityWaterCostSavings;
     };
 
-    let totalNonNebCostSavings: number = totalEnergyCostSavings + totalWaterCostSavings;
-
+    if (assessment.energyCostSavings) {
+        totalNonNebEnergyCostSavings += assessment.energyCostSavings;
+    }
+    if (assessment.waterCostSavings) {
+        totalNonNebWaterCostSavings += assessment.waterCostSavings;
+    }
     if (assessment.costSavings) {
         totalNonNebCostSavings += assessment.costSavings;
     }
@@ -86,7 +93,9 @@ export function getAssessmentReport(
     let totalCostSavings: number = totalNonNebCostSavings + totalNebCostSavings;
 
     let opportunityEnergySavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
-        if (report.energyOpportunity.energySavings) {
+        if (report.energyOpportunity.includeSavings && 
+            report.energyOpportunity.utilityCategory == 'energy' 
+            && report.energyOpportunity.energySavings) {
             return report.energyOpportunity.energySavings;
         }
         return 0;
@@ -144,8 +153,8 @@ export function getAssessmentReport(
         energyOpportunityReports: energyOpportunityReports,
         assessmentNebReports: assessmentNebReports,
         // totalNebReports: totalNebReports,
-        totalEnergyCostSavings: totalEnergyCostSavings,
-        totalWaterCostSavings: totalWaterCostSavings,
+        totalEnergyCostSavings: totalNonNebEnergyCostSavings,
+        totalWaterCostSavings: totalNonNebWaterCostSavings,
         totalAssessmentNebSavings: totalAssessmentNebCostSavings,
         totalNebCostSavings: totalNebCostSavings,
         totalNonNebCostSavings: totalNonNebCostSavings,

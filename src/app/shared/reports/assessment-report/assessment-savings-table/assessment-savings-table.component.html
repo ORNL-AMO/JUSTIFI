@@ -5,10 +5,10 @@
 
             </th>
             <th class="text-right">
-                Cost ({{ currencyCode | currencySymbol }}/yr)
+                Cost Savings ({{ currencyCode | currencySymbol }}/yr)
             </th>
             <th class="text-right">
-                Energy (MMBtu/yr)
+                Use Savings (/yr)
             </th>
         </tr>
     </thead>
@@ -25,11 +25,12 @@
             </td>
             <td class="text-right">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.cost"
-                    [isCurrency]="true"></app-single-cell-item>
+                    [isCurrency]="true" [negativeNumber]="true"></app-single-cell-item>
             </td>
             <td class="text-right">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.energyUse"
-                    [isCurrency]="false"></app-single-cell-item>
+                    [isCurrency]="false" [units]="companyEnergyUnit"
+                    [negativeNumber]="true"></app-single-cell-item>
             </td>
         </tr>
         <tr class="section-border">
@@ -42,12 +43,12 @@
                 <fa-icon [icon]="faScrewdriverWrench"></fa-icon>  Assessment Energy Savings
             </td>
             <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
+                <app-single-cell-item [numValue]="assessmentReport.assessment.energyCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
             <td class="text-right">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.energySavings"
-                    [isCurrency]="false"></app-single-cell-item>
+                    [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
             </td>
         </tr>
         <tr *ngIf="assessmentReport.assessmentNebReports.length > 0">
@@ -73,12 +74,12 @@
                 Total Assessment Level Savings
             </td>
             <td class="text-right bold">
-                <app-single-cell-item [numValue]="assessmentReport.totalNonOpportunitySavings"
+                <app-single-cell-item [numValue]="assessmentReport.totalNonOpportunityCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
             <td class="text-right bold">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.energySavings"
-                    [isCurrency]="false"></app-single-cell-item>
+                    [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
             </td>
         </tr>
         <ng-container *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
@@ -88,16 +89,19 @@
                 </td>
             </tr>
             <tr>
+                @let energyOpportunity = energyOpportunityReport.energyOpportunity;
                 <td class="ps-4">
-                    {{energyOpportunityReport.energyOpportunity.name}} Energy Savings
+                    {{ energyOpportunity.name }}
+                    {{ energyOpportunity.utilityCategory == 'water' ? 'Water' : 'Energy' }} Savings
                 </td>
                 <td class="text-right">
-                    <app-single-cell-item [numValue]="energyOpportunityReport.energyOpportunity.costSavings"
+                    <app-single-cell-item [numValue]="energyOpportunity.costSavings"
                         [isCurrency]="true"></app-single-cell-item>
                 </td>
                 <td class="text-right">
-                    <app-single-cell-item [numValue]="energyOpportunityReport.energyOpportunity.energySavings"
-                        [isCurrency]="false"></app-single-cell-item>
+                    <app-single-cell-item [numValue]="energyOpportunity.utilityCategory == 'water' ? 
+                        energyOpportunity.waterSavings : energyOpportunity.energySavings"
+                        [isCurrency]="false" [units]="energyOpportunity.energyUnit"></app-single-cell-item>
                 </td>
             </tr>
             <tr *ngFor="let nebReport of energyOpportunityReport.nebReports">
@@ -122,8 +126,9 @@
                         [isCurrency]="true"></app-single-cell-item>
                 </td>
                 <td class="text-right bold">
-                    <app-single-cell-item [numValue]="energyOpportunityReport.energyOpportunity.energySavings"
-                        [isCurrency]="false"></app-single-cell-item>
+                    <app-single-cell-item [numValue]="energyOpportunity.utilityCategory == 'water' ? 
+                        energyOpportunity.waterSavings : energyOpportunity.energySavings"
+                        [isCurrency]="false" [units]="energyOpportunity.energyUnit"></app-single-cell-item>
                 </td>
             </tr>
         </ng-container>
@@ -137,7 +142,7 @@
             </td>
             <td class="text-right bold">
                 <app-single-cell-item [numValue]="assessmentReport.totalEnergySavings"
-                    [isCurrency]="false"></app-single-cell-item>
+                    [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
             </td>
         </tr>
         <tr>
@@ -145,7 +150,7 @@
                 Total Additional Operational Benefits
             </td>
             <td class="text-right bold w-25">
-                <app-single-cell-item [numValue]="assessmentReport.totalNebSavings"
+                <app-single-cell-item [numValue]="assessmentReport.totalNebCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
             <td class="text-right bold">
@@ -162,7 +167,7 @@
                     [isCurrency]="true"></app-single-cell-item>
             </td>
             <td class="text-right bold">
-                <app-single-cell-item [numValue]="assessmentReport.totalEnergySavings"
+                <app-single-cell-item [numValue]="0"
                     [isCurrency]="false"></app-single-cell-item>
             </td>
         </tr>

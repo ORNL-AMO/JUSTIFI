@@ -71,7 +71,7 @@
     <ng-container *ngIf="energyOpportunity.includeSavings">
         <ng-template [ngIf]="energyOpportunity?.utilityCategory == 'water'" [ngIfElse]="energySavingBlock">
             <div class="row">
-                <label class="col-sm-5 col-form-label" for="{{'waterSavings'+energyOpportunity.guid}}">
+                <label class="col-sm-5 col-form-label" for="{{'waterSavings_'+energyOpportunity.guid}}">
                     Water Savings
                     </label>
                 <div class="col-sm-7">

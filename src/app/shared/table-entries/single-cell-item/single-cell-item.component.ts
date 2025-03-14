@@ -21,6 +21,8 @@ export class SingleCellItemComponent {
   isCurrency: boolean;
   @Input()
   numValueDigits: string = '1.0-2';
+  @Input()
+  negativeNumber: boolean = false;
   
   currencyCode: string;
   currencySub: Subscription;
