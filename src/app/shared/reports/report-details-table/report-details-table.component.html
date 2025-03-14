@@ -33,10 +33,10 @@
                 Visit Date
             </td>
             <td>
-                <ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentBlock">
+                <ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentVisitDateBlock">
                     {{onSiteVisit.visitDate | date}}
                 </ng-template>
-                <ng-template #assessmentBlock>
+                <ng-template #assessmentVisitDateBlock>
                     {{assessment.visitDate | date}}
                 </ng-template>
             </td>
