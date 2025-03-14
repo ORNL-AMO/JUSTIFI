@@ -48,13 +48,13 @@
             </td>
         </tr>
         <tr class="section-border">
-            <td class="bold" colspan="3">
-                {{assessmentReport.assessment.name}}
+            <td class="bold ps-3" colspan="3">
+                <fa-icon class="pe-2" [icon]="faScrewdriverWrench"></fa-icon> {{assessmentReport.assessment.name}}
             </td>
         </tr>
         <tr>
             <td class="w-50 ps-3">
-                <fa-icon [icon]="faScrewdriverWrench"></fa-icon>  Assessment Energy Savings
+                Assessment Energy Savings
             </td>
             <td class="text-right">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.energyCostSavings"
@@ -63,6 +63,18 @@
             <td class="text-right">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.energySavings"
                     [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
+            </td>
+        </tr>
+        <tr>
+            <td class="w-50 ps-3">
+                 Assessment Utility Savings
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
+                    [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td class="text-right">
+                &mdash;
             </td>
         </tr>
         <tr *ngIf="assessmentReport.assessmentNebReports.length > 0">
@@ -92,8 +104,7 @@
                     [isCurrency]="true"></app-single-cell-item>
             </td>
             <td class="text-right bold">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.energySavings"
-                    [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
+                &mdash;
             </td>
         </tr>
         <ng-container *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
@@ -161,6 +172,18 @@
         </tr>
         <tr>
             <td class="w-50 bold">
+                Total Cost Savings
+            </td>
+            <td class="text-right bold w-25">
+                <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
+                    [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td class="text-right bold">
+                &mdash;
+            </td>
+        </tr>
+        <tr>
+            <td class="w-50 bold">
                 Total Additional Operational Benefits
             </td>
             <td class="text-right bold w-25">
@@ -174,7 +197,7 @@
         </tr>
         <tr>
             <td class="w-50 bold">
-                Total Savings
+                Total Cost Savings W/ NEBs
             </td>
             <td class="text-right bold w-25">
                 <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
