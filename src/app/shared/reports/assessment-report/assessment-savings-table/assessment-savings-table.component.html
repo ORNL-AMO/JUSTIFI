@@ -24,13 +24,27 @@
                 Energy Use
             </td>
             <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.cost"
+                <app-single-cell-item [numValue]="assessmentReport.assessment.energyCost"
                     [isCurrency]="true" [negativeNumber]="true"></app-single-cell-item>
             </td>
             <td class="text-right">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.energyUse"
                     [isCurrency]="false" [units]="companyEnergyUnit"
                     [negativeNumber]="true"></app-single-cell-item>
+            </td>
+        </tr>
+        <tr>
+            <td class="w-50 ps-3">
+                <!-- Baseline -->
+                Utility Use
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="assessmentReport.assessment.cost"
+                    [isCurrency]="true" [negativeNumber]="true"></app-single-cell-item>
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="0"
+                    [isCurrency]="false"></app-single-cell-item>
             </td>
         </tr>
         <tr class="section-border">
