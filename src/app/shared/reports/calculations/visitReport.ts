@@ -11,14 +11,14 @@ import * as _ from 'lodash';
 
 export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: Array<IdbAssessment>,
     energyOpportunities: Array<IdbEnergyOpportunity>, nonEnergyBenefits: Array<IdbNonEnergyBenefit>,
-    companyPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>): OnSiteVisitReport {
+    facilityPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>): OnSiteVisitReport {
 
     let assessmentReports: Array<AssessmentReport> = new Array();
     assessmentIds.forEach(assessmentId => {
         let assessment: IdbAssessment = assessments.find(assessment => {
             return assessment.guid == assessmentId;
         });
-        let assessmentReport: AssessmentReport = getAssessmentReport(assessment, energyOpportunities, nonEnergyBenefits, companyPerformanceMetrics, keyPerformanceMetricImpacts);
+        let assessmentReport: AssessmentReport = getAssessmentReport(assessment, energyOpportunities, nonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts);
         assessmentReports.push(assessmentReport);
     });
     let allNebReports: Array<NebReport> = assessmentReports.flatMap(report => {
@@ -28,15 +28,22 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
     let totalEnergyCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
         return report.totalEnergyCostSavings
     });
+    let totalWaterCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.totalWaterCostSavings
+    });
 
     let totalCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
         return report.totalCostSavings
     });
 
-    let totalNebSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
-        return report.totalNebSavings
+    let totalNebCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.totalNebCostSavings
     });
-    let totalEnergyCosts: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+    let totalNonNebCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.totalNonNebCostSavings
+    });
+
+    let totalUtilityCosts: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
         return report.assessment.cost
     });
 
@@ -46,7 +53,7 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         }
         return 0;
     });
-    let totalPaybackWithoutNebs: number = (totalImplementationCost / totalEnergyCostSavings);
+    let totalPaybackWithoutNebs: number = (totalImplementationCost / totalNonNebCostSavings);
     if (totalPaybackWithoutNebs == Infinity || isNaN(totalPaybackWithoutNebs)) {
         totalPaybackWithoutNebs = 0;
     }
@@ -59,12 +66,14 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         allNebReports: allNebReports,
         keyPerformanceIndicatorReport: getKeyPerfomanceIndicatorReport(allNebReports),
         totalEnergyCostSavings: totalEnergyCostSavings,
+        totalWaterCostSavings: totalWaterCostSavings,
         totalCostSavings: totalCostSavings,
-        totalEnergyCosts: totalEnergyCosts,
+        totalUtilityCosts: totalUtilityCosts,
         totalPaybackWithNebs: totalPaybackWithNebs,
         totalPaybackWithoutNebs: totalPaybackWithoutNebs,
         totalImplementationCost: totalImplementationCost,
-        totalNebSavings: totalNebSavings
+        totalNebCostSavings: totalNebCostSavings,
+        totalNonNebCostSavings: totalNonNebCostSavings
     };
 }
 
@@ -74,10 +83,12 @@ export interface OnSiteVisitReport {
     allNebReports: Array<NebReport>,
     keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport,
     totalEnergyCostSavings: number,
-    totalEnergyCosts: number,
+    totalWaterCostSavings: number,
+    totalUtilityCosts: number,
     totalCostSavings: number,
     totalImplementationCost: number,
     totalPaybackWithoutNebs: number,
     totalPaybackWithNebs: number,
-    totalNebSavings: number
+    totalNebCostSavings: number,
+    totalNonNebCostSavings: number
 }

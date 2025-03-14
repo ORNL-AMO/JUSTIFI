@@ -109,20 +109,20 @@ export class AssessmentSavingsChartComponent {
 
     if (this.assessmentReport.assessment.costSavings) {
       trace.values.push(this.assessmentReport.assessment.costSavings);
-      trace.labels.push('Assessment (Energy Cost) Savings');
+      trace.labels.push('Assessment: ' + this.assessmentReport.assessment.name);
       trace.marker.line.width.push(2)
     }
 
     this.assessmentReport.energyOpportunityReports.forEach(report => {
-      if (report.totalEnergyCostSavings) {
-        trace.labels.push(report.energyOpportunity.name + ' (Energy Cost) Savings')
-        trace.values.push(report.totalEnergyCostSavings)
+      if (report.totalNonNebCostSavings) {
+        trace.labels.push('Energy Opportunity: ' + report.energyOpportunity.name)
+        trace.values.push(report.totalNonNebCostSavings)
         trace.marker.line.width.push(2)
       }
 
       report.nebReports.forEach(nebReport => {
         if (nebReport.totalCostSavings) {
-          trace.labels.push(nebReport.nonEnergyBenefit.name)
+          trace.labels.push('Non-Energy Benefit: ' + nebReport.nonEnergyBenefit.name)
           trace.values.push(nebReport.totalCostSavings)
           trace.marker.line.width.push(2)
         }
@@ -132,7 +132,7 @@ export class AssessmentSavingsChartComponent {
 
     this.assessmentReport.assessmentNebReports.forEach(nebReport => {
       if (nebReport.totalCostSavings) {
-        trace.labels.push(nebReport.nonEnergyBenefit.name)
+        trace.labels.push('Non-Energy Benefit: ' + nebReport.nonEnergyBenefit.name)
         trace.values.push(nebReport.totalCostSavings)
         trace.marker.line.width.push(2)
       }
