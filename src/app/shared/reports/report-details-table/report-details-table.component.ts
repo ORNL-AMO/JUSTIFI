@@ -21,9 +21,10 @@ export class ReportDetailsTableComponent {
   company: IdbCompany;
   facility: IdbFacility;
 
-  constructor(private facilityIdbService: FacilityIdbService, private companyIdbService: CompanyIdbService){
-
-  }
+  constructor(
+    private facilityIdbService: FacilityIdbService,
+    private companyIdbService: CompanyIdbService
+  ) {}
 
   ngOnInit(){
     if(this.onSiteVisit){
