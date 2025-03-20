@@ -12,6 +12,6 @@ export const LabelTooltips = {
         "tooltip": "The method used to calculate impacts on the metric."
     },
     "associatedEEM": {
-        "tooltip": "Is this NEB realized because of the implementation of a specific energy efficiency opportunity?"
+        "tooltip": "Is this NEB realized because of the implementation of a specific energy efficiency measure?"
     }
 }

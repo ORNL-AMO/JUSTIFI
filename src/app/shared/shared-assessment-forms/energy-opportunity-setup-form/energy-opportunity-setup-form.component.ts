@@ -121,7 +121,7 @@ export class EnergyOpportunitySetupFormComponent {
   async deleteEnergyOpportunity() {
     await this.dbChangesService.deleteEnergyOpportunity(this.energyOpportunity)
     this.closeDeleteModal();
-    this.toastNotificationService.showToast('Opportunity Deleted!', 'Energy efficiency opportunity removed from assessment.', 'bg-success', true, false);
+    this.toastNotificationService.showToast('Measure Deleted!', 'Energy efficiency measure removed from assessment.', 'bg-success', true, false);
     if (this.router.url.includes('portfolio')) {
       this.router.navigateByUrl('portfolio/assessment/' + this.energyOpportunity.assessmentId + '/energy-opportunities')
     }
