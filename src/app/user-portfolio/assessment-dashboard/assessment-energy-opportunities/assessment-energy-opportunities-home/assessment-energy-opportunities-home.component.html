@@ -2,7 +2,7 @@
     <div>
         <button class="btn btn-outline-success btn-sm" (click)="addEnergyOpportunity()">
             <fa-icon [icon]="faPlus"></fa-icon>
-            Add Energy Efficiency Opportunity
+            Add EEM
         </button>
     </div>
 </div>
@@ -13,7 +13,7 @@
         <thead>
             <tr>
                 <th class="w-25">
-                    Opportunity Name
+                    Measure Name
                 </th>
                 <th class="w-25">
                     NEBs
@@ -58,7 +58,7 @@
 
 <ng-template #noOpportunitiesBlock>
     <div class="alert alert-info p-2 text-center">
-        No energy efficiency opportunities found for this assessment. Use the "<fa-icon [icon]="faPlus"></fa-icon>
-        Add Energy Efficiency Opportunity" button to add an opportunity this assessment.
+        No energy efficiency measures found for this assessment. Use the "<fa-icon [icon]="faPlus"></fa-icon>
+        Add EEM" button to add a measure this assessment.
     </div>
 </ng-template>
