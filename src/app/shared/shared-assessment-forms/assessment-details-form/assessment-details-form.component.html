@@ -140,36 +140,34 @@
             Annual Summary
         </div>
         <div class="col-4 bold">
-            Use/Savings
+            Costs/Cost Savings
         </div>
         <div class="col-4 bold">
-            Costs/Cost Savings
+            Use/Savings
         </div>
     </div>
     <ng-container *ngIf="assessment.utilityEnergyUses| utilityTrackedAssessment: 'energy'">
         <div class="row">
             <label class="col-sm-4 col-form-label" for="energyUse">Energy
-                Uses and Costs</label>
-            <div class="col-sm-4">
-                <div class="col-sm-4" id="{{'energyUse_'+assessment.guid}}">
-                    {{assessment.energyUse | number:'1.0-2'}}&nbsp;
-                    <span [innerHTML]="numberOfTrackedEnergyUtilities === 1?
-                        (trackedEnergyUnit | unitsDisplay) + '/yr': (companyEnergyUnit | unitsDisplay) + '/yr'"></span>
-                </div>
-            </div>
+                Uses</label>
             <div class="col-sm-4" id="energyCost">
                 {{assessment.energyCost | currency: currencyCode:'symbol':'1.0-2'}}
             </div>
+            <div class="col-sm-4" id="{{'energyUse_'+assessment.guid}}">
+            {{assessment.energyUse | number:'1.0-2'}}&nbsp;
+            <span [innerHTML]="numberOfTrackedEnergyUtilities === 1?
+                (trackedEnergyUnit | unitsDisplay) + '/yr': (companyEnergyUnit | unitsDisplay) + '/yr'"></span>
+            </div>
         </div>
         <div class="row">
-            <label class="col-sm-4 col-form-label" for="energySavings">Energy Savings and Cost Savings</label>
+            <label class="col-sm-4 col-form-label" for="energySavings">Energy Savings</label>
+            <div class="col-sm-4" id="energyCostSavings">
+                {{assessment.energyCostSavings | currency: currencyCode:'symbol':'1.0-2'}}
+            </div>
             <div class="col-sm-4">
                 {{assessment.energySavings | number:'1.0-2'}}&nbsp;
                 <span [innerHTML]="numberOfTrackedEnergyUtilities === 1?
                     (trackedEnergyUnit | unitsDisplay) + '/yr': (companyEnergyUnit | unitsDisplay) + '/yr'"></span>
-            </div>
-            <div class="col-sm-4" id="energyCostSavings">
-                {{assessment.energyCostSavings | currency: currencyCode:'symbol':'1.0-2'}}
             </div>
         </div>
     </ng-container>
@@ -179,14 +177,14 @@
             <label class="col-sm-4 col-form-label" for="{{'watercost_'+assessment.guid}}">
                 Water Related
                 Costs</label>
-            <div class="col-sm-4">&mdash;</div>
             <div class="col-sm-4" id="{{'watercost_'+assessment.guid}}">
                 {{assessment.waterCost | currency:currencyCode:'symbol':'1.0-2'}}
             </div>
         </div>
         <div class="row">
-            <label class="col-sm-4 col-form-label" for="waterCostSavings">Water Related Cost Savings</label>
-            <div class="col-sm-4">&mdash;</div>
+            <label class="col-sm-4 col-form-label" for="waterCostSavings">
+                Water Related
+                Savings</label>
             <div class="col-sm-4" id="waterCostSavings">
                 {{assessment.waterCostSavings | currency: currencyCode:'symbol':'1.0-2'}}
             </div>
@@ -196,10 +194,7 @@
     <div class="row">
         <label class="col-sm-4 col-form-label" for="{{'cost_'+assessment.guid}}">
             Total Utility
-            Cost</label>
-        <div class="col-sm-4">
-            &mdash;
-        </div>
+            Costs</label>
         <div class="col-sm-4" id="{{'cost_'+assessment.guid}}">
             {{assessment.cost | currency: currencyCode:'symbol':'1.0-2'}}
         </div>
@@ -208,9 +203,6 @@
         <label class="col-sm-4 col-form-label" for="{{'costSavings_'+assessment.guid}}">
             Total Utility
             Cost Savings</label>
-        <div class="col-sm-4">
-            &mdash;
-        </div>
         <div class="col-sm-4" id="{{'costSavings_'+assessment.guid}}">
             {{assessment.costSavings | currency: currencyCode:'symbol':'1.0-2'}}
         </div>
