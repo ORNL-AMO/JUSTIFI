@@ -207,7 +207,7 @@ export class UpdateDbEntriesService {
         // need recalculate uses and costs
         let facility: IdbFacility = this.facilityIdbService.getByGUID(assessment.facilityId);
         let company: IdbCompany = this.companyIdbService.getByGUID(facility.companyId);
-        assessment = updateAssessmentUtilityUseCostSavings(assessment, facility, company.companyEnergyUnit);
+        assessment = updateAssessmentUtilityUseCostSavings(assessment, facility.unitSettings, company.companyEnergyUnit);
         if (assessment.energyCostSavings == undefined) {
           assessment.energyCostSavings = 0;
         }

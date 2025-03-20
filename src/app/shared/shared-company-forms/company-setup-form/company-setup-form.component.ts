@@ -79,7 +79,7 @@ export class CompanySetupFormComponent {
   async saveUnitChanges() {
     this.energyUnitChange = true;
     await this.saveChanges();
-    await this.preAassessmentSetupService.updateAssessmentEnergyUse(
+    await this.preAassessmentSetupService.updateAssessmentUtilityUseSaving(
       this.companyAssessments, this.energyUnit.value);
     await this.facilitySetupService.updateFacilityEnergyUse(
       this.companyFacilities, this.energyUnit.value);

@@ -137,60 +137,61 @@
     <hr>
 
     <div class="row mb-1">
-        <div class="col-4 bold">
+        <div class="bold" [ngClass]="{'col-sm-5': inPreAssessment, 'col-sm-4': !inPreAssessment}">
             Annual Summary
         </div>
-        <div class="col-4 bold">
+        <div class="bold" [ngClass]="{'col-sm-7': inPreAssessment, 'col-sm-4': !inPreAssessment}">
             Costs
-            <span *ngIf="!inPreAssessment"> / Cost Savings</span>
         </div>
-        <div class="col-4 bold">
-            Use
-            <span *ngIf="!inPreAssessment"> / Savings</span>
+        <div class="col-4 bold" *ngIf="!inPreAssessment">
+            Cost Savings
         </div>
     </div>
     <ng-container *ngIf="assessment.utilityEnergyUses| utilityTrackedAssessment: 'energy'">
         <div class="row">
-            <label class="col-sm-4 col-form-label" for="{{'energyCost_'+assessment.guid}}">Energy
+            <label class="col-form-label" [ngClass]="{'col-sm-5': inPreAssessment, 'col-sm-4': !inPreAssessment}"
+                for="{{'energyCost_'+assessment.guid}}">Energy
                 Related</label>
-            <div class="col-sm-4" id="{{'energyCost_'+assessment.guid}}">
+            <div class="col-sm-4" [ngClass]="{'col-sm-7': inPreAssessment, 'col-sm-4': !inPreAssessment}"
+                id="{{'energyCost_'+assessment.guid}}">
                 {{assessment.energyCost | currency: currencyCode:'symbol':'1.0-2'}}
-                <span *ngIf="!inPreAssessment">
-                    / {{assessment.energyCostSavings | currency: currencyCode:'symbol':'1.0-2'}}
-                </span>
             </div>
-            <div class="col-sm-4" id="{{'energyUse_'+assessment.guid}}">
-                {{assessment.energyUse | number:'1.0-2'}}
-                <span *ngIf="!inPreAssessment">/ {{assessment.energySavings | number:'1.0-2'}} </span>
-                <span [innerHTML]="numberOfTrackedEnergyUtilities === 1?
-                    (trackedEnergyUnit | unitsDisplay) + '/yr': (companyEnergyUnit | unitsDisplay) + '/yr'"></span>
+            <div class="col-4" *ngIf="!inPreAssessment"
+                id="{{'EnergyCostSavings_'+assessment.guid}}">
+                {{assessment.energyCostSavings | currency: currencyCode:'symbol':'1.0-2'}}
             </div>
         </div>
     </ng-container>
 
     <ng-container *ngIf="assessment.utilityEnergyUses| utilityTrackedAssessment: 'water'">
         <div class="row">
-            <label class="col-sm-4 col-form-label" for="{{'watercost_'+assessment.guid}}">
+            <label class="col-form-label" [ngClass]="{'col-sm-5': inPreAssessment, 'col-sm-4': !inPreAssessment}"
+                for="{{'watercost_'+assessment.guid}}">
                 Water Related
             </label>
-            <div class="col-sm-4" id="{{'watercost_'+assessment.guid}}">
+            <div [ngClass]="{'col-sm-7': inPreAssessment, 'col-sm-4': !inPreAssessment}"
+                id="{{'watercost_'+assessment.guid}}">
                 {{assessment.waterCost | currency:currencyCode:'symbol':'1.0-2'}}
-                <span *ngIf="!inPreAssessment">
-                    / {{assessment.waterCostSavings | currency: currencyCode:'symbol':'1.0-2'}}
-                </span>
+            </div>
+            <div class="col-4" *ngIf="!inPreAssessment"
+                id="{{'WaterCostSavings_'+assessment.guid}}">
+                {{assessment.waterCostSavings | currency: currencyCode:'symbol':'1.0-2'}}
             </div>
         </div>
     </ng-container>
 
     <div class="row">
-        <label class="col-sm-4 col-form-label" for="{{'UtilityCost_'+assessment.guid}}">
+        <label class="col-form-label" [ngClass]="{'col-sm-5': inPreAssessment, 'col-sm-4': !inPreAssessment}"
+            for="{{'UtilityCost_'+assessment.guid}}">
             Total Utility
         </label>
-        <div class="col-sm-4" id="{{'UtilityCost_'+assessment.guid}}">
+        <div [ngClass]="{'col-sm-7': inPreAssessment, 'col-sm-4': !inPreAssessment}"
+            id="{{'UtilityCost_'+assessment.guid}}">
             {{assessment.cost | currency: currencyCode:'symbol':'1.0-2'}}
-            <span *ngIf="!inPreAssessment">
-                / {{assessment.costSavings | currency: currencyCode:'symbol':'1.0-2'}}
-            </span>
+        </div>
+        <div class="col-4" *ngIf="!inPreAssessment"
+            id="{{'UtilityCostSavings_'+assessment.guid}}">
+            {{assessment.costSavings | currency: currencyCode:'symbol':'1.0-2'}}
         </div>
     </div>
     <ng-container *ngIf="!inPreAssessment">
