@@ -4,7 +4,7 @@ import { KeyPerformanceMetricImpactsIdbService } from './key-performance-metric-
 import { CompanyIdbService } from './company-idb.service';
 import { FacilityIdbService } from './facility-idb.service';
 import { IdbCompany } from '../models/company';
-import { firstValueFrom } from 'rxjs';
+import { first, firstValueFrom } from 'rxjs';
 import { IdbFacility } from '../models/facility';
 import { IdbKeyPerformanceIndicator } from '../models/keyPerformanceIndicator';
 import { IdbUser } from '../models/user';
@@ -180,33 +180,35 @@ export class UpdateDbEntriesService {
       }
       await firstValueFrom(this.companyIdbService.updateWithObservable(company));
     }
-    await this.companyIdbService.setCompanies();
   }
 
   async updateFacility() {
     let facilities: Array<IdbFacility> = await firstValueFrom(this.facilityIdbService.getAll());
+    // Get company entries
+    let companies: Array<IdbCompany> = await firstValueFrom(this.companyIdbService.getAll());
     // back-compatibility for water use and costs
     for (let i = 0; i < facilities.length; i++) {
       let facility: IdbFacility = facilities[i];
       if (facility.waterCost == undefined) {
         // need recalculate uses and costs
-        let company: IdbCompany = this.companyIdbService.getByGUID(facility.companyId);
+        let company: IdbCompany = companies.find(_company => { return _company.guid == facility.companyId });
         facility = updateFacilityUtilityUseCost(facility, company.companyEnergyUnit);
       }
       await firstValueFrom(this.facilityIdbService.updateWithObservable(facility));
     }
-    await this.facilityIdbService.setFacilities();
   }
   
   async updateAssessment() {
     let assessments: Array<IdbAssessment> = await firstValueFrom(this.assessmentIdbService.getAll());
+    let facilities: Array<IdbFacility> = await firstValueFrom(this.facilityIdbService.getAll());
+    let companies: Array<IdbCompany> = await firstValueFrom(this.companyIdbService.getAll());
     // back-compatibility for water use and costs
     for (let i = 0; i < assessments.length; i++) {
       let assessment: IdbAssessment = assessments[i];
       if (assessment.waterCost == undefined) {
         // need recalculate uses and costs
-        let facility: IdbFacility = this.facilityIdbService.getByGUID(assessment.facilityId);
-        let company: IdbCompany = this.companyIdbService.getByGUID(facility.companyId);
+        let facility: IdbFacility = facilities.find(_facility => { return _facility.guid == assessment.facilityId });
+        let company: IdbCompany = companies.find(_company => { return _company.guid == facility.companyId });
         assessment = updateAssessmentUtilityUseCost(assessment, facility, company.companyEnergyUnit);
         if (assessment.energyCostSavings == undefined) {
           assessment.energyCostSavings = 0;
@@ -214,6 +216,5 @@ export class UpdateDbEntriesService {
       }
       await firstValueFrom(this.assessmentIdbService.updateWithObservable(assessment));
     }
-    await this.assessmentIdbService.setAssessments();
   }
 }
