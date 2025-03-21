@@ -1,7 +1,7 @@
 <h6>
     <div class="d-flex w-100 justify-content-between">
         <div class="mt-auto bold">
-            Opportunity Details
+            Measure Details
         </div>
         <div class="d-flex">
             <button class="btn btn-danger btn-sm" (click)="showDeleteModal()">
@@ -12,7 +12,7 @@
 </h6>
 
 <p class="fw-light small">
-    Provide details about this energy efficiency opportunity in this assessment. Providing an implementation cost will
+    Provide details about this energy efficiency measure in this assessment. Providing an implementation cost will
     allow for
     payback calculations. These details will be rolled up to generate a final report on the assessment.
 </p>
@@ -20,7 +20,7 @@
 
 <form>
     <div class="row">
-        <label class="col-sm-5 col-form-label" for="{{'energyOpportunityName_'+energyOpportunity.guid}}">Opportunity
+        <label class="col-sm-5 col-form-label" for="{{'energyOpportunityName_'+energyOpportunity.guid}}">Measure
             Name</label>
         <div class="col-sm-7">
             <input name="{{'energyOpportunityName_'+energyOpportunity.guid}}" type="text" class="form-control"
@@ -130,7 +130,7 @@
                     id="{{'includeNotes_'+energyOpportunity.guid}}" [(ngModel)]="energyOpportunity.includeNote"
                     name="{{'includeNotes_'+energyOpportunity.guid}}" (input)="saveEnergyOpportunity()"
                     (focus)="focusField('notes')">
-                <label class="form-check-label" for="{{'includeNotes_'+energyOpportunity.guid}}">Opportunity
+                <label class="form-check-label" for="{{'includeNotes_'+energyOpportunity.guid}}">Measure
                     Notes</label>
             </div>
         </div>
@@ -149,18 +149,18 @@
 
 <div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
 <div class="popup" [ngClass]="{'open': displayDeleteModal }">
-    <div class="popup-header">Delete this energy opportunity?
+    <div class="popup-header">Delete this energy efficiency measure?
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
     </div>
     <div class="popup-body">
         <div class="alert alert-info">
-            Are you sure you want to delete this energy opportunity?
+            Are you sure you want to delete this energy efficiency measure?
         </div>
         <hr>
     </div>
     <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteModal()">Cancel</button>
         <button class="btn btn-danger btn-sm" (click)="deleteEnergyOpportunity()"><fa-icon [icon]="faTrash"
-                class="me-1"></fa-icon>Delete Opportunity</button>
+                class="me-1"></fa-icon>Delete Measure</button>
     </div>
 </div>
