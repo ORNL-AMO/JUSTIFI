@@ -9,13 +9,14 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 export class ReportIdbService {
 
   reports: BehaviorSubject<Array<IdbReport>>;
+  selectedReport: BehaviorSubject<IdbReport>;
   constructor(private dbService: NgxIndexedDBService) {
     this.reports = new BehaviorSubject<Array<IdbReport>>([]);
+    this.selectedReport = new BehaviorSubject<IdbReport>(undefined);
   }
 
   async setReports() {
     let _reports: Array<IdbReport> = await firstValueFrom(this.getAll());
-    console.log(_reports);
     this.reports.next(_reports);
   }
 
@@ -41,16 +42,16 @@ export class ReportIdbService {
     return this.dbService.update('report', report);
   }
 
-  // setSelectedFromGUID(guid: string): boolean {
-  //   let report: IdbReport = this.getByGuid(guid);
-  //   this.selectedEnergyEquipment.next(energyEquipment);
-  //   return energyEquipment != undefined;
-  // }
+  setSelectedFromGUID(guid: string): boolean {
+    let report: IdbReport = this.getByGuid(guid);
+    this.selectedReport.next(report);
+    return report != undefined;
+  }
 
   async asyncUpdate(report: IdbReport) {
     report = await firstValueFrom(this.updateWithObservable(report));
     await this.setReports();
-    // this.selectedEnergyEquipment.next(energyEquipment);
+    this.selectedReport.next(report);
   }
 
   getByGuid(guid: string): IdbReport {

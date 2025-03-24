@@ -54,6 +54,7 @@ import { AssociatedEnergyEquipmentModule } from "../shared/associated-energy-equ
 import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wizard-side-panel.module';
 import { DataEvaluationManageReportsComponent } from './data-evaluation/data-evaluation-manage-reports/data-evaluation-manage-reports.component';
 import { DataEvaluationCustomReportComponent } from './data-evaluation/data-evaluation-custom-report/data-evaluation-custom-report.component';
+import { SharedCustomReportsModule } from "../shared/shared-custom-reports/shared-custom-reports.module";
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { DataEvaluationCustomReportComponent } from './data-evaluation/data-eval
     SharedFacilityFormsModule,
     AssociatedContactsModule,
     AssociatedEnergyEquipmentModule,
-    AssociatedProcessEquipmentModule
+    AssociatedProcessEquipmentModule,
+    SharedCustomReportsModule
 ]
 })
 export class SetupWizardModule { }
