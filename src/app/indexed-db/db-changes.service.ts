@@ -120,7 +120,7 @@ export class DbChangesService {
     await this.deleteProcessEquipments(facilityProcessEquipment);
     //delete on site visits
     let onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisitIdbService.onSiteVisits.getValue();
-    let facilityOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits.filter(onSiteVisit => { return onSiteVisit.companyId == facility.guid });
+    let facilityOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits.filter(onSiteVisit => { return onSiteVisit.facilityId == facility.guid });
     await this.deleteOnSiteVisits(facilityOnSiteVisits);
     //delete facility
     await firstValueFrom(this.facilityIdbService.deleteWithObservable(facility.id));
