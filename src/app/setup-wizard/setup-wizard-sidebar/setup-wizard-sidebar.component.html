@@ -296,6 +296,35 @@
                         Rollup Report
                     </a>
                 </div>
+
+                <div class="nav-item">
+                    <a class="nav-link" (click)="toggleReportsSidebarOpen()"
+                        [ngClass]="routerUrl | navItemActive:'/custom-report/'">
+                        <fa-icon class="toggle"
+                            [icon]="onSiteVisit.sidebarReportsOpen ? faChevronDown : faChevronRight"></fa-icon>
+                        Custom Reports
+                    </a>
+                </div>
+                <div class="sidebar-section" *ngIf="onSiteVisit.sidebarReportsOpen">
+                    <div class="nav-item">
+                        <a class="nav-link" [routerLink]="'data-evaluation/'+onSiteVisit.guid+'/custom-report'"
+                            [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                            <fa-icon [icon]="faList"></fa-icon>
+                            Manage Reports
+                        </a>
+                    </div>
+                    @let onSiteReports = (reports | onSiteReportsList: onSiteVisit.guid);
+                    <ng-container *ngFor="let report of onSiteReports">
+                        <div class="nav-item">
+                            <a class="nav-link"
+                                [routerLink]="'data-evaluation/'+onSiteVisit.guid+'/custom-report/'+report.guid"
+                                [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                                <fa-icon [icon]="faFilePen"></fa-icon>
+                                {{report.name}}
+                            </a>
+                        </div>
+                    </ng-container>
+                </div>
             </div>
 
 

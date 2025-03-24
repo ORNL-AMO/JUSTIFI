@@ -24,6 +24,7 @@ import { IdbUser } from '../models/user';
 import { UserIdbService } from './user-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from './key-performance-metric-impacts-idb.service';
 import { IdbKeyPerformanceMetricImpact } from '../models/keyPerformanceMetricImpact';
+import { ReportIdbService } from './report-idb.service';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,8 @@ export class DbChangesService {
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
-    private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService) { }
+    private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
+    private reportIdbService: ReportIdbService) { }
 
 
   //TODO: loading service messaging and success toast notification
@@ -71,6 +73,8 @@ export class DbChangesService {
     let onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisitIdbService.onSiteVisits.getValue();
     let companyOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits.filter(onSiteVisit => { return onSiteVisit.companyId == company.guid });
     await this.deleteOnSiteVisits(companyOnSiteVisits);
+    //TODO: Delete REPORTS
+
     //delete kpis
     let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
     let companyKeyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = keyPerformanceIndicators.filter(kpi => { return kpi.companyId == company.guid });
@@ -122,6 +126,9 @@ export class DbChangesService {
     let onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisitIdbService.onSiteVisits.getValue();
     let facilityOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits.filter(onSiteVisit => { return onSiteVisit.companyId == facility.guid });
     await this.deleteOnSiteVisits(facilityOnSiteVisits);
+    //TODO delete reports
+
+
     //delete facility
     await firstValueFrom(this.facilityIdbService.deleteWithObservable(facility.id));
     await this.facilityIdbService.setFacilities();
@@ -193,7 +200,7 @@ export class DbChangesService {
       }
       await this.processEquipmentIdbService.setProcessEquipments();
     }
-
+    //TODO: Update reports
 
     //delete assessment
     await firstValueFrom(this.assessmentIdbService.deleteWithObservable(assessment.id));
@@ -205,6 +212,7 @@ export class DbChangesService {
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
     let nebKpmImpacts: Array<IdbKeyPerformanceMetricImpact> = keyPerformanceMetricImpacts.filter(metricImpact => { return metricImpact.nebId == nonEnergyBenefit.guid; })
     await this.deleteKeyPerformanceMetricImpacts(nebKpmImpacts);
+    //TODO: Update reports
 
     await firstValueFrom(this.nonEnergyBenefitsIdbService.deleteWithObservable(nonEnergyBenefit.id));
     await this.nonEnergyBenefitsIdbService.setNonEnergyBenefits();
@@ -246,10 +254,16 @@ export class DbChangesService {
       await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(associatedEEs[i]));
     }
 
+    //TODO: Update reports
+
     await firstValueFrom(this.energyOpportunityIdbService.deleteWithObservable(energyOpportunity.id));
     await this.energyOpportunityIdbService.setEnergyOpportunities();
   }
 
+
+  /*
+  Bulk Delete start
+  */
   async deleteAssessments(assessments: Array<IdbAssessment>) {
     // reset selected assessment if it is in the deletion list
     let selectedAssessment = this.assessmentIdbService.selectedAssessment.getValue();
@@ -441,7 +455,9 @@ export class DbChangesService {
     await firstValueFrom(this.energyEquipmentIdbService.deleteWithObservable(energyEquipment.id));
     await this.energyEquipmentIdbService.setEnergyEquipments();
   }
-
+  /*
+  End bulk delete
+  */
 
   selectOnSiteVisit(onSiteGUID: string): boolean {
     let onSiteExists: boolean = this.onSiteVisitIdbService.setSelectedFromGUID(onSiteGUID);
@@ -479,6 +495,7 @@ export class DbChangesService {
     await this.energyEquipmentIdbService.setEnergyEquipments();
     await this.processEquipmentIdbService.setProcessEquipments();
     await this.keyPerformanceMetricImpactsIdbService.setKeyPerformanceMetricImpacts();
+    await this.reportIdbService.setReports();
     this.userIdbService.user.next(user);
   }
 

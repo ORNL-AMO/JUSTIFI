@@ -94,6 +94,9 @@ export class NebContributionsBarChartComponent {
       xaxis: {
         automargin: true,
         tickprefix: '$'
+      },
+      legend: {
+        orientation: "h"
       }
     };
 

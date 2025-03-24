@@ -52,6 +52,8 @@ import { AssociatedContactsModule } from '../shared/associated-contacts/associat
 import { FacilityProtocolQuestionsComponent } from './pre-visit/facility-protocol-questions/facility-protocol-questions.component';
 import { AssociatedEnergyEquipmentModule } from "../shared/associated-energy-equipment/associated-energy-equipment.module";
 import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wizard-side-panel.module';
+import { DataEvaluationManageReportsComponent } from './data-evaluation/data-evaluation-manage-reports/data-evaluation-manage-reports.component';
+import { DataEvaluationCustomReportComponent } from './data-evaluation/data-evaluation-custom-report/data-evaluation-custom-report.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +91,9 @@ import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wiza
     ManagePreAssessmentsComponent,
     PreAssessmentFormComponent,
     NavItemActivePipe,
-    FacilityProtocolQuestionsComponent
+    FacilityProtocolQuestionsComponent,
+    DataEvaluationManageReportsComponent,
+    DataEvaluationCustomReportComponent
   ],
   imports: [
     CommonModule,
