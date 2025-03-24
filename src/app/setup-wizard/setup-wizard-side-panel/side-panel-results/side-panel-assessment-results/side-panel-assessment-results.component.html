@@ -1,9 +1,9 @@
 <div class="list-group list-group-flush mt-2" *ngIf="assessmentReport">
     <div class="list-group-item">
-        Current Energy Costs  <span class="float-right">{{assessmentReport.assessment.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
+        Current Utility Costs  <span class="float-right">{{assessmentReport.assessment.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
     </div>
     <div class="list-group-item pt-1">
-        Energy Cost Savings <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
+        Cost Savings <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
         <div class="progress" role="progressbar" [ariaValueNow]="percentSavings"
             aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavings}">
@@ -12,7 +12,7 @@
             </div>
         </div>
         <hr>
-        Savings W/ NEBs <span class="float-right small">({{percentSavingsNebs | number:'1.0-0'}} &percnt;)</span>
+        Cost Savings W/ NEBs <span class="float-right small">({{percentSavingsNebs | number:'1.0-0'}} &percnt;)</span>
         <div class="progress" role="progressbar"
             [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
@@ -29,7 +29,7 @@
             <thead>
                 <tr>
                     <th>
-                        Energy Savings
+                        Cost Savings
                     </th>
                     <th class="text-right w-25">
                         ({{currencyCode | currencySymbol}} / yr)
@@ -53,7 +53,7 @@
                         {{energyOpportunityReport.energyOpportunity.name}}
                     </td>
                     <td class="text-right">
-                        <app-single-cell-item [numValue]="energyOpportunityReport.totalEnergyCostSavings"
+                        <app-single-cell-item [numValue]="energyOpportunityReport.totalNonNebCostSavings"
                             [isCurrency]="true"></app-single-cell-item>
                     </td>
                 </tr>
@@ -64,7 +64,7 @@
                         Total
                     </th>
                     <th class="text-right">
-                        <app-single-cell-item [numValue]="assessmentReport.totalEnergyCostSavings"
+                        <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
                 </tr>
@@ -74,7 +74,7 @@
             <thead>
                 <tr>
                     <th colspan="2">
-                        Additional Opperation Benfits
+                        Additional Operation Benefits
                     </th>
                 </tr>
             </thead>
@@ -122,7 +122,7 @@
                         Total
                     </th>
                     <th class="text-right">
-                        <app-single-cell-item [numValue]="assessmentReport.totalNebSavings"
+                        <app-single-cell-item [numValue]="assessmentReport.totalNebCostSavings"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
                 </tr>
@@ -132,10 +132,10 @@
             <tbody>
                 <tr>
                     <th>
-                        Total Energy Savings
+                        Total Cost Savings
                     </th>
                     <th class="text-right w-25">
-                        <app-single-cell-item [numValue]="assessmentReport.totalEnergyCostSavings"
+                        <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
                 </tr>
@@ -144,13 +144,13 @@
                         Total Additional Operational Benefits
                     </th>
                     <th class="text-right">
-                        <app-single-cell-item [numValue]="assessmentReport.totalNebSavings"
+                        <app-single-cell-item [numValue]="assessmentReport.totalNebCostSavings"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        Total Savings
+                        Total Cost Savings W/ NEBs
                     </th>
                     <th class="text-right">
                         <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"

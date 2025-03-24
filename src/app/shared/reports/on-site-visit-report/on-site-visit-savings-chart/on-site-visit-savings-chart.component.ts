@@ -37,12 +37,12 @@ export class OnSiteVisitSavingsChartComponent {
   }
 
   drawGaugeCharts() {
-    let percentSavings = (this.onSiteVisitReport.totalEnergyCostSavings / this.onSiteVisitReport.totalEnergyCosts) * 100
+    let percentSavings = (this.onSiteVisitReport.totalNonNebCostSavings / this.onSiteVisitReport.totalUtilityCosts) * 100
     var savingsData = [
       {
         domain: { x: [0, 1], y: [0, 1] },
         value: percentSavings,
-        title: { text: "Energy Savings" },
+        title: { text: "Cost Savings" },
         type: "indicator",
         mode: "gauge+number",
         number: { suffix: '%' },
@@ -72,7 +72,7 @@ export class OnSiteVisitSavingsChartComponent {
     };
     this.plotlyService.newPlot(this.percentSavingsGauge.nativeElement, savingsData, layout, config);
 
-    let percentSavingsNebs = (this.onSiteVisitReport.totalCostSavings / this.onSiteVisitReport.totalEnergyCosts) * 100
+    let percentSavingsNebs = (this.onSiteVisitReport.totalCostSavings / this.onSiteVisitReport.totalUtilityCosts) * 100
     var savingsDataWithNebs = [
       {
         domain: { x: [0, 1], y: [0, 1] },
@@ -108,13 +108,13 @@ export class OnSiteVisitSavingsChartComponent {
     }
 
     this.onSiteVisitReport.assessmentReports.forEach(assessmentReport => {
-      trace.values.push(assessmentReport.totalEnergyCostSavings);
-      trace.labels.push(assessmentReport.assessment.name + ' (Energy Cost) Savings');
+      trace.values.push(assessmentReport.totalNonNebCostSavings);
+      trace.labels.push(assessmentReport.assessment.name + ': Cost Savings');
       trace.marker.line.width.push(2);
 
 
-      trace.values.push(assessmentReport.totalNebSavings);
-      trace.labels.push(assessmentReport.assessment.name + ' (NEB) Savings');
+      trace.values.push(assessmentReport.totalNebCostSavings);
+      trace.labels.push(assessmentReport.assessment.name + ': (NEB) Cost Savings');
       trace.marker.line.width.push(2);
     })
 

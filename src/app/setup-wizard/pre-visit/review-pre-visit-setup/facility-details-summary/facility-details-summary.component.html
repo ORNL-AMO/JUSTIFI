@@ -54,6 +54,9 @@
                 <th>
                     Energy/Utility Use
                 </th>
+                <th>
+                    Utility Cost
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -69,6 +72,12 @@
                     <app-single-cell-item [numValue]="facility.unitSettings.electricityUse"></app-single-cell-item>
                     <span [innerHTML]="facility.unitSettings.electricityUnit | unitsDisplay"></span>
                 </td>
+                <td>
+                    <app-single-cell-item 
+                        [numValue]="facility.unitSettings.electricityPrice * facility.unitSettings.electricityUse">
+                    </app-single-cell-item>
+                    {{ currencyCode | currencySymbol }}
+                </td>
             </tr>
             <tr *ngIf="facility.unitSettings.includeNaturalGas">
                 <td>
@@ -81,6 +90,12 @@
                 <td>
                     <app-single-cell-item [numValue]="facility.unitSettings.naturalGasUse"></app-single-cell-item>
                     <span [innerHTML]="facility.unitSettings.naturalGasUnit | unitsDisplay"></span>
+                </td>
+                <td>
+                    <app-single-cell-item 
+                        [numValue]="facility.unitSettings.naturalGasPrice * facility.unitSettings.naturalGasUse">
+                    </app-single-cell-item>
+                    {{ currencyCode | currencySymbol }}
                 </td>
             </tr>
 
@@ -96,6 +111,12 @@
                     <app-single-cell-item [numValue]="facility.unitSettings.otherFuelsUse"></app-single-cell-item>
                     <span [innerHTML]="facility.unitSettings.otherFuelsUnit | unitsDisplay"></span>
                 </td>
+                <td>
+                    <app-single-cell-item 
+                        [numValue]="facility.unitSettings.otherFuelsPrice * facility.unitSettings.otherFuelsUse">
+                    </app-single-cell-item>
+                    {{ currencyCode | currencySymbol }}
+                </td>
             </tr>
 
             <tr *ngIf="facility.unitSettings.includeWater">
@@ -109,6 +130,12 @@
                 <td>
                     <app-single-cell-item [numValue]="facility.unitSettings.waterUse"></app-single-cell-item>
                     <span [innerHTML]="facility.unitSettings.waterUnit | unitsDisplay"></span>
+                </td>
+                <td>
+                    <app-single-cell-item 
+                        [numValue]="facility.unitSettings.waterPrice * facility.unitSettings.waterUse">
+                    </app-single-cell-item>
+                    {{ currencyCode | currencySymbol }}
                 </td>
             </tr>
 
@@ -124,6 +151,12 @@
                     <app-single-cell-item [numValue]="facility.unitSettings.wasteWaterUse"></app-single-cell-item>
                     <span [innerHTML]="facility.unitSettings.wasteWaterUnit | unitsDisplay"></span>
                 </td>
+                <td>
+                    <app-single-cell-item 
+                        [numValue]="facility.unitSettings.wasteWaterPrice * facility.unitSettings.wasteWaterUse">
+                    </app-single-cell-item>
+                    {{ currencyCode | currencySymbol }}
+                </td>
             </tr>
 
             <tr *ngIf="facility.unitSettings.includeSteam">
@@ -137,6 +170,12 @@
                 <td>
                     <app-single-cell-item [numValue]="facility.unitSettings.steamUse"></app-single-cell-item>
                     <span [innerHTML]="facility.unitSettings.steamUnit | unitsDisplay"></span>
+                </td>
+                <td>
+                    <app-single-cell-item 
+                        [numValue]="facility.unitSettings.steamPrice * facility.unitSettings.steamUse">
+                    </app-single-cell-item>
+                    {{ currencyCode | currencySymbol }}
                 </td>
             </tr>
 
@@ -152,16 +191,36 @@
                     <app-single-cell-item [numValue]="facility.unitSettings.compressedAirUse"></app-single-cell-item>
                     <span [innerHTML]="facility.unitSettings.compressedAirUnit | unitsDisplay"></span>
                 </td>
+                <td>
+                    <app-single-cell-item 
+                        [numValue]="facility.unitSettings.compressedAirPrice * facility.unitSettings.compressedAirUse">
+                    </app-single-cell-item>
+                    {{ currencyCode | currencySymbol }}
+                </td>
             </tr>
         </tbody>
     </table>
     <div class="d-flex flex-column">
-        <div>
+        <div *ngIf="'energy' | utilityTrackedFacility: facility.unitSettings">
             <label class="bold">
                 Total Energy Use:
             </label>
             {{ facility.energyUse | number: '1.0-2' }}
             <span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>
+        </div>
+        <div *ngIf="'energy' | utilityTrackedFacility: facility.unitSettings">
+            <label class="bold">
+                Total Energy Cost:
+            </label>
+            {{ facility.energyCost | number: '1.0-2' }}
+            {{ currencyCode | currencySymbol }}
+        </div>
+        <div *ngIf="'water' | utilityTrackedFacility: facility.unitSettings">
+            <label class="bold">
+                Total Water Related Cost:
+            </label>
+            {{ facility.waterCost | number: '1.0-2' }}
+            {{ currencyCode | currencySymbol }}
         </div>
         <div>
             <label class="bold">

@@ -43,6 +43,8 @@ import { CurrencySymbolPipe } from './currency-symbol.pipe';
 import { CurrencyPipe } from '@angular/common';
 import { IncludesProcessEquipmentPipe } from './includes-process-equipment.pipe';
 import { IncludesEnergyEquipmentPipe } from './includes-energy-equipment.pipe';
+import { UtilityTrackedFacilityPipe } from './utility-tracked-facility.pipe';
+import { UtilityTrackedAssessmentPipe } from './utility-tracked-assessment.pipe';
 import { IncludedInAssessmentPipe } from './included-in-assessment.pipe';
 import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
 
@@ -90,6 +92,8 @@ import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
     CurrencySymbolPipe,
     IncludesProcessEquipmentPipe,
     IncludesEnergyEquipmentPipe,
+    UtilityTrackedFacilityPipe,
+    UtilityTrackedAssessmentPipe,
     IncludedInAssessmentPipe,
     FormatPlaceholderTextPipe
   ],
@@ -142,6 +146,8 @@ import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
     CurrencySymbolPipe,
     IncludesProcessEquipmentPipe,
     IncludesEnergyEquipmentPipe,
+    UtilityTrackedFacilityPipe,
+    UtilityTrackedAssessmentPipe,
     IncludedInAssessmentPipe,
     FormatPlaceholderTextPipe
   ]

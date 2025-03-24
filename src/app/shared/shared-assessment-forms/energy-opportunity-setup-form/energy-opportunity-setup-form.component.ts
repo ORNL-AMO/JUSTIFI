@@ -88,6 +88,10 @@ export class EnergyOpportunitySetupFormComponent {
       this.energyOpportunity = this.energyOpportunityIdbService.getByGuid(this.energyOpportunityGuid);
     }
 
+    if (!this.energyOpportunity.utilityCategory) {
+      this.setUtilityCategory();
+    }
+
     this.companySub = this.companyIdbService.selectedCompany.subscribe(company => {
       this.companyEnergyUnit = company.companyEnergyUnit;
     });
@@ -127,18 +131,30 @@ export class EnergyOpportunitySetupFormComponent {
     let energyUse = this.assessmentEnergyUses.find(use =>
       use.utilityType === this.energyOpportunity.utilityType);
     this.energyOpportunity.energyUnit = energyUse.energyUnit;
+    this.setUtilityCategory();
     await this.saveEnergyOpportunity();
+  }
+
+  setUtilityCategory() {
+    if (this.energyOpportunity.utilityType === 'Water' || 
+      this.energyOpportunity.utilityType === 'Waste Water') {
+        this.energyOpportunity.utilityCategory = 'water';
+    } else {
+      this.energyOpportunity.utilityCategory = 'energy';
+    }
   }
 
   async calculateCostSavings() {
     let trimmedType = this.energyOpportunity.utilityType.replace(/\s+/g, '');
     let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
     if (this.facilityUnitSettings[`include${trimmedType}`]) {
+      let useSavings = this.energyOpportunity.utilityCategory == 'water' ?
+        this.energyOpportunity.waterSavings : this.energyOpportunity.energySavings;
       let costSavings = this.convertValue.convertValue(
-        this.energyOpportunity.energySavings * this.facilityUnitSettings[`${camelCaseType}Price`],
+        useSavings * this.facilityUnitSettings[`${camelCaseType}Price`],
         this.energyOpportunity.energyUnit,
         this.facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
-      this.energyOpportunity.costSavings = parseFloat(costSavings.toFixed(0));
+      this.energyOpportunity.costSavings = costSavings;
     }
     await this.saveEnergyOpportunity();
   }
@@ -172,6 +188,15 @@ export class EnergyOpportunitySetupFormComponent {
 
   toggleAddNebDropdown() {
     this.showAddNebDropdown = !this.showAddNebDropdown;
+  }
+
+  isWaterRelatedUtilityType() {
+    return 
+  }
+
+  isUtilityTracked(utilityType: string): boolean {
+    let trimmed = utilityType.replace(/\s+/g, '');
+    return this.facilityUnitSettings[`include${trimmed}`];
   }
 
   focusField(str: string){

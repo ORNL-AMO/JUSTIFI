@@ -30,6 +30,13 @@
                         </span>
                     </th>
                     <th>
+                        Baseline<br>
+                        Water Related Cost<br>
+                        <span class="fw-light">
+                            ({{ currencyCode | currencySymbol }}/yr)
+                        </span>
+                    </th>
+                    <th>
                         Stakeholders
                     </th>
                 </tr>
@@ -53,7 +60,10 @@
                         <app-single-cell-item [numValue]="assessment.energyUse"></app-single-cell-item>
                     </td>
                     <td>
-                        <app-single-cell-item [numValue]="assessment.cost" [isCurrency]="true"></app-single-cell-item>
+                        <app-single-cell-item [numValue]="assessment.energyCost" [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                    <td>
+                        <app-single-cell-item [numValue]="assessment.waterCost" [isCurrency]="true"></app-single-cell-item>
                     </td>
                     <td>
                         @let associatedContacts = assessment.guid | associatedContacts:'assessment': contacts;
