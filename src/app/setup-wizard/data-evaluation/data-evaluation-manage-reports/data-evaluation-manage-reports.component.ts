@@ -73,8 +73,7 @@ export class DataEvaluationManageReportsComponent {
 
   async deleteReport() {
     // await this.dbChangesService.deleteReport(this.reportToDelete);
-    console.log(this.reportToDelete.id)
-    await this.reportIdbService.deleteWithObservable(this.reportToDelete.id);
+    await firstValueFrom(this.reportIdbService.deleteWithObservable(this.reportToDelete.id));
     await this.reportIdbService.setReports();
     this.toastNotificationService.showToast('Report Deleted!', undefined, 'bg-success', true, false);
     this.closeDeleteModal();
