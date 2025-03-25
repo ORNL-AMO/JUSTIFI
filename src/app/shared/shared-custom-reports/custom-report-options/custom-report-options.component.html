@@ -10,4 +10,76 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <label class="col-sm-5 col-form-label" for="reportType">Report Type</label>
+        <div class="col-sm-7">
+            <select class="form-select" name="reportType" [(ngModel)]="report.reportType" (change)="saveChanges()">
+                <option *ngFor="let reportType of reportTypeOptions" [value]="reportType.reportType">
+                    {{reportType.label}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr class="my-1">
+        </div>
+        <div class="col-12">
+            <p class="mb-0">
+                Select content to include in report.
+            </p>
+            <ng-container *ngFor="let assessmentOption of report.assessmentOptions">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [id]="'assessment_'+assessmentOption.guid"
+                        [(ngModel)]="assessmentOption.include" (change)="saveChanges()"
+                        [name]="'assessment_'+assessmentOption.guid">
+                    <label class="form-check-label" [for]="'assessment_'+assessmentOption.guid">
+                        <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                        {{assessmentOption.guid | assessmentNameDisplay:assessments}}
+                    </label>
+                </div>
+                <div class="form-section" *ngIf="assessmentOption.include">
+                    <ng-container
+                        *ngFor="let energyOpportunityOption of (report.energyOpportunityOptions | energyOpportunityReportOptionsList: assessmentOption.guid)">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                [id]="'energyOpp_'+energyOpportunityOption.guid"
+                                [(ngModel)]="energyOpportunityOption.include" (change)="saveChanges()"
+                                [name]="'energyOpp_'+energyOpportunityOption.guid">
+                            <label class="form-check-label" [for]="'energyOpp_'+energyOpportunityOption.guid">
+                                <fa-icon [icon]="faFileLines"></fa-icon>
+                                {{energyOpportunityOption.guid | energyOpportunityDisplay:energyOpportunities}}
+                            </label>
+                        </div>
+                        <div class="form-section" *ngIf="energyOpportunityOption.include">
+                            <ng-container
+                                *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | nonEnergyBenefitReportOptionsList: energyOpportunityOption.guid: 'energyOpp')">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"
+                                        [id]="'nebOpp_'+nonEnergyBenefit.guid" [(ngModel)]="nonEnergyBenefit.include"
+                                        (change)="saveChanges()" [name]="'nebOpp_'+nonEnergyBenefit.guid">
+                                    <label class="form-check-label" [for]="'nebOpp_'+nonEnergyBenefit.guid">
+                                        <fa-icon [icon]="faWeightHanging"></fa-icon>
+                                        {{(nonEnergyBenefit.guid | nebItem:nonEnergyBenefits).name}}
+                                    </label>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                    <ng-container
+                        *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | nonEnergyBenefitReportOptionsList: assessmentOption.guid: 'assessment')">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" [id]="'nebOpp_'+nonEnergyBenefit.guid"
+                                [(ngModel)]="nonEnergyBenefit.include" (change)="saveChanges()"
+                                [name]="'nebOpp_'+nonEnergyBenefit.guid">
+                            <label class="form-check-label" [for]="'nebOpp_'+nonEnergyBenefit.guid">
+                                <fa-icon [icon]="faWeightHanging"></fa-icon>
+                                {{(nonEnergyBenefit.guid | nebItem:nonEnergyBenefits).name}}
+                            </label>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </div>
 </form>
