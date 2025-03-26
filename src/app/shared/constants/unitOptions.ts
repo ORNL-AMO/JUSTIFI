@@ -5,17 +5,6 @@ export interface UnitOption {
     isStandard?: boolean // 
 }
 
-export const Energy2PowerUnitMap: { [key: string]: string } = {
-    'kWh': 'kW',
-    'Wh': 'W',
-    'MWh': 'MW',
-    'HP-hr': 'hp',
-    'kJ': 'kJhr',
-    'GJ': 'GJhr',
-    'MJ': 'MJhr',
-    'MMBtu': 'MMBtuhr'
-}
-
 export const EnergyUnitOptions: Array<UnitOption> = [
     {
         display: 'Kilowatt-hour (kWh)',

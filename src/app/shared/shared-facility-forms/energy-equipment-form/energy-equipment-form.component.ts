@@ -11,7 +11,7 @@ import { IdbContact } from 'src/app/models/contact';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { UnitSettings } from 'src/app/models/unitSettings';
 import { EquipmentType, EquipmentTypeOptions, EquipmentTypes } from 'src/app/shared/constants/equipmentTypes';
-import { Energy2PowerUnitMap, EnergyUnitOptions, ProcessCoolingUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from 'src/app/shared/constants/unitOptions';
+import { EnergyUnitOptions, ProcessCoolingUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from 'src/app/shared/constants/unitOptions';
 import { UtilityOption, UtilityOptions, UtilityType, UtilityTypes } from 'src/app/shared/constants/utilityTypes';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { SharedDataService } from '../../shared-services/shared-data.service';
@@ -113,17 +113,9 @@ export class EnergyEquipmentFormComponent {
       option => option.equipmentType === this.energyEquipment.equipmentType
     )?.utilityTypes || [];
     this.energyEquipment.utilityType = _utilityTypes[0]; // Set to first utility type
-    // retrieve facility utility energy unit
-    const facilityUtilityUnit = this.getUtilityEnergyUnitFromFacility();
-    if (!facilityUtilityUnit || !Energy2PowerUnitMap[facilityUtilityUnit]) {
-      // Set to default unit or 'kW' if facility unit or power unit is not found
-      this.energyEquipment.sizeUnit = this.equipmentTypeOptions.find(
-        option => option.equipmentType === this.energyEquipment.equipmentType
-      )?.defaultUnit || 'kW'; // Set to default unit
-    } else {
-      // set to power unit corresponding to facility utility energy unit
-      this.energyEquipment.sizeUnit = Energy2PowerUnitMap[facilityUtilityUnit];
-    }
+    this.energyEquipment.sizeUnit = this.equipmentTypeOptions.find(
+      option => option.equipmentType === this.energyEquipment.equipmentType
+    )?.defaultUnit || 'kW'; // Set to default unit
     await this.utilityTypeChange();
   }
 
@@ -131,13 +123,7 @@ export class EnergyEquipmentFormComponent {
     if (this.energyEquipment.equipmentType === 'Process Cooling') { // Process Cooling unit changes
       this.energyEquipment.sizeUnit = this.processCoolingUnitOptions[0].value;
     }
-    // update energy unit from facility or company settings
-    const facilityUtilityUnit = this.getUtilityEnergyUnitFromFacility();
-    if (!facilityUtilityUnit) {
-      this.energyEquipment.facilityUtilityUnit = this.companyEnergyUnit;
-    } else {
-      this.energyEquipment.facilityUtilityUnit = facilityUtilityUnit;
-    }
+    this.updateFacilityUtilityUnit();
     await this.updateEnergyCalculations();
   }
 
@@ -173,7 +159,7 @@ export class EnergyEquipmentFormComponent {
     await this.saveChanges();
   }
 
-  getUtilityEnergyUnitFromFacility(): string | null {
+  updateFacilityUtilityUnit() {
     const utilityType = this.energyEquipment.utilityType.replace(/\s+/g, '');
     const camelCaseType = utilityType.charAt(0).toLowerCase()
       + utilityType.slice(1); // Lowercase first letter
@@ -184,12 +170,12 @@ export class EnergyEquipmentFormComponent {
         _unitOption => _unitOption.value == this.energyEquipment.facilityUtilityUnit);
       if (selectedUtilityOption.isStandardEnergyUnit
         && selectedUnitOption.isStandard !== false) { // Standard unit
-        return this.facilityUnitSettings[`${camelCaseType}Unit`];
+        this.energyEquipment.facilityUtilityUnit = this.facilityUnitSettings[`${camelCaseType}Unit`];
       } else { // Non-standard unit
-        return this.facilityUnitSettings[`${camelCaseType}EnergyUnit`];
+        this.energyEquipment.facilityUtilityUnit = this.facilityUnitSettings[`${camelCaseType}EnergyUnit`];
       }
     } else {
-      return null;
+      this.energyEquipment.facilityUtilityUnit = this.companyEnergyUnit; // Default to company unit
     }
   }
 
