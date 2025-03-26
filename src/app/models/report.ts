@@ -15,7 +15,11 @@ export interface IdbReport extends IdbEntry {
     assessmentOptions: Array<ReportOption>,
     energyOpportunityOptions: Array<ReportOption>,
     nonEnergyBenefitOptions: Array<ReportOption>,
-    kpmImpactOptions: Array<ReportOption>
+    kpmImpactOptions: Array<ReportOption>,
+    assessmentReportOptions: {
+        includeIndividualAssessments: boolean,
+        includeRollupReport: boolean
+    }
 }
 
 export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: Array<IdbNonEnergyBenefit>, energyOpportunities: Array<IdbEnergyOpportunity>, kpmImpacts: Array<IdbKeyPerformanceMetricImpact>): IdbReport {
@@ -71,7 +75,11 @@ export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: 
         assessmentOptions: assessmentOptions,
         energyOpportunityOptions: energyOpportunityOptions,
         nonEnergyBenefitOptions: nonEnergyBenefitOptions,
-        kpmImpactOptions: kpmImpactOptions
+        kpmImpactOptions: kpmImpactOptions,
+        assessmentReportOptions: {
+            includeIndividualAssessments: true,
+            includeRollupReport: true
+        }
     }
 }
 

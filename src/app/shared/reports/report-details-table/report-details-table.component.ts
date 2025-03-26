@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
+import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
+import { OnSiteVisitReport } from '../calculations/visitReport';
+import { faScrewdriverWrench, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-report-details-table',
@@ -17,10 +20,12 @@ export class ReportDetailsTableComponent {
   onSiteVisit: IdbOnSiteVisit;
   @Input()
   assessment: IdbAssessment;
+  @Input()
+  onSiteVisitReport: OnSiteVisitReport;
 
+  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   company: IdbCompany;
   facility: IdbFacility;
-
   constructor(
     private facilityIdbService: FacilityIdbService,
     private companyIdbService: CompanyIdbService

@@ -20,13 +20,39 @@
             </select>
         </div>
     </div>
+    <ng-container *ngIf="report.reportType == 'assessment'">
+        <div class="row">
+            <div class="col-12">
+                <p class="mb-1 mt-2 italic">
+                    Select assessment reports to include
+                </p>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [id]="'includeIndividualAssessments'"
+                        [(ngModel)]="report.assessmentReportOptions.includeIndividualAssessments"
+                        (change)="saveChanges()" [name]="'includeIndividualAssessments'">
+                    <label class="form-check-label" [for]="'includeIndividualAssessments'">
+                        Include individual assessment reports
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [id]="'includeRollupReport'"
+                        [(ngModel)]="report.assessmentReportOptions.includeRollupReport" (change)="saveChanges()"
+                        [name]="'includeRollupReport'">
+                    <label class="form-check-label" [for]="'includeRollupReport'">
+                        Include rollup report
+                    </label>
+                </div>
+            </div>
+        </div>
+    </ng-container>
     <div class="row">
         <div class="col-12">
             <hr class="my-1">
         </div>
         <div class="col-12">
-            <p class="mb-0">
-                Select content to include in report.
+            <p class="mb-1 mt-2 italic">
+                Specify assessments, energy opportunities, non-energy benefits and key performance metric impacts to
+                include in the generated report.
             </p>
             <ng-container *ngFor="let assessmentOption of report.assessmentOptions">
                 <div class="form-check">
