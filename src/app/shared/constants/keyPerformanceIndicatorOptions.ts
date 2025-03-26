@@ -1,7 +1,6 @@
-export type PrimaryKPI = 'Strategic Relationship Impact' | 'Operations' | 'Sustainability (Environmental Impact)' | 'Employee and Workplace Environment' | 'Other';
-export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic Relationship Impact', 'Operations', 'Sustainability (Environmental Impact)', 'Employee and Workplace Environment', 'Other']
+export type PrimaryKPI = 'Strategic & Growth' | 'Operations' | 'Sustainability (Environmental Impact)' | 'Employee and Workplace Environment' | 'Other';
+export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic & Growth', 'Operations', 'Sustainability (Environmental Impact)', 'Employee and Workplace Environment', 'Other']
 export type KeyPerformanceIndicatorValue =
-    'strategicRelationshipImpact' |
     'productivity' |
     'machineUtilization' |
     'quality' |
@@ -17,7 +16,9 @@ export type KeyPerformanceIndicatorValue =
     'employeeEngagementWorkingEnvironment' |
     'maintenanceExpense' |
     'other' |
-    'airPollutantEmissions';
+    'airPollutantEmissions' |
+    'customerSatisfaction' |
+    'salesGrowth';
 
 export interface KeyPerformanceIndicatorOption {
     primaryKPI: PrimaryKPI,
@@ -120,11 +121,18 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
         htmlLabel: 'Reduce Refrigerant Gas Emissions',
         optionValue: 'reduceRefrigerantGasEmissions'
     },
-    //Strategic relationship impact
+    //Strategic & Growth
     {
-        primaryKPI: 'Strategic Relationship Impact',
-        label: 'Strategic Relationship Impact',
-        htmlLabel: 'Strategic Relationship Impact',
-        optionValue: 'strategicRelationshipImpact'
+        primaryKPI: 'Strategic & Growth',
+        label: 'Customer Satisfaction',
+        htmlLabel: 'Customer Satisfaction',
+        optionValue: 'customerSatisfaction'
     },
+
+    {
+        primaryKPI: 'Strategic & Growth',
+        label: 'Sales Growth',
+        htmlLabel: 'Sales Growth',
+        optionValue: 'salesGrowth'
+    }
 ]

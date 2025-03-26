@@ -13,7 +13,7 @@ export class KpiCategoryClassPipe implements PipeTransform {
 }
 
 export function getCategoryColor(category: PrimaryKPI): string {
-  if (category == 'Strategic Relationship Impact') {
+  if (category == 'Strategic & Growth') {
     return '#8E44AD';
   } else if (category == 'Sustainability (Environmental Impact)') {
     return '#138D75';
