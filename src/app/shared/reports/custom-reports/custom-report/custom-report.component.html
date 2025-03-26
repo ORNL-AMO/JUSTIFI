@@ -1,21 +1,28 @@
 <ng-container *ngIf="report.reportType == 'assessment'">
+    <ng-container *ngIf="report.assessmentReportOptions.includeRollupReport">
+        <div class="print-break-before">
+            <h4>
+                Rollup Report
+            </h4>
+            <app-on-site-visit-report [onSiteVisit]="onSiteVisit" [report]="report"></app-on-site-visit-report>
+            <hr>
+        </div>
+    </ng-container>
     <ng-container *ngIf="report.assessmentReportOptions.includeIndividualAssessments">
         <ng-container *ngFor="let assessmentOption of report.assessmentOptions">
             <ng-container *ngIf="assessmentOption.include">
-                @let assessment = (assessmentOption.assessmentId | assessmentItem: assessments);
-                <h4>
-                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
-                    {{assessment.name}}
-                </h4>
-                <app-assessment-report [assessment]="assessment" [report]="report"></app-assessment-report>
-                <hr>
+                <div class="report">
+                    <div class="print-break-before">
+                        @let assessment = (assessmentOption.assessmentId | assessmentItem: assessments);
+                        <h4>
+                            <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                            {{assessment.name}}
+                        </h4>
+                        <app-assessment-report [assessment]="assessment" [report]="report"></app-assessment-report>
+                        <hr>
+                    </div>
+                </div>
             </ng-container>
         </ng-container>
-    </ng-container>
-    <ng-container *ngIf="report.assessmentReportOptions.includeRollupReport">
-        <h4>
-            Rollup Report
-        </h4>
-        <app-on-site-visit-report [onSiteVisit]="onSiteVisit" [report]="report"></app-on-site-visit-report>
     </ng-container>
 </ng-container>

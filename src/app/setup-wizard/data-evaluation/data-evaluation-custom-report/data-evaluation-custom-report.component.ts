@@ -6,6 +6,7 @@ import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.serv
 import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { IdbReport } from 'src/app/models/report';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
   selector: 'app-data-evaluation-custom-report',
@@ -27,9 +28,12 @@ export class DataEvaluationCustomReportComponent {
   // reports: Array<IdbReport>;
   reportSub: Subscription;
   report: IdbReport;
+  print: boolean;
+  printSub: Subscription;
   constructor(private router: Router, private reportIdbService: ReportIdbService,
     private activatedRoute: ActivatedRoute,
-    private onSiteVisitIdbService: OnSiteVisitIdbService
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private sharedDataService: SharedDataService
   ) { }
 
   ngOnInit() {
@@ -50,6 +54,13 @@ export class DataEvaluationCustomReportComponent {
       } else {
         console.log('visit does not exist. Nav back to getting started..');
         this.router.navigateByUrl('/welcome');
+      }
+    });
+
+    this.printSub = this.sharedDataService.print.subscribe(print => {
+      this.print = print;
+      if (this.print) {
+        this.printReport();
       }
     });
   }
@@ -94,6 +105,16 @@ export class DataEvaluationCustomReportComponent {
   }
 
   togglePrint(){
-    
+    this.sharedDataService.print.next(true);    
+  }
+  
+  printReport() {
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+      setTimeout(() => {
+        window.print();
+        this.sharedDataService.print.next(false)
+      }, 1000)
+    }, 100)
   }
 }

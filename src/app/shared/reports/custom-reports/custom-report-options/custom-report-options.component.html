@@ -27,19 +27,19 @@
                     Select assessment reports to include
                 </p>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" [id]="'includeIndividualAssessments'"
-                        [(ngModel)]="report.assessmentReportOptions.includeIndividualAssessments"
-                        (change)="saveChanges()" [name]="'includeIndividualAssessments'">
-                    <label class="form-check-label" [for]="'includeIndividualAssessments'">
-                        Include individual assessment reports
-                    </label>
-                </div>
-                <div class="form-check">
                     <input class="form-check-input" type="checkbox" [id]="'includeRollupReport'"
                         [(ngModel)]="report.assessmentReportOptions.includeRollupReport" (change)="saveChanges()"
                         [name]="'includeRollupReport'">
                     <label class="form-check-label" [for]="'includeRollupReport'">
                         Include rollup report
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [id]="'includeIndividualAssessments'"
+                        [(ngModel)]="report.assessmentReportOptions.includeIndividualAssessments"
+                        (change)="saveChanges()" [name]="'includeIndividualAssessments'">
+                    <label class="form-check-label" [for]="'includeIndividualAssessments'">
+                        Include individual assessment reports
                     </label>
                 </div>
             </div>

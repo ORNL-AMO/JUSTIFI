@@ -1,25 +1,27 @@
-<div class="setup-wizard-content" *ngIf="report">
-    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
-            <div class="form-paper shadow">
-                <div class="d-flex w-100 justify-content-between">
-                    <div>
-                        <h5>
-                            <fa-icon [icon]="faFilePen"></fa-icon> {{report.name}}
-                        </h5>
+<div [ngClass]="{'setup-wizard-content': !print}" *ngIf="report">
+    <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
+        <div [ngClass]="{'col-10 pt-4 pb-4': !print}">
+            <div [ngClass]="{'form-paper shadow': !print}">
+                <ng-container *ngIf="!print">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div>
+                            <h5>
+                                <fa-icon [icon]="faFilePen"></fa-icon> {{report.name}}
+                            </h5>
+                        </div>
                     </div>
-                </div>
-                <hr class="my-1">
-                <nav class="navbar">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="'options'" [routerLinkActive]="['active']">Options</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="'results'" [routerLinkActive]="['active']">Report</a>
-                        </li>
-                    </ul>
-                </nav>
+                    <hr class="my-1">
+                    <nav class="navbar">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link" [routerLink]="'options'" [routerLinkActive]="['active']">Options</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" [routerLink]="'results'" [routerLinkActive]="['active']">Report</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </ng-container>
                 <div class="pt-2">
                     <router-outlet></router-outlet>
                 </div>
@@ -27,7 +29,7 @@
         </div>
     </div>
 </div>
-<nav class="setup-wizard-footer navbar shadow">
+<nav class="setup-wizard-footer navbar shadow" *ngIf="!print">
     <div class="container-fluid justify-content-between">
         <div class="col-3">
             <button class="btn nav-btn btn-sm" (click)="goBack()">
