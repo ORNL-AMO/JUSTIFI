@@ -13,21 +13,9 @@ export interface IdbReport extends IdbEntry {
     onSiteVisitId: string,
     //todo: define report type
     reportType: ReportType,
-    assessmentOptions: Array<{
-        include: boolean,
-        guid: string
-    }>,
-    energyOpportunityOptions: Array<{
-        include: boolean,
-        guid: string,
-        assessmentId: string
-    }>,
-    nonEnergyBenefitOptions: Array<{
-        include: boolean,
-        guid: string,
-        energyOpportunityId: string,
-        assessmentId: string
-    }>,
+    assessmentOptions: Array<ReportOption>,
+    energyOpportunityOptions: Array<ReportOption>,
+    nonEnergyBenefitOptions: Array<ReportOption>,
     // kpiOptions: Array<{
     //     include: boolean,
     //     guid: string
@@ -36,25 +24,18 @@ export interface IdbReport extends IdbEntry {
 
 export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: Array<IdbNonEnergyBenefit>, energyOpportunities: Array<IdbEnergyOpportunity>, kpis: Array<IdbKeyPerformanceIndicator>): IdbReport {
     let idbEntry: IdbEntry = getNewIdbEntry();
-    let assessmentOptions: Array<{
-        include: boolean,
-        guid: string
-    }> = onSiteVisit.assessmentIds.map(assessmentGuid => {
+    let assessmentOptions: Array<ReportOption> = onSiteVisit.assessmentIds.map(assessmentGuid => {
         return {
-            guid: assessmentGuid,
+            assessmentId: assessmentGuid,
             include: true
         }
     });
     let visitEnergyOpps: Array<IdbEnergyOpportunity> = energyOpportunities.filter(opp => {
         return onSiteVisit.assessmentIds.includes(opp.assessmentId)
     })
-    let energyOpportunityOptions: Array<{
-        include: boolean,
-        guid: string,
-        assessmentId: string
-    }> = visitEnergyOpps.map(opp => {
+    let energyOpportunityOptions: Array<ReportOption> = visitEnergyOpps.map(opp => {
         return {
-            guid: opp.guid,
+            energyOpportunityId: opp.guid,
             assessmentId: opp.assessmentId,
             include: true
         }
@@ -62,23 +43,15 @@ export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: 
     let visitNebs: Array<IdbNonEnergyBenefit> = nonEnergyBenefits.filter(neb => {
         return onSiteVisit.assessmentIds.includes(neb.assessmentId)
     });
-    let nonEnergyBenefitOptions: Array<{
-        include: boolean,
-        guid: string,
-        assessmentId: string,
-        energyOpportunityId: string
-    }> = visitNebs.map(neb => {
+    let nonEnergyBenefitOptions: Array<ReportOption> = visitNebs.map(neb => {
         return {
             include: true,
-            guid: neb.guid,
+            nonEnergyBenefitId: neb.guid,
             assessmentId: neb.assessmentId,
             energyOpportunityId: neb.energyOpportunityId
         }
     })
-    let kpiOptions: Array<{
-        include: boolean,
-        guid: string
-    }> = new Array();
+    // let kpiOptions: Array<ReportOption> = new Array();
 
     return {
         ...idbEntry,
@@ -96,3 +69,9 @@ export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: 
 }
 
 
+export interface ReportOption {
+    include: boolean,
+    assessmentId?: string,
+    energyOpportunityId?: string,
+    nonEnergyBenefitId?: string
+}

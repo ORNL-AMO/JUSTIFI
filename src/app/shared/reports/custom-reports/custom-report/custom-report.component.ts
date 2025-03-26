@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { faFileLines, faScrewdriverWrench, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
@@ -11,25 +10,18 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbReport } from 'src/app/models/report';
-import { ReportType, ReportTypeOptions } from '../../constants/reportTypes';
 
 @Component({
-  selector: 'app-custom-report-options',
+  selector: 'app-custom-report',
   standalone: false,
 
-  templateUrl: './custom-report-options.component.html',
-  styleUrl: './custom-report-options.component.css'
+  templateUrl: './custom-report.component.html',
+  styleUrl: './custom-report.component.css'
 })
-export class CustomReportOptionsComponent {
+export class CustomReportComponent {
 
-  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
-  faFileLines: IconDefinition = faFileLines;
-  faWeightHanging: IconDefinition = faWeightHanging;
-  reportTypeOptions: Array<{reportType: ReportType, label: string}> = ReportTypeOptions;
   report: IdbReport;
   reportSub: Subscription;
-  isFormChange: boolean = false;
-
   nonEnergyBenefits: Array<IdbNonEnergyBenefit>;
   energyOpportunities: Array<IdbEnergyOpportunity>;
   kpis: Array<IdbKeyPerformanceIndicator>;
@@ -48,21 +40,11 @@ export class CustomReportOptionsComponent {
     this.kpis = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
     this.assessments = this.assessmentIdbService.assessments.getValue();
     this.reportSub = this.reportIdbService.selectedReport.subscribe(report => {
-      if (!this.isFormChange) {
-        this.report = report;
-      } else {
-        this.isFormChange = false;
-      }
+      this.report = report;
     });
   }
 
   ngOnDestroy() {
     this.reportSub.unsubscribe();
-  }
-
-
-  async saveChanges() {
-    this.isFormChange = true;
-    await this.reportIdbService.asyncUpdate(this.report);
   }
 }

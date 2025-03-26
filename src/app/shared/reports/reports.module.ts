@@ -15,6 +15,11 @@ import { PerformanceMetricsTablePipe } from './performance-metrics-table/perform
 import { OnSiteVisitSavingsChartComponent } from './on-site-visit-report/on-site-visit-savings-chart/on-site-visit-savings-chart.component';
 import { OnSiteVisitPaybackTableComponent } from './on-site-visit-report/on-site-visit-payback-table/on-site-visit-payback-table.component';
 import { NebContributionsBarChartComponent } from './on-site-visit-report/neb-contributions-bar-chart/neb-contributions-bar-chart.component';
+import { NonEnergyBenefitReportOptionsListPipe } from './custom-reports/custom-report-options/non-energy-benefit-report-options-list.pipe';
+import { EnergyOpportunityReportOptionsListPipe } from './custom-reports/custom-report-options/energy-opportunity-report-options-list.pipe';
+import { CustomReportOptionsComponent } from './custom-reports/custom-report-options/custom-report-options.component';
+import { CustomReportComponent } from './custom-reports/custom-report/custom-report.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -31,13 +36,18 @@ import { NebContributionsBarChartComponent } from './on-site-visit-report/neb-co
     PerformanceMetricsTablePipe,
     OnSiteVisitSavingsChartComponent,
     OnSiteVisitPaybackTableComponent,
-    NebContributionsBarChartComponent
+    NebContributionsBarChartComponent,
+    CustomReportComponent,
+    CustomReportOptionsComponent,
+    EnergyOpportunityReportOptionsListPipe,
+    NonEnergyBenefitReportOptionsListPipe
   ],
   imports: [
     CommonModule,
     HelperPipesModule,
     TableEntriesModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   exports: [
     AssessmentReportComponent,

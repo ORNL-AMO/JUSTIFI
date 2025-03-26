@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { ReportOption } from 'src/app/models/report';
 
 @Pipe({
   name: 'energyOpportunityReportOptionsList',
@@ -6,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class EnergyOpportunityReportOptionsListPipe implements PipeTransform {
 
-  transform(energyOpportunityOptions: Array<{ include: boolean, guid: string, assessmentId: string }>, assessmentId: string): Array<{ include: boolean, guid: string, assessmentId: string }> {
+  transform(energyOpportunityOptions: Array<ReportOption>, assessmentId: string): Array<ReportOption> {
     return energyOpportunityOptions.filter(option => {
       return option.assessmentId == assessmentId;
     });

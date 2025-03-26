@@ -30,51 +30,51 @@
             </p>
             <ng-container *ngFor="let assessmentOption of report.assessmentOptions">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" [id]="'assessment_'+assessmentOption.guid"
+                    <input class="form-check-input" type="checkbox" [id]="'assessment_'+assessmentOption.assessmentId"
                         [(ngModel)]="assessmentOption.include" (change)="saveChanges()"
-                        [name]="'assessment_'+assessmentOption.guid">
-                    <label class="form-check-label" [for]="'assessment_'+assessmentOption.guid">
+                        [name]="'assessment_'+assessmentOption.assessmentId">
+                    <label class="form-check-label" [for]="'assessment_'+assessmentOption.assessmentId">
                         <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
-                        {{assessmentOption.guid | assessmentNameDisplay:assessments}}
+                        {{assessmentOption.assessmentId | assessmentNameDisplay:assessments}}
                     </label>
                 </div>
                 <div class="form-section" *ngIf="assessmentOption.include">
                     <ng-container
-                        *ngFor="let energyOpportunityOption of (report.energyOpportunityOptions | energyOpportunityReportOptionsList: assessmentOption.guid)">
+                        *ngFor="let energyOpportunityOption of (report.energyOpportunityOptions | energyOpportunityReportOptionsList: assessmentOption.assessmentId)">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox"
-                                [id]="'energyOpp_'+energyOpportunityOption.guid"
+                                [id]="'energyOpp_'+energyOpportunityOption.energyOpportunityId"
                                 [(ngModel)]="energyOpportunityOption.include" (change)="saveChanges()"
-                                [name]="'energyOpp_'+energyOpportunityOption.guid">
-                            <label class="form-check-label" [for]="'energyOpp_'+energyOpportunityOption.guid">
+                                [name]="'energyOpp_'+energyOpportunityOption.energyOpportunityId">
+                            <label class="form-check-label" [for]="'energyOpp_'+energyOpportunityOption.energyOpportunityId">
                                 <fa-icon [icon]="faFileLines"></fa-icon>
-                                {{energyOpportunityOption.guid | energyOpportunityDisplay:energyOpportunities}}
+                                {{energyOpportunityOption.energyOpportunityId | energyOpportunityDisplay:energyOpportunities}}
                             </label>
                         </div>
                         <div class="form-section" *ngIf="energyOpportunityOption.include">
                             <ng-container
-                                *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | nonEnergyBenefitReportOptionsList: energyOpportunityOption.guid: 'energyOpp')">
+                                *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | nonEnergyBenefitReportOptionsList: energyOpportunityOption.energyOpportunityId: 'energyOpp')">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox"
-                                        [id]="'nebOpp_'+nonEnergyBenefit.guid" [(ngModel)]="nonEnergyBenefit.include"
-                                        (change)="saveChanges()" [name]="'nebOpp_'+nonEnergyBenefit.guid">
-                                    <label class="form-check-label" [for]="'nebOpp_'+nonEnergyBenefit.guid">
+                                        [id]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId" [(ngModel)]="nonEnergyBenefit.include"
+                                        (change)="saveChanges()" [name]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId">
+                                    <label class="form-check-label" [for]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId">
                                         <fa-icon [icon]="faWeightHanging"></fa-icon>
-                                        {{(nonEnergyBenefit.guid | nebItem:nonEnergyBenefits).name}}
+                                        {{(nonEnergyBenefit.nonEnergyBenefitId | nebItem:nonEnergyBenefits).name}}
                                     </label>
                                 </div>
                             </ng-container>
                         </div>
                     </ng-container>
                     <ng-container
-                        *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | nonEnergyBenefitReportOptionsList: assessmentOption.guid: 'assessment')">
+                        *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | nonEnergyBenefitReportOptionsList: assessmentOption.assessmentId: 'assessment')">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" [id]="'nebOpp_'+nonEnergyBenefit.guid"
+                            <input class="form-check-input" type="checkbox" [id]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId"
                                 [(ngModel)]="nonEnergyBenefit.include" (change)="saveChanges()"
-                                [name]="'nebOpp_'+nonEnergyBenefit.guid">
-                            <label class="form-check-label" [for]="'nebOpp_'+nonEnergyBenefit.guid">
+                                [name]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId">
+                            <label class="form-check-label" [for]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId">
                                 <fa-icon [icon]="faWeightHanging"></fa-icon>
-                                {{(nonEnergyBenefit.guid | nebItem:nonEnergyBenefits).name}}
+                                {{(nonEnergyBenefit.nonEnergyBenefitId | nebItem:nonEnergyBenefits).name}}
                             </label>
                         </div>
                     </ng-container>

@@ -4,12 +4,12 @@ import { IdbNonEnergyBenefit } from "../../../models/nonEnergyBenefit";
 import * as _ from 'lodash';
 import { NebReport, getNebReport } from "./nebReport";
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
+import { filterNebs } from "./assessmentReport";
+import { IdbReport } from "src/app/models/report";
 
 ///ENERGY REPORT
-export function getEnergyOpportunityReport(energyOpportunity: IdbEnergyOpportunity, nonEnergyBenefits: Array<IdbNonEnergyBenefit>, facilityPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>): EnergyOpportunityReport {
-    let energyOpportunityNebs: Array<IdbNonEnergyBenefit> = nonEnergyBenefits.filter(neb => {
-        return neb.energyOpportunityId == energyOpportunity.guid
-    });
+export function getEnergyOpportunityReport(energyOpportunity: IdbEnergyOpportunity, nonEnergyBenefits: Array<IdbNonEnergyBenefit>, facilityPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>, report?: IdbReport): EnergyOpportunityReport {
+    let energyOpportunityNebs: Array<IdbNonEnergyBenefit> = filterNebs(nonEnergyBenefits, energyOpportunity.assessmentId, energyOpportunity.guid, report?.nonEnergyBenefitOptions);
     let nebReports: Array<NebReport> = new Array();
     energyOpportunityNebs.forEach(neb => {
         let nebReport: NebReport = getNebReport(neb, facilityPerformanceMetrics, keyPerformanceMetricImpacts);
@@ -33,11 +33,11 @@ export function getEnergyOpportunityReport(energyOpportunity: IdbEnergyOpportuni
     });
     let totalCostSavings: number = totalNonNebCostSavings + totalNebCostSavings;
     let paybackWithNebs: number = (energyOpportunity.implementationCost / totalCostSavings);
-    if(paybackWithNebs == Infinity){
+    if (paybackWithNebs == Infinity) {
         paybackWithNebs = 0;
     }
     let paybackWithoutNebs: number = (energyOpportunity.implementationCost / totalNonNebCostSavings);
-    if(paybackWithoutNebs == Infinity){
+    if (paybackWithoutNebs == Infinity) {
         paybackWithoutNebs = 0;
     }
 

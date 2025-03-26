@@ -1,0 +1,8 @@
+<ng-template [ngIf]="report.reportType == 'assessment'">
+    <ng-container *ngFor="let assessmentOption of report.assessmentOptions">
+        <ng-template [ngIf]="assessmentOption.include">
+            @let assessment = (assessmentOption.assessmentId | assessmentItem: assessments);
+            <app-assessment-report [assessment]="assessment" [report]="report"></app-assessment-report>
+        </ng-template>
+    </ng-container>
+</ng-template>

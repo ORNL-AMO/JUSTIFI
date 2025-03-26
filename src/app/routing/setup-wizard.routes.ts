@@ -29,8 +29,8 @@ import { ManagePreAssessmentsComponent } from "../setup-wizard/pre-visit/pre-ass
 import { FacilityProtocolQuestionsComponent } from "../setup-wizard/pre-visit/facility-protocol-questions/facility-protocol-questions.component";
 import { DataEvaluationManageReportsComponent } from "../setup-wizard/data-evaluation/data-evaluation-manage-reports/data-evaluation-manage-reports.component";
 import { DataEvaluationCustomReportComponent } from "../setup-wizard/data-evaluation/data-evaluation-custom-report/data-evaluation-custom-report.component";
-import { CustomReportOptionsComponent } from "../shared/shared-custom-reports/custom-report-options/custom-report-options.component";
-import { CustomReportComponent } from "../shared/shared-custom-reports/custom-report/custom-report.component";
+import { CustomReportOptionsComponent } from "../shared/reports/custom-reports/custom-report-options/custom-report-options.component";
+import { CustomReportComponent } from "../shared/reports/custom-reports/custom-report/custom-report.component";
 
 
 export const SetupWizardRoutes: Route = {

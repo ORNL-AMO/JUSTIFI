@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { ReportOption } from 'src/app/models/report';
 
 @Pipe({
   name: 'nonEnergyBenefitReportOptionsList',
@@ -6,25 +7,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class NonEnergyBenefitReportOptionsListPipe implements PipeTransform {
 
-  transform(nonEnergyBenefitOptions: Array<{
-    include: boolean,
-    guid: string,
-    energyOpportunityId: string,
-    assessmentId: string
-  }>,
+  transform(nonEnergyBenefitOptions: Array<ReportOption>,
     contextGuid: string,
     context: 'assessment' | 'energyOpp'
-  ): Array<{
-    include: boolean,
-    guid: string,
-    energyOpportunityId: string,
-    assessmentId: string
-  }> {
-    if(context == 'assessment'){
+  ): Array<ReportOption> {
+    if (context == 'assessment') {
       return nonEnergyBenefitOptions.filter(option => {
         return option.assessmentId == contextGuid && !option.energyOpportunityId
       });
-    }else {
+    } else {
       return nonEnergyBenefitOptions.filter(option => {
         return option.energyOpportunityId == contextGuid;
       });
