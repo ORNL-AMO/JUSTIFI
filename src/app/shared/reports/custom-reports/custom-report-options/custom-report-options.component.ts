@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faFileLines, faScrewdriverWrench, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faFileLines, faScaleUnbalancedFlip, faScrewdriverWrench, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
@@ -12,6 +12,11 @@ import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicat
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbReport } from 'src/app/models/report';
 import { ReportType, ReportTypeOptions } from '../../../constants/reportTypes';
+import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
+import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
+import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
   selector: 'app-custom-report-options',
@@ -25,28 +30,34 @@ export class CustomReportOptionsComponent {
   faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faFileLines: IconDefinition = faFileLines;
   faWeightHanging: IconDefinition = faWeightHanging;
-  reportTypeOptions: Array<{reportType: ReportType, label: string}> = ReportTypeOptions;
+  faScaleUnbalancedFlip: IconDefinition = faScaleUnbalancedFlip;
+  reportTypeOptions: Array<{ reportType: ReportType, label: string }> = ReportTypeOptions;
   report: IdbReport;
   reportSub: Subscription;
   isFormChange: boolean = false;
 
   nonEnergyBenefits: Array<IdbNonEnergyBenefit>;
   energyOpportunities: Array<IdbEnergyOpportunity>;
-  kpis: Array<IdbKeyPerformanceIndicator>;
+  keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>;
+  keyPerformanceMetrics: Array<KeyPerformanceMetric>
   assessments: Array<IdbAssessment>;
   constructor(private reportIdbService: ReportIdbService,
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
+    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
+    private assessmentIdbService: AssessmentIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
-    private assessmentIdbService: AssessmentIdbService) {
+    private facilityIdbService: FacilityIdbService) {
 
   }
 
   ngOnInit() {
     this.nonEnergyBenefits = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.getValue();
     this.energyOpportunities = this.energyOpportunityIdbService.energyOpportunities.getValue();
-    this.kpis = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
+    this.keyPerformanceMetricImpacts = this.keyPerformanceMetricImpactIdbService.keyPerformanceMetricImpacts.getValue();
     this.assessments = this.assessmentIdbService.assessments.getValue();
+    let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
+    this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(facility.guid)
     this.reportSub = this.reportIdbService.selectedReport.subscribe(report => {
       if (!this.isFormChange) {
         this.report = report;

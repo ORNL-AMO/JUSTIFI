@@ -12,7 +12,7 @@ export function getEnergyOpportunityReport(energyOpportunity: IdbEnergyOpportuni
     let energyOpportunityNebs: Array<IdbNonEnergyBenefit> = filterNebs(nonEnergyBenefits, energyOpportunity.assessmentId, energyOpportunity.guid, report?.nonEnergyBenefitOptions);
     let nebReports: Array<NebReport> = new Array();
     energyOpportunityNebs.forEach(neb => {
-        let nebReport: NebReport = getNebReport(neb, facilityPerformanceMetrics, keyPerformanceMetricImpacts);
+        let nebReport: NebReport = getNebReport(neb, facilityPerformanceMetrics, keyPerformanceMetricImpacts, report);
         nebReports.push(nebReport);
     })
     let totalEnergyCostSavings: number = 0;

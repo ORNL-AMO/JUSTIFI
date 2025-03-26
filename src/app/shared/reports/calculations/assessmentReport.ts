@@ -41,7 +41,7 @@ export function getAssessmentReport(
     let assessmentNebReports: Array<NebReport> = new Array();
     let assessmentNebs: Array<IdbNonEnergyBenefit> = filterNebs(nonEnergyBenefits, assessment.guid, undefined, report?.nonEnergyBenefitOptions);
     assessmentNebs.forEach(neb => {
-        let nebReport: NebReport = getNebReport(neb, facilityPerformanceMetrics, keyPerformanceMetricImpacts);
+        let nebReport: NebReport = getNebReport(neb, facilityPerformanceMetrics, keyPerformanceMetricImpacts, report);
         assessmentNebReports.push(nebReport);
     });
 

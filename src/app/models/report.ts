@@ -1,7 +1,7 @@
 import { ReportType } from "../shared/constants/reportTypes";
 import { IdbEnergyOpportunity } from "./energyOpportunity";
 import { IdbEntry, getNewIdbEntry } from "./idbEntry";
-import { IdbKeyPerformanceIndicator } from "./keyPerformanceIndicator";
+import { IdbKeyPerformanceMetricImpact } from "./keyPerformanceMetricImpact";
 import { IdbNonEnergyBenefit } from "./nonEnergyBenefit";
 import { IdbOnSiteVisit } from "./onSiteVisit";
 
@@ -11,18 +11,14 @@ export interface IdbReport extends IdbEntry {
     facilityId: string,
     companyId: string,
     onSiteVisitId: string,
-    //todo: define report type
     reportType: ReportType,
     assessmentOptions: Array<ReportOption>,
     energyOpportunityOptions: Array<ReportOption>,
     nonEnergyBenefitOptions: Array<ReportOption>,
-    // kpiOptions: Array<{
-    //     include: boolean,
-    //     guid: string
-    // }>
+    kpmImpactOptions: Array<ReportOption>
 }
 
-export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: Array<IdbNonEnergyBenefit>, energyOpportunities: Array<IdbEnergyOpportunity>, kpis: Array<IdbKeyPerformanceIndicator>): IdbReport {
+export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: Array<IdbNonEnergyBenefit>, energyOpportunities: Array<IdbEnergyOpportunity>, kpmImpacts: Array<IdbKeyPerformanceMetricImpact>): IdbReport {
     let idbEntry: IdbEntry = getNewIdbEntry();
     let assessmentOptions: Array<ReportOption> = onSiteVisit.assessmentIds.map(assessmentGuid => {
         return {
@@ -51,7 +47,18 @@ export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: 
             energyOpportunityId: neb.energyOpportunityId
         }
     })
-    // let kpiOptions: Array<ReportOption> = new Array();
+    let visitImpacts: Array<IdbKeyPerformanceMetricImpact> = kpmImpacts.filter(kpmImpact => {
+        return onSiteVisit.assessmentIds.includes(kpmImpact.assessmentId)
+    });
+    let kpmImpactOptions: Array<ReportOption> = visitImpacts.map(impact => {
+        return {
+            include: true,
+            nonEnergyBenefitId: impact.nebId,
+            assessmentId: impact.assessmentId,
+            energyOpportunityId: impact.energyOpportunityId,
+            kpmImpactId: impact.guid
+        }
+    })
 
     return {
         ...idbEntry,
@@ -64,7 +71,7 @@ export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: 
         assessmentOptions: assessmentOptions,
         energyOpportunityOptions: energyOpportunityOptions,
         nonEnergyBenefitOptions: nonEnergyBenefitOptions,
-        // kpiOptions: kpiOptions
+        kpmImpactOptions: kpmImpactOptions
     }
 }
 
@@ -73,5 +80,6 @@ export interface ReportOption {
     include: boolean,
     assessmentId?: string,
     energyOpportunityId?: string,
-    nonEnergyBenefitId?: string
+    nonEnergyBenefitId?: string,
+    kpmImpactId?: string
 }

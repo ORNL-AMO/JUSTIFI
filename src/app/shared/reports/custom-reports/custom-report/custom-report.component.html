@@ -2,7 +2,9 @@
     <ng-container *ngFor="let assessmentOption of report.assessmentOptions">
         <ng-template [ngIf]="assessmentOption.include">
             @let assessment = (assessmentOption.assessmentId | assessmentItem: assessments);
+            <h4>{{assessment.name}}</h4>
             <app-assessment-report [assessment]="assessment" [report]="report"></app-assessment-report>
+            <hr>
         </ng-template>
     </ng-container>
 </ng-template>

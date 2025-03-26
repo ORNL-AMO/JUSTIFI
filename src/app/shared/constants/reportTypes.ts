@@ -19,7 +19,7 @@ export const ReportTypeOptions: Array<{reportType: ReportType, label: string}> =
     },
     {
       reportType: 'assessment',
-      label: 'Assessment Report'  
+      label: 'Assessment Report(s)'  
     },
     {
       reportType: 'custom',

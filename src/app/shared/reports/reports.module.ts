@@ -20,6 +20,7 @@ import { EnergyOpportunityReportOptionsListPipe } from './custom-reports/custom-
 import { CustomReportOptionsComponent } from './custom-reports/custom-report-options/custom-report-options.component';
 import { CustomReportComponent } from './custom-reports/custom-report/custom-report.component';
 import { FormsModule } from '@angular/forms';
+import { KpmImpactReportOptionsListPipe } from './custom-reports/custom-report-options/kpm-impact-report-options-list.pipe';
 
 
 
@@ -40,7 +41,8 @@ import { FormsModule } from '@angular/forms';
     CustomReportComponent,
     CustomReportOptionsComponent,
     EnergyOpportunityReportOptionsListPipe,
-    NonEnergyBenefitReportOptionsListPipe
+    NonEnergyBenefitReportOptionsListPipe,
+    KpmImpactReportOptionsListPipe
   ],
   imports: [
     CommonModule,

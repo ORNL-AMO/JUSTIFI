@@ -6,11 +6,13 @@ import { ToastNotificationsService } from 'src/app/core-components/toast-notific
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
+import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
+import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { getNewIdbReport, IdbReport } from 'src/app/models/report';
@@ -46,7 +48,7 @@ export class DataEvaluationManageReportsComponent {
     private toastNotificationService: ToastNotificationsService,
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
-    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService
+    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService
   ) { }
 
   ngOnInit() {
@@ -75,8 +77,8 @@ export class DataEvaluationManageReportsComponent {
   async addReport() {
     let nebs: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.getValue();
     let energyOpps: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue();
-    let kpis: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
-    let newReport: IdbReport = getNewIdbReport(this.onSiteVisit, nebs, energyOpps, kpis);
+    let kpmImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactIdbService.keyPerformanceMetricImpacts.getValue();
+    let newReport: IdbReport = getNewIdbReport(this.onSiteVisit, nebs, energyOpps, kpmImpacts);
     await firstValueFrom(this.reportIdbService.addWithObservable(newReport));
     await this.reportIdbService.setReports();
     this.goToReport(newReport.guid);

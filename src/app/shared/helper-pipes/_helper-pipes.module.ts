@@ -48,6 +48,7 @@ import { UtilityTrackedAssessmentPipe } from './utility-tracked-assessment.pipe'
 import { IncludedInAssessmentPipe } from './included-in-assessment.pipe';
 import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
 import { OnSiteReportsListPipe } from './on-site-reports-list.pipe';
+import { KpmImpactLabelPipe } from './kpm-impact-label.pipe';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { OnSiteReportsListPipe } from './on-site-reports-list.pipe';
     UtilityTrackedAssessmentPipe,
     IncludedInAssessmentPipe,
     FormatPlaceholderTextPipe,
-    OnSiteReportsListPipe
+    OnSiteReportsListPipe,
+    KpmImpactLabelPipe
   ],
   imports: [
     CommonModule
@@ -152,7 +154,8 @@ import { OnSiteReportsListPipe } from './on-site-reports-list.pipe';
     UtilityTrackedAssessmentPipe,
     IncludedInAssessmentPipe,
     FormatPlaceholderTextPipe,
-    OnSiteReportsListPipe
+    OnSiteReportsListPipe,
+    KpmImpactLabelPipe
   ]
 })
 export class HelperPipesModule { }
