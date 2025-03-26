@@ -106,6 +106,9 @@ export class SetupWizardHelpContentComponent {
     } else if(url.includes('facility-questions')){
       this.helpContext = 'facility-questions';
       this.helpLabel = 'Facility Questions Help';
+    } else if(url.includes('custom-report')){
+      this.helpContext = 'custom-report';
+      this.helpLabel = 'Custom Report Help';
     }
     else {
       this.helpContext = undefined;
