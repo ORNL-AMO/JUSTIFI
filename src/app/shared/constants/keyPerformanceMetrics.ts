@@ -117,7 +117,8 @@ export type KeyPerformanceMetricValue =
     'emergencyEquipmentDowntime' |
     'electricalDemandCosts' |
     'powerFactorCosts' |
-    'mobileFuelEmissions';
+    'mobileFuelEmissions'|
+    'processEmissions';
 
 
 export type KpmCalculationMethod = 'costPerUnit' | 'percentTotal' | 'directCost';
@@ -891,6 +892,17 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Mobile Fuel Emissions",
         htmlLabel: "Mobile Fuel Emissions",
         value: "mobileFuelEmissions",
+        kpiValue: "airEnvironmentalQuality",
+        isQuantitative: true,
+        totalUnit: 'tonne CO2e',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Process Emissions",
+        htmlLabel: "Process Emissions",
+        value: "processEmissions",
         kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
         totalUnit: 'tonne CO2e',

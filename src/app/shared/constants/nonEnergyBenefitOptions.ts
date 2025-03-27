@@ -318,7 +318,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceProductWaste",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "defectiveProductionDollar", "defectRatePPMorDPM", "percentShrinkage", "percentTotalOrCost"],
+        KPM: ["contributeCompanyVision", "defectiveProductionDollar", "defectRatePPMorDPM", "percentShrinkage", "percentTotalOrCost", "processEmissions"],
         selectedKPM: []
     },
     {
@@ -534,7 +534,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceChemicalEmissions",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["stationaryFuelEmissions", "scope2Emissions", "scope3Emissions", "mobileFuelEmissions"],
+        KPM: ["stationaryFuelEmissions", "scope2Emissions", "scope3Emissions", "mobileFuelEmissions", "processEmissions"],
         selectedKPM: []
     },
     {
