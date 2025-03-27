@@ -165,7 +165,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceIndustrialTrucksDowntime",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "maintenanceCost", "employeeEngagementSatisfaction", "laborCosts", "equipmentDowntime"],
+        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "maintenanceCost", "employeeEngagementSatisfaction", "laborCosts", "equipmentDowntime", "mobileFuelEmissions"],
         selectedKPM: []
     },
     {
@@ -534,7 +534,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceChemicalEmissions",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["stationaryFuelEmissions", "scope2Emissions", "scope3Emissions"],
+        KPM: ["stationaryFuelEmissions", "scope2Emissions", "scope3Emissions", "mobileFuelEmissions"],
         selectedKPM: []
     },
     {
