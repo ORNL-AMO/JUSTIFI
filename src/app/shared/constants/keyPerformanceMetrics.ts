@@ -103,7 +103,7 @@ export type KeyPerformanceMetricValue =
     'rawMaterials' |
     'intermediateGoods' |
     'custom' |
-    'scope1Emissions' |
+    'stationaryFuelEmissions' |
     'scope2Emissions' |
     'scope3Emissions' |
     'percentTestsMeetingStandardsAirPollutants' |
@@ -537,9 +537,9 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'percentTotal'
     },
     {
-        label: "Scope 1 Emissions",
-        htmlLabel: "Scope 1 Emissions",
-        value: "scope1Emissions",
+        label: "Stationary Fuel Emissions",
+        htmlLabel: "Stationary Fuel Emissions",
+        value: "stationaryFuelEmissions",
         kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
         goalToIncrease: false,
