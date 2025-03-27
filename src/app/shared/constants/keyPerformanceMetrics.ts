@@ -89,13 +89,12 @@ export type KeyPerformanceMetricValue =
     'daysAwayFromWork' |
     'lostTimeInjuryRate' |
     'hearingConservationProgram' |
-    'numberOfParticles' |
     'workspaceOrFactoryFloorComfort' |
     'absenteeism' |
     'employeeEngagementSatisfaction' |
     'employeeRetentionRate' |
     'talentTurnoverRate' |
-    'totalLbsDust' |
+    'dustEmission' |
     'laborCosts' |
     'thirdPartyLabor' |
     'serviceParts' |
@@ -530,7 +529,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
     {
         label: "Dust Emissions",
         htmlLabel: "Dust Emissions",
-        value: "totalLbsDust",
+        value: "dustEmission",
         kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
         totalUnit: 'lb',
@@ -695,16 +694,6 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'directCost'
-    },
-    {
-        label: "Number of particles",
-        htmlLabel: "Number of particles",
-        value: "numberOfParticles",
-        kpiValue: "airEnvironmentalQuality",
-        isQuantitative: false,
-        goalToIncrease: false,
-        timePeriod: 'yr',
-        calculationMethod: 'percentTotal'
     },
     {
         label: "Workspace or factory floor comfort",

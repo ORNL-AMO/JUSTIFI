@@ -345,7 +345,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceDustEmissions",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "totalLbsDust", "particulateEmissions"],
+        KPM: ["contributeCompanyVision", "dustEmission", "particulateEmissions"],
         selectedKPM: []
     },
     {
@@ -408,7 +408,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improveAmbientAirQuality",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "totalLbsDust", "numberOfParticles", "particulateEmissions", "noxSoxCoEmissions", "percentTestsMeetingStandardsAirPollutants"],
+        KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "dustEmission", "particulateEmissions", "noxSoxCoEmissions", "percentTestsMeetingStandardsAirPollutants"],
         selectedKPM: []
     },
     {
@@ -417,7 +417,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reducePPE",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "totalLbsDust", "numberOfParticles"],
+        KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "dustEmission"],
         selectedKPM: []
     },
     {
