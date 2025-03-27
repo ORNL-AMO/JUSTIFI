@@ -6,9 +6,6 @@ export type KeyPerformanceIndicatorValue =
     'quality' |
     'materialUtilization' |
     'safety' |
-    'reduceRefrigerantGasEmissions' |
-    'chemicalEmissions' |
-    'dustEmissions' |
     'waterConsumption' |
     'waste' |
     'reduceExpenseCost' |
@@ -16,7 +13,7 @@ export type KeyPerformanceIndicatorValue =
     'employeeEngagementWorkingEnvironment' |
     'maintenanceExpense' |
     'other' |
-    'airPollutantEmissions' |
+    'airEnvironmentalQuality' |
     'customerSatisfaction' |
     'salesGrowth';
 
@@ -87,12 +84,6 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     //Sustainability (Environmental Impact)
     {
         primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'GHG Emissions',
-        htmlLabel: 'GHG Emissions',
-        optionValue: 'chemicalEmissions'
-    },
-    {
-        primaryKPI: 'Sustainability (Environmental Impact)',
         label: 'Waste',
         htmlLabel: 'Waste',
         optionValue: 'waste'
@@ -105,21 +96,9 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Dust Emissions',
-        htmlLabel: 'Dust Emissions',
-        optionValue: 'dustEmissions'
-    },
-    {
-        primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Air Pollutant Emissions',
-        htmlLabel: 'Air Pollutant Emissions',
-        optionValue: 'airPollutantEmissions'
-    },
-    {
-        primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Reduce Refrigerant Gas Emissions',
-        htmlLabel: 'Reduce Refrigerant Gas Emissions',
-        optionValue: 'reduceRefrigerantGasEmissions'
+        label: 'Air and environmental quality',
+        htmlLabel: 'Air and environmental quality',
+        optionValue: 'airEnvironmentalQuality'
     },
     //Strategic & Growth
     {

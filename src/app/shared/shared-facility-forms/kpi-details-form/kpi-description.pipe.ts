@@ -21,7 +21,7 @@ export class KpiDescriptionPipe implements PipeTransform {
         return "Water Consumption is the amount of water used by an organization.  Measuring water consumption with respect to sustainability is for the purposes of reduced consumption.";
       case 'productivity':
         return "Productivity is a quantitative measurement that assesses how efficiently a company is producing their products. Productivity metrics can be used to track performance, identify areas for improvement, maximize efficiency, and make decisions that benefit operations.";
-      case 'chemicalEmissions':
+      case 'airEnvironmentalQuality':
         return "CO, CO<sub>2</sub>, NO<sub>x</sub>, SO<sub>x</sub> emissions emissions are a key sustainability metric. Emissions related to global warming and air quality are often reported to governmental agencies or other bodies to show improvements in sustainability and meet regulatory standards."
       case 'maintenanceExpense':
         return 'Reduce Maintenance Cost is a strategic process that identifies and eliminates unnecessary operational expenses directly related to maintenance to increase profitability. The goal is always to maximize value and efficiency without compromising quality or core operations.'
