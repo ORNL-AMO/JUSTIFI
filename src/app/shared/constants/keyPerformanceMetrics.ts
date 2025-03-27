@@ -611,8 +611,8 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'percentTotal'
     },
     {
-        label: "Quantity",
-        htmlLabel: "Quantity",
+        label: "Refrigerant Emissions",
+        htmlLabel: "Refrigerant Emissions",
         value: "percentOrTotalRefrigerantEmissions",
         kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
