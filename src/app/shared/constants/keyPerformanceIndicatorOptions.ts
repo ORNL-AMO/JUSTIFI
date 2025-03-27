@@ -1,5 +1,5 @@
-export type PrimaryKPI = 'Strategic & Growth' | 'Operations' | 'Sustainability (Environmental Impact)' | 'Employee and Workplace Environment' | 'Other';
-export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic & Growth', 'Operations', 'Sustainability (Environmental Impact)', 'Employee and Workplace Environment', 'Other']
+export type PrimaryKPI = 'Strategic & Growth' | 'Operations' | 'Energy & Material Efficiency' | 'Employee and Workplace Environment' | 'Other';
+export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic & Growth', 'Operations', 'Energy & Material Efficiency', 'Employee and Workplace Environment', 'Other']
 export type KeyPerformanceIndicatorValue =
     'productivity' |
     'machineUtilization' |
@@ -81,21 +81,21 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
         htmlLabel: 'Working Environment',
         optionValue: 'employeeEngagementWorkingEnvironment'
     },
-    //Sustainability (Environmental Impact)
+    //Energy & Material Efficiency
     {
-        primaryKPI: 'Sustainability (Environmental Impact)',
+        primaryKPI: 'Energy & Material Efficiency',
         label: 'Waste',
         htmlLabel: 'Waste',
         optionValue: 'waste'
     },
     {
-        primaryKPI: 'Sustainability (Environmental Impact)',
+        primaryKPI: 'Energy & Material Efficiency',
         label: 'Water Use, Disposal, Quality',
         htmlLabel: 'Water Use, Disposal, Quality',
         optionValue: 'waterConsumption'
     },
     {
-        primaryKPI: 'Sustainability (Environmental Impact)',
+        primaryKPI: 'Energy & Material Efficiency',
         label: 'Air and environmental quality',
         htmlLabel: 'Air and environmental quality',
         optionValue: 'airEnvironmentalQuality'

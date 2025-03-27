@@ -34,14 +34,14 @@
             </div>
         </div>
     </div>
-    <!--Sustainability (Environmental Impact)-->
+    <!--Energy & Material Efficiency-->
     <div class="accordion-item" *ngIf="inPortfolio">
         <h2 class="accordion-header">
             <button class="accordion-button" type="button" [attr.data-bs-target]="'#sustainability'"
                 aria-expanded="true" [attr.aria-controls]="'sustainability'" (click)="toggleBS('sustainability')"
                 [ngClass]="{'collapsed': collapseSustainability}">
                 <fa-icon [icon]="faClipboardQuestion" class="me-1"></fa-icon>
-                Sustainability (Environmental Impact)
+                Energy & Material Efficiency
             </button>
         </h2>
         <div [id]="'#sustainability'" class="accordion-collapse collapse" [ngClass]="{'show': !collapseSustainability}"

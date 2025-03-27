@@ -34,7 +34,7 @@ export class KpiListFilterPipe implements PipeTransform {
         return 1;
       case 'Employee and Workplace Environment':
         return 2;
-      case 'Sustainability (Environmental Impact)':
+      case 'Energy & Material Efficiency':
         return 3;
       case 'Strategic & Growth':
         return 4;
