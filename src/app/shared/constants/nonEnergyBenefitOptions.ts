@@ -534,7 +534,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceChemicalEmissions",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["stationaryFuelEmissions", "scope2Emissions", "scope3Emissions", "mobileFuelEmissions", "processEmissions"],
+        KPM: ["stationaryFuelEmissions", "purchasedEnergyEmissions", "scope3Emissions", "mobileFuelEmissions", "processEmissions"],
         selectedKPM: []
     },
     {
@@ -543,7 +543,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceRegulatoryCosts",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["stationaryFuelEmissions", "scope2Emissions", "scope3Emissions", "particulateEmissions", "noxSoxCoEmissions", "percentTestsMeetingStandardsAirPollutants", "waterPolutantEmissions"],
+        KPM: ["stationaryFuelEmissions", "purchasedEnergyEmissions", "scope3Emissions", "particulateEmissions", "noxSoxCoEmissions", "percentTestsMeetingStandardsAirPollutants", "waterPolutantEmissions"],
         selectedKPM: []
     },
     {
