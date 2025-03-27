@@ -117,7 +117,8 @@ export type KeyPerformanceMetricValue =
     'electricalDemandCosts' |
     'powerFactorCosts' |
     'mobileFuelEmissions'|
-    'processEmissions';
+    'processEmissions' |
+    'reduceRegulatoryFees';
 
 
 export type KpmCalculationMethod = 'costPerUnit' | 'percentTotal' | 'directCost';
@@ -898,5 +899,16 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'directCost'
-    }
+    },
+    {
+        label: "Reduce Regulatory Fees",
+        htmlLabel: "Reduce Regulatory Fees",
+        value: "reduceRegulatoryFees",
+        kpiValue: "airEnvironmentalQuality",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
 ]
