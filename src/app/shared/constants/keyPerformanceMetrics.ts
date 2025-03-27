@@ -105,7 +105,7 @@ export type KeyPerformanceMetricValue =
     'custom' |
     'stationaryFuelEmissions' |
     'purchasedEnergyEmissions' |
-    'scope3Emissions' |
+    'valueChainEmissions' |
     'percentTestsMeetingStandardsAirPollutants' |
     'noxSoxCoEmissions' |
     'particulateEmissions' |
@@ -561,9 +561,9 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'costPerUnit'
     },
     {
-        label: "Scope 3 Emissions",
-        htmlLabel: "Scope 3 Emissions",
-        value: "scope3Emissions",
+        label: "Value Chain Emissions",
+        htmlLabel: "Value Chain Emissions",
+        value: "valueChainEmissions",
         kpiValue: "airEnvironmentalQuality",
         totalUnit: 'tonne CO2e',
         isQuantitative: true,
