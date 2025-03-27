@@ -105,7 +105,7 @@ export type KeyPerformanceMetricValue =
     'stationaryFuelEmissions' |
     'purchasedEnergyEmissions' |
     'valueChainEmissions' |
-    'percentTestsMeetingStandardsAirPollutants' |
+    'regulatoryCompliancePercentTests' |
     'noxSoxCoEmissions' |
     'particulateEmissions' |
     'waterPolutantEmissions' |
@@ -591,9 +591,9 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'percentTotal'
     },
     {
-        label: "Percent of tests that meet regulatory standards",
-        htmlLabel: "Percent of tests that meet regulatory standards",
-        value: "percentTestsMeetingStandardsAirPollutants",
+        label: "Regulatory Compliance (% tests)",
+        htmlLabel: "Regulatory Compliance (&#37; tests)",
+        value: "regulatoryCompliancePercentTests",
         kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
         goalToIncrease: false,
