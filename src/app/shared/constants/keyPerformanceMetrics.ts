@@ -108,7 +108,7 @@ export type KeyPerformanceMetricValue =
     'regulatoryCompliancePercentTests' |
     'noxSoxCoEmissions' |
     'particulateEmissions' |
-    'waterPolutantEmissions' |
+    'waterPollutantEmissions' |
     'sewageCosts' | 
     'regulatoryFeesWater' | 
     'regulatoryFeesWaste' | 
@@ -602,9 +602,9 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'percentTotal'
     },
     {
-        label: "Water Polutant Emissions",
-        htmlLabel: "Water Polutant Emissions",
-        value: "waterPolutantEmissions",
+        label: "Water Pollutant Emissions",
+        htmlLabel: "Water Pollutant Emissions",
+        value: "waterPollutantEmissions",
         kpiValue: "waterConsumption",
         isQuantitative: true,
         goalToIncrease: false,
