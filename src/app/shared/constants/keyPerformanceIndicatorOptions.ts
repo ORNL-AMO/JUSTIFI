@@ -51,7 +51,7 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
         optionValue: 'machineUtilization'
     },
     {
-        primaryKPI: 'Operations',
+        primaryKPI: 'Energy and Material Efficiency',
         label: 'Material Utilization',
         htmlLabel: 'Material Utilization',
         optionValue: 'materialUtilization'
