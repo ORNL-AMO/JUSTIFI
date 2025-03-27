@@ -1,5 +1,5 @@
-export type PrimaryKPI = 'Strategic & Growth' | 'Operations' | 'Energy & Material Efficiency' | 'Employee and Workplace Environment' | 'Other';
-export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic & Growth', 'Operations', 'Energy & Material Efficiency', 'Employee and Workplace Environment', 'Other']
+export type PrimaryKPI = 'Strategic and Growth' | 'Operations' | 'Energy and Material Efficiency' | 'Employee and Workplace Environment' | 'Other';
+export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic and Growth', 'Operations', 'Energy and Material Efficiency', 'Employee and Workplace Environment', 'Other']
 export type KeyPerformanceIndicatorValue =
     'productivity' |
     'machineUtilization' |
@@ -81,35 +81,35 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
         htmlLabel: 'Working Environment',
         optionValue: 'employeeEngagementWorkingEnvironment'
     },
-    //Energy & Material Efficiency
+    //Energy and Material Efficiency
     {
-        primaryKPI: 'Energy & Material Efficiency',
+        primaryKPI: 'Energy and Material Efficiency',
         label: 'Waste',
         htmlLabel: 'Waste',
         optionValue: 'waste'
     },
     {
-        primaryKPI: 'Energy & Material Efficiency',
+        primaryKPI: 'Energy and Material Efficiency',
         label: 'Water Use, Disposal, Quality',
         htmlLabel: 'Water Use, Disposal, Quality',
         optionValue: 'waterConsumption'
     },
     {
-        primaryKPI: 'Energy & Material Efficiency',
+        primaryKPI: 'Energy and Material Efficiency',
         label: 'Air and environmental quality',
         htmlLabel: 'Air and environmental quality',
         optionValue: 'airEnvironmentalQuality'
     },
-    //Strategic & Growth
+    //Strategic and Growth
     {
-        primaryKPI: 'Strategic & Growth',
+        primaryKPI: 'Strategic and Growth',
         label: 'Customer Satisfaction',
         htmlLabel: 'Customer Satisfaction',
         optionValue: 'customerSatisfaction'
     },
 
     {
-        primaryKPI: 'Strategic & Growth',
+        primaryKPI: 'Strategic and Growth',
         label: 'Sales Growth',
         htmlLabel: 'Sales Growth',
         optionValue: 'salesGrowth'

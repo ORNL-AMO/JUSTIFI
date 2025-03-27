@@ -10,7 +10,7 @@ export class KpiDescriptionPipe implements PipeTransform {
   transform(kpiOptionValue: KeyPerformanceIndicatorValue): string {
     switch (kpiOptionValue) {
       case 'customerSatisfaction':
-        return "Strategic Relationship Impact measures the success of a business's engagement with partners and the health of those relationships. Strategic & Growth is an intangible measurement itself but can be partially quantified using KPMs to measure the success of a business's engagement with partners.  This can be done through measuring increased/losses in sales, customer and supplier satisfaction ratings, and customer churn for example."
+        return "Strategic Relationship Impact measures the success of a business's engagement with partners and the health of those relationships. Strategic and Growth is an intangible measurement itself but can be partially quantified using KPMs to measure the success of a business's engagement with partners.  This can be done through measuring increased/losses in sales, customer and supplier satisfaction ratings, and customer churn for example."
       case 'quality':
         return "Quality metrics are quantifiable measurements used to evaluate performance, quality, or effectiveness for a product, process or system. They are used to measure success towards a goal and drive continuous improvement.";
       case 'reduceExpenseCost':
