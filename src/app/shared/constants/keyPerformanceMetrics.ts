@@ -528,8 +528,8 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
     {
-        label: "Percent Total lbs.",
-        htmlLabel: "Percent Total lbs.",
+        label: "Dust Emissions",
+        htmlLabel: "Dust Emissions",
         value: "totalLbsDust",
         kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
