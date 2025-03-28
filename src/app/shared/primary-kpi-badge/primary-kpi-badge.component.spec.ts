@@ -30,7 +30,7 @@ describe('PrimaryKpiBadgeComponent', () => {
     
     fixture = TestBed.createComponent(PrimaryKpiBadgeComponent);
     component = fixture.componentInstance;
-    component.kpiValue = 'strategicGrowth';
+    component.kpiValue = 'other';
     fixture.detectChanges();
   });
 
