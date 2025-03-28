@@ -63,6 +63,19 @@ export class EnergyEquipmentFormComponent {
 
   inPortfolio: boolean = false;
 
+  isAutoCalculateAvailable: {[key: string]: boolean} = {
+    'Other Fuels': true,
+    'Steam': true,
+    'Compressed Air': true,
+  };
+
+  
+  heatingValueLabel: {[key: string]: string} = {
+    'Other Fuels': 'Higher Heating Value',
+    'Steam': 'Enthalpy',
+    'Compressed Air': 'Specific Power',
+  };
+
   collapseEnergyDetails: boolean = true;
   constructor(private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private dbChangesService: DbChangesService,
@@ -146,7 +159,7 @@ export class EnergyEquipmentFormComponent {
 
   async updateEnergyCalculations() {
     // update consumption rate unit
-    if (this.isAutoCalculateAvailable()) {
+    if (this.isAutoCalculateAvailable[this.energyEquipment.utilityType]) {
       const utilityOption = this.utilityOptions.find(
         _option => _option.utilityType == this.energyEquipment.utilityType);
       let rateUnitOptions = utilityOption.consumptionRateUnit || [];
@@ -161,7 +174,7 @@ export class EnergyEquipmentFormComponent {
   }
 
   autoCalculateFuelPower() {
-    if (this.isAutoCalculateAvailable() && this.energyEquipment.autoCalculate) {
+    if (this.isAutoCalculateAvailable[this.energyEquipment.utilityType] && this.energyEquipment.autoCalculate) {
       let result = this.energyEquipment.fuelConsumption * this.energyEquipment.fuelHHV;
       let unitConv = this.convertValue.convertValue(1, this.energyEquipment.fuelEnergyUnit).convertedValue /
         this.convertValue.convertValue(1, this.energyEquipment.sizeUnit).convertedValue / 3600; // J/hr to W
@@ -254,24 +267,5 @@ export class EnergyEquipmentFormComponent {
   toggleBsEnergyDetails() {
     this.bootstrapService.bsCollapse('#energyDetails');
     this.collapseEnergyDetails = !this.collapseEnergyDetails;
-  }
-
-  getHeatingValueLabel(utilityType: UtilityType): string {
-    switch (utilityType) {
-      case 'Other Fuels':
-        return 'Higher Heating Value';
-      case 'Steam':
-        return 'Enthalpy';
-      case 'Compressed Air':
-        return 'Specific Power';
-      default:
-        return 'Higher Heating Value'; // default
-    }
-  }
-
-  isAutoCalculateAvailable(): boolean {
-    return this.energyEquipment.utilityType === 'Other Fuels' || 
-      this.energyEquipment.utilityType === 'Steam' ||
-      this.energyEquipment.utilityType === 'Compressed Air';
   }
 }
