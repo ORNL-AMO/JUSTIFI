@@ -115,3 +115,20 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
         optionValue: 'salesGrowth'
     }
 ]
+
+export interface PrimaryKpiRename {
+    original: string,
+    current: PrimaryKPI
+}
+
+// KPI Category/primaryKPI updates
+export const PrimaryKpiRenames: Array<PrimaryKpiRename> = [
+    {
+        original: 'Strategic Relationship Impact',
+        current: 'Strategic and Growth'
+    },
+    {
+        original: 'Sustainability (Environmental Impact)',
+        current: 'Energy and Material Efficiency'
+    },
+]
