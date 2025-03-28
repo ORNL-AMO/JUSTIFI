@@ -115,7 +115,7 @@ export class AssessmentSavingsChartComponent {
 
     this.assessmentReport.energyOpportunityReports.forEach(report => {
       if (report.totalNonNebCostSavings) {
-        trace.labels.push('Energy Opportunity: ' + report.energyOpportunity.name)
+        trace.labels.push('Energy Efficiency Measure: ' + report.energyOpportunity.name)
         trace.values.push(report.totalNonNebCostSavings)
         trace.marker.line.width.push(2)
       }

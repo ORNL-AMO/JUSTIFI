@@ -192,7 +192,7 @@ export class BackupDataService {
 
     // adding energy opportunities
     // energyOpportunities: Array<IdbEnergyOpportunity>,
-    this.loadingService.setLoadingMessage('Adding Energy Opportunities...');
+    this.loadingService.setLoadingMessage('Adding Energy Efficiency Measures...');
     let energyOpportunityGUIDs: Array<{ oldId: string, newId: string }> = new Array();
     for (let i = 0; i < backupFile.energyOpportunities.length; i++) {
       let energyOpportunity: IdbEnergyOpportunity = backupFile.energyOpportunities[i];

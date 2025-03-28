@@ -87,9 +87,9 @@ export class AppComponent {
     //energy equipment 
     await this.energyEquipmentIdbService.setEnergyEquipments();
     console.log('energy equipment init..');
-    //energy opportunities 
+    //energy efficiency measures 
     await this.energyOpportunityIdbService.setEnergyOpportunities();
-    console.log('energy opportunities init..');
+    console.log('energy efficiency measures init..');
     //non energy benefits 
     await this.nonEnergyBenefitsIdbService.setNonEnergyBenefits();
     console.log('NEBs init..');

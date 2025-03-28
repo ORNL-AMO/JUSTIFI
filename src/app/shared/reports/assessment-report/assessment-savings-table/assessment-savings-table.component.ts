@@ -47,5 +47,8 @@ export class AssessmentSavingsTableComponent {
     if (this.currencySub) {
       this.currencySub.unsubscribe();
     }
+    if (this.companySub) {
+      this.companySub.unsubscribe();
+    }
   }
 }
