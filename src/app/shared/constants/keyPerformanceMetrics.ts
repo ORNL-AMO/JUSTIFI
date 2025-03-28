@@ -887,7 +887,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         totalUnit: 'tonne CO2e',
         goalToIncrease: false,
         timePeriod: 'yr',
-        calculationMethod: 'directCost'
+        calculationMethod: 'costPerUnit'
     },
     {
         label: "Process Emissions",
@@ -898,7 +898,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         totalUnit: 'tonne CO2e',
         goalToIncrease: false,
         timePeriod: 'yr',
-        calculationMethod: 'directCost'
+        calculationMethod: 'costPerUnit'
     },
     {
         label: "Reduce Regulatory Fees",

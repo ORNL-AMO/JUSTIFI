@@ -10,7 +10,7 @@ export class KpiDescriptionPipe implements PipeTransform {
   transform(kpiOptionValue: KeyPerformanceIndicatorValue): string {
     switch (kpiOptionValue) {
       case 'customerSatisfaction':
-        return "Strategic Relationship Impact measures the success of a business's engagement with partners and the health of those relationships. Strategic and Growth is an intangible measurement itself but can be partially quantified using KPMs to measure the success of a business's engagement with partners.  This can be done through measuring increased/losses in sales, customer and supplier satisfaction ratings, and customer churn for example."
+        return "Customer Satisfaction measures the success of a business's engagement with partners and the health of those relationships. While this may be difficult to measure, can be partially quantified using KPMs that measure the success of a business's engagement with partners: customer and supplier satisfaction ratings, customer churn, etc."
       case 'quality':
         return "Quality metrics are quantifiable measurements used to evaluate performance, quality, or effectiveness for a product, process or system. They are used to measure success towards a goal and drive continuous improvement.";
       case 'reduceExpenseCost':
@@ -22,7 +22,7 @@ export class KpiDescriptionPipe implements PipeTransform {
       case 'productivity':
         return "Productivity is a quantitative measurement that assesses how efficiently a company is producing their products. Productivity metrics can be used to track performance, identify areas for improvement, maximize efficiency, and make decisions that benefit operations.";
       case 'airEnvironmentalQuality':
-        return "CO, CO<sub>2</sub>, NO<sub>x</sub>, SO<sub>x</sub> emissions emissions are a key sustainability metric. Emissions related to global warming and air quality are often reported to governmental agencies or other bodies to show improvements in sustainability and meet regulatory standards."
+        return "Air and environmental quality is a key sustainability metric. Emissions related to global warming and air quality are often reported to governmental agencies or other bodies to show improvements in sustainability and meet regulatory standards.";
       case 'maintenanceExpense':
         return 'Reduce Maintenance Cost is a strategic process that identifies and eliminates unnecessary operational expenses directly related to maintenance to increase profitability. The goal is always to maximize value and efficiency without compromising quality or core operations.'
       default:
