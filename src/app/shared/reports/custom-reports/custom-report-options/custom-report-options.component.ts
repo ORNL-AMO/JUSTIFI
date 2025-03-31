@@ -61,7 +61,6 @@ export class CustomReportOptionsComponent {
     this.reportSub = this.reportIdbService.selectedReport.subscribe(report => {
       if (!this.isFormChange) {
         this.report = report;
-        console.log(this.report);
       } else {
         this.isFormChange = false;
       }

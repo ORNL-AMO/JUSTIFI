@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { faScrewdriverWrench, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { faPrint, faScrewdriverWrench, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
@@ -13,6 +14,7 @@ import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicat
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { IdbReport } from 'src/app/models/report';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
   selector: 'app-custom-report',
@@ -31,21 +33,56 @@ export class CustomReportComponent {
   kpis: Array<IdbKeyPerformanceIndicator>;
   assessments: Array<IdbAssessment>;
   onSiteVisit: IdbOnSiteVisit;
+
+  inPortfolio: boolean;
+  faPrint: IconDefinition = faPrint;
+  printSub: Subscription;
+  print: boolean = false;
   constructor(private reportIdbService: ReportIdbService,
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private assessmentIdbService: AssessmentIdbService,
-    private onSiteVisitIdbService: OnSiteVisitIdbService) {
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private router: Router,
+    private sharedDataService: SharedDataService) {
 
   }
 
   ngOnInit() {
+    this.inPortfolio = this.router.url.includes('portfolio');
     this.nonEnergyBenefits = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.getValue();
     this.energyOpportunities = this.energyOpportunityIdbService.energyOpportunities.getValue();
     this.kpis = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
     this.assessments = this.assessmentIdbService.assessments.getValue();
     this.report = this.reportIdbService.selectedReport.getValue();
-    this.onSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+    this.onSiteVisit = this.onSiteVisitIdbService.getByGuid(this.report.onSiteVisitId)
+
+
+    this.printSub = this.sharedDataService.print.subscribe(print => {
+      this.print = print;
+      if (this.print) {
+        this.printReport();
+      }
+    });
   }
+
+  ngOnDestroy() {
+    this.printSub.unsubscribe();
+  }
+
+  togglePrint() {
+    this.sharedDataService.print.next(true);
+  }
+
+  printReport() {
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+      setTimeout(() => {
+        window.print();
+        this.sharedDataService.print.next(false)
+      }, 1000)
+    }, 100)
+  }
+
 }

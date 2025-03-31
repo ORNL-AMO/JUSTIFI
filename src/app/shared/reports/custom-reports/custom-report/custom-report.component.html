@@ -1,3 +1,7 @@
+<button class="btn btn-outline-secondary float-right btn-sm" *ngIf="inPortfolio && !print">
+    <fa-icon [icon]="faPrint" (click)="togglePrint()"></fa-icon>
+</button>
+
 <ng-container *ngIf="report.reportType == 'assessment'">
     <ng-container *ngIf="report.assessmentReportOptions.includeRollupReport">
         <div class="print-break-before">
