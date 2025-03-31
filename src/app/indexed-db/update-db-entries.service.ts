@@ -17,7 +17,7 @@ import { ProcessEquipmentIdbService } from './process-equipment-idb.service';
 import { IdbProcessEquipment } from '../models/processEquipment';
 import { EnergyEquipmentIdbService } from './energy-equipment-idb.service';
 import { IdbEnergyEquipment } from '../models/energyEquipment';
-import { updateAssessmentUtilityUseCost, updateFacilityUtilityUseCost } from '../shared/reports/calculations/utilityCalculation';
+import { updateAssessmentUtilityUseCostSavings, updateFacilityUtilityUseCost } from '../shared/reports/calculations/utilityCalculation';
 import { AssessmentIdbService } from './assessment-idb.service';
 import { IdbAssessment } from '../models/assessment';
 import { EnergyOpportunityIdbService } from './energy-opportunity-idb.service';
@@ -212,7 +212,7 @@ export class UpdateDbEntriesService {
         // need recalculate uses and costs
         let facility: IdbFacility = facilities.find(_facility => { return _facility.guid == assessment.facilityId });
         let company: IdbCompany = companies.find(_company => { return _company.guid == facility.companyId });
-        assessment = updateAssessmentUtilityUseCost(assessment, facility, company.companyEnergyUnit);
+        assessment = updateAssessmentUtilityUseCostSavings(assessment, facility.unitSettings, company.companyEnergyUnit);
         if (assessment.energyCostSavings == undefined) {
           assessment.energyCostSavings = 0;
         }

@@ -99,7 +99,7 @@ export class UnitsFormComponent implements OnInit, OnDestroy{
   async savePriceChanges() {
     await this.saveChanges();
     this.priceChanged = true;
-    await this.preAssessmentSetupService.updateAssessmentEnergyCost(
+    await this.preAssessmentSetupService.updateAssessmentUtilityCostSavings(
       this.facilityAssessments, this.facility.unitSettings);
   }
 

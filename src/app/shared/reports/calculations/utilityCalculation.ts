@@ -3,6 +3,7 @@ import { UtilityOptions } from "../../constants/utilityTypes";
 import { ConvertValue } from "../../conversions/convertValue";
 import { IdbAssessment } from "src/app/models/assessment";
 import { UtilityEnergyUse } from "src/app/models/utilityEnergyUses";
+import { UnitSettings } from "src/app/models/unitSettings";
 
 export function updateFacilityUtilityUseCost(facility: IdbFacility, companyEnergyUnit: string): IdbFacility {
   const convertValue = new ConvertValue();
@@ -48,26 +49,35 @@ export function updateFacilityUtilityUseCost(facility: IdbFacility, companyEnerg
   return facility;
 }
 
-export function updateAssessmentUtilityUseCost(assessment: IdbAssessment, facility: IdbFacility, companyEnergyUnit: string): IdbAssessment {
-  const facilityUnitSettings = facility.unitSettings;
+export function updateAssessmentUtilityUseCostSavings(assessment: IdbAssessment, facilityUnitSettings: UnitSettings, companyEnergyUnit: string): IdbAssessment {
+  assessment = calculateAssessmentUtilityUseSavings(assessment, companyEnergyUnit);
+  assessment = calculateAssessmentUtilityCostSavings(assessment, facilityUnitSettings);
+  return assessment;
+}
+
+export function calculateAssessmentUtilityUseSavings(assessment: IdbAssessment, companyEnergyUnit: string): IdbAssessment {
   const convertValue = new ConvertValue();
-  let energyUse = 0, energyCost = 0, waterCost = 0;
+  let energyUse = 0;
+  let energySavings = 0, waterSavings = 0;
   assessment.utilityTypes.forEach(utilityType => {
     let utilityEnergyUse: UtilityEnergyUse = assessment.utilityEnergyUses.find(
       _energyUse => _energyUse.utilityType == utilityType);
     if (utilityEnergyUse.include) {
       let trimmedType = utilityType.replace(/\s+/g, ''); // Remove spaces
       let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
+      let convertedUse = 0, convertedUseForCost = 0;
+      let convertedSaving = 0, convertedSavingForCost = 0;
       if (utilityType == 'Water' || utilityType == 'Waste Water') {
-        // calculate cost
-        let convertedUse = 0;
-        convertedUse = convertValue.convertValue(
-          utilityEnergyUse.energyUse,
+        // calculate saving
+        convertedSavingForCost = convertValue.convertValue(
+          utilityEnergyUse.utilitySaving,
           utilityEnergyUse.energyUnit,
-          facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
-        waterCost += convertedUse * facilityUnitSettings[`${camelCaseType}Price`];
+          'kgal').convertedValue; // default to kgal
+        if (isNaN(convertedSavingForCost)) {
+          convertedSavingForCost = 0;
+        }
+        waterSavings += convertedSavingForCost;
       } else {
-        let convertedUse = 0, convertedCost = 0;
         let selectedUtilityOption = UtilityOptions.find(
           _option => _option.utilityType == utilityType);
         let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
@@ -85,19 +95,82 @@ export function updateAssessmentUtilityUseCost(assessment: IdbAssessment, facili
             utilityEnergyUse.energyUnitStandard,
             companyEnergyUnit).convertedValue;
         }
+        if (isNaN(convertedUse)) {
+          convertedUse = 0;
+        }
         energyUse += convertedUse;
-        // calculate cost
-        convertedCost = convertValue.convertValue(
-          utilityEnergyUse.energyUse,
-          utilityEnergyUse.energyUnit,
-          facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
-        energyCost += convertedCost * facilityUnitSettings[`${camelCaseType}Price`];
+        energySavings += convertedSaving;
       }
     }
   });
   assessment.energyUse = energyUse;
+  assessment.energySavings = energySavings;
+  assessment.waterSavings = waterSavings;
+  return assessment;
+}
+
+export function calculateAssessmentUtilityCostSavings(assessment: IdbAssessment, facilityUnitSettings: UnitSettings): IdbAssessment {
+  const convertValue = new ConvertValue();
+  let energyCost = 0, waterCost = 0;
+  let energyCostSavings = 0, waterCostSavings = 0;
+  assessment.utilityTypes.forEach(utilityType => {
+    let utilityEnergyUse: UtilityEnergyUse = assessment.utilityEnergyUses.find(
+      _energyUse => _energyUse.utilityType == utilityType);
+    if (utilityEnergyUse.include) {
+      let trimmedType = utilityType.replace(/\s+/g, ''); // Remove spaces
+      let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
+      let convertedUse = 0, convertedUseForCost = 0;
+      let convertedSaving = 0, convertedSavingForCost = 0;
+      if (utilityType == 'Water' || utilityType == 'Waste Water') {
+        // calculate cost
+        convertedUseForCost = convertValue.convertValue(
+          utilityEnergyUse.energyUse,
+          utilityEnergyUse.energyUnit,
+          facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
+        if (isNaN(convertedUseForCost)) {
+          convertedUseForCost = 0;
+        }
+        waterCost += convertedUseForCost * facilityUnitSettings[`${camelCaseType}Price`];
+        // calculate saving
+        convertedSavingForCost = convertValue.convertValue(
+          utilityEnergyUse.utilitySaving,
+          utilityEnergyUse.energyUnit,
+          facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
+        if (isNaN(convertedSavingForCost)) {
+          convertedSavingForCost = 0;
+        }
+        waterCostSavings += convertedSavingForCost * facilityUnitSettings[`${camelCaseType}Price`];
+      } else {
+        let selectedUtilityOption = UtilityOptions.find(
+          _option => _option.utilityType == utilityType);
+        let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
+          _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
+        // calculate cost
+        convertedUseForCost = convertValue.convertValue(
+          utilityEnergyUse.energyUse,
+          utilityEnergyUse.energyUnit,
+          facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
+        if (isNaN(convertedUseForCost)) {
+          convertedUseForCost = 0;
+        }
+        energyCost += convertedUseForCost * facilityUnitSettings[`${camelCaseType}Price`];
+        // calculate saving for cost
+        convertedSavingForCost = convertValue.convertValue(
+          utilityEnergyUse.utilitySaving,
+          utilityEnergyUse.energyUnit,
+          facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
+        if (isNaN(convertedSavingForCost)) {
+          convertedSavingForCost = 0;
+        }
+        energyCostSavings += convertedSavingForCost * facilityUnitSettings[`${camelCaseType}Price`];
+      }
+    }
+  });
   assessment.energyCost = energyCost;
   assessment.waterCost = waterCost;
   assessment.cost = energyCost + waterCost;
+  assessment.energyCostSavings = energyCostSavings;
+  assessment.waterCostSavings = waterCostSavings;
+  assessment.costSavings = energyCostSavings + waterCostSavings;
   return assessment;
 }
