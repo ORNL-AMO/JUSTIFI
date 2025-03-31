@@ -11,13 +11,14 @@ import { IdbContact } from 'src/app/models/contact';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { UnitSettings } from 'src/app/models/unitSettings';
 import { EquipmentType, EquipmentTypeOptions, EquipmentTypes } from 'src/app/shared/constants/equipmentTypes';
-import { EnergyUnitOptions, ProcessCoolingUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from 'src/app/shared/constants/unitOptions';
+import { Energy2PowerUnitMap, EnergyUnitOptions, ProcessCoolingUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from 'src/app/shared/constants/unitOptions';
 import { UtilityOption, UtilityOptions, UtilityType, UtilityTypes } from 'src/app/shared/constants/utilityTypes';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { BootstrapService } from '../../shared-services/bootstrap.service';
+import { power } from '../../conversions/definitions/power';
 
 @Component({
     selector: 'app-energy-equipment-form',
@@ -44,10 +45,9 @@ export class EnergyEquipmentFormComponent {
   }> = EquipmentTypeOptions;
   utilityOptions: Array<UtilityOption> = UtilityOptions;
 
-  fuelVolumeUnitOptions: Array<UnitOption> = [...VolumeLiquidOptions, ...VolumeGasOptions];
   fuelEnergyUnitOptions: Array<UnitOption> = EnergyUnitOptions;
 
-  processCoolingUnitOptions: Array<UnitOption> = ProcessCoolingUnitOptions
+  processCoolingUnitOptions: Array<UnitOption> = ProcessCoolingUnitOptions;
 
   convertValue: ConvertValue = new ConvertValue();
 
@@ -62,6 +62,20 @@ export class EnergyEquipmentFormComponent {
   facilityUnitSettings: UnitSettings;
 
   inPortfolio: boolean = false;
+
+  // allow auto calculation for some utility types
+  isAutoCalculateAvailable: {[key: string]: boolean} = {
+    'Other Fuels': true,
+    'Steam': true,
+    'Compressed Air': true,
+  };
+
+  // HHV variations for some utility types
+  heatingValueLabel: {[key: string]: string} = {
+    'Other Fuels': 'Higher Heating Value',
+    'Steam': 'Enthalpy',
+    'Compressed Air': 'Specific Power',
+  };
 
   collapseEnergyDetails: boolean = true;
   constructor(private energyEquipmentIdbService: EnergyEquipmentIdbService,
@@ -113,27 +127,55 @@ export class EnergyEquipmentFormComponent {
       option => option.equipmentType === this.energyEquipment.equipmentType
     )?.utilityTypes || [];
     this.energyEquipment.utilityType = _utilityTypes[0]; // Set to first utility type
-    this.energyEquipment.sizeUnit = this.equipmentTypeOptions.find(
-      option => option.equipmentType === this.energyEquipment.equipmentType
-    )?.defaultUnit || 'kW'; // Set to default unit
-    await this.utilityTypeChange();
+    await this.utilityTypeChange('default');
   }
 
-  async utilityTypeChange() {
+  async utilityTypeChange(mode: 'default' | 'normal') {
+    // update energy unit to facility or company settings
+    const facilityUtilityEnergyUnit = this.getUtilityEnergyUnitFromFacility();
+    if (facilityUtilityEnergyUnit) {
+      this.energyEquipment.facilityUtilityUnit = facilityUtilityEnergyUnit;
+      
+    } else {
+      this.energyEquipment.facilityUtilityUnit = this.companyEnergyUnit;
+    }
+
+    // update size unit
     if (this.energyEquipment.equipmentType === 'Process Cooling') { // Process Cooling unit changes
       this.energyEquipment.sizeUnit = this.processCoolingUnitOptions[0].value;
+    } else {
+      if (mode === 'default') { // default unit for system type change
+        this.energyEquipment.sizeUnit = this.equipmentTypeOptions.find(
+          option => option.equipmentType === this.energyEquipment.equipmentType
+        )?.defaultUnit || 'kW'; // Set to default unit
+      } else if (mode === 'normal') { // normal unit for utility type change
+        // update power unit to corresponding energy unit
+        const powerUnit = Energy2PowerUnitMap[facilityUtilityEnergyUnit];
+        this.energyEquipment.sizeUnit = powerUnit || 'kW';
+      }
     }
-    this.updateFacilityUtilityUnit();
+    
     await this.updateEnergyCalculations();
   }
 
   async updateEnergyCalculations() {
+    // update consumption rate unit
+    if (this.isAutoCalculateAvailable[this.energyEquipment.utilityType]) {
+      const utilityOption = this.utilityOptions.find(
+        _option => _option.utilityType == this.energyEquipment.utilityType);
+      let rateUnitOptions = utilityOption.consumptionRateUnit || [];
+      const rateUnitValues = rateUnitOptions.map(_unitOption => _unitOption.value);
+      // Set to first unit if undefined or not in the list
+      if (!this.energyEquipment.fuelVolumeUnit || !rateUnitValues.includes(this.energyEquipment.fuelVolumeUnit)) {
+        this.energyEquipment.fuelVolumeUnit = rateUnitValues?.[0] || 'gal';
+      }
+    }
     this.autoCalculateFuelPower();
     await this.calculateAnnualEnergyUse();
   }
 
   autoCalculateFuelPower() {
-    if (this.energyEquipment.utilityType === 'Other Fuels' && this.energyEquipment.autoCalculate) {
+    if (this.isAutoCalculateAvailable[this.energyEquipment.utilityType] && this.energyEquipment.autoCalculate) {
       let result = this.energyEquipment.fuelConsumption * this.energyEquipment.fuelHHV;
       let unitConv = this.convertValue.convertValue(1, this.energyEquipment.fuelEnergyUnit).convertedValue /
         this.convertValue.convertValue(1, this.energyEquipment.sizeUnit).convertedValue / 3600; // J/hr to W
@@ -159,23 +201,24 @@ export class EnergyEquipmentFormComponent {
     await this.saveChanges();
   }
 
-  updateFacilityUtilityUnit() {
-    const utilityType = this.energyEquipment.utilityType.replace(/\s+/g, '');
-    const camelCaseType = utilityType.charAt(0).toLowerCase()
-      + utilityType.slice(1); // Lowercase first letter
-    if (this.facilityUnitSettings[`include${camelCaseType}`]) {
+  getUtilityEnergyUnitFromFacility(): string | null {
+    const utilityType = this.energyEquipment.utilityType;
+    const trimmedType = utilityType.replace(/\s+/g, '');
+    const camelCaseType = trimmedType.charAt(0).toLowerCase()
+      + trimmedType.slice(1); // Lowercase first letter
+    if (this.facilityUnitSettings[`include${trimmedType}`]) {
       let selectedUtilityOption = this.utilityOptions.find(
         _option => _option.utilityType == utilityType);
       let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
         _unitOption => _unitOption.value == this.energyEquipment.facilityUtilityUnit);
       if (selectedUtilityOption.isStandardEnergyUnit
         && selectedUnitOption.isStandard !== false) { // Standard unit
-        this.energyEquipment.facilityUtilityUnit = this.facilityUnitSettings[`${camelCaseType}Unit`];
+        return this.facilityUnitSettings[`${camelCaseType}Unit`];
       } else { // Non-standard unit
-        this.energyEquipment.facilityUtilityUnit = this.facilityUnitSettings[`${camelCaseType}EnergyUnit`];
+        return this.facilityUnitSettings[`${camelCaseType}EnergyUnit`];
       }
     } else {
-      this.energyEquipment.facilityUtilityUnit = this.companyEnergyUnit; // Default to company unit
+      return null;
     }
   }
 
