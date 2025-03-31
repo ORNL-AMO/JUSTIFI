@@ -14,6 +14,7 @@ import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 import { LocaleService } from '../../shared-services/locale.service';
+import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 
 @Component({
     selector: 'app-kpi-details-form',
@@ -67,6 +68,7 @@ export class KpiDetailsFormComponent {
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
     private sharedDataService: SharedDataService,
     private localeService: LocaleService,
+    private dbChangesService: DbChangesService
   ) {
   }
 
@@ -150,9 +152,8 @@ export class KpiDetailsFormComponent {
     });
     if (kpmImpacts.length > 0) {
       for (let index = 0; index < kpmImpacts.length; index++) {
-        await firstValueFrom(this.keyPerformanceMetricImpactIdbService.deleteWithObservable(kpmImpacts[index].id));
+        this.dbChangesService.deleteKeyPerformanceMetricImpact(kpmImpacts[index]);
       }
-      await this.keyPerformanceMetricImpactIdbService.setKeyPerformanceMetricImpacts();
     }
     await this.saveChanges();
     this.closeDeleteKpmModal();

@@ -14,12 +14,15 @@ import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricO
 import { NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefitOptions';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
+import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
+import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-    selector: 'app-add-nebs-modal',
-    templateUrl: './add-nebs-modal.component.html',
-    styleUrl: './add-nebs-modal.component.css',
-    standalone: false
+  selector: 'app-add-nebs-modal',
+  templateUrl: './add-nebs-modal.component.html',
+  styleUrl: './add-nebs-modal.component.css',
+  standalone: false
 })
 export class AddNebsModalComponent {
 
@@ -36,7 +39,9 @@ export class AddNebsModalComponent {
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
-    private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService
+    private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private reportIdbService: ReportIdbService
   ) {
   }
 
@@ -67,8 +72,12 @@ export class AddNebsModalComponent {
         let newKeyPerformanceMetricImpact: IdbKeyPerformanceMetricImpact = getNewIdbKeyPerformanceMetricImpact(newIdbNonEnergyBenefit.userId, newIdbNonEnergyBenefit.companyId, newIdbNonEnergyBenefit.facilityId, newIdbNonEnergyBenefit.energyOpportunityId, newIdbNonEnergyBenefit.guid, addedMetric.value, newIdbNonEnergyBenefit.assessmentId, keyPerformanceIndicator.guid, addedMetric.guid);
         await firstValueFrom(this.keyPerformanceMetricImpactsIdbService.addWithObservable(newKeyPerformanceMetricImpact));
         await this.keyPerformanceMetricImpactsIdbService.setKeyPerformanceMetricImpacts();
+        let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(newKeyPerformanceMetricImpact.assessmentId);
+        await this.reportIdbService.addKpmImpact(newKeyPerformanceMetricImpact, onSiteVisit.guid);
       }
       await firstValueFrom(this.nonEnergyBenefitIdbService.addWithObservable(newIdbNonEnergyBenefit));
+      let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(newIdbNonEnergyBenefit.assessmentId);
+      await this.reportIdbService.addNonEnergyBenefit(newIdbNonEnergyBenefit, onSiteVisit.guid);
     }
     await this.nonEnergyBenefitIdbService.setNonEnergyBenefits();
     await this.keyPerformanceMetricImpactsIdbService.setKeyPerformanceMetricImpacts();

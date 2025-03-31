@@ -6,15 +6,18 @@ import { ToastNotificationsService } from 'src/app/core-components/toast-notific
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
+import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { getNewIdbEnergyOpportunity, IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
+import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-    selector: 'app-assessment-energy-opportunities-home',
-    templateUrl: './assessment-energy-opportunities-home.component.html',
-    styleUrl: './assessment-energy-opportunities-home.component.css',
-    standalone: false
+  selector: 'app-assessment-energy-opportunities-home',
+  templateUrl: './assessment-energy-opportunities-home.component.html',
+  styleUrl: './assessment-energy-opportunities-home.component.css',
+  standalone: false
 })
 export class AssessmentEnergyOpportunitiesHomeComponent {
 
@@ -34,7 +37,9 @@ export class AssessmentEnergyOpportunitiesHomeComponent {
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private router: Router,
-    private toastNotificationsService: ToastNotificationsService
+    private toastNotificationsService: ToastNotificationsService,
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private reportIdbService: ReportIdbService
   ) { }
 
   ngOnInit() {
@@ -68,6 +73,8 @@ export class AssessmentEnergyOpportunitiesHomeComponent {
     });
     newOpportunity.name = 'Measure #' + (assessmentEnergyOpportunities.length + 1);
     await firstValueFrom(this.energyOpportunityIdbService.addWithObservable(newOpportunity));
+    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(newOpportunity.assessmentId)
+    await this.reportIdbService.addEnergyOpportunity(newOpportunity, onSiteVisit.guid)
     await this.energyOpportunityIdbService.setEnergyOpportunities();
     this.toastNotificationsService.showToast('Measure Added!', 'A new energy efficiency measure was added to the assessment.', 'bg-success', true, false);
     this.router.navigateByUrl('/portfolio/assessment/' + newOpportunity.assessmentId + '/energy-opportunities/' + newOpportunity.guid)

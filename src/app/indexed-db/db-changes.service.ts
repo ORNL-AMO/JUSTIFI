@@ -25,6 +25,7 @@ import { UserIdbService } from './user-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from './key-performance-metric-impacts-idb.service';
 import { IdbKeyPerformanceMetricImpact } from '../models/keyPerformanceMetricImpact';
 import { ReportIdbService } from './report-idb.service';
+import { IdbReport } from '../models/report';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +74,10 @@ export class DbChangesService {
     let onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisitIdbService.onSiteVisits.getValue();
     let companyOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits.filter(onSiteVisit => { return onSiteVisit.companyId == company.guid });
     await this.deleteOnSiteVisits(companyOnSiteVisits);
-    //TODO: Delete REPORTS
+    //delete reports
+    let reports: Array<IdbReport> = this.reportIdbService.reports.getValue();
+    let companyReports: Array<IdbReport> = reports.filter(report => { return report.companyId == company.guid });
+    await this.deleteReports(companyReports);
 
     //delete kpis
     let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
@@ -126,8 +130,10 @@ export class DbChangesService {
     let onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisitIdbService.onSiteVisits.getValue();
     let facilityOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits.filter(onSiteVisit => { return onSiteVisit.companyId == facility.guid });
     await this.deleteOnSiteVisits(facilityOnSiteVisits);
-    //TODO delete reports
-
+    //delete reports
+    let reports: Array<IdbReport> = this.reportIdbService.reports.getValue();
+    let facilityReports: Array<IdbReport> = reports.filter(report => { return report.facilityId == facility.guid });
+    await this.deleteReports(facilityReports);
 
     //delete facility
     await firstValueFrom(this.facilityIdbService.deleteWithObservable(facility.id));
@@ -200,7 +206,29 @@ export class DbChangesService {
       }
       await this.processEquipmentIdbService.setProcessEquipments();
     }
-    //TODO: Update reports
+    //Update reports
+    let reports: Array<IdbReport> = this.reportIdbService.reports.getValue();
+    let facilityReports: Array<IdbReport> = reports.filter(report => {
+      return report.facilityId == assessment.facilityId
+    });
+    if (facilityReports.length > 0) {
+      for (let i = 0; i < facilityReports.length; i++) {
+        facilityReports[i].assessmentOptions = facilityReports[i].assessmentOptions.filter(option => {
+          return option.assessmentId != assessment.guid
+        });
+        facilityReports[i].energyOpportunityOptions = facilityReports[i].energyOpportunityOptions.filter(option => {
+          return option.assessmentId != assessment.guid
+        });
+        facilityReports[i].nonEnergyBenefitOptions = facilityReports[i].nonEnergyBenefitOptions.filter(option => {
+          return option.assessmentId != assessment.guid
+        });
+        facilityReports[i].kpmImpactOptions = facilityReports[i].kpmImpactOptions.filter(option => {
+          return option.assessmentId != assessment.guid
+        });
+        await firstValueFrom(this.reportIdbService.updateWithObservable(facilityReports[i]));
+      }
+      await this.reportIdbService.setReports();
+    }
 
     //delete assessment
     await firstValueFrom(this.assessmentIdbService.deleteWithObservable(assessment.id));
@@ -212,7 +240,24 @@ export class DbChangesService {
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
     let nebKpmImpacts: Array<IdbKeyPerformanceMetricImpact> = keyPerformanceMetricImpacts.filter(metricImpact => { return metricImpact.nebId == nonEnergyBenefit.guid; })
     await this.deleteKeyPerformanceMetricImpacts(nebKpmImpacts);
-    //TODO: Update reports
+    
+    //Update reports
+    let reports: Array<IdbReport> = this.reportIdbService.reports.getValue();
+    let facilityReports: Array<IdbReport> = reports.filter(report => {
+      return report.facilityId == nonEnergyBenefit.facilityId
+    });
+    if (facilityReports.length > 0) {
+      for (let i = 0; i < facilityReports.length; i++) {
+        facilityReports[i].nonEnergyBenefitOptions = facilityReports[i].nonEnergyBenefitOptions.filter(option => {
+          return option.nonEnergyBenefitId != nonEnergyBenefit.guid
+        });
+        facilityReports[i].kpmImpactOptions = facilityReports[i].kpmImpactOptions.filter(option => {
+          return option.nonEnergyBenefitId != nonEnergyBenefit.guid
+        });
+        await firstValueFrom(this.reportIdbService.updateWithObservable(facilityReports[i]));
+      }
+      await this.reportIdbService.setReports();
+    }
 
     await firstValueFrom(this.nonEnergyBenefitsIdbService.deleteWithObservable(nonEnergyBenefit.id));
     await this.nonEnergyBenefitsIdbService.setNonEnergyBenefits();
@@ -254,12 +299,50 @@ export class DbChangesService {
       await firstValueFrom(this.energyEquipmentIdbService.updateWithObservable(associatedEEs[i]));
     }
 
-    //TODO: Update reports
-
+    //Update reports
+    let reports: Array<IdbReport> = this.reportIdbService.reports.getValue();
+    let facilityReports: Array<IdbReport> = reports.filter(report => {
+      return report.facilityId == energyOpportunity.facilityId
+    });
+    if (facilityReports.length > 0) {
+      for (let i = 0; i < facilityReports.length; i++) {
+        facilityReports[i].energyOpportunityOptions = facilityReports[i].energyOpportunityOptions.filter(option => {
+          return option.energyOpportunityId != energyOpportunity.guid
+        });
+        facilityReports[i].nonEnergyBenefitOptions = facilityReports[i].nonEnergyBenefitOptions.filter(option => {
+          return option.energyOpportunityId != energyOpportunity.guid
+        });
+        facilityReports[i].kpmImpactOptions = facilityReports[i].kpmImpactOptions.filter(option => {
+          return option.energyOpportunityId != energyOpportunity.guid
+        });
+        await firstValueFrom(this.reportIdbService.updateWithObservable(facilityReports[i]));
+      }
+      await this.reportIdbService.setReports();
+    }
     await firstValueFrom(this.energyOpportunityIdbService.deleteWithObservable(energyOpportunity.id));
     await this.energyOpportunityIdbService.setEnergyOpportunities();
   }
 
+
+  async deleteKeyPerformanceMetricImpact(keyPerformanceMetricImpact: IdbKeyPerformanceMetricImpact){
+    //update reports
+    let reports: Array<IdbReport> = this.reportIdbService.reports.getValue();
+    let facilityReports: Array<IdbReport> = reports.filter(report => {
+      return report.facilityId == keyPerformanceMetricImpact.facilityId
+    });
+    if (facilityReports.length > 0) {
+      for (let i = 0; i < facilityReports.length; i++) {
+        facilityReports[i].kpmImpactOptions = facilityReports[i].kpmImpactOptions.filter(option => {
+          return option.kpmImpactId != keyPerformanceMetricImpact.guid
+        });
+        await firstValueFrom(this.reportIdbService.updateWithObservable(facilityReports[i]));
+      }
+      await this.reportIdbService.setReports();
+    }
+    
+    await firstValueFrom(this.keyPerformanceMetricImpactsIdbService.deleteWithObservable(keyPerformanceMetricImpact.id));
+    await this.keyPerformanceMetricImpactsIdbService.setKeyPerformanceMetricImpacts();
+  }
 
   /*
   Bulk Delete start
@@ -341,6 +424,13 @@ export class DbChangesService {
       await firstValueFrom(this.onSiteVisitIdbService.deleteWithObservable(onSiteVisits[i].id));
     }
     await this.onSiteVisitIdbService.setOnSiteVisits();
+  }
+
+  async deleteReports(reports: Array<IdbReport>) {
+    for (let i = 0; i < reports.length; i++) {
+      await firstValueFrom(this.reportIdbService.deleteWithObservable(reports[i].id));
+    }
+    await this.reportIdbService.setReports();
   }
 
   async deleteKPIs(keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>) {

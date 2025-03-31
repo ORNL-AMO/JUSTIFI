@@ -3,15 +3,18 @@ import { IconDefinition, faPlus, faSearchPlus, faWeightHanging } from '@fortawes
 import { firstValueFrom, Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
+import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { getNewIdbNonEnergyBenefit, IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
+import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-    selector: 'app-assessment-nebs-form',
-    templateUrl: './assessment-nebs-form.component.html',
-    styleUrl: './assessment-nebs-form.component.css',
-    standalone: false
+  selector: 'app-assessment-nebs-form',
+  templateUrl: './assessment-nebs-form.component.html',
+  styleUrl: './assessment-nebs-form.component.css',
+  standalone: false
 })
 export class AssessmentNebsFormComponent {
 
@@ -29,7 +32,9 @@ export class AssessmentNebsFormComponent {
   showAddNebDropdown: boolean = false;
   constructor(private assessmentIdbService: AssessmentIdbService,
     private sharedDataService: SharedDataService,
-    private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService
+    private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private reportIdbService: ReportIdbService
   ) {
   }
 
@@ -55,7 +60,9 @@ export class AssessmentNebsFormComponent {
   async addNEB() {
     this.showAddNebDropdown = false;
     let newNonEnergyBenefit: IdbNonEnergyBenefit = getNewIdbNonEnergyBenefit(this.assessment.userId, this.assessment.companyId, this.assessment.facilityId, this.assessment.guid, undefined, undefined, true);
-    await firstValueFrom(this.nonEnergyBenefitsIdbService.addWithObservable(newNonEnergyBenefit))
+    await firstValueFrom(this.nonEnergyBenefitsIdbService.addWithObservable(newNonEnergyBenefit));
+    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(newNonEnergyBenefit.assessmentId);
+    await this.reportIdbService.addNonEnergyBenefit(newNonEnergyBenefit, onSiteVisit.guid);
     await this.nonEnergyBenefitsIdbService.setNonEnergyBenefits();
   }
 

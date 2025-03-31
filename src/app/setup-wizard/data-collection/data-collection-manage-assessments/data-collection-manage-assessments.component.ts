@@ -6,14 +6,15 @@ import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service'
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
 import { IdbAssessment, getNewIdbAssessment } from 'src/app/models/assessment';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-    selector: 'app-data-collection-manage-assessments',
-    templateUrl: './data-collection-manage-assessments.component.html',
-    styleUrl: './data-collection-manage-assessments.component.css',
-    standalone: false
+  selector: 'app-data-collection-manage-assessments',
+  templateUrl: './data-collection-manage-assessments.component.html',
+  styleUrl: './data-collection-manage-assessments.component.css',
+  standalone: false
 })
 export class DataCollectionManageAssessmentsComponent {
 
@@ -35,6 +36,7 @@ export class DataCollectionManageAssessmentsComponent {
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private dbChangesService: DbChangesService,
     private facilityIdbService: FacilityIdbService,
+    private reportIdbService: ReportIdbService
   ) {
   }
 
@@ -65,7 +67,7 @@ export class DataCollectionManageAssessmentsComponent {
   }
 
   async addAssessment() {
-    let assessment: IdbAssessment = getNewIdbAssessment(this.onSiteVisit.userId, 
+    let assessment: IdbAssessment = getNewIdbAssessment(this.onSiteVisit.userId,
       this.onSiteVisit.companyId, this.onSiteVisit.facilityId,
       this.facilityIdbService.getByGUID(this.onSiteVisit.facilityId).unitSettings
     );
@@ -75,6 +77,7 @@ export class DataCollectionManageAssessmentsComponent {
     await this.assessmentIdbService.setAssessments();
     this.onSiteVisit.assessmentIds.push(assessment.guid);
     await this.onSiteVisitIdbService.asyncUpdate(this.onSiteVisit);
+    await this.reportIdbService.addNewAssessment(assessment.guid, this.onSiteVisit.guid);
     this.goToAssessment(assessment.guid);
   }
 

@@ -3,16 +3,19 @@ import { IconDefinition, faFileLines, faPlus } from '@fortawesome/free-solid-svg
 import { Subscription, firstValueFrom } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
+import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity, getNewIdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
+import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 
 @Component({
-    selector: 'app-assessment-energy-opportunities-form',
-    templateUrl: './assessment-energy-opportunities-form.component.html',
-    styleUrl: './assessment-energy-opportunities-form.component.css',
-    standalone: false
+  selector: 'app-assessment-energy-opportunities-form',
+  templateUrl: './assessment-energy-opportunities-form.component.html',
+  styleUrl: './assessment-energy-opportunities-form.component.css',
+  standalone: false
 })
 export class AssessmentEnergyOpportunitiesFormComponent {
   faFileLines: IconDefinition = faFileLines;
@@ -33,7 +36,9 @@ export class AssessmentEnergyOpportunitiesFormComponent {
     private assessmentIdbService: AssessmentIdbService,
     private bootstrapService: BootstrapService,
     private cd: ChangeDetectorRef,
-    private localStorageDataService: LocalStorageDataService
+    private localStorageDataService: LocalStorageDataService,
+    private reportIdbService: ReportIdbService,
+    private onSiteVisitIdbService: OnSiteVisitIdbService
   ) {
   }
 
@@ -91,13 +96,15 @@ export class AssessmentEnergyOpportunitiesFormComponent {
 
   async addEnergyOpportunity() {
     this.isAddNew = true;
-    let newOpportunity: IdbEnergyOpportunity = getNewIdbEnergyOpportunity(this.assessment.userId, this.assessment.companyId, 
+    let newOpportunity: IdbEnergyOpportunity = getNewIdbEnergyOpportunity(this.assessment.userId, this.assessment.companyId,
       this.assessment.facilityId, this.assessment.guid, this.assessment.utilityEnergyUses);
     let assessmentEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunities.filter(prj => {
       return prj.assessmentId == this.assessment.guid;
     });
     newOpportunity.name = 'Measure #' + (assessmentEnergyOpportunities.length + 1);
     await firstValueFrom(this.energyOpportunityIdbService.addWithObservable(newOpportunity));
+    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(newOpportunity.assessmentId)
+    await this.reportIdbService.addEnergyOpportunity(newOpportunity, onSiteVisit.guid)
     await this.energyOpportunityIdbService.setEnergyOpportunities();
   }
 
