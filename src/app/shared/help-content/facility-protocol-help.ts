@@ -8,7 +8,7 @@ export const FacilityProtocolHelp = {
         doesFacilityTrackGHG: `Energy efficiency projects usually reduce Scope 1 and Scope 2 energy-based emissions.
             Understanding their baseline, tracking, emission factors, and any costs associated with emissions
             (internal or external) will help quantify NEBs for energy efficiency measures (EEMs).<br>
-            Questions relating to other sustainability-related Key Performance Indicators (KPIs) that may be
+            Questions relating to other sustainability-related Key Performance Metrics (KPMs) that may be
             impacted by
             energy efficiency measures (water use, water pollution, air pollution, waste - hazardous, non-hazardous,
             recycling) are handled elsewhere in the app.`,
