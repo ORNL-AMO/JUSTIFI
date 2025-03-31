@@ -165,7 +165,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceIndustrialTrucksDowntime",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "maintenanceCost", "employeeEngagementSatisfaction", "laborCosts", "equipmentDowntime"],
+        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "maintenanceCost", "employeeEngagementSatisfaction", "laborCosts", "equipmentDowntime", "mobileFuelEmissions"],
         selectedKPM: []
     },
     {
@@ -318,7 +318,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceProductWaste",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "defectiveProductionDollar", "defectRatePPMorDPM", "percentShrinkage", "percentTotalOrCost"],
+        KPM: ["contributeCompanyVision", "defectiveProductionDollar", "defectRatePPMorDPM", "percentShrinkage", "percentTotalOrCost", "processEmissions"],
         selectedKPM: []
     },
     {
@@ -345,7 +345,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceDustEmissions",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "totalLbsDust", "particulateEmissions"],
+        KPM: ["contributeCompanyVision", "dustEmission", "particulateEmissions"],
         selectedKPM: []
     },
     {
@@ -408,7 +408,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improveAmbientAirQuality",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "totalLbsDust", "numberOfParticles", "particulateEmissions", "noxSoxCoEmissions", "percentTestsMeetingStandardsAirPollutants"],
+        KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "dustEmission", "particulateEmissions", "noxSoxCoEmissions", "regulatoryCompliancePercentTests", "reduceRegulatoryFees"],
         selectedKPM: []
     },
     {
@@ -417,7 +417,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reducePPE",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "totalLbsDust", "numberOfParticles"],
+        KPM: ["defectiveProductionDollar", "defectRatePPMorDPM", "dustEmission"],
         selectedKPM: []
     },
     {
@@ -534,7 +534,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceChemicalEmissions",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["scope1Emissions", "scope2Emissions", "scope3Emissions"],
+        KPM: ["stationaryFuelEmissions", "purchasedEnergyEmissions", "valueChainEmissions", "mobileFuelEmissions", "processEmissions"],
         selectedKPM: []
     },
     {
@@ -543,7 +543,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceRegulatoryCosts",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["scope1Emissions", "scope2Emissions", "scope3Emissions", "particulateEmissions", "noxSoxCoEmissions", "percentTestsMeetingStandardsAirPollutants", "waterPolutantEmissions"],
+        KPM: ["stationaryFuelEmissions", "purchasedEnergyEmissions", "valueChainEmissions", "particulateEmissions", "noxSoxCoEmissions", "regulatoryCompliancePercentTests", "waterPollutantEmissions", "reduceRegulatoryFees"],
         selectedKPM: []
     },
     {
@@ -552,7 +552,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improvedWaterQuality",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["waterPolutantEmissions"],
+        KPM: ["waterPollutantEmissions"],
         selectedKPM: []
     }
 ]

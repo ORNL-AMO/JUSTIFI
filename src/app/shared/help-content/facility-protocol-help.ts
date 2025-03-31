@@ -35,5 +35,6 @@ export const FacilityProtocolHelp = {
 }
 
 export const AssociatedKPIs = {
-        doesFacilityTrackGHG: ['chemicalEmissions'] as Array<KeyPerformanceIndicatorValue>
+    // TODO: the chemicalEmissions KPI is removed, putting airEnvironmentalQuality here for now
+    doesFacilityTrackGHG: ['airEnvironmentalQuality'] as Array<KeyPerformanceIndicatorValue>
 }

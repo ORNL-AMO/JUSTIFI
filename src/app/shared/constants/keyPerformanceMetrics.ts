@@ -89,13 +89,12 @@ export type KeyPerformanceMetricValue =
     'daysAwayFromWork' |
     'lostTimeInjuryRate' |
     'hearingConservationProgram' |
-    'numberOfParticles' |
     'workspaceOrFactoryFloorComfort' |
     'absenteeism' |
     'employeeEngagementSatisfaction' |
     'employeeRetentionRate' |
     'talentTurnoverRate' |
-    'totalLbsDust' |
+    'dustEmission' |
     'laborCosts' |
     'thirdPartyLabor' |
     'serviceParts' |
@@ -103,20 +102,23 @@ export type KeyPerformanceMetricValue =
     'rawMaterials' |
     'intermediateGoods' |
     'custom' |
-    'scope1Emissions' |
-    'scope2Emissions' |
-    'scope3Emissions' |
-    'percentTestsMeetingStandardsAirPollutants' |
+    'stationaryFuelEmissions' |
+    'purchasedEnergyEmissions' |
+    'valueChainEmissions' |
+    'regulatoryCompliancePercentTests' |
     'noxSoxCoEmissions' |
     'particulateEmissions' |
-    'waterPolutantEmissions' |
+    'waterPollutantEmissions' |
     'sewageCosts' | 
     'regulatoryFeesWater' | 
     'regulatoryFeesWaste' | 
     'directLaborCosts' | 
     'emergencyEquipmentDowntime' |
     'electricalDemandCosts' |
-    'powerFactorCosts';
+    'powerFactorCosts' |
+    'mobileFuelEmissions'|
+    'processEmissions' |
+    'reduceRegulatoryFees';
 
 
 export type KpmCalculationMethod = 'costPerUnit' | 'percentTotal' | 'directCost';
@@ -164,7 +166,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Contribution to company's vision or strategy",
         htmlLabel: "Contribution to company's vision or strategy",
         value: "contributeCompanyVision",
-        kpiValue: "strategicRelationshipImpact",
+        kpiValue: "customerSatisfaction",
         isQuantitative: false,
         goalToIncrease: true,
         timePeriod: 'yr',
@@ -174,7 +176,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Sales growth ($)",
         htmlLabel: "Sales growth (&dollar;)",
         value: "salesGrowth",
-        kpiValue: "strategicRelationshipImpact",
+        kpiValue: "salesGrowth",
         isQuantitative: true,
         goalToIncrease: true,
         timePeriod: 'yr',
@@ -185,7 +187,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Customer Satisfaction Ratings",
         htmlLabel: "Customer Satisfaction Ratings",
         value: "customerSatisfactionRatings",
-        kpiValue: "strategicRelationshipImpact",
+        kpiValue: "customerSatisfaction",
         isQuantitative: false,
         goalToIncrease: true,
         timePeriod: 'yr'
@@ -194,7 +196,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Lost Customer Sales ($)",
         htmlLabel: "Lost Customer Sales (&dollar;)",
         value: "lostCustomerSales",
-        kpiValue: "strategicRelationshipImpact",
+        kpiValue: "customerSatisfaction",
         isQuantitative: true,
         goalToIncrease: false,
         timePeriod: 'yr',
@@ -205,7 +207,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Customer Churn Rate",
         htmlLabel: "Customer Churn Rate",
         value: "customerChurnRate",
-        kpiValue: "strategicRelationshipImpact",
+        kpiValue: "customerSatisfaction",
         isQuantitative: false,
         goalToIncrease: true,
         timePeriod: 'yr'
@@ -214,7 +216,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Supplier Satisfaction Ratings",
         htmlLabel: "Supplier Satisfaction Ratings",
         value: "supplierSatisfactionRatings",
-        kpiValue: "strategicRelationshipImpact",
+        kpiValue: "customerSatisfaction",
         isQuantitative: false,
         goalToIncrease: true,
         timePeriod: 'yr'
@@ -526,10 +528,10 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
     {
-        label: "Percent Total lbs.",
-        htmlLabel: "Percent Total lbs.",
-        value: "totalLbsDust",
-        kpiValue: "dustEmissions",
+        label: "Dust Emissions",
+        htmlLabel: "Dust Emissions",
+        value: "dustEmission",
+        kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
         totalUnit: 'lb',
         goalToIncrease: false,
@@ -537,10 +539,10 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'percentTotal'
     },
     {
-        label: "Scope 1 Emissions",
-        htmlLabel: "Scope 1 Emissions",
-        value: "scope1Emissions",
-        kpiValue: "chemicalEmissions",
+        label: "Stationary Fuel Emissions",
+        htmlLabel: "Stationary Fuel Emissions",
+        value: "stationaryFuelEmissions",
+        kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
         goalToIncrease: false,
         totalUnit: 'tonne CO2e',
@@ -548,10 +550,10 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'costPerUnit'
     },
     {
-        label: "Scope 2 Emissions",
-        htmlLabel: "Scope 2 Emissions",
-        value: "scope2Emissions",
-        kpiValue: "chemicalEmissions",
+        label: "Purchased Energy Emissions",
+        htmlLabel: "Purchased Energy Emissions",
+        value: "purchasedEnergyEmissions",
+        kpiValue: "airEnvironmentalQuality",
         totalUnit: 'tonne CO2e',
         isQuantitative: true,
         goalToIncrease: false,
@@ -559,10 +561,10 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'costPerUnit'
     },
     {
-        label: "Scope 3 Emissions",
-        htmlLabel: "Scope 3 Emissions",
-        value: "scope3Emissions",
-        kpiValue: "chemicalEmissions",
+        label: "Value Chain Emissions",
+        htmlLabel: "Value Chain Emissions",
+        value: "valueChainEmissions",
+        kpiValue: "airEnvironmentalQuality",
         totalUnit: 'tonne CO2e',
         isQuantitative: true,
         goalToIncrease: false,
@@ -573,7 +575,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Particulate Emissions",
         htmlLabel: "Particulate Emissions",
         value: "particulateEmissions",
-        kpiValue: "airPollutantEmissions",
+        kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
         goalToIncrease: false,
         timePeriod: 'yr',
@@ -583,26 +585,26 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "NOx, SOx, CO Emissions",
         htmlLabel: "NOx, SOx, CO Emissions",
         value: "noxSoxCoEmissions",
-        kpiValue: "airPollutantEmissions",
+        kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
         goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'percentTotal'
     },
     {
-        label: "Percent of tests that meet regulatory standards",
-        htmlLabel: "Percent of tests that meet regulatory standards",
-        value: "percentTestsMeetingStandardsAirPollutants",
-        kpiValue: "airPollutantEmissions",
+        label: "Regulatory Compliance (% tests)",
+        htmlLabel: "Regulatory Compliance (&#37; tests)",
+        value: "regulatoryCompliancePercentTests",
+        kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
         goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'percentTotal'
     },
     {
-        label: "Water Polutant Emissions",
-        htmlLabel: "Water Polutant Emissions",
-        value: "waterPolutantEmissions",
+        label: "Water Pollutant Emissions",
+        htmlLabel: "Water Pollutant Emissions",
+        value: "waterPollutantEmissions",
         kpiValue: "waterConsumption",
         isQuantitative: true,
         goalToIncrease: false,
@@ -610,10 +612,10 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'percentTotal'
     },
     {
-        label: "Quantity",
-        htmlLabel: "Quantity",
+        label: "Refrigerant Emissions",
+        htmlLabel: "Refrigerant Emissions",
         value: "percentOrTotalRefrigerantEmissions",
-        kpiValue: "reduceRefrigerantGasEmissions",
+        kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
         goalToIncrease: false,
         timePeriod: 'yr',
@@ -693,16 +695,6 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'directCost'
-    },
-    {
-        label: "Number of particles",
-        htmlLabel: "Number of particles",
-        value: "numberOfParticles",
-        kpiValue: "dustEmissions",
-        isQuantitative: false,
-        goalToIncrease: false,
-        timePeriod: 'yr',
-        calculationMethod: 'percentTotal'
     },
     {
         label: "Workspace or factory floor comfort",
@@ -885,5 +877,38 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'directCost'
-    }
+    },
+    {
+        label: "Mobile Fuel Emissions",
+        htmlLabel: "Mobile Fuel Emissions",
+        value: "mobileFuelEmissions",
+        kpiValue: "airEnvironmentalQuality",
+        isQuantitative: true,
+        totalUnit: 'tonne CO2e',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'costPerUnit'
+    },
+    {
+        label: "Process Emissions",
+        htmlLabel: "Process Emissions",
+        value: "processEmissions",
+        kpiValue: "airEnvironmentalQuality",
+        isQuantitative: true,
+        totalUnit: 'tonne CO2e',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'costPerUnit'
+    },
+    {
+        label: "Reduce Regulatory Fees",
+        htmlLabel: "Reduce Regulatory Fees",
+        value: "reduceRegulatoryFees",
+        kpiValue: "airEnvironmentalQuality",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
 ]

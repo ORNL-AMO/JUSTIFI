@@ -21,6 +21,8 @@ import { updateAssessmentUtilityUseCostSavings, updateFacilityUtilityUseCost } f
 import { AssessmentIdbService } from './assessment-idb.service';
 import { IdbAssessment } from '../models/assessment';
 import { EnergyOpportunityIdbService } from './energy-opportunity-idb.service';
+import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue, PrimaryKPI, PrimaryKpiRename, PrimaryKpiRenames } from '../shared/constants/keyPerformanceIndicatorOptions';
+import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricOptions } from '../shared/constants/keyPerformanceMetrics';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +46,7 @@ export class UpdateDbEntriesService {
     let userNeedsUpdate: boolean = false;
     if (!user.kpiFacilityMigrationDone) {
       await this.updateToFacilityKPI();
+      await this.updateKpiKpmNames();
       user.kpiFacilityMigrationDone = true;
       userNeedsUpdate = true;
     }
@@ -125,6 +128,59 @@ export class UpdateDbEntriesService {
             }
           }
         }
+      }
+    }
+  }
+
+  async updateKpiKpmNames() {
+    // update KPIs
+    // 1. update primaryKPI/category
+    let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = await firstValueFrom(this.keyPerformanceIndicatorsIdbService.getAll());
+    let primaryKpiRenames: Array<PrimaryKpiRename> = PrimaryKpiRenames;
+    for (let i = 0; i < primaryKpiRenames.length; i++) {
+      let original: string = primaryKpiRenames[i].original;
+      let current: PrimaryKPI = primaryKpiRenames[i].current;
+      let kpisForCategoryChanges: Array<IdbKeyPerformanceIndicator> = keyPerformanceIndicators.filter(kpi => { return kpi.primaryKPI == original });
+      for (let j = 0; j < kpisForCategoryChanges.length; j++) {
+        let kpi: IdbKeyPerformanceIndicator = kpisForCategoryChanges[j];
+        kpi.primaryKPI = current;
+        await firstValueFrom(this.keyPerformanceIndicatorsIdbService.updateWithObservable(kpi));
+      }
+    }
+    // 2. update KPM to custom
+    keyPerformanceIndicators = await firstValueFrom(this.keyPerformanceIndicatorsIdbService.getAll());
+    for (let i = 0; i < keyPerformanceIndicators.length; i++) {
+      let kpi: IdbKeyPerformanceIndicator = keyPerformanceIndicators[i];
+      let associatedKPMs: Array<KeyPerformanceMetric> = kpi.performanceMetrics;
+      let keyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = KeyPerformanceIndicatorOptions;
+      let keyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = KeyPerformanceMetricOptions;
+      let kpiIdx, kpmIdx;
+      kpiIdx = keyPerformanceIndicatorOptions.findIndex(option => { return option.optionValue == kpi.optionValue });
+      if (kpiIdx == -1) {
+        kpi.isCustom = true;
+        kpi.optionValue = 'other';
+        for (let j = 0; j < associatedKPMs.length; j++) {
+          let kpm: KeyPerformanceMetric = associatedKPMs[j];
+          kpm.kpiValue = 'other';
+        }
+      }
+      for (let j = 0; j < associatedKPMs.length; j++) {
+        let kpm: KeyPerformanceMetric = associatedKPMs[j];
+        kpmIdx = keyPerformanceMetricOptions.findIndex(option => { return option.value == kpm.value &&  option.label == kpm.label });
+        if (kpmIdx == -1) {
+          kpm.isCustom = true;
+          kpm.value = 'custom';
+          let kpmImpacts = await firstValueFrom(this.keyPerformanceMetricImpactsIdbService.getAll());
+          let associatedKpmImpacts: Array<IdbKeyPerformanceMetricImpact> = kpmImpacts.filter(impact => { return impact.kpmGuid == kpm.guid });
+          for (let j = 0; j < associatedKpmImpacts.length; j++) {
+            let impact: IdbKeyPerformanceMetricImpact = associatedKpmImpacts[j];
+            impact.kpmValue = 'custom';
+            await firstValueFrom(this.keyPerformanceMetricImpactsIdbService.updateWithObservable(impact));
+          }
+        }
+      }
+      if (kpiIdx == -1 || kpmIdx == -1) {
+        await firstValueFrom(this.keyPerformanceIndicatorsIdbService.updateWithObservable(kpi));
       }
     }
   }
