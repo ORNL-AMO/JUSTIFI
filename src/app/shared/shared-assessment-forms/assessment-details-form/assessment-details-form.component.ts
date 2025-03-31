@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { LocaleService } from '../../shared-services/locale.service';
+import { updateAssessmentUtilityUseCostSavings } from '../../reports/calculations/utilityCalculation';
 
 @Component({
     selector: 'app-assessment-details-form',
@@ -60,8 +61,10 @@ export class AssessmentDetailsFormComponent {
   convertValue = new ConvertValue();
 
   assessmentEnergyOpportunities: Array<IdbEnergyOpportunity>;
-  numberOfTrackedUtilities: number = 0;
+  trackedEnergyUtilities: Array<UtilityEnergyUse>;
+  numberOfTrackedEnergyUtilities: number = 0;
   trackedEnergyUnit: string;
+  trackedWaterUnit: string = 'gal';
 
   currencyCode: string;
   currencySub: Subscription;
@@ -123,7 +126,7 @@ export class AssessmentDetailsFormComponent {
     let utilityTypes = AssessmentOptions.find(
       _assessmentOption => _assessmentOption.assessmentType == this.assessment.assessmentType)?.utilityTypes || [];
     this.assessment.utilityTypes = utilityTypes; // track all utility types
-    await this.calculateEnergyUseCost();
+    await this.calculateUtilityUseCostSavings();
   }
 
   updateEnergyOpportunities() {
@@ -133,54 +136,36 @@ export class AssessmentDetailsFormComponent {
       this.assessmentEnergyOpportunities, this.assessment.utilityEnergyUses);
   }
 
-  async calculateEnergyUseCost() {
+  async calculateUtilityUseCostSavings() {
     this.updateEnergyOpportunities();
-    this.numberOfTrackedUtilities = this.assessment.utilityEnergyUses.filter(
-      _energyUse => _energyUse.include).length;
-    let use = 0, cost = 0;
-    this.assessment.utilityTypes.forEach(utilityType => {
-      let utilityEnergyUse: UtilityEnergyUse = this.assessment.utilityEnergyUses.find(
-        _energyUse => _energyUse.utilityType == utilityType);
-      if (utilityEnergyUse.include) {
-        let trimmedType = utilityType.replace(/\s+/g, ''); // Remove spaces
-        let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
-        let convertedUse = 0, convertedCost = 0;
-        let selectedUtilityOption = UtilityOptions.find(
-          _option => _option.utilityType == utilityType);
-        let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
-          _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
-        // calculate use
-        if (selectedUtilityOption.isStandardEnergyUnit
-          && selectedUnitOption?.isStandard !== false) {
-          convertedUse = this.convertValue.convertValue(
-            utilityEnergyUse.energyUse,
-            utilityEnergyUse.energyUnit,
-            this.companyEnergyUnit).convertedValue;
-          this.trackedEnergyUnit = utilityEnergyUse.energyUnit;
-        } else {
-          convertedUse = this.convertValue.convertValue(
-            utilityEnergyUse.energyUse * utilityEnergyUse.energyHHV,
-            utilityEnergyUse.energyUnitStandard,
-            this.companyEnergyUnit).convertedValue;
-          this.trackedEnergyUnit = utilityEnergyUse.energyUnitStandard;
-        }
-        use += convertedUse;
-        // calculate cost
-        convertedCost = this.convertValue.convertValue(
-          utilityEnergyUse.energyUse,
-          utilityEnergyUse.energyUnit,
-          this.facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
-        cost += convertedCost * this.facilityUnitSettings[`${camelCaseType}Price`];
-      }
-    });
-    this.assessment.energyUse = use;
-    this.assessment.cost = cost;
+    this.assessment = updateAssessmentUtilityUseCostSavings(this.assessment, this.facilityUnitSettings, this.companyEnergyUnit);
     await this.saveChanges();
   }
 
   async saveChanges() {
     this.isFormChange = true;
     await this.assessmentIdbService.asyncUpdate(this.assessment);
+    // update the unit for energy savings unit
+    this.trackedEnergyUtilities = this.assessment.utilityEnergyUses.filter(
+      _energyUse =>
+        _energyUse.include && 
+        _energyUse.utilityType !== 'Water' 
+        && _energyUse.utilityType !== 'Waste Water');
+    this.numberOfTrackedEnergyUtilities = this.trackedEnergyUtilities.length;
+    if (this.numberOfTrackedEnergyUtilities == 1) {
+      let utilityEnergyUse = this.trackedEnergyUtilities[0];
+      let selectedUtilityOption = UtilityOptions.find(
+        _option => _option.utilityType == utilityEnergyUse.utilityType);
+      let selectedUnitOption = selectedUtilityOption.energyUnitOptions.find(
+        _unitOption => _unitOption.value == utilityEnergyUse.energyUnit);
+      // calculate use
+      if (selectedUtilityOption.isStandardEnergyUnit
+        && selectedUnitOption?.isStandard !== false) {
+        this.trackedEnergyUnit = utilityEnergyUse.energyUnit;
+      } else {
+        this.trackedEnergyUnit = utilityEnergyUse.energyUnitStandard;
+      }
+    }
   }
 
   isUtilityTracked(utilityType: string): boolean {

@@ -19,7 +19,7 @@ export class EnergyEquipmentHelpComponent {
     focusedHelpSub: Subscription;
     isTakeStock: boolean;
     isOperations: boolean;
-    isSustainablity: boolean;
+    isSustainability: boolean;
     isEmployeeEngagement: boolean;
     constructor(private setupWizardService: SetupWizardService) { }
 
@@ -28,7 +28,7 @@ export class EnergyEquipmentHelpComponent {
             this.focusedHelp = focusedHelp;
             this.setIsTakeStock()
             this.setIsOperations();
-            this.setIsSustainablity();
+            this.setIsSustainability();
             this.setIsEmployeeEngagement();
         });
     }
@@ -45,8 +45,8 @@ export class EnergyEquipmentHelpComponent {
         this.isOperations = ['describeOutputOfSystem', 'describeServicingNeeds', 'describeLaborRequirements', 'describeSystemMaterials', 'operations'].includes(this.focusedHelp);
     }
 
-    setIsSustainablity() {
-        this.isSustainablity = ['describeRegulations', 'describeRefrigerantProcessDustEmissions', 'describeWaterInputDischarge', 'describeWasteStreams', 'sustainability'].includes(this.focusedHelp);
+    setIsSustainability() {
+        this.isSustainability = ['describeRegulations', 'describeRefrigerantProcessDustEmissions', 'describeWaterInputDischarge', 'describeWasteStreams', 'sustainability'].includes(this.focusedHelp);
     }
 
     setIsEmployeeEngagement() {

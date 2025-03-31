@@ -19,10 +19,10 @@ describe('KpmDatabaseModalComponent', () => {
     fixture = TestBed.createComponent(KpmDatabaseModalComponent);
     component = fixture.componentInstance;
     let tmpIndicatorOption: KeyPerformanceIndicatorOption = {
-      primaryKPI: 'Operations',
+      primaryKPI: 'Other',
       label: '',
       htmlLabel: '',
-      optionValue: 'chemicalEmissions'
+      optionValue: 'other'
     }
     component.keyPerformanceIndicator = getNewKeyPerformanceIndicator('', '', tmpIndicatorOption, false, '')
     fixture.detectChanges();

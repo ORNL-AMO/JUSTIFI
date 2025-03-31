@@ -357,19 +357,45 @@
             </div>
         </ng-container>
     </div>
-    <div class="row mt-1">
-        <div class="col-4">
-            <label>
-                Total Energy Use
-            </label>
+    <hr />
+    <ng-container *ngIf="'energy' | utilityTrackedFacility : facility.unitSettings">
+        <div class="row">
+            <div class="col-4 bold">
+                <label>
+                    Total Energy Use
+                </label>
+            </div>
+            <div class="col-4">
+                {{ facility.energyUse | number: '1.0-2' }}
+                <span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>
+            </div>
         </div>
-        <div class="col-4">
-            {{ facility.energyUse | number: '1.0-2' }}
-            <span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>
+        <div class="row">
+            <div class="col-4 bold">
+                <label>
+                    Annual Energy Cost
+                </label>
+            </div>
+            <div class="col-4">
+                {{ facility.energyCost | currency:currencyCode:'symbol':'1.0-2' }}
+            </div>
         </div>
-    </div>
+    </ng-container>
+    
+    <ng-container *ngIf="'water' | utilityTrackedFacility : facility.unitSettings">
+        <div class="row">
+            <div class="col-4 bold">
+                <label>
+                    Annual Water Related Cost
+                </label>
+            </div>
+            <div class="col-4">
+                {{ facility.waterCost | currency:currencyCode:'symbol':'1.0-2' }}
+            </div>
+        </div>
+    </ng-container>
     <div class="row">
-        <div class="col-4">
+        <div class="col-4 bold">
             <label>
                 Annual Utility Cost
             </label>

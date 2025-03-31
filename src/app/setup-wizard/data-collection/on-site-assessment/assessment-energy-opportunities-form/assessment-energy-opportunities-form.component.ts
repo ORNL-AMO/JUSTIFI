@@ -96,7 +96,7 @@ export class AssessmentEnergyOpportunitiesFormComponent {
     let assessmentEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunities.filter(prj => {
       return prj.assessmentId == this.assessment.guid;
     });
-    newOpportunity.name = 'Opportunity #' + (assessmentEnergyOpportunities.length + 1);
+    newOpportunity.name = 'Measure #' + (assessmentEnergyOpportunities.length + 1);
     await firstValueFrom(this.energyOpportunityIdbService.addWithObservable(newOpportunity));
     await this.energyOpportunityIdbService.setEnergyOpportunities();
   }

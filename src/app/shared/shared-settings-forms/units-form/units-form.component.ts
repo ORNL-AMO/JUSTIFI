@@ -17,6 +17,7 @@ import { FacilityEnergyEquipmentSetupService } from 'src/app/setup-wizard/pre-vi
 import { PreAssessmentSetupService } from 'src/app/setup-wizard/pre-visit/pre-assessments/pre-assessment-setup.service';
 import { LocaleService } from '../../shared-services/locale.service';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+import { updateFacilityUtilityUseCost } from '../../reports/calculations/utilityCalculation';
 
 @Component({
     selector: 'app-units-form',
@@ -98,7 +99,7 @@ export class UnitsFormComponent implements OnInit, OnDestroy{
   async savePriceChanges() {
     await this.saveChanges();
     this.priceChanged = true;
-    await this.preAssessmentSetupService.updateAssessmentEnergyCost(
+    await this.preAssessmentSetupService.updateAssessmentUtilityCostSavings(
       this.facilityAssessments, this.facility.unitSettings);
   }
 
@@ -111,36 +112,7 @@ export class UnitsFormComponent implements OnInit, OnDestroy{
   }
 
   calculate() {
-    let use = 0, cost = 0;
-    UtilityOptions.forEach(option => {
-      let utilityType = option.utilityType;
-      let trimmedType = utilityType.replace(/\s+/g, ''); // Remove spaces
-      let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
-      if (this.facility.unitSettings[`include${trimmedType}`]) {
-        let convertedUse = 0;
-        let selectedUnitOption = option.energyUnitOptions.find(
-          _unitOption => _unitOption.value == this.facility.unitSettings[`${camelCaseType}Unit`]);
-        if (option.isStandardEnergyUnit && selectedUnitOption.isStandard !== false) {
-          // standard energy unit
-          convertedUse = this.convertValue.convertValue(
-            this.facility.unitSettings[`${camelCaseType}Use`],
-            this.facility.unitSettings[`${camelCaseType}Unit`],
-            this.companyEnergyUnit).convertedValue;
-        } else {
-          // non-standard energy unit
-          convertedUse = this.convertValue.convertValue(
-            this.facility.unitSettings[`${camelCaseType}Use`] *
-            this.facility.unitSettings[`${camelCaseType}HHV`],
-            this.facility.unitSettings[`${camelCaseType}EnergyUnit`],
-            this.companyEnergyUnit).convertedValue;
-        }
-        use += convertedUse;
-        cost += this.facility.unitSettings[`${camelCaseType}Use`] *
-          this.facility.unitSettings[`${camelCaseType}Price`];
-      }
-    });
-    this.facility.energyUse = use;
-    this.facility.cost = cost;
+    this.facility = updateFacilityUtilityUseCost(this.facility, this.companyEnergyUnit);
   }
 
   focusField(){

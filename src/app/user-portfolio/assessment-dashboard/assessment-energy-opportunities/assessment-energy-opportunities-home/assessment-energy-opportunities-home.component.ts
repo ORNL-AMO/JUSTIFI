@@ -66,10 +66,10 @@ export class AssessmentEnergyOpportunitiesHomeComponent {
     let assessmentEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunities.filter(prj => {
       return prj.assessmentId == this.assessment.guid;
     });
-    newOpportunity.name = 'Opportunity #' + (assessmentEnergyOpportunities.length + 1);
+    newOpportunity.name = 'Measure #' + (assessmentEnergyOpportunities.length + 1);
     await firstValueFrom(this.energyOpportunityIdbService.addWithObservable(newOpportunity));
     await this.energyOpportunityIdbService.setEnergyOpportunities();
-    this.toastNotificationsService.showToast('Opportunity Added!', 'A new energy efficiency opportunity was added to the assessment.', 'bg-success', true, false);
+    this.toastNotificationsService.showToast('Measure Added!', 'A new energy efficiency measure was added to the assessment.', 'bg-success', true, false);
     this.router.navigateByUrl('/portfolio/assessment/' + newOpportunity.assessmentId + '/energy-opportunities/' + newOpportunity.guid)
   }
 }
