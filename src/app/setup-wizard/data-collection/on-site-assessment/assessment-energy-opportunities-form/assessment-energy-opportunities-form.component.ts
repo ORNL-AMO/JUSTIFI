@@ -18,7 +18,7 @@ export class AssessmentEnergyOpportunitiesFormComponent {
   faFileLines: IconDefinition = faFileLines;
   faPlus: IconDefinition = faPlus;
 
-  energyOpportuntiesSub: Subscription;
+  energyOpportunitiesSub: Subscription;
   energyOpportunities: Array<IdbEnergyOpportunity>;
 
   assessment: IdbAssessment;
@@ -43,14 +43,14 @@ export class AssessmentEnergyOpportunitiesFormComponent {
       this.setAssessmentEnergyOpportunityGuids();
     });
 
-    this.energyOpportuntiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(_energyOpportunities => {
+    this.energyOpportunitiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(_energyOpportunities => {
       this.energyOpportunities = _energyOpportunities;
       this.setAssessmentEnergyOpportunityGuids();
     });
   }
 
   ngOnDestroy() {
-    this.energyOpportuntiesSub.unsubscribe();
+    this.energyOpportunitiesSub.unsubscribe();
     this.assessmentSub.unsubscribe();
   }
 
