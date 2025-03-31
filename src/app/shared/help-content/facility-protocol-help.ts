@@ -28,7 +28,7 @@ export const FacilityProtocolHelp = {
         associatedCosts: `THIS ONE NEEDS HELP TEXT`,
         efficiencyIncentives: `
             Is the facility aware of any utility, state public service commission, federal energy incentives that it may
-            qualify for? The DSIRE database may help find opportunties for incentives <a target="_blank"
+            qualify for? The DSIRE database may help find opportunities for incentives <a target="_blank"
                 href="https://www.dsireusa.org/">https://www.dsireusa.org/</a>`,
         dependentFunding: `Understand where the facility's funding for energy projects comes from. Does the site have an energy / sustainability project budget? Does the company have an energy / sustainability project budget? Have they ever used Energy as a Service (EaaS), PACE loans, or other external avenues?`
 

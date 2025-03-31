@@ -47,7 +47,7 @@ export class DbChangesService {
     let contacts: Array<IdbContact> = this.contactIdbService.contacts.getValue();
     let companyContacts: Array<IdbContact> = contacts.filter(contact => { return contact.companyId == company.guid });
     await this.deleteContacts(companyContacts);
-    //delete energy opportunties
+    //delete energy opportunities
     let energyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue();
     let companyEnergyOpportunities: Array<IdbEnergyOpportunity> = energyOpportunities.filter(energyOpportunity => { return energyOpportunity.companyId == company.guid });
     await this.deleteEnergyOpportunities(companyEnergyOpportunities);
