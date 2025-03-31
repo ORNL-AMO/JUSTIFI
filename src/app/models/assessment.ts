@@ -1,6 +1,6 @@
 import { AssessmentOptions, AssessmentType } from "../shared/constants/assessmentTypes";
 import { UnitOption } from "../shared/constants/unitOptions";
-import { UtilityType } from "../shared/constants/utilityTypes";
+import { UtilityType, UtilityTypes } from "../shared/constants/utilityTypes";
 import { IdbEntry, getNewIdbEntry } from "./idbEntry";
 import { UnitSettings } from "./unitSettings";
 import { getDefaultUtilityEnergyUses, UtilityEnergyUse } from "./utilityEnergyUses";
@@ -13,6 +13,8 @@ export interface IdbAssessment extends IdbEntry {
     assessmentType: AssessmentType,
     utilityTypes: Array<UtilityType>, // track all utility types associated with assessment type
     utilityEnergyUses: Array<UtilityEnergyUse>, // track all utility energy uses
+    utilityType?: UtilityType, // legacy utility type before 0.1.2-alpha
+    unitOptionValue?: string, // legacy unit option before 0.1.2-alpha
     equipmentId: string,
     energyUse: number,
     energyCost: number,

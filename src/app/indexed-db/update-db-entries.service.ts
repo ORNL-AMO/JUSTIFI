@@ -23,6 +23,8 @@ import { IdbAssessment } from '../models/assessment';
 import { EnergyOpportunityIdbService } from './energy-opportunity-idb.service';
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue, PrimaryKPI, PrimaryKpiRename, PrimaryKpiRenames } from '../shared/constants/keyPerformanceIndicatorOptions';
 import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricOptions } from '../shared/constants/keyPerformanceMetrics';
+import { AssessmentOptions } from '../shared/constants/assessmentTypes';
+import { UtilityEnergyUse } from '../models/utilityEnergyUses';
 
 @Injectable({
   providedIn: 'root'
@@ -268,6 +270,23 @@ export class UpdateDbEntriesService {
         // need recalculate uses and costs
         let facility: IdbFacility = facilities.find(_facility => { return _facility.guid == assessment.facilityId });
         let company: IdbCompany = companies.find(_company => { return _company.guid == facility.companyId });
+        // previously assessment is limited to one utility type
+        // 1. update utility types
+        assessment.utilityTypes = AssessmentOptions.find(_option =>
+          { return _option.assessmentType == assessment.assessmentType })?.utilityTypes || [];
+        // 2. move the savings to the according utility type
+        if (assessment.utilityType) {
+          // update all energy saving to 0
+          assessment.utilityEnergyUses.forEach(_energyUse => {
+            _energyUse.utilitySaving = 0;
+          });
+          // transfer the energy savings to the according utility type
+          let utilityEnergyUse: UtilityEnergyUse = assessment.utilityEnergyUses.find(_energyUse =>
+            { return _energyUse.utilityType == assessment.utilityType });
+          utilityEnergyUse.utilitySaving = assessment.energySavings;
+          assessment.utilityType = undefined;
+        }
+        // update the use, cost, and savings
         assessment = updateAssessmentUtilityUseCostSavings(assessment, facility.unitSettings, company.companyEnergyUnit);
         if (assessment.energyCostSavings == undefined) {
           assessment.energyCostSavings = 0;
