@@ -8,7 +8,6 @@ import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benef
 import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
-import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbReport } from 'src/app/models/report';
 import { ReportType, ReportTypeOptions } from '../../../constants/reportTypes';
