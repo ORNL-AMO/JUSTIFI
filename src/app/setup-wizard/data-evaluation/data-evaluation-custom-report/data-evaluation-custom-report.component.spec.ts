@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DataEvaluationCustomReportComponent } from './data-evaluation-custom-report.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('DataEvaluationCustomReportComponent', () => {
   let component: DataEvaluationCustomReportComponent;
@@ -8,7 +11,9 @@ describe('DataEvaluationCustomReportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DataEvaluationCustomReportComponent]
+      imports: [RouterModule, FontAwesomeModule],
+      declarations: [DataEvaluationCustomReportComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

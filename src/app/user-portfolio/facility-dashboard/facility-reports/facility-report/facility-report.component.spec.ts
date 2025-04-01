@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FacilityReportComponent } from './facility-report.component';
+import { RouterModule } from '@angular/router';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('FacilityReportComponent', () => {
   let component: FacilityReportComponent;
@@ -8,7 +11,9 @@ describe('FacilityReportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FacilityReportComponent]
+      imports: [RouterModule, FontAwesomeModule],
+      declarations: [FacilityReportComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

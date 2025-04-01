@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomReportComponent } from './custom-report.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReportsModule } from '../../reports.module';
 
 describe('CustomReportComponent', () => {
   let component: CustomReportComponent;
@@ -8,7 +11,9 @@ describe('CustomReportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CustomReportComponent]
+      imports: [FontAwesomeModule, ReportsModule],
+      declarations: [CustomReportComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

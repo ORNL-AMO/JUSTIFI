@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExecutiveSummaryEvaluationComponent } from './executive-summary-evaluation.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReportsModule } from 'src/app/shared/reports/reports.module';
 
 describe('ExecutiveSummaryEvaluationComponent', () => {
   let component: ExecutiveSummaryEvaluationComponent;
@@ -8,7 +11,9 @@ describe('ExecutiveSummaryEvaluationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExecutiveSummaryEvaluationComponent]
+      imports: [FontAwesomeModule, ReportsModule],
+      declarations: [ExecutiveSummaryEvaluationComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

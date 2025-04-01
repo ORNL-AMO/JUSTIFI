@@ -1,52 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssessmentEnergyOpportunitiesFormComponent } from './assessment-energy-opportunities-form.component';
-import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
-import { BehaviorSubject } from 'rxjs';
-import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
-import { IdbAssessment, getNewIdbAssessment } from 'src/app/models/assessment';
-import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
-import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { NebFormsAccordionComponent } from '../../../../shared/shared-assessment-forms/neb-forms-accordion/neb-forms-accordion.component';
-import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
-import { ChangeDetectorRef } from '@angular/core';
-import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
-import { getDefaultUnitSettings } from 'src/app/models/unitSettings';
 import { EnergyOpportunitySetupFormComponent } from 'src/app/shared/shared-assessment-forms/energy-opportunity-setup-form/energy-opportunity-setup-form.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
+import { AssociatedEnergyEquipmentModule } from 'src/app/shared/associated-energy-equipment/associated-energy-equipment.module';
+import { AssociatedProcessEquipmentModule } from 'src/app/shared/associated-process-equipment/associated-process-equipment.module';
 
 describe('AssessmentEnergyOpportunitiesFormComponent', () => {
   let component: AssessmentEnergyOpportunitiesFormComponent;
   let fixture: ComponentFixture<AssessmentEnergyOpportunitiesFormComponent>;
-
-
-  let setupWizardService: Partial<SetupWizardService> = {
-    sidebarOpen: new BehaviorSubject<boolean>(false),
-  };
-  let assessmentIdbService: Partial<AssessmentIdbService> = {
-    assessments: new BehaviorSubject<Array<IdbAssessment>>([]),
-    selectedAssessment: new BehaviorSubject<IdbAssessment>(getNewIdbAssessment('', '', '', getDefaultUnitSettings()))
-  };
-  let energyOpportunityIdbService: Partial<EnergyOpportunityIdbService> = {
-    energyOpportunities: new BehaviorSubject<Array<IdbEnergyOpportunity>>([])
-  }
-  let localStorageDataService: Partial<LocalStorageDataService> = {};
-  let cd: Partial<ChangeDetectorRef> = {};
-  let bootstrapService: Partial<BootstrapService> = {};
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, RouterTestingModule, FormsModule],
+      imports: [FontAwesomeModule, RouterTestingModule, FormsModule, HelperPipesModule, AssociatedEnergyEquipmentModule, AssociatedProcessEquipmentModule],
       declarations: [AssessmentEnergyOpportunitiesFormComponent, EnergyOpportunitySetupFormComponent, NebFormsAccordionComponent],
-      providers: [
-        { provide: SetupWizardService, useValue: setupWizardService },
-        { provide: AssessmentIdbService, useValue: assessmentIdbService },
-        { provide: EnergyOpportunityIdbService, useValue: energyOpportunityIdbService },
-        { provide: LocalStorageDataService, useValue: localStorageDataService },
-        { provide: ChangeDetectorRef, useValue: cd },
-        { provide: BootstrapService, useValue: bootstrapService }
-      ]
+      providers: stubServiceProviders
     })
     .compileComponents();
     
