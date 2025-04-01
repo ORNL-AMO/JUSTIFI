@@ -266,7 +266,7 @@ export class UpdateDbEntriesService {
     // back-compatibility for water use and costs
     for (let i = 0; i < assessments.length; i++) {
       let assessment: IdbAssessment = assessments[i];
-      if (assessment.waterCost == undefined) {
+      if (assessment.isUtilityCostUpdated == undefined || !assessment.isUtilityCostUpdated) {
         // need recalculate uses and costs
         let facility: IdbFacility = facilities.find(_facility => { return _facility.guid == assessment.facilityId });
         let company: IdbCompany = companies.find(_company => { return _company.guid == facility.companyId });
@@ -291,8 +291,9 @@ export class UpdateDbEntriesService {
         if (assessment.energyCostSavings == undefined) {
           assessment.energyCostSavings = 0;
         }
+        assessment.isUtilityCostUpdated = true; // migration done
+        await firstValueFrom(this.assessmentIdbService.updateWithObservable(assessment));
       }
-      await firstValueFrom(this.assessmentIdbService.updateWithObservable(assessment));
     }
   }
 
