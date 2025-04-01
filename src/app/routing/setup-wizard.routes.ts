@@ -31,6 +31,7 @@ import { DataEvaluationManageReportsComponent } from "../setup-wizard/data-evalu
 import { DataEvaluationCustomReportComponent } from "../setup-wizard/data-evaluation/data-evaluation-custom-report/data-evaluation-custom-report.component";
 import { CustomReportOptionsComponent } from "../shared/reports/custom-reports/custom-report-options/custom-report-options.component";
 import { CustomReportComponent } from "../shared/reports/custom-reports/custom-report/custom-report.component";
+import { ExecutiveSummaryEvaluationComponent } from "../setup-wizard/data-evaluation/executive-summary-evaluation/executive-summary-evaluation.component";
 
 
 export const SetupWizardRoutes: Route = {
@@ -168,6 +169,10 @@ export const SetupWizardRoutes: Route = {
                 {
                     path: 'visit-report',
                     component: VisitReportComponent,
+                },
+                {
+                    path: 'executive-summary',
+                    component: ExecutiveSummaryEvaluationComponent,
                 },
                 {
                     path: 'custom-report',

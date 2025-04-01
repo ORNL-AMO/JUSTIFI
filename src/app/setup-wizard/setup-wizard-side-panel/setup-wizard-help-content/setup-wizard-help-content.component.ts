@@ -109,6 +109,9 @@ export class SetupWizardHelpContentComponent {
     } else if(url.includes('custom-report')){
       this.helpContext = 'custom-report';
       this.helpLabel = 'Custom Report Help';
+    }else if(url.includes('executive-summary')){
+      this.helpContext = 'executive-summary-report';
+      this.helpLabel = 'Executive Summary Report Help';
     }
     else {
       this.helpContext = undefined;

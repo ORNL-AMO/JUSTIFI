@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faPrint, faScrewdriverWrench, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChartColumn, faPieChart, faPrint, faSackDollar, faScrewdriverWrench, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
@@ -24,8 +24,10 @@ import { SharedDataService } from 'src/app/shared/shared-services/shared-data.se
   styleUrl: './custom-report.component.css'
 })
 export class CustomReportComponent {
-
-  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
+  
+  faPieChart: IconDefinition = faPieChart;
+  faSackDollar: IconDefinition = faSackDollar;
+  faChartColumn: IconDefinition = faChartColumn;
 
   report: IdbReport;
   nonEnergyBenefits: Array<IdbNonEnergyBenefit>;

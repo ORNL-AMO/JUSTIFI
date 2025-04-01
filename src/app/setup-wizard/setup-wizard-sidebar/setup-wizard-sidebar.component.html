@@ -296,6 +296,13 @@
                         Rollup Report
                     </a>
                 </div>
+                <div class="nav-item">
+                    <a class="nav-link" [routerLink]="'data-evaluation/'+onSiteVisit.guid+'/executive-summary'"
+                        [routerLinkActive]="['active']">
+                        <fa-icon [icon]="faSackDollar"></fa-icon>
+                        Executive Summary Report
+                    </a>
+                </div>
 
                 <div class="nav-item">
                     <a class="nav-link" (click)="toggleReportsSidebarOpen()"

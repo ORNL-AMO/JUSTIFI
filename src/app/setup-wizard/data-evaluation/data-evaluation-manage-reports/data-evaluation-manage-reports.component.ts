@@ -67,7 +67,7 @@ export class DataEvaluationManageReportsComponent {
   }
 
   goBack() {
-    this.router.navigateByUrl('setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/visit-report');
+    this.router.navigateByUrl('setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/executive-summary');
   }
 
   async addReport() {

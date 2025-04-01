@@ -6,6 +6,7 @@
     <ng-container *ngIf="report.assessmentReportOptions.includeRollupReport">
         <div class="print-break-before">
             <h4>
+                <fa-icon [icon]="faChartColumn"></fa-icon>
                 Rollup Report
             </h4>
             <app-on-site-visit-report [onSiteVisit]="onSiteVisit" [report]="report"></app-on-site-visit-report>
@@ -19,8 +20,8 @@
                     <div class="print-break-before">
                         @let assessment = (assessmentOption.assessmentId | assessmentItem: assessments);
                         <h4>
-                            <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
-                            {{assessment.name}}
+                            <fa-icon [icon]="faPieChart"></fa-icon>
+                            {{assessment.name}} Report
                         </h4>
                         <app-assessment-report [assessment]="assessment" [report]="report"></app-assessment-report>
                         <hr>
@@ -29,4 +30,14 @@
             </ng-container>
         </ng-container>
     </ng-container>
+</ng-container>
+
+<ng-container *ngIf="report.reportType == 'executiveSummary'">
+    <div class="print-break-before">
+        <h4>
+            <fa-icon [icon]="faSackDollar"></fa-icon>
+            Executive Summary Report
+        </h4>
+    </div>
+    <app-executive-summary-report [report]="report" [onSiteVisit]="onSiteVisit"></app-executive-summary-report>
 </ng-container>

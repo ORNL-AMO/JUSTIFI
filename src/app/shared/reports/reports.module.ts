@@ -21,6 +21,7 @@ import { CustomReportOptionsComponent } from './custom-reports/custom-report-opt
 import { CustomReportComponent } from './custom-reports/custom-report/custom-report.component';
 import { FormsModule } from '@angular/forms';
 import { KpmImpactReportOptionsListPipe } from './custom-reports/custom-report-options/kpm-impact-report-options-list.pipe';
+import { ExecutiveSummaryReportComponent } from './executive-summary-report/executive-summary-report.component';
 
 
 
@@ -42,7 +43,8 @@ import { KpmImpactReportOptionsListPipe } from './custom-reports/custom-report-o
     CustomReportOptionsComponent,
     EnergyOpportunityReportOptionsListPipe,
     NonEnergyBenefitReportOptionsListPipe,
-    KpmImpactReportOptionsListPipe
+    KpmImpactReportOptionsListPipe,
+    ExecutiveSummaryReportComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +57,8 @@ import { KpmImpactReportOptionsListPipe } from './custom-reports/custom-report-o
     AssessmentReportComponent,
     AssessmentSavingsTableComponent,
     AssessmentSavingsChartComponent,
-    OnSiteVisitReportComponent
+    OnSiteVisitReportComponent,
+    ExecutiveSummaryReportComponent
   ]
 })
 export class ReportsModule { }
