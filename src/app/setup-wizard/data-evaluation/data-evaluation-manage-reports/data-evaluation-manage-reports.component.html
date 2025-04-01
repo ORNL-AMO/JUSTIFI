@@ -1,3 +1,4 @@
+@let onSiteReports = (reports | onSiteReportsList: onSiteVisit.guid);
 <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
         <div class="col-10 pt-4 pb-4">
@@ -14,11 +15,8 @@
                         </button>
                     </div>
                 </div>
-                @let onSiteReports = (reports | onSiteReportsList: onSiteVisit.guid);
-                <ng-template [ngIf]="onSiteReports.length != 0"
-                    [ngIfElse]="noReportsBlock">
-                    <div class="list-group"
-                        *ngFor="let report of onSiteReports;">
+                <ng-template [ngIf]="onSiteReports.length != 0" [ngIfElse]="noReportsBlock">
+                    <div class="list-group" *ngFor="let report of onSiteReports;">
                         <div class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
                                 <div class="p-0">
@@ -48,10 +46,22 @@
 
 
 <nav class="setup-wizard-footer navbar shadow">
-    <div class="container-fluid justify-content-end">
-        <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            <fa-icon [icon]="faChevronRight"></fa-icon>
+    <div class="container-fluid justify-content-between">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
         </button>
+
+        <ng-template [ngIf]="onSiteReports.length != 0" [ngIfElse]="noReportsFooterBlock">
+            <button class="btn nav-btn btn-sm" (click)="goToReport(onSiteReports[0].guid)">
+                <fa-icon [icon]="faChevronRight"></fa-icon>
+            </button>
+        </ng-template>
+        <ng-template #noReportsFooterBlock>
+            <button class="btn nav-btn btn-sm" (click)="goToPortfolio()">
+                <fa-icon [icon]="faFolderOpen"></fa-icon>
+                Go To Portfolio
+            </button>
+        </ng-template>
     </div>
 </nav>
 

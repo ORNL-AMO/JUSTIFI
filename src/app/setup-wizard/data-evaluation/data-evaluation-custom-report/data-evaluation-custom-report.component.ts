@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faChevronLeft, faChevronRight, faFilePdf, faFilePen, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faFilePdf, faFilePen, faFolderOpen, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
@@ -21,6 +21,7 @@ export class DataEvaluationCustomReportComponent {
   faChevronLeft: IconDefinition = faChevronLeft;
   faFilePen: IconDefinition = faFilePen;
   faFilePdf: IconDefinition = faFilePdf;
+  faFolderOpen: IconDefinition = faFolderOpen;
 
   onSiteVisit: IdbOnSiteVisit;
   onSiteVisitSub: Subscription;
@@ -30,6 +31,8 @@ export class DataEvaluationCustomReportComponent {
   report: IdbReport;
   print: boolean;
   printSub: Subscription;
+
+  isLastReport: boolean;
   constructor(private router: Router, private reportIdbService: ReportIdbService,
     private activatedRoute: ActivatedRoute,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
@@ -42,6 +45,7 @@ export class DataEvaluationCustomReportComponent {
     });
     this.reportSub = this.reportIdbService.selectedReport.subscribe(_report => {
       this.report = _report;
+      this.setIsLastReport();
     });
 
     this.activatedRoute.params.subscribe(params => {
@@ -70,44 +74,32 @@ export class DataEvaluationCustomReportComponent {
     this.reportSub.unsubscribe();
   }
 
-  goToNextReport() {
-    // this.navigateToOnSiteAssessment(this.onSiteVisit.assessmentIds[this.assessmentIndex + 1], 'details');
-  }
-
   goBack() {
-    // if (this.router.url.includes('details')) {
-    //   if (this.assessmentIndex != 0) {
-    //     this.navigateToOnSiteAssessment(this.onSiteVisit.assessmentIds[this.assessmentIndex - 1], 'nebs');
-    //   } else {
-    //     this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/manage-assessments');
-    //   }
-    // } else if (this.router.url.includes('energy-opportunities')) {
-    //   this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/details');
-    // } else if (this.router.url.includes('nebs')) {
-    //   this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/energy-opportunities');
-    // }
+    let onSiteVisitReports: Array<IdbReport> = this.reportIdbService.getReportsByOnSiteVisitId(this.onSiteVisit.guid);
+    let reportIndex: number = onSiteVisitReports.findIndex(report => { return report.guid == this.report.guid });
+    if (reportIndex != 0) {
+      this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/custom-report/' + onSiteVisitReports[reportIndex - 1].guid);
+    } else {
+      this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/custom-report');
+    }
   }
 
   goToNext() {
-    // if (this.router.url.includes('details')) {
-    //   this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/energy-opportunities');
-    // } else if (this.router.url.includes('energy-opportunities')) {
-    //   this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/nebs');
-    // } else if (this.router.url.includes('nebs')) {
-    //   if (this.assessmentIndex != this.onSiteVisit.assessmentIds.length - 1) {
-    //     this.goToNextAssessment();
-    //   } else {
-    //     //TODO: Issue 226
-    //     // this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/review-data-collection');
-    //     this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid);
-    //   }
-    // }
+    let onSiteVisitReports: Array<IdbReport> = this.reportIdbService.getReportsByOnSiteVisitId(this.onSiteVisit.guid);
+    let reportIndex: number = onSiteVisitReports.findIndex(report => { return report.guid == this.report.guid });
+    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/custom-report/' + onSiteVisitReports[reportIndex + 1].guid);
   }
 
-  togglePrint(){
-    this.sharedDataService.print.next(true);    
+  setIsLastReport() {
+    let onSiteVisitReports: Array<IdbReport> = this.reportIdbService.getReportsByOnSiteVisitId(this.onSiteVisit.guid);
+    let reportIndex: number = onSiteVisitReports.findIndex(report => { return report.guid == this.report.guid });
+    this.isLastReport = (onSiteVisitReports.length - 1) == reportIndex;
   }
-  
+
+  togglePrint() {
+    this.sharedDataService.print.next(true);
+  }
+
   printReport() {
     setTimeout(() => {
       window.dispatchEvent(new Event("resize"));
@@ -116,5 +108,9 @@ export class DataEvaluationCustomReportComponent {
         this.sharedDataService.print.next(false)
       }, 1000)
     }, 100)
+  }
+
+  goToPortfolio() {
+    this.router.navigateByUrl('/portfolio/facility/' + this.onSiteVisit.facilityId);
   }
 }

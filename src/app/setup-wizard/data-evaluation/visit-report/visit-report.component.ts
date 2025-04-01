@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IconDefinition, faChartColumn, faChevronLeft, faFilePdf, faFolderOpen, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChartColumn, faChevronLeft, faChevronRight, faFilePdf, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
@@ -17,7 +17,7 @@ import { SharedDataService } from 'src/app/shared/shared-services/shared-data.se
 export class VisitReportComponent {
 
   faChevronLeft: IconDefinition = faChevronLeft;
-  faFolderOpen: IconDefinition = faFolderOpen;
+  faChevronRight: IconDefinition = faChevronRight;
   faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faFilePdf: IconDefinition = faFilePdf;
   
@@ -55,7 +55,7 @@ export class VisitReportComponent {
   }
 
   goNext() {
-    this.router.navigateByUrl('/portfolio/facility/' + this.onSiteVisit.facilityId);
+    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/custom-report');
   }
 
   goBack() {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faChevronLeft, faChevronRight, faFilePen, faList, faPlus, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faFilePen, faFolderOpen, faList, faPlus, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
@@ -32,6 +32,7 @@ export class DataEvaluationManageReportsComponent {
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
   faFilePen: IconDefinition = faFilePen;
+  faFolderOpen: IconDefinition = faFolderOpen;
 
   reports: Array<IdbReport>;
   reportsSub: Subscription;
@@ -66,12 +67,7 @@ export class DataEvaluationManageReportsComponent {
   }
 
   goBack() {
-    // let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    // this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/end-uses');
-  }
-
-  goToNext() {
-    // this.goToAssessment(this.onSiteVisit.assessmentIds[0])
+    this.router.navigateByUrl('setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/visit-report');
   }
 
   async addReport() {
@@ -105,6 +101,10 @@ export class DataEvaluationManageReportsComponent {
 
   goToReport(guid: string) {
     this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/custom-report/' + guid);
+  }
+
+  goToPortfolio() {
+    this.router.navigateByUrl('/portfolio/facility/' + this.onSiteVisit.facilityId);
   }
 
 

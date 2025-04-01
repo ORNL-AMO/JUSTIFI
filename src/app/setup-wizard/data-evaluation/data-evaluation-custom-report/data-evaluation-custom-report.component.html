@@ -31,21 +31,23 @@
 </div>
 <nav class="setup-wizard-footer navbar shadow" *ngIf="!print">
     <div class="container-fluid justify-content-between">
-        <div class="col-3">
-            <button class="btn nav-btn btn-sm" (click)="goBack()">
-                <fa-icon [icon]="faChevronLeft"></fa-icon>
-            </button>
-        </div>
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+        </button>
         <button class="btn btn-success btn-sm" (click)="togglePrint()">
             <fa-icon [icon]="faFilePdf"></fa-icon>
             Generate PDF
         </button>
-        <div class="col-3">
-            <div class="d-flex  justify-content-end">
-                <button class="btn nav-btn btn-sm" (click)="goToNext()">
-                    <fa-icon [icon]="faChevronRight"></fa-icon>
-                </button>
-            </div>
-        </div>
+        <ng-template [ngIf]="!isLastReport" [ngIfElse]="goToPortfolioBlock">
+            <button class="btn nav-btn btn-sm" (click)="goToNext()">
+                <fa-icon [icon]="faChevronRight"></fa-icon>
+            </button>
+        </ng-template>
+        <ng-template #goToPortfolioBlock>
+            <button class="btn nav-btn btn-sm" (click)="goToPortfolio()">
+                <fa-icon [icon]="faFolderOpen"></fa-icon>
+                Go To Portfolio
+            </button>
+        </ng-template>
     </div>
 </nav>
