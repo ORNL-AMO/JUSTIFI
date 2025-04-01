@@ -49,6 +49,7 @@ import { IncludedInAssessmentPipe } from './included-in-assessment.pipe';
 import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
 import { OnSiteReportsListPipe } from './on-site-reports-list.pipe';
 import { KpmImpactLabelPipe } from './kpm-impact-label.pipe';
+import { ReportTypeDisplayPipe } from './report-type-display.pipe';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { KpmImpactLabelPipe } from './kpm-impact-label.pipe';
     IncludedInAssessmentPipe,
     FormatPlaceholderTextPipe,
     OnSiteReportsListPipe,
-    KpmImpactLabelPipe
+    KpmImpactLabelPipe,
+    ReportTypeDisplayPipe
   ],
   imports: [
     CommonModule
@@ -155,7 +157,8 @@ import { KpmImpactLabelPipe } from './kpm-impact-label.pipe';
     IncludedInAssessmentPipe,
     FormatPlaceholderTextPipe,
     OnSiteReportsListPipe,
-    KpmImpactLabelPipe
+    KpmImpactLabelPipe,
+    ReportTypeDisplayPipe
   ]
 })
 export class HelperPipesModule { }

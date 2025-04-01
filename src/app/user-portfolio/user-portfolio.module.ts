@@ -46,6 +46,7 @@ import { AssociatedContactsModule } from '../shared/associated-contacts/associat
 import { FacilityDashboardProtocolQuestionsComponent } from './facility-dashboard/facility-dashboard-protocol-questions/facility-dashboard-protocol-questions.component';
 import { FacilityReportsHomeComponent } from './facility-dashboard/facility-reports/facility-reports-home/facility-reports-home.component';
 import { FacilityReportComponent } from './facility-dashboard/facility-reports/facility-report/facility-report.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { FacilityReportComponent } from './facility-dashboard/facility-reports/f
     SharedFacilityFormsModule,
     TableEntriesModule,
     TableEntriesModule,
-    AssociatedContactsModule
+    AssociatedContactsModule,
+    FormsModule
 ]
 })
 export class UserPortfolioModule { }

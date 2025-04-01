@@ -100,7 +100,7 @@ export class AppComponent {
     console.log('On Site Visit init..');
     //report
     await this.reportIdbService.setReports();
-    console.log('set reports');
+    console.log('Reports init...');
     this.dataInitialized = true;
   }
 

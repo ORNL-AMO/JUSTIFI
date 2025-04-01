@@ -19,7 +19,8 @@ export interface IdbReport extends IdbEntry {
     assessmentReportOptions: {
         includeIndividualAssessments: boolean,
         includeRollupReport: boolean
-    }
+    },
+    notes: string
 }
 
 export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: Array<IdbNonEnergyBenefit>, energyOpportunities: Array<IdbEnergyOpportunity>, kpmImpacts: Array<IdbKeyPerformanceMetricImpact>): IdbReport {
@@ -72,6 +73,7 @@ export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: 
         companyId: onSiteVisit.companyId,
         facilityId: onSiteVisit.facilityId,
         onSiteVisitId: onSiteVisit.guid,
+        notes: '',
         assessmentOptions: assessmentOptions,
         energyOpportunityOptions: energyOpportunityOptions,
         nonEnergyBenefitOptions: nonEnergyBenefitOptions,

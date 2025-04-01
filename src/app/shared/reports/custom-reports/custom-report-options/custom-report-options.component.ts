@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { faFileLines, faScaleUnbalancedFlip, faScrewdriverWrench, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { Subscription } from 'rxjs';
+import { faFileLines, faScaleUnbalancedFlip, faScrewdriverWrench, faTrash, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
@@ -17,6 +17,7 @@ import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-pe
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-custom-report-options',
@@ -27,6 +28,7 @@ import { IdbFacility } from 'src/app/models/facility';
 })
 export class CustomReportOptionsComponent {
 
+  faTrash: IconDefinition = faTrash;
   faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faFileLines: IconDefinition = faFileLines;
   faWeightHanging: IconDefinition = faWeightHanging;
@@ -41,13 +43,15 @@ export class CustomReportOptionsComponent {
   keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>;
   keyPerformanceMetrics: Array<KeyPerformanceMetric>
   assessments: Array<IdbAssessment>;
+  displayDeleteModal: boolean = false;
   constructor(private reportIdbService: ReportIdbService,
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
-    private facilityIdbService: FacilityIdbService) {
+    private facilityIdbService: FacilityIdbService,
+    private router: Router) {
 
   }
 
@@ -75,5 +79,23 @@ export class CustomReportOptionsComponent {
   async saveChanges() {
     this.isFormChange = true;
     await this.reportIdbService.asyncUpdate(this.report);
+  }
+
+  openDeleteModal() {
+    this.displayDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.displayDeleteModal = false;
+  }
+
+  async deleteReport() {
+    await firstValueFrom(this.reportIdbService.deleteWithObservable(this.report.id));
+    await this.reportIdbService.setReports();
+    if (this.router.url.includes('portfolio')) {
+      this.router.navigateByUrl('/portfolio/facility/' + this.report.facilityId + '/reports');
+    } else {
+      this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.report.onSiteVisitId + '/custom-report')
+    }
   }
 }

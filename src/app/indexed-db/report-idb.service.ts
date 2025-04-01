@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { IdbReport } from '../models/report';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { IdbAssessment } from '../models/assessment';
-import { IdbOnSiteVisit } from '../models/onSiteVisit';
 import { IdbEnergyOpportunity } from '../models/energyOpportunity';
 import { IdbKeyPerformanceMetricImpact } from '../models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from '../models/nonEnergyBenefit';
@@ -38,7 +36,6 @@ export class ReportIdbService {
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    console.log(id);
     return this.dbService.delete('report', id);
   }
 
