@@ -15,13 +15,13 @@
     <tbody>
         <tr>
             <td class="bold" colspan="3">
-                Baseline
+                Assessment Baseline
             </td>
         </tr>
         <tr>
             <td class="w-50 ps-3">
                 <!-- Baseline -->
-                Energy Use
+                Energy Related Use
             </td>
             <td class="text-right">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.energyCost"
@@ -34,15 +34,15 @@
             </td>
         </tr>
         <tr>
-            <td class="w-50 ps-3">
+            <td class="w-50 ps-3 bold">
                 <!-- Baseline -->
-                Utility Use
+                Assessment Total Utility Use
             </td>
-            <td class="text-right">
+            <td class="text-right bold">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.cost"
                     [isCurrency]="true" [negativeNumber]="true"></app-single-cell-item>
             </td>
-            <td class="text-right">
+            <td class="text-right bold">
                 <app-single-cell-item [numValue]="0"
                     [isCurrency]="false"></app-single-cell-item>
             </td>
@@ -54,6 +54,19 @@
         </tr>
         <tr>
             <td class="w-50 ps-3">
+                 Assessment Total Utility Savings
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
+                    [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td class="text-right">
+                &mdash;
+            </td>
+        </tr>
+        <tr>
+            <td class="ps-4">
+                <fa-icon class="pe-1" [icon]="faPlugCircleBolt"></fa-icon>
                 Assessment Energy Savings
             </td>
             <td class="text-right">
@@ -65,25 +78,13 @@
                     [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
             </td>
         </tr>
-        <tr>
-            <td class="w-50 ps-3">
-                 Assessment Utility Savings
-            </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
-                    [isCurrency]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right">
-                &mdash;
-            </td>
-        </tr>
         <tr *ngIf="assessmentReport.assessmentNebReports.length > 0">
             <td colspan="3" class="ps-3">
                 Additional Operational Benefits
             </td>
         </tr>
         <tr *ngFor="let nebReport of assessmentReport.assessmentNebReports">
-            <td class="ps-5">
+            <td class="ps-4">
                 <fa-icon class="pe-1" [icon]="faWeightHanging"></fa-icon>
                 {{nebReport.nonEnergyBenefit.name}}
             </td>
