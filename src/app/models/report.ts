@@ -28,6 +28,7 @@ export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: 
     let assessmentOptions: Array<ReportOption> = onSiteVisit.assessmentIds.map(assessmentGuid => {
         return {
             assessmentId: assessmentGuid,
+            reportOptionType: 'assessment',
             include: true
         }
     });
@@ -38,6 +39,7 @@ export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: 
         return {
             energyOpportunityId: opp.guid,
             assessmentId: opp.assessmentId,
+            reportOptionType: 'energyOpportunity',
             include: true
         }
     });
@@ -49,7 +51,8 @@ export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: 
             include: true,
             nonEnergyBenefitId: neb.guid,
             assessmentId: neb.assessmentId,
-            energyOpportunityId: neb.energyOpportunityId
+            energyOpportunityId: neb.energyOpportunityId,
+            reportOptionType: 'nonEnergyBenefit'
         }
     })
     let visitImpacts: Array<IdbKeyPerformanceMetricImpact> = kpmImpacts.filter(kpmImpact => {
@@ -61,7 +64,8 @@ export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: 
             nonEnergyBenefitId: impact.nebId,
             assessmentId: impact.assessmentId,
             energyOpportunityId: impact.energyOpportunityId,
-            kpmImpactId: impact.guid
+            kpmImpactId: impact.guid,
+            reportOptionType: 'kpmImpact'
         }
     })
 
@@ -88,8 +92,11 @@ export function getNewIdbReport(onSiteVisit: IdbOnSiteVisit, nonEnergyBenefits: 
 
 export interface ReportOption {
     include: boolean,
-    assessmentId?: string,
+    reportOptionType: ReportOptionType
+    assessmentId: string,
     energyOpportunityId?: string,
     nonEnergyBenefitId?: string,
     kpmImpactId?: string
 }
+
+export type ReportOptionType = 'assessment' | 'energyOpportunity' | 'nonEnergyBenefit' | 'kpmImpact'

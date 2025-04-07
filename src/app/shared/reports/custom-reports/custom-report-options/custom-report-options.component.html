@@ -74,7 +74,7 @@
                 </div>
                 <div class="form-section" *ngIf="assessmentOption.include">
                     <ng-container
-                        *ngFor="let energyOpportunityOption of (report.energyOpportunityOptions | energyOpportunityReportOptionsList: assessmentOption.assessmentId)">
+                        *ngFor="let energyOpportunityOption of (report.energyOpportunityOptions | customReportOptionList: 'assessment': assessmentOption.assessmentId)">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox"
                                 [id]="'energyOpp_'+energyOpportunityOption.energyOpportunityId"
@@ -89,7 +89,7 @@
                         </div>
                         <div class="form-section" *ngIf="energyOpportunityOption.include">
                             <ng-container
-                                *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | nonEnergyBenefitReportOptionsList: energyOpportunityOption.energyOpportunityId: 'energyOpp')">
+                                *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | customReportOptionList: 'energyOpportunity': energyOpportunityOption.energyOpportunityId)">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox"
                                         [id]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId"
@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="form-section" *ngIf="nonEnergyBenefit.include">
                                     <ng-container
-                                        *ngFor="let kpmImpactOption of (report.kpmImpactOptions | kpmImpactReportOptionsList: nonEnergyBenefit.nonEnergyBenefitId)">
+                                        *ngFor="let kpmImpactOption of (report.kpmImpactOptions | customReportOptionList: 'nonEnergyBenefit': nonEnergyBenefit.nonEnergyBenefitId)">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox"
                                                 [id]="'kpmImpactOption_'+kpmImpactOption.kpmImpactId"
@@ -123,7 +123,7 @@
                         </div>
                     </ng-container>
                     <ng-container
-                        *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | nonEnergyBenefitReportOptionsList: assessmentOption.assessmentId: 'assessment')">
+                        *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | customReportOptionList: 'assessment': assessmentOption.assessmentId)">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox"
                                 [id]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId"
@@ -136,7 +136,7 @@
                         </div>
                         <div class="form-section" *ngIf="nonEnergyBenefit.include">
                             <ng-container
-                                *ngFor="let kpmImpactOption of (report.kpmImpactOptions | kpmImpactReportOptionsList: nonEnergyBenefit.nonEnergyBenefitId)">
+                                *ngFor="let kpmImpactOption of (report.kpmImpactOptions | customReportOptionList: 'nonEnergyBenefit': nonEnergyBenefit.nonEnergyBenefitId)">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox"
                                         [id]="'kpmImpactOption_'+kpmImpactOption.kpmImpactId"

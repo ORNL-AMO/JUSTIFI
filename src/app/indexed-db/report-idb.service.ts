@@ -74,7 +74,8 @@ export class ReportIdbService {
       for (let i = 0; i < reports.length; i++) {
         reports[i].assessmentOptions.push({
           assessmentId: assessmentId,
-          include: true
+          include: true,
+          reportOptionType: 'assessment'
         });
         await firstValueFrom(this.updateWithObservable(reports[i]));
       }
@@ -90,7 +91,8 @@ export class ReportIdbService {
         reports[i].energyOpportunityOptions.push({
           energyOpportunityId: energyOpportunity.guid,
           assessmentId: energyOpportunity.assessmentId,
-          include: true
+          include: true,
+          reportOptionType: 'energyOpportunity'
         });
         await firstValueFrom(this.updateWithObservable(reports[i]));
       }
@@ -106,7 +108,8 @@ export class ReportIdbService {
           include: true,
           nonEnergyBenefitId: neb.guid,
           assessmentId: neb.assessmentId,
-          energyOpportunityId: neb.energyOpportunityId
+          energyOpportunityId: neb.energyOpportunityId,
+          reportOptionType: 'nonEnergyBenefit'
         });
         console.log(reports);
         await firstValueFrom(this.updateWithObservable(reports[i]));
@@ -124,7 +127,8 @@ export class ReportIdbService {
           nonEnergyBenefitId: impact.nebId,
           assessmentId: impact.assessmentId,
           energyOpportunityId: impact.energyOpportunityId,
-          kpmImpactId: impact.guid
+          kpmImpactId: impact.guid,
+          reportOptionType: 'kpmImpact'
         });
         await firstValueFrom(this.updateWithObservable(reports[i]));
       }
