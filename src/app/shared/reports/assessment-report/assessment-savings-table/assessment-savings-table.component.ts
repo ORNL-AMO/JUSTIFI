@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IconDefinition, faFileLines, faScrewdriverWrench, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faFileLines, faScrewdriverWrench, faWeightHanging, faPlugCircleBolt } from '@fortawesome/free-solid-svg-icons';
 import { AssessmentReport } from '../../calculations/assessmentReport';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { Subscription } from 'rxjs';
@@ -19,6 +19,7 @@ export class AssessmentSavingsTableComponent {
   faWeightHanging: IconDefinition = faWeightHanging;
   faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faFileLines: IconDefinition = faFileLines;
+  faPlugCircleBolt: IconDefinition = faPlugCircleBolt;
 
   currencyCode: string;
   currencySub: Subscription;
