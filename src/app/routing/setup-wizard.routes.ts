@@ -27,6 +27,11 @@ import { FacilityProcessEquipmentFormComponent } from "../setup-wizard/pre-visit
 import { PreAssessmentFormComponent } from "../setup-wizard/pre-visit/pre-assessments/pre-assessment-form/pre-assessment-form.component";
 import { ManagePreAssessmentsComponent } from "../setup-wizard/pre-visit/pre-assessments/manage-pre-assessments/manage-pre-assessments.component";
 import { FacilityProtocolQuestionsComponent } from "../setup-wizard/pre-visit/facility-protocol-questions/facility-protocol-questions.component";
+import { DataEvaluationManageReportsComponent } from "../setup-wizard/data-evaluation/data-evaluation-manage-reports/data-evaluation-manage-reports.component";
+import { DataEvaluationCustomReportComponent } from "../setup-wizard/data-evaluation/data-evaluation-custom-report/data-evaluation-custom-report.component";
+import { CustomReportOptionsComponent } from "../shared/reports/custom-reports/custom-report-options/custom-report-options.component";
+import { CustomReportComponent } from "../shared/reports/custom-reports/custom-report/custom-report.component";
+import { ExecutiveSummaryEvaluationComponent } from "../setup-wizard/data-evaluation/executive-summary-evaluation/executive-summary-evaluation.component";
 
 
 export const SetupWizardRoutes: Route = {
@@ -164,6 +169,33 @@ export const SetupWizardRoutes: Route = {
                 {
                     path: 'visit-report',
                     component: VisitReportComponent,
+                },
+                {
+                    path: 'executive-summary',
+                    component: ExecutiveSummaryEvaluationComponent,
+                },
+                {
+                    path: 'custom-report',
+                    component: DataEvaluationManageReportsComponent,
+                },
+                {
+                    path: 'custom-report/:id',
+                    component: DataEvaluationCustomReportComponent,
+                    children: [
+                        {
+                            path: '',
+                            pathMatch: 'full',
+                            redirectTo: 'options'
+                        },
+                        {
+                            path: 'options',
+                            component: CustomReportOptionsComponent
+                        },
+                        {
+                            path: 'results',
+                            component: CustomReportComponent
+                        }
+                    ]
                 }
             ]
         }

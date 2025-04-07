@@ -19,14 +19,17 @@
 
     .print-break-before {
         page-break-before: always !important;
+        break-before: page !important;
     }
 
     .print-break-avoid {
         page-break-inside: avoid !important;
+        break-inside: page !important;
     }
 
     .print-break-after {
         page-break-after: always !important;
+        break-after: page !important;
     }
 
     .table-mh th,

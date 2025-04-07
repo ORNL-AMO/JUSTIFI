@@ -13,7 +13,6 @@ import { IdbFacility } from 'src/app/models/facility';
 export class FacilityDashboardNavComponent {
 
   faGears: IconDefinition = faGears;
-  faFile: IconDefinition = faFile;
   faList: IconDefinition = faList;
   faDiagramProject: IconDefinition = faDiagramProject;
   faBullseye: IconDefinition = faBullseye;

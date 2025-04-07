@@ -1,0 +1,187 @@
+<form>
+    <div class="row">
+        <label class="col-sm-5 col-form-label" for="reportName">Report Name <span
+                class="required-asterisk">*</span></label>
+        <div class="col-sm-7">
+            <input name="reportName" type="text" class="form-control" [(ngModel)]="report.name" (input)="saveChanges()"
+                minlength="1" maxlength="42" id="reportName" required>
+            <div class="alert alert-danger p-1" *ngIf="!report.name">
+                Report name required.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-5 col-form-label" for="reportType">Report Type</label>
+        <div class="col-sm-7">
+            <select class="form-select" name="reportType" [(ngModel)]="report.reportType" (change)="saveChanges()">
+                <option *ngFor="let reportType of reportTypeOptions" [value]="reportType.reportType">
+                    {{reportType.label}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-5 col-form-label" for="notes">Notes</label>
+        <div class="col-sm-7">
+            <textarea id="notes" name="notes" class="form-control" [(ngModel)]="report.notes"
+                (input)="saveChanges()"></textarea>
+        </div>
+    </div>
+    <ng-container *ngIf="report.reportType == 'assessment'">
+        <div class="row">
+            <div class="col-12">
+                <p class="mb-1 mt-2 italic">
+                    Select reports to include. Assessment reports give details about each selected assessment. Rollup
+                    reports combine data from assessments into a single report.
+                </p>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [id]="'includeRollupReport'"
+                        [(ngModel)]="report.assessmentReportOptions.includeRollupReport" (change)="saveChanges()"
+                        [name]="'includeRollupReport'">
+                    <label class="form-check-label" [for]="'includeRollupReport'">
+                        Include rollup report
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [id]="'includeIndividualAssessments'"
+                        [(ngModel)]="report.assessmentReportOptions.includeIndividualAssessments"
+                        (change)="saveChanges()" [name]="'includeIndividualAssessments'">
+                    <label class="form-check-label" [for]="'includeIndividualAssessments'">
+                        Include individual assessment reports
+                    </label>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <div class="row">
+        <div class="col-12">
+            <hr class="my-1">
+        </div>
+        <div class="col-12">
+            <p class="mb-1 mt-2 italic">
+                Specify assessments, energy opportunities, non-energy benefits and key performance metric impacts to
+                include in the generated report.
+            </p>
+            <ng-container *ngFor="let assessmentOption of report.assessmentOptions">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [id]="'assessment_'+assessmentOption.assessmentId"
+                        [(ngModel)]="assessmentOption.include" (change)="saveChanges()"
+                        [name]="'assessment_'+assessmentOption.assessmentId">
+                    <label class="form-check-label" [for]="'assessment_'+assessmentOption.assessmentId">
+                        <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                        {{assessmentOption.assessmentId | assessmentNameDisplay:assessments}}
+                    </label>
+                </div>
+                <div class="form-section" *ngIf="assessmentOption.include">
+                    <ng-container
+                        *ngFor="let energyOpportunityOption of (report.energyOpportunityOptions | customReportOptionList: 'assessment': assessmentOption.assessmentId)">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                [id]="'energyOpp_'+energyOpportunityOption.energyOpportunityId"
+                                [(ngModel)]="energyOpportunityOption.include" (change)="saveChanges()"
+                                [name]="'energyOpp_'+energyOpportunityOption.energyOpportunityId">
+                            <label class="form-check-label"
+                                [for]="'energyOpp_'+energyOpportunityOption.energyOpportunityId">
+                                <fa-icon [icon]="faFileLines"></fa-icon>
+                                {{energyOpportunityOption.energyOpportunityId |
+                                energyOpportunityDisplay:energyOpportunities}}
+                            </label>
+                        </div>
+                        <div class="form-section" *ngIf="energyOpportunityOption.include">
+                            <ng-container
+                                *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | customReportOptionList: 'energyOpportunity': energyOpportunityOption.energyOpportunityId)">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"
+                                        [id]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId"
+                                        [(ngModel)]="nonEnergyBenefit.include" (change)="saveChanges()"
+                                        [name]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId">
+                                    <label class="form-check-label"
+                                        [for]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId">
+                                        <fa-icon [icon]="faWeightHanging"></fa-icon>
+                                        {{(nonEnergyBenefit.nonEnergyBenefitId | nebItem:nonEnergyBenefits).name}}
+                                    </label>
+                                </div>
+                                <div class="form-section" *ngIf="nonEnergyBenefit.include">
+                                    <ng-container
+                                        *ngFor="let kpmImpactOption of (report.kpmImpactOptions | customReportOptionList: 'nonEnergyBenefit': nonEnergyBenefit.nonEnergyBenefitId)">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox"
+                                                [id]="'kpmImpactOption_'+kpmImpactOption.kpmImpactId"
+                                                [(ngModel)]="kpmImpactOption.include" (change)="saveChanges()"
+                                                [name]="'kpmImpactOption_'+kpmImpactOption.kpmImpactId">
+                                            <label class="form-check-label"
+                                                [for]="'kpmImpactOption_'+kpmImpactOption.kpmImpactId">
+                                                <fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>
+                                                <span [innerHTML]="kpmImpactOption.kpmImpactId |
+                                        kpmImpactLabel:keyPerformanceMetricImpacts:keyPerformanceMetrics"></span>
+                                            </label>
+                                        </div>
+                                    </ng-container>
+
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                    <ng-container
+                        *ngFor="let nonEnergyBenefit of (report.nonEnergyBenefitOptions | customReportOptionList: 'assessment': assessmentOption.assessmentId)">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                [id]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId"
+                                [(ngModel)]="nonEnergyBenefit.include" (change)="saveChanges()"
+                                [name]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId">
+                            <label class="form-check-label" [for]="'nebOpp_'+nonEnergyBenefit.nonEnergyBenefitId">
+                                <fa-icon [icon]="faWeightHanging"></fa-icon>
+                                {{(nonEnergyBenefit.nonEnergyBenefitId | nebItem:nonEnergyBenefits).name}}
+                            </label>
+                        </div>
+                        <div class="form-section" *ngIf="nonEnergyBenefit.include">
+                            <ng-container
+                                *ngFor="let kpmImpactOption of (report.kpmImpactOptions | customReportOptionList: 'nonEnergyBenefit': nonEnergyBenefit.nonEnergyBenefitId)">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"
+                                        [id]="'kpmImpactOption_'+kpmImpactOption.kpmImpactId"
+                                        [(ngModel)]="kpmImpactOption.include" (change)="saveChanges()"
+                                        [name]="'kpmImpactOption_'+kpmImpactOption.kpmImpactId">
+                                    <label class="form-check-label"
+                                        [for]="'kpmImpactOption_'+kpmImpactOption.kpmImpactId">
+                                        <fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>
+                                        <span [innerHTML]="kpmImpactOption.kpmImpactId |
+                                        kpmImpactLabel:keyPerformanceMetricImpacts:keyPerformanceMetrics"></span>
+                                    </label>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+        <div class="col-12">
+            <hr>
+            <div class="d-flex w-100 justify-content-end">
+                <button class="btn btn-danger btn-sm" (click)="openDeleteModal()">
+                    Delete Report
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
+<div class="popup" [ngClass]="{'open': displayDeleteModal }">
+    <div class="popup-header">Delete Report
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
+    </div>
+    <div class="popup-body">
+        <div class="alert alert-info">
+            Are you sure you want to delete this report? Changes will be lost.
+        </div>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteModal()">Cancel</button>
+        <button class="btn btn-danger btn-sm" (click)="deleteReport()"><fa-icon [icon]="faTrash"></fa-icon> Delete
+            Report</button>
+    </div>
+</div>

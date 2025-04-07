@@ -41,7 +41,7 @@
                 </div>
                 <select class="form-select" name="{{'associatedEEM'+nonEnergyBenefit.guid}}"
                     id="{{'associatedEEM'+nonEnergyBenefit.guid}}" [(ngModel)]="nonEnergyBenefit.energyOpportunityId"
-                    (change)="saveChanges()">
+                    (change)="changeAssociatedEEM()">
                     <option [ngValue]="undefined">
                         No directly associated opportunity
                     </option>
