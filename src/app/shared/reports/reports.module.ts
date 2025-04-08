@@ -20,6 +20,7 @@ import { CustomReportComponent } from './custom-reports/custom-report/custom-rep
 import { FormsModule } from '@angular/forms';
 import { ExecutiveSummaryReportComponent } from './executive-summary-report/executive-summary-report.component';
 import { CustomReportOptionListPipe } from './custom-reports/custom-report-options/custom-report-option-list.pipe';
+import { AssessmentCostTableComponent } from './assessment-report/assessment-cost-table/assessment-cost-table.component';
 
 
 
@@ -40,7 +41,8 @@ import { CustomReportOptionListPipe } from './custom-reports/custom-report-optio
     CustomReportComponent,
     CustomReportOptionsComponent,
     ExecutiveSummaryReportComponent,
-    CustomReportOptionListPipe
+    CustomReportOptionListPipe,
+    AssessmentCostTableComponent
   ],
   imports: [
     CommonModule,

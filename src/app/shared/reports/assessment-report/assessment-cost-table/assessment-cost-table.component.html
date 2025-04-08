@@ -1,0 +1,48 @@
+<table class="table table-bordered savings-table table-hover" *ngIf="assessmentReport">
+  <thead>
+      <tr>
+          <th>
+
+          </th>
+          <th class="text-right">
+              Cost ({{ currencyCode | currencySymbol }}/yr)
+          </th>
+          <th class="text-right">
+              Use (/yr)
+          </th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="bold" colspan="3">
+          Assessment Baseline
+      </td>
+    </tr>
+    <tr>
+        <td class="w-50 ps-3">
+            Energy Related Uses
+        </td>
+        <td class="text-right w-25">
+            <app-single-cell-item [numValue]="assessmentReport.assessment.energyCost"
+                [isCurrency]="true"></app-single-cell-item>
+        </td>
+        <td class="text-right w-25">
+            <app-single-cell-item [numValue]="assessmentReport.assessment.energyUse"
+                [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
+        </td>
+    </tr>
+    <tr>
+        <td class="w-50 bold">
+            Total Assessment Utility
+        </td>
+        <td class="text-right bold w-25">
+            <app-single-cell-item [numValue]="assessmentReport.assessment.cost"
+                [isCurrency]="true"></app-single-cell-item>
+        </td>
+        <td class="text-right bold w-25">
+            <app-single-cell-item [numValue]="0"
+                [isCurrency]="false"></app-single-cell-item>
+        </td>
+    </tr>
+  </tbody>
+</table>
