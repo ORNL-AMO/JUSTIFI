@@ -33,6 +33,8 @@ import { CompanyContactsFormService } from "../shared/shared-company-forms/compa
 import { FormControl, FormGroup } from "@angular/forms";
 import { LocalStorageService } from "ngx-webstorage";
 import { UpdateDbEntriesService } from "../indexed-db/update-db-entries.service";
+import { ReportIdbService } from "../indexed-db/report-idb.service";
+import { getNewIdbReport, IdbReport } from "../models/report";
 
 let stubCompany: IdbCompany = getNewIdbCompany('123');
 stubCompany.guid = '123';
@@ -96,7 +98,9 @@ let stubOnSiteVisit: IdbOnSiteVisit = getNewIdbOnSiteVisit('123', '123', '123');
 stubOnSiteVisit.guid = '123';
 let onSiteVisitIdbService: Partial<OnSiteVisitIdbService> = {
     onSiteVisits: new BehaviorSubject<Array<IdbOnSiteVisit>>([stubOnSiteVisit]),
-    selectedVisit: new BehaviorSubject<IdbOnSiteVisit>(stubOnSiteVisit)
+    selectedVisit: new BehaviorSubject<IdbOnSiteVisit>(stubOnSiteVisit),
+    getByGuid: () => { return stubOnSiteVisit }
+
 };
 
 let setupWizardService: Partial<SetupWizardService> = {
@@ -172,6 +176,12 @@ let localStorageService: Partial<LocalStorageService> = {
     store: () => { return undefined },
 };
 
+let stubReport: IdbReport = getNewIdbReport(stubOnSiteVisit, [stubNeb], [stubEnergyOpp], [stubKpiImpact]);
+let reportIdbService: Partial<ReportIdbService> = {
+    selectedReport: new BehaviorSubject<IdbReport>(stubReport),
+    reports: new BehaviorSubject<Array<IdbReport>>([stubReport])
+}
+
 export const stubServiceProviders: Array<{ provide: any, useValue: any }> = [
     { provide: CompanyIdbService, useValue: companyIdbService },
     { provide: FacilityIdbService, useValue: facilityIdbService },
@@ -190,6 +200,7 @@ export const stubServiceProviders: Array<{ provide: any, useValue: any }> = [
     { provide: SharedDataService, useValue: sharedDataService },
     { provide: CompanyContactsFormService, useValue: companyContactsFormService },
     { provide: UpdateDbEntriesService, useValue: updateDbEntriesService },
+    { provide: ReportIdbService, useValue: reportIdbService },
     {
         provide: ActivatedRoute,
         useValue: {

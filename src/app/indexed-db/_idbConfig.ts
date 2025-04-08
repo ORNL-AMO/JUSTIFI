@@ -2,7 +2,7 @@ import { DBConfig } from "ngx-indexed-db";
 
 export const dbConfig: DBConfig = {
   name: 'NEB_Tool',
-  version: 1,
+  version: 2,
   objectStoresMeta: [{
     store: 'user',
     storeConfig: { keyPath: 'id', autoIncrement: true },
@@ -71,6 +71,12 @@ export const dbConfig: DBConfig = {
   },
   {
     store: 'keyPerformanceMetricImpact',
+    storeConfig: { keyPath: 'id', autoIncrement: true },
+    storeSchema: [
+    ]
+  },
+  {
+    store: 'report',
     storeConfig: { keyPath: 'id', autoIncrement: true },
     storeSchema: [
     ]

@@ -13,6 +13,7 @@
     --contact-color: #5b2c6f;
     --energy-equipment-color: #117a65;
     --kpi-color:#0212b5;
+    --energy-utility-color: #ffa200;
 }
 
 
@@ -165,6 +166,10 @@
 
 .fa-bullseye{
     color: var(--kpi-color);
+}
+
+.fa-plug-circle-bolt{
+    color: var(--energy-utility-color);
 }
 
 .neb-button {

@@ -41,6 +41,17 @@
                 </ng-template>
             </td>
         </tr>
+        <tr *ngIf="onSiteVisitReport">
+            <td>
+                Assessments
+            </td>
+            <td>
+                <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
+                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                    {{assessmentReport.assessment.name}}<br>
+                </ng-container>
+            </td>
+        </tr>
         <!-- <tr>
             <td>
                 Industrial Equipment

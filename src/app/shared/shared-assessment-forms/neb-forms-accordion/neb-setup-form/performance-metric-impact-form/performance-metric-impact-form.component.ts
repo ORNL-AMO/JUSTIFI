@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { IconDefinition, faBullseye, faClose, faEdit, faLock, faPlus, faScaleUnbalancedFlip, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
@@ -52,6 +53,7 @@ export class PerformanceMetricImpactFormComponent {
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
     private localeService: LocaleService,
+    private dbChangesService: DbChangesService
   ) {
 
   }
@@ -150,8 +152,7 @@ export class PerformanceMetricImpactFormComponent {
   }
 
   async confirmDelete() {
-    await firstValueFrom(this.keyPerformanceMetricImpactIdbService.deleteWithObservable(this.keyPerformanceMetricImpact.id));
-    await this.keyPerformanceMetricImpactIdbService.setKeyPerformanceMetricImpacts();
+    await this.dbChangesService.deleteKeyPerformanceMetricImpact(this.keyPerformanceMetricImpact)
   }
 
   setOverrideBaseline(overrideBaseline: boolean) {

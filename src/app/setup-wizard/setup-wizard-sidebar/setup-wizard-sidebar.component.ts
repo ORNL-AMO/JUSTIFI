@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { IconDefinition, faChevronDown, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube, faFileCircleCheck, faScrewdriverWrench, faFileLines, faWeightHanging, faChartPie, faPersonWalkingArrowLoopLeft, faChartColumn, faClipboardQuestion } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronDown, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube, faFileCircleCheck, faScrewdriverWrench, faFileLines, faWeightHanging, faChartPie, faPersonWalkingArrowLoopLeft, faChartColumn, faClipboardQuestion, faFilePen, faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from '../setup-wizard.service';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -21,6 +21,8 @@ import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
+import { IdbReport } from 'src/app/models/report';
+import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
 
 @Component({
   selector: 'app-setup-wizard-sidebar',
@@ -55,6 +57,8 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   faPersonWalkingArrowLoopLeft: IconDefinition = faPersonWalkingArrowLoopLeft;
   faChartColumn: IconDefinition = faChartColumn;
   faClipboardQuestion: IconDefinition = faClipboardQuestion;
+  faFilePen: IconDefinition = faFilePen;
+  faSackDollar: IconDefinition = faSackDollar;
 
   displayStartOverModal: boolean;
 
@@ -94,6 +98,9 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   energyOpportunities: Array<IdbEnergyOpportunity>;
   energyOpportunitySub: Subscription;
 
+  reports: Array<IdbReport>;
+  reportsSub: Subscription;
+
   routerUrl: string;
   constructor(private router: Router, private setupWizardService: SetupWizardService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
@@ -105,7 +112,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
-    private cd: ChangeDetectorRef
+    private reportIdbService: ReportIdbService
   ) {
 
   }
@@ -158,6 +165,9 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.energyOpportunitySub = this.energyOpportunityIdbService.energyOpportunities.subscribe(opportunities => {
       this.energyOpportunities = opportunities;
     });
+    this.reportsSub = this.reportIdbService.reports.subscribe(reports => {
+      this.reports = reports;
+    })
   }
 
   ngOnDestroy() {
@@ -172,6 +182,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.energyEquipmentsSub.unsubscribe();
     this.processEquipmentSub.unsubscribe();
     this.energyOpportunitySub.unsubscribe();
+    this.reportsSub.unsubscribe();
   }
 
   setDisplaySidebar() {
@@ -288,5 +299,10 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     assessment.sidebarOpen = !assessment.sidebarOpen;
     await firstValueFrom(this.assessmentIdbService.updateWithObservable(assessment));
     await this.assessmentIdbService.setAssessments();
+  }
+
+  async toggleReportsSidebarOpen() {
+    this.onSiteVisit.sidebarReportsOpen = !this.onSiteVisit.sidebarReportsOpen;
+    await this.onSiteVisitIdbService.asyncUpdate(this.onSiteVisit);
   }
 }

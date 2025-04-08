@@ -36,13 +36,16 @@ export class UserPortfolioComponent {
     energyOpportunityId: string
   };
   displayAddNebsModalSub: Subscription;
+
+  printSub: Subscription;
+  print: boolean;
   constructor(
     private router: Router,
     private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private cd: ChangeDetectorRef,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
   ) {
   }
 
@@ -68,6 +71,9 @@ export class UserPortfolioComponent {
     this.displayAddNebsModalSub = this.sharedDataService.displayAddNebsModal.subscribe(val => {
       this.displayAddNebsModal = val;
     });
+    this.printSub = this.sharedDataService.print.subscribe(print => {
+      this.print = print;
+    })
   }
 
   ngOnDestroy() {
@@ -76,6 +82,7 @@ export class UserPortfolioComponent {
     this.facilitySub.unsubscribe();
     this.assessmentSub.unsubscribe();
     this.routerSub.unsubscribe();
+    this.printSub.unsubscribe();
   }
 
   setContext(url: string) {

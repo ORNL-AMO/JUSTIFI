@@ -7,6 +7,7 @@ import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
+import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
 import { getNewIdbAssessment, IdbAssessment } from 'src/app/models/assessment';
 import { IdbContact } from 'src/app/models/contact';
 import { IdbFacility } from 'src/app/models/facility';
@@ -43,7 +44,8 @@ export class ManagePreAssessmentsComponent {
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private contactIdbService: ContactIdbService,
     private assessmentIdbService: AssessmentIdbService,
-    private processEquipmentIdbService: ProcessEquipmentIdbService
+    private processEquipmentIdbService: ProcessEquipmentIdbService,
+    private reportIdbService: ReportIdbService
   ) {
   }
 
@@ -77,6 +79,8 @@ export class ManagePreAssessmentsComponent {
     await this.assessmentIdbService.setAssessments();
     this.onSiteVisit.assessmentIds.push(assessment.guid);
     await this.onSiteVisitIdbService.asyncUpdate(this.onSiteVisit);
+    //TODO: Update Reports
+    await this.reportIdbService.addNewAssessment(assessment.guid, this.onSiteVisit.guid);
     this.goToAssessment(assessment);
   }
 

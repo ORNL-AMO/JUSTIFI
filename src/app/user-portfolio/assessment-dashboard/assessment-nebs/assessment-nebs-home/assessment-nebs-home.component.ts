@@ -7,19 +7,22 @@ import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportuni
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
+import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbContact } from 'src/app/models/contact';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { getNewIdbNonEnergyBenefit, IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
+import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-    selector: 'app-assessment-nebs-home',
-    templateUrl: './assessment-nebs-home.component.html',
-    styleUrl: './assessment-nebs-home.component.css',
-    standalone: false
+  selector: 'app-assessment-nebs-home',
+  templateUrl: './assessment-nebs-home.component.html',
+  styleUrl: './assessment-nebs-home.component.css',
+  standalone: false
 })
 export class AssessmentNebsHomeComponent {
 
@@ -51,7 +54,9 @@ export class AssessmentNebsHomeComponent {
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private contactIdbService: ContactIdbService,
     private keyPerformanceIndicatorsIdbService: KeyPerformanceIndicatorsIdbService,
-    private energyOpportunityIdbService: EnergyOpportunityIdbService
+    private energyOpportunityIdbService: EnergyOpportunityIdbService,
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private reportIdbService: ReportIdbService
 
   ) { }
 
@@ -107,6 +112,8 @@ export class AssessmentNebsHomeComponent {
     this.showAddNebDropdown = false;
     let newNonEnergyBenefit: IdbNonEnergyBenefit = getNewIdbNonEnergyBenefit(this.assessment.userId, this.assessment.companyId, this.assessment.facilityId, this.assessment.guid, undefined, undefined, true);
     await firstValueFrom(this.nonEnergyBenefitsIdbService.addWithObservable(newNonEnergyBenefit));
+    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(newNonEnergyBenefit.assessmentId);
+    await this.reportIdbService.addNonEnergyBenefit(newNonEnergyBenefit, onSiteVisit.guid);
     await this.nonEnergyBenefitsIdbService.setNonEnergyBenefits();
   }
 

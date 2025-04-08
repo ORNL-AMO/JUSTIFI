@@ -8,18 +8,29 @@ import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetr
 import { getKeyPerfomanceIndicatorReport, KeyPerformanceIndicatorReport } from "./keyPerformanceIndicatorReport";
 import { NebReport } from "./nebReport";
 import * as _ from 'lodash';
+import { IdbReport, ReportOption } from "src/app/models/report";
 
 export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: Array<IdbAssessment>,
     energyOpportunities: Array<IdbEnergyOpportunity>, nonEnergyBenefits: Array<IdbNonEnergyBenefit>,
-    facilityPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>): OnSiteVisitReport {
+    facilityPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
+    report?: IdbReport): OnSiteVisitReport {
 
     let assessmentReports: Array<AssessmentReport> = new Array();
     assessmentIds.forEach(assessmentId => {
-        let assessment: IdbAssessment = assessments.find(assessment => {
-            return assessment.guid == assessmentId;
-        });
-        let assessmentReport: AssessmentReport = getAssessmentReport(assessment, energyOpportunities, nonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts);
-        assessmentReports.push(assessmentReport);
+        let includedInReport: boolean = true;
+        if (report) {
+            let reportOption: ReportOption = report.assessmentOptions.find(option => {
+                return option.assessmentId == assessmentId
+            });
+            includedInReport = reportOption.include;
+        }
+        if (includedInReport) {
+            let assessment: IdbAssessment = assessments.find(assessment => {
+                return assessment.guid == assessmentId;
+            });
+            let assessmentReport: AssessmentReport = getAssessmentReport(assessment, energyOpportunities, nonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts, report);
+            assessmentReports.push(assessmentReport);
+        }
     });
     let allNebReports: Array<NebReport> = assessmentReports.flatMap(report => {
         return report.allNebReports
@@ -48,7 +59,7 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
     });
 
     let totalImplementationCost: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
-        if(report.totalImplementationCost){
+        if (report.totalImplementationCost) {
             return report.totalImplementationCost
         }
         return 0;

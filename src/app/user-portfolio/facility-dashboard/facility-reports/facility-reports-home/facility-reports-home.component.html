@@ -1,0 +1,104 @@
+<div class="d-flex w-100 justify-content-end">
+    <div>
+        <button class="btn btn-outline-success btn-sm" (click)="openAddReportModal()">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            Add New Report
+        </button>
+    </div>
+</div>
+<hr class="my-2">
+
+<ng-template [ngIf]="facilityReports.length > 0" [ngIfElse]="noReportsBlocks">
+    <table class="table table-bordered table-hover table-sm">
+        <thead>
+            <tr>
+                <th class="w-25">
+                    Name
+                </th>
+                <th class="w-25">
+                    Report Type
+                </th>
+                <th class="w-50">
+                    Notes
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let report of facilityReports">
+                <td>
+                    {{report.name}}
+                </td>
+                <td>
+                    {{report.reportType | reportTypeDisplay}}
+                </td>
+                <td>
+                    <app-single-cell-item [strValue]="report.notes"></app-single-cell-item>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #noReportsBlocks>
+    <div class="alert alert-info p-2 text-center">
+        No custom reports found for this facility. Use the "<fa-icon [icon]="faPlus"></fa-icon>
+        Add Report" button to add a report to this facility.
+    </div>
+</ng-template>
+
+
+<div [ngClass]="{'window-overlay': displayAddReportModal}"></div>
+<div class="popup" [ngClass]="{'open': displayAddReportModal }">
+    <div class="popup-header">Create New Report
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeAddReportModal()"></button>
+    </div>
+    <div class="popup-body">
+        <ng-template [ngIf]="onSiteVisits.length > 0" [ngIfElse]="noVisitsBlock">
+            <p class="fa-light mb-0">Select the visit you wish to create a report for.</p>
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                        </th>
+                        <th>
+                            Visit Date
+                        </th>
+                        <th>
+                            Assessments
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let visit of onSiteVisits">
+                        <tr>
+                            <td>
+                                <input type="radio" class="form-check" [(ngModel)]="selectedOnSiteVisitId" [value]="visit.guid" name="selectedOnSiteVisitId">
+                            </td>
+                            <td>
+                                {{visit.visitDate | date}}
+                            </td>
+                            <td>
+                                <ng-container *ngFor="let assessmentGuid of visit.assessmentIds">
+                                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon> 
+                                    {{assessmentGuid | assessmentNameDisplay: assessments}}<br>
+                                </ng-container>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </ng-template>
+        <ng-template #noVisitsBlock>
+            <div class="alert alert-info">
+                Are you sure you want to delete this report? Changes will be lost.
+            </div>
+        </ng-template>
+
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary btn-sm me-2" (click)="closeAddReportModal()">Cancel</button>
+        <button class="btn btn-success btn-sm" (click)="addReport()" [disabled]="!selectedOnSiteVisitId"><fa-icon [icon]="faPlus"></fa-icon> Add
+            Report</button>
+    </div>
+</div>

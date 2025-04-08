@@ -44,6 +44,9 @@ import { TableEntriesModule } from "../shared/table-entries/table-entries.module
 import { FacilityPerformanceIndicatorsComponent } from './facility-dashboard/facility-performance-indicators/facility-performance-indicators.component';
 import { AssociatedContactsModule } from '../shared/associated-contacts/associated-contacts.module';
 import { FacilityDashboardProtocolQuestionsComponent } from './facility-dashboard/facility-dashboard-protocol-questions/facility-dashboard-protocol-questions.component';
+import { FacilityReportsHomeComponent } from './facility-dashboard/facility-reports/facility-reports-home/facility-reports-home.component';
+import { FacilityReportComponent } from './facility-dashboard/facility-reports/facility-report/facility-report.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -80,7 +83,9 @@ import { FacilityDashboardProtocolQuestionsComponent } from './facility-dashboar
     EndUseInventoryHomeComponent,
     CompanyStakeholdersHomeComponent,
     FacilityPerformanceIndicatorsComponent,
-    FacilityDashboardProtocolQuestionsComponent
+    FacilityDashboardProtocolQuestionsComponent,
+    FacilityReportsHomeComponent,
+    FacilityReportComponent
   ],
   imports: [
     CommonModule,
@@ -94,7 +99,8 @@ import { FacilityDashboardProtocolQuestionsComponent } from './facility-dashboar
     SharedFacilityFormsModule,
     TableEntriesModule,
     TableEntriesModule,
-    AssociatedContactsModule
+    AssociatedContactsModule,
+    FormsModule
 ]
 })
 export class UserPortfolioModule { }
