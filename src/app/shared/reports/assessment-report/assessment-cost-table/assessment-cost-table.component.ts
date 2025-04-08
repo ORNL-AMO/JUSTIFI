@@ -37,4 +37,13 @@ export class AssessmentCostTableComponent {
     });
   }
 
+  ngOnDestroy() {
+    if (this.companySub) {
+      this.companySub.unsubscribe();
+    }
+    if (this.currencySub) {
+      this.currencySub.unsubscribe();
+    }
+  }
+
 }
