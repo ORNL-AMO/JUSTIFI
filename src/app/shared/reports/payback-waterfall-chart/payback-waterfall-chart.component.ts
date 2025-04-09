@@ -88,7 +88,7 @@ export class PaybackWaterfallChartComponent {
           orientation: "v",
           x: xVals,
           textposition: "outside",
-          texttemplate: "%{final:$,.2s}",
+          texttemplate: this.currencyUnicode + "%{final:,.2s}",
           increasing: { marker: { color: "#2e86c1" } },
           text: [],
           y: yVals,
@@ -106,7 +106,7 @@ export class PaybackWaterfallChartComponent {
           orientation: "v",
           x: xVals,
           textposition: "outside",
-          texttemplate: "%{final:$,.2s}",
+          texttemplate: this.currencyUnicode + "%{final:,.2s}",
           y: yValsNebs,
           increasing: { marker: { color: '#085646' } },
           connector: {
