@@ -3,6 +3,9 @@
     <ng-container *ngIf="assessmentReport">
         <hr *ngIf="!inRollup">
         <div class="print-break-avoid">
+            <app-assessment-savings-chart [assessmentReport]="assessmentReport"></app-assessment-savings-chart>
+        </div>
+        <div class="print-break-avoid">
             <app-performance-metrics-table
                 [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-table>
         </div>
@@ -11,12 +14,16 @@
                 [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-chart>
         </div>
         <hr>
-        <div class="print-break-avoid">
+        <div class="print-break-avoid print-break-before">
             <app-payback-table [assessmentReport]="assessmentReport"></app-payback-table>
+        </div>
+        <div class="print-break-avoid">
+            <app-payback-waterfall-chart [reportData]="assessmentReport"></app-payback-waterfall-chart>
         </div>
         <hr>
         <div class="print-break-avoid">
-            <app-assessment-savings-chart [assessmentReport]="assessmentReport"></app-assessment-savings-chart>
+            <app-neb-contributions-bar-chart [assessmentReport]="assessmentReport"
+                [totalNebCostSavings]="assessmentReport.totalNebCostSavings"></app-neb-contributions-bar-chart>
         </div>
         <div class="print-break-avoid">
             <app-assessment-savings-table [assessmentReport]="assessmentReport"></app-assessment-savings-table>

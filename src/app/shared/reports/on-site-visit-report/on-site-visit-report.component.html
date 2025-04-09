@@ -1,6 +1,7 @@
 <div class="d-flex flex-column report" [ngClass]="{'print': print}">
     <div class="print-break-avoid">
-        <app-report-details-table [onSiteVisit]="onSiteVisit" [onSiteVisitReport]="onSiteVisitReport"></app-report-details-table>
+        <app-report-details-table [onSiteVisit]="onSiteVisit"
+            [onSiteVisitReport]="onSiteVisitReport"></app-report-details-table>
     </div>
     <hr class="my-1">
     <div class="print-break-avoid">
@@ -16,14 +17,15 @@
             [keyPerformanceIndicatorReport]="onSiteVisitReport.keyPerformanceIndicatorReport"></app-performance-metrics-chart>
     </div>
     <hr>
-    <div class="print-break-avoid">
+    <div class="print-break-avoid print-break-before">
         <app-on-site-visit-payback-table [onSiteVisitReport]="onSiteVisitReport"></app-on-site-visit-payback-table>
     </div>
     <div class="print-break-avoid">
-        <app-payback-waterfall-chart [onSiteVisitReport]="onSiteVisitReport"></app-payback-waterfall-chart>
+        <app-payback-waterfall-chart [reportData]="onSiteVisitReport"></app-payback-waterfall-chart>
     </div>
     <div class="print-break-avoid">
-        <app-neb-contributions-bar-chart
-            [assessmentReports]="onSiteVisitReport.assessmentReports"></app-neb-contributions-bar-chart>
+        <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
+            <app-neb-contributions-bar-chart [assessmentReport]="assessmentReport" [totalNebCostSavings]="onSiteVisitReport.totalNebCostSavings"></app-neb-contributions-bar-chart>
+        </ng-container>
     </div>
 </div>

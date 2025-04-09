@@ -16,7 +16,11 @@ import * as _ from 'lodash';
 })
 export class PaybackWaterfallChartComponent {
   @Input({ required: true })
-  onSiteVisitReport: OnSiteVisitReport;
+  reportData: {
+    totalImplementationCost: number,
+    totalCostSavings: number,
+    totalNonNebCostSavings: number
+  };
 
 
   @ViewChild('paybackWaterfallChart', { static: false }) paybackWaterfallChart: ElementRef;
@@ -26,7 +30,7 @@ export class PaybackWaterfallChartComponent {
   currencySub: Subscription;
   currencySymbol: string;
   currencyUnicode: string;
-
+  years: number;
   constructor(private plotlyService: PlotlyService,
     private localeService: LocaleService,
     private currencyPipe: CurrencyPipe
@@ -51,13 +55,13 @@ export class PaybackWaterfallChartComponent {
   }
 
   ngAfterViewInit() {
-    if (this.onSiteVisitReport) {
+    if (this.reportData) {
       this.drawChart();
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!changes['onSiteVisitReport'].isFirstChange()) {
+    if (!changes['reportData'].isFirstChange()) {
       this.drawChart();
     }
   }
@@ -65,15 +69,15 @@ export class PaybackWaterfallChartComponent {
   drawChart() {
     if (this.paybackWaterfallChart) {
       let xVals = ["Implementation Cost"];
-      let implementationCost: number = this.onSiteVisitReport.totalImplementationCost * (-1)
+      let implementationCost: number = this.reportData.totalImplementationCost * (-1)
       let yVals = [implementationCost];
       let yValsNebs = [implementationCost];
       let year = 1;
-      let years = Math.ceil(this.onSiteVisitReport.totalImplementationCost / this.onSiteVisitReport.totalNonNebCostSavings);
-      for (let i = 0; i < years; i++) {
+      this.years = Math.ceil(this.reportData.totalImplementationCost / this.reportData.totalNonNebCostSavings);
+      for (let i = 0; i < this.years; i++) {
         xVals.push('Year ' + year);
-        yVals.push(this.onSiteVisitReport.totalNonNebCostSavings)
-        yValsNebs.push(this.onSiteVisitReport.totalCostSavings)
+        yVals.push(this.reportData.totalNonNebCostSavings)
+        yValsNebs.push(this.reportData.totalCostSavings)
         year++;
       }
 
@@ -132,9 +136,6 @@ export class PaybackWaterfallChartComponent {
         },
         autosize: true,
         showlegend: false,
-        margin: {
-          r: 0
-        }
       };
 
       let layoutNebs = {
@@ -155,9 +156,6 @@ export class PaybackWaterfallChartComponent {
         },
         autosize: true,
         showlegend: false,
-        margin: {
-          r: 0
-        }
       };
 
       let config = {
