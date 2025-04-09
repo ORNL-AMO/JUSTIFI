@@ -66,62 +66,80 @@ export class PerformanceMetricsChartComponent {
       }, 'desc')
 
       var trace1 = {
-        y: kpmReportItems.map(kpmReport => {
+        x: kpmReportItems.map(kpmReport => {
           return kpmReport.keyPerformanceMetric.label
         }),
-        x: kpmReportItems.map(kpmReportItem => {
+        y: kpmReportItems.map(kpmReportItem => {
           return kpmReportItem.keyPerformanceMetric.baselineCost
         }),
         text: kpmReportItems.map(kpmReportItems => {
           return kpmReportItems.keyPerformanceMetric.baselineCost
         }),
-        texttemplate: this.currencyUnicode + "%{text:,.0f}",
+        texttemplate: this.currencyUnicode + "%{text:,.2s}",
+        textposition: "outside",
         name: 'Baseline Cost',
         type: 'bar',
         marker: {
           color: '#e67e22'
         },
-        orientation: 'h'
+        // orientation: 'h'
       };
 
       var trace2 = {
-        y: kpmReportItems.map(kpiReport => {
+        x: kpmReportItems.map(kpiReport => {
           return kpiReport.keyPerformanceMetric.label
         }),
-        x: kpmReportItems.map(kpiReportItem => {
+        y: kpmReportItems.map(kpiReportItem => {
           return kpiReportItem.performanceMetricImpact.costAdjustment
         }),
         text: kpmReportItems.map(kpmReportItems => {
           return kpmReportItems.performanceMetricImpact.costAdjustment
         }),
-        texttemplate: this.currencyUnicode + "%{text:,.0f}",
+        texttemplate: this.currencyUnicode + "%{text:,.2s}",
+        textposition: "outside",
         name: 'Annual Savings',
         type: 'bar',
         marker: {
           color: '#196f3d'
         },
-        orientation: 'h'
+        // orientation: 'h'
       };
 
-      var data = [trace2, trace1];
+      var data = [trace1, trace2];
+
+      let yVal: Array<number> = data.flatMap(trace => {
+        return trace.y
+      })
+      let maxY: number = _.max(yVal);
       var layout = {
         title: {
-          text: 'Key Perfomance Metric Financial Impacts'
+          text: 'Key Perfomance Metric Financial Impacts',
+          font: {
+            weight: 'bold'
+          }
         },
         barmode: 'group',
         yaxis: {
           automargin: true,
-          // tickfont: {
-          //   weight: 'bold'
-          // }
+          range: [0, maxY * 1.15],
+          tickprefix: this.currencySymbol,
         },
         xaxis: {
-          tickprefix: this.currencySymbol,
-          automargin: true
+          // tickprefix: this.currencySymbol,
+          automargin: true,
+          // range: [0, maxX * 1.15]
         },
         legend: {
-          orientation: "h"
+          orientation: "h",
+          yanchor: "top",
+          y: 1.2,
+          xanchor: "center",
+          x: 0.5
         },
+        margin: {
+          // t: 40
+          l: 10
+        }
       };
 
       let config = {

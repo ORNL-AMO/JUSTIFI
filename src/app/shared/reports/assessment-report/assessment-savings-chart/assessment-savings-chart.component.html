@@ -1,33 +1,5 @@
-<!-- <div class="row">
-    <div class="col-12 col-xs-12 col-sm-6 col-md-6">
-        <div class="d-flex flex-column">
-            <div>
-                <div #percentSavingsGauge></div>
-            </div>
-            <div>
-                <div #percentSavingsWithNebsGauge></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-xs-12 col-sm-6 col-md-6">
-        <div #nebsPieChart></div>
-    </div>
-</div> -->
-
 <div class="row">
     <div class="col-12">
         <div #totalSavingsChart></div>
     </div>
-    <div class="col-12">
-        <app-assessment-item-savings-bar-chart [totalNonNebCostSavings]="assessmentReport.totalNonNebCostSavings"
-            [itemName]="assessmentReport.assessment.name"
-            [nebReports]="assessmentReport.assessmentNebReports"></app-assessment-item-savings-bar-chart>
-    </div>
-    <ng-container *ngFor="let energyOppReport of assessmentReport.energyOpportunityReports">
-        <div class="col-12" *ngIf="energyOppReport.totalCostSavings != 0">
-            <app-assessment-item-savings-bar-chart [totalNonNebCostSavings]="energyOppReport.totalNonNebCostSavings"
-                [itemName]="energyOppReport.energyOpportunity.name"
-                [nebReports]="energyOppReport.nebReports"></app-assessment-item-savings-bar-chart>
-        </div>
-    </ng-container>
 </div>

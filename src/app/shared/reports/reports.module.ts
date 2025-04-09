@@ -21,6 +21,7 @@ import { CustomReportComponent } from './custom-reports/custom-report/custom-rep
 import { FormsModule } from '@angular/forms';
 import { ExecutiveSummaryReportComponent } from './executive-summary-report/executive-summary-report.component';
 import { CustomReportOptionListPipe } from './custom-reports/custom-report-options/custom-report-option-list.pipe';
+import { PaybackWaterfallChartComponent } from './payback-waterfall-chart/payback-waterfall-chart.component';
 
 
 
@@ -42,7 +43,8 @@ import { CustomReportOptionListPipe } from './custom-reports/custom-report-optio
     CustomReportComponent,
     CustomReportOptionsComponent,
     ExecutiveSummaryReportComponent,
-    CustomReportOptionListPipe
+    CustomReportOptionListPipe,
+    PaybackWaterfallChartComponent
   ],
   imports: [
     CommonModule,

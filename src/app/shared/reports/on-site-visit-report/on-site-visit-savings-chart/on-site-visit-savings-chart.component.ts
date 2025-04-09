@@ -1,7 +1,10 @@
 import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { PlotlyService } from 'angular-plotly.js';
 import { OnSiteVisitReport } from '../../calculations/visitReport';
-import { graphColors } from 'src/app/shared/constants/graphColors';
+import { Subscription } from 'rxjs';
+import { LocaleService } from 'src/app/shared/shared-services/locale.service';
+import { CurrencyPipe } from '@angular/common';
+import { localeCurrency } from 'src/app/shared/constants/localeCurrency';
 
 @Component({
     selector: 'app-on-site-visit-savings-chart',
@@ -15,128 +18,129 @@ export class OnSiteVisitSavingsChartComponent {
 
 
 
-  @ViewChild('percentSavingsGauge', { static: false }) percentSavingsGauge: ElementRef;
-  @ViewChild('percentSavingsWithNebsGauge', { static: false }) percentSavingsWithNebsGauge: ElementRef;
-  @ViewChild('nebsPieChart', { static: false }) nebsPieChart: ElementRef;
-  constructor(private plotlyService: PlotlyService) {
+  @ViewChild('onSiteVisitSavingsChart', { static: false }) onSiteVisitSavingsChart: ElementRef;
 
+  currencySub: Subscription;
+  currencySymbol: string;
+  currencyUnicode: string;
+
+  xMax: number;
+  constructor(private plotlyService: PlotlyService,
+    private localeService: LocaleService,
+    private currencyPipe: CurrencyPipe
+  ) {
+  }
+
+  ngOnInit() {
+    this.currencySub = this.localeService.currencyCode.subscribe(currencyCode => {
+      this.currencySymbol = this.currencyPipe
+        .transform(0, currencyCode, 'symbol', '1.0-0')
+        .replace(/[0-9\.\,]/g, '')
+        .trim();
+      this.currencyUnicode = localeCurrency.find(option => {
+        return option.currencyCode == currencyCode
+      }).unicode;
+      this.drawTotalSavaingsChart();
+    })
+  }
+
+  ngOnDestroy(){
+    this.currencySub.unsubscribe();
   }
 
   ngAfterViewInit() {
     if (this.onSiteVisitReport) {
-      this.drawGaugeCharts();
-      this.drawPieChart();
+      this.drawTotalSavaingsChart();
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes['onSiteVisitReport'].isFirstChange()) {
-      this.drawGaugeCharts();
-      this.drawPieChart();
+      this.drawTotalSavaingsChart();
     }
   }
 
-  drawGaugeCharts() {
-    let percentSavings = (this.onSiteVisitReport.totalNonNebCostSavings / this.onSiteVisitReport.totalUtilityCosts) * 100
-    var savingsData = [
-      {
-        domain: { x: [0, 1], y: [0, 1] },
-        value: percentSavings,
-        title: { text: "Cost Savings" },
-        type: "indicator",
-        mode: "gauge+number",
-        number: { suffix: '%' },
-        gauge: {
-          axis: { range: [null, 100], automargin: true },
-        }
-      },
-    ];
+  drawTotalSavaingsChart() {
+    if (this.onSiteVisitSavingsChart) {
+      var trace1 = {
+        y: ['Utility Cost Savings'],
+        x: [this.onSiteVisitReport.totalNonNebCostSavings],
+        // width: [.5],
+        text: [this.onSiteVisitReport.totalNonNebCostSavings],
+        texttemplate: this.currencyUnicode + "%{text:,.0f}",
+        name: 'Utility Cost Savings',
+        type: 'bar',
+        marker: {
+          color: '#2e86c1'
+        },
+        orientation: 'h'
+      };
 
-    var layout = {
-      height: 250,
-      margin: {
-        l: 50,
-        b: 50,
-        r: 50,
-        t: 50
-      },
-      yaxis: {
-        tickprefix: '$'
+      var trace2 = {
+        y: ['Non-Energy Benefits'],
+        x: [this.onSiteVisitReport.totalNebCostSavings],
+        // width: [.5],
+        text: [this.onSiteVisitReport.totalNebCostSavings],
+        texttemplate: this.currencyUnicode + "%{text:,.0f}",
+        name: 'Non-Energy Benefits',
+        type: 'bar',
+        marker: {
+          color: '#085646'
+        },
+        orientation: 'h'
+      };
+
+      if(this.onSiteVisitReport.totalNebCostSavings > this.onSiteVisitReport.totalNonNebCostSavings){
+        this.xMax = this.onSiteVisitReport.totalNebCostSavings;
+      }else{
+        this.xMax = this.onSiteVisitReport.totalNonNebCostSavings;
       }
-    };
 
-    let config = {
-      modeBarButtonsToRemove: ['autoScale2d', 'lasso2d', 'pan2d', 'select2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
-      displaylogo: false,
-      responsive: true,
-    };
-    this.plotlyService.newPlot(this.percentSavingsGauge.nativeElement, savingsData, layout, config);
 
-    let percentSavingsNebs = (this.onSiteVisitReport.totalCostSavings / this.onSiteVisitReport.totalUtilityCosts) * 100
-    var savingsDataWithNebs = [
-      {
-        domain: { x: [0, 1], y: [0, 1] },
-        value: percentSavingsNebs,
-        number: { suffix: '%' },
-        title: { text: "Assessment Savings W/ NEBs" },
-        type: "indicator",
-        mode: "gauge+number",
-        gauge: {
-          axis: { range: [null, 100] },
+      var data = [trace1, trace2];
+      var layout = {
+        height: 250,
+        title: {
+          text:  'Total Annual Savings<br>'+this.currencyUnicode + this.onSiteVisitReport.totalCostSavings.toLocaleString() + ' (' + this.currencyUnicode + '/yr)',
+          font: {
+            weight: 'bold'
+          }
+        },
+        // barmode: 'stack',
+        yaxis: {
+          automargin: true,
+          // showticklabels: false
+          // tickfont: {
+          //   weight: 'bold'
+          // }
+        },
+        xaxis: {
+          tickprefix: this.currencySymbol,
+          automargin: true,
+          range: [0, this.xMax]
+        },
+        legend: {
+          orientation: "h",
+          yanchor: "top",
+          y: 1.2,
+          xanchor: "center",
+          x: 0.5,
+        },
+        showlegend: false,
+        margin: {
+          // b: 40,
+          // t: 10
+          r: 0
         }
-      },
-    ];
-    this.plotlyService.newPlot(this.percentSavingsWithNebsGauge.nativeElement, savingsDataWithNebs, layout, config);
-  }
+      };
 
-
-  drawPieChart() {
-    //pie chart..
-    let trace = {
-      values: [],
-      labels: [],
-      type: 'pie',
-      hole: .4,
-      ticksuffix: '$/yr',
-      marker: {
-        colors: graphColors,
-        line: {
-          width: [],
-          color: '#fff'
-        }
-      }
+      let config = {
+        modeBarButtonsToRemove: ['autoScale2d', 'lasso2d', 'pan2d', 'select2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+        displaylogo: false,
+        responsive: true
+      };
+      this.plotlyService.newPlot(this.onSiteVisitSavingsChart.nativeElement, data, layout, config);
     }
-
-    this.onSiteVisitReport.assessmentReports.forEach(assessmentReport => {
-      trace.values.push(assessmentReport.totalNonNebCostSavings);
-      trace.labels.push(assessmentReport.assessment.name + ': Cost Savings');
-      trace.marker.line.width.push(2);
-
-
-      trace.values.push(assessmentReport.totalNebCostSavings);
-      trace.labels.push(assessmentReport.assessment.name + ': (NEB) Cost Savings');
-      trace.marker.line.width.push(2);
-    })
-
-    var data = [trace];
-    var layout = {
-      title: 'Percent Savings Contribution',
-      legend: {
-        orientation: "h"
-      },
-      margin: {
-        l: 50,
-        b: 50,
-        r: 50,
-        t: 50
-      },
-    };
-
-    let config = {
-      modeBarButtonsToRemove: ['autoScale2d', 'lasso2d', 'pan2d', 'select2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
-      displaylogo: false,
-      responsive: true,
-    };
-    this.plotlyService.newPlot(this.nebsPieChart.nativeElement, data, layout, config);
   }
+
 }

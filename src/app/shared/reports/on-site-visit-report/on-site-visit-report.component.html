@@ -4,6 +4,10 @@
     </div>
     <hr class="my-1">
     <div class="print-break-avoid">
+        <app-on-site-visit-savings-chart [onSiteVisitReport]="onSiteVisitReport"></app-on-site-visit-savings-chart>
+    </div>
+    <hr>
+    <div class="print-break-avoid">
         <app-performance-metrics-table
             [keyPerformanceIndicatorReport]="onSiteVisitReport.keyPerformanceIndicatorReport"></app-performance-metrics-table>
     </div>
@@ -16,7 +20,7 @@
         <app-on-site-visit-payback-table [onSiteVisitReport]="onSiteVisitReport"></app-on-site-visit-payback-table>
     </div>
     <div class="print-break-avoid">
-        <app-on-site-visit-savings-chart [onSiteVisitReport]="onSiteVisitReport"></app-on-site-visit-savings-chart>
+        <app-payback-waterfall-chart [onSiteVisitReport]="onSiteVisitReport"></app-payback-waterfall-chart>
     </div>
     <div class="print-break-avoid">
         <app-neb-contributions-bar-chart
