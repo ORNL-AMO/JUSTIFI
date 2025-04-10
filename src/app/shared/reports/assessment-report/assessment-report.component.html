@@ -1,5 +1,5 @@
 <div class="report" [ngClass]="{'print': print}">
-    <app-report-details-table *ngIf="!inRollup" [assessment]="assessment"></app-report-details-table>
+    <app-report-details-table [assessment]="assessment"></app-report-details-table>
     <ng-container *ngIf="assessmentReport">
         <hr *ngIf="!inRollup">
         <div class="print-break-avoid">

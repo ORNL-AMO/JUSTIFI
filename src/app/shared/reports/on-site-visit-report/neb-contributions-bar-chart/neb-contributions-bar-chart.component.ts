@@ -149,7 +149,10 @@ export class NebContributionsBarChartComponent {
         legend: {
           orientation: "h"
         },
-        showlegend: false
+        showlegend: false,
+        font: {
+          family: 'Arial'
+        }
       };
 
       let config = {

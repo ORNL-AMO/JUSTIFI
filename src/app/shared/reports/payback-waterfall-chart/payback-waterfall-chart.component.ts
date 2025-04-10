@@ -156,6 +156,9 @@ export class PaybackWaterfallChartComponent {
         },
         autosize: true,
         showlegend: false,
+        font: {
+          family: 'Arial'
+        }
       };
 
       let config = {

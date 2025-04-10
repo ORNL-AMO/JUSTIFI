@@ -139,6 +139,9 @@ export class PerformanceMetricsChartComponent {
         margin: {
           // t: 40
           l: 10
+        },
+        font: {
+          family: 'Arial'
         }
       };
 

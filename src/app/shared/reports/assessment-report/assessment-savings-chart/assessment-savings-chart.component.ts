@@ -135,6 +135,9 @@ export class AssessmentSavingsChartComponent {
         showlegend: false,
         margin: {
           r: 0
+        },
+        font: {
+          family: 'Arial'
         }
       };
 
