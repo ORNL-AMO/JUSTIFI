@@ -13,40 +13,6 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td class="bold" colspan="3">
-                Assessment Baseline
-            </td>
-        </tr>
-        <tr>
-            <td class="w-50 ps-3">
-                <!-- Baseline -->
-                Energy Related Use
-            </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.energyCost"
-                    [isCurrency]="true" [negativeNumber]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.energyUse"
-                    [isCurrency]="false" [units]="companyEnergyUnit"
-                    [negativeNumber]="true"></app-single-cell-item>
-            </td>
-        </tr>
-        <tr>
-            <td class="w-50 ps-3 bold">
-                <!-- Baseline -->
-                Assessment Total Utility Use
-            </td>
-            <td class="text-right bold">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.cost"
-                    [isCurrency]="true" [negativeNumber]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right bold">
-                <app-single-cell-item [numValue]="0"
-                    [isCurrency]="false"></app-single-cell-item>
-            </td>
-        </tr>
         <tr class="section-border">
             <td class="bold ps-3" colspan="3">
                 <fa-icon class="pe-2" [icon]="faScrewdriverWrench"></fa-icon> {{assessmentReport.assessment.name}}
@@ -173,10 +139,10 @@
         </tr>
         <tr>
             <td class="w-50 bold">
-                Total Cost Savings
+                Total Cost Savings W/O NEBs
             </td>
             <td class="text-right bold w-25">
-                <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
+                <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
             <td class="text-right bold">

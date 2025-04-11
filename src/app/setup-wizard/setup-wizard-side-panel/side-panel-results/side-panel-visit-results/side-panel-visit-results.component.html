@@ -3,7 +3,7 @@
         Current Facility Utility Costs  <span class="float-right">{{facility.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
     </div>
     <div class="list-group-item">
-        Total Cost Savings
+        Total Cost Savings W/O NEBs
         <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
         <div class="progress" role="progressbar" [ariaValueNow]="percentSavings" aria-valuemin="0"
             aria-valuemax="100">
@@ -134,7 +134,7 @@
                 </tr>
                 <tr>
                     <th>
-                        Total Cost Savings
+                        Total Cost Savings W/O NEBs
                     </th>
                     <th class="text-right w-25">
                         <app-single-cell-item [numValue]="onSiteVisitReport.totalNonNebCostSavings"
