@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaybackWaterfallChartComponent } from './payback-waterfall-chart.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('PaybackWaterfallChartComponent', () => {
   let component: PaybackWaterfallChartComponent;
@@ -8,7 +9,8 @@ describe('PaybackWaterfallChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PaybackWaterfallChartComponent]
+      declarations: [PaybackWaterfallChartComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 

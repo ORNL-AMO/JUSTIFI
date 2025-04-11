@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OnSiteVisitSavingsChartComponent } from './on-site-visit-savings-chart.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { getOnSiteVisitReport } from '../../calculations/visitReport';
 
 describe('OnSiteVisitSavingsChartComponent', () => {
   let component: OnSiteVisitSavingsChartComponent;
@@ -8,12 +10,14 @@ describe('OnSiteVisitSavingsChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [OnSiteVisitSavingsChartComponent]
+      declarations: [OnSiteVisitSavingsChartComponent],
+      providers: stubServiceProviders
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(OnSiteVisitSavingsChartComponent);
     component = fixture.componentInstance;
+    component.onSiteVisitReport = getOnSiteVisitReport([], [], [], [], [], []);
     fixture.detectChanges();
   });
 
