@@ -82,19 +82,33 @@
             </tr>
             <tr>
                 @let energyOpportunity = energyOpportunityReport.energyOpportunity;
-                <td class="ps-4">
-                    {{ energyOpportunity.name }}
-                    {{ energyOpportunity.utilityCategory == 'water' ? 'Water' : 'Energy' }} Savings
-                </td>
-                <td class="text-right">
-                    <app-single-cell-item [numValue]="energyOpportunity.costSavings"
-                        [isCurrency]="true"></app-single-cell-item>
-                </td>
-                <td class="text-right">
-                    <app-single-cell-item [numValue]="energyOpportunity.utilityCategory == 'water' ? 
-                        energyOpportunity.waterSavings : energyOpportunity.energySavings"
-                        [isCurrency]="false" [units]="energyOpportunity.energyUnit"></app-single-cell-item>
-                </td>
+                <ng-template ngIf="energyOpportunity.utilityCategory == 'energy'" [ngIfElse]="waterEEM">
+                    <td class="ps-4">
+                        {{ energyOpportunity.name }} Energy Savings
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="energyOpportunity.costSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="energyOpportunity.energySavings"
+                            [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
+                    </td>
+                </ng-template>
+                <ng-template #waterEEM>
+                    <td class="ps-4">
+                        {{ energyOpportunity.name }}
+                        Water Savings
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="energyOpportunity.costSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="energyOpportunity.waterSavings"
+                            [isCurrency]="false" [units]="energyOpportunity.energyUnit"></app-single-cell-item>
+                    </td>
+                </ng-template>
             </tr>
             <tr *ngFor="let nebReport of energyOpportunityReport.nebReports">
                 <td class="ps-4">
@@ -118,9 +132,14 @@
                         [isCurrency]="true"></app-single-cell-item>
                 </td>
                 <td class="text-right bold">
-                    <app-single-cell-item [numValue]="energyOpportunity.utilityCategory == 'water' ? 
-                        energyOpportunity.waterSavings : energyOpportunity.energySavings"
-                        [isCurrency]="false" [units]="energyOpportunity.energyUnit"></app-single-cell-item>
+                    <ng-template [ngIf]="energyOpportunity.utilityCategory == 'energy'" [ngIfElse]="waterEEMTotal">
+                        <app-single-cell-item [numValue]="energyOpportunity.energySavings"
+                            [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
+                    </ng-template>
+                    <ng-template #waterEEMTotal>
+                        <app-single-cell-item [numValue]="energyOpportunity.waterSavings"
+                            [isCurrency]="false" [units]="energyOpportunity.energyUnit"></app-single-cell-item>
+                    </ng-template>
                 </td>
             </tr>
         </ng-container>
