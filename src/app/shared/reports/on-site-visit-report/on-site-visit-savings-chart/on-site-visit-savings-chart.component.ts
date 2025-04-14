@@ -5,12 +5,13 @@ import { Subscription } from 'rxjs';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { localeCurrency } from 'src/app/shared/constants/localeCurrency';
 import { CurrencySymbolPipe } from 'src/app/shared/helper-pipes/currency-symbol.pipe';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-on-site-visit-savings-chart',
-    templateUrl: './on-site-visit-savings-chart.component.html',
-    styleUrl: './on-site-visit-savings-chart.component.css',
-    standalone: false
+  selector: 'app-on-site-visit-savings-chart',
+  templateUrl: './on-site-visit-savings-chart.component.html',
+  styleUrl: './on-site-visit-savings-chart.component.css',
+  standalone: false
 })
 export class OnSiteVisitSavingsChartComponent {
   @Input({ required: true })
@@ -23,13 +24,15 @@ export class OnSiteVisitSavingsChartComponent {
   currencyUnicode: string;
 
   xMax: number;
+  currencySymbolPipe: CurrencySymbolPipe;
   constructor(private plotlyService: PlotlyService,
     private localeService: LocaleService,
-    private currencySymbolPipe: CurrencySymbolPipe
+    private currencyPipe: CurrencyPipe
   ) {
   }
 
   ngOnInit() {
+    this.currencySymbolPipe = new CurrencySymbolPipe(this.currencyPipe);
     this.currencySub = this.localeService.currencyCode.subscribe(currencyCode => {
       this.currencySymbol = this.currencySymbolPipe.transform(currencyCode)
       this.currencyUnicode = localeCurrency.find(option => {
@@ -39,7 +42,7 @@ export class OnSiteVisitSavingsChartComponent {
     })
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.currencySub.unsubscribe();
   }
 
@@ -85,9 +88,9 @@ export class OnSiteVisitSavingsChartComponent {
         orientation: 'h'
       };
 
-      if(this.onSiteVisitReport.totalNebCostSavings > this.onSiteVisitReport.totalNonNebCostSavings){
+      if (this.onSiteVisitReport.totalNebCostSavings > this.onSiteVisitReport.totalNonNebCostSavings) {
         this.xMax = this.onSiteVisitReport.totalNebCostSavings;
-      }else{
+      } else {
         this.xMax = this.onSiteVisitReport.totalNonNebCostSavings;
       }
 
@@ -96,7 +99,7 @@ export class OnSiteVisitSavingsChartComponent {
       var layout = {
         height: 250,
         title: {
-          text:  'Total Annual Savings<br>'+this.currencyUnicode + this.onSiteVisitReport.totalCostSavings.toLocaleString() + ' (' + this.currencyUnicode + '/yr)',
+          text: 'Total Annual Savings<br>' + this.currencyUnicode + this.onSiteVisitReport.totalCostSavings.toLocaleString() + ' (' + this.currencyUnicode + '/yr)',
           font: {
             weight: 'bold'
           }

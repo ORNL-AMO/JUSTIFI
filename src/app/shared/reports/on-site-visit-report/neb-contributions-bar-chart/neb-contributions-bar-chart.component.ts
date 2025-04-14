@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { localeCurrency } from 'src/app/shared/constants/localeCurrency';
 import { CurrencySymbolPipe } from 'src/app/shared/helper-pipes/currency-symbol.pipe';
+import { CurrencyPipe } from '@angular/common';
 @Component({
   selector: 'app-neb-contributions-bar-chart',
   templateUrl: './neb-contributions-bar-chart.component.html',
@@ -24,13 +25,15 @@ export class NebContributionsBarChartComponent {
   currencySub: Subscription;
   currencySymbol: string;
   currencyUnicode: string;
+  currencySymbolPipe: CurrencySymbolPipe;
   constructor(private plotlyService: PlotlyService,
     private localeService: LocaleService,
-    private currencySymbolPipe: CurrencySymbolPipe
+    private currencyPipe: CurrencyPipe
   ) {
   }
 
   ngOnInit() {
+    this.currencySymbolPipe = new CurrencySymbolPipe(this.currencyPipe);
     this.currencySub = this.localeService.currencyCode.subscribe(currencyCode => {
       this.currencySymbol = this.currencySymbolPipe.transform(currencyCode)
       this.currencyUnicode = localeCurrency.find(option => {
