@@ -5,6 +5,7 @@ import { PlotlyService } from 'angular-plotly.js';
 import { localeCurrency } from '../../constants/localeCurrency';
 import * as _ from 'lodash';
 import { CurrencySymbolPipe } from '../../helper-pipes/currency-symbol.pipe';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-payback-waterfall-chart',
@@ -30,13 +31,15 @@ export class PaybackWaterfallChartComponent {
   currencySymbol: string;
   currencyUnicode: string;
   years: number;
+  currencySymbolPipe: CurrencySymbolPipe;
   constructor(private plotlyService: PlotlyService,
     private localeService: LocaleService,
-    private currencySymbolPipe: CurrencySymbolPipe
+    private currencyPipe: CurrencyPipe
   ) {
   }
 
   ngOnInit() {
+    this.currencySymbolPipe = new CurrencySymbolPipe(this.currencyPipe);
     this.currencySub = this.localeService.currencyCode.subscribe(currencyCode => {
       this.currencySymbol = this.currencySymbolPipe.transform(currencyCode)
       this.currencyUnicode = localeCurrency.find(option => {
