@@ -1,14 +1,12 @@
 import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { PlotlyService } from 'angular-plotly.js';
-import { OnSiteVisitReport } from '../../calculations/visitReport';
 import { NebReport } from '../../calculations/nebReport';
 import * as _ from 'lodash';
-import { graphColors } from 'src/app/shared/constants/graphColors';
 import { AssessmentReport } from '../../calculations/assessmentReport';
 import { Subscription } from 'rxjs';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
-import { CurrencyPipe } from '@angular/common';
 import { localeCurrency } from 'src/app/shared/constants/localeCurrency';
+import { CurrencySymbolPipe } from 'src/app/shared/helper-pipes/currency-symbol.pipe';
 @Component({
   selector: 'app-neb-contributions-bar-chart',
   templateUrl: './neb-contributions-bar-chart.component.html',
@@ -28,16 +26,13 @@ export class NebContributionsBarChartComponent {
   currencyUnicode: string;
   constructor(private plotlyService: PlotlyService,
     private localeService: LocaleService,
-    private currencyPipe: CurrencyPipe
+    private currencySymbolPipe: CurrencySymbolPipe
   ) {
   }
 
   ngOnInit() {
     this.currencySub = this.localeService.currencyCode.subscribe(currencyCode => {
-      this.currencySymbol = this.currencyPipe
-        .transform(0, currencyCode, 'symbol', '1.0-0')
-        .replace(/[0-9\.\,]/g, '')
-        .trim();
+      this.currencySymbol = this.currencySymbolPipe.transform(currencyCode)
       this.currencyUnicode = localeCurrency.find(option => {
         return option.currencyCode == currencyCode
       }).unicode;

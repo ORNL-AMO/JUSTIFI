@@ -3,9 +3,10 @@ import { PlotlyService } from 'angular-plotly.js';
 import { KeyPerformanceIndicatorReport, KeyPerformanceMetricReportItem } from '../calculations/keyPerformanceIndicatorReport';
 import * as _ from 'lodash';
 import { LocaleService } from '../../shared-services/locale.service';
-import { CurrencyPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { localeCurrency } from '../../constants/localeCurrency';
+import { CurrencySymbolPipe } from '../../helper-pipes/currency-symbol.pipe';
+
 @Component({
   selector: 'app-performance-metrics-chart',
   templateUrl: './performance-metrics-chart.component.html',
@@ -23,16 +24,13 @@ export class PerformanceMetricsChartComponent {
   currencyUnicode: string;
   constructor(private plotlyService: PlotlyService,
     private localeService: LocaleService,
-    private currencyPipe: CurrencyPipe
+    private currencySymbolPipe: CurrencySymbolPipe
   ) {
   }
 
   ngOnInit() {
     this.currencySub = this.localeService.currencyCode.subscribe(currencyCode => {
-      this.currencySymbol = this.currencyPipe
-        .transform(0, currencyCode, 'symbol', '1.0-0')
-        .replace(/[0-9\.\,]/g, '')
-        .trim();
+      this.currencySymbol = this.currencySymbolPipe.transform(currencyCode)
       this.currencyUnicode = localeCurrency.find(option => {
         return option.currencyCode == currencyCode
       }).unicode;

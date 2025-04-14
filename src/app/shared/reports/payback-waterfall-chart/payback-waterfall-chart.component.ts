@@ -1,11 +1,10 @@
 import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { LocaleService } from '../../shared-services/locale.service';
 import { Subscription } from 'rxjs';
-import { OnSiteVisitReport } from '../calculations/visitReport';
 import { PlotlyService } from 'angular-plotly.js';
-import { CurrencyPipe } from '@angular/common';
 import { localeCurrency } from '../../constants/localeCurrency';
 import * as _ from 'lodash';
+import { CurrencySymbolPipe } from '../../helper-pipes/currency-symbol.pipe';
 
 @Component({
   selector: 'app-payback-waterfall-chart',
@@ -33,16 +32,13 @@ export class PaybackWaterfallChartComponent {
   years: number;
   constructor(private plotlyService: PlotlyService,
     private localeService: LocaleService,
-    private currencyPipe: CurrencyPipe
+    private currencySymbolPipe: CurrencySymbolPipe
   ) {
   }
 
   ngOnInit() {
     this.currencySub = this.localeService.currencyCode.subscribe(currencyCode => {
-      this.currencySymbol = this.currencyPipe
-        .transform(0, currencyCode, 'symbol', '1.0-0')
-        .replace(/[0-9\.\,]/g, '')
-        .trim();
+      this.currencySymbol = this.currencySymbolPipe.transform(currencyCode)
       this.currencyUnicode = localeCurrency.find(option => {
         return option.currencyCode == currencyCode
       }).unicode;
