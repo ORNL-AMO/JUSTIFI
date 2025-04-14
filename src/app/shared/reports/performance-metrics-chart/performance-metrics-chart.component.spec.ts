@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PerformanceMetricsChartComponent } from './performance-metrics-chart.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('PerformanceMetricsChartComponent', () => {
   let component: PerformanceMetricsChartComponent;
@@ -8,7 +9,8 @@ describe('PerformanceMetricsChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PerformanceMetricsChartComponent]
+      declarations: [PerformanceMetricsChartComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
     

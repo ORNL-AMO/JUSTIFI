@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssessmentSavingsChartComponent } from './assessment-savings-chart.component';
+import { PaybackWaterfallChartComponent } from './payback-waterfall-chart.component';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
-describe('AssessmentSavingsChartComponent', () => {
-  let component: AssessmentSavingsChartComponent;
-  let fixture: ComponentFixture<AssessmentSavingsChartComponent>;
+describe('PaybackWaterfallChartComponent', () => {
+  let component: PaybackWaterfallChartComponent;
+  let fixture: ComponentFixture<PaybackWaterfallChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AssessmentSavingsChartComponent],
+      declarations: [PaybackWaterfallChartComponent],
       providers: stubServiceProviders
     })
-      .compileComponents();
+    .compileComponents();
 
-    fixture = TestBed.createComponent(AssessmentSavingsChartComponent);
+    fixture = TestBed.createComponent(PaybackWaterfallChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

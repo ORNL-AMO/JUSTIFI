@@ -35,6 +35,8 @@ import { LocalStorageService } from "ngx-webstorage";
 import { UpdateDbEntriesService } from "../indexed-db/update-db-entries.service";
 import { ReportIdbService } from "../indexed-db/report-idb.service";
 import { getNewIdbReport, IdbReport } from "../models/report";
+import { CurrencyPipe } from "@angular/common";
+import { CurrencySymbolPipe } from "../shared/helper-pipes/currency-symbol.pipe";
 
 let stubCompany: IdbCompany = getNewIdbCompany('123');
 stubCompany.guid = '123';
@@ -182,6 +184,9 @@ let reportIdbService: Partial<ReportIdbService> = {
     reports: new BehaviorSubject<Array<IdbReport>>([stubReport])
 }
 
+let currencyPipe: CurrencyPipe = new CurrencyPipe('en-US')
+let currencySymbolPipe: Partial<CurrencySymbolPipe> = new CurrencySymbolPipe(currencyPipe);
+
 export const stubServiceProviders: Array<{ provide: any, useValue: any }> = [
     { provide: CompanyIdbService, useValue: companyIdbService },
     { provide: FacilityIdbService, useValue: facilityIdbService },
@@ -206,5 +211,7 @@ export const stubServiceProviders: Array<{ provide: any, useValue: any }> = [
         useValue: {
             params: new BehaviorSubject({ 'id': '123' })
         }
-    }
+    },
+    { provide: CurrencyPipe, useValue: currencyPipe },
+    { provide: CurrencySymbolPipe, useValue: currencySymbolPipe }
 ]
