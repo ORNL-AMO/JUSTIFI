@@ -47,4 +47,11 @@
             Reports
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/manage-visits'"
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faCalendar"></fa-icon>
+            Manage Visits
+        </a>
+    </li>
 </ul>

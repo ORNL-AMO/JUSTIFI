@@ -37,6 +37,7 @@ import { FacilityReportsHomeComponent } from "../user-portfolio/facility-dashboa
 import { FacilityReportComponent } from "../user-portfolio/facility-dashboard/facility-reports/facility-report/facility-report.component";
 import { CustomReportOptionsComponent } from "../shared/reports/custom-reports/custom-report-options/custom-report-options.component";
 import { CustomReportComponent } from "../shared/reports/custom-reports/custom-report/custom-report.component";
+import { ManageOnSiteVisitsComponent } from "../user-portfolio/facility-dashboard/manage-on-site-visits/manage-on-site-visits.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -169,6 +170,10 @@ export const PortfolioRoutes: Route = {
                     component: FacilitySettingsComponent,
                     canDeactivate: [CanDeactivateGuard]
                 },
+                {
+                    path: 'manage-visits',
+                    component: ManageOnSiteVisitsComponent
+                }
             ]
         },
         {

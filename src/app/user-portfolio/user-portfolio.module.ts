@@ -47,6 +47,7 @@ import { FacilityDashboardProtocolQuestionsComponent } from './facility-dashboar
 import { FacilityReportsHomeComponent } from './facility-dashboard/facility-reports/facility-reports-home/facility-reports-home.component';
 import { FacilityReportComponent } from './facility-dashboard/facility-reports/facility-report/facility-report.component';
 import { FormsModule } from '@angular/forms';
+import { ManageOnSiteVisitsComponent } from './facility-dashboard/manage-on-site-visits/manage-on-site-visits.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { FormsModule } from '@angular/forms';
     FacilityPerformanceIndicatorsComponent,
     FacilityDashboardProtocolQuestionsComponent,
     FacilityReportsHomeComponent,
-    FacilityReportComponent
+    FacilityReportComponent,
+    ManageOnSiteVisitsComponent
   ],
   imports: [
     CommonModule,
