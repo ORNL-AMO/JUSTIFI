@@ -59,7 +59,7 @@ export class FacilityKpiDetailsComponent {
   async goBack() {
     if (this.indicatorIndex == 0) {
       let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/kpi-select');
+      this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-kpi-select');
     } else {
       let facilityKpis: Array<IdbKeyPerformanceIndicator> = this.getFacilityKPIs();
       await this.goToKPI(facilityKpis[this.indicatorIndex - 1].guid);

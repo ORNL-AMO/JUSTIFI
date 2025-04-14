@@ -3,7 +3,7 @@
         Current Utility Costs  <span class="float-right">{{assessmentReport.assessment.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
     </div>
     <div class="list-group-item pt-1">
-        Cost Savings <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
+        Cost Savings W/O NEBs <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
         <div class="progress" role="progressbar" [ariaValueNow]="percentSavings"
             aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavings}">
@@ -132,7 +132,7 @@
             <tbody>
                 <tr>
                     <th>
-                        Total Cost Savings
+                        Total Cost Savings W/O NEBs
                     </th>
                     <th class="text-right w-25">
                         <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"

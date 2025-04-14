@@ -13,40 +13,6 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td class="bold" colspan="3">
-                Baseline
-            </td>
-        </tr>
-        <tr>
-            <td class="w-50 ps-3">
-                <!-- Baseline -->
-                Energy Use
-            </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.energyCost"
-                    [isCurrency]="true" [negativeNumber]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.energyUse"
-                    [isCurrency]="false" [units]="companyEnergyUnit"
-                    [negativeNumber]="true"></app-single-cell-item>
-            </td>
-        </tr>
-        <tr>
-            <td class="w-50 ps-3">
-                <!-- Baseline -->
-                Utility Use
-            </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.cost"
-                    [isCurrency]="true" [negativeNumber]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="0"
-                    [isCurrency]="false"></app-single-cell-item>
-            </td>
-        </tr>
         <tr class="section-border">
             <td class="bold ps-3" colspan="3">
                 <fa-icon class="pe-2" [icon]="faScrewdriverWrench"></fa-icon> {{assessmentReport.assessment.name}}
@@ -54,6 +20,19 @@
         </tr>
         <tr>
             <td class="w-50 ps-3">
+                 Assessment Total Utility Savings
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
+                    [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td class="text-right">
+                &mdash;
+            </td>
+        </tr>
+        <tr>
+            <td class="ps-4">
+                <fa-icon class="pe-1" [icon]="faPlugCircleBolt"></fa-icon>
                 Assessment Energy Savings
             </td>
             <td class="text-right">
@@ -65,25 +44,13 @@
                     [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
             </td>
         </tr>
-        <tr>
-            <td class="w-50 ps-3">
-                 Assessment Utility Savings
-            </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
-                    [isCurrency]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right">
-                &mdash;
-            </td>
-        </tr>
         <tr *ngIf="assessmentReport.assessmentNebReports.length > 0">
             <td colspan="3" class="ps-3">
                 Additional Operational Benefits
             </td>
         </tr>
         <tr *ngFor="let nebReport of assessmentReport.assessmentNebReports">
-            <td class="ps-5">
+            <td class="ps-4">
                 <fa-icon class="pe-1" [icon]="faWeightHanging"></fa-icon>
                 {{nebReport.nonEnergyBenefit.name}}
             </td>
@@ -115,19 +82,33 @@
             </tr>
             <tr>
                 @let energyOpportunity = energyOpportunityReport.energyOpportunity;
-                <td class="ps-4">
-                    {{ energyOpportunity.name }}
-                    {{ energyOpportunity.utilityCategory == 'water' ? 'Water' : 'Energy' }} Savings
-                </td>
-                <td class="text-right">
-                    <app-single-cell-item [numValue]="energyOpportunity.costSavings"
-                        [isCurrency]="true"></app-single-cell-item>
-                </td>
-                <td class="text-right">
-                    <app-single-cell-item [numValue]="energyOpportunity.utilityCategory == 'water' ? 
-                        energyOpportunity.waterSavings : energyOpportunity.energySavings"
-                        [isCurrency]="false" [units]="energyOpportunity.energyUnit"></app-single-cell-item>
-                </td>
+                <ng-template ngIf="energyOpportunity.utilityCategory == 'energy'" [ngIfElse]="waterEEM">
+                    <td class="ps-4">
+                        {{ energyOpportunity.name }} Energy Savings
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="energyOpportunity.costSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="energyOpportunity.energySavings"
+                            [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
+                    </td>
+                </ng-template>
+                <ng-template #waterEEM>
+                    <td class="ps-4">
+                        {{ energyOpportunity.name }}
+                        Water Savings
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="energyOpportunity.costSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="energyOpportunity.waterSavings"
+                            [isCurrency]="false" [units]="energyOpportunity.energyUnit"></app-single-cell-item>
+                    </td>
+                </ng-template>
             </tr>
             <tr *ngFor="let nebReport of energyOpportunityReport.nebReports">
                 <td class="ps-4">
@@ -151,9 +132,14 @@
                         [isCurrency]="true"></app-single-cell-item>
                 </td>
                 <td class="text-right bold">
-                    <app-single-cell-item [numValue]="energyOpportunity.utilityCategory == 'water' ? 
-                        energyOpportunity.waterSavings : energyOpportunity.energySavings"
-                        [isCurrency]="false" [units]="energyOpportunity.energyUnit"></app-single-cell-item>
+                    <ng-template [ngIf]="energyOpportunity.utilityCategory == 'energy'" [ngIfElse]="waterEEMTotal">
+                        <app-single-cell-item [numValue]="energyOpportunity.energySavings"
+                            [isCurrency]="false" [units]="companyEnergyUnit"></app-single-cell-item>
+                    </ng-template>
+                    <ng-template #waterEEMTotal>
+                        <app-single-cell-item [numValue]="energyOpportunity.waterSavings"
+                            [isCurrency]="false" [units]="energyOpportunity.energyUnit"></app-single-cell-item>
+                    </ng-template>
                 </td>
             </tr>
         </ng-container>
@@ -172,10 +158,10 @@
         </tr>
         <tr>
             <td class="w-50 bold">
-                Total Cost Savings
+                Total Cost Savings W/O NEBs
             </td>
             <td class="text-right bold w-25">
-                <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
+                <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
             <td class="text-right bold">

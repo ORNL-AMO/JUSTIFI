@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NebContributionsBarChartComponent } from './neb-contributions-bar-chart.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('NebContributionsBarChartComponent', () => {
   let component: NebContributionsBarChartComponent;
@@ -8,9 +9,10 @@ describe('NebContributionsBarChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NebContributionsBarChartComponent]
+      declarations: [NebContributionsBarChartComponent],
+      providers: stubServiceProviders
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(NebContributionsBarChartComponent);
     component = fixture.componentInstance;

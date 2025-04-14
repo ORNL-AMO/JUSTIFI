@@ -65,18 +65,18 @@ export function calculateAssessmentUtilityUseSavings(assessment: IdbAssessment, 
     if (utilityEnergyUse.include) {
       let trimmedType = utilityType.replace(/\s+/g, ''); // Remove spaces
       let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
-      let convertedUse = 0, convertedUseForCost = 0;
-      let convertedSaving = 0, convertedSavingForCost = 0;
+      let convertedUse = 0;
+      let convertedSaving = 0;
       if (utilityType == 'Water' || utilityType == 'Waste Water') {
         // calculate saving
-        convertedSavingForCost = convertValue.convertValue(
+        convertedSaving = convertValue.convertValue(
           utilityEnergyUse.utilitySaving,
           utilityEnergyUse.energyUnit,
           'kgal').convertedValue; // default to kgal
-        if (isNaN(convertedSavingForCost)) {
-          convertedSavingForCost = 0;
+        if (isNaN(convertedSaving)) {
+          convertedSaving = 0;
         }
-        waterSavings += convertedSavingForCost;
+        waterSavings += convertedSaving;
       } else {
         let selectedUtilityOption = UtilityOptions.find(
           _option => _option.utilityType == utilityType);
@@ -89,14 +89,25 @@ export function calculateAssessmentUtilityUseSavings(assessment: IdbAssessment, 
             utilityEnergyUse.energyUse,
             utilityEnergyUse.energyUnit,
             companyEnergyUnit).convertedValue;
+          convertedSaving = convertValue.convertValue(
+            utilityEnergyUse.utilitySaving,
+            utilityEnergyUse.energyUnit,
+            companyEnergyUnit).convertedValue;
         } else {
           convertedUse = convertValue.convertValue(
             utilityEnergyUse.energyUse * utilityEnergyUse.energyHHV,
             utilityEnergyUse.energyUnitStandard,
             companyEnergyUnit).convertedValue;
+          convertedSaving = convertValue.convertValue(
+            utilityEnergyUse.utilitySaving * utilityEnergyUse.energyHHV,
+            utilityEnergyUse.energyUnitStandard,
+            companyEnergyUnit).convertedValue;
         }
         if (isNaN(convertedUse)) {
           convertedUse = 0;
+        }
+        if (isNaN(convertedSaving)) {
+          convertedSaving = 0;
         }
         energyUse += convertedUse;
         energySavings += convertedSaving;

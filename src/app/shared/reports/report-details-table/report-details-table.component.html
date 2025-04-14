@@ -41,6 +41,17 @@
                 </ng-template>
             </td>
         </tr>
+        <tr *ngIf="onSiteVisitReport">
+            <td>
+                Assessments
+            </td>
+            <td>
+                <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
+                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                    {{assessmentReport.assessment.name}}<br>
+                </ng-container>
+            </td>
+        </tr>
         <!-- <tr>
             <td>
                 Industrial Equipment
@@ -50,6 +61,31 @@
                     [strValue]="assessment.equipmentId | energyEquipmentDisplay: energyEquipments"></app-single-cell-item>
             </td>
         </tr> -->
+        <ng-container *ngIf="assessment">
+            <tr>
+                <td>
+                    Assessment Type
+                </td>
+                <td>
+                    {{assessment.assessmentType}}
+                </td>
+            </tr>
+            <tr>
+                <td class="semibold" colspan="2">
+                    Utility Types
+                </td>
+            </tr>
+            <ng-container *ngFor="let utilityType of assessment.utilityEnergyUses">
+                <tr *ngIf="utilityType.include">
+                    <td class="ps-3">
+                        {{utilityType.utilityType}}
+                    </td>
+                    <td>
+                        <app-single-cell-item [numValue]="utilityType.energyUse" [units]="utilityType.energyUnit"></app-single-cell-item>
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-container>
 
     </tbody>
 </table>

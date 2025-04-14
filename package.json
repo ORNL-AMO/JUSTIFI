@@ -10,7 +10,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --no-hmr",
     "build": "ng build --base-href .",
     "build-prod": "ng build --configuration production --base-href /",
     "build-prod-electron": "ng build --configuration production --base-href .",

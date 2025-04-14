@@ -452,7 +452,8 @@ export interface BackupFile {
   onSiteVisits: Array<IdbOnSiteVisit>,
   energyEquipment: Array<IdbEnergyEquipment>,
   processEquipment: Array<IdbProcessEquipment>,
-  keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>
+  keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
+  //TODO: Backup Reports..
   origin: "JUSTIFI",
   version: string,
   backupFileType: "User" | "Company" | "Facility",

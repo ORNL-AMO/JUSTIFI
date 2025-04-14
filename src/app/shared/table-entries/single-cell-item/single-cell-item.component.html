@@ -21,8 +21,8 @@
         <ng-template #currencyBlock>
             <span [ngClass]="{'negative-number': negativeNumber}">
                 {{ negativeNumber ? 
-                    '(' + (numValue | currency : currencyCode : 'symbol' : '1.0-0') + ')'
-                    : numValue | currency : currencyCode : 'symbol' : '1.0-0' }}
+                    '(' + (numValue | currency : currencyCode : 'symbol' : numValueDigits) + ')'
+                    : numValue | currency : currencyCode : 'symbol' : numValueDigits }}
             </span>
         </ng-template>
         <ng-template [ngIf]="units && !per">
@@ -31,6 +31,9 @@
         <ng-template [ngIf]="units && per">
             <span [ngClass]="{'negative-number': negativeNumber}"
                 [innerHTML]="units | unitsDisplay"></span>/<span [innerHTML]="per | unitsDisplay"></span>
+        </ng-template>
+        <ng-template [ngIf]="isCurrency && per">
+            /<span [innerHTML]="per | unitsDisplay"></span>
         </ng-template>
     </ng-template>
 </ng-template>
