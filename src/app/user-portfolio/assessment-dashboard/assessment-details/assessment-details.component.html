@@ -31,10 +31,16 @@
             </div>
         </div>
         <app-assessment-details-form [isDisabled]="isDisabled"></app-assessment-details-form>
+        <div class="d-flex w-100 justify-content-end">
+            <button class="btn btn-outline-danger btn-sm float-end" (click)="openDeleteModal()">
+                <fa-icon [icon]="faTrashCan"></fa-icon>
+                Delete Assessment
+            </button>
+        </div>
     </div>
 </div>
 
-<div [ngClass]="{'window-overlay': displayUnlockModal}"></div>
+<div [ngClass]="{'window-overlay': displayUnlockModal || displayDeleteModal}"></div>
 <div class="popup" [ngClass]="{'open': displayUnlockModal }">
     <div class="popup-header">Edit Assessment Details
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeUnlockModal()"></button>
@@ -51,6 +57,24 @@
         <button class="btn btn-success btn-sm" (click)="toggleDisabled()">
             <fa-icon [icon]="faUnlock"></fa-icon>
             Unlock Assessment Details
+        </button>
+    </div>
+</div>
+<div class="popup" [ngClass]="{'open': displayDeleteModal }">
+    <div class="popup-header">Delete Assessment
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
+    </div>
+    <div class="popup-body">
+        <div class="alert alert-danger p-2">
+            Are you sure you want to delete this assessment? This action cannot be undone.
+        </div>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary me-2 btn-sm" (click)="closeDeleteModal()">Cancel</button>
+        <button class="btn btn-outline-danger btn-sm" (click)="deleteAssessment()">
+            <fa-icon [icon]="faTrashCan"></fa-icon>
+            Delete Assessment
         </button>
     </div>
 </div>
