@@ -1,0 +1,129 @@
+<div>
+  <h5 class="mt-2">Project Summary</h5>
+  <ng-template [ngIf]="allEEMReports.length > 0" [ngIfElse]="noProjectsTemplate">
+    <ul class="mb-2">
+      <li>
+        On the 
+        <strong>{{executiveSummaryReport.visitDate | date:'M/dd/yyyy'}}</strong>
+        visit,
+        we found
+        <strong>{{allEEMReports.length}}</strong>
+        projects that will result in
+        <strong>{{executiveSummaryReport.totalCostSavings | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
+        savings 
+        or additional revenues per year and support our
+        <span *ngFor="let kpi of topKpis; let isLast = last; let isFirst = first">
+          <span *ngIf="isLast && !isFirst">and </span><strong>{{ kpi | kpiValueDisplay }}</strong>
+          <span *ngIf="!isLast">, </span>
+        </span> goals.
+      </li>
+    </ul>
+    <table class="table table-bordered table-sm table-hover">
+      <thead>
+        <tr>
+          <th rowspan="2"></th>
+          <th></th>
+          <th colspan="2">Without NEBs</th>
+          <th></th>
+          <th colspan="2">Including NEBs</th>
+        </tr>
+        <tr>
+          <th>Implementation Cost</th>
+          <th>Annual Cost Savings ({{ currencyCode | currencySymbol}}/yr)</th>
+          <th>Simple Payback (yr)</th>
+          <th>NEB Savings ({{ currencyCode | currencySymbol}}/yr)</th>
+          <th>Annual Cost Savings ({{ currencyCode | currencySymbol}}/yr)</th>
+          <th>Simple Payback (yr)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bold">
+          <td>
+            Total
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="executiveSummaryReport.totalImplementationCost">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="executiveSummaryReport.totalNonNebCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="false"
+              [numValue]="executiveSummaryReport.totalPaybackWithoutNebs">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="executiveSummaryReport.totalNebCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="executiveSummaryReport.totalCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="executiveSummaryReport.totalPaybackWithNebs">
+            </app-single-cell-item>
+          </td>
+        </tr>
+        <tr *ngFor="let report of reducedEEMReports">
+          <td>
+            {{ report.energyOpportunity.name}}
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="report.energyOpportunity.implementationCost">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="report.totalNonNebCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="report.paybackWithoutNebs">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="report.totalNebCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="report.totalCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="report.paybackWithNebs">
+            </app-single-cell-item>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="mt-2 fw-light altert alert-info">
+      The annual cost savings <strong>Without NEBs</strong> for some projects may be zero,
+      due to no cost savings being reported for the project level.
+    </p>
+  </ng-template>
+  <ng-template #noProjectsTemplate>
+    <p class="alert alert-info">No projects were found for this report.</p>
+  </ng-template>
+</div>

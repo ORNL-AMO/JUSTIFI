@@ -113,7 +113,14 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
         label: 'Sales Growth',
         htmlLabel: 'Sales Growth',
         optionValue: 'salesGrowth'
-    }
+    },
+    // //Other
+    // {
+    //     primaryKPI: 'Other',
+    //     label: 'Other',
+    //     htmlLabel: 'Other(s)',
+    //     optionValue: 'other'
+    // }
 ]
 
 export interface PrimaryKpiRename {
