@@ -2,7 +2,6 @@
     <div class="list-group-item">
         Current Facility Utility Costs  <span class="float-right">{{facility.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
     </div>
-    <!--TODO: Percent savings is nonsensical with nebs+energy-->
     <div class="list-group-item">
         Total Cost Savings W/O NEBs
         <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
@@ -29,8 +28,7 @@
             </div>
         </ng-container>
         <hr>
-        Total Savings W/ NEBs
-        <span class="float-right small">({{percentSavingsNebs | number:'1.0-0'}} &percnt;)</span>
+        Total Financial Impacts W/ NEBs
         <div class="progress" role="progressbar" aria-label="Example with label"
             [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
@@ -44,7 +42,6 @@
             @let assessmentPercentSavings = (assessmentReport.totalFinancialImpact / facility.cost) *
             100;
             {{assessmentReport.assessment.name}}
-            <span class="float-right small">({{assessmentPercentSavings | number:'1.0-0'}} &percnt;)</span>
             <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
                 aria-valuemax="100">
                 <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
