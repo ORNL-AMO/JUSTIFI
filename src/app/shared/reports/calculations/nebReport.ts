@@ -33,27 +33,41 @@ export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, facilityPerf
             }
         }
     });
-    let costSavings: number = nonEnergyBenefit.costImpact || 0;
-
+    let totalRevenue: number = 0;
+    //TODO: costimpact/revenue on NEB
+    let totalCostDecrease: number = nonEnergyBenefit.costImpact || 0;
+    reportPerformanceMetrics.forEach(reportPerformanceMetric => {
+        if (reportPerformanceMetric.keyPerformanceMetric.goalToIncrease) {
+            //revenue
+            if (reportPerformanceMetric.performanceMetricImpact.costAdjustment) {
+                totalRevenue += reportPerformanceMetric.performanceMetricImpact.costAdjustment;
+            }
+        } else {
+            //cost
+            if (reportPerformanceMetric.performanceMetricImpact.costAdjustment) {
+                totalCostDecrease += reportPerformanceMetric.performanceMetricImpact.costAdjustment;
+            }
+        }
+    });
 
     return {
         nonEnergyBenefit: nonEnergyBenefit,
         reportPerformanceMetrics: reportPerformanceMetrics,
         //todo: update to handle cost adjustment +/- as good
         //currently treating everything as a reduction
-        totalCostSavings: costSavings + _.sumBy(reportPerformanceMetrics, (reportPerformanceMetric: ReportPerformanceMetric) => {
-            if (reportPerformanceMetric.performanceMetricImpact.costAdjustment) {
-                return reportPerformanceMetric.performanceMetricImpact.costAdjustment;
-            }
-            return 0;
-        })
+        totalRevenue: totalRevenue,
+        totalCostDecrease: totalCostDecrease,
+        totalFinancialImpact: totalRevenue + totalCostDecrease
     }
 }
 
 export interface NebReport {
     nonEnergyBenefit: IdbNonEnergyBenefit,
     reportPerformanceMetrics: Array<ReportPerformanceMetric>
-    totalCostSavings: number
+    totalRevenue: number,
+    totalCostDecrease: number,
+    totalFinancialImpact: number,
+
 }
 
 export interface ReportPerformanceMetric {

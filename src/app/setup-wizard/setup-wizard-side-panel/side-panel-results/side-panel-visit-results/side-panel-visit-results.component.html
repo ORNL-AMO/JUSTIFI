@@ -2,6 +2,7 @@
     <div class="list-group-item">
         Current Facility Utility Costs  <span class="float-right">{{facility.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
     </div>
+    <!--TODO: Percent savings is nonsensical with nebs+energy-->
     <div class="list-group-item">
         Total Cost Savings W/O NEBs
         <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
@@ -34,20 +35,20 @@
             [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
                 <div>
-                    <app-single-cell-item [numValue]="onSiteVisitReport.totalCostSavings"
+                    <app-single-cell-item [numValue]="onSiteVisitReport.totalFinancialImpact"
                         [isCurrency]="true"></app-single-cell-item>
                 </div>
             </div>
         </div>
         <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-            @let assessmentPercentSavings = (assessmentReport.totalCostSavings / facility.cost) *
+            @let assessmentPercentSavings = (assessmentReport.totalFinancialImpact / facility.cost) *
             100;
             {{assessmentReport.assessment.name}}
             <span class="float-right small">({{assessmentPercentSavings | number:'1.0-0'}} &percnt;)</span>
             <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
                 aria-valuemax="100">
                 <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
-                    <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
+                    <app-single-cell-item [numValue]="assessmentReport.totalFinancialImpact"
                         [isCurrency]="true"></app-single-cell-item>
                 </div>
             </div>
@@ -104,7 +105,7 @@
                         {{assessmentReport.assessment.name}}
                     </td>
                     <td class="text-right w-25">
-                        <app-single-cell-item [numValue]="assessmentReport.totalNebCostSavings"
+                        <app-single-cell-item [numValue]="assessmentReport.totalNebFinancialImpact"
                             [isCurrency]="true"></app-single-cell-item>
                     </td>
                 </tr>
@@ -115,7 +116,7 @@
                         Total
                     </th>
                     <th class="text-right">
-                        <app-single-cell-item [numValue]="onSiteVisitReport.totalNebCostSavings"
+                        <app-single-cell-item [numValue]="onSiteVisitReport.totalNebFinancialImpact"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
                 </tr>
@@ -125,14 +126,15 @@
             <tbody>
                 <tr>
                     <th>
-                        Total Energy Cost Savings
+                        Total Utility Cost Savings
                     </th>
                     <th class="text-right w-25">
                         <app-single-cell-item [numValue]="onSiteVisitReport.totalEnergyCostSavings"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
                 </tr>
-                <tr>
+                <!--Total Energy Cost Savings == Total Cost Savings W/O NEBs.. ?-->
+                <!-- <tr>
                     <th>
                         Total Cost Savings W/O NEBs
                     </th>
@@ -140,22 +142,22 @@
                         <app-single-cell-item [numValue]="onSiteVisitReport.totalNonNebCostSavings"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
-                </tr>
+                </tr> -->
                 <tr>
                     <th>
                         Total Additional Operational Benefits
                     </th>
                     <th class="text-right">
-                        <app-single-cell-item [numValue]="onSiteVisitReport.totalNebCostSavings"
+                        <app-single-cell-item [numValue]="onSiteVisitReport.totalFinancialImpact"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
                 </tr>
                 <tr>
                     <th>
-                        Total Cost Savings W/ NEBs
+                        Total Financial Impact W/ NEBs
                     </th>
                     <th class="text-right">
-                        <app-single-cell-item [numValue]="onSiteVisitReport.totalCostSavings"
+                        <app-single-cell-item [numValue]="onSiteVisitReport.totalFinancialImpact"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
                 </tr>

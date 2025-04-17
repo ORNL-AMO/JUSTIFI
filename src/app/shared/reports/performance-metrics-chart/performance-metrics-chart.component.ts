@@ -98,7 +98,7 @@ export class PerformanceMetricsChartComponent {
         }),
         texttemplate: this.currencyUnicode + "%{text:,.2s}",
         textposition: "outside",
-        name: 'Annual Savings',
+        name: 'Annual Financial Impact',
         type: 'bar',
         marker: {
           color: '#196f3d'

@@ -113,7 +113,7 @@ export class SidePanelAssessmentResultsComponent {
       this.assessment = this.assessmentIdbService.getByGuid(this.selectedAssessmentId);
       this.assessmentReport = getAssessmentReport(this.assessment, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceMetricImpacts);
       this.percentSavings = (this.assessmentReport.totalEnergyCostSavings / this.assessmentReport.assessment.cost) * 100;
-      this.percentSavingsNebs = (this.assessmentReport.totalCostSavings / this.assessmentReport.assessment.cost) * 100
+      this.percentSavingsNebs = (this.assessmentReport.totalFinancialImpact / this.assessmentReport.assessment.cost) * 100
     }
   }
 }
