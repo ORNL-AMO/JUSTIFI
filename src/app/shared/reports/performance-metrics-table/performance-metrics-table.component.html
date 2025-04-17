@@ -1,4 +1,4 @@
-<table class="table table-bordered savings-table table-hover ordered" *ngIf="keyPerformanceIndicatorReport">
+<!-- <table class="table table-bordered savings-table table-hover ordered" *ngIf="keyPerformanceIndicatorReport">
     <thead>
         <tr>
             <th (click)="setOrderByField('kpiValue')" [ngClass]="{'ordered-th': orderByField == 'kpiValue'}">
@@ -85,4 +85,111 @@
             </th>
         </tr>
     </tfoot>
+</table> -->
+
+<table class="table table-bordered savings-table table-hover ordered" *ngIf="keyPerformanceIndicatorReport">
+    <thead>
+        <tr>
+            <th (click)="setOrderByField('htmlLabel')" [ngClass]="{'ordered-th': orderByField == 'htmlLabel'}">
+                <!-- KPM -->
+            </th>
+            <th class="text-right" (click)="setOrderByField('baselineCost')"
+                [ngClass]="{'ordered-th': orderByField == 'baselineCost'}">
+                Current ({{ currencyCode | currencySymbol }}/yr)
+            </th>
+            <th class="text-right" (click)="setOrderByField('costAdjustment')"
+                [ngClass]="{'ordered-th': orderByField == 'costAdjustment'}">
+                Financial Impact ({{ currencyCode | currencySymbol }}/yr)
+            </th>
+            <th class="text-right" (click)="setOrderByField('modifiedCost')"
+                [ngClass]="{'ordered-th': orderByField == 'modifiedCost'}">
+                Potential ({{ currencyCode | currencySymbol }}/yr)
+            </th>
+            <th class="text-right" (click)="setOrderByField('percentSavings')"
+                [ngClass]="{'ordered-th': orderByField == 'percentSavings'}">
+                Change (%)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="bold">
+                Provided Costs
+            </td>
+            <td>
+
+            </td>
+            <td class="text-right bold">
+                <app-single-cell-item [numValue]="totalCostSavings" [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr *ngFor="let kpiReportItem of kpmCostSavingsReports | performanceMetricsTable: orderByField : orderByDir">
+            <td class="ps-3">
+                <span [innerHTML]="kpiReportItem.keyPerformanceMetric.htmlLabel"></span>
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="kpiReportItem.keyPerformanceMetric.baselineCost"
+                    [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="kpiReportItem.performanceMetricImpact.costAdjustment"
+                    [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="kpiReportItem.performanceMetricImpact.modifiedCost"
+                    [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="kpiReportItem.performanceMetricImpact.percentSavings"
+                    [isCurrency]="false" [units]="'%'"></app-single-cell-item>
+            </td>
+        </tr>
+        <tr>
+            <td class="bold">
+                Provided Revenues
+            </td>
+            <td>
+
+            </td>
+            <td class="text-right bold">
+                <app-single-cell-item [numValue]="totalRevenue" [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr *ngFor="let kpiReportItem of kpmRevenueReports | performanceMetricsTable: orderByField : orderByDir">
+            <td class="ps-3">
+                <span [innerHTML]="kpiReportItem.keyPerformanceMetric.htmlLabel"></span>
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="kpiReportItem.keyPerformanceMetric.baselineCost"
+                    [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="kpiReportItem.performanceMetricImpact.costAdjustment"
+                    [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="kpiReportItem.performanceMetricImpact.modifiedCost"
+                    [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td class="text-right">
+                <app-single-cell-item [numValue]="kpiReportItem.performanceMetricImpact.percentSavings"
+                    [isCurrency]="false" [units]="'%'"></app-single-cell-item>
+            </td>
+        </tr>
+        <tr>
+            <td class="bold" colspan="5">
+                Qualitative Metrics Impacted
+            </td>
+        </tr>
+        <tr *ngFor="let kpiReportItem of qualitativeReports | performanceMetricsTable: orderByField : orderByDir">
+            <td class="ps-3" colspan="5">
+                <span [innerHTML]="kpiReportItem.keyPerformanceMetric.htmlLabel"></span>
+            </td>
+        </tr>
+
+    </tbody>
 </table>
