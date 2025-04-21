@@ -48,7 +48,7 @@ export class LatestVisitsTableComponent {
   ngOnInit() {
     this.onSiteVisitSub = this.onSiteVisitIdbService.onSiteVisits.subscribe(visits => {
       this.onSiteVisits = _.orderBy(visits, (visit: IdbOnSiteVisit) => {
-        return new Date(visit.modifiedDate);
+        return new Date(visit.modifiedDate).getTime()
       }, 'desc');
     });
 
