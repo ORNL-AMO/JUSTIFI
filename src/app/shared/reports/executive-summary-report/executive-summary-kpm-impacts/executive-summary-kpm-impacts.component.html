@@ -19,38 +19,19 @@
       <thead>
         <tr>
           <th></th>
-          <th>Current ({{ currencyCode | currencySymbol}}/yr)</th>
-          <th>Potential Change ({{ currencyCode | currencySymbol}}/yr)</th>
-          <th>Potential ({{ currencyCode | currencySymbol}}/yr)</th>
-          <th>% Change</th>
+          <th class="text-right">Potential Change ({{ currencyCode | currencySymbol}}/yr)</th>
+          <th class="text-right">% Change</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td class="bold" colspan="4">
-            Provided Costs
-          </td>
-        </tr>
-        <tr>
-          <td class="w-25">
+          <td>
             Utility
           </td>
           <td class="text-right">
             <app-single-cell-item
               [isCurrency]="true"
-              [numValue]="executiveSummaryReport.totalUtilityCosts">
-            </app-single-cell-item>
-          </td>
-          <td class="text-right">
-            <app-single-cell-item
-              [isCurrency]="true"
               [numValue]="executiveSummaryReport.totalUtilityCostSavings">
-            </app-single-cell-item>
-          </td>
-          <td class="text-right">
-            <app-single-cell-item
-              [isCurrency]="true"
-              [numValue]="modifiedUtilityCosts">
             </app-single-cell-item>
           </td>
           <td class="text-right">
@@ -61,14 +42,8 @@
           </td>
         </tr>
         <tr *ngFor="let item of reducedKpiReportItems">
-          <td class="w-25">
+          <td>
             {{ item.kpiValue | kpiValueDisplay }}
-          </td>
-          <td class="text-right">
-            <app-single-cell-item
-              [isCurrency]="true"
-              [numValue]="item.baselineCost">
-            </app-single-cell-item>
           </td>
           <td class="text-right">
             <app-single-cell-item
@@ -78,46 +53,25 @@
           </td>
           <td class="text-right">
             <app-single-cell-item
-              [isCurrency]="true"
-              [numValue]="item.modifiedCost">
-            </app-single-cell-item>
-          </td>
-          <td class="text-right">
-            <app-single-cell-item
-              [numValue]="item.percentSavings">
+              [numValue]="item.percentSavings"
+              [units]="'%'">
             </app-single-cell-item>
           </td>
         </tr>
-        <tr>
-          <td class="bold" colspan="4">
-            Provided Revenues
-          </td>
-        </tr>
-        <tr>
-          <td class="w-25">
-            Tour
+        <tr *ngIf="kpiReportItems.length > limit">
+          <td>
+            Additional KPI(s)
           </td>
           <td class="text-right">
             <app-single-cell-item
               [isCurrency]="true"
-              [numValue]="1000">
+              [numValue]="additionalKpiFinancialImpact">
             </app-single-cell-item>
           </td>
           <td class="text-right">
             <app-single-cell-item
-              [isCurrency]="true"
-              [numValue]="1000">
-            </app-single-cell-item>
-          </td>
-          <td class="text-right">
-            <app-single-cell-item
-              [isCurrency]="true"
-              [numValue]="1000">
-            </app-single-cell-item>
-          </td>
-          <td class="text-right">
-            <app-single-cell-item
-              [numValue]="0.1">
+              [numValue]="additionalKpiPercentChange"
+              [units]="'%'">
             </app-single-cell-item>
           </td>
         </tr>

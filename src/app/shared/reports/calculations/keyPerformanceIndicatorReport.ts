@@ -114,6 +114,9 @@ export function getKeyPerformanceIndicatorReportItems(kpmReportItems: Array<KeyP
         let annualCostSavings: number = _.sumBy(kpiReportsItems, (item: KeyPerformanceMetricReportItem) => { return item.performanceMetricImpact.costAdjustment });
         let modifiedCost: number = baselineCost - annualCostSavings;
         let percentSavings: number = (annualCostSavings / baselineCost) * 100;
+        if (percentSavings == Infinity || percentSavings == -Infinity || isNaN(percentSavings)) {
+            percentSavings = 0;
+        }
         results.push({
             kpiValue: kpiValue,
             baselineCost: _.sumBy(kpiReportsItems, (item: KeyPerformanceMetricReportItem) => { return item.keyPerformanceMetric.baselineCost }),
