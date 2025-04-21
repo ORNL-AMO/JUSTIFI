@@ -124,7 +124,7 @@ export class SidePanelVisitResultsComponent {
     if (this.energyOpportunities && this.nonEnergyBenefits && this.keyPerformanceMetrics && this.keyPerformanceMetricImpacts && this.assessments && this.onSiteVisit && this.facility) {
       this.onSiteVisitReport = getOnSiteVisitReport(this.onSiteVisit.assessmentIds, this.assessments, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceMetricImpacts);
       this.percentSavings = (this.onSiteVisitReport.totalEnergyCostSavings / this.facility.cost) * 100;
-      this.percentSavingsNebs = (this.onSiteVisitReport.totalCostSavings / this.facility.cost) * 100
+      this.percentSavingsNebs = (this.onSiteVisitReport.totalFinancialImpact / this.facility.cost) * 100
     }
   }
 }

@@ -43,12 +43,12 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         return report.totalWaterCostSavings
     });
 
-    let totalCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
-        return report.totalCostSavings
+    let totalFinancialImpact: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.totalFinancialImpact
     });
 
-    let totalNebCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
-        return report.totalNebCostSavings
+    let totalNebFinancialImpact: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.totalNebFinancialImpact
     });
     let totalNonNebCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
         return report.totalNonNebCostSavings
@@ -68,7 +68,7 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
     if (totalPaybackWithoutNebs == Infinity || isNaN(totalPaybackWithoutNebs)) {
         totalPaybackWithoutNebs = 0;
     }
-    let totalPaybackWithNebs: number = (totalImplementationCost / totalCostSavings);
+    let totalPaybackWithNebs: number = (totalImplementationCost / totalFinancialImpact);
     if (totalPaybackWithNebs == Infinity || isNaN(totalPaybackWithNebs)) {
         totalPaybackWithNebs = 0;
     }
@@ -78,12 +78,12 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         keyPerformanceIndicatorReport: getKeyPerfomanceIndicatorReport(allNebReports),
         totalEnergyCostSavings: totalEnergyCostSavings,
         totalWaterCostSavings: totalWaterCostSavings,
-        totalCostSavings: totalCostSavings,
+        totalFinancialImpact: totalFinancialImpact,
         totalUtilityCosts: totalUtilityCosts,
         totalPaybackWithNebs: totalPaybackWithNebs,
         totalPaybackWithoutNebs: totalPaybackWithoutNebs,
         totalImplementationCost: totalImplementationCost,
-        totalNebCostSavings: totalNebCostSavings,
+        totalNebFinancialImpact: totalNebFinancialImpact,
         totalNonNebCostSavings: totalNonNebCostSavings
     };
 }
@@ -96,10 +96,10 @@ export interface OnSiteVisitReport {
     totalEnergyCostSavings: number,
     totalWaterCostSavings: number,
     totalUtilityCosts: number,
-    totalCostSavings: number,
+    totalFinancialImpact: number,
     totalImplementationCost: number,
     totalPaybackWithoutNebs: number,
     totalPaybackWithNebs: number,
-    totalNebCostSavings: number,
+    totalNebFinancialImpact: number,
     totalNonNebCostSavings: number
 }

@@ -25,8 +25,8 @@
             <select id="{{'goalToIncrease_'+keyPerformanceMetric.value}}"
                 name="{{'goalToIncrease_'+keyPerformanceMetric.value}}" class="form-select"
                 [(ngModel)]="keyPerformanceMetric.goalToIncrease" (change)="saveChanges()" [disabled]="disableForm">
-                <option [ngValue]="true">Increase Metric</option>
-                <option [ngValue]="false">Decrease Metric</option>
+                <option [ngValue]="true">Increase Revenues</option>
+                <option [ngValue]="false">Decrease Costs</option>
             </select>
         </div>
     </div>

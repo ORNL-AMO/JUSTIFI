@@ -28,10 +28,10 @@ export function getEnergyOpportunityReport(energyOpportunity: IdbEnergyOpportuni
     }
     let totalNonNebCostSavings: number = totalEnergyCostSavings + totalWaterCostSavings;
 
-    let totalNebCostSavings: number = _.sumBy(nebReports, (nebReport: NebReport) => {
-        return nebReport.totalCostSavings
+    let totalNebFinancialImpact: number = _.sumBy(nebReports, (nebReport: NebReport) => {
+        return nebReport.totalFinancialImpact
     });
-    let totalCostSavings: number = totalNonNebCostSavings + totalNebCostSavings;
+    let totalCostSavings: number = totalNonNebCostSavings + totalNebFinancialImpact;
     let paybackWithNebs: number = (energyOpportunity.implementationCost / totalCostSavings);
     if (paybackWithNebs == Infinity) {
         paybackWithNebs = 0;
@@ -47,7 +47,7 @@ export function getEnergyOpportunityReport(energyOpportunity: IdbEnergyOpportuni
         totalEnergyCostSavings: totalEnergyCostSavings,
         totalWaterCostSavings: totalWaterCostSavings,
         totalNonNebCostSavings: totalNonNebCostSavings,
-        totalNebCostSavings: totalNebCostSavings,
+        totalNebFinancialImpact: totalNebFinancialImpact,
         totalCostSavings: totalCostSavings,
         paybackWithNebs: paybackWithNebs,
         paybackWithoutNebs: paybackWithoutNebs
@@ -61,7 +61,7 @@ export interface EnergyOpportunityReport {
     totalEnergyCostSavings: number,
     totalWaterCostSavings: number,
     totalNonNebCostSavings: number,
-    totalNebCostSavings: number,
+    totalNebFinancialImpact: number,
     totalCostSavings: number,
     paybackWithNebs: number,
     paybackWithoutNebs: number

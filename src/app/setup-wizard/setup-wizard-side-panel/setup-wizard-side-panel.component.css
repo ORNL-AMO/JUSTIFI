@@ -31,8 +31,13 @@
     padding-top: .1rem;
     padding-right: .2rem;
     padding-left: .2rem;
-    font-size: 20px;
+    font-size: 24px;
 }
+
+.click-link{
+    font-size: 24px;
+}
+
 .navbar{
     padding-bottom: 0px;
     border-bottom: 1px var(--portfolio-nav-color) solid;

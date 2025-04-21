@@ -249,9 +249,9 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         value: "percentOnTimeToDueDate",
         kpiValue: "productivity",
         isQuantitative: true,
-        goalToIncrease: true,
+        goalToIncrease: false,
         timePeriod: 'yr',
-        calculationMethod: 'percentTotal'
+        calculationMethod: 'directCost'
     },
     {
         label: "Revenue ($) / employee",
@@ -311,9 +311,9 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         value: "percentCapacityUtilization",
         kpiValue: "machineUtilization",
         isQuantitative: true,
-        goalToIncrease: true,
+        goalToIncrease: false,
         timePeriod: 'yr',
-        calculationMethod: 'percentTotal',
+        calculationMethod: 'directCost',
     },
     {
         label: "Overall Equipment Effectiveness (OEE)",
@@ -321,9 +321,9 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         value: "overallEquipmentEffectiveness",
         kpiValue: "machineUtilization",
         isQuantitative: true,
-        goalToIncrease: true,
+        goalToIncrease: false,
         timePeriod: 'yr',
-        calculationMethod: 'percentTotal'
+        calculationMethod: 'directCost'
 
     },
     {
@@ -343,7 +343,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         value: "usefulEquipmentLifeExtended",
         kpiValue: "machineUtilization",
         isQuantitative: true,
-        goalToIncrease: true,
+        goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'directCost'
     },
@@ -353,9 +353,9 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         value: "timeToIntroduceNewProducts",
         kpiValue: "machineUtilization",
         isQuantitative: true,
-        goalToIncrease: true,
+        goalToIncrease: false,
         timePeriod: 'yr',
-        calculationMethod: 'percentTotal'
+        calculationMethod: 'directCost'
     },
     {
         label: "($) Defective Production",
@@ -437,9 +437,9 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         kpiValue: "reduceExpenseCost",
         isQuantitative: true,
         totalUnit: 'ft2',
-        goalToIncrease: true,
+        goalToIncrease: false,
         timePeriod: 'yr',
-        calculationMethod: 'percentTotal'
+        calculationMethod: 'directCost'
     },
     {
         label: "Maintenance Cost",
@@ -722,7 +722,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         value: "employeeEngagementSatisfaction",
         kpiValue: "employeeEngagementWorkforceDevelopment",
         isQuantitative: true,
-        goalToIncrease: true,
+        goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'directCost'
     },
@@ -732,7 +732,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         value: "employeeRetentionRate",
         kpiValue: "employeeEngagementWorkforceDevelopment",
         isQuantitative: true,
-        goalToIncrease: true,
+        goalToIncrease: false,
         timePeriod: 'yr',
         calculationMethod: 'directCost'
     },

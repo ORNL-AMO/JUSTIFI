@@ -78,7 +78,7 @@ export class PerformanceMetricsChartComponent {
         }),
         texttemplate: this.currencyUnicode + "%{text:,.2s}",
         textposition: "outside",
-        name: 'Baseline Cost',
+        name: 'Current (' + this.currencySymbol + '/yr)',
         type: 'bar',
         marker: {
           color: '#e67e22'
@@ -91,14 +91,14 @@ export class PerformanceMetricsChartComponent {
           return kpiReport.keyPerformanceMetric.label
         }),
         y: kpmReportItems.map(kpiReportItem => {
-          return kpiReportItem.performanceMetricImpact.costAdjustment
+          return kpiReportItem.performanceMetricImpact.modifiedCost
         }),
         text: kpmReportItems.map(kpmReportItems => {
-          return kpmReportItems.performanceMetricImpact.costAdjustment
+          return kpmReportItems.performanceMetricImpact.modifiedCost
         }),
         texttemplate: this.currencyUnicode + "%{text:,.2s}",
         textposition: "outside",
-        name: 'Annual Savings',
+        name: 'Potential (' + this.currencySymbol + '/yr)',
         type: 'bar',
         marker: {
           color: '#196f3d'

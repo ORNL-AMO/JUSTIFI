@@ -8,10 +8,10 @@
                 Implementation Cost<br> ({{ currencyCode | currencySymbol }})
             </th>
             <th>
-                Annual Cost Savings<br> ({{ currencyCode | currencySymbol }}/yr)
+                Cost Savings<br> ({{ currencyCode | currencySymbol }}/yr)
             </th>
             <th>
-                Annual Cost Savings With NEBs<br> ({{ currencyCode | currencySymbol }}/yr)
+                Financial Impact<br> With NEBs<br> ({{ currencyCode | currencySymbol }}/yr)
             </th>
             <th>
                 Simple Payback<br> (yrs)
@@ -88,7 +88,7 @@
             </th>
             <th>
                 <app-single-cell-item [isCurrency]="true"
-                    [numValue]="assessmentReport.totalCostSavings"></app-single-cell-item>
+                    [numValue]="assessmentReport.totalFinancialImpact"></app-single-cell-item>
             </th>
             <th>
                 <app-single-cell-item [isCurrency]="false"
