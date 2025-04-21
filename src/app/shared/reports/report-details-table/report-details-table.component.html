@@ -71,21 +71,18 @@
                 </td>
             </tr>
             <tr>
-                <td class="semibold" colspan="2">
+                <td>
                     Utility Types
                 </td>
-            </tr>
-            <ng-container *ngFor="let utilityType of assessment.utilityEnergyUses">
-                <tr *ngIf="utilityType.include">
-                    <td class="ps-3">
-                        {{utilityType.utilityType}}
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="utilityType.energyUse" [units]="utilityType.energyUnit"></app-single-cell-item>
-                    </td>
-                </tr>
-            </ng-container>
-        </ng-container>
+                <td>
 
+                    <ng-container *ngFor="let utilityType of assessment.utilityEnergyUses">
+                        <ng-container *ngIf="utilityType.include">
+                            {{utilityType.utilityType}}<br>
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </tr>
+        </ng-container>
     </tbody>
 </table>

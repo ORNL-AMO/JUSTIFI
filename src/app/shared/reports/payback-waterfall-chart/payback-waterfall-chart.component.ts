@@ -18,7 +18,7 @@ export class PaybackWaterfallChartComponent {
   @Input({ required: true })
   reportData: {
     totalImplementationCost: number,
-    totalCostSavings: number,
+    totalFinancialImpact: number,
     totalNonNebCostSavings: number
   };
 
@@ -76,7 +76,7 @@ export class PaybackWaterfallChartComponent {
       for (let i = 0; i < this.years; i++) {
         xVals.push('Year ' + year);
         yVals.push(this.reportData.totalNonNebCostSavings)
-        yValsNebs.push(this.reportData.totalCostSavings)
+        yValsNebs.push(this.reportData.totalFinancialImpact)
         year++;
       }
 

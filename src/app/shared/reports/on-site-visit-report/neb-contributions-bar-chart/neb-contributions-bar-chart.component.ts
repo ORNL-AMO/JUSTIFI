@@ -18,7 +18,7 @@ export class NebContributionsBarChartComponent {
   @Input({ required: true })
   assessmentReport: AssessmentReport;
   @Input({ required: true })
-  totalNebCostSavings: number;
+  totalNebFinancialImpact: number;
 
   @ViewChild('nebContributionBarChart', { static: false }) nebContributionBarChart: ElementRef;
 
@@ -54,7 +54,7 @@ export class NebContributionsBarChartComponent {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if ((changes['assessmentReport'] && !changes['assessmentReport'].isFirstChange()) || (changes['totalNebCostSavings']) && !changes['totalNebCostSavings'].isFirstChange()) {
+    if ((changes['assessmentReport'] && !changes['assessmentReport'].isFirstChange()) || (changes['totalNebFinancialImpact']) && !changes['totalNebFinancialImpact'].isFirstChange()) {
       this.drawChart();
     }
   }
@@ -69,7 +69,7 @@ export class NebContributionsBarChartComponent {
         return report;
       })
       allNebReports = _.orderBy(allNebReports, (nebReport: NebReport) => {
-        return nebReport.totalCostSavings;
+        return nebReport.totalFinancialImpact;
       }, 'asc');
       let nebNames: Array<string> = allNebReports.map(report => {
         return report.nonEnergyBenefit.name;
@@ -99,7 +99,7 @@ export class NebContributionsBarChartComponent {
         });
         if (matchingNebReport.length > 0) {
           let totalSavings: number = _.sumBy(matchingNebReport, (matchingNebReport: NebReport) => {
-            return matchingNebReport.totalCostSavings
+            return matchingNebReport.totalFinancialImpact
           })
           trace.x.push(totalSavings);
         } else {
@@ -111,7 +111,7 @@ export class NebContributionsBarChartComponent {
       });
 
       data.push({
-        x: [this.assessmentReport.totalNebCostSavings],
+        x: [this.assessmentReport.totalNebFinancialImpact],
         y: ['Total NEBs'],
         texttemplate: this.currencyUnicode + "%{value:,.2s}",
         hovertemplate: 'Total NEBs',
@@ -142,7 +142,7 @@ export class NebContributionsBarChartComponent {
         xaxis: {
           automargin: true,
           tickprefix: this.currencySymbol,
-          range: [0, this.totalNebCostSavings]
+          range: [0, this.totalNebFinancialImpact]
         },
         legend: {
           orientation: "h"

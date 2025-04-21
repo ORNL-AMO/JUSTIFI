@@ -80,15 +80,15 @@ export function getAssessmentReport(
         totalNonNebCostSavings += assessment.costSavings;
     }
 
-    let totalAssessmentNebCostSavings: number = _.sumBy(assessmentNebReports, (report: NebReport) => {
-        return report.totalCostSavings
+    let totalAssessmentNebFinancialImpact: number = _.sumBy(assessmentNebReports, (report: NebReport) => {
+        return report.totalFinancialImpact
     });
-    let energyOpportunityNebCostSavings: number = _.sumBy(energyOpportunityNebReports, (report: NebReport) => {
-        return report.totalCostSavings
+    let energyOpportunityNebFinancialImpact: number = _.sumBy(energyOpportunityNebReports, (report: NebReport) => {
+        return report.totalFinancialImpact
     });
-    let totalNebCostSavings: number = totalAssessmentNebCostSavings + energyOpportunityNebCostSavings;
+    let totalNebFinancialImpact: number = totalAssessmentNebFinancialImpact + energyOpportunityNebFinancialImpact;
 
-    let totalCostSavings: number = totalNonNebCostSavings + totalNebCostSavings;
+    let totalFinancialImpact: number = totalNonNebCostSavings + totalNebFinancialImpact;
 
     let opportunityEnergySavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
         if (report.energyOpportunity.includeSavings &&
@@ -123,7 +123,7 @@ export function getAssessmentReport(
         implementationCost += assessment.implementationCost;
     }
 
-    let totalPaybackWithNebs: number = (implementationCost / totalCostSavings);
+    let totalPaybackWithNebs: number = (implementationCost / totalFinancialImpact);
     if (totalPaybackWithNebs == Infinity) {
         totalPaybackWithNebs = 0;
     }
@@ -133,7 +133,7 @@ export function getAssessmentReport(
     }
 
     // Assessment level/Non-Opportunity Cost Savings
-    let totalNonOpportunityCostSavings: number = totalAssessmentNebCostSavings;
+    let totalNonOpportunityCostSavings: number = totalAssessmentNebFinancialImpact;
     if (assessment.costSavings) {
         totalNonOpportunityCostSavings += assessment.costSavings;
     }
@@ -153,11 +153,10 @@ export function getAssessmentReport(
         // totalNebReports: totalNebReports,
         totalEnergyCostSavings: totalNonNebEnergyCostSavings,
         totalWaterCostSavings: totalNonNebWaterCostSavings,
-        totalAssessmentNebSavings: totalAssessmentNebCostSavings,
-        totalNebCostSavings: totalNebCostSavings,
+        totalAssessmentNebFinancialImpact: totalAssessmentNebFinancialImpact,
+        totalNebFinancialImpact: totalNebFinancialImpact,
         totalNonNebCostSavings: totalNonNebCostSavings,
-        totalCostSavings: totalCostSavings,
-        adjustedCost: assessment.cost - totalCostSavings,
+        totalFinancialImpact: totalFinancialImpact,
         //TODO: math implementation needed
         adjustedEnergyUse: assessment.energyUse - totalEnergySavings,
         totalEnergySavings: totalEnergySavings,
@@ -180,11 +179,10 @@ export interface AssessmentReport {
     // totalNebReports: Array<NebReport>,
     totalEnergyCostSavings: number,
     totalWaterCostSavings: number,
-    totalAssessmentNebSavings: number,
-    totalNebCostSavings: number,
+    totalAssessmentNebFinancialImpact: number,
+    totalNebFinancialImpact: number,
     totalNonNebCostSavings: number,
-    totalCostSavings: number,
-    adjustedCost: number,
+    totalFinancialImpact: number,
     adjustedEnergyUse: number,
     totalEnergySavings: number,
     totalNonOpportunityCostSavings: number, // totalNonOpportunityAssessmentSavings

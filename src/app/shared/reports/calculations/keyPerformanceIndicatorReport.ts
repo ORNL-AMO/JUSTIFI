@@ -47,12 +47,20 @@ export function getKeyPerfomanceIndicatorReport(nebReports: Array<NebReport>): K
                     percentSavings = (performanceMetric.performanceMetricImpact.modificationValue / performanceMetric.keyPerformanceMetric.baselineValue) * 100;
                 }
 
+                let modifiedCost: number;
+                if(performanceMetric.keyPerformanceMetric.goalToIncrease){
+                    modifiedCost = performanceMetric.keyPerformanceMetric.baselineCost + performanceMetric.performanceMetricImpact.costAdjustment
+                }else{
+                    modifiedCost = performanceMetric.keyPerformanceMetric.baselineCost - performanceMetric.performanceMetricImpact.costAdjustment
+                }
+
+
                 kpmReportItems.push({
                     keyPerformanceMetric: performanceMetric.keyPerformanceMetric,
                     performanceMetricImpact: {
                         ...performanceMetric.performanceMetricImpact,
                         percentSavings: percentSavings,
-                        modifiedCost: (performanceMetric.keyPerformanceMetric.baselineCost - performanceMetric.performanceMetricImpact.costAdjustment)
+                        modifiedCost: modifiedCost
                     },
                     // nebsImpacts: [{
                     //     nebName: string,

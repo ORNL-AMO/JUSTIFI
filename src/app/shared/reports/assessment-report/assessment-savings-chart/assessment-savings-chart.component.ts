@@ -40,7 +40,7 @@ export class AssessmentSavingsChartComponent {
       this.currencyUnicode = localeCurrency.find(option => {
         return option.currencyCode == currencyCode
       }).unicode;
-      this.drawTotalSavaingsChart();
+      this.drawTotalSavingsChart();
     })
   }
 
@@ -50,17 +50,17 @@ export class AssessmentSavingsChartComponent {
 
   ngAfterViewInit() {
     if (this.assessmentReport) {
-      this.drawTotalSavaingsChart();
+      this.drawTotalSavingsChart();
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if ((changes['assessmentReport'] && !changes['assessmentReport'].isFirstChange()) || (changes['xMax']) && !changes['xMax'].isFirstChange()) {
-      this.drawTotalSavaingsChart();
+      this.drawTotalSavingsChart();
     }
   }
 
-  drawTotalSavaingsChart() {
+  drawTotalSavingsChart() {
     if (this.totalSavingsChart) {
       var trace1 = {
         y: ['Utility Cost Savings'],
@@ -78,9 +78,9 @@ export class AssessmentSavingsChartComponent {
 
       var trace2 = {
         y: ['Non-Energy Benefits'],
-        x: [this.assessmentReport.totalNebCostSavings],
+        x: [this.assessmentReport.totalNebFinancialImpact],
         // width: [.5],
-        text: [this.assessmentReport.totalNebCostSavings],
+        text: [this.assessmentReport.totalNebFinancialImpact],
         texttemplate: this.currencyUnicode + "%{text:,.0f}",
         name: 'Non-Energy Benefits',
         type: 'bar',
@@ -91,9 +91,9 @@ export class AssessmentSavingsChartComponent {
       };
       var data = [trace1, trace2];
 
-      let title: string = 'Annual Savings<br>' + this.currencyUnicode + this.assessmentReport.totalCostSavings.toLocaleString() + ' (' + this.currencyUnicode + '/yr)';
+      let title: string = 'Annual Savings<br>' + this.currencyUnicode + this.assessmentReport.totalFinancialImpact.toLocaleString() + ' (' + this.currencyUnicode + '/yr)';
       if (this.inRollup) {
-        title = this.assessmentReport.assessment.name + ' Annual Savings<br>' + this.currencyUnicode + this.assessmentReport.totalCostSavings.toLocaleString() + ' (' + this.currencyUnicode + '/yr)';
+        title = this.assessmentReport.assessment.name + ' Annual Savings<br>' + this.currencyUnicode + this.assessmentReport.totalFinancialImpact.toLocaleString() + ' (' + this.currencyUnicode + '/yr)';
       }
 
       let xRange;

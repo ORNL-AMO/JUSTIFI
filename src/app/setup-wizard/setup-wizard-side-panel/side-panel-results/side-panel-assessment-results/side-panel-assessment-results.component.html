@@ -12,12 +12,12 @@
             </div>
         </div>
         <hr>
-        Cost Savings W/ NEBs <span class="float-right small">({{percentSavingsNebs | number:'1.0-0'}} &percnt;)</span>
+        Financial Impact W/ NEBs
         <div class="progress" role="progressbar"
             [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
                 <div>
-                    <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
+                    <app-single-cell-item [numValue]="assessmentReport.totalFinancialImpact"
                         [isCurrency]="true"></app-single-cell-item>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                         {{nebReport.nonEnergyBenefit.name}}
                     </td>
                     <td class="text-right w-25">
-                        <app-single-cell-item [numValue]="nebReport.totalCostSavings"
+                        <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
                             [isCurrency]="true"></app-single-cell-item>
                     </td>
                 </tr>
@@ -109,7 +109,7 @@
                                 {{nebReport.nonEnergyBenefit.name}}
                             </td>
                             <td class="text-right">
-                                <app-single-cell-item [numValue]="nebReport.totalCostSavings"
+                                <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
                                     [isCurrency]="true"></app-single-cell-item>
                             </td>
                         </tr>
@@ -122,7 +122,7 @@
                         Total
                     </th>
                     <th class="text-right">
-                        <app-single-cell-item [numValue]="assessmentReport.totalNebCostSavings"
+                        <app-single-cell-item [numValue]="assessmentReport.totalNebFinancialImpact"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
                 </tr>
@@ -144,7 +144,7 @@
                         Total Additional Operational Benefits
                     </th>
                     <th class="text-right">
-                        <app-single-cell-item [numValue]="assessmentReport.totalNebCostSavings"
+                        <app-single-cell-item [numValue]="assessmentReport.totalNebFinancialImpact"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
                 </tr>
@@ -153,7 +153,7 @@
                         Total Cost Savings W/ NEBs
                     </th>
                     <th class="text-right">
-                        <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
+                        <app-single-cell-item [numValue]="assessmentReport.totalFinancialImpact"
                             [isCurrency]="true"></app-single-cell-item>
                     </th>
                 </tr>

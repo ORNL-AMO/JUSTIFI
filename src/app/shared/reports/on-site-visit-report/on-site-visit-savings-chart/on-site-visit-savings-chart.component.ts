@@ -76,9 +76,9 @@ export class OnSiteVisitSavingsChartComponent {
 
       var trace2 = {
         y: ['Non-energy Benefits'],
-        x: [this.onSiteVisitReport.totalNebCostSavings],
+        x: [this.onSiteVisitReport.totalNebFinancialImpact],
         // width: [.5],
-        text: [this.onSiteVisitReport.totalNebCostSavings],
+        text: [this.onSiteVisitReport.totalNebFinancialImpact],
         texttemplate: this.currencyUnicode + "%{text:,.0f}",
         name: 'Non-energy Benefits',
         type: 'bar',
@@ -88,8 +88,8 @@ export class OnSiteVisitSavingsChartComponent {
         orientation: 'h'
       };
 
-      if (this.onSiteVisitReport.totalNebCostSavings > this.onSiteVisitReport.totalNonNebCostSavings) {
-        this.xMax = this.onSiteVisitReport.totalNebCostSavings;
+      if (this.onSiteVisitReport.totalNebFinancialImpact > this.onSiteVisitReport.totalNonNebCostSavings) {
+        this.xMax = this.onSiteVisitReport.totalNebFinancialImpact;
       } else {
         this.xMax = this.onSiteVisitReport.totalNonNebCostSavings;
       }
@@ -99,7 +99,7 @@ export class OnSiteVisitSavingsChartComponent {
       var layout = {
         height: 250,
         title: {
-          text: 'Total Annual Savings<br>' + this.currencyUnicode + this.onSiteVisitReport.totalCostSavings.toLocaleString() + ' (' + this.currencyUnicode + '/yr)',
+          text: 'Total Annual Financial Impact<br>' + this.currencyUnicode + this.onSiteVisitReport.totalFinancialImpact.toLocaleString() + ' (' + this.currencyUnicode + '/yr)',
           font: {
             weight: 'bold'
           }
