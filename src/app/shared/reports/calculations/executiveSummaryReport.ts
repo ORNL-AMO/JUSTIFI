@@ -39,8 +39,15 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
         return report.allNebReports
     });
 
-    // calculate total cost savings
+    // calculate utility cost savings
+    let totalUtilityCosts: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.assessment.cost
+    });
+    let totalUtilityCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.totalEnergyCostSavings + report.totalWaterCostSavings;
+    });
 
+    // calculate total cost savings
     let totalFinancialImpact: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
         return report.totalFinancialImpact
     });
@@ -75,7 +82,8 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
         totalFinancialImpact: totalFinancialImpact,
         totalPaybackWithoutNebs: totalPaybackWithoutNebs,
         totalPaybackWithNebs: totalPaybackWithNebs,
-    };
+        totalUtilityCosts: totalUtilityCosts,
+        totalUtilityCostSavings: totalUtilityCostSavings,};
 }
 export interface ExecutiveSummaryReport {
     visitDate: Date;
@@ -87,4 +95,6 @@ export interface ExecutiveSummaryReport {
     totalFinancialImpact: number;
     totalPaybackWithoutNebs: number;
     totalPaybackWithNebs: number;
+    totalUtilityCosts: number;
+    totalUtilityCostSavings: number;
 }

@@ -38,24 +38,25 @@
           <td class="text-right">
             <app-single-cell-item
               [isCurrency]="true"
-              [numValue]="1000">
+              [numValue]="executiveSummaryReport.totalUtilityCosts">
             </app-single-cell-item>
           </td>
           <td class="text-right">
             <app-single-cell-item
               [isCurrency]="true"
-              [numValue]="1000">
+              [numValue]="executiveSummaryReport.totalUtilityCostSavings">
             </app-single-cell-item>
           </td>
           <td class="text-right">
             <app-single-cell-item
               [isCurrency]="true"
-              [numValue]="1000">
+              [numValue]="modifiedUtilityCosts">
             </app-single-cell-item>
           </td>
           <td class="text-right">
             <app-single-cell-item
-              [numValue]="0.1">
+              [numValue]="utilityPercentageChange"
+              [units]="'%'">
             </app-single-cell-item>
           </td>
         </tr>

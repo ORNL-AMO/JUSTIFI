@@ -20,6 +20,9 @@ export class ExecutiveSummaryKpmImpactsComponent {
   topKpis: Array<KeyPerformanceIndicatorValue>;
   reducedKpiReportItems: Array<KeyPerformanceIndicatorReportItem>;
 
+  modifiedUtilityCosts: number;
+  utilityPercentageChange: number;
+
   currencyCode: string;
   currencySub: Subscription;
 
@@ -40,6 +43,9 @@ export class ExecutiveSummaryKpmImpactsComponent {
     this.currencySub = this.localeService.currencyCode.subscribe(
       code => {this.currencyCode = code}
     );
+    // calculate modified utility costs and percentage change
+    this.modifiedUtilityCosts = this.executiveSummaryReport.totalUtilityCosts - this.executiveSummaryReport.totalUtilityCostSavings;
+    this.utilityPercentageChange = (this.executiveSummaryReport.totalUtilityCostSavings / this.executiveSummaryReport.totalUtilityCosts) * 100;
   }
 
   ngOnDestroy() {
