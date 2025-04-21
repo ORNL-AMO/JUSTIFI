@@ -58,7 +58,7 @@ export class ExecutiveSummaryProjectSummaryComponent {
 
   orderReduceEEMReportsByCostSavings(allEEMReports: Array<EnergyOpportunityReport>, limit: number): Array<EnergyOpportunityReport> {
     allEEMReports.sort((a, b) => {
-      return b.totalCostSavings - a.totalCostSavings;
+      return b.totalFinancialImpact - a.totalFinancialImpact;
     });
     if (allEEMReports.length > limit) {
       const topReports = allEEMReports.slice(0, limit - 1);
@@ -66,11 +66,11 @@ export class ExecutiveSummaryProjectSummaryComponent {
       // collapse other reports into one report
       let totalEnergyCostSavings: number = otherReports.reduce((sum, report) => sum + report.totalEnergyCostSavings, 0);
       let totalWaterCostSavings: number = otherReports.reduce((sum, report) => sum + report.totalWaterCostSavings, 0);
-      let totalNebCostSavings: number = otherReports.reduce((sum, report) => sum + report.totalNebCostSavings, 0);
+      let totalNebFinancialImpact: number = otherReports.reduce((sum, report) => sum + report.totalNebFinancialImpact, 0);
       let totalNonNebCostSavings: number = otherReports.reduce((sum, report) => sum + report.totalNonNebCostSavings, 0);
-      let totalCostSavings: number = otherReports.reduce((sum, report) => sum + report.totalCostSavings, 0);
+      let totalFinancialImpact: number = otherReports.reduce((sum, report) => sum + report.totalFinancialImpact, 0);
       let totalImplementationCost: number = otherReports.reduce((sum, report) => sum + report.energyOpportunity.implementationCost, 0);
-      let paybackWithNebs: number = (totalImplementationCost / totalCostSavings);
+      let paybackWithNebs: number = (totalImplementationCost / totalFinancialImpact);
       if (paybackWithNebs == Infinity) {
           paybackWithNebs = 0;
       }
@@ -88,8 +88,8 @@ export class ExecutiveSummaryProjectSummaryComponent {
         totalEnergyCostSavings: totalEnergyCostSavings,
         totalWaterCostSavings: totalWaterCostSavings,
         totalNonNebCostSavings: totalNonNebCostSavings,
-        totalNebCostSavings: totalNebCostSavings,
-        totalCostSavings: totalCostSavings,
+        totalNebFinancialImpact: totalNebFinancialImpact,
+        totalFinancialImpact: totalFinancialImpact,
         paybackWithNebs: paybackWithNebs,
         paybackWithoutNebs: paybackWithoutNebs
       };

@@ -9,7 +9,7 @@
         we found
         <strong>{{allEEMReports.length}}</strong>
         projects that will result in
-        <strong>{{executiveSummaryReport.totalCostSavings | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
+        <strong>{{executiveSummaryReport.totalFinancialImpact | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
         savings 
         or additional revenues per year and support our
         <span *ngFor="let kpi of topKpis; let isLast = last; let isFirst = first">
@@ -31,8 +31,8 @@
           <th>Implementation Cost</th>
           <th>Annual Cost Savings ({{ currencyCode | currencySymbol}}/yr)</th>
           <th>Simple Payback (yr)</th>
-          <th>NEB Savings ({{ currencyCode | currencySymbol}}/yr)</th>
-          <th>Annual Cost Savings ({{ currencyCode | currencySymbol}}/yr)</th>
+          <th>NEB Financial Impact ({{ currencyCode | currencySymbol}}/yr)</th>
+          <th>Annual Financial Impact ({{ currencyCode | currencySymbol}}/yr)</th>
           <th>Simple Payback (yr)</th>
         </tr>
       </thead>
@@ -62,13 +62,13 @@
           <td class="text-right">
             <app-single-cell-item
               [isCurrency]="true"
-              [numValue]="executiveSummaryReport.totalNebCostSavings">
+              [numValue]="executiveSummaryReport.totalNebFinancialImpact">
             </app-single-cell-item>
           </td>
           <td class="text-right">
             <app-single-cell-item
               [isCurrency]="true"
-              [numValue]="executiveSummaryReport.totalCostSavings">
+              [numValue]="executiveSummaryReport.totalFinancialImpact">
             </app-single-cell-item>
           </td>
           <td class="text-right">
@@ -101,13 +101,13 @@
           <td class="text-right">
             <app-single-cell-item
               [isCurrency]="true"
-              [numValue]="report.totalNebCostSavings">
+              [numValue]="report.totalNebFinancialImpact">
             </app-single-cell-item>
           </td>
           <td class="text-right">
             <app-single-cell-item
               [isCurrency]="true"
-              [numValue]="report.totalCostSavings">
+              [numValue]="report.totalFinancialImpact">
             </app-single-cell-item>
           </td>
           <td class="text-right">
@@ -119,7 +119,7 @@
       </tbody>
     </table>
     <p class="mt-2 fw-light altert alert-info">
-      The annual cost savings <strong>Without NEBs</strong> for some projects may be zero,
+      The annual cost savings <strong>Without NEBs</strong> for some projects may be &mdash; (zero),
       due to no cost savings being reported for the project level.
     </p>
   </ng-template>

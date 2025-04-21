@@ -3,6 +3,7 @@ import { KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem } from
 import { KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 import { Subscription } from 'rxjs';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
+import { ExecutiveSummaryReport } from '../../calculations/executiveSummaryReport';
 
 @Component({
   selector: 'app-executive-summary-kpm-impacts',
@@ -14,7 +15,7 @@ import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 export class ExecutiveSummaryKpmImpactsComponent {
 
   @Input({ required: true })
-  keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport;
+  executiveSummaryReport: ExecutiveSummaryReport;
 
   topKpis: Array<KeyPerformanceIndicatorValue>;
   reducedKpiReportItems: Array<KeyPerformanceIndicatorReportItem>;
@@ -28,7 +29,7 @@ export class ExecutiveSummaryKpmImpactsComponent {
 
   ngOnInit() {
     // filter top 3 KPIs
-    const kpiReportItems: Array<KeyPerformanceIndicatorReportItem> = this.keyPerformanceIndicatorReport.kpiReportItems;
+    const kpiReportItems: Array<KeyPerformanceIndicatorReportItem> = this.executiveSummaryReport.keyPerformanceIndicatorReport.kpiReportItems;
     console.log("kpiReportItems", kpiReportItems);
     kpiReportItems.sort((a, b) => {
       return b.percentSavings - a.percentSavings;

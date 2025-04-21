@@ -29,7 +29,8 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
             let assessment: IdbAssessment = assessments.find(assessment => {
                 return assessment.guid == assessmentId;
             });
-            let assessmentReport: AssessmentReport = getAssessmentReport(assessment, energyOpportunities, nonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts, report);
+            let assessmentReport: AssessmentReport = getAssessmentReport(
+                assessment, energyOpportunities, nonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts, report);
             assessmentReports.push(assessmentReport);
         }
     });
@@ -40,11 +41,11 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
 
     // calculate total cost savings
 
-    let totalCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
-        return report.totalCostSavings
+    let totalFinancialImpact: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.totalFinancialImpact
     });
-    let totalNebCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
-        return report.totalNebCostSavings
+    let totalNebFinancialImpact: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.totalNebFinancialImpact
     });
     let totalNonNebCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
         return report.totalNonNebCostSavings
@@ -59,7 +60,7 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
     if (totalPaybackWithoutNebs == Infinity || isNaN(totalPaybackWithoutNebs)) {
         totalPaybackWithoutNebs = 0;
     }
-    let totalPaybackWithNebs: number = (totalImplementationCost / totalCostSavings);
+    let totalPaybackWithNebs: number = (totalImplementationCost / totalFinancialImpact);
     if (totalPaybackWithNebs == Infinity || isNaN(totalPaybackWithNebs)) {
         totalPaybackWithNebs = 0;
     }
@@ -69,9 +70,9 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
         assessmentReports: assessmentReports,
         keyPerformanceIndicatorReport: getKeyPerfomanceIndicatorReport(allNebReports),
         totalImplementationCost: totalImplementationCost,
-        totalNebCostSavings: totalNebCostSavings,
+        totalNebFinancialImpact: totalNebFinancialImpact,
         totalNonNebCostSavings: totalNonNebCostSavings,
-        totalCostSavings: totalCostSavings,
+        totalFinancialImpact: totalFinancialImpact,
         totalPaybackWithoutNebs: totalPaybackWithoutNebs,
         totalPaybackWithNebs: totalPaybackWithNebs,
     };
@@ -81,9 +82,9 @@ export interface ExecutiveSummaryReport {
     assessmentReports: Array<AssessmentReport>;
     keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport;
     totalImplementationCost: number;
-    totalNebCostSavings: number;
+    totalNebFinancialImpact: number;
     totalNonNebCostSavings: number;
-    totalCostSavings: number;
+    totalFinancialImpact: number;
     totalPaybackWithoutNebs: number;
     totalPaybackWithNebs: number;
 }

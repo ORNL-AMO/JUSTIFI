@@ -1,6 +1,6 @@
 <div>
   <h5 class="mt-2">Annual KPM Impacts</h5>
-  <ng-template [ngIf]="keyPerformanceIndicatorReport.kpiReportItems.length > 0" [ngIfElse]="noKpisTemplate">
+  <ng-template [ngIf]="executiveSummaryReport.keyPerformanceIndicatorReport" [ngIfElse]="noKpisTemplate">
     <ul class="mb-2">
       <li>
         These projects will have most positive impacts on
@@ -10,7 +10,9 @@
         </span>.
       </li>
       <li>
-        These projects could reduce costs and increase revenues by _Revenue_ each year.
+        These projects could reduce costs and increase revenues by
+        <strong>{{ executiveSummaryReport.totalFinancialImpact | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
+        each year.
       </li>
     </ul>
     <table class="table table-bordered table-sm table-hover">
