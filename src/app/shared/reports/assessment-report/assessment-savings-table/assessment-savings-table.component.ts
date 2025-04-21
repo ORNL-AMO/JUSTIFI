@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { IconDefinition, faFileLines, faScrewdriverWrench, faWeightHanging, faPlugCircleBolt } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faFileLines, faScrewdriverWrench, faWeightHanging, faPlugCircleBolt, faWater } from '@fortawesome/free-solid-svg-icons';
 import { AssessmentReport } from '../../calculations/assessmentReport';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { Subscription } from 'rxjs';
-import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 
 @Component({
     selector: 'app-assessment-savings-table',
@@ -20,36 +19,24 @@ export class AssessmentSavingsTableComponent {
   faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faFileLines: IconDefinition = faFileLines;
   faPlugCircleBolt: IconDefinition = faPlugCircleBolt;
+  faWater: IconDefinition = faWater;
 
   currencyCode: string;
   currencySub: Subscription;
 
-  companyEnergyUnit: string;
-  companySub: Subscription;
-
   constructor(
-    private localeService: LocaleService,
-    private companyIdbService: CompanyIdbService
+    private localeService: LocaleService
   ) {}
 
   ngOnInit() {
     this.currencySub = this.localeService.currencyCode.subscribe(code => {
       this.currencyCode = code;
     });
-
-    this.companySub = this.companyIdbService.selectedCompany.subscribe(company => {
-      if (company) {
-        this.companyEnergyUnit = company.companyEnergyUnit;
-      }
-    });
   }
 
   ngOnDestroy() {
     if (this.currencySub) {
       this.currencySub.unsubscribe();
-    }
-    if (this.companySub) {
-      this.companySub.unsubscribe();
     }
   }
 }

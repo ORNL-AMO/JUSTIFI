@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { faChartPie, faChevronCircleLeft, faChevronCircleRight, faCircleQuestion, faDiagramProject, faLink, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChartPie, faChevronCircleLeft, faChevronCircleRight, faCircleQuestion, faDiagramProject, faDollarSign, faLink, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { SetupWizardService } from '../setup-wizard.service';
 
@@ -15,7 +15,7 @@ export class SetupWizardSidePanelComponent {
   emitToggleCollapse: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
   faCircleQuestion: IconDefinition = faCircleQuestion;
-  faChartPie: IconDefinition = faChartPie;
+  faDollarSign: IconDefinition = faDollarSign;
   faDiagramProject: IconDefinition = faDiagramProject
   faChevronCircleRight: IconDefinition = faChevronCircleRight;
   faChevronCircleLeft: IconDefinition = faChevronCircleLeft;
@@ -25,7 +25,7 @@ export class SetupWizardSidePanelComponent {
   helpPanelOpenSub: Subscription;
   helpPanelOpen: boolean;
 
-  activePanel: 'help' | 'system-diagram' | 'results' | 'nebs' = 'help';
+  activePanel: 'help' | 'system-diagram' | 'results' | 'nebs' = 'results';
   constructor(
     private setupWizardService: SetupWizardService
   ) {

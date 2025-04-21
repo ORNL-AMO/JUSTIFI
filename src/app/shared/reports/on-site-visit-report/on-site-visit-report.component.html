@@ -25,7 +25,7 @@
     </div>
     <div class="print-break-avoid">
         <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-            <app-neb-contributions-bar-chart [assessmentReport]="assessmentReport" [totalNebCostSavings]="onSiteVisitReport.totalNebCostSavings"></app-neb-contributions-bar-chart>
+            <app-neb-contributions-bar-chart [assessmentReport]="assessmentReport" [totalNebFinancialImpact]="onSiteVisitReport.totalNebFinancialImpact"></app-neb-contributions-bar-chart>
         </ng-container>
     </div>
 </div>
