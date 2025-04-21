@@ -34,7 +34,6 @@ export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, facilityPerf
         }
     });
     let totalRevenue: number = 0;
-    //TODO: costimpact/revenue on NEB
     let totalCostDecrease: number = nonEnergyBenefit.costImpact || 0;
     reportPerformanceMetrics.forEach(reportPerformanceMetric => {
         if (reportPerformanceMetric.keyPerformanceMetric.goalToIncrease) {
@@ -53,8 +52,6 @@ export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, facilityPerf
     return {
         nonEnergyBenefit: nonEnergyBenefit,
         reportPerformanceMetrics: reportPerformanceMetrics,
-        //todo: update to handle cost adjustment +/- as good
-        //currently treating everything as a reduction
         totalRevenue: totalRevenue,
         totalCostDecrease: totalCostDecrease,
         totalFinancialImpact: totalRevenue + totalCostDecrease

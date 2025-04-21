@@ -157,7 +157,6 @@ export function getAssessmentReport(
         totalNebFinancialImpact: totalNebFinancialImpact,
         totalNonNebCostSavings: totalNonNebCostSavings,
         totalFinancialImpact: totalFinancialImpact,
-        // adjustedCost: assessment.cost - totalCostSavings,
         //TODO: math implementation needed
         adjustedEnergyUse: assessment.energyUse - totalEnergySavings,
         totalEnergySavings: totalEnergySavings,
@@ -184,8 +183,6 @@ export interface AssessmentReport {
     totalNebFinancialImpact: number,
     totalNonNebCostSavings: number,
     totalFinancialImpact: number,
-    //adjusted cost doesn't make sense
-    // adjustedCost: number,
     adjustedEnergyUse: number,
     totalEnergySavings: number,
     totalNonOpportunityCostSavings: number, // totalNonOpportunityAssessmentSavings
