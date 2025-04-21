@@ -11,12 +11,11 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 import * as _ from 'lodash';
-
 @Component({
-    selector: 'app-latest-visits-table',
-    templateUrl: './latest-visits-table.component.html',
-    styleUrl: './latest-visits-table.component.css',
-    standalone: false
+  selector: 'app-latest-visits-table',
+  templateUrl: './latest-visits-table.component.html',
+  styleUrl: './latest-visits-table.component.css',
+  standalone: false
 })
 export class LatestVisitsTableComponent {
 
