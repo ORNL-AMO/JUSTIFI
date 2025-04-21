@@ -74,23 +74,24 @@ export class PerformanceMetricsTableComponent {
     this.kpmRevenueReports = new Array();
     this.kpmCostSavingsReports = new Array();
     this.qualitativeReports = new Array();
-    this.keyPerformanceIndicatorReport.kpmReportItems.forEach(reportItem => {
-      if (reportItem.keyPerformanceMetric.isQuantitative) {
-        if (reportItem.keyPerformanceMetric.goalToIncrease) {
-          this.kpmRevenueReports.push(reportItem);
+    if (this.keyPerformanceIndicatorReport) {
+      this.keyPerformanceIndicatorReport.kpmReportItems.forEach(reportItem => {
+        if (reportItem.keyPerformanceMetric.isQuantitative) {
+          if (reportItem.keyPerformanceMetric.goalToIncrease) {
+            this.kpmRevenueReports.push(reportItem);
+          } else {
+            this.kpmCostSavingsReports.push(reportItem);
+          }
         } else {
-          this.kpmCostSavingsReports.push(reportItem);
+          this.qualitativeReports.push(reportItem);
         }
-      } else {
-        this.qualitativeReports.push(reportItem);
-      }
-    });
-    this.totalCostSavings = _.sumBy(this.kpmCostSavingsReports, (reportItem: KeyPerformanceMetricReportItem) => {
-      return reportItem.performanceMetricImpact.costAdjustment
-    })
-    this.totalRevenue = _.sumBy(this.kpmRevenueReports, (reportItem: KeyPerformanceMetricReportItem) => {
-      return reportItem.performanceMetricImpact.costAdjustment
-    })
-
+      });
+      this.totalCostSavings = _.sumBy(this.kpmCostSavingsReports, (reportItem: KeyPerformanceMetricReportItem) => {
+        return reportItem.performanceMetricImpact.costAdjustment
+      })
+      this.totalRevenue = _.sumBy(this.kpmRevenueReports, (reportItem: KeyPerformanceMetricReportItem) => {
+        return reportItem.performanceMetricImpact.costAdjustment
+      })
+    }
   }
 }
