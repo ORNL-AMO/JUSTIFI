@@ -140,6 +140,18 @@ export class DbChangesService {
     await this.facilityIdbService.setFacilities();
   }
 
+  async deleteOnSiteVisit(onSiteVisit: IdbOnSiteVisit) {
+    //delete asssessments
+    let assessments: Array<IdbAssessment> = this.assessmentIdbService.assessments.getValue();
+    for (let visitIndex = 0; visitIndex < onSiteVisit.assessmentIds.length; visitIndex++) {
+      let assessment: IdbAssessment = assessments.find(assessment => { return assessment.guid == onSiteVisit.assessmentIds[visitIndex] });
+      await this.deleteAssessment(assessment)
+    }
+    await this.assessmentIdbService.setAssessments();
+    await firstValueFrom(this.onSiteVisitIdbService.deleteWithObservable(onSiteVisit.id));
+    await this.onSiteVisitIdbService.setOnSiteVisits();
+  }
+
   async deleteAssessment(assessment: IdbAssessment) {
     //delete energy opportunity
     let energyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue();
@@ -240,7 +252,7 @@ export class DbChangesService {
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
     let nebKpmImpacts: Array<IdbKeyPerformanceMetricImpact> = keyPerformanceMetricImpacts.filter(metricImpact => { return metricImpact.nebId == nonEnergyBenefit.guid; })
     await this.deleteKeyPerformanceMetricImpacts(nebKpmImpacts);
-    
+
     //Update reports
     let reports: Array<IdbReport> = this.reportIdbService.reports.getValue();
     let facilityReports: Array<IdbReport> = reports.filter(report => {
@@ -324,7 +336,7 @@ export class DbChangesService {
   }
 
 
-  async deleteKeyPerformanceMetricImpact(keyPerformanceMetricImpact: IdbKeyPerformanceMetricImpact){
+  async deleteKeyPerformanceMetricImpact(keyPerformanceMetricImpact: IdbKeyPerformanceMetricImpact) {
     //update reports
     let reports: Array<IdbReport> = this.reportIdbService.reports.getValue();
     let facilityReports: Array<IdbReport> = reports.filter(report => {
@@ -339,7 +351,7 @@ export class DbChangesService {
       }
       await this.reportIdbService.setReports();
     }
-    
+
     await firstValueFrom(this.keyPerformanceMetricImpactsIdbService.deleteWithObservable(keyPerformanceMetricImpact.id));
     await this.keyPerformanceMetricImpactsIdbService.setKeyPerformanceMetricImpacts();
   }
