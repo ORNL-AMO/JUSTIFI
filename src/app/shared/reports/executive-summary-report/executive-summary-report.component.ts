@@ -15,6 +15,7 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { KeyPerformanceMetric } from '../../constants/keyPerformanceMetrics';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
+import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 
 @Component({
   selector: 'app-executive-summary-report',
@@ -29,7 +30,7 @@ export class ExecutiveSummaryReportComponent {
   @Input()
   report: IdbReport;
 
-  executiveSummaryReport: ExecutiveSummaryReport
+  executiveSummaryReport: ExecutiveSummaryReport;
 
   print: boolean;
   printSub: Subscription;
@@ -47,9 +48,10 @@ export class ExecutiveSummaryReportComponent {
     let allAssessments: Array<IdbAssessment> = this.assessmentIdbService.assessments.getValue();
     let allEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue();
     let allNonEnergyBenefits: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefitIdbService.nonEnergyBenefits.getValue();
-    let facilityPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.onSiteVisit.facilityId);
+    let facilityPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.onSiteVisit?.facilityId);
+    let facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.onSiteVisit?.facilityId);
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
-    this.executiveSummaryReport = getExecutiveSummaryReport(this.onSiteVisit.assessmentIds, allAssessments, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts, this.report);
+    this.executiveSummaryReport = getExecutiveSummaryReport(this.onSiteVisit.visitDate, this.onSiteVisit.assessmentIds, allAssessments, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, this.report);
     this.printSub = this.sharedDataService.print.subscribe(_print => {
       this.print = _print;
     })

@@ -3,6 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExecutiveSummaryReportComponent } from './executive-summary-report.component';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { getNewIdbOnSiteVisit } from 'src/app/models/onSiteVisit';
+import { ExecutiveSummaryProjectSummaryComponent } from './executive-summary-project-summary/executive-summary-project-summary.component';
+import { ExecutiveSummaryKpmImpactsComponent } from './executive-summary-kpm-impacts/executive-summary-kpm-impacts.component';
+import { CurrencySymbolPipe } from '../../helper-pipes/currency-symbol.pipe';
+import { TableEntriesModule } from '../../table-entries/table-entries.module';
+import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
 
 describe('ExecutiveSummaryReportComponent', () => {
   let component: ExecutiveSummaryReportComponent;
@@ -10,8 +15,15 @@ describe('ExecutiveSummaryReportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [],
-      declarations: [ExecutiveSummaryReportComponent],
+      imports: [
+        TableEntriesModule,
+        HelperPipesModule,
+      ],
+      declarations: [
+        ExecutiveSummaryReportComponent,
+        ExecutiveSummaryProjectSummaryComponent,
+        ExecutiveSummaryKpmImpactsComponent,
+      ],
       providers: stubServiceProviders
     })
     .compileComponents();

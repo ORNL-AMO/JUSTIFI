@@ -17,7 +17,7 @@ describe('OnSiteVisitSavingsChartComponent', () => {
 
     fixture = TestBed.createComponent(OnSiteVisitSavingsChartComponent);
     component = fixture.componentInstance;
-    component.onSiteVisitReport = getOnSiteVisitReport([], [], [], [], [], []);
+    component.onSiteVisitReport = getOnSiteVisitReport([], [], [], [], [], [], []);
     fixture.detectChanges();
   });
 
