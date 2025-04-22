@@ -65,6 +65,7 @@ export class ExecutiveSummaryKpmImpactsComponent {
 
   ngOnDestroy() {
     this.currencySub.unsubscribe();
+    this.facilitySub.unsubscribe();
   }
 
   reduceKpiReportItemsByChange(kpiReportItems: Array<KeyPerformanceIndicatorReportItem>, limit: number): Array<KeyPerformanceIndicatorReportItem> {
