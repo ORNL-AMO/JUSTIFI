@@ -17,7 +17,7 @@ describe('ExecutiveSummaryProjectSummaryComponent', () => {
 
     fixture = TestBed.createComponent(ExecutiveSummaryProjectSummaryComponent);
     component = fixture.componentInstance;
-    component.executiveSummaryReport = getExecutiveSummaryReport(new Date(), [], [], [], [], [], []);
+    component.executiveSummaryReport = getExecutiveSummaryReport(new Date(), [], [], [], [], [], [], []);
     fixture.detectChanges();
   });
 

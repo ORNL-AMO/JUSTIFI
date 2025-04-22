@@ -31,7 +31,7 @@ describe('ExecutiveSummaryKpmImpactsComponent', () => {
 
     fixture = TestBed.createComponent(ExecutiveSummaryKpmImpactsComponent);
     component = fixture.componentInstance;
-    component.executiveSummaryReport = getExecutiveSummaryReport(new Date(), [], [], [], [], [], []);
+    component.executiveSummaryReport = getExecutiveSummaryReport(new Date(), [], [], [], [], [], [], []);
     fixture.detectChanges();
   });
 

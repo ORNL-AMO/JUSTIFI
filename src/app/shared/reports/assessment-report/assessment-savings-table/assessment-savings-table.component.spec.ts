@@ -24,7 +24,7 @@ describe('AssessmentSavingsTableComponent', () => {
     fixture = TestBed.createComponent(AssessmentSavingsTableComponent);
     component = fixture.componentInstance;
     let assessment: IdbAssessment = getNewIdbAssessment('', '', '', getDefaultUnitSettings());
-    component.assessmentReport = getAssessmentReport(assessment, [], [], [], []);
+    component.assessmentReport = getAssessmentReport(assessment, [], [], [], [], []);
     fixture.detectChanges();
   });
 
