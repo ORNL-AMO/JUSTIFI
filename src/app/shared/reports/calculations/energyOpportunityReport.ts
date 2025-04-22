@@ -6,13 +6,20 @@ import { NebReport, getNebReport } from "./nebReport";
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
 import { filterNebs } from "./assessmentReport";
 import { IdbReport } from "src/app/models/report";
+import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicator";
 
 ///ENERGY REPORT
-export function getEnergyOpportunityReport(energyOpportunity: IdbEnergyOpportunity, nonEnergyBenefits: Array<IdbNonEnergyBenefit>, facilityPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>, report?: IdbReport): EnergyOpportunityReport {
+export function getEnergyOpportunityReport(
+    energyOpportunity: IdbEnergyOpportunity,
+    nonEnergyBenefits: Array<IdbNonEnergyBenefit>,
+    facilityPerformanceMetrics: Array<KeyPerformanceMetric>,
+    facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator>,
+    keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
+    report?: IdbReport): EnergyOpportunityReport {
     let energyOpportunityNebs: Array<IdbNonEnergyBenefit> = filterNebs(nonEnergyBenefits, energyOpportunity.assessmentId, energyOpportunity.guid, report?.nonEnergyBenefitOptions);
     let nebReports: Array<NebReport> = new Array();
     energyOpportunityNebs.forEach(neb => {
-        let nebReport: NebReport = getNebReport(neb, facilityPerformanceMetrics, keyPerformanceMetricImpacts, report);
+        let nebReport: NebReport = getNebReport(neb, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, report);
         nebReports.push(nebReport);
     })
     let totalEnergyCostSavings: number = 0;

@@ -13,7 +13,7 @@
         savings 
         or additional revenues per year and support our
         <span *ngFor="let kpi of topKpis; let isLast = last; let isFirst = first">
-          <span *ngIf="isLast && !isFirst">and </span><strong>{{ kpi | kpiValueDisplay }}</strong>
+          <span *ngIf="isLast && !isFirst">and </span><strong [innerHTML]="kpi.htmlLabel"></strong>
           <span *ngIf="!isLast">, </span>
         </span> goals.
       </li>

@@ -6,14 +6,18 @@ import { KeyPerformanceMetric } from "../../constants/keyPerformanceMetrics";
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
 import { IdbReport, ReportOption } from "src/app/models/report";
 import { AssessmentReport, getAssessmentReport } from "./assessmentReport";
-import { getKeyPerfomanceIndicatorReport, KeyPerformanceIndicatorReport } from "./keyPerformanceIndicatorReport";
+import { getKeyPerformanceIndicatorReport, KeyPerformanceIndicatorReport } from "./keyPerformanceIndicatorReport";
 import { NebReport } from "./nebReport";
+import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicator";
 
 //IF no report is passed as a parameter
 //All data (assessments/opps/nebs) included
 export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<string>, assessments: Array<IdbAssessment>,
-    energyOpportunities: Array<IdbEnergyOpportunity>, nonEnergyBenefits: Array<IdbNonEnergyBenefit>,
-    facilityPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
+    energyOpportunities: Array<IdbEnergyOpportunity>,
+    nonEnergyBenefits: Array<IdbNonEnergyBenefit>,
+    facilityPerformanceMetrics: Array<KeyPerformanceMetric>,
+    facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator>,
+    keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
     report?: IdbReport): ExecutiveSummaryReport {
     // gather assessment reports
     let assessmentReports: Array<AssessmentReport> = new Array();
@@ -30,7 +34,7 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
                 return assessment.guid == assessmentId;
             });
             let assessmentReport: AssessmentReport = getAssessmentReport(
-                assessment, energyOpportunities, nonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts, report);
+                assessment, energyOpportunities, nonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, report);
             assessmentReports.push(assessmentReport);
         }
     });
@@ -75,7 +79,7 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
     return {
         visitDate: visitDate,
         assessmentReports: assessmentReports,
-        keyPerformanceIndicatorReport: getKeyPerfomanceIndicatorReport(allNebReports),
+        keyPerformanceIndicatorReport: getKeyPerformanceIndicatorReport(allNebReports),
         totalImplementationCost: totalImplementationCost,
         totalNebFinancialImpact: totalNebFinancialImpact,
         totalNonNebCostSavings: totalNonNebCostSavings,

@@ -5,14 +5,17 @@ import { IdbEnergyOpportunity } from "src/app/models/energyOpportunity";
 import { KeyPerformanceMetric } from "../../constants/keyPerformanceMetrics";
 import { IdbNonEnergyBenefit } from "src/app/models/nonEnergyBenefit";
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
-import { getKeyPerfomanceIndicatorReport, KeyPerformanceIndicatorReport } from "./keyPerformanceIndicatorReport";
+import { getKeyPerformanceIndicatorReport, KeyPerformanceIndicatorReport } from "./keyPerformanceIndicatorReport";
 import { NebReport } from "./nebReport";
 import * as _ from 'lodash';
 import { IdbReport, ReportOption } from "src/app/models/report";
+import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicator";
 
 export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: Array<IdbAssessment>,
     energyOpportunities: Array<IdbEnergyOpportunity>, nonEnergyBenefits: Array<IdbNonEnergyBenefit>,
-    facilityPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
+    facilityPerformanceMetrics: Array<KeyPerformanceMetric>,
+    facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator>,
+    keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
     report?: IdbReport): OnSiteVisitReport {
 
     let assessmentReports: Array<AssessmentReport> = new Array();
@@ -28,7 +31,7 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
             let assessment: IdbAssessment = assessments.find(assessment => {
                 return assessment.guid == assessmentId;
             });
-            let assessmentReport: AssessmentReport = getAssessmentReport(assessment, energyOpportunities, nonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts, report);
+            let assessmentReport: AssessmentReport = getAssessmentReport(assessment, energyOpportunities, nonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, report);
             assessmentReports.push(assessmentReport);
         }
     });
@@ -75,7 +78,7 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
     return {
         assessmentReports: assessmentReports,
         allNebReports: allNebReports,
-        keyPerformanceIndicatorReport: getKeyPerfomanceIndicatorReport(allNebReports),
+        keyPerformanceIndicatorReport: getKeyPerformanceIndicatorReport(allNebReports),
         totalEnergyCostSavings: totalEnergyCostSavings,
         totalWaterCostSavings: totalWaterCostSavings,
         totalFinancialImpact: totalFinancialImpact,

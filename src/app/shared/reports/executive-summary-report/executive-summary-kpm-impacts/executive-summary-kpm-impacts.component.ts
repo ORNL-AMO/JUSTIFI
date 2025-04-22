@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem } from '../../calculations/keyPerformanceIndicatorReport';
-import { KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
+import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 import { Subscription } from 'rxjs';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { ExecutiveSummaryReport } from '../../calculations/executiveSummaryReport';
@@ -19,7 +19,7 @@ export class ExecutiveSummaryKpmImpactsComponent {
   @Input({ required: true })
   executiveSummaryReport: ExecutiveSummaryReport;
 
-  topKpis: Array<KeyPerformanceIndicatorValue>;
+  topKpis: Array<KeyPerformanceIndicatorOption>;
   kpiReportItems: Array<KeyPerformanceIndicatorReportItem>;
   reducedKpiReportItems: Array<KeyPerformanceIndicatorReportItem>;
   limit: number = 6; // limit top KPIs to show
@@ -53,7 +53,7 @@ export class ExecutiveSummaryKpmImpactsComponent {
       return b.percentSavings - a.percentSavings;
     });
     this.reducedKpiReportItems = this.reduceKpiReportItemsByChange(this.kpiReportItems, this.limit);
-    this.topKpis = this.kpiReportItems.slice(0, 3).map(item => item.kpiValue);
+    this.topKpis = this.kpiReportItems.slice(0, 3).map(item => item.keyPerformanceIndicator);
     // get currency code
     this.currencySub = this.localeService.currencyCode.subscribe(
       code => {this.currencyCode = code}

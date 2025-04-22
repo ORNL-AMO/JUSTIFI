@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 import { NebReport } from '../../calculations/nebReport';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
-import { KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
+import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 
 @Component({
   selector: 'app-executive-summary-project-summary',
@@ -22,7 +22,7 @@ export class ExecutiveSummaryProjectSummaryComponent {
 
   allEEMReports: Array<EnergyOpportunityReport>;
   reducedEEMReports: Array<EnergyOpportunityReport>;
-  topKpis: Array<KeyPerformanceIndicatorValue>;
+  topKpis: Array<KeyPerformanceIndicatorOption>;
 
   currencyCode: string;
   currencySub: Subscription;
@@ -45,7 +45,7 @@ export class ExecutiveSummaryProjectSummaryComponent {
     kpiReportItems.sort((a, b) => {
       return b.percentSavings - a.percentSavings;
     });
-    this.topKpis = kpiReportItems.slice(0, 3).map(item => item.kpiValue);
+    this.topKpis = kpiReportItems.slice(0, 3).map(item => item.keyPerformanceIndicator);
     // get currency code and symbol
     this.currencySub = this.localeService.currencyCode.subscribe(
       code => {this.currencyCode = code}

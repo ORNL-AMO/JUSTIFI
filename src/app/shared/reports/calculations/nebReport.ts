@@ -1,11 +1,16 @@
-import { KeyPerformanceMetric } from "../../constants/keyPerformanceMetrics";
+import { KeyPerformanceMetric, KeyPerformanceMetricOption } from "../../constants/keyPerformanceMetrics";
 import { IdbNonEnergyBenefit } from "../../../models/nonEnergyBenefit";
 import * as _ from 'lodash';
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
 import { IdbReport, ReportOption } from "src/app/models/report";
+import { Key } from "ngx-indexed-db";
+import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicator";
+import { KeyPerformanceIndicatorOption } from "../../constants/keyPerformanceIndicatorOptions";
 
 ///NEB REPORT
-export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, facilityPerformanceMetrics: Array<KeyPerformanceMetric>, keyPerformanceMetricImpact: Array<IdbKeyPerformanceMetricImpact>, report?: IdbReport): NebReport {
+export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, facilityPerformanceMetrics: Array<KeyPerformanceMetric>,
+    facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator>,
+    keyPerformanceMetricImpact: Array<IdbKeyPerformanceMetricImpact>, report?: IdbReport): NebReport {
     let reportPerformanceMetrics: Array<ReportPerformanceMetric> = new Array();
     keyPerformanceMetricImpact.forEach(performanceMetricImpact => {
         if (nonEnergyBenefit.guid == performanceMetricImpact.nebId) {
@@ -25,9 +30,13 @@ export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, facilityPerf
                     }
                 });
                 if (keyPerformanceMetric) {
+                    let keyPerformanceIndicator: IdbKeyPerformanceIndicator = facilityPerformanceIndicators.find(kpi => {
+                        return kpi.guid == keyPerformanceMetric.kpiGuid
+                    });
                     reportPerformanceMetrics.push({
                         performanceMetricImpact: performanceMetricImpact,
-                        keyPerformanceMetric: keyPerformanceMetric
+                        keyPerformanceMetric: keyPerformanceMetric,
+                        keyPerformanceIndicator: keyPerformanceIndicator,
                     })
                 }
             }
@@ -69,5 +78,6 @@ export interface NebReport {
 
 export interface ReportPerformanceMetric {
     keyPerformanceMetric: KeyPerformanceMetric,
-    performanceMetricImpact: IdbKeyPerformanceMetricImpact
+    performanceMetricImpact: IdbKeyPerformanceMetricImpact,
+    keyPerformanceIndicator: IdbKeyPerformanceIndicator,
 }
