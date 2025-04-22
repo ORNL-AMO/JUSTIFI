@@ -72,7 +72,10 @@ export class PaybackWaterfallChartComponent {
       let yVals = [implementationCost];
       let yValsNebs = [implementationCost];
       let year = 1;
-      this.years = Math.ceil(this.reportData.totalImplementationCost / this.reportData.totalNonNebCostSavings);
+      this.years = Math.ceil(this.reportData.totalImplementationCost / this.reportData.totalNonNebCostSavings);      
+      if(this.years == Infinity || this.years > 15 || isNaN(this.years)){
+        this.years = 15;
+      }
       for (let i = 0; i < this.years; i++) {
         xVals.push('Year ' + year);
         yVals.push(this.reportData.totalNonNebCostSavings)
