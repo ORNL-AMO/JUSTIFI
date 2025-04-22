@@ -14,6 +14,7 @@ import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-pe
 import { Subscription } from 'rxjs';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 import { IdbReport } from 'src/app/models/report';
+import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 
 @Component({
     selector: 'app-on-site-visit-report',
@@ -46,8 +47,9 @@ export class OnSiteVisitReportComponent {
     let allEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue();
     let allNonEnergyBenefits: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefitIdbService.nonEnergyBenefits.getValue();
     let facilityPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.onSiteVisit.facilityId);
+    let facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.onSiteVisit.facilityId);
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
-    this.onSiteVisitReport = getOnSiteVisitReport(this.onSiteVisit.assessmentIds, allAssessments, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts, this.report);
+    this.onSiteVisitReport = getOnSiteVisitReport(this.onSiteVisit.assessmentIds, allAssessments, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, this.report);
     this.printSub = this.sharedDataService.print.subscribe(_print => {
       this.print = _print;
     })

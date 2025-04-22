@@ -1,0 +1,84 @@
+<div>
+  <h5 class="mt-2">Annual KPM Impacts</h5>
+  <ng-template [ngIf]="executiveSummaryReport.keyPerformanceIndicatorReport" [ngIfElse]="noKpisTemplate">
+    <ul class="mb-2">
+      <li>
+        These projects will have most positive impacts on
+        <span *ngFor="let kpi of topKpis; let isLast = last; let isFirst = first">
+          <span *ngIf="isLast && !isFirst">and </span><strong [innerHTML]="kpi.htmlLabel"></strong>
+          <span *ngIf="!isLast">, </span>
+        </span>.
+      </li>
+      <li>
+        These projects could reduce costs and increase revenues by
+        <strong>{{ executiveSummaryReport.totalFinancialImpact | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
+        each year.
+      </li>
+    </ul>
+    <table class="table table-bordered table-sm table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="text-right">Potential Change ({{ currencyCode | currencySymbol}}/yr)</th>
+          <th class="text-right">% Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Utility
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="executiveSummaryReport.totalUtilityCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="utilityPercentageChange"
+              [units]="'%'">
+            </app-single-cell-item>
+          </td>
+        </tr>
+        <tr *ngFor="let item of reducedKpiReportItems">
+          <td>
+            <span [innerHTML]="item.keyPerformanceIndicator.htmlLabel"></span>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="item.annualCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="item.percentSavings"
+              [units]="'%'">
+            </app-single-cell-item>
+          </td>
+        </tr>
+        <tr *ngIf="kpiReportItems.length > limit">
+          <td>
+            Additional KPI(s)
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="additionalKpiFinancialImpact">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="additionalKpiPercentChange"
+              [units]="'%'">
+            </app-single-cell-item>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+  <ng-template #noKpisTemplate>
+    <p class="alert alert-info">No KPM impacts were found for this report.</p>
+  </ng-template>
+</div>

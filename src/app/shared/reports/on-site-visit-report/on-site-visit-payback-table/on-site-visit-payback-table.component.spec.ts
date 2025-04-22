@@ -21,7 +21,7 @@ describe('OnSiteVisitPaybackTableComponent', () => {
 
     fixture = TestBed.createComponent(OnSiteVisitPaybackTableComponent);
     component = fixture.componentInstance;
-    component.onSiteVisitReport = getOnSiteVisitReport([], [], [], [], [], []);
+    component.onSiteVisitReport = getOnSiteVisitReport([], [], [], [], [], [], []);
     fixture.detectChanges();
   });
 

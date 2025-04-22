@@ -5,9 +5,10 @@ import { IdbNonEnergyBenefit } from "../../../models/nonEnergyBenefit";
 import * as _ from 'lodash';
 import { EnergyOpportunityReport, getEnergyOpportunityReport } from "./energyOpportunityReport";
 import { NebReport, getNebReport } from "./nebReport";
-import { KeyPerformanceIndicatorReport, getKeyPerfomanceIndicatorReport } from "./keyPerformanceIndicatorReport";
+import { KeyPerformanceIndicatorReport, getKeyPerformanceIndicatorReport } from "./keyPerformanceIndicatorReport";
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
 import { IdbReport, ReportOption } from "src/app/models/report";
+import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicator";
 
 ///ASSESSMENT REPORT
 export function getAssessmentReport(
@@ -15,6 +16,7 @@ export function getAssessmentReport(
     energyOpportunities: Array<IdbEnergyOpportunity>,
     nonEnergyBenefits: Array<IdbNonEnergyBenefit>,
     facilityPerformanceMetrics: Array<KeyPerformanceMetric>,
+    facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator>,
     keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
     report?: IdbReport): AssessmentReport {
 
@@ -34,14 +36,14 @@ export function getAssessmentReport(
     let assessmentEnergyOpportunities: Array<IdbEnergyOpportunity> = filterEnergyOpps(energyOpportunities, assessment.guid, report?.energyOpportunityOptions);
     assessmentEnergyOpportunities.forEach(energyOpportunity => {
         let energyOpportunityReport: EnergyOpportunityReport = getEnergyOpportunityReport(
-            energyOpportunity, nonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts, report);
+            energyOpportunity, nonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, report);
         energyOpportunityReports.push(energyOpportunityReport);
     });
 
     let assessmentNebReports: Array<NebReport> = new Array();
     let assessmentNebs: Array<IdbNonEnergyBenefit> = filterNebs(nonEnergyBenefits, assessment.guid, undefined, report?.nonEnergyBenefitOptions);
     assessmentNebs.forEach(neb => {
-        let nebReport: NebReport = getNebReport(neb, facilityPerformanceMetrics, keyPerformanceMetricImpacts, report);
+        let nebReport: NebReport = getNebReport(neb, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, report);
         assessmentNebReports.push(nebReport);
     });
 
@@ -167,7 +169,7 @@ export function getAssessmentReport(
         nonOpportunityPaybackWithoutNebs: nonOpportunityPaybackWithoutNebs,
         nonOpportunityPaybackWithNebs: nonOpportunityPaybackWithNebs,
         allNebReports: allNebReports,
-        keyPerformanceIndicatorReport: getKeyPerfomanceIndicatorReport(allNebReports)
+        keyPerformanceIndicatorReport: getKeyPerformanceIndicatorReport(allNebReports)
     }
 }
 

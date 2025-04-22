@@ -17,7 +17,6 @@ export class PerformanceMetricsTableComponent {
   @Input({ required: true })
   keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport;
 
-
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   orderByDir: 'asc' | 'desc' = 'desc';
   orderByField: OrderMetricsTableFields = 'costAdjustment';
@@ -32,12 +31,10 @@ export class PerformanceMetricsTableComponent {
   qualitativeReports: Array<KeyPerformanceMetricReportItem>;
 
   constructor(
-    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private localeService: LocaleService,
   ) { }
 
   ngOnInit() {
-    this.keyPerformanceIndicators = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
     this.currencySub = this.localeService.currencyCode.subscribe(code => {
       this.currencyCode = code;
     });
