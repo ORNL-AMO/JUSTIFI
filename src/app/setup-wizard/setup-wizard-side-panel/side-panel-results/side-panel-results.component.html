@@ -1,8 +1,8 @@
 <select class="form-select" [(ngModel)]="selectedAssessmentId" name="selectedAssessmentId" id="selectedAssessmentId">
     <option [ngValue]="undefined">
-        Visit Results
+        Combined Assessment Results
     </option>
-    <optgroup label="Assessment Results">
+    <optgroup label="Individual Assessment Results">
         <option *ngFor="let assessmentGuid of onSiteVisit.assessmentIds" [ngValue]="assessmentGuid">
             <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
             {{assessmentGuid | assessmentNameDisplay: assessments}} Results
