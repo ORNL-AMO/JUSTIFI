@@ -1,0 +1,13 @@
+<div class="d-flex flex-column report" [ngClass]="{'print': print}">
+    <div class="print-break-avoid">
+        <app-executive-summary-project-summary
+            [executiveSummaryReport]="executiveSummaryReport">
+        </app-executive-summary-project-summary>
+    </div>
+    <hr class="my-1">
+    <div class="print-break-avoid">
+        <app-executive-summary-kpi-impacts
+            [executiveSummaryReport]="executiveSummaryReport">
+        </app-executive-summary-kpi-impacts>
+    </div>
+</div>

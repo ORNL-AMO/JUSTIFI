@@ -5,7 +5,8 @@ export interface IdbOnSiteVisit extends IdbEntry {
     facilityId: string,
     companyId: string,
     assessmentIds: Array<string>
-    visitDate: Date
+    visitDate: Date,
+    sidebarReportsOpen: boolean
 }
 
 
@@ -17,6 +18,7 @@ export function getNewIdbOnSiteVisit(userId: string, companyId: string, facility
         companyId: companyId,
         facilityId: facilityId,
         assessmentIds: [],
-        visitDate: new Date()
+        visitDate: new Date(),
+        sidebarReportsOpen: false
     }
 }

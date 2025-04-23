@@ -79,14 +79,13 @@
                             General Details
                         </a>
                     </div>
-                    <!--TODO: PROTOCOL QUESTIONS-->
-                    <!-- <div class="nav-item">
+                    <div class="nav-item">
                         <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/facility-questions'"
                             [routerLinkActive]="['active']">
                             <fa-icon [icon]="faClipboardQuestion"></fa-icon>
                             Questions
                         </a>
-                    </div> -->
+                    </div>
                     <div class="nav-item">
                         <a class="nav-link" (click)="toggleKPIsOpen()" [ngClass]="routerUrl | navItemActive:'kpi'">
                             <fa-icon class="toggle"
@@ -248,7 +247,7 @@
                                 [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/energy-opportunities'"
                                 [routerLinkActive]="['active']">
                                 <fa-icon [icon]="faFileLines"></fa-icon>
-                                EEOs
+                                EEMs
                             </a>
                         </div>
                         <div class="nav-item">
@@ -296,6 +295,42 @@
                         <fa-icon [icon]="faChartColumn"></fa-icon>
                         Rollup Report
                     </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" [routerLink]="'data-evaluation/'+onSiteVisit.guid+'/executive-summary'"
+                        [routerLinkActive]="['active']">
+                        <fa-icon [icon]="faSackDollar"></fa-icon>
+                        Executive Summary Report
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link" (click)="toggleReportsSidebarOpen()"
+                        [ngClass]="routerUrl | navItemActive:'/custom-report/'">
+                        <fa-icon class="toggle"
+                            [icon]="onSiteVisit.sidebarReportsOpen ? faChevronDown : faChevronRight"></fa-icon>
+                        Custom Reports
+                    </a>
+                </div>
+                <div class="sidebar-section" *ngIf="onSiteVisit.sidebarReportsOpen">
+                    <div class="nav-item">
+                        <a class="nav-link" [routerLink]="'data-evaluation/'+onSiteVisit.guid+'/custom-report'"
+                            [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+                            <fa-icon [icon]="faList"></fa-icon>
+                            Manage Reports
+                        </a>
+                    </div>
+                    @let onSiteReports = (reports | onSiteReportsList: onSiteVisit.guid);
+                    <ng-container *ngFor="let report of onSiteReports">
+                        <div class="nav-item">
+                            <a class="nav-link"
+                                [routerLink]="'data-evaluation/'+onSiteVisit.guid+'/custom-report/'+report.guid"
+                                [routerLinkActive]="['active']">
+                                <fa-icon [icon]="faFilePen"></fa-icon>
+                                {{report.name}}
+                            </a>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
 

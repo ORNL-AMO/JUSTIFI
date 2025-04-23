@@ -6,11 +6,13 @@
 //     Steam = "Steam"
 // };
 
-import { UtilityType } from "./utilityTypes";
+import { UtilityType, UtilityTypes } from "./utilityTypes";
 
 
-export type EquipmentType = "Pump" | "Fan" | "Process Heating" | "Compressed Air" | "Steam" | "Process Cooling" | "Motor" | "Lighting" | "HVAC" | "Mobile";
-export const EquipmentTypes: Array<EquipmentType> = ["Pump", "Fan", "Process Heating", "Compressed Air", "Steam", "Process Cooling", "Motor", "Lighting", "HVAC", "Mobile"];
+export type EquipmentType = "Pump" | "Fan" | "Process Heating" | "Compressed Air" | "Steam" | 
+    "Process Cooling" | "Motor" | "Lighting" | "HVAC" | "Mobile" | "Other";
+export const EquipmentTypes: Array<EquipmentType> = ["Pump", "Fan", "Process Heating", "Compressed Air", "Steam", 
+    "Process Cooling", "Motor", "Lighting", "HVAC", "Mobile", "Other"];
 
 export const EquipmentTypeOptions:
     Array<{ equipmentType: EquipmentType, 
@@ -18,32 +20,37 @@ export const EquipmentTypeOptions:
         defaultUnit: string }> = EquipmentTypes.map(type => {
     switch (type) {
         case "Pump":
-            return { equipmentType: type, utilityTypes: ['Electricity'], defaultUnit: 'kW' };
+            return { equipmentType: type, utilityTypes: ['Electricity'], 
+                defaultUnit: 'kW' };
         case "Fan":
-            return { equipmentType: type, utilityTypes: ['Electricity'], defaultUnit: 'kW' };
+            return { equipmentType: type, utilityTypes: ['Electricity'], 
+                defaultUnit: 'kW' };
         case "Process Heating":
             return { equipmentType: type, utilityTypes: ['Natural Gas', 'Other Fuels', 'Electricity', 'Steam'],
-                defaultUnit: 'kW'
-             };
+                defaultUnit: 'kW'};
         case "Compressed Air":
-            return { equipmentType: type, utilityTypes: ['Electricity'],
-                defaultUnit: 'kW'
-             };
+            return { equipmentType: type, utilityTypes: ['Electricity', 'Compressed Air'],
+                defaultUnit: 'kW'};
         case "Steam":
-            return { equipmentType: type, utilityTypes: ['Natural Gas', 'Other Fuels', 'Electricity'],
-                defaultUnit: 'kW'
-             };
+            return { equipmentType: type, utilityTypes: ['Natural Gas', 'Other Fuels', 'Electricity', 'Steam'],
+                defaultUnit: 'kW'};
         case "Process Cooling":
-            return { equipmentType: type, utilityTypes: ['Electricity'], defaultUnit: 'kW' };
+            return { equipmentType: type, utilityTypes: ['Electricity'],
+                defaultUnit: 'kW' };
         case "Motor":
-            return { equipmentType: type, utilityTypes: ['Electricity'], defaultUnit: 'kW' };
+            return { equipmentType: type, utilityTypes: ['Electricity'], 
+                defaultUnit: 'kW' };
         case "Lighting":
-            return { equipmentType: type, utilityTypes: ['Electricity'], defaultUnit: 'W' };
+            return { equipmentType: type, utilityTypes: ['Electricity'], 
+                defaultUnit: 'W' };
         case "HVAC":
-            return { equipmentType: type, utilityTypes: ['Electricity'], defaultUnit: 'kW' };
+            return { equipmentType: type, utilityTypes: ['Electricity'], 
+                defaultUnit: 'kW' };
         case "Mobile":
             return { equipmentType: type, utilityTypes: ['Electricity', 'Natural Gas', 'Other Fuels'],
-                defaultUnit: 'kW'
-             };
+                defaultUnit: 'kW'};
+        case "Other":
+            return { equipmentType: type, utilityTypes: ['Electricity', 'Natural Gas', 'Other Fuels', 'Steam', 'Compressed Air'], 
+                defaultUnit: 'kW' };
     }
 });

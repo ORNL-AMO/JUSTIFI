@@ -7,6 +7,7 @@ import { getAssessmentReport } from '../../calculations/assessmentReport';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { getDefaultUnitSettings } from 'src/app/models/unitSettings';
 import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('AssessmentSavingsTableComponent', () => {
   let component: AssessmentSavingsTableComponent;
@@ -15,6 +16,7 @@ describe('AssessmentSavingsTableComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TableEntriesModule, FontAwesomeModule, HelperPipesModule],
+      providers: stubServiceProviders,
       declarations: [AssessmentSavingsTableComponent]
     })
     .compileComponents();
@@ -22,7 +24,7 @@ describe('AssessmentSavingsTableComponent', () => {
     fixture = TestBed.createComponent(AssessmentSavingsTableComponent);
     component = fixture.componentInstance;
     let assessment: IdbAssessment = getNewIdbAssessment('', '', '', getDefaultUnitSettings());
-    component.assessmentReport = getAssessmentReport(assessment, [], [], [], []);
+    component.assessmentReport = getAssessmentReport(assessment, [], [], [], [], []);
     fixture.detectChanges();
   });
 

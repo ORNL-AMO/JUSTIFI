@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IconDefinition, faChevronDown, faChevronRight, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUpRightFromSquare, faUser, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
@@ -20,11 +20,13 @@ import { LocalStorageDataService } from 'src/app/shared/shared-services/local-st
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
+import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
+import { IdbReport } from 'src/app/models/report';
 @Component({
-    selector: 'app-neb-setup-form',
-    templateUrl: './neb-setup-form.component.html',
-    styleUrl: './neb-setup-form.component.css',
-    standalone: false
+  selector: 'app-neb-setup-form',
+  templateUrl: './neb-setup-form.component.html',
+  styleUrl: './neb-setup-form.component.css',
+  standalone: false
 })
 export class NebSetupFormComponent {
   @Input({ required: true })
@@ -72,7 +74,6 @@ export class NebSetupFormComponent {
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private dbChangesService: DbChangesService,
     private contactIdbService: ContactIdbService,
-    private sharedDataService: SharedDataService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -81,6 +82,7 @@ export class NebSetupFormComponent {
     private localStorageDataService: LocalStorageDataService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private localeService: LocaleService,
+    private reportIdbService: ReportIdbService
   ) {
   }
 
@@ -134,7 +136,7 @@ export class NebSetupFormComponent {
     await this.dbChangesService.deleteNonEnergyBenefit(this.nonEnergyBenefit);
     this.closeDeleteModal();
     if (this.nonEnergyBenefit.energyOpportunityId) {
-      this.toastNotificationService.showToast('NEB Deleted!', 'Non-energy Benefit has been removed from the energy opportunity.', 'bg-success', true, false)
+      this.toastNotificationService.showToast('NEB Deleted!', 'Non-energy Benefit has been removed from the energy efficiency measure.', 'bg-success', true, false)
     } else {
       this.toastNotificationService.showToast('NEB Deleted!', 'Non-energy Benefit has been removed from the assessment.', 'bg-success', true, false)
     }
@@ -204,5 +206,23 @@ export class NebSetupFormComponent {
       this.localStorageDataService.setEnergyOppAccordionGuid(energyOpportunityId);
       this.router.navigateByUrl('setup-wizard/data-collection/' + onSiteVisit.guid + '/assessment/' + this.nonEnergyBenefit.assessmentId + '/energy-opportunities')
     }
+  }
+
+  async changeAssociatedEEM() {
+    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(this.nonEnergyBenefit.assessmentId);
+    let reports: Array<IdbReport> = this.reportIdbService.getReportsByOnSiteVisitId(onSiteVisit.guid);
+    if (reports.length > 0) {
+      for (let i = 0; i < reports.length; i++) {
+        let nebOptionIndex: number = reports[i].nonEnergyBenefitOptions.findIndex(option => {
+          return option.nonEnergyBenefitId == this.nonEnergyBenefit.guid
+        });
+        if (nebOptionIndex != -1) {
+          reports[i].nonEnergyBenefitOptions[nebOptionIndex].energyOpportunityId = this.nonEnergyBenefit.energyOpportunityId;
+          await firstValueFrom(this.reportIdbService.updateWithObservable(reports[i]));
+        }
+      }
+      await this.reportIdbService.setReports();
+    }
+    await this.saveChanges();
   }
 }

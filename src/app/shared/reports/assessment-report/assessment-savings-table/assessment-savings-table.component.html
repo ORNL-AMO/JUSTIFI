@@ -5,100 +5,103 @@
 
             </th>
             <th class="text-right">
-                Cost ({{ currencyCode | currencySymbol }}/yr)
-            </th>
-            <th class="text-right">
-                Energy (MMBtu/yr)
+                Financial Impact ({{ currencyCode | currencySymbol }}/yr)
             </th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td class="bold" colspan="3">
-                Baseline
-            </td>
-        </tr>
-        <tr>
-            <td class="w-50 ps-3">
-                <!-- Baseline -->
-                Energy Use
-            </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.cost"
-                    [isCurrency]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.energyUse"
-                    [isCurrency]="false"></app-single-cell-item>
-            </td>
-        </tr>
         <tr class="section-border">
-            <td class="bold" colspan="3">
-                {{assessmentReport.assessment.name}}
+            <td class="bold ps-3" colspan="3">
+                <fa-icon class="pe-2" [icon]="faScrewdriverWrench"></fa-icon> {{assessmentReport.assessment.name}}
             </td>
         </tr>
         <tr>
             <td class="w-50 ps-3">
-                <fa-icon [icon]="faScrewdriverWrench"></fa-icon>  Assessment Energy Savings
+                Assessment Total Utility Savings
             </td>
             <td class="text-right">
                 <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
                     [isCurrency]="true"></app-single-cell-item>
             </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.energySavings"
-                    [isCurrency]="false"></app-single-cell-item>
-            </td>
         </tr>
+        <ng-container
+            *ngIf="assessmentReport.assessment.energyCostSavings && assessmentReport.assessment.energyCostSavings != assessmentReport.assessment.costSavings">
+            <tr>
+                <td class="ps-4">
+                    <fa-icon class="pe-1" [icon]="faPlugCircleBolt"></fa-icon>
+                    Assessment Energy Savings
+                </td>
+                <td class="text-right">
+                    <app-single-cell-item [numValue]="assessmentReport.assessment.energyCostSavings"
+                        [isCurrency]="true"></app-single-cell-item>
+                </td>
+            </tr>
+        </ng-container>
+        <ng-container
+            *ngIf="assessmentReport.assessment.waterCostSavings && assessmentReport.assessment.waterCostSavings != assessmentReport.assessment.costSavings">
+            <tr>
+                <td class="ps-4">
+                    <fa-icon class="pe-1" [icon]="faWater"></fa-icon>
+                    Assessment Water Savings
+                </td>
+                <td class="text-right">
+                    <app-single-cell-item [numValue]="assessmentReport.assessment.waterCostSavings"
+                        [isCurrency]="true"></app-single-cell-item>
+                </td>
+            </tr>
+        </ng-container>
         <tr *ngIf="assessmentReport.assessmentNebReports.length > 0">
             <td colspan="3" class="ps-3">
                 Additional Operational Benefits
             </td>
         </tr>
         <tr *ngFor="let nebReport of assessmentReport.assessmentNebReports">
-            <td class="ps-5">
+            <td class="ps-4">
                 <fa-icon class="pe-1" [icon]="faWeightHanging"></fa-icon>
                 {{nebReport.nonEnergyBenefit.name}}
             </td>
             <td class="text-right">
-                <app-single-cell-item [numValue]="nebReport.totalCostSavings"
+                <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
                     [isCurrency]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right">
-                &mdash;
             </td>
         </tr>
         <tr>
             <td class="w-50 bold">
-                Total Assessment Level Savings
+                Total Assessment Level Impact
             </td>
             <td class="text-right bold">
-                <app-single-cell-item [numValue]="assessmentReport.totalNonOpportunitySavings"
+                <app-single-cell-item [numValue]="assessmentReport.totalNonOpportunityCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right bold">
-                <app-single-cell-item [numValue]="assessmentReport.assessment.energySavings"
-                    [isCurrency]="false"></app-single-cell-item>
             </td>
         </tr>
         <ng-container *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
             <tr class="section-border">
                 <td colspan="3" class="bold ps-3">
-                    <fa-icon class="pe-2" [icon]="faFileLines"></fa-icon>{{energyOpportunityReport.energyOpportunity.name}}
+                    <fa-icon class="pe-2"
+                        [icon]="faFileLines"></fa-icon>{{energyOpportunityReport.energyOpportunity.name}}
                 </td>
             </tr>
             <tr>
-                <td class="ps-4">
-                    {{energyOpportunityReport.energyOpportunity.name}} Energy Savings
-                </td>
-                <td class="text-right">
-                    <app-single-cell-item [numValue]="energyOpportunityReport.energyOpportunity.costSavings"
-                        [isCurrency]="true"></app-single-cell-item>
-                </td>
-                <td class="text-right">
-                    <app-single-cell-item [numValue]="energyOpportunityReport.energyOpportunity.energySavings"
-                        [isCurrency]="false"></app-single-cell-item>
-                </td>
+                @let energyOpportunity = energyOpportunityReport.energyOpportunity;
+                <ng-template ngIf="energyOpportunity.utilityCategory == 'energy'" [ngIfElse]="waterEEM">
+                    <td class="ps-4">
+                        {{ energyOpportunity.name }} Energy Savings
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="energyOpportunity.costSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                </ng-template>
+                <ng-template #waterEEM>
+                    <td class="ps-4">
+                        {{ energyOpportunity.name }}
+                        Water Savings
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="energyOpportunity.costSavings"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                </ng-template>
             </tr>
             <tr *ngFor="let nebReport of energyOpportunityReport.nebReports">
                 <td class="ps-4">
@@ -106,38 +109,27 @@
                     {{nebReport.nonEnergyBenefit.name}}
                 </td>
                 <td class="text-right">
-                    <app-single-cell-item [numValue]="nebReport.totalCostSavings"
+                    <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
                         [isCurrency]="true"></app-single-cell-item>
-                </td>
-                <td class="text-right">
-                    &mdash;
                 </td>
             </tr>
             <tr>
                 <td class="ps-3 bold">
-                    {{energyOpportunityReport.energyOpportunity.name}} Total Savings
+                    {{energyOpportunityReport.energyOpportunity.name}} Total Impact
                 </td>
                 <td class="text-right bold">
-                    <app-single-cell-item [numValue]="energyOpportunityReport.totalCostSavings"
+                    <app-single-cell-item [numValue]="energyOpportunityReport.totalFinancialImpact"
                         [isCurrency]="true"></app-single-cell-item>
-                </td>
-                <td class="text-right bold">
-                    <app-single-cell-item [numValue]="energyOpportunityReport.energyOpportunity.energySavings"
-                        [isCurrency]="false"></app-single-cell-item>
                 </td>
             </tr>
         </ng-container>
         <tr class="section-border">
             <td class="w-50 bold">
-                Total Energy Savings
+                Total Utility Savings
             </td>
             <td class="text-right bold w-25">
-                <app-single-cell-item [numValue]="assessmentReport.totalEnergyCostSavings"
+                <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
                     [isCurrency]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right bold">
-                <app-single-cell-item [numValue]="assessmentReport.totalEnergySavings"
-                    [isCurrency]="false"></app-single-cell-item>
             </td>
         </tr>
         <tr>
@@ -145,25 +137,17 @@
                 Total Additional Operational Benefits
             </td>
             <td class="text-right bold w-25">
-                <app-single-cell-item [numValue]="assessmentReport.totalNebSavings"
+                <app-single-cell-item [numValue]="assessmentReport.totalNebFinancialImpact"
                     [isCurrency]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right bold">
-                <app-single-cell-item [numValue]="0"
-                    [isCurrency]="false"></app-single-cell-item>
             </td>
         </tr>
         <tr>
             <td class="w-50 bold">
-                Total Savings
+                Total Financial Impact W/ NEBs
             </td>
             <td class="text-right bold w-25">
-                <app-single-cell-item [numValue]="assessmentReport.totalCostSavings"
+                <app-single-cell-item [numValue]="assessmentReport.totalFinancialImpact"
                     [isCurrency]="true"></app-single-cell-item>
-            </td>
-            <td class="text-right bold">
-                <app-single-cell-item [numValue]="assessmentReport.totalEnergySavings"
-                    [isCurrency]="false"></app-single-cell-item>
             </td>
         </tr>
     </tbody>

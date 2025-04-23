@@ -8,6 +8,7 @@ export interface UtilityEnergyUse {
     utilityType: UtilityType;
     include: boolean;
     energyUse: number;
+    utilitySaving: number;
     energyUnit: string;
     energyHHV?: number;
     energyUnitStandard?: string;
@@ -39,6 +40,7 @@ export function getDefaultUtilityEnergyUses(facilityUnitSettings: UnitSettings):
             energyUnitStandard: energyUnitStandard,
             energyHHV: energyHHV,
             energyUse: 0,
+            utilitySaving: 0,
             energyUnit: energyUnit,
             isKnown: true
         };

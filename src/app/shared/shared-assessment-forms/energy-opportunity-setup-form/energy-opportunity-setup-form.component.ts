@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { IconDefinition, faFileLines, faPlus, faSearchPlus, faTrash, faWeightHanging, faCalculator } from '@fortawesome/free-solid-svg-icons';
-import { EnergyOpportunityType, FanOpportunities } from 'src/app/shared/constants/energyOpportunityOptions';
+import { EnergyOpportunityType } from 'src/app/shared/constants/energyOpportunityOptions';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
@@ -11,7 +11,6 @@ import { firstValueFrom, Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { UtilityEnergyUse } from 'src/app/models/utilityEnergyUses';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
-import { UtilityOptions } from 'src/app/shared/constants/utilityTypes';
 import { UnitSettings } from 'src/app/models/unitSettings';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
@@ -19,12 +18,15 @@ import { SharedDataService } from 'src/app/shared/shared-services/shared-data.se
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { LocaleService } from '../../shared-services/locale.service';
+import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
+import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
+import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-    selector: 'app-energy-opportunity-setup-form',
-    templateUrl: './energy-opportunity-setup-form.component.html',
-    styleUrl: './energy-opportunity-setup-form.component.css',
-    standalone: false
+  selector: 'app-energy-opportunity-setup-form',
+  templateUrl: './energy-opportunity-setup-form.component.html',
+  styleUrl: './energy-opportunity-setup-form.component.css',
+  standalone: false
 })
 export class EnergyOpportunitySetupFormComponent {
   @Input({ required: true })
@@ -75,6 +77,8 @@ export class EnergyOpportunitySetupFormComponent {
     private toastNotificationService: ToastNotificationsService,
     private setupWizardService: SetupWizardService,
     private localeService: LocaleService,
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private reportIdbService: ReportIdbService
   ) {
   }
 
@@ -86,6 +90,10 @@ export class EnergyOpportunitySetupFormComponent {
       });
     } else {
       this.energyOpportunity = this.energyOpportunityIdbService.getByGuid(this.energyOpportunityGuid);
+    }
+
+    if (!this.energyOpportunity.utilityCategory) {
+      this.setUtilityCategory();
     }
 
     this.companySub = this.companyIdbService.selectedCompany.subscribe(company => {
@@ -117,7 +125,7 @@ export class EnergyOpportunitySetupFormComponent {
   async deleteEnergyOpportunity() {
     await this.dbChangesService.deleteEnergyOpportunity(this.energyOpportunity)
     this.closeDeleteModal();
-    this.toastNotificationService.showToast('Opportunity Deleted!', 'Energy efficiency opportunity removed from assessment.', 'bg-success', true, false);
+    this.toastNotificationService.showToast('Measure Deleted!', 'Energy efficiency measure removed from assessment.', 'bg-success', true, false);
     if (this.router.url.includes('portfolio')) {
       this.router.navigateByUrl('portfolio/assessment/' + this.energyOpportunity.assessmentId + '/energy-opportunities')
     }
@@ -127,18 +135,30 @@ export class EnergyOpportunitySetupFormComponent {
     let energyUse = this.assessmentEnergyUses.find(use =>
       use.utilityType === this.energyOpportunity.utilityType);
     this.energyOpportunity.energyUnit = energyUse.energyUnit;
+    this.setUtilityCategory();
     await this.saveEnergyOpportunity();
+  }
+
+  setUtilityCategory() {
+    if (this.energyOpportunity.utilityType === 'Water' ||
+      this.energyOpportunity.utilityType === 'Waste Water') {
+      this.energyOpportunity.utilityCategory = 'water';
+    } else {
+      this.energyOpportunity.utilityCategory = 'energy';
+    }
   }
 
   async calculateCostSavings() {
     let trimmedType = this.energyOpportunity.utilityType.replace(/\s+/g, '');
     let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
     if (this.facilityUnitSettings[`include${trimmedType}`]) {
+      let useSavings = this.energyOpportunity.utilityCategory == 'water' ?
+        this.energyOpportunity.waterSavings : this.energyOpportunity.energySavings;
       let costSavings = this.convertValue.convertValue(
-        this.energyOpportunity.energySavings * this.facilityUnitSettings[`${camelCaseType}Price`],
+        useSavings * this.facilityUnitSettings[`${camelCaseType}Price`],
         this.energyOpportunity.energyUnit,
         this.facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
-      this.energyOpportunity.costSavings = parseFloat(costSavings.toFixed(0));
+      this.energyOpportunity.costSavings = costSavings;
     }
     await this.saveEnergyOpportunity();
   }
@@ -167,6 +187,8 @@ export class EnergyOpportunitySetupFormComponent {
     this.showAddNebDropdown = false;
     let newNonEnergyBenefit: IdbNonEnergyBenefit = getNewIdbNonEnergyBenefit(this.energyOpportunity.userId, this.energyOpportunity.companyId, this.energyOpportunity.facilityId, this.energyOpportunity.assessmentId, this.energyOpportunity.guid, undefined, true);
     await firstValueFrom(this.nonEnergyBenefitsIdbService.addWithObservable(newNonEnergyBenefit));
+    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(newNonEnergyBenefit.assessmentId);
+    await this.reportIdbService.addNonEnergyBenefit(newNonEnergyBenefit, onSiteVisit.guid);
     await this.nonEnergyBenefitsIdbService.setNonEnergyBenefits();
   }
 
@@ -174,7 +196,12 @@ export class EnergyOpportunitySetupFormComponent {
     this.showAddNebDropdown = !this.showAddNebDropdown;
   }
 
-  focusField(str: string){
+  isUtilityTracked(utilityType: string): boolean {
+    let trimmed = utilityType.replace(/\s+/g, '');
+    return this.facilityUnitSettings[`include${trimmed}`];
+  }
+
+  focusField(str: string) {
     this.setupWizardService.focusedHelp.next(str);
   }
 }

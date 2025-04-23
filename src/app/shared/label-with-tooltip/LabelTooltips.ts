@@ -3,7 +3,7 @@ export const LabelTooltips = {
         "tooltip": "The name of the company."
     },
     "goalToIncrease": {
-        "tooltip": "Is the desired impact on this metric to increase or decrease its value?"
+        "tooltip": "Costs decrease to show improvement, while revenues increase to show improvement"
     },
     "energyUnit": {
         "tooltip": "The base energy consumption unit for the company for reporting purposes."
@@ -12,6 +12,6 @@ export const LabelTooltips = {
         "tooltip": "The method used to calculate impacts on the metric."
     },
     "associatedEEM": {
-        "tooltip": "Is this NEB realized because of the implementation of a specific energy efficiency opportunity?"
+        "tooltip": "Is this NEB realized because of the implementation of a specific energy efficiency measure?"
     }
 }

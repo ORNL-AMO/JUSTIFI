@@ -17,12 +17,13 @@ import { KeyPerformanceMetricImpactsIdbService } from './indexed-db/key-performa
 import { ToastNotificationsService } from './core-components/toast-notifications/toast-notifications.service';
 import { UpdateDbEntriesService } from './indexed-db/update-db-entries.service';
 import { Subscription } from 'rxjs';
+import { ReportIdbService } from './indexed-db/report-idb.service';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  standalone: false
 })
 export class AppComponent {
 
@@ -42,7 +43,8 @@ export class AppComponent {
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
     private toastNotificationService: ToastNotificationsService,
-    private updateDbEntriesService: UpdateDbEntriesService) {
+    private updateDbEntriesService: UpdateDbEntriesService,
+    private reportIdbService: ReportIdbService) {
   }
 
   async ngOnInit() {
@@ -87,15 +89,18 @@ export class AppComponent {
     //energy equipment 
     await this.energyEquipmentIdbService.setEnergyEquipments();
     console.log('energy equipment init..');
-    //energy opportunities 
+    //energy efficiency measures 
     await this.energyOpportunityIdbService.setEnergyOpportunities();
-    console.log('energy opportunities init..');
+    console.log('energy efficiency measures init..');
     //non energy benefits 
     await this.nonEnergyBenefitsIdbService.setNonEnergyBenefits();
     console.log('NEBs init..');
-    //on site visist 
+    //on site visit 
     await this.onSiteVisitIdbService.setOnSiteVisits();
     console.log('On Site Visit init..');
+    //report
+    await this.reportIdbService.setReports();
+    console.log('Reports init...');
     this.dataInitialized = true;
   }
 

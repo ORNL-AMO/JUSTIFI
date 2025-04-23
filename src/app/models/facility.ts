@@ -9,6 +9,8 @@ export interface IdbFacility extends IdbEntry {
     unitSettings: UnitSettings,
     generalInformation: GeneralInformation,
     energyUse: number,
+    energyCost: number,
+    waterCost: number,
     cost: number,
     sidebarOpen: boolean,
     sidebarKPIsOpen: boolean,
@@ -23,8 +25,7 @@ export interface IdbFacility extends IdbEntry {
     outsidePressures: string,
     financialMetricsUsed: string,
     efficiencyIncentives: string,
-    dependentFunding: string,
-    associatedCosts: string
+    dependentFunding: string
 }
 
 export function getNewIdbFacility(userId: string, companyId: string): IdbFacility {
@@ -38,6 +39,8 @@ export function getNewIdbFacility(userId: string, companyId: string): IdbFacilit
         unitSettings: defaultSettings,
         generalInformation: generalInformation,
         energyUse: 0,
+        energyCost: 0,
+        waterCost: 0,
         cost: 0,
         sidebarOpen: true,
         sidebarKPIsOpen: false,
@@ -51,7 +54,6 @@ export function getNewIdbFacility(userId: string, companyId: string): IdbFacilit
         outsidePressures: '',
         financialMetricsUsed: '',
         efficiencyIncentives: '',
-        dependentFunding: '',
-        associatedCosts: ''
+        dependentFunding: ''
     }
 }

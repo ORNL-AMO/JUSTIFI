@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssessmentSavingsChartComponent } from './assessment-savings-chart.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('AssessmentSavingsChartComponent', () => {
   let component: AssessmentSavingsChartComponent;
@@ -8,10 +9,11 @@ describe('AssessmentSavingsChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AssessmentSavingsChartComponent]
+      declarations: [AssessmentSavingsChartComponent],
+      providers: stubServiceProviders
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(AssessmentSavingsChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

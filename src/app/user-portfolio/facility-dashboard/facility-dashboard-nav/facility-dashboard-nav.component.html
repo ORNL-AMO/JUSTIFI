@@ -21,14 +21,13 @@
             Key Performance Indicators
         </a>
     </li>
-    <!--TODO: PROTOCOL QUESTIONS-->
-    <!-- <li class="nav-item">
+    <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/questions'"
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faClipboardQuestion"></fa-icon>
             Facility Questions
         </a>
-    </li> -->
+    </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/system-inventory'"
             [routerLinkActive]="'active'">
@@ -44,8 +43,15 @@
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/reports'"
             [routerLinkActive]="'active'">
-            <fa-icon [icon]="faFile"></fa-icon>
+            <fa-icon [icon]="faList"></fa-icon>
             Reports
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/manage-visits'"
+            [routerLinkActive]="'active'">
+            <fa-icon [icon]="faCalendar"></fa-icon>
+            Manage Visits
         </a>
     </li>
 </ul>

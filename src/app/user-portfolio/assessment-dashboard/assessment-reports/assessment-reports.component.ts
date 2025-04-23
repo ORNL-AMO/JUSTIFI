@@ -7,6 +7,7 @@ import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-pe
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
+import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
@@ -48,8 +49,10 @@ export class AssessmentReportsComponent {
   setAssessmentReport() {
     let allEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue();
     let allNonEnergyBenefits: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefitIdbService.nonEnergyBenefits.getValue();
+    let facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(
+      this.assessment.facilityId);
     let facilityPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.assessment.facilityId);
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
-    this.assessmentReport = getAssessmentReport(this.assessment, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts);
+    this.assessmentReport = getAssessmentReport(this.assessment, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics,    facilityPerformanceIndicators, keyPerformanceMetricImpacts);
   }
 }

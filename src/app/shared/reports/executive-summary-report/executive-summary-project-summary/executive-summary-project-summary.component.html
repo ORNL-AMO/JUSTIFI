@@ -1,0 +1,180 @@
+<div>
+  <h5 class="mt-2">Project Summary</h5>
+  <ng-template [ngIf]="allEEMReports.length > 0" [ngIfElse]="noProjectsTemplate">
+    <ul class="mb-2">
+      <li>
+        On the 
+        <strong>{{executiveSummaryReport.visitDate | date:'M/dd/yyyy'}}</strong>
+        visit,
+        we found
+        <strong>{{allEEMReports.length}}</strong>
+        projects that will result in
+        <strong>{{executiveSummaryReport.totalCostSavings | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
+        cost savings
+        <span *ngIf="executiveSummaryReport.totalRevenues > 0">
+          and 
+          <strong>{{executiveSummaryReport.totalRevenues | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
+          additional revenues
+        </span>
+        per year and support our
+        <span *ngFor="let kpi of topKpis; let isLast = last; let isFirst = first">
+          <span *ngIf="isLast && !isFirst">and </span><strong [innerHTML]="kpi.htmlLabel"></strong>
+          <span *ngIf="!isLast">, </span>
+        </span> goals.
+      </li>
+    </ul>
+    <table class="table table-bordered ordered table-sm table-hover">
+      <thead>
+        <tr>
+          <th rowspan="2"></th>
+          <th></th>
+          <th colspan="2">Utility Savings</th>
+          <th></th>
+          <th colspan="2">Including NEBs</th>
+        </tr>
+        <tr>
+          <th>Implementation Cost</th>
+          <th
+            (click)="setOrderByField('UtilitySavings')"
+            [ngClass]="{'ordered-th': orderByField == 'UtilitySavings'}">
+            Annual Cost Savings ({{ currencyCode | currencySymbol}}/yr)
+          </th>
+          <th
+            (click)="setOrderByField('PaybackNoNeb')"
+            [ngClass]="{'ordered-th': orderByField == 'PaybackNoNeb'}">
+            Simple Payback (yr)
+          </th>
+          <th>NEB Financial Impact ({{ currencyCode | currencySymbol}}/yr)</th>
+          <th
+            (click)="setOrderByField('FinancialImpact')"
+            [ngClass]="{'ordered-th': orderByField == 'FinancialImpact'}">
+            Annual Financial Impact ({{ currencyCode | currencySymbol}}/yr)
+          </th>
+          <th
+            (click)="setOrderByField('PaybackWNeb')"
+            [ngClass]="{'ordered-th': orderByField == 'PaybackWNeb'}">
+            Simple Payback (yr)
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bold">
+          <td>
+            Total
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="executiveSummaryReport.totalImplementationCost">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="executiveSummaryReport.totalNonNebCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="false"
+              [numValue]="executiveSummaryReport.totalPaybackWithoutNebs">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="executiveSummaryReport.totalNebFinancialImpact">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="executiveSummaryReport.totalFinancialImpact">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="executiveSummaryReport.totalPaybackWithNebs">
+            </app-single-cell-item>
+          </td>
+        </tr>
+        <tr *ngFor="let report of reducedEEMReports">
+          <td>
+            {{ report.energyOpportunity.name}}
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="report.energyOpportunity.implementationCost">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="report.totalNonNebCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="report.paybackWithoutNebs">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="report.totalNebFinancialImpact">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="report.totalFinancialImpact">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="report.paybackWithNebs">
+            </app-single-cell-item>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ additionalEEMReport.name }}
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="additionalEEMReport.implementationCost">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="additionalEEMReport.totalNonNebCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td></td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="additionalEEMReport.totalNebFinancialImpact">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="additionalEEMReport.totalFinancialImpact">
+            </app-single-cell-item>
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="mt-2 fw-light altert alert-info">
+      The annual cost savings <strong>Without NEBs</strong> for some projects may be &mdash; (zero),
+      due to no cost savings being reported for the project level.
+    </p>
+  </ng-template>
+  <ng-template #noProjectsTemplate>
+    <p class="alert alert-info">No projects were found for this report.</p>
+  </ng-template>
+</div>

@@ -12,6 +12,7 @@ import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.serv
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbFacility } from 'src/app/models/facility';
+import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
@@ -39,6 +40,7 @@ export class SidePanelVisitResultsComponent {
   nonEnergyBenefitsSub: Subscription;
 
   keyPerformanceMetrics: Array<KeyPerformanceMetric>;
+  keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   keyPerformanceMetricsSub: Subscription;
 
   keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>;
@@ -97,6 +99,7 @@ export class SidePanelVisitResultsComponent {
     });
     this.keyPerformanceMetricsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(() => {
       this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.facility.guid);
+      this.keyPerformanceIndicators = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.facility.guid);
       this.setReportResults();
     });
     this.keyPerformanceMetricImpactsSub = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.subscribe(impacts => {
@@ -122,9 +125,9 @@ export class SidePanelVisitResultsComponent {
 
   setReportResults() {
     if (this.energyOpportunities && this.nonEnergyBenefits && this.keyPerformanceMetrics && this.keyPerformanceMetricImpacts && this.assessments && this.onSiteVisit && this.facility) {
-      this.onSiteVisitReport = getOnSiteVisitReport(this.onSiteVisit.assessmentIds, this.assessments, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceMetricImpacts);
+      this.onSiteVisitReport = getOnSiteVisitReport(this.onSiteVisit.assessmentIds, this.assessments, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceIndicators, this.keyPerformanceMetricImpacts);
       this.percentSavings = (this.onSiteVisitReport.totalEnergyCostSavings / this.facility.cost) * 100;
-      this.percentSavingsNebs = (this.onSiteVisitReport.totalCostSavings / this.facility.cost) * 100
+      this.percentSavingsNebs = (this.onSiteVisitReport.totalFinancialImpact / this.facility.cost) * 100
     }
   }
 }

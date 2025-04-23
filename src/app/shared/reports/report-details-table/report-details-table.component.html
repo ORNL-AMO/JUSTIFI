@@ -33,12 +33,23 @@
                 Visit Date
             </td>
             <td>
-                <ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentBlock">
+                <ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentVisitDateBlock">
                     {{onSiteVisit.visitDate | date}}
                 </ng-template>
-                <ng-template #assessmentBlock>
+                <ng-template #assessmentVisitDateBlock>
                     {{assessment.visitDate | date}}
                 </ng-template>
+            </td>
+        </tr>
+        <tr *ngIf="onSiteVisitReport">
+            <td>
+                Assessments
+            </td>
+            <td>
+                <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
+                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                    {{assessmentReport.assessment.name}}<br>
+                </ng-container>
             </td>
         </tr>
         <!-- <tr>
@@ -50,6 +61,28 @@
                     [strValue]="assessment.equipmentId | energyEquipmentDisplay: energyEquipments"></app-single-cell-item>
             </td>
         </tr> -->
+        <ng-container *ngIf="assessment">
+            <tr>
+                <td>
+                    Assessment Type
+                </td>
+                <td>
+                    {{assessment.assessmentType}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Utility Types
+                </td>
+                <td>
 
+                    <ng-container *ngFor="let utilityType of assessment.utilityEnergyUses">
+                        <ng-container *ngIf="utilityType.include">
+                            {{utilityType.utilityType}}<br>
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </tr>
+        </ng-container>
     </tbody>
 </table>

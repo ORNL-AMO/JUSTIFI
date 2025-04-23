@@ -1,6 +1,6 @@
 {
   "name": "justifi",
-  "version": "0.1.2-alpha",
+  "version": "0.1.3-alpha",
   "main": "main.js",
   "author": "National Renewable Energy Laboratory",
   "repository": "https://github.com/NREL/NEB-Tool.git",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --no-hmr",
     "build": "ng build --base-href .",
     "build-prod": "ng build --configuration production --base-href /",
     "build-prod-electron": "ng build --configuration production --base-href .",

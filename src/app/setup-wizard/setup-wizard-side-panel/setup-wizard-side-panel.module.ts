@@ -30,6 +30,8 @@ import { FormsModule } from '@angular/forms';
 import { TableEntriesModule } from "../../shared/table-entries/table-entries.module";
 import { ReportsModule } from 'src/app/shared/reports/reports.module';
 import { SidePanelVisitResultsComponent } from './side-panel-results/side-panel-visit-results/side-panel-visit-results.component';
+import { CustomReportHelpComponent } from './setup-wizard-help-content/custom-report-help/custom-report-help.component';
+import { ExectuiveSummaryReportHelpComponent } from './setup-wizard-help-content/exectuive-summary-report-help/exectuive-summary-report-help.component';
 
 
 
@@ -59,7 +61,9 @@ declarations: [
     FacilityProtocolQuestionsHelpComponent,
     SidePanelNebsDiagramComponent,
     SidePanelAssessmentResultsComponent,
-    SidePanelVisitResultsComponent
+    SidePanelVisitResultsComponent,
+    CustomReportHelpComponent,
+    ExectuiveSummaryReportHelpComponent
   ],
   imports: [
     CommonModule,

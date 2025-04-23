@@ -76,9 +76,7 @@ export class FacilitySetupComponent implements OnInit {
 
   async goToQuestions() {
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
-    //TODO: PROTOCOL QUESTIONS
-    // this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-questions');
-    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-kpi-select');
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-questions');
   }
 
   canDeactivate(): Observable<boolean> {

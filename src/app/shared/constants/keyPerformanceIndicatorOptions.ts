@@ -1,15 +1,11 @@
-export type PrimaryKPI = 'Strategic Relationship Impact' | 'Operations' | 'Sustainability (Environmental Impact)' | 'Employee and Workplace Environment' | 'Other';
-export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic Relationship Impact', 'Operations', 'Sustainability (Environmental Impact)', 'Employee and Workplace Environment', 'Other']
+export type PrimaryKPI = 'Strategic and Growth' | 'Operations' | 'Energy and Material Efficiency' | 'Employee and Workplace Environment' | 'Other';
+export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic and Growth', 'Operations', 'Energy and Material Efficiency', 'Employee and Workplace Environment', 'Other']
 export type KeyPerformanceIndicatorValue =
-    'strategicRelationshipImpact' |
     'productivity' |
     'machineUtilization' |
     'quality' |
     'materialUtilization' |
     'safety' |
-    'reduceRefrigerantGasEmissions' |
-    'chemicalEmissions' |
-    'dustEmissions' |
     'waterConsumption' |
     'waste' |
     'reduceExpenseCost' |
@@ -17,7 +13,9 @@ export type KeyPerformanceIndicatorValue =
     'employeeEngagementWorkingEnvironment' |
     'maintenanceExpense' |
     'other' |
-    'airPollutantEmissions';
+    'airEnvironmentalQuality' |
+    'customerSatisfaction' |
+    'salesGrowth';
 
 export interface KeyPerformanceIndicatorOption {
     primaryKPI: PrimaryKPI,
@@ -53,7 +51,7 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
         optionValue: 'machineUtilization'
     },
     {
-        primaryKPI: 'Operations',
+        primaryKPI: 'Energy and Material Efficiency',
         label: 'Material Utilization',
         htmlLabel: 'Material Utilization',
         optionValue: 'materialUtilization'
@@ -83,48 +81,61 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
         htmlLabel: 'Working Environment',
         optionValue: 'employeeEngagementWorkingEnvironment'
     },
-    //Sustainability (Environmental Impact)
+    //Energy and Material Efficiency
     {
-        primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'GHG Emissions',
-        htmlLabel: 'GHG Emissions',
-        optionValue: 'chemicalEmissions'
-    },
-    {
-        primaryKPI: 'Sustainability (Environmental Impact)',
+        primaryKPI: 'Energy and Material Efficiency',
         label: 'Waste',
         htmlLabel: 'Waste',
         optionValue: 'waste'
     },
     {
-        primaryKPI: 'Sustainability (Environmental Impact)',
+        primaryKPI: 'Energy and Material Efficiency',
         label: 'Water Use, Disposal, Quality',
         htmlLabel: 'Water Use, Disposal, Quality',
         optionValue: 'waterConsumption'
     },
     {
-        primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Dust Emissions',
-        htmlLabel: 'Dust Emissions',
-        optionValue: 'dustEmissions'
+        primaryKPI: 'Energy and Material Efficiency',
+        label: 'Air and environmental quality',
+        htmlLabel: 'Air and environmental quality',
+        optionValue: 'airEnvironmentalQuality'
+    },
+    //Strategic and Growth
+    {
+        primaryKPI: 'Strategic and Growth',
+        label: 'Customer Satisfaction',
+        htmlLabel: 'Customer Satisfaction',
+        optionValue: 'customerSatisfaction'
+    },
+
+    {
+        primaryKPI: 'Strategic and Growth',
+        label: 'Sales Growth',
+        htmlLabel: 'Sales Growth',
+        optionValue: 'salesGrowth'
+    },
+    //Other
+    {
+        primaryKPI: 'Other',
+        label: 'Other',
+        htmlLabel: 'Custom KPI(s)',
+        optionValue: 'other'
+    }
+]
+
+export interface PrimaryKpiRename {
+    original: string,
+    current: PrimaryKPI
+}
+
+// KPI Category/primaryKPI updates
+export const PrimaryKpiRenames: Array<PrimaryKpiRename> = [
+    {
+        original: 'Strategic Relationship Impact',
+        current: 'Strategic and Growth'
     },
     {
-        primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Air Pollutant Emissions',
-        htmlLabel: 'Air Pollutant Emissions',
-        optionValue: 'airPollutantEmissions'
-    },
-    {
-        primaryKPI: 'Sustainability (Environmental Impact)',
-        label: 'Reduce Refrigerant Gas Emissions',
-        htmlLabel: 'Reduce Refrigerant Gas Emissions',
-        optionValue: 'reduceRefrigerantGasEmissions'
-    },
-    //Strategic relationship impact
-    {
-        primaryKPI: 'Strategic Relationship Impact',
-        label: 'Strategic Relationship Impact',
-        htmlLabel: 'Strategic Relationship Impact',
-        optionValue: 'strategicRelationshipImpact'
+        original: 'Sustainability (Environmental Impact)',
+        current: 'Energy and Material Efficiency'
     },
 ]

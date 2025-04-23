@@ -17,6 +17,8 @@ import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-pe
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { Subscription } from 'rxjs';
 import { SharedDataService } from '../../shared-services/shared-data.service';
+import { IdbReport } from 'src/app/models/report';
+import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 
 @Component({
     selector: 'app-assessment-report',
@@ -27,6 +29,8 @@ import { SharedDataService } from '../../shared-services/shared-data.service';
 export class AssessmentReportComponent {
   @Input({ required: true })
   assessment: IdbAssessment;
+  @Input()
+  report: IdbReport;
   @Input()
   inRollup: boolean;
 
@@ -63,7 +67,8 @@ export class AssessmentReportComponent {
     let allEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue();
     let allNonEnergyBenefits: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefitIdbService.nonEnergyBenefits.getValue();
     let facilityPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.assessment.facilityId);
+    let facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.assessment.facilityId);
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
-    this.assessmentReport = getAssessmentReport(this.assessment, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, keyPerformanceMetricImpacts);
+    this.assessmentReport = getAssessmentReport(this.assessment, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, this.report);
   }
 }

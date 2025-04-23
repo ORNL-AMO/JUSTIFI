@@ -85,7 +85,7 @@
                                     Type</label>
                                 <div class="col-sm-7">
                                     <select name="utilityType" class="form-select" id="utilityType"
-                                        [(ngModel)]="energyEquipment.utilityType" (change)="utilityTypeChange()"
+                                        [(ngModel)]="energyEquipment.utilityType" (change)="utilityTypeChange('normal')"
                                         (focus)="focusField('utlityType')">
                                         <option
                                             *ngFor="let option of energyEquipment.equipmentType | linkedUtilityOptions : 'equipment'"
@@ -100,7 +100,7 @@
                                 <div class="col-sm-5 d-flex">
                                     <label class="col-form-label me-2" for="size">Total Size</label>
                                     <div class="form-check form-switch"
-                                        *ngIf="energyEquipment.utilityType === 'Other Fuels'">
+                                        *ngIf="isAutoCalculateAvailable[energyEquipment.utilityType]">
                                         <input class="form-check-input" type="checkbox" role="switch"
                                             id="calculationMode" name="calculationMode"
                                             [(ngModel)]="energyEquipment.autoCalculate"
@@ -113,7 +113,8 @@
                                 <div class="col-sm-7">
                                     <div class="input-group">
                                         <input type="number" id="size" name="size" step="0.001"
-                                            [ngClass]="(energyEquipment.utilityType === 'Other Fuels' && energyEquipment.autoCalculate) ?                                 'form-control-plaintext' : 'form-control'"
+                                            [ngClass]="(isAutoCalculateAvailable[energyEquipment.utilityType] && energyEquipment.autoCalculate) ? 
+                                                'form-control-plaintext' : 'form-control'"
                                             [(ngModel)]="energyEquipment.size"
                                             [readOnly]="energyEquipment.autoCalculate"
                                             (input)="calculateAnnualEnergyUse()" (focus)="focusField('size')">
@@ -122,7 +123,7 @@
                                             (focus)="focusField('size')">
                                             <option
                                                 *ngFor="let option of (energyEquipment.equipmentType === 'Process Cooling' ?
-                                processCoolingUnitOptions : (energyEquipment.utilityType | linkedUnitOptions: 'Power'))"
+                                                processCoolingUnitOptions : (energyEquipment.utilityType | linkedUnitOptions: 'Power'))"
                                                 [ngValue]="option.value">
                                                 <span [innerHTML]="option.value | unitsDisplay"></span>
                                             </option>
@@ -130,21 +131,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="energyEquipment.utilityType === 'Other Fuels' && energyEquipment.autoCalculate">
+                            <div *ngIf="isAutoCalculateAvailable[energyEquipment.utilityType] && energyEquipment.autoCalculate">
                                 <div class="row">
-                                    <label class="col-sm-5 col-form-label" for="fuelConsumption"
-                                        name="fuelConsumptionLabel" id="fuelConsumptionLabel">Fuel Consumption</label>
+                                    <label class="col-sm-5 col-form-label" for="utilityConsumption"
+                                        name="utilityConsumptionLabel" id="utilityConsumptionLabel">
+                                        Consumption Rate</label>
                                     <div class="col-sm-7">
                                         <div class="input-group">
-                                            <input type="number" class="form-control" id="fuelConsumption"
-                                                name="fuelConsumption" [(ngModel)]="energyEquipment.fuelConsumption"
+                                            <input type="number" class="form-control" id="utilityConsumption"
+                                                name="utilityConsumption" [(ngModel)]="energyEquipment.fuelConsumption"
                                                 (input)="updateEnergyCalculations()"
                                                 (focus)="focusField('fuelConsumption')">
                                             <select class="input-group-text" id="fuelUnit" name="fuelUnit"
                                                 [(ngModel)]="energyEquipment.fuelVolumeUnit"
                                                 (change)="updateEnergyCalculations()"
                                                 (focus)="focusField('fuelConsumption')">
-                                                <option *ngFor="let option of fuelVolumeUnitOptions"
+                                                <option *ngFor="let option of (energyEquipment.utilityType | linkedUnitOptions: 'ConsumptionRate')"
                                                     [ngValue]="option.value">
                                                     <span [innerHTML]="option.value | unitsDisplay: 'hr'"></span>
                                                 </option>
@@ -153,8 +155,10 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="col-sm-5 col-form-label" for="heatingValue">Higher Heating
-                                        Value</label>
+                                    <label class="col-sm-5 col-form-label" for="heatingValue"
+                                        name="heatingValueLabel" id="heatingValueLabel">
+                                        {{ heatingValueLabel[energyEquipment.utilityType] || 'Higher Heating Value' }}
+                                    </label>
                                     <div class="col-sm-7">
                                         <div class="input-group">
                                             <input type="number" class="form-control" name="heatingValue"
@@ -241,14 +245,13 @@
             </div>
         </div>
     </div>
-    <!--TODO: PROTOCOL QUESTIONS-->
-    <!-- <div class="col-12">
+    <div class="col-12">
         <hr class="my-1">
     </div>
     <div class="col-12">
         <app-discovery-energy-equipment-questions
             [inPortfolio]="inPortfolio"></app-discovery-energy-equipment-questions>
-    </div> -->
+    </div>
     <div class="col-12">
         <hr>
     </div>

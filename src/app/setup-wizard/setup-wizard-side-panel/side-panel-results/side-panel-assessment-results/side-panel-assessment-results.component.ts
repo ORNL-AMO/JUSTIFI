@@ -10,6 +10,7 @@ import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benef
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbFacility } from 'src/app/models/facility';
+import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
@@ -40,6 +41,7 @@ export class SidePanelAssessmentResultsComponent {
   nonEnergyBenefitsSub: Subscription;
 
   keyPerformanceMetrics: Array<KeyPerformanceMetric>;
+  keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   keyPerformanceMetricsSub: Subscription;
 
   keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>;
@@ -82,6 +84,7 @@ export class SidePanelAssessmentResultsComponent {
     this.keyPerformanceMetricsSub = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.subscribe(() => {
       let selectedFacility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
       this.keyPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(selectedFacility.guid);
+      this.keyPerformanceIndicators = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(selectedFacility.guid);
       this.setReportResults();
     });
     this.keyPerformanceMetricImpactsSub = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.subscribe(impacts => {
@@ -111,9 +114,9 @@ export class SidePanelAssessmentResultsComponent {
   setReportResults() {
     if (this.energyOpportunities && this.nonEnergyBenefits && this.keyPerformanceMetrics && this.keyPerformanceMetricImpacts && this.selectedAssessmentId) {
       this.assessment = this.assessmentIdbService.getByGuid(this.selectedAssessmentId);
-      this.assessmentReport = getAssessmentReport(this.assessment, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceMetricImpacts);
+      this.assessmentReport = getAssessmentReport(this.assessment, this.energyOpportunities, this.nonEnergyBenefits, this.keyPerformanceMetrics, this.keyPerformanceIndicators, this.keyPerformanceMetricImpacts);
       this.percentSavings = (this.assessmentReport.totalEnergyCostSavings / this.assessmentReport.assessment.cost) * 100;
-      this.percentSavingsNebs = (this.assessmentReport.totalCostSavings / this.assessmentReport.assessment.cost) * 100
+      this.percentSavingsNebs = (this.assessmentReport.totalFinancialImpact / this.assessmentReport.assessment.cost) * 100
     }
   }
 }

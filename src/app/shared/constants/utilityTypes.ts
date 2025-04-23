@@ -10,7 +10,8 @@ export interface UtilityOption {
     isStandardEnergyUnit: boolean,
     energyDefaultUnit: UnitOption,
     powerUnitOptions: Array<UnitOption>,
-    powerDefaultUnit: UnitOption
+    powerDefaultUnit: UnitOption,
+    consumptionRateUnit?: Array<UnitOption>,
 }
 
 const kWh: UnitOption = EnergyUnitOptions.find(unitOption => unitOption.value === 'kWh')!;
@@ -18,6 +19,8 @@ const MMBtu: UnitOption = EnergyUnitOptions.find(unitOption => unitOption.value 
 const kgal: UnitOption = VolumeLiquidOptions.find(unitOption => unitOption.value === 'kgal')!;
 const klb: UnitOption = MassUnitOptions.find(unitOption => unitOption.value === 'klb')!;
 const kSCF: UnitOption = VolumeGasOptions.find(unitOption => unitOption.value === 'kSCF')!;
+
+const VolumeOptions = [...VolumeLiquidOptions, ...VolumeGasOptions];
 
 export const UtilityOptions: Array<UtilityOption> = [
     {
@@ -42,7 +45,8 @@ export const UtilityOptions: Array<UtilityOption> = [
         isStandardEnergyUnit: true,
         powerUnitOptions: PowerUnitOptions,
         energyDefaultUnit: MMBtu,
-        powerDefaultUnit: undefined
+        powerDefaultUnit: undefined,
+        consumptionRateUnit: VolumeOptions, // support all volume units
     },
     {
         utilityType: 'Water',
@@ -66,7 +70,9 @@ export const UtilityOptions: Array<UtilityOption> = [
         isStandardEnergyUnit: true,
         powerUnitOptions: PowerUnitOptions,
         energyDefaultUnit: klb,
-        powerDefaultUnit: undefined
+        powerDefaultUnit: undefined,
+        // limit to non-standard energy units: klb, ton, tonne, kg, etc.
+        consumptionRateUnit: EnergySteamMixedUnitOptions.filter(_option => _option.isStandard === false),
     },
     {
         utilityType: 'Compressed Air',
@@ -74,6 +80,7 @@ export const UtilityOptions: Array<UtilityOption> = [
         isStandardEnergyUnit: false,
         powerUnitOptions: PowerUnitOptions,
         energyDefaultUnit: kSCF,
-        powerDefaultUnit: undefined
+        powerDefaultUnit: undefined,
+        consumptionRateUnit: VolumeGasOptions, // support all gas volume units
     },
 ];

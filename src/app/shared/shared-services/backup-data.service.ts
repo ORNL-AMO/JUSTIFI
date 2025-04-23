@@ -192,7 +192,7 @@ export class BackupDataService {
 
     // adding energy opportunities
     // energyOpportunities: Array<IdbEnergyOpportunity>,
-    this.loadingService.setLoadingMessage('Adding Energy Opportunities...');
+    this.loadingService.setLoadingMessage('Adding Energy Efficiency Measures...');
     let energyOpportunityGUIDs: Array<{ oldId: string, newId: string }> = new Array();
     for (let i = 0; i < backupFile.energyOpportunities.length; i++) {
       let energyOpportunity: IdbEnergyOpportunity = backupFile.energyOpportunities[i];
@@ -452,7 +452,8 @@ export interface BackupFile {
   onSiteVisits: Array<IdbOnSiteVisit>,
   energyEquipment: Array<IdbEnergyEquipment>,
   processEquipment: Array<IdbProcessEquipment>,
-  keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>
+  keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
+  //TODO: Backup Reports..
   origin: "JUSTIFI",
   version: string,
   backupFileType: "User" | "Company" | "Facility",

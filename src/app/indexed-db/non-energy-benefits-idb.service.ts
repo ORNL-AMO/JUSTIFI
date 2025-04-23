@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IdbNonEnergyBenefit } from '../models/nonEnergyBenefit';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { IdbKeyPerformanceIndicator } from '../models/keyPerformanceIndicator';
-import { KeyPerformanceMetric } from '../shared/constants/keyPerformanceMetrics';
-import { NebOption, NebOptions } from '../shared/constants/nonEnergyBenefitOptions';
 
 @Injectable({
   providedIn: 'root'

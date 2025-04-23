@@ -15,6 +15,8 @@ export class LinkedUnitOptionsPipe implements PipeTransform {
         return selectedUtility.energyUnitOptions;
       } else if (unitType == 'Power') {
         return selectedUtility.powerUnitOptions;
+      } else if (unitType == 'ConsumptionRate') {
+        return selectedUtility.consumptionRateUnit || [];
       }
       return [];
     } else {

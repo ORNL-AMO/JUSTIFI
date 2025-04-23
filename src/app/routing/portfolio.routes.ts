@@ -33,6 +33,11 @@ import { CompanyStakeholdersHomeComponent } from "../user-portfolio/company-dash
 import { CompanyContactsFormComponent } from "../shared/shared-company-forms/company-contacts-form/company-contacts-form.component";
 import { FacilityPerformanceIndicatorsComponent } from "../user-portfolio/facility-dashboard/facility-performance-indicators/facility-performance-indicators.component";
 import { FacilityDashboardProtocolQuestionsComponent } from "../user-portfolio/facility-dashboard/facility-dashboard-protocol-questions/facility-dashboard-protocol-questions.component";
+import { FacilityReportsHomeComponent } from "../user-portfolio/facility-dashboard/facility-reports/facility-reports-home/facility-reports-home.component";
+import { FacilityReportComponent } from "../user-portfolio/facility-dashboard/facility-reports/facility-report/facility-report.component";
+import { CustomReportOptionsComponent } from "../shared/reports/custom-reports/custom-report-options/custom-report-options.component";
+import { CustomReportComponent } from "../shared/reports/custom-reports/custom-report/custom-report.component";
+import { ManageOnSiteVisitsComponent } from "../user-portfolio/facility-dashboard/manage-on-site-visits/manage-on-site-visits.component";
 
 
 export const PortfolioRoutes: Route = {
@@ -133,13 +138,42 @@ export const PortfolioRoutes: Route = {
                 },
                 {
                     path: 'reports',
-                    component: FacilityReportsComponent
+                    component: FacilityReportsComponent,
+                    children: [
+                        {
+                            path: '',
+                            component: FacilityReportsHomeComponent
+                        },
+                        {
+                            path: ':id',
+                            component: FacilityReportComponent,
+                            children: [
+                                {
+                                    path: '',
+                                    pathMatch: 'full',
+                                    redirectTo: 'options'
+                                },
+                                {
+                                    path: 'options',
+                                    component: CustomReportOptionsComponent
+                                },
+                                {
+                                    path: 'results',
+                                    component: CustomReportComponent
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     path: 'manage',
                     component: FacilitySettingsComponent,
                     canDeactivate: [CanDeactivateGuard]
                 },
+                {
+                    path: 'manage-visits',
+                    component: ManageOnSiteVisitsComponent
+                }
             ]
         },
         {
