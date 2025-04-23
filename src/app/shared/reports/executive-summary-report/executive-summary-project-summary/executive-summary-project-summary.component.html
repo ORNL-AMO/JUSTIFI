@@ -10,8 +10,13 @@
         <strong>{{allEEMReports.length}}</strong>
         projects that will result in
         <strong>{{executiveSummaryReport.totalFinancialImpact | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
-        savings 
-        or additional revenues per year and support our
+        cost savings
+        <span *ngIf="executiveSummaryReport.totalNebFinancialImpact > 0">
+          and 
+          <strong>{{executiveSummaryReport.totalNebFinancialImpact | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
+          additional revenues
+        </span>
+        per year and support our
         <span *ngFor="let kpi of topKpis; let isLast = last; let isFirst = first">
           <span *ngIf="isLast && !isFirst">and </span><strong [innerHTML]="kpi.htmlLabel"></strong>
           <span *ngIf="!isLast">, </span>

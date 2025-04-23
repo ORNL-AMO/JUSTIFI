@@ -117,16 +117,24 @@ export function getKeyPerformanceIndicatorReportItems(kpmReportItems: Array<KeyP
             return item.keyPerformanceMetric.kpiGuid == guid && item.keyPerformanceMetric.isQuantitative && !isNaN(item.keyPerformanceMetric.baselineCost) && !isNaN(item.performanceMetricImpact.costAdjustment);
         });
         let baselineCost: number = _.sumBy(kpiReportsItems, (item: KeyPerformanceMetricReportItem) => { return item.keyPerformanceMetric.baselineCost });
-        let annualCostSavings: number = _.sumBy(kpiReportsItems, (item: KeyPerformanceMetricReportItem) => { return item.performanceMetricImpact.costAdjustment });
-        let modifiedCost: number = baselineCost - annualCostSavings;
-        let percentSavings: number = (annualCostSavings / baselineCost) * 100;
+        let financialImpact: number = _.sumBy(kpiReportsItems, (item: KeyPerformanceMetricReportItem) => { return item.performanceMetricImpact.costAdjustment });
+        let costSaving: number = _.sumBy(kpiReportsItems, (item: KeyPerformanceMetricReportItem) => {
+            return item.keyPerformanceMetric.goalToIncrease == false ? item.performanceMetricImpact.costAdjustment : 0;
+        });
+        let revenue: number = _.sumBy(kpiReportsItems, (item: KeyPerformanceMetricReportItem) => {
+            return item.keyPerformanceMetric.goalToIncrease == true ? item.performanceMetricImpact.costAdjustment : 0;
+        });
+        let modifiedCost: number = baselineCost - financialImpact;
+        let percentSavings: number = (financialImpact / baselineCost) * 100;
         if (percentSavings == Infinity || percentSavings == -Infinity || isNaN(percentSavings)) {
             percentSavings = 0;
         }
         results.push({
             keyPerformanceIndicator: kpi,
             baselineCost: _.sumBy(kpiReportsItems, (item: KeyPerformanceMetricReportItem) => { return item.keyPerformanceMetric.baselineCost }),
-            annualCostSavings: annualCostSavings,
+            financialImpact: financialImpact,
+            costSaving: costSaving,
+            revenue: revenue,
             modifiedCost: modifiedCost,
             percentSavings: percentSavings
         })
@@ -137,11 +145,19 @@ export function getKeyPerformanceIndicatorReportItems(kpmReportItems: Array<KeyP
 export interface KeyPerformanceIndicatorReportItem {
     keyPerformanceIndicator: IdbKeyPerformanceIndicator,
     baselineCost: number,
-    annualCostSavings: number,
+    financialImpact: number,
+    costSaving: number,
+    revenue: number,
     modifiedCost: number,
     percentSavings: number
 }
 
+export interface AdditionalKeyPerformanceIndicatorReportItem {
+    baselineCost: number,
+    financialImpact: number,
+    modifiedCost: number,
+    percentSavings: number
+}
 
 export interface KeyPerformanceIndicatorReport {
     kpmReportItems: Array<KeyPerformanceMetricReportItem>,
