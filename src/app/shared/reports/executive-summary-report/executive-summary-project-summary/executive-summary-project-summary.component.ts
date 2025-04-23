@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AssessmentReport } from '../../calculations/assessmentReport';
 import { ExecutiveSummaryReport } from '../../calculations/executiveSummaryReport';
-import { EnergyOpportunityReport } from '../../calculations/energyOpportunityReport';
+import { AdditionalEnergyOpportunityReport, EnergyOpportunityReport } from '../../calculations/energyOpportunityReport';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
@@ -22,6 +22,15 @@ export class ExecutiveSummaryProjectSummaryComponent {
 
   allEEMReports: Array<EnergyOpportunityReport>;
   reducedEEMReports: Array<EnergyOpportunityReport>;
+  additionalEEMReport: AdditionalEnergyOpportunityReport = {
+    name: 'Additional Projects/NEBs',
+    implementationCost: 0,
+    totalEnergyCostSavings: 0,
+    totalWaterCostSavings: 0,
+    totalNonNebCostSavings: 0,
+    totalNebFinancialImpact: 0,
+    totalFinancialImpact: 0,
+  };
   topKpis: Array<KeyPerformanceIndicatorOption>;
 
   currencyCode: string;
@@ -78,23 +87,26 @@ export class ExecutiveSummaryProjectSummaryComponent {
       if (paybackWithoutNebs == Infinity) {
           paybackWithoutNebs = 0;
       }
-      let allNebReports: Array<NebReport> = otherReports.flatMap(report => report.nebReports);
-      let energyOpportunity: IdbEnergyOpportunity = _.cloneDeep(otherReports[0].energyOpportunity); // use the first energy oppo
-      energyOpportunity.name = 'Other EEMs';
-      energyOpportunity.implementationCost = totalImplementationCost;
-      const otherReport: EnergyOpportunityReport = {
-        energyOpportunity: energyOpportunity,
-        nebReports: allNebReports,
+      this.additionalEEMReport = {
+        ...this.additionalEEMReport,
+        implementationCost: totalImplementationCost,
         totalEnergyCostSavings: totalEnergyCostSavings,
         totalWaterCostSavings: totalWaterCostSavings,
         totalNonNebCostSavings: totalNonNebCostSavings,
-        totalNebFinancialImpact: totalNebFinancialImpact,
-        totalFinancialImpact: totalFinancialImpact,
-        paybackWithNebs: paybackWithNebs,
-        paybackWithoutNebs: paybackWithoutNebs
-      };
-      return [...topReports, otherReport];
+        totalNebFinancialImpact: totalNebFinancialImpact + this.executiveSummaryReport.totalAssessmentNebFinancialImpact,
+        totalFinancialImpact: totalFinancialImpact + this.executiveSummaryReport.totalAssessmentNebFinancialImpact,
+      }
+      return [...topReports];
     } else {
+      this.additionalEEMReport = {
+        ...this.additionalEEMReport,
+        implementationCost: 0,
+        totalEnergyCostSavings: 0,
+        totalWaterCostSavings: 0,
+        totalNonNebCostSavings: 0,
+        totalNebFinancialImpact: this.executiveSummaryReport.totalAssessmentNebFinancialImpact,
+        totalFinancialImpact: this.executiveSummaryReport.totalAssessmentNebFinancialImpact,
+      };
       return allEEMReports;
     }
   }

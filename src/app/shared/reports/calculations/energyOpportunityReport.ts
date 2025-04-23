@@ -73,3 +73,13 @@ export interface EnergyOpportunityReport {
     paybackWithNebs: number,
     paybackWithoutNebs: number
 }
+
+export interface AdditionalEnergyOpportunityReport {
+    name: string,
+    implementationCost: number,
+    totalEnergyCostSavings: number,
+    totalWaterCostSavings: number,
+    totalNonNebCostSavings: number,
+    totalNebFinancialImpact: number,
+    totalFinancialImpact: number,
+}

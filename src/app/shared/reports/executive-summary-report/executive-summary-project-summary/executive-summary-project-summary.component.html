@@ -9,11 +9,11 @@
         we found
         <strong>{{allEEMReports.length}}</strong>
         projects that will result in
-        <strong>{{executiveSummaryReport.totalFinancialImpact | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
+        <strong>{{executiveSummaryReport.totalCostSavings | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
         cost savings
-        <span *ngIf="executiveSummaryReport.totalNebFinancialImpact > 0">
+        <span *ngIf="executiveSummaryReport.totalRevenues > 0">
           and 
-          <strong>{{executiveSummaryReport.totalNebFinancialImpact | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
+          <strong>{{executiveSummaryReport.totalRevenues | currency: currencyCode: 'symbol': '1.0-2'}}</strong>
           additional revenues
         </span>
         per year and support our
@@ -120,6 +120,36 @@
               [numValue]="report.paybackWithNebs">
             </app-single-cell-item>
           </td>
+        </tr>
+        <tr>
+          <td>
+            {{ additionalEEMReport.name }}
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="additionalEEMReport.implementationCost">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="additionalEEMReport.totalNonNebCostSavings">
+            </app-single-cell-item>
+          </td>
+          <td></td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="additionalEEMReport.totalNebFinancialImpact">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="additionalEEMReport.totalFinancialImpact">
+            </app-single-cell-item>
+          </td>
+          <td></td>
         </tr>
       </tbody>
     </table>
