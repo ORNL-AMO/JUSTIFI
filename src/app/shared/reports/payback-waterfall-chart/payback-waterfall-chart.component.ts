@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { LocaleService } from '../../shared-services/locale.service';
 import { Subscription } from 'rxjs';
 import { PlotlyService } from 'angular-plotly.js';
@@ -34,7 +34,8 @@ export class PaybackWaterfallChartComponent {
   currencySymbolPipe: CurrencySymbolPipe;
   constructor(private plotlyService: PlotlyService,
     private localeService: LocaleService,
-    private currencyPipe: CurrencyPipe
+    private currencyPipe: CurrencyPipe,
+    private cd: ChangeDetectorRef
   ) {
   }
 
@@ -72,11 +73,11 @@ export class PaybackWaterfallChartComponent {
       let yVals = [implementationCost];
       let yValsNebs = [implementationCost];
       let year = 1;
-      this.years = Math.ceil(this.reportData.totalImplementationCost / this.reportData.totalNonNebCostSavings);      
-      if(this.years == Infinity || this.years > 15 || isNaN(this.years)){
-        this.years = 15;
+      let years: number = Math.ceil(this.reportData.totalImplementationCost / this.reportData.totalNonNebCostSavings);      
+      if(years == Infinity || years > 15 || isNaN(years)){
+        years = 15;
       }
-      for (let i = 0; i < this.years; i++) {
+      for (let i = 0; i < years; i++) {
         xVals.push('Year ' + year);
         yVals.push(this.reportData.totalNonNebCostSavings)
         yValsNebs.push(this.reportData.totalFinancialImpact)
@@ -170,6 +171,8 @@ export class PaybackWaterfallChartComponent {
       };
       this.plotlyService.newPlot(this.paybackWaterfallChart.nativeElement, data, layout, config);
       this.plotlyService.newPlot(this.paybackWaterfallChartNebs.nativeElement, dataNebs, layoutNebs, config);
+      this.years = years;
+      this.cd.detectChanges();
     }
   }
 }

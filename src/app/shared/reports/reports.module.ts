@@ -23,7 +23,7 @@ import { CustomReportOptionListPipe } from './custom-reports/custom-report-optio
 import { PaybackWaterfallChartComponent } from './payback-waterfall-chart/payback-waterfall-chart.component';
 import { AssessmentCostTableComponent } from './assessment-report/assessment-cost-table/assessment-cost-table.component';
 import { ExecutiveSummaryProjectSummaryComponent } from './executive-summary-report/executive-summary-project-summary/executive-summary-project-summary.component';
-import { ExecutiveSummaryKpmImpactsComponent } from './executive-summary-report/executive-summary-kpm-impacts/executive-summary-kpm-impacts.component';
+import { ExecutiveSummaryKpiImpactsComponent } from './executive-summary-report/executive-summary-kpi-impacts/executive-summary-kpi-impacts.component';
 
 
 
@@ -48,7 +48,7 @@ import { ExecutiveSummaryKpmImpactsComponent } from './executive-summary-report/
     PaybackWaterfallChartComponent,
     AssessmentCostTableComponent,
     ExecutiveSummaryProjectSummaryComponent,
-    ExecutiveSummaryKpmImpactsComponent
+    ExecutiveSummaryKpiImpactsComponent
   ],
   imports: [
     CommonModule,
