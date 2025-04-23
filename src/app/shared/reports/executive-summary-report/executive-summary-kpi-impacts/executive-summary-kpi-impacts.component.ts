@@ -8,13 +8,13 @@ import { IdbFacility } from 'src/app/models/facility';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 
 @Component({
-  selector: 'app-executive-summary-kpm-impacts',
+  selector: 'app-executive-summary-kpi-impacts',
   standalone: false,
   
-  templateUrl: './executive-summary-kpm-impacts.component.html',
-  styleUrl: './executive-summary-kpm-impacts.component.css'
+  templateUrl: './executive-summary-kpi-impacts.component.html',
+  styleUrl: './executive-summary-kpi-impacts.component.css'
 })
-export class ExecutiveSummaryKpmImpactsComponent {
+export class ExecutiveSummaryKpiImpactsComponent {
 
   @Input({ required: true })
   executiveSummaryReport: ExecutiveSummaryReport;
