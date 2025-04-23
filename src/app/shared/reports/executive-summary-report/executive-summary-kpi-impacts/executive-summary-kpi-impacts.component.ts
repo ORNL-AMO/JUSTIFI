@@ -25,7 +25,7 @@ export class ExecutiveSummaryKpiImpactsComponent {
   kpiReportRevenueItems: Array<KeyPerformanceIndicatorReportItem>;
   reducedKpiReportCostItems: Array<KeyPerformanceIndicatorReportItem>;
   reducedKpiReportRevenueItems: Array<KeyPerformanceIndicatorReportItem>;
-  limit: number = 6; // limit top KPIs to show
+  limit: number = 4; // limit top KPIs to show
   orderByField: 'PotentialChange' | 'PercentChange' = 'PotentialChange'; // default order by field
   orderByDir: 'asc' | 'desc' = 'desc'; // default order by direction
   additionalKpiReportCostItem: AdditionalKeyPerformanceIndicatorReportItem = {
