@@ -67,6 +67,25 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
         }
         return 0;
     });
+    // calculate total visit revenues and costs
+    let keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport = getKeyPerformanceIndicatorReport(allNebReports);
+    let totalCostSavings: number = 0;
+    let totalRevenues: number = 0;
+    keyPerformanceIndicatorReport.kpmReportItems.forEach(item => {
+        if (item.keyPerformanceMetric.goalToIncrease == false) {
+            totalCostSavings += item.performanceMetricImpact.costAdjustment;
+        } else {
+            totalRevenues += item.performanceMetricImpact.costAdjustment;
+        }
+    });
+    // calculate non-associated neb impacts
+    let totalAssessmentNebFinancialImpact: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        let nebReports: Array<NebReport> = report.assessmentNebReports;
+        let totalNebFinancialImpact: number = _.sumBy(nebReports, (nebReport: NebReport) => {
+            return nebReport.totalFinancialImpact
+        });
+        return totalNebFinancialImpact;
+    });
     let totalPaybackWithoutNebs: number = (totalImplementationCost / totalNonNebCostSavings);
     if (totalPaybackWithoutNebs == Infinity || isNaN(totalPaybackWithoutNebs)) {
         totalPaybackWithoutNebs = 0;
@@ -79,11 +98,14 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
     return {
         visitDate: visitDate,
         assessmentReports: assessmentReports,
-        keyPerformanceIndicatorReport: getKeyPerformanceIndicatorReport(allNebReports),
+        keyPerformanceIndicatorReport: keyPerformanceIndicatorReport,
         totalImplementationCost: totalImplementationCost,
         totalNebFinancialImpact: totalNebFinancialImpact,
         totalNonNebCostSavings: totalNonNebCostSavings,
         totalFinancialImpact: totalFinancialImpact,
+        totalCostSavings: totalCostSavings,
+        totalRevenues: totalRevenues,
+        totalAssessmentNebFinancialImpact: totalAssessmentNebFinancialImpact,
         totalPaybackWithoutNebs: totalPaybackWithoutNebs,
         totalPaybackWithNebs: totalPaybackWithNebs,
         totalUtilityCosts: totalUtilityCosts,
@@ -97,6 +119,9 @@ export interface ExecutiveSummaryReport {
     totalNebFinancialImpact: number;
     totalNonNebCostSavings: number;
     totalFinancialImpact: number;
+    totalCostSavings: number;
+    totalRevenues: number;
+    totalAssessmentNebFinancialImpact: number;
     totalPaybackWithoutNebs: number;
     totalPaybackWithNebs: number;
     totalUtilityCosts: number;

@@ -15,18 +15,39 @@
         each year.
       </li>
     </ul>
-    <table class="table table-bordered table-sm table-hover">
+    <table class="table table-bordered ordered table-sm table-hover">
       <thead>
         <tr>
           <th></th>
-          <th class="text-right">Potential Change ({{ currencyCode | currencySymbol}}/yr)</th>
-          <th class="text-right">% Change</th>
+          <th class="text-right"
+            (click)="setOrderByField('PotentialChange')"
+            [ngClass]="{'ordered-th': orderByField == 'PotentialChange'}">
+            Potential Change ({{ currencyCode | currencySymbol}}/yr)
+          </th>
+          <th class="text-right"
+            (click)="setOrderByField('PercentChange')"
+            [ngClass]="{'ordered-th': orderByField == 'PercentChange'}">
+            % Change
+          </th>
         </tr>
       </thead>
       <tbody>
+        <!-- cost savings -->
+        <tr>
+          <td class="bold">
+              Provided Costs
+          </td>
+          <td class="text-right bold">
+              <app-single-cell-item
+                [numValue]="executiveSummaryReport.totalFinancialImpact"
+                [isCurrency]="true">
+              </app-single-cell-item>
+          </td>
+          <td></td>
+        </tr>
         <tr>
           <td>
-            Utility
+            Utilities
           </td>
           <td class="text-right">
             <app-single-cell-item
@@ -41,14 +62,14 @@
             </app-single-cell-item>
           </td>
         </tr>
-        <tr *ngFor="let item of reducedKpiReportItems">
+        <tr *ngFor="let item of reducedKpiReportCostItems">
           <td>
             <span [innerHTML]="item.keyPerformanceIndicator.htmlLabel"></span>
           </td>
           <td class="text-right">
             <app-single-cell-item
               [isCurrency]="true"
-              [numValue]="item.annualCostSavings">
+              [numValue]="item.financialImpact">
             </app-single-cell-item>
           </td>
           <td class="text-right">
@@ -58,19 +79,66 @@
             </app-single-cell-item>
           </td>
         </tr>
-        <tr *ngIf="kpiReportItems.length > limit">
+        <tr *ngIf="kpiReportCostItems.length > limit">
           <td>
             Additional KPI(s)
           </td>
           <td class="text-right">
             <app-single-cell-item
               [isCurrency]="true"
-              [numValue]="additionalKpiFinancialImpact">
+              [numValue]="additionalKpiReportCostItem.financialImpact">
             </app-single-cell-item>
           </td>
           <td class="text-right">
             <app-single-cell-item
-              [numValue]="additionalKpiPercentChange"
+              [numValue]="additionalKpiReportCostItem.percentSavings"
+              [units]="'%'">
+            </app-single-cell-item>
+          </td>
+        </tr>
+        <!-- Revenue -->
+        <tr>
+          <td class="bold">
+              Provided Revenues
+          </td>
+          <td class="text-right bold">
+              <app-single-cell-item
+                [numValue]="executiveSummaryReport.totalFinancialImpact"
+                [isCurrency]="true">
+              </app-single-cell-item>
+          </td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let item of reducedKpiReportRevenueItems">
+          <td>
+            <span [innerHTML]="item.keyPerformanceIndicator.htmlLabel"></span>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="item.financialImpact">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="item.percentSavings"
+              [units]="'%'">
+            </app-single-cell-item>
+          </td>
+        </tr>
+        <tr *ngIf="kpiReportRevenueItems.length > limit">
+          <td>
+            Additional KPI(s)
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [isCurrency]="true"
+              [numValue]="additionalKpiReportRevenueItem.financialImpact">
+            </app-single-cell-item>
+          </td>
+          <td class="text-right">
+            <app-single-cell-item
+              [numValue]="additionalKpiReportRevenueItem.percentSavings"
               [units]="'%'">
             </app-single-cell-item>
           </td>
