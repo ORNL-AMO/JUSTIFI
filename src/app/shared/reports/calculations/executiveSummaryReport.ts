@@ -69,7 +69,7 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
     });
     // calculate total visit revenues and costs
     let keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport = getKeyPerformanceIndicatorReport(allNebReports);
-    let totalCostSavings: number = 0;
+    let totalCostSavings: number = totalUtilityCostSavings;
     let totalRevenues: number = 0;
     keyPerformanceIndicatorReport.kpmReportItems.forEach(item => {
         if (item.keyPerformanceMetric.goalToIncrease == false) {
