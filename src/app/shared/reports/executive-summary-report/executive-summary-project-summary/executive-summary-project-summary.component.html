@@ -23,7 +23,7 @@
         </span> goals.
       </li>
     </ul>
-    <table class="table table-bordered table-sm table-hover">
+    <table class="table table-bordered ordered table-sm table-hover">
       <thead>
         <tr>
           <th rowspan="2"></th>
@@ -34,11 +34,27 @@
         </tr>
         <tr>
           <th>Implementation Cost</th>
-          <th>Annual Cost Savings ({{ currencyCode | currencySymbol}}/yr)</th>
-          <th>Simple Payback (yr)</th>
+          <th
+            (click)="setOrderByField('UtilitySavings')"
+            [ngClass]="{'ordered-th': orderByField == 'UtilitySavings'}">
+            Annual Cost Savings ({{ currencyCode | currencySymbol}}/yr)
+          </th>
+          <th
+            (click)="setOrderByField('PaybackNoNeb')"
+            [ngClass]="{'ordered-th': orderByField == 'PaybackNoNeb'}">
+            Simple Payback (yr)
+          </th>
           <th>NEB Financial Impact ({{ currencyCode | currencySymbol}}/yr)</th>
-          <th>Annual Financial Impact ({{ currencyCode | currencySymbol}}/yr)</th>
-          <th>Simple Payback (yr)</th>
+          <th
+            (click)="setOrderByField('FinancialImpact')"
+            [ngClass]="{'ordered-th': orderByField == 'FinancialImpact'}">
+            Annual Financial Impact ({{ currencyCode | currencySymbol}}/yr)
+          </th>
+          <th
+            (click)="setOrderByField('PaybackWNeb')"
+            [ngClass]="{'ordered-th': orderByField == 'PaybackWNeb'}">
+            Simple Payback (yr)
+          </th>
         </tr>
       </thead>
       <tbody>
