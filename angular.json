@@ -50,7 +50,8 @@
             "allowedCommonJsDependencies": [
               "lodash",
               "semver",
-              "exceljs"
+              "exceljs",
+              "pptxgenjs"
             ],
             "browser": "src/main.ts"
           },
