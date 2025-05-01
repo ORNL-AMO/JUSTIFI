@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
 import { LoadingService } from '../loading/loading.service';
-import { IconDefinition, faHome, faDownload, faUpload, faInbox, faCog } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faDownload, faUpload, faInbox, faCog } from '@fortawesome/free-solid-svg-icons';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 import { environment } from 'src/environments/environment';
 import { ImportBackupModalService } from '../import-backup-modal/import-backup-modal.service';
@@ -20,7 +20,6 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent{
 
-  faHome: IconDefinition = faHome;
   faDownload: IconDefinition =faDownload;
   faUpload: IconDefinition = faUpload;
   faInbox: IconDefinition = faInbox;
