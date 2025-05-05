@@ -15,3 +15,7 @@ nav.navbar{
 .btn:hover .d-md-none{
     display: inline !important;
 }
+
+.navbar-brand{
+    font-size: 24px;
+}
