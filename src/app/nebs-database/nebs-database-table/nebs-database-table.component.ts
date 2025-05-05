@@ -114,6 +114,7 @@ export class NebsDatabaseTableComponent {
     if (keywordMatched.length > 10) {
       this.filteredKeywordList.push('...');
     }
+    // TODO: update top keywords
   }
 
   selectKeyword(keyword: string) {

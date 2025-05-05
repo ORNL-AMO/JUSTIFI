@@ -6,11 +6,8 @@
                 <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
             </span>
             <input
-                class="form-control"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                name="nebSearchStr"
+                class="form-control" type="search" placeholder="Search"
+                aria-label="Search" name="nebSearchStr"
                 [(ngModel)]="nebSearchStr"
                 (input)="filterKeywordList()"
             />
