@@ -55,7 +55,6 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'increaseAverageYearsEmployed' |
     'reduceStaffTurnover' |
     'reducePPE' |
-    'increaseUsefulEquipmentLife' |
     'reduceUnscheduledBreaks' |
     'reduceWorkplaceIncidentsRelatedToHeat' |
     'increaseWorkplaceSecurity' |
@@ -556,3 +555,470 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     }
 ]
+
+export const NebKeywords: { [key: string]: Array<string>} = {
+    improvedImageOrReputation: [
+        // Keywords from the NEB label
+        "improved image", "reputation", "branding", "public perception", "corporate image", "company reputation",
+        "brand image", "brand reputation", "positive image", "brand equity", "public trust", "brand loyalty",
+        "corporate branding", "corporate reputation", "organizational image", "organizational reputation",
+    
+        // Synonyms and related terms
+        "image enhancement", "reputation management", "brand improvement", "public relations", "PR", "media presence",
+        "stakeholder trust", "stakeholder perception", "customer perception", "market reputation", "brand awareness",
+        "brand recognition", "brand value", "brand identity", "corporate identity", "corporate trust"
+    ],
+    improvedStakeholderRelationship: [
+        // Keywords from the NEB label
+        "improved stakeholder relationship", "stakeholder relationship", "stakeholder engagement", "stakeholder collaboration",
+        "stakeholder trust", "stakeholder satisfaction", "stakeholder involvement", "stakeholder communication",
+        "stakeholder partnerships", "stakeholder alignment", "stakeholder cooperation", "stakeholder connections",
+    
+        // Synonyms and related terms
+        "relationship building", "stakeholder management", "stakeholder support", "stakeholder loyalty",
+        "stakeholder interaction", "stakeholder integration", "stakeholder harmony", "stakeholder rapport",
+        "stakeholder networking", "stakeholder outreach", "stakeholder advocacy", "stakeholder participation"
+    ],
+    newCustomers: [
+        // Keywords from the NEB label
+        "new customers", "gain customers", "customer acquisition", "customer growth", "new clients", "customer base expansion",
+    
+        // Synonyms and related terms
+        "client acquisition", "client growth", "client base expansion", "market expansion", "customer recruitment",
+        "customer onboarding", "business growth", "new markets", "customer outreach", "customer engagement",
+        "customer retention", "customer loyalty", "customer satisfaction", "customer experience"
+    ],
+    increasedCustomerSatisfaction: [
+        // Keywords from the NEB label
+        "increased customer satisfaction", "customer satisfaction", "happy customers", "customer happiness",
+        "customer experience", "customer feedback", "improved customer experience", "customer delight",
+    
+        // Synonyms and related terms
+        "customer loyalty", "customer retention", "positive reviews", "customer trust", "customer engagement",
+        "customer appreciation", "customer service quality", "enhanced customer relationships", "customer-centric approach"
+    ],
+    reduceCustomerLossThroughBetterPerformance: [
+        // Keywords from the NEB label
+        "improve customer retention", "customer retention", "reduce customer loss", "improved performance",
+        "retain customers", "customer loyalty", "better performance", "customer retention improvement",
+    
+        // Synonyms and related terms
+        "customer retention strategy", "reduce churn", "customer retention rate", "minimize customer loss",
+        "customer loyalty improvement", "retain existing customers", "reduce customer turnover",
+        "enhance customer experience", "improve customer satisfaction", "customer retention enhancement"
+    ],
+    increasedCustomerLoyalty: [
+        // Keywords from the NEB label
+        "increased customer loyalty", "customer loyalty", "loyal customers", "repeat customers", "customer retention",
+    
+        // Synonyms and related terms
+        "customer trust", "customer commitment", "brand loyalty", "customer engagement", "customer satisfaction",
+        "customer relationships", "customer dedication", "customer faithfulness", "long-term customers",
+        "customer allegiance", "customer devotion", "customer reliability", "customer dependability"
+    ],
+    improvedSupplyChainRelationships: [
+        // Keywords from the NEB label
+        "improved supply chain relationships", "supply chain relationships", "supply chain collaboration",
+        "supply chain partnerships", "supply chain efficiency", "supplier relationships", "supplier collaboration",
+        "supplier partnerships", "supplier engagement", "supplier satisfaction", "supplier trust",
+    
+        // Synonyms and related terms
+        "supply chain optimization", "supply chain integration", "supplier loyalty", "supplier alignment",
+        "supplier cooperation", "supplier connections", "supplier harmony", "supplier rapport",
+        "logistics relationships", "logistics partnerships", "logistics collaboration", "logistics efficiency",
+        "supply chain management", "supplier management", "supplier support"
+    ],
+    increasedProductivity: [
+        // Keywords from the NEB label
+        "increased productivity", "productivity", "improved productivity", "higher productivity", "work efficiency",
+    
+        // Synonyms and related terms
+        "efficiency improvement", "process efficiency", "work output", "operational efficiency", "performance improvement",
+        "workforce productivity", "production efficiency", "enhanced productivity", "business efficiency",
+        "output improvement", "process optimization", "work optimization", "task efficiency"
+    ],
+    shorterCycleTime: [
+        // Keywords from the NEB label
+        "shorter cycle time", "cycle time", "reduced cycle time", "shorter production time", "faster production",
+    
+        // Synonyms and related terms
+        "process speed", "time reduction", "production efficiency", "time to make goods", "reduced production time",
+        "faster manufacturing", "improved cycle efficiency", "time optimization", "process improvement"
+    ],
+    increaseEquipmentUptime: [
+        // Keywords from the NEB label
+        "increase equipment uptime", "equipment uptime", "uptime", "improved uptime", "maximize uptime",
+    
+        // Synonyms and related terms
+        "equipment reliability", "machine availability", "reduced downtime", "operational efficiency",
+        "equipment performance", "machine uptime", "equipment availability", "minimize downtime",
+        "enhanced equipment utilization", "improved machine reliability", "continuous operation"
+    ],
+    reduceIndustrialTrucksDowntime: [
+        // Keywords from the NEB label
+        "reduce industrial trucks downtime", "industrial trucks downtime", "truck downtime", "reduce truck downtime",
+    
+        // Synonyms and related terms
+        "forklift downtime", "fork truck downtime", "reduce forklift downtime", "reduce fork truck downtime",
+        "logistics efficiency", "equipment downtime", "reduce equipment downtime", "minimize truck downtime",
+        "improve truck availability", "reduce logistics delays", "enhance logistics operations"
+    ],
+    delayReplacementEquipment: [
+        // Keywords from the NEB label
+        "delay cost to replace equipment", "equipment replacement delay", "postpone equipment replacement",
+        "defer replacement costs", "delay replacement expenses",
+    
+        // Synonyms and related terms
+        "extend equipment life", "prolong equipment usage", "defer capital expenditure", "reduce replacement frequency",
+        "delay capital costs", "extend asset lifespan", "postpone replacement investment"
+    ],
+    increaseProdScheduleFlexibility: [
+        // Keywords from the NEB label
+        "increase production schedule flexibility", "production schedule flexibility", "flexible production schedule",
+    
+        // Synonyms and related terms
+        "schedule optimization", "production flexibility", "adaptive production schedule", "dynamic scheduling",
+        "flexible manufacturing", "production adaptability", "schedule efficiency", "improved scheduling",
+        "responsive production schedule", "adjustable production schedule"
+    ],
+    improvedProductQualityMachineSource: [
+        // Keywords from the NEB label
+        "improved product quality", "product quality", "improving machine source", "machine source improvement",
+    
+        // Synonyms and related terms
+        "quality improvement", "machine reliability", "equipment performance", "reduce defects", "enhanced product quality",
+        "machine optimization", "equipment optimization", "reduce machine errors", "improved manufacturing quality",
+        "reduce equipment defects", "improve machine output", "enhanced production quality"
+    ],
+    improvedProductQualityOperatorSource: [
+        // Keywords from the NEB label
+        "improved product quality", "product quality", "reducing operator error", "operator error reduction",
+    
+        // Synonyms and related terms
+        "quality improvement", "reduce human error", "operator performance", "error minimization", "improved operator accuracy",
+        "operator training", "operator reliability", "reduce operator mistakes", "enhanced operator efficiency",
+        "error prevention", "operator skill improvement", "reduce manual errors"
+    ],
+    improvedProductQualityDebrisContamination: [
+        // Keywords from the NEB label
+        "improved product quality", "product quality", "reducing debris contamination", "debris contamination reduction",
+    
+        // Synonyms and related terms
+        "quality improvement", "reduce contamination", "debris-free production", "clean manufacturing",
+        "reduce product defects", "enhanced product quality", "contamination control", "improved cleanliness",
+        "reduce debris defects", "cleaner production processes"
+    ],
+    reduceProductionLossLaborMaterial: [
+        // Keywords from the NEB label
+        "reduce production loss", "production loss", "labor loss", "material loss", "reduce labor loss", "reduce material loss",
+    
+        // Synonyms and related terms
+        "minimize production waste", "reduce manufacturing waste", "reduce operational inefficiencies",
+        "reduce defective production", "reduce resource waste", "improve production efficiency",
+        "reduce downtime", "reduce production inefficiencies", "optimize labor usage", "optimize material usage"
+    ],
+    reducedRawMaterialLoss: [
+        // Keywords from the NEB label
+        "reduced raw material loss", "raw material loss", "reduce raw material waste", "raw material reduction",
+    
+        // Synonyms and related terms
+        "minimize material waste", "reduce material consumption", "raw material efficiency", "material utilization improvement",
+        "reduce resource waste", "optimize raw material usage", "material waste reduction", "improve material efficiency"
+    ],
+    reducedConsumables: [
+        // Keywords from the NEB label
+        "reduce cost from using less consumables", "reduced consumables", "less consumables", "consumables cost reduction",
+    
+        // Synonyms and related terms
+        "minimize consumables usage", "reduce consumables expenses", "consumables efficiency", "lower consumables cost",
+        "optimize consumables usage", "reduce material consumption", "reduce intermediate goods", "reduce service parts",
+        "reduce treatment chemicals"
+    ],
+    additionalSpaceFromLayoutChanges: [
+        // Keywords from the NEB label
+        "better space utilization", "space utilization", "optimized space", "improved layout efficiency",
+    
+        // Synonyms and related terms
+        "space optimization", "layout optimization", "efficient space usage", "maximize usable space",
+        "improved workspace layout", "space efficiency", "better floor plan", "optimized facility layout"
+    ],
+    reducedWearAndTear: [
+        // Keywords from the NEB label
+        "reduced wear and tear", "wear and tear", "reduced replacement parts", "reduced repair parts",
+    
+        // Synonyms and related terms
+        "minimize equipment wear", "reduce maintenance needs", "reduce part replacements", "reduce repair frequency",
+        "extend equipment lifespan", "improve equipment durability", "reduce component wear", "enhance equipment reliability",
+        "reduce maintenance costs", "optimize equipment usage"
+    ],
+    reducedLaborCostsForProblemSolvingAndRepair: [
+        // Keywords from the NEB label
+        "reduced labor costs for problem solving and repair", "labor costs", "problem solving costs", "repair costs",
+    
+        // Synonyms and related terms
+        "minimize labor expenses", "reduce troubleshooting costs", "reduce repair labor costs", "optimize maintenance labor",
+        "lower problem resolution costs", "reduce maintenance workforce costs", "reduce repair workforce expenses",
+        "improve labor efficiency", "reduce operational labor costs"
+    ],
+    reduceHazardousWaste: [
+        // Keywords from the NEB label
+        "reduce hazardous waste", "hazardous waste reduction", "minimize hazardous waste", "hazardous waste disposal",
+    
+        // Synonyms and related terms
+        "reduce toxic waste", "hazardous material reduction", "minimize toxic materials", "reduce hazardous byproducts",
+        "hazardous waste management", "toxic waste disposal", "reduce hazardous emissions", "improve hazardous waste handling"
+    ],
+    reduceNonhazardousWaste: [
+        // Keywords from the NEB label
+        "reduce nonhazardous waste", "nonhazardous waste reduction", "minimize nonhazardous waste", "nonhazardous waste disposal",
+    
+        // Synonyms and related terms
+        "reduce general waste", "nonhazardous material reduction", "minimize general waste", "reduce nonhazardous byproducts",
+        "nonhazardous waste management", "general waste disposal", "reduce nonhazardous emissions", "improve nonhazardous waste handling"
+    ],
+    reduceProductWaste: [
+        // Keywords from the NEB label
+        "reduce product waste", "product waste reduction", "minimize product waste", "reduce defective products",
+    
+        // Synonyms and related terms
+        "reduce production waste", "product defect reduction", "minimize defective production", "reduce product rework",
+        "reduce product scrap", "improve product yield", "reduce waste in manufacturing", "optimize product quality"
+    ],
+    reduceWaterConsumption: [
+        // Keywords from the NEB label
+        "reduce water consumption", "water consumption reduction", "minimize water usage", "water use reduction",
+    
+        // Synonyms and related terms
+        "reduce water use", "water efficiency", "optimize water usage", "conserve water", "water conservation",
+        "lower water consumption", "reduce water waste", "improve water utilization"
+    ],
+    reduceSewageVolume: [
+        // Keywords from the NEB label
+        "reduce sewage volume", "sewage volume reduction", "minimize sewage volume", "reduce wastewater volume",
+    
+        // Synonyms and related terms
+        "wastewater reduction", "reduce effluent volume", "minimize wastewater discharge", "sewage management",
+        "reduce liquid waste", "improve wastewater efficiency", "reduce sewage discharge", "optimize wastewater handling"
+    ],
+    reduceDustEmissions: [
+        // Keywords from the NEB label
+        "reduce dust emissions", "dust emissions reduction", "minimize dust emissions", "dust control",
+    
+        // Synonyms and related terms
+        "reduce particulate emissions", "dust suppression", "airborne dust reduction", "dust mitigation",
+        "improve air quality", "reduce particulate matter", "dust pollution control", "dust abatement"
+    ],
+    reduceRefrigerantGasEmissions: [
+        // Keywords from the NEB label
+        "reduce refrigerant gas emissions", "refrigerant gas emissions reduction", "minimize refrigerant emissions",
+    
+        // Synonyms and related terms
+        "reduce refrigerant leaks", "refrigerant emissions control", "reduce greenhouse gas emissions",
+        "minimize refrigerant gas release", "reduce HVAC emissions", "reduce cooling system emissions",
+        "refrigerant management", "reduce fluorinated gas emissions", "reduce F-gas emissions"
+    ],
+    reduceOccupationalDangers: [
+        // Keywords from the NEB label
+        "reduce accidents", "reduce occupational disease", "reduce workplace accidents", "reduce occupational hazards",
+    
+        // Synonyms and related terms
+        "minimize workplace risks", "reduce workplace injuries", "reduce workplace illnesses", "improve workplace safety",
+        "reduce safety incidents", "reduce occupational risks", "reduce workplace dangers", "enhance employee safety",
+        "reduce injury rates", "reduce health risks at work", "improve occupational health"
+    ],
+    reduceUnsafeOperatorActs: [
+        // Keywords from the NEB label
+        "reduce unsafe operator acts", "unsafe operator acts reduction", "minimize unsafe acts", "reduce operator errors",
+    
+        // Synonyms and related terms
+        "improve operator safety", "reduce unsafe behaviors", "minimize operator risks", "enhance workplace safety",
+        "reduce operator-related incidents", "prevent unsafe actions", "reduce operator hazards", "improve operator practices"
+    ],
+    reduceLikelinessOfOccupationalDangers: [
+        // Keywords from the NEB label
+        "reduce likeliness of accidents", "reduce occupational disease likelihood", "reduce workplace accidents likelihood", "reduce occupational hazards likelihood",
+    
+        // Synonyms and related terms
+        "minimize workplace risks", "reduce workplace injury chances", "reduce workplace illness risks", "improve workplace safety",
+        "reduce safety incident likelihood", "reduce occupational risk probability", "reduce workplace danger probability", "enhance employee safety",
+        "reduce injury likelihood", "reduce health risks at work", "improve occupational health conditions"
+    ],
+    reducedNoiseExposure: [
+        // Keywords from the NEB label
+        "reduce nuisance noise", "nuisance noise reduction", "minimize noise exposure", "reduce workplace noise",
+    
+        // Synonyms and related terms
+        "noise control", "reduce noise pollution", "minimize sound levels", "reduce ambient noise",
+        "improve acoustic environment", "reduce noise hazards", "noise abatement", "reduce auditory disturbances"
+    ],
+    reduceNeedOshaHearingProgram: [
+        // Keywords from the NEB label
+        "reduce OSHA hearing program", "reduce hearing conservation program", "reduce scope of OSHA program", "reduce need for hearing conservation",
+        "occupational safety and health administration",
+    
+        // Synonyms and related terms
+        "minimize OSHA hearing program", "reduce occupational noise exposure", "reduce hearing protection requirements",
+        "reduce workplace noise compliance", "reduce hearing conservation scope", "reduce OSHA compliance burden",
+        "improve hearing conservation compliance", "reduce noise-related OSHA requirements"
+    ],
+    improveAmbientAirQuality: [
+        // Keywords from the NEB label
+        "improve air quality", "improved air quality", "better air quality", "enhance air quality",
+    
+        // Synonyms and related terms
+        "reduce air pollution", "reduce particulate matter", "reduce airborne contaminants", "cleaner air",
+        "reduce dust and emissions", "improve environmental air quality", "reduce atmospheric pollutants",
+        "enhance breathable air", "reduce harmful emissions", "improve ambient air conditions"
+    ],
+    reducePPE: [
+        // Keywords from the NEB label
+        "reduce PPE", "reduced need for PPE", "reduce personal protective equipment", "reduced need for personal protective equipment",
+    
+        // Synonyms and related terms
+        "minimize PPE usage", "reduce safety equipment", "reduce protective gear", "reduce workplace protective equipment",
+        "reduce safety gear requirements", "reduce occupational safety equipment", "reduce protective equipment costs"
+    ],
+    improvedThermalComfort: [
+        // Keywords from the NEB label
+        "improve workplace temperature comfort", "workplace temperature comfort", "improved thermal comfort", "better temperature control",
+    
+        // Synonyms and related terms
+        "enhance thermal comfort", "improve temperature regulation", "better workplace climate", "improve indoor temperature",
+        "enhance workplace comfort", "reduce temperature fluctuations", "improve thermal environment", "better HVAC performance"
+    ],
+    reduceUnscheduledBreaks: [
+        // Keywords from the NEB label
+        "reduce unscheduled breaks", "unscheduled breaks reduction", "minimize unscheduled breaks", "reduce unplanned breaks",
+    
+        // Synonyms and related terms
+        "reduce unexpected breaks", "minimize unplanned interruptions", "reduce workplace interruptions", "reduce unplanned downtime",
+        "improve work continuity", "reduce workflow disruptions", "enhance workplace efficiency", "reduce unexpected interruptions"
+    ],
+    reduceWorkplaceIncidentsRelatedToHeat: [
+        // Keywords from the NEB label
+        "reduce workplace safety incidents related to heat", "reduce heat-related workplace incidents", "reduce heat-related safety incidents", "reduce heat-related injuries",
+    
+        // Synonyms and related terms
+        "minimize heat-related workplace risks", "reduce heat stress incidents", "reduce heat-related hazards", "improve workplace heat safety",
+        "prevent heat-related injuries", "reduce heat exposure risks", "enhance workplace safety in heat", "reduce heat-induced accidents"
+    ],
+    increaseWorkplaceSecurity: [
+        // Keywords from the NEB label
+        "increase workplace security", "workplace security improvement", "enhance workplace security", "improve workplace safety and security",
+    
+        // Synonyms and related terms
+        "boost workplace protection", "increase facility security", "improve employee safety", "enhance workplace protection",
+        "reduce workplace vulnerabilities", "strengthen workplace safety measures", "improve workplace access control", "increase workplace surveillance"
+    ],
+    increaseEnergyResiliency: [
+        // Keywords from the NEB label
+        "increase energy resiliency", "energy resiliency improvement", "enhance energy resilience", "improve energy security",
+    
+        // Synonyms and related terms
+        "boost energy reliability", "increase energy independence", "improve energy stability", "enhance energy sustainability",
+        "reduce energy vulnerabilities", "strengthen energy infrastructure", "improve energy supply security", "increase energy adaptability"
+    ],
+    improvedVisualComfort: [
+        // Keywords from the NEB label
+        "improved workplace visual comfort", "workplace visual comfort", "better visual comfort", "enhanced visual comfort",
+    
+        // Synonyms and related terms
+        "improved lighting conditions", "better workplace lighting", "enhanced visibility", "reduce visual strain",
+        "improve visual ergonomics", "better lighting environment", "enhance visual clarity", "reduce eye fatigue"
+    ],
+    increaseEmployeeEngagement: [
+        // Keywords from the NEB label
+        "increase employee engagement", "employee engagement improvement", "enhance employee engagement", "improve workforce engagement",
+    
+        // Synonyms and related terms
+        "boost employee involvement", "increase employee participation", "improve employee commitment", "enhance workforce morale",
+        "increase employee satisfaction", "improve workplace engagement", "strengthen employee connection", "enhance employee motivation"
+    ],
+    changeAddQualityJobs: [
+        // Keywords from the NEB label
+        "change jobs", "add jobs", "change or add jobs", "job creation", "job changes",
+    
+        // Synonyms and related terms
+        "increase employment opportunities", "improve job quality", "create new jobs", "enhance workforce opportunities",
+        "expand employment", "job growth", "improve workforce conditions", "add quality jobs"
+    ],
+    improveCommunityConditions: [
+        // Keywords from the NEB label
+        "improve community conditions", "social conditions improvement",
+        "improve surrounding community conditions", "enhance community well-being",
+    
+        // Synonyms and related terms
+        "improve social conditions", "reduce community health burdens", "enhance economic opportunities", "improve public health",
+        "strengthen community support", "reduce local health risks", "enhance community quality of life", "improve neighborhood conditions"
+    ],
+    improvedStaffSatisfaction: [
+        // Keywords from the NEB label
+        "improved staff satisfaction", "staff satisfaction improvement", "enhance staff satisfaction", "improve employee satisfaction",
+    
+        // Synonyms and related terms
+        "boost workforce morale", "increase employee happiness", "improve workplace satisfaction", "enhance employee well-being",
+        "increase job satisfaction", "improve employee contentment", "enhance workplace morale", "improve team satisfaction"
+    ],
+    increaseUsefulEquipmentLife: [
+        // Keywords from the NEB label
+        "increase useful equipment life", "useful equipment life extension", "extend equipment lifespan", "prolong equipment life",
+    
+        // Synonyms and related terms
+        "enhance equipment durability", "improve equipment longevity", "reduce equipment wear", "maximize equipment usage",
+        "extend asset life", "improve machinery lifespan", "reduce replacement frequency", "enhance equipment reliability"
+    ],
+    increaseAverageYearsEmployed: [
+        // Keywords from the NEB label
+        "increase average years employed", "average years employed improvement", "enhance employee tenure", "improve workforce retention",
+    
+        // Synonyms and related terms
+        "increase employee retention", "extend employee tenure", "improve average employment duration", "enhance job stability",
+        "reduce employee turnover", "increase workforce longevity", "improve employee loyalty", "enhance workforce retention"
+    ],
+    reduceStaffTurnover: [
+        // Keywords from the NEB label
+        "reduce staff turnover", "staff turnover reduction", "minimize staff turnover", "reduce employee turnover",
+    
+        // Synonyms and related terms
+        "improve employee retention", "reduce workforce attrition", "minimize employee churn", "enhance workforce stability",
+        "reduce talent turnover", "improve employee loyalty", "increase workforce retention", "reduce employee attrition"
+    ],
+    reduceChemicalEmissions: [
+        // Keywords from the NEB label
+        "reduce GHG emissions", "GHG emissions reduction", "minimize greenhouse gas emissions", "reduce greenhouse gases",
+    
+        // Synonyms and related terms
+        "reduce carbon emissions", "reduce CO2 emissions", "lower carbon footprint", "reduce methane emissions",
+        "reduce nitrous oxide emissions", "reduce fluorinated gas emissions", "reduce climate pollutants",
+        "reduce atmospheric emissions", "reduce harmful emissions", "reduce industrial emissions"
+    ],
+    reduceRegulatoryCosts: [
+        // Keywords from the NEB label
+        "reduce regulatory costs", "regulatory cost reduction", "minimize regulatory expenses", "reduce compliance costs",
+    
+        // Synonyms and related terms
+        "reduce regulatory fees", "lower compliance costs", "reduce environmental fees", "reduce government fees",
+        "reduce regulatory burdens", "reduce legal compliance costs", "minimize regulatory obligations", "reduce administrative costs"
+    ],
+    reduceCostsForLabor: [
+        // Keywords from the NEB label
+        "reduce costs for labor", "labor cost reduction", "minimize labor expenses", "reduce workforce costs",
+    
+        // Synonyms and related terms
+        "lower labor costs", "reduce employee expenses", "optimize labor spending", "minimize workforce expenses",
+        "reduce payroll costs", "enhance labor efficiency", "improve workforce cost-effectiveness", "reduce labor overhead"
+    ],
+    improvedWaterQuality: [
+        // Keywords from the NEB label
+        "improved water quality", "water quality improvement", "enhance water quality", "better water quality",
+    
+        // Synonyms and related terms
+        "reduce water pollutants", "improve water cleanliness", "enhance water purity", "reduce water contamination",
+        "improve aquatic health", "reduce waterborne pollutants", "improve environmental water quality", "cleaner water"
+    ]
+}
+
+
+export const NebKeywordList: Array<string> = Array.from(
+    new Set(Object.values(NebKeywords).flat())
+);
