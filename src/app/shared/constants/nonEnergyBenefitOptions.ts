@@ -642,7 +642,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         "shorter cycle time", "cycle time", "reduced cycle time", "shorter production time", "faster production",
     
         // Synonyms and related terms
-        "process speed", "time reduction", "production efficiency", "time to make goods", "reduced production time",
+        "efficiency", "process speed", "time reduction", "production efficiency", "time to make goods", "reduced production time",
         "faster manufacturing", "improved cycle efficiency", "time optimization", "process improvement"
     ],
     increaseEquipmentUptime: [
@@ -652,7 +652,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         // Synonyms and related terms
         "equipment reliability", "machine availability", "reduced downtime", "operational efficiency",
         "equipment performance", "machine uptime", "equipment availability", "minimize downtime",
-        "enhanced equipment utilization", "improved machine reliability", "continuous operation"
+        "enhanced equipment utilization", "improved machine reliability", "continuous operation",
+        "efficiency"
     ],
     reduceIndustrialTrucksDowntime: [
         // Keywords from the NEB label
@@ -670,7 +671,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     
         // Synonyms and related terms
         "extend equipment life", "prolong equipment usage", "defer capital expenditure", "reduce replacement frequency",
-        "delay capital costs", "extend asset lifespan", "postpone replacement investment"
+        "delay capital costs", "extend asset lifespan", "postpone replacement investment",
+        "savings"
     ],
     increaseProdScheduleFlexibility: [
         // Keywords from the NEB label
@@ -679,7 +681,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         // Synonyms and related terms
         "schedule optimization", "production flexibility", "adaptive production schedule", "dynamic scheduling",
         "flexible manufacturing", "production adaptability", "schedule efficiency", "improved scheduling",
-        "responsive production schedule", "adjustable production schedule"
+        "responsive production schedule", "adjustable production schedule",
+        "efficiency"
     ],
     improvedProductQualityMachineSource: [
         // Keywords from the NEB label
@@ -723,7 +726,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     
         // Synonyms and related terms
         "minimize material waste", "reduce material consumption", "raw material efficiency", "material utilization improvement",
-        "reduce resource waste", "optimize raw material usage", "material waste reduction", "improve material efficiency"
+        "reduce resource waste", "optimize raw material usage", "material waste reduction", "improve material efficiency",
+        "efficiency"
     ],
     reducedConsumables: [
         // Keywords from the NEB label
@@ -732,7 +736,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         // Synonyms and related terms
         "minimize consumables usage", "reduce consumables expenses", "consumables efficiency", "lower consumables cost",
         "optimize consumables usage", "reduce material consumption", "reduce intermediate goods", "reduce service parts",
-        "reduce treatment chemicals"
+        "reduce treatment chemicals",
+        "savings"
     ],
     additionalSpaceFromLayoutChanges: [
         // Keywords from the NEB label
@@ -749,7 +754,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         // Synonyms and related terms
         "minimize equipment wear", "reduce maintenance needs", "reduce part replacements", "reduce repair frequency",
         "extend equipment lifespan", "improve equipment durability", "reduce component wear", "enhance equipment reliability",
-        "reduce maintenance costs", "optimize equipment usage"
+        "reduce maintenance costs", "optimize equipment usage",
+        "savings"
     ],
     reducedLaborCostsForProblemSolvingAndRepair: [
         // Keywords from the NEB label
@@ -758,7 +764,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         // Synonyms and related terms
         "minimize labor expenses", "reduce troubleshooting costs", "reduce repair labor costs", "optimize maintenance labor",
         "lower problem resolution costs", "reduce maintenance workforce costs", "reduce repair workforce expenses",
-        "improve labor efficiency", "reduce operational labor costs"
+        "improve labor efficiency", "reduce operational labor costs",
+        "savings"
     ],
     reduceHazardousWaste: [
         // Keywords from the NEB label
@@ -790,7 +797,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     
         // Synonyms and related terms
         "reduce water use", "water efficiency", "optimize water usage", "conserve water", "water conservation",
-        "lower water consumption", "reduce water waste", "improve water utilization"
+        "lower water consumption", "reduce water waste", "improve water utilization",
+        "efficiency", "savings"
     ],
     reduceSewageVolume: [
         // Keywords from the NEB label
@@ -876,7 +884,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     
         // Synonyms and related terms
         "minimize PPE usage", "reduce safety equipment", "reduce protective gear", "reduce workplace protective equipment",
-        "reduce safety gear requirements", "reduce occupational safety equipment", "reduce protective equipment costs"
+        "reduce safety gear requirements", "reduce occupational safety equipment", "reduce protective equipment costs",
+        "savings"
     ],
     improvedThermalComfort: [
         // Keywords from the NEB label
@@ -892,7 +901,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     
         // Synonyms and related terms
         "reduce unexpected breaks", "minimize unplanned interruptions", "reduce workplace interruptions", "reduce unplanned downtime",
-        "improve work continuity", "reduce workflow disruptions", "enhance workplace efficiency", "reduce unexpected interruptions"
+        "improve work continuity", "reduce workflow disruptions", "enhance workplace efficiency", "reduce unexpected interruptions",
+        "efficiency"
     ],
     reduceWorkplaceIncidentsRelatedToHeat: [
         // Keywords from the NEB label
@@ -998,7 +1008,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     
         // Synonyms and related terms
         "reduce regulatory fees", "lower compliance costs", "reduce environmental fees", "reduce government fees",
-        "reduce regulatory burdens", "reduce legal compliance costs", "minimize regulatory obligations", "reduce administrative costs"
+        "reduce regulatory burdens", "reduce legal compliance costs", "minimize regulatory obligations", "reduce administrative costs",
+        "savings"
     ],
     reduceCostsForLabor: [
         // Keywords from the NEB label
@@ -1006,7 +1017,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     
         // Synonyms and related terms
         "lower labor costs", "reduce employee expenses", "optimize labor spending", "minimize workforce expenses",
-        "reduce payroll costs", "enhance labor efficiency", "improve workforce cost-effectiveness", "reduce labor overhead"
+        "reduce payroll costs", "enhance labor efficiency", "improve workforce cost-effectiveness", "reduce labor overhead",
+        "efficiency", "savings"
     ],
     improvedWaterQuality: [
         // Keywords from the NEB label

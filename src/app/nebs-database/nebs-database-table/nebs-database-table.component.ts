@@ -14,6 +14,7 @@ import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricOptions, KeyPerformanceMetricValue } from 'src/app/shared/constants/keyPerformanceMetrics';
 import { NebKeywords, NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefitOptions';
+import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
@@ -37,6 +38,7 @@ export class NebsDatabaseTableComponent {
   nebOptions: Array<NebOption>;
   keywordList: Array<string> = [];
   filteredKeywordList: Array<string> = [];
+  topKeywords: Array<string> = [];
   
   orderByDir: 'asc' | 'desc' = 'asc';
   nebSearchStr: string = '';
@@ -54,7 +56,8 @@ export class NebsDatabaseTableComponent {
     private sharedDataService: SharedDataService,
     private assessmentIdbService: AssessmentIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
-    private facilityIdbService: FacilityIdbService
+    private facilityIdbService: FacilityIdbService,
+    private localStorageDataService: LocalStorageDataService,
   ) { }
 
   ngOnInit() {
@@ -66,6 +69,7 @@ export class NebsDatabaseTableComponent {
       return option.label;
     }, 'asc');
     this.setKpmOptions();
+    this.topKeywords = this.localStorageDataService.topKeywords;
   }
 
   setKpmOptions() {
@@ -101,8 +105,10 @@ export class NebsDatabaseTableComponent {
 
   filterKeywordList() {
     const searchStr = this.nebSearchStr.toLowerCase().trim();
-    const keywordMatched = this.keywordList.filter(keyword =>
-      keyword.toLowerCase().startsWith(searchStr)
+    const keywordMatched = _.uniq(
+      this.keywordList.filter(keyword =>
+        keyword.toLowerCase().startsWith(searchStr)
+      )
     );
     this.filteredKeywordList = keywordMatched.slice(0, 10); // limit to 10 matches
     if (keywordMatched.length > 10) {
@@ -111,6 +117,11 @@ export class NebsDatabaseTableComponent {
   }
 
   selectKeyword(keyword: string) {
+    this.nebSearchStr = keyword;
+    this.filteredKeywordList = [];
+  }
+
+  selectTopKeyword(keyword: string) {
     this.nebSearchStr = keyword;
     this.filteredKeywordList = [];
   }

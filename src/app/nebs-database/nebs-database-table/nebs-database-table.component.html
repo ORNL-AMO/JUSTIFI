@@ -71,6 +71,15 @@
     &ast; Indicates KPI/KPM currently tracked by this company.
 </p>
 <hr>
+<div class="my-2">
+    <button
+        *ngFor="let keyword of topKeywords"
+        class="btn btn-outline-primary btn-sm border-0"
+        (click)="selectTopKeyword(keyword)"
+    >
+        #{{ keyword }}
+    </button>
+</div>
 @let tableList = nebOptions | nebOptionsFilter: orderByDir: kpiValue: kpmValue: keyPerformanceMetricOptions:
 nebSearchStr;
 <table class="table table-bordered table-hover table-sm">
