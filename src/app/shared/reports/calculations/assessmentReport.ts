@@ -125,6 +125,17 @@ export function getAssessmentReport(
         implementationCost += assessment.implementationCost;
     }
 
+    // update utilityCategory based on assessment and EEMs
+    let utilityCategory: string = assessment.utilityCategory;
+    if (utilityCategory == 'energy') {
+        for (const report of energyOpportunityReports) {
+            if (report.energyOpportunity.utilityCategory == 'water') {
+                utilityCategory = 'water';
+                break;
+            }
+        };
+    }
+
     let totalPaybackWithNebs: number = (implementationCost / totalFinancialImpact);
     if (totalPaybackWithNebs == Infinity) {
         totalPaybackWithNebs = 0;
@@ -169,7 +180,8 @@ export function getAssessmentReport(
         nonOpportunityPaybackWithoutNebs: nonOpportunityPaybackWithoutNebs,
         nonOpportunityPaybackWithNebs: nonOpportunityPaybackWithNebs,
         allNebReports: allNebReports,
-        keyPerformanceIndicatorReport: getKeyPerformanceIndicatorReport(allNebReports)
+        keyPerformanceIndicatorReport: getKeyPerformanceIndicatorReport(allNebReports),
+        utilityCategory: utilityCategory,
     }
 }
 
@@ -194,6 +206,7 @@ export interface AssessmentReport {
     nonOpportunityPaybackWithoutNebs: number,
     nonOpportunityPaybackWithNebs: number,
     keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport,
+    utilityCategory?: string,
 }
 
 

@@ -270,7 +270,7 @@ export class UpdateDbEntriesService {
         // need recalculate uses and costs
         let facility: IdbFacility = facilities.find(_facility => { return _facility.guid == assessment.facilityId });
         let company: IdbCompany = companies.find(_company => { return _company.guid == facility.companyId });
-        // previously assessment is limited to one utility type
+        // legacy assessment is limited to one utility type
         // 1. update utility types
         assessment.utilityTypes = AssessmentOptions.find(_option =>
           { return _option.assessmentType == assessment.assessmentType })?.utilityTypes || [];
@@ -284,7 +284,27 @@ export class UpdateDbEntriesService {
           let utilityEnergyUse: UtilityEnergyUse = assessment.utilityEnergyUses.find(_energyUse =>
             { return _energyUse.utilityType == assessment.utilityType });
           utilityEnergyUse.utilitySaving = assessment.energySavings;
+          if (assessment.utilityType == 'Water' || assessment.utilityType == 'Waste Water') {
+            assessment.utilityCategory = 'water';
+          } else {
+            assessment.utilityCategory = 'energy';
+          }
           assessment.utilityType = undefined;
+        } else {
+          // update the utility category if none is set
+          if (assessment.utilityCategory == undefined) {
+            assessment.utilityCategory = 'energy';
+            for (const utilityType of assessment.utilityTypes) {
+              if (utilityType == 'Water' || utilityType == 'Waste Water') {
+                let use = assessment.utilityEnergyUses.find(_energyUse =>
+                  { return _energyUse.utilityType == utilityType });
+                if (use && use.include) {
+                  assessment.utilityCategory = 'water';
+                  break;
+                }
+              }
+            }
+          }
         }
         // update the use, cost, and savings
         assessment = updateAssessmentUtilityUseCostSavings(assessment, facility.unitSettings, company.companyEnergyUnit);

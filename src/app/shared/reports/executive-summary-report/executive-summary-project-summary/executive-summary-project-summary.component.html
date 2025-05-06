@@ -28,7 +28,9 @@
         <tr>
           <th rowspan="2"></th>
           <th></th>
-          <th colspan="2">Utility Savings</th>
+          <th colspan="2">
+            {{ executiveSummaryReport.utilityCategory == 'energy'? 'Energy' : 'Utility' }} Savings
+          </th>
           <th></th>
           <th colspan="2">Including NEBs</th>
         </tr>

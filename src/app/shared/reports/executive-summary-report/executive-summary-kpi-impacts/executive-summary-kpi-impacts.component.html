@@ -43,7 +43,7 @@
         </tr>
         <tr>
           <td class="ps-2">
-            Utilities
+            {{ executiveSummaryReport.utilityCategory == 'energy' ? 'Energy' : 'Utilities' }}
           </td>
           <td class="text-right">
             <app-single-cell-item [isCurrency]="true" [numValue]="executiveSummaryReport.totalUtilityCostSavings">
