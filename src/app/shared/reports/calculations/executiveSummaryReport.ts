@@ -10,8 +10,7 @@ import { getKeyPerformanceIndicatorReport, KeyPerformanceIndicatorReport } from 
 import { NebReport } from "./nebReport";
 import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicator";
 
-//IF no report is passed as a parameter
-//All data (assessments/opps/nebs) included
+// If no report is passed as a parameter, all data (assessments/EEMs/NEBs) included
 export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<string>, assessments: Array<IdbAssessment>,
     energyOpportunities: Array<IdbEnergyOpportunity>,
     nonEnergyBenefits: Array<IdbNonEnergyBenefit>,
@@ -86,6 +85,11 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
         });
         return totalNebFinancialImpact;
     });
+    // update utility category
+    let utilityCategory: string = "energy"; // Default to "energy"
+    if (assessmentReports.some(report => report.assessment.utilityCategory === "water")) {
+        utilityCategory = "water";
+    }
     let totalPaybackWithoutNebs: number = (totalImplementationCost / totalNonNebCostSavings);
     if (totalPaybackWithoutNebs == Infinity || isNaN(totalPaybackWithoutNebs)) {
         totalPaybackWithoutNebs = 0;
@@ -109,7 +113,9 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
         totalPaybackWithoutNebs: totalPaybackWithoutNebs,
         totalPaybackWithNebs: totalPaybackWithNebs,
         totalUtilityCosts: totalUtilityCosts,
-        totalUtilityCostSavings: totalUtilityCostSavings,};
+        totalUtilityCostSavings: totalUtilityCostSavings,
+        utilityCategory: utilityCategory
+    };
 }
 export interface ExecutiveSummaryReport {
     visitDate: Date;
@@ -126,4 +132,5 @@ export interface ExecutiveSummaryReport {
     totalPaybackWithNebs: number;
     totalUtilityCosts: number;
     totalUtilityCostSavings: number;
+    utilityCategory?: string;
 }

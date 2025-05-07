@@ -126,7 +126,22 @@ export class AssessmentDetailsFormComponent {
     let utilityTypes = AssessmentOptions.find(
       _assessmentOption => _assessmentOption.assessmentType == this.assessment.assessmentType)?.utilityTypes || [];
     this.assessment.utilityTypes = utilityTypes; // track all utility types
+    this.updateAssessmentUtilityCategory();
     await this.calculateUtilityUseCostSavings();
+  }
+
+  updateAssessmentUtilityCategory() {
+    this.assessment.utilityCategory = 'energy';
+    for (let utilityType of this.assessment.utilityTypes) {
+      if (utilityType == 'Water' || utilityType == 'Waste Water') {
+        let use = this.assessment.utilityEnergyUses.find(
+          _energyUse => _energyUse.utilityType == utilityType);
+        if (use && use.include) {
+          this.assessment.utilityCategory = 'water';
+          break;
+        }
+      }
+    }
   }
 
   updateEnergyOpportunities() {
