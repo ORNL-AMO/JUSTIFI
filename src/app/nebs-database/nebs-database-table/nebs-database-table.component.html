@@ -5,9 +5,22 @@
             <span class="input-group-text">
                 <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
             </span>
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="nebSearchStr"
-                [(ngModel)]="nebSearchStr">
+            <input
+                class="form-control" type="search" placeholder="Search"
+                aria-label="Search" name="nebSearchStr"
+                [(ngModel)]="nebSearchStr"
+                (input)="filterKeywordList()"
+            />
         </div>
+        <ul class="dropdown-menu show" *ngIf="nebSearchStr && filteredKeywordList.length > 0">
+            <li
+                *ngFor="let keyword of filteredKeywordList"
+                class="dropdown-item"
+                (click)="keyword != '...' && selectKeyword(keyword)"
+            >
+                {{ keyword }}
+            </li>
+        </ul>
     </div>
 </div>
 
@@ -55,6 +68,15 @@
     &ast; Indicates KPI/KPM currently tracked by this company.
 </p>
 <hr>
+<div class="my-2">
+    <button
+        *ngFor="let keyword of topKeywords"
+        class="btn btn-outline-primary btn-sm border-0"
+        (click)="selectTopKeyword(keyword)"
+    >
+        #{{ keyword }}
+    </button>
+</div>
 @let tableList = nebOptions | nebOptionsFilter: orderByDir: kpiValue: kpmValue: keyPerformanceMetricOptions:
 nebSearchStr;
 <table class="table table-bordered table-hover table-sm">
