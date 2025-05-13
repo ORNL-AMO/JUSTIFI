@@ -13,5 +13,8 @@ export const LabelTooltips = {
     },
     "associatedEEM": {
         "tooltip": "Is this NEB realized because of the implementation of a specific energy efficiency measure?"
+    },
+    "costImpact": {
+        "tooltip": "Add financial impacts not tied to Key Performance Metrics."
     }
 }

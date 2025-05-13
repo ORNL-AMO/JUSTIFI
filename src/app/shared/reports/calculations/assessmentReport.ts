@@ -136,7 +136,21 @@ export function getAssessmentReport(
         };
     }
 
-    let totalPaybackWithNebs: number = (implementationCost / totalFinancialImpact);
+    let totalNonOpportunityRebates: number = _.sumBy(assessmentNebReports, (report: EnergyOpportunityReport) => {
+        if (report.totalRebates) {
+            return report.totalRebates;
+        }
+        return 0;
+    })
+
+    let totalRebates: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
+        if (report.totalRebates) {
+            return report.totalRebates;
+        }
+        return 0;
+    }) + totalNonOpportunityRebates;
+
+    let totalPaybackWithNebs: number = ((implementationCost + totalRebates) / totalFinancialImpact);
     if (totalPaybackWithNebs == Infinity) {
         totalPaybackWithNebs = 0;
     }
@@ -155,7 +169,7 @@ export function getAssessmentReport(
     if (nonOpportunityPaybackWithoutNebs == Infinity) {
         nonOpportunityPaybackWithoutNebs = 0;
     }
-    let nonOpportunityPaybackWithNebs: number = (assessment.implementationCost / totalNonOpportunityCostSavings);
+    let nonOpportunityPaybackWithNebs: number = ((assessment.implementationCost - totalNonOpportunityRebates) / totalNonOpportunityCostSavings);
     if (nonOpportunityPaybackWithNebs == Infinity) {
         nonOpportunityPaybackWithNebs = 0;
     }
@@ -182,6 +196,8 @@ export function getAssessmentReport(
         allNebReports: allNebReports,
         keyPerformanceIndicatorReport: getKeyPerformanceIndicatorReport(allNebReports),
         utilityCategory: utilityCategory,
+        totalNonOpportunityRebates: totalNonOpportunityRebates,
+        totalRebates: totalRebates
     }
 }
 
@@ -207,6 +223,8 @@ export interface AssessmentReport {
     nonOpportunityPaybackWithNebs: number,
     keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport,
     utilityCategory?: string,
+    totalRebates: number,
+    totalNonOpportunityRebates: number
 }
 
 

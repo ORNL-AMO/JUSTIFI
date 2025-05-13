@@ -14,7 +14,7 @@
 <!--FORM-->
 <form>
     <ng-template [ngIf]="nonEnergyBenefit.isCustom">
-        <div class="row mb-2">
+        <div class="row">
             <label class="col-sm-5 col-form-label" for="{{'nebName'+nonEnergyBenefit.guid}}">NEB Name</label>
             <div class="col-sm-7">
                 <input name="{{'nebName'+nonEnergyBenefit.guid}}" type="text" class="form-control"
@@ -24,7 +24,7 @@
         </div>
     </ng-template>
 
-    <div class="row mb-2">
+    <div class="row">
         <!-- <label class="col-sm-5 col-form-label" for="{{'associatedEEM'+nonEnergyBenefit.guid}}">Connected EEM</label> -->
 
         <div class="col-sm-5 col-form-label">
@@ -33,8 +33,8 @@
         </div>
         <div class="col-sm-7">
             <div class="input-group">
-                <div class="input-group-text" *ngIf="nonEnergyBenefit.energyOpportunityId">
-                    <button class="btn btn-sm p-0"
+                <div class="input-group-tex p-0" *ngIf="nonEnergyBenefit.energyOpportunityId">
+                    <button class="btn btn-sm btn-primary p-1"
                         (click)="goToEnergyOpportunity(nonEnergyBenefit.energyOpportunityId)">
                         <fa-icon [icon]="faUpRightFromSquare"></fa-icon>
                     </button>
@@ -53,21 +53,49 @@
         </div>
     </div>
 
-    <div class="row mb-2">
-        <label class="col-sm-5 col-form-label" for="{{'costImpact'+nonEnergyBenefit.guid}}">Financial Benefit</label>
+    <div class="row">
+        <div class="col-sm-5 col-form-label">
+            Financial Benefit Type
+        </div>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <select class="form-select" name="{{'costImpactType'+nonEnergyBenefit.guid}}"
+                    id="{{'costImpactType'+nonEnergyBenefit.guid}}" [(ngModel)]="nonEnergyBenefit.costImpactType"
+                    (change)="changeAssociatedEEM()">
+                    <option [ngValue]="'annual'">
+                        Annual Benefit (&dollar;/yr)
+                    </option>
+                    <option [ngValue]="'oneTime'">
+                        One Time Benefit (Rebate)
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5 col-form-label">
+            <app-label-with-tooltip [field]="'costImpact'" [label]="'Financial Benefit'"
+                [labelId]="'costImpact'+nonEnergyBenefit.guid"></app-label-with-tooltip>
+        </div>
         <div class="col-sm-7">
             <div class="input-group">
                 <input type="number" class="form-control" [(ngModel)]="nonEnergyBenefit.costImpact"
                     name="{{'costImpact'+nonEnergyBenefit.guid}}" id="{{'costImpact'+nonEnergyBenefit.guid}}"
                     (input)="saveChanges()">
                 <span class="input-group-text">
-                    {{ currencyCode | currencySymbol }}/yr
+                    <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'oneTime'" [ngIfElse]="annualImpactBlock">
+                        {{ currencyCode | currencySymbol }}
+                    </ng-template>
+                    <ng-template #annualImpactBlock>
+                        {{ currencyCode | currencySymbol }}/yr
+                    </ng-template>
                 </span>
             </div>
         </div>
     </div>
 
-    <div class="row mb-1">
+    <div class="row">
         <div class="col-sm-12 col-form-label">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch"
