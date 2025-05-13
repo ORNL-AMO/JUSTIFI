@@ -79,6 +79,14 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
     if (totalPaybackWithNebs == Infinity || isNaN(totalPaybackWithNebs)) {
         totalPaybackWithNebs = 0;
     }
+
+    let totalNonKpmNebs: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        if (report.totalNonKpmNebs) {
+            return report.totalNonKpmNebs
+        }
+        return 0;
+    });
+
     return {
         assessmentReports: assessmentReports,
         allNebReports: allNebReports,
@@ -92,7 +100,8 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         totalImplementationCost: totalImplementationCost,
         totalNebFinancialImpact: totalNebFinancialImpact,
         totalNonNebCostSavings: totalNonNebCostSavings,
-        totalRebates: totalRebates
+        totalRebates: totalRebates,
+        totalNonKpmNebs: totalNonKpmNebs
     };
 }
 
@@ -110,5 +119,6 @@ export interface OnSiteVisitReport {
     totalPaybackWithNebs: number,
     totalNebFinancialImpact: number,
     totalNonNebCostSavings: number,
-    totalRebates: number
+    totalRebates: number,
+    totalNonKpmNebs: number
 }

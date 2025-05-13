@@ -68,6 +68,9 @@ export class NebContributionsBarChartComponent {
       let allNebReports: Array<NebReport> = this.assessmentReport.allNebReports.map(report => {
         return report;
       })
+      allNebReports = allNebReports.filter(nebReport => {
+        return nebReport.nonEnergyBenefit.costImpactType == 'annual'
+      });
       allNebReports = _.orderBy(allNebReports, (nebReport: NebReport) => {
         return nebReport.totalFinancialImpact;
       }, 'asc');

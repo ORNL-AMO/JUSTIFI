@@ -136,7 +136,7 @@ export function getAssessmentReport(
         };
     }
 
-    let totalNonOpportunityRebates: number = _.sumBy(assessmentNebReports, (report: EnergyOpportunityReport) => {
+    let totalNonOpportunityRebates: number = _.sumBy(assessmentNebReports, (report: NebReport) => {
         if (report.totalRebates) {
             return report.totalRebates;
         }
@@ -173,6 +173,15 @@ export function getAssessmentReport(
     if (nonOpportunityPaybackWithNebs == Infinity) {
         nonOpportunityPaybackWithNebs = 0;
     }
+
+    let totalNonKpmNebs: number = 0;
+    allNebReports.forEach(nebReport => {
+        if(nebReport.nonEnergyBenefit.costImpact && nebReport.nonEnergyBenefit.costImpactType == 'annual'){
+            totalNonKpmNebs += nebReport.nonEnergyBenefit.costImpact;
+        }
+    })
+
+
     return {
         assessment: assessment,
         energyOpportunityReports: energyOpportunityReports,
@@ -197,7 +206,8 @@ export function getAssessmentReport(
         keyPerformanceIndicatorReport: getKeyPerformanceIndicatorReport(allNebReports),
         utilityCategory: utilityCategory,
         totalNonOpportunityRebates: totalNonOpportunityRebates,
-        totalRebates: totalRebates
+        totalRebates: totalRebates,
+        totalNonKpmNebs: totalNonKpmNebs
     }
 }
 
@@ -224,7 +234,8 @@ export interface AssessmentReport {
     keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport,
     utilityCategory?: string,
     totalRebates: number,
-    totalNonOpportunityRebates: number
+    totalNonOpportunityRebates: number,
+    totalNonKpmNebs: number
 }
 
 

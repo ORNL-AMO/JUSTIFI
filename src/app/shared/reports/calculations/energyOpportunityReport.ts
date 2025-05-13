@@ -41,7 +41,7 @@ export function getEnergyOpportunityReport(
     let totalFinancialImpact: number = totalNonNebCostSavings + totalNebFinancialImpact;
 
     let totalRebates: number = _.sumBy(nebReports, (nebReport: NebReport) => {
-        return nebReport.totalRebate
+        return nebReport.totalRebates
     });
     let paybackWithNebs: number = ((energyOpportunity.implementationCost - totalRebates) / totalFinancialImpact);
     if (paybackWithNebs == Infinity) {

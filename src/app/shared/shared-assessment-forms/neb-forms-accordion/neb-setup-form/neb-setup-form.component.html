@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-sm-5 col-form-label">
             Financial Benefit Type
         </div>
@@ -71,12 +71,17 @@
                 </select>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="col-sm-5 col-form-label">
-            <app-label-with-tooltip [field]="'costImpact'" [label]="'Financial Benefit'"
-                [labelId]="'costImpact'+nonEnergyBenefit.guid"></app-label-with-tooltip>
+            <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'annual'" [ngIfElse]="rebateLabelBlock">
+                <app-label-with-tooltip [field]="'costImpact'" [label]="'Additional Financial Benefit'"
+                    [labelId]="'costImpact'+nonEnergyBenefit.guid"></app-label-with-tooltip>
+            </ng-template>
+            <ng-template #rebateLabelBlock>
+                Rebate Amount
+            </ng-template>
         </div>
         <div class="col-sm-7">
             <div class="input-group">
@@ -110,58 +115,61 @@
                 id="nebNotes"></textarea>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <hr>
+    <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+        <div class="row">
+            <div class="col-12">
+                <hr>
+            </div>
         </div>
-    </div>
 
-    <h6>
-        <div class="d-flex w-100 justify-content-between">
-            <div class="mt-auto bold">
-                Key Performance Metric Impacts
+        <h6>
+            <div class="d-flex w-100 justify-content-between">
+                <div class="mt-auto bold">
+                    Key Performance Metric Impacts
+                </div>
+                <div>
+                    <app-performance-metrics-modal
+                        [nonEnergyBenefit]="nonEnergyBenefit"></app-performance-metrics-modal>
+                </div>
             </div>
-            <div>
-                <app-performance-metrics-modal [nonEnergyBenefit]="nonEnergyBenefit"></app-performance-metrics-modal>
+        </h6>
+        <p class="fw-light small">
+            Fill out the impacts on company key performance metrics (<fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>)
+            that
+            can be associated with this Non-energy Benefit. Click the "Search Key Performance Metrics" button and a
+            modal
+            will
+            appear to find and add key performance metrics that are typically associated with this NEB.
+        </p>
+        <div class="row">
+            <div class="col">
+                <div class="metric-block">
+                    <hr class="metric-hr mt-0">
+                </div>
             </div>
         </div>
-    </h6>
-    <p class="fw-light small">
-        Fill out the impacts on company key performance metrics (<fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>)
-        that
-        can be associated with this Non-energy Benefit. Click the "Search Key Performance Metrics" button and a modal
-        will
-        appear to find and add key performance metrics that are typically associated with this NEB.
-    </p>
-    <div class="row">
-        <div class="col">
+
+        <ng-template [ngIf]="performanceMetricImpactGuids.length > 0" [ngIfElse]="noIncludedMetricsBlock">
             <div class="metric-block">
-                <hr class="metric-hr mt-0">
-            </div>
-        </div>
-    </div>
-
-    <ng-template [ngIf]="performanceMetricImpactGuids.length > 0" [ngIfElse]="noIncludedMetricsBlock">
-        <div class="metric-block">
-            <ng-container *ngFor="let impactGuid of performanceMetricImpactGuids">
-                <div class="metric-border">
-                    <app-performance-metric-impact-form [impactGuid]="impactGuid"
-                        [nonEnergyBenefit]="nonEnergyBenefit"></app-performance-metric-impact-form>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <hr class="metric-hr">
+                <ng-container *ngFor="let impactGuid of performanceMetricImpactGuids">
+                    <div class="metric-border">
+                        <app-performance-metric-impact-form [impactGuid]="impactGuid"
+                            [nonEnergyBenefit]="nonEnergyBenefit"></app-performance-metric-impact-form>
                     </div>
-                </div>
-            </ng-container>
-        </div>
-    </ng-template>
-    <ng-template #noIncludedMetricsBlock>
-        <div class="alert alert-info">
-            No performance metrics tracked for this NEB.
-        </div>
-    </ng-template>
-
+                    <div class="row">
+                        <div class="col">
+                            <hr class="metric-hr">
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-template>
+        <ng-template #noIncludedMetricsBlock>
+            <div class="alert alert-info">
+                No performance metrics tracked for this NEB.
+            </div>
+        </ng-template>
+    </ng-container>
 </form>
 <!--END FORM-->
 
