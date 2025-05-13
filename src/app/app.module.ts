@@ -14,7 +14,7 @@ import { SetupWizardModule } from './setup-wizard/setup-wizard.module';
 import { SidebarComponent } from './core-components/sidebar/sidebar.component';
 import { HelperPipesModule } from './shared/helper-pipes/_helper-pipes.module';
 import { SetupWizardModalComponent } from './core-components/setup-wizard-modal/setup-wizard-modal.component';
-import { ImportBackupModalComponent } from './core-components/import-backup-modal/import-backup-modal.component';
+import { ImportBackupModalComponent } from './core-components/backup-modal/import-backup-modal/import-backup-modal.component';
 import { UserPortfolioModule } from './user-portfolio/user-portfolio.module';
 import { PlotlyViaWindowModule } from 'angular-plotly.js';
 import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
@@ -25,6 +25,7 @@ import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alp
 import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
 import { localeCurrency } from './shared/constants/localeCurrency';
+import { ExportBackupModalComponent } from './core-components/backup-modal/export-backup-modal/export-backup-modal.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { localeCurrency } from './shared/constants/localeCurrency';
     AboutComponent,
     HelpComponent,
     AlphaDisclaimerComponent,
-    ToastNotificationsComponent
+    ToastNotificationsComponent,
+    ExportBackupModalComponent
   ],
   imports: [
     BrowserModule,

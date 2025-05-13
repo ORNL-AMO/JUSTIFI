@@ -1,0 +1,19 @@
+<div [ngClass]="{'window-overlay': showExportModal}"></div>
+<div class="popup" [ngClass]="{'open': showExportModal }">
+  <div class="popup-header">Export Data
+      <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeExportDataModal()"></button>
+  </div>
+  <div class="popup-body">
+      <div class="alert alert-info">
+          Would you like to backup the current state of your data? A .json file will be created in your downloads
+          folder that can be uploaded into JUSTIFI. This can be used to share your data with others or restore to an
+          older state.
+      </div>
+      <hr>
+  </div>
+  <div class="popup-footer d-flex justify-content-end">
+      <button class="btn btn-sm btn-secondary me-2" (click)="closeExportDataModal()">Cancel</button>
+      <button class="btn btn-sm btn-success" (click)="backupData()"><fa-icon [icon]="faDownload"></fa-icon>
+          Export Data</button>
+  </div>
+</div>

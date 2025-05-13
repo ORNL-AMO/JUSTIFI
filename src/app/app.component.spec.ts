@@ -6,7 +6,7 @@ import { WelcomeComponent } from './core-components/welcome/welcome.component';
 import { LoadingComponent } from './core-components/loading/loading.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SetupWizardModalComponent } from './core-components/setup-wizard-modal/setup-wizard-modal.component';
-import { ImportBackupModalComponent } from './core-components/import-backup-modal/import-backup-modal.component';
+import { ImportBackupModalComponent } from './core-components/backup-modal/import-backup-modal/import-backup-modal.component';
 import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
 import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
 import { stubServiceProviders } from './spec-helpers/spec-test-service-stub';
