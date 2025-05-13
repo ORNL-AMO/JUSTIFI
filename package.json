@@ -2,8 +2,8 @@
   "name": "justifi",
   "version": "0.1.4-alpha",
   "main": "main.js",
-  "author": "National Renewable Energy Laboratory",
-  "description": "Application used to quantify non-energy benefits of energy opportunities in manufacturing",
+  "author": "National Renewable Energy Laboratory & Oak Ridge National Laboratory",
+  "description": "A tool to identify, estimate potential and report on non-energy benefits (NEBs) that can be found while conducting energy assessments",
   "repository": "https://github.com/NREL/NEB-Tool.git",
   "engines": {
     "node": "20.11.1",
