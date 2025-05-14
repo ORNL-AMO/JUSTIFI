@@ -55,25 +55,28 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-12">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch"
                     id="{{'includeSavings_'+energyOpportunity.guid}}" [(ngModel)]="energyOpportunity.includeSavings"
                     name="{{'includeSavings_'+energyOpportunity.guid}}" (input)="saveEnergyOpportunity()"
                     (focus)="focusField('includeSavings')">
-                <label class="form-check-label" for="{{'includeSavings_'+energyOpportunity.guid}}">Include
-                    Savings</label>
+                <div class="form-check-label">
+                    <app-label-with-tooltip [field]="'includeSavingsEnergyOpp'"
+                        [labelId]="'includeSavings_'+energyOpportunity.guid"
+                        [label]="'Include Savings'"></app-label-with-tooltip>
+                </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <ng-container *ngIf="energyOpportunity.includeSavings">
+    <ng-container *ngIf="!utilitySavingsByAssessment">
         <ng-template [ngIf]="energyOpportunity?.utilityCategory == 'water'" [ngIfElse]="energySavingBlock">
             <div class="row">
                 <label class="col-sm-5 col-form-label" for="{{'waterSavings_'+energyOpportunity.guid}}">
                     Water Savings
-                    </label>
+                </label>
                 <div class="col-sm-7">
                     <div class="input-group">
                         <input name="{{'waterSavings_'+energyOpportunity.guid}}" type="number" class="form-control"
@@ -89,19 +92,20 @@
             <div class="row">
                 <label class="col-sm-5 col-form-label" for="{{'energySavings_'+energyOpportunity.guid}}">
                     Energy Savings
-                    </label>
+                </label>
                 <div class="col-sm-7">
                     <div class="input-group">
                         <input name="{{'energySavings_'+energyOpportunity.guid}}" type="number" class="form-control"
-                            [(ngModel)]="energyOpportunity.energySavings" id="{{'energySavings_'+energyOpportunity.guid}}"
-                            (input)="saveEnergyOpportunity()" (focus)="focusField('energySavings')">
+                            [(ngModel)]="energyOpportunity.energySavings"
+                            id="{{'energySavings_'+energyOpportunity.guid}}" (input)="saveEnergyOpportunity()"
+                            (focus)="focusField('energySavings')">
                         <span class="input-group-text"
                             [innerHTML]="(energyOpportunity.energyUnit| unitsDisplay) + '/yr'"></span>
                     </div>
                 </div>
             </div>
         </ng-template>
-        
+
         <div class="row">
             <label class="col-sm-5 col-form-label" for="{{'costSavings_'+energyOpportunity.guid}}">Cost Savings</label>
             <div class="col-sm-7">
@@ -116,8 +120,7 @@
         <div class="row">
             <div class="col-sm-5">
                 <button class="btn btn-outline-primary btn-sm border-0"
-                    [disabled]="!isUtilityTracked(energyOpportunity.utilityType)" 
-                    (click)="calculateCostSavings()">
+                    [disabled]="!isUtilityTracked(energyOpportunity.utilityType)" (click)="calculateCostSavings()">
                     <fa-icon [icon]="faCalculator"></fa-icon> Calculate Savings
                 </button>
             </div>

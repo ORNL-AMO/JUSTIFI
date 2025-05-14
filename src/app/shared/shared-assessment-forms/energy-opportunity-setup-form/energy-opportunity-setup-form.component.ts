@@ -55,6 +55,7 @@ export class EnergyOpportunitySetupFormComponent {
 
   assessmentSub: Subscription;
   assessmentEnergyUses: Array<UtilityEnergyUse>;
+  utilitySavingsByAssessment: boolean;
 
   facilitySub: Subscription;
   facilityUnitSettings: UnitSettings;
@@ -101,6 +102,7 @@ export class EnergyOpportunitySetupFormComponent {
     });
     this.assessmentSub = this.assessmentIdbService.selectedAssessment.subscribe(assessment => {
       this.assessmentEnergyUses = assessment.utilityEnergyUses;
+      this.utilitySavingsByAssessment = assessment.utilitySavingsByAssessment;
     });
     this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
       this.facilityUnitSettings = facility.unitSettings;

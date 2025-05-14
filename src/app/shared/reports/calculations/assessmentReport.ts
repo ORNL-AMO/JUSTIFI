@@ -36,7 +36,7 @@ export function getAssessmentReport(
     let assessmentEnergyOpportunities: Array<IdbEnergyOpportunity> = filterEnergyOpps(energyOpportunities, assessment.guid, report?.energyOpportunityOptions);
     assessmentEnergyOpportunities.forEach(energyOpportunity => {
         let energyOpportunityReport: EnergyOpportunityReport = getEnergyOpportunityReport(
-            energyOpportunity, nonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, report);
+            energyOpportunity, nonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, assessment, report);
         energyOpportunityReports.push(energyOpportunityReport);
     });
 
@@ -71,15 +71,16 @@ export function getAssessmentReport(
         totalNonNebWaterCostSavings += energyOpportunityWaterCostSavings;
         totalNonNebCostSavings += energyOpportunityWaterCostSavings;
     };
-
-    if (assessment.energyCostSavings) {
-        totalNonNebEnergyCostSavings += assessment.energyCostSavings;
-    }
-    if (assessment.waterCostSavings) {
-        totalNonNebWaterCostSavings += assessment.waterCostSavings;
-    }
-    if (assessment.costSavings) {
-        totalNonNebCostSavings += assessment.costSavings;
+    if (assessment.utilitySavingsByAssessment) {
+        if (assessment.energyCostSavings) {
+            totalNonNebEnergyCostSavings += assessment.energyCostSavings;
+        }
+        if (assessment.waterCostSavings) {
+            totalNonNebWaterCostSavings += assessment.waterCostSavings;
+        }
+        if (assessment.costSavings) {
+            totalNonNebCostSavings += assessment.costSavings;
+        }
     }
 
     let totalAssessmentNebFinancialImpact: number = _.sumBy(assessmentNebReports, (report: NebReport) => {

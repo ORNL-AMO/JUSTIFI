@@ -7,6 +7,7 @@ import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetr
 import { filterNebs } from "./assessmentReport";
 import { IdbReport } from "src/app/models/report";
 import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicator";
+import { IdbAssessment } from "src/app/models/assessment";
 
 ///ENERGY REPORT
 export function getEnergyOpportunityReport(
@@ -15,6 +16,7 @@ export function getEnergyOpportunityReport(
     facilityPerformanceMetrics: Array<KeyPerformanceMetric>,
     facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator>,
     keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
+    assessment: IdbAssessment,
     report?: IdbReport): EnergyOpportunityReport {
     let energyOpportunityNebs: Array<IdbNonEnergyBenefit> = filterNebs(nonEnergyBenefits, energyOpportunity.assessmentId, energyOpportunity.guid, report?.nonEnergyBenefitOptions);
     let nebReports: Array<NebReport> = new Array();
@@ -24,7 +26,7 @@ export function getEnergyOpportunityReport(
     })
     let totalEnergyCostSavings: number = 0;
     let totalWaterCostSavings: number = 0;
-    if (energyOpportunity.includeSavings && energyOpportunity.costSavings) {
+    if (!assessment.utilitySavingsByAssessment && energyOpportunity.costSavings) {
         if (energyOpportunity.utilityCategory && energyOpportunity.utilityCategory == 'water') {
             totalEnergyCostSavings = 0;
             totalWaterCostSavings = energyOpportunity.costSavings;
