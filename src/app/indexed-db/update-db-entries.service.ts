@@ -143,7 +143,6 @@ export class UpdateDbEntriesService {
       let original: string = primaryKpiRenames[i].original;
       let current: PrimaryKPI = primaryKpiRenames[i].current;
       let kpisForCategoryChanges: Array<IdbKeyPerformanceIndicator> = keyPerformanceIndicators.filter(kpi => { return kpi.primaryKPI == original });
-      console.log(kpisForCategoryChanges);
       for (let j = 0; j < kpisForCategoryChanges.length; j++) {
         let kpi: IdbKeyPerformanceIndicator = kpisForCategoryChanges[j];
         kpi.primaryKPI = current;
