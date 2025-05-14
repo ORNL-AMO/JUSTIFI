@@ -59,6 +59,9 @@
             <td class="ps-4">
                 <fa-icon class="pe-1" [icon]="faWeightHanging"></fa-icon>
                 {{nebReport.nonEnergyBenefit.name}}
+                <ng-container *ngIf="nebReport.nonEnergyBenefit.costImpactType == 'oneTime'">
+                    ({{nebReport.nonEnergyBenefit.costImpact | currency : currencyCode : 'symbol': '1.0-0'}})
+                </ng-container>
             </td>
             <td class="text-right">
                 <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
@@ -107,6 +110,9 @@
                 <td class="ps-4">
                     <fa-icon class="pe-1" [icon]="faWeightHanging"></fa-icon>
                     {{nebReport.nonEnergyBenefit.name}}
+                    <ng-container *ngIf="nebReport.nonEnergyBenefit.costImpactType == 'oneTime'">
+                        ({{nebReport.nonEnergyBenefit.costImpact | currency : currencyCode : 'symbol': '1.0-0'}})
+                    </ng-container>
                 </td>
                 <td class="text-right">
                     <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
