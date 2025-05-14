@@ -1,5 +1,5 @@
-export type PrimaryKPI = 'Strategic and Growth' | 'Operations' | 'Energy and Material Efficiency' | 'Employee and Workplace Environment' | 'Other';
-export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic and Growth', 'Operations', 'Energy and Material Efficiency', 'Employee and Workplace Environment', 'Other']
+export type PrimaryKPI = 'Strategic Growth' | 'Operations Impact' | 'Resource Efficiency' | 'Employee Environment' | 'Other';
+export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic Growth', 'Operations Impact', 'Resource Efficiency', 'Employee Environment', 'Other']
 export type KeyPerformanceIndicatorValue =
     'productivity' |
     'machineUtilization' |
@@ -27,89 +27,89 @@ export interface KeyPerformanceIndicatorOption {
 export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = [
     //operations
     {
-        primaryKPI: 'Operations',
+        primaryKPI: 'Operations Impact',
         label: 'Productivity',
         htmlLabel: 'Productivity',
         optionValue: 'productivity'
     },
     {
-        primaryKPI: 'Operations',
+        primaryKPI: 'Operations Impact',
         label: 'Other Costs',
         htmlLabel: 'Other Costs',
         optionValue: 'reduceExpenseCost'
     },
     {
-        primaryKPI: 'Operations',
+        primaryKPI: 'Operations Impact',
         label: 'Quality',
         htmlLabel: 'Quality',
         optionValue: 'quality'
     },
     {
-        primaryKPI: 'Operations',
+        primaryKPI: 'Operations Impact',
         label: 'Machine Utilization',
         htmlLabel: 'Machine Utilization',
         optionValue: 'machineUtilization'
     },
     {
-        primaryKPI: 'Energy and Material Efficiency',
-        label: 'Material Utilization',
-        htmlLabel: 'Material Utilization',
-        optionValue: 'materialUtilization'
-    },
-    {
-        primaryKPI: 'Operations',
+        primaryKPI: 'Operations Impact',
         label: 'Maintenance Expense',
         htmlLabel: 'Maintenance Expense',
         optionValue: 'maintenanceExpense'
     },
-    //Employee and workplace environment
+    //Employee environment
     {
-        primaryKPI: 'Employee and Workplace Environment',
+        primaryKPI: 'Employee Environment',
         label: 'Safety',
         htmlLabel: 'Safety',
         optionValue: 'safety'
     },
     {
-        primaryKPI: 'Employee and Workplace Environment',
+        primaryKPI: 'Employee Environment',
         label: 'Workforce Development',
         htmlLabel: 'Workforce Development',
         optionValue: 'employeeEngagementWorkforceDevelopment'
     },
     {
-        primaryKPI: 'Employee and Workplace Environment',
+        primaryKPI: 'Employee Environment',
         label: 'Working Environment',
         htmlLabel: 'Working Environment',
         optionValue: 'employeeEngagementWorkingEnvironment'
     },
-    //Energy and Material Efficiency
+    //Resource Efficiency
     {
-        primaryKPI: 'Energy and Material Efficiency',
+        primaryKPI: 'Resource Efficiency',
         label: 'Waste',
         htmlLabel: 'Waste',
         optionValue: 'waste'
     },
     {
-        primaryKPI: 'Energy and Material Efficiency',
+        primaryKPI: 'Resource Efficiency',
         label: 'Water Use, Disposal, Quality',
         htmlLabel: 'Water Use, Disposal, Quality',
         optionValue: 'waterConsumption'
     },
     {
-        primaryKPI: 'Energy and Material Efficiency',
+        primaryKPI: 'Resource Efficiency',
         label: 'Air and environmental quality',
         htmlLabel: 'Air and environmental quality',
         optionValue: 'airEnvironmentalQuality'
     },
-    //Strategic and Growth
     {
-        primaryKPI: 'Strategic and Growth',
+        primaryKPI: 'Resource Efficiency',
+        label: 'Material Utilization',
+        htmlLabel: 'Material Utilization',
+        optionValue: 'materialUtilization'
+    },
+    //Strategic Growth
+    {
+        primaryKPI: 'Strategic Growth',
         label: 'Customer Satisfaction',
         htmlLabel: 'Customer Satisfaction',
         optionValue: 'customerSatisfaction'
     },
 
     {
-        primaryKPI: 'Strategic and Growth',
+        primaryKPI: 'Strategic Growth',
         label: 'Sales Growth',
         htmlLabel: 'Sales Growth',
         optionValue: 'salesGrowth'
@@ -132,10 +132,30 @@ export interface PrimaryKpiRename {
 export const PrimaryKpiRenames: Array<PrimaryKpiRename> = [
     {
         original: 'Strategic Relationship Impact',
-        current: 'Strategic and Growth'
+        current: 'Strategic Growth'
     },
     {
         original: 'Sustainability (Environmental Impact)',
-        current: 'Energy and Material Efficiency'
+        current: 'Resource Efficiency'
+    },
+    // Operations --> Operations Impact
+    {
+        original: 'Operations',
+        current: 'Operations Impact'
+    },
+    // Energy & Material Efficiency --> Resource Efficiency
+    {
+        original: 'Energy and Material Efficiency',
+        current: 'Resource Efficiency'
+    },
+    // Strategic and Growth --> Strategic Growth
+    {
+        original: 'Strategic and Growth',
+        current: 'Strategic Growth'
+    },
+    // Employee and Workplace Environment --> Employee Environment
+    {
+        original: 'Employee and Workplace Environment',
+        current: 'Employee Environment'
     },
 ]
