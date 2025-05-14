@@ -115,7 +115,7 @@
                 id="nebNotes"></textarea>
         </div>
     </div>
-    <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+    <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'annual'" [ngIfElse]="rebateHelpBlock">
         <div class="row">
             <div class="col-12">
                 <hr>
@@ -169,7 +169,16 @@
                 No performance metrics tracked for this NEB.
             </div>
         </ng-template>
-    </ng-container>
+    </ng-template>
+    <ng-template #rebateHelpBlock>
+        <div class="alert alert-info">
+            <fa-icon [icon]="faBookOpen"></fa-icon> Check out the
+                <a href="https://www.nrel.gov/docs/libraries/manufacturing/non-energy-benefits-funding-resources.pdf?sfvrsn=2705593b_0"
+                    target="_blank">
+                    NREL Knowledge Library for Non-energy Benefits Funding Resources.
+                </a>
+        </div>
+    </ng-template>
 </form>
 <!--END FORM-->
 
