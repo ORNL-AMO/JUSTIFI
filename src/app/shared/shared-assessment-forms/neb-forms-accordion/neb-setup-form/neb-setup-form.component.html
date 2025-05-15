@@ -25,15 +25,13 @@
     </ng-template>
 
     <div class="row">
-        <!-- <label class="col-sm-5 col-form-label" for="{{'associatedEEM'+nonEnergyBenefit.guid}}">Connected EEM</label> -->
-
         <div class="col-sm-5 col-form-label">
             <app-label-with-tooltip [field]="'associatedEEM'" [labelId]="'associatedEEM'+nonEnergyBenefit.guid"
-                [label]="'Connected Efficiency Opportunity'"></app-label-with-tooltip>
+                [label]="'Connected EEM'"></app-label-with-tooltip>
         </div>
         <div class="col-sm-7">
             <div class="input-group">
-                <div class="input-group-tex p-0" *ngIf="nonEnergyBenefit.energyOpportunityId">
+                <div class="input-group-text p-0" *ngIf="nonEnergyBenefit.energyOpportunityId">
                     <button class="btn btn-sm btn-primary p-1"
                         (click)="goToEnergyOpportunity(nonEnergyBenefit.energyOpportunityId)">
                         <fa-icon [icon]="faUpRightFromSquare"></fa-icon>
@@ -52,26 +50,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="row">
-        <div class="col-sm-5 col-form-label">
-            Financial Benefit Type
-        </div>
-        <div class="col-sm-7">
-            <div class="input-group">
-                <select class="form-select" name="{{'costImpactType'+nonEnergyBenefit.guid}}"
-                    id="{{'costImpactType'+nonEnergyBenefit.guid}}" [(ngModel)]="nonEnergyBenefit.costImpactType"
-                    (change)="changeAssociatedEEM()">
-                    <option [ngValue]="'annual'">
-                        Annual Benefit (&dollar;/yr)
-                    </option>
-                    <option [ngValue]="'oneTime'">
-                        One Time Benefit (Rebate)
-                    </option>
-                </select>
-            </div>
-        </div>
-    </div> -->
 
     <div class="row">
         <div class="col-sm-5 col-form-label">
