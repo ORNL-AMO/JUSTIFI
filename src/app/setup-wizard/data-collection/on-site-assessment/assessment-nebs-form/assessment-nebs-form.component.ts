@@ -63,7 +63,7 @@ export class AssessmentNebsFormComponent {
     let newNonEnergyBenefit: IdbNonEnergyBenefit = getNewIdbNonEnergyBenefit(this.assessment.userId, this.assessment.companyId, this.assessment.facilityId, this.assessment.guid, undefined, undefined, true);
     if (isRebate) {
       newNonEnergyBenefit.costImpactType = 'oneTime';
-      newNonEnergyBenefit.name = 'Rebate'
+      newNonEnergyBenefit.name = 'One-time Incentive';
     }
     await firstValueFrom(this.nonEnergyBenefitsIdbService.addWithObservable(newNonEnergyBenefit));
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(newNonEnergyBenefit.assessmentId);

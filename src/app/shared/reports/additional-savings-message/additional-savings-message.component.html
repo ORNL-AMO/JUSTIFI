@@ -6,10 +6,10 @@
         are not directly connected to performance metrics!
     </div>
     <div class="alert alert-success text-center p-2" *ngIf="assessmentReport.totalRebates">
-        <fa-icon [icon]="faExclamationCircle"></fa-icon>
+        <fa-icon [icon]="faMoneyBillWave"></fa-icon>
         This assessment also includes <b><app-single-cell-item [isCurrency]="true"
-                [numValue]="assessmentReport.totalRebates"></app-single-cell-item></b> in additional one-time savings
-        through rebates!
+                [numValue]="assessmentReport.totalRebates"></app-single-cell-item></b> in additional one-time incentives
+        that will help reduce implementation costs!
     </div>
 
 </ng-template>
@@ -21,9 +21,9 @@
         are not directly connected to performance metrics!
     </div>
     <div class="alert alert-success text-center p-2" *ngIf="onSiteVisitReport.totalRebates">
-        <fa-icon [icon]="faExclamationCircle"></fa-icon>
+        <fa-icon [icon]="faMoneyBillWave"></fa-icon>
         This visit also includes <b><app-single-cell-item [isCurrency]="true"
-                [numValue]="onSiteVisitReport.totalRebates"></app-single-cell-item></b> in additional one-time savings
-        through rebates!
+                [numValue]="onSiteVisitReport.totalRebates"></app-single-cell-item></b> in additional one-time
+        incentives that will help reduce implementation costs!
     </div>
 </ng-template>

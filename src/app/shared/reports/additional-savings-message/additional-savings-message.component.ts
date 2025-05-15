@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AssessmentReport } from '../calculations/assessmentReport';
 import { OnSiteVisitReport } from '../calculations/visitReport';
-import { faExclamationCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationCircle, faMoneyBillWave, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-additional-savings-message',
@@ -19,5 +19,6 @@ export class AdditionalSavingsMessageComponent {
   context: 'onSiteVisit' | 'assessment';
 
   faExclamationCircle: IconDefinition = faExclamationCircle;
+  faMoneyBillWave: IconDefinition = faMoneyBillWave;
   
 }

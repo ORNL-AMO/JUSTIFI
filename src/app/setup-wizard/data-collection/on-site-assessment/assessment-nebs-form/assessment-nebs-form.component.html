@@ -8,7 +8,7 @@
                 aria-expanded="false" (click)="toggleAddNebDropdown()">
                 <fa-icon [icon]="faPlus"></fa-icon> Add NEB
             </button>
-            <ul class="dropdown-menu" [ngClass]="{'show': showAddNebDropdown}">
+            <ul class="dropdown-menu dropdown-menu-end" [ngClass]="{'show': showAddNebDropdown}">
                 <li>
                     <a class="dropdown-item" (click)="addNEB(false)">
                         <fa-icon [icon]="faPlus"></fa-icon> Add Custom NEB
@@ -21,7 +21,7 @@
                 </li>
                 <li>
                     <a class="dropdown-item" (click)="addNEB(true)">
-                        <fa-icon [icon]="faMoneyBillWave"></fa-icon> Add Rebate
+                        <fa-icon [icon]="faMoneyBillWave"></fa-icon> Add One-time Incentive
                     </a>
                 </li>
             </ul>
