@@ -127,7 +127,7 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
   async addToCurrentUser(importFile: BackupFile) {
     // Add backup data to current user
     await this.backupDataService.importUserBackupFile(importFile, this.currentUser.guid);
-    this.currentUser.kpiFacilityMigrationDone = false;
+    this.currentUser.kpiFacilityMigrationDoneV2 = false;
     await this.updateDbEntriesService.updateDbEntries(this.currentUser);
     await this.dbChangesService.selectUser(this.currentUser, false);
   }
