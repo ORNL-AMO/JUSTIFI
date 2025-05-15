@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IconDefinition, faChevronDown, faChevronRight, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUpRightFromSquare, faUser, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faBookOpen, faChevronDown, faChevronRight, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUpRightFromSquare, faUser, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
@@ -36,7 +36,7 @@ export class NebSetupFormComponent {
 
   nonEnergyBenefit: IdbNonEnergyBenefit;
 
-
+  faBookOpen: IconDefinition = faBookOpen;
   faSearchPlus: IconDefinition = faSearchPlus;
   faTrash: IconDefinition = faTrash;
   faWeightHanging: IconDefinition = faWeightHanging;

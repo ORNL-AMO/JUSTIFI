@@ -5,10 +5,13 @@
 
             </th>
             <th>
-                Implementation Cost<br> ({{ currencyCode | currencySymbol }})
+                Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
             </th>
             <th>
                 Cost Savings<br> ({{ currencyCode | currencySymbol }}/yr)
+            </th>
+            <th>
+                Rebates<br> ({{ currencyCode | currencySymbol }})
             </th>
             <th>
                 Financial Impact<br> With NEBs<br> ({{ currencyCode | currencySymbol }}/yr)
@@ -17,7 +20,7 @@
                 Simple Payback<br> (yrs)
             </th>
             <th>
-                Simple Payback With NEBs<br> (yrs)
+                Simple Payback<br> With NEBs<br> (yrs)
             </th>
         </tr>
     </thead>
@@ -33,6 +36,10 @@
             <td>
                 <app-single-cell-item [isCurrency]="true"
                     [numValue]="assessmentReport.assessment.costSavings"></app-single-cell-item>
+            </td>
+            <td>
+                <app-single-cell-item [isCurrency]="true"
+                    [numValue]="assessmentReport.totalNonOpportunityRebates"></app-single-cell-item>
             </td>
             <td>
                 <app-single-cell-item [isCurrency]="true"
@@ -61,6 +68,10 @@
             </td>
             <td>
                 <app-single-cell-item [isCurrency]="true"
+                    [numValue]="energyOpportunityReport.totalRebates"></app-single-cell-item>
+            </td>
+            <td>
+                <app-single-cell-item [isCurrency]="true"
                     [numValue]="energyOpportunityReport.totalFinancialImpact"></app-single-cell-item>
             </td>
             <td>
@@ -85,6 +96,10 @@
             <th>
                 <app-single-cell-item [isCurrency]="true"
                     [numValue]="assessmentReport.totalNonNebCostSavings"></app-single-cell-item>
+            </th>
+            <th>
+                <app-single-cell-item [isCurrency]="true"
+                    [numValue]="assessmentReport.totalRebates"></app-single-cell-item>
             </th>
             <th>
                 <app-single-cell-item [isCurrency]="true"

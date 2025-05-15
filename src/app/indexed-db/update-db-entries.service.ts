@@ -25,6 +25,8 @@ import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerfo
 import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricOptions } from '../shared/constants/keyPerformanceMetrics';
 import { AssessmentOptions } from '../shared/constants/assessmentTypes';
 import { UtilityEnergyUse } from '../models/utilityEnergyUses';
+import { NonEnergyBenefitsIdbService } from './non-energy-benefits-idb.service';
+import { IdbNonEnergyBenefit } from '../models/nonEnergyBenefit';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +44,7 @@ export class UpdateDbEntriesService {
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
+    private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService
   ) { }
 
   async updateDbEntries(user: IdbUser): Promise<IdbUser> {
@@ -65,7 +68,8 @@ export class UpdateDbEntriesService {
     await this.updateFacilities();
     await this.updateAssessments();
     await this.updateEnergyOpportunities();
-    
+    await this.updateNonEnergyBenefits();
+
     if (userNeedsUpdate) {
       user = await firstValueFrom(this.userIdbService.updateWithObservable(user));
       this.userIdbService.user.next(user);
@@ -168,7 +172,7 @@ export class UpdateDbEntriesService {
       }
       for (let j = 0; j < associatedKPMs.length; j++) {
         let kpm: KeyPerformanceMetric = associatedKPMs[j];
-        kpmIdx = keyPerformanceMetricOptions.findIndex(option => { return option.value == kpm.value &&  option.label == kpm.label });
+        kpmIdx = keyPerformanceMetricOptions.findIndex(option => { return option.value == kpm.value && option.label == kpm.label });
         if (kpmIdx == -1) {
           kpm.isCustom = true;
           kpm.value = 'custom';
@@ -258,7 +262,7 @@ export class UpdateDbEntriesService {
       await firstValueFrom(this.facilityIdbService.updateWithObservable(facility));
     }
   }
-  
+
   async updateAssessments() {
     let assessments: Array<IdbAssessment> = await firstValueFrom(this.assessmentIdbService.getAll());
     let facilities: Array<IdbFacility> = await firstValueFrom(this.facilityIdbService.getAll());
@@ -272,8 +276,7 @@ export class UpdateDbEntriesService {
         let company: IdbCompany = companies.find(_company => { return _company.guid == facility.companyId });
         // legacy assessment is limited to one utility type
         // 1. update utility types
-        assessment.utilityTypes = AssessmentOptions.find(_option =>
-          { return _option.assessmentType == assessment.assessmentType })?.utilityTypes || [];
+        assessment.utilityTypes = AssessmentOptions.find(_option => { return _option.assessmentType == assessment.assessmentType })?.utilityTypes || [];
         // 2. move the savings to the according utility type
         if (assessment.utilityType) {
           // update all energy saving to 0
@@ -281,8 +284,7 @@ export class UpdateDbEntriesService {
             _energyUse.utilitySaving = 0;
           });
           // transfer the energy savings to the according utility type
-          let utilityEnergyUse: UtilityEnergyUse = assessment.utilityEnergyUses.find(_energyUse =>
-            { return _energyUse.utilityType == assessment.utilityType });
+          let utilityEnergyUse: UtilityEnergyUse = assessment.utilityEnergyUses.find(_energyUse => { return _energyUse.utilityType == assessment.utilityType });
           utilityEnergyUse.utilitySaving = assessment.energySavings;
           if (assessment.utilityType == 'Water' || assessment.utilityType == 'Waste Water') {
             assessment.utilityCategory = 'water';
@@ -296,8 +298,7 @@ export class UpdateDbEntriesService {
             assessment.utilityCategory = 'energy';
             for (const utilityType of assessment.utilityTypes) {
               if (utilityType == 'Water' || utilityType == 'Waste Water') {
-                let use = assessment.utilityEnergyUses.find(_energyUse =>
-                  { return _energyUse.utilityType == utilityType });
+                let use = assessment.utilityEnergyUses.find(_energyUse => { return _energyUse.utilityType == utilityType });
                 if (use && use.include) {
                   assessment.utilityCategory = 'water';
                   break;
@@ -330,6 +331,18 @@ export class UpdateDbEntriesService {
           energyOpportunity.utilityCategory = 'energy';
         }
         await firstValueFrom(this.energyOpportunityIdbService.updateWithObservable(energyOpportunity));
+      }
+    }
+  }
+
+  async updateNonEnergyBenefits() {
+    let nonEnergyBenefits: Array<IdbNonEnergyBenefit> = await firstValueFrom(this.nonEnergyBenefitsIdbService.getAll());
+    // back-compatibility for financial impact type
+    for (let i = 0; i < nonEnergyBenefits.length; i++) {
+      let nonEnergyBenefit: IdbNonEnergyBenefit = nonEnergyBenefits[i];
+      if (nonEnergyBenefit.costImpactType == undefined) {
+        nonEnergyBenefit.costImpactType = 'annual';
+        await firstValueFrom(this.nonEnergyBenefitsIdbService.updateWithObservable(nonEnergyBenefit));
       }
     }
   }

@@ -8,6 +8,8 @@ import * as _ from 'lodash';
 import { NebReport } from '../../calculations/nebReport';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
+import { Icon } from '@fortawesome/fontawesome-svg-core';
+import { faMoneyBillWave, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-executive-summary-project-summary',
@@ -19,6 +21,8 @@ import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorValue } from 'src
 export class ExecutiveSummaryProjectSummaryComponent {
   @Input({ required: true })
   executiveSummaryReport: ExecutiveSummaryReport;
+
+  faMoneyBillWave: IconDefinition = faMoneyBillWave;
 
   allEEMReports: Array<EnergyOpportunityReport>;
   reducedEEMReports: Array<EnergyOpportunityReport>;

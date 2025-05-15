@@ -29,6 +29,7 @@ import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-pe
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { getDefaultUnitSettings } from 'src/app/models/unitSettings';
 import { ReportDetailsTableComponent } from '../report-details-table/report-details-table.component';
+import { AdditionalSavingsMessageComponent } from '../additional-savings-message/additional-savings-message.component';
 
 describe('AssessmentReportComponent', () => {
   let component: AssessmentReportComponent;
@@ -73,7 +74,7 @@ describe('AssessmentReportComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FontAwesomeModule, RouterTestingModule, TableEntriesModule, HelperPipesModule],
-      declarations: [AssessmentReportComponent, AssessmentSavingsTableComponent, PaybackTableComponent, ReportDetailsTableComponent],
+      declarations: [AssessmentReportComponent, AssessmentSavingsTableComponent, PaybackTableComponent, ReportDetailsTableComponent, AdditionalSavingsMessageComponent],
       providers: [
         { provide: OnSiteVisitIdbService, useValue: onSiteVisitIdbService },
         { provide: AssessmentIdbService, useValue: assessmentIdbService },
