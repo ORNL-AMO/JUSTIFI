@@ -150,7 +150,7 @@ export function getAssessmentReport(
         return 0;
     }) + totalNonOpportunityRebates;
 
-    let totalPaybackWithNebs: number = ((implementationCost + totalRebates) / totalFinancialImpact);
+    let totalPaybackWithNebs: number = ((implementationCost - totalRebates) / totalFinancialImpact);
     if (totalPaybackWithNebs == Infinity) {
         totalPaybackWithNebs = 0;
     }
