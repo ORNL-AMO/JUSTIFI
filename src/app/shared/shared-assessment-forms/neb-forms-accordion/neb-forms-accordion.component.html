@@ -8,7 +8,8 @@
                     [ngClass]="{'collapsed': accordionGuid != nebGuid}">
                     <div class="d-flex justify-content-between w-100">
                         <div>
-                            <fa-icon class="pe-2" [icon]="faWeightHanging"></fa-icon>
+                            <fa-icon *ngIf="neb.costImpactType == 'annual'" class="pe-2" [icon]="faWeightHanging"></fa-icon>
+                            <fa-icon *ngIf="neb.costImpactType == 'oneTime'" class="pe-2" [icon]="faMoneyBillWave"></fa-icon>
                             {{neb.name}}
                         </div>
                         <div class="pe-2">

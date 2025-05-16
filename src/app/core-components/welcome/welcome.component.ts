@@ -132,7 +132,7 @@ export class WelcomeComponent {
           let fileData: string = reader.result as string;
           let tmpBackupFile: BackupFile = JSON.parse(fileData);
           let updatedBackupFile: BackupFile = await this.backupDataService.importUserBackupFile(tmpBackupFile, this.user.guid);
-          this.user.kpiFacilityMigrationDone = false;
+          this.user.kpiFacilityMigrationDoneV2 = false;
           await this.updateDbEntriesService.updateDbEntries(this.user);
           await this.dbChangesService.selectUser(this.user, false);
           this.loadingService.setLoadingStatus(false);

@@ -113,7 +113,7 @@ let setupWizardService: Partial<SetupWizardService> = {
 
 let option: KeyPerformanceIndicatorOption =
 {
-    primaryKPI: 'Operations',
+    primaryKPI: 'Operations Impact',
     label: 'Expense Cost',
     htmlLabel: 'Expense Cost',
     optionValue: 'reduceExpenseCost'

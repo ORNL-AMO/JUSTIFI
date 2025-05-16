@@ -1,7 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { KeyPerformanceIndicatorReport, KeyPerformanceMetricReportItem } from '../calculations/keyPerformanceIndicatorReport';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
-import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { OrderMetricsTableFields } from './performance-metrics-table.pipe';
 import { Subscription } from 'rxjs';
 import { LocaleService } from '../../shared-services/locale.service';
@@ -29,7 +28,6 @@ export class PerformanceMetricsTableComponent {
   kpmCostSavingsReports: Array<KeyPerformanceMetricReportItem>;
   totalCostSavings: number;
   qualitativeReports: Array<KeyPerformanceMetricReportItem>;
-
   constructor(
     private localeService: LocaleService,
   ) { }
@@ -88,7 +86,7 @@ export class PerformanceMetricsTableComponent {
       })
       this.totalRevenue = _.sumBy(this.kpmRevenueReports, (reportItem: KeyPerformanceMetricReportItem) => {
         return reportItem.performanceMetricImpact.costAdjustment
-      })
+      });
     }
   }
 }

@@ -10,6 +10,10 @@
                 [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-table>
         </div>
         <div class="print-break-avoid">
+            <app-additional-savings-message [assessmentReport]="assessmentReport"
+                [context]="'assessment'"></app-additional-savings-message>
+        </div>
+        <div class="print-break-avoid">
             <app-performance-metrics-chart
                 [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-chart>
         </div>
