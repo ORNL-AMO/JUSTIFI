@@ -90,11 +90,20 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
     if (assessmentReports.some(report => report.assessment.utilityCategory === "water")) {
         utilityCategory = "water";
     }
+
+    //rebates and payback
+    let totalRebates: number =  _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        if (report.totalRebates) {
+            return report.totalRebates
+        }
+        return 0;
+    });
+
     let totalPaybackWithoutNebs: number = (totalImplementationCost / totalNonNebCostSavings);
     if (totalPaybackWithoutNebs == Infinity || isNaN(totalPaybackWithoutNebs)) {
         totalPaybackWithoutNebs = 0;
     }
-    let totalPaybackWithNebs: number = (totalImplementationCost / totalFinancialImpact);
+    let totalPaybackWithNebs: number = ((totalImplementationCost - totalRebates) / totalFinancialImpact);
     if (totalPaybackWithNebs == Infinity || isNaN(totalPaybackWithNebs)) {
         totalPaybackWithNebs = 0;
     }
@@ -114,7 +123,8 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
         totalPaybackWithNebs: totalPaybackWithNebs,
         totalUtilityCosts: totalUtilityCosts,
         totalUtilityCostSavings: totalUtilityCostSavings,
-        utilityCategory: utilityCategory
+        utilityCategory: utilityCategory,
+        totalRebates: totalRebates
     };
 }
 export interface ExecutiveSummaryReport {
@@ -133,4 +143,5 @@ export interface ExecutiveSummaryReport {
     totalUtilityCosts: number;
     totalUtilityCostSavings: number;
     utilityCategory?: string;
+    totalRebates: number
 }

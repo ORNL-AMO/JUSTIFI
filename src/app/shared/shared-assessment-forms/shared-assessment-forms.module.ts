@@ -46,7 +46,6 @@ import { AssociatedEnergyEquipmentModule } from '../associated-energy-equipment/
     NebsDatabaseModule,
     TableEntriesModule,
     LabelWithTooltipModule,
-    LabelWithTooltipModule,
     AssociatedProcessEquipmentModule,
     AssociatedContactsModule,
     AssociatedEnergyEquipmentModule

@@ -13,6 +13,10 @@
             [keyPerformanceIndicatorReport]="onSiteVisitReport.keyPerformanceIndicatorReport"></app-performance-metrics-table>
     </div>
     <div class="print-break-avoid">
+        <app-additional-savings-message [onSiteVisitReport]="onSiteVisitReport"
+            [context]="'onSiteVisit'"></app-additional-savings-message>
+    </div>
+    <div class="print-break-avoid">
         <app-performance-metrics-chart
             [keyPerformanceIndicatorReport]="onSiteVisitReport.keyPerformanceIndicatorReport"></app-performance-metrics-chart>
     </div>

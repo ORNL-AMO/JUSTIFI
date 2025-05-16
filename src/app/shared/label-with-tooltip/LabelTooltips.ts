@@ -16,5 +16,8 @@ export const LabelTooltips = {
     },
     "utilitySavingsByAssessment": {
         "tooltip": "If the savings cannot be desegregated by energy efficiency measure than enter Assessment Savings."
+    },
+    "costImpact": {
+        "tooltip": "Add financial impacts not tied to Key Performance Metrics."
     }
 }

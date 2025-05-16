@@ -17,6 +17,7 @@ import { NebContributionsBarChartComponent } from './neb-contributions-bar-chart
 import { PerformanceMetricsTablePipe } from '../performance-metrics-table/performance-metrics-table.pipe';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { PaybackWaterfallChartComponent } from '../payback-waterfall-chart/payback-waterfall-chart.component';
+import { AdditionalSavingsMessageComponent } from '../additional-savings-message/additional-savings-message.component';
 
 describe('OnSiteVisitReportComponent', () => {
   let component: OnSiteVisitReportComponent;
@@ -26,7 +27,8 @@ describe('OnSiteVisitReportComponent', () => {
     await TestBed.configureTestingModule({
       imports: [FontAwesomeModule, RouterTestingModule, TableEntriesModule, HelperPipesModule],
       declarations: [OnSiteVisitReportComponent, AssessmentSavingsTableComponent, PaybackTableComponent, ReportDetailsTableComponent, PerformanceMetricsTableComponent, PerformanceMetricsChartComponent,
-        OnSiteVisitPaybackTableComponent, OnSiteVisitSavingsChartComponent, NebContributionsBarChartComponent, PerformanceMetricsTablePipe, PaybackWaterfallChartComponent
+        OnSiteVisitPaybackTableComponent, OnSiteVisitSavingsChartComponent, NebContributionsBarChartComponent, PerformanceMetricsTablePipe, PaybackWaterfallChartComponent,
+        AdditionalSavingsMessageComponent
       ],
       providers: stubServiceProviders
     })

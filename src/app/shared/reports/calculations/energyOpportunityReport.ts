@@ -41,7 +41,11 @@ export function getEnergyOpportunityReport(
         return nebReport.totalFinancialImpact
     });
     let totalFinancialImpact: number = totalNonNebCostSavings + totalNebFinancialImpact;
-    let paybackWithNebs: number = (energyOpportunity.implementationCost / totalFinancialImpact);
+
+    let totalRebates: number = _.sumBy(nebReports, (nebReport: NebReport) => {
+        return nebReport.totalRebates
+    });
+    let paybackWithNebs: number = ((energyOpportunity.implementationCost - totalRebates) / totalFinancialImpact);
     if (paybackWithNebs == Infinity) {
         paybackWithNebs = 0;
     }
@@ -59,7 +63,8 @@ export function getEnergyOpportunityReport(
         totalNebFinancialImpact: totalNebFinancialImpact,
         totalFinancialImpact: totalFinancialImpact,
         paybackWithNebs: paybackWithNebs,
-        paybackWithoutNebs: paybackWithoutNebs
+        paybackWithoutNebs: paybackWithoutNebs,
+        totalRebates: totalRebates
     }
 }
 
@@ -73,7 +78,8 @@ export interface EnergyOpportunityReport {
     totalNebFinancialImpact: number,
     totalFinancialImpact: number,
     paybackWithNebs: number,
-    paybackWithoutNebs: number
+    paybackWithoutNebs: number,
+    totalRebates: number
 }
 
 export interface AdditionalEnergyOpportunityReport {

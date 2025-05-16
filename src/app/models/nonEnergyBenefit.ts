@@ -12,7 +12,8 @@ export interface IdbNonEnergyBenefit extends IdbEntry {
     energyOpportunityId: string,
     nebOptionValue: NebOptionValue,
     isCustom: boolean,
-    costImpact: number
+    costImpact: number,
+    costImpactType: 'annual' | 'oneTime'
 }
 
 export function getNewIdbNonEnergyBenefit(userId: string, companyId: string, facilityId: string, assessmentId: string, energyOpportunityId: string, nebOption: NebOption, isCustom: boolean): IdbNonEnergyBenefit {
@@ -35,6 +36,7 @@ export function getNewIdbNonEnergyBenefit(userId: string, companyId: string, fac
         includeNote: false,
         nebOptionValue: nebOptionValue,
         isCustom: isCustom,
-        costImpact: 0
+        costImpact: 0,
+        costImpactType: 'annual'
     }
 }
