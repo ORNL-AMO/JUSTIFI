@@ -84,6 +84,6 @@ export class AssessmentReportComponent {
 
 
   generatePowerPoint() {
-    this.powerpointReportGeneratorService.createPPT(this.assessmentReport);
+    this.powerpointReportGeneratorService.createPPT(this.assessmentReport, this.company, this.facility, this.inRollup, this.assessment);
   }
 }

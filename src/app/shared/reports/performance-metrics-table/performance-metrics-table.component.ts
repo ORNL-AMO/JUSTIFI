@@ -5,6 +5,7 @@ import { OrderMetricsTableFields } from './performance-metrics-table.pipe';
 import { Subscription } from 'rxjs';
 import { LocaleService } from '../../shared-services/locale.service';
 import * as _ from 'lodash';
+import { PowerpointReportGeneratorService } from '../../shared-services/powerpoint-report-generator.service';
 
 @Component({
   selector: 'app-performance-metrics-table',
@@ -30,6 +31,8 @@ export class PerformanceMetricsTableComponent {
   qualitativeReports: Array<KeyPerformanceMetricReportItem>;
   constructor(
     private localeService: LocaleService,
+    private powerpointReportGeneratorService: PowerpointReportGeneratorService
+
   ) { }
 
   ngOnInit() {
@@ -37,6 +40,7 @@ export class PerformanceMetricsTableComponent {
       this.currencyCode = code;
     });
     this.setReports();
+    this.powerpointReportGeneratorService.setReports(this.kpmRevenueReports, this.kpmCostSavingsReports, this.qualitativeReports, this.totalCostSavings, this.totalRevenue);
   }
 
   ngOnDestroy() {
@@ -46,6 +50,7 @@ export class PerformanceMetricsTableComponent {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['keyPerformanceIndicatorReport'] && !changes['keyPerformanceIndicatorReport'].firstChange) {
       this.setReports();
+      this.powerpointReportGeneratorService.setReports(this.kpmRevenueReports, this.kpmCostSavingsReports, this.qualitativeReports, this.totalCostSavings, this.totalRevenue);
     }
   }
 
@@ -55,6 +60,7 @@ export class PerformanceMetricsTableComponent {
     } else {
       this.orderByField = orderByField;
     }
+    this.powerpointReportGeneratorService.setOrder(this.orderByDir, this.orderByField);
   }
 
   toggleOrderBy() {
