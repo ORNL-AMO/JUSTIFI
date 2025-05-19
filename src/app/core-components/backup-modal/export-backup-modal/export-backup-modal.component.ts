@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { BackupModalService } from '../backup-modal.service';
 import { BackupDataService } from 'src/app/shared/shared-services/backup-data.service';
 import { faDownload, IconDefinition } from '@fortawesome/free-solid-svg-icons';
@@ -58,11 +58,11 @@ export class ExportBackupModalComponent {
     this.showExportModalSub.unsubscribe();
   }
 
-  async getExportTree() {
-    let companies: Array<IdbCompany> = await firstValueFrom(this.companyIdbService.getAll());
-    let facilities: Array<IdbFacility> = await firstValueFrom(this.facilityIdbService.getAll());
-    let onSiteVisits: Array<IdbOnSiteVisit> = await firstValueFrom(this.onSiteVisitIdbService.getAll());
-    let assessments: Array<IdbAssessment> = await firstValueFrom(this.assessmentIdbService.getAll());
+  getExportTree() {
+    let companies: Array<IdbCompany> = this.companyIdbService.companies.getValue();
+    let facilities: Array<IdbFacility> = this.facilityIdbService.facilities.getValue();
+    let onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisitIdbService.onSiteVisits.getValue();
+    let assessments: Array<IdbAssessment> = this.assessmentIdbService.assessments.getValue();
     this.exportTree = buildExportTree(companies, facilities, onSiteVisits, assessments);
   }
 
