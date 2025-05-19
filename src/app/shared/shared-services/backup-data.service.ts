@@ -28,6 +28,7 @@ import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
+import { ExportTreeNode } from 'src/app/core-components/backup-modal/export-backup-modal/exportTree';
 
 @Injectable({
   providedIn: 'root'
@@ -50,9 +51,9 @@ export class BackupDataService {
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService
   ) { }
 
-  backupData() {
+  backupData(exportFileName: string, exportTree: ExportTreeNode[]): void {
     let backupFile: BackupFile = this.getBackupFile();
-    let backupFileName: string = 'JUSTIFI_' + backupFile.companies[0]?.generalInformation.name + '_backup_';
+    let backupFileName: string = exportFileName || 'JUSTIFI_backup';
     this.downloadBackup(backupFile, backupFileName);
   }
 
@@ -61,10 +62,7 @@ export class BackupDataService {
     let dlLink = window.document.createElement("a");
     let dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(jsonData);
     dlLink.setAttribute("href", dataStr);
-    const date = backupFile.timeStamp;
-    const filename = backupFileName + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0') + '-' + date.getFullYear() + '_'
-      + date.getHours().toString().padStart(2, '0') + '-' + date.getMinutes().toString().padStart(2, '0') + '-' + date.getSeconds().toString().padStart(2, '0');
-    dlLink.setAttribute('download', filename + '.json');
+    dlLink.setAttribute('download', backupFileName + '.json');
     dlLink.click();
   }
 

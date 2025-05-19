@@ -33,7 +33,7 @@ export class ExportBackupModalComponent {
   exportName: string;
   overwriteData: boolean = true;
 
-  exportFileName: string = '';
+  exportFileName: string = 'JUSTIFI_backup';
   exportTree: ExportTreeNode[] = [];
 
   faDownload: IconDefinition = faDownload;
@@ -71,7 +71,7 @@ export class ExportBackupModalComponent {
   }
 
   backupData() {
-    this.backupDataService.backupData();
+    this.backupDataService.backupData(this.exportFileName, this.exportTree);
     // to do: update lastBackup property for selectedUser
     // let selectedUser = this.userIdbService.user.getValue();
     this.closeExportDataModal();
