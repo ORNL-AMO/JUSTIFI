@@ -18,14 +18,21 @@
         </div>
         <div class="fw-light small my-2">The file will be saved as {{exportFileName? exportFileName : 'JUSTIFI_backup'}}.json</div>
         <!-- Export Tree -->
-        <div class="d-flex gap-2 flex-wrap ms-2">
-            <button class="btn btn-outline-primary btn-sm border-0" (click)="selectAll()">Select All</button>
-            <button class="btn btn-outline-secondary btn-sm border-0" (click)="unselectAll()">Unselect All</button>
-            <button class="btn btn-outline-primary btn-sm border-0" (click)="expandAll()">Expand All</button>
-            <button class="btn btn-outline-secondary btn-sm border-0" (click)="collapseAll()">Collapse All</button>
-        </div>
-        <hr class="mt-1 mb-2">
-        <app-export-backup-tree [nodes]="exportTree"></app-export-backup-tree>
+        <ng-template [ngIf]="exportTree && exportTree.length > 0" [ngIfElse]="noDataBlock">
+            <div class="d-flex gap-2 flex-wrap ms-2">
+                <button class="btn btn-outline-primary btn-sm border-0" (click)="selectAll()">Select All</button>
+                <button class="btn btn-outline-secondary btn-sm border-0" (click)="unselectAll()">Unselect All</button>
+                <button class="btn btn-outline-primary btn-sm border-0" (click)="expandAll()">Expand All</button>
+                <button class="btn btn-outline-secondary btn-sm border-0" (click)="collapseAll()">Collapse All</button>
+            </div>
+            <hr class="mt-1 mb-2">
+            <app-export-backup-tree [nodes]="exportTree"></app-export-backup-tree>
+        </ng-template>
+        <ng-template #noDataBlock>
+            <div class="alert alert-warning">
+                No data available to export.
+            </div>
+        </ng-template>
     </div>
     <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-sm btn-secondary me-2" (click)="closeExportDataModal()">Cancel</button>
