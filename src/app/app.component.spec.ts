@@ -10,13 +10,15 @@ import { ImportBackupModalComponent } from './core-components/backup-modal/impor
 import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
 import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
 import { stubServiceProviders } from './spec-helpers/spec-test-service-stub';
+import { ExportBackupModalComponent } from './core-components/backup-modal/export-backup-modal/export-backup-modal.component';
+import { ExportBackupTreeComponent } from './core-components/backup-modal/export-backup-modal/export-backup-tree/export-backup-tree.component';
 
 describe('AppComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, FontAwesomeModule],
-      declarations: [AppComponent, NavbarComponent, WelcomeComponent, LoadingComponent, SetupWizardModalComponent, ImportBackupModalComponent, AlphaDisclaimerComponent, FeedbackPageComponent],
+      declarations: [AppComponent, NavbarComponent, WelcomeComponent, LoadingComponent, SetupWizardModalComponent, ImportBackupModalComponent, AlphaDisclaimerComponent, FeedbackPageComponent, ExportBackupModalComponent, ExportBackupTreeComponent],
       providers: stubServiceProviders
     })
   });

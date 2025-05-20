@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExportBackupModalComponent } from './export-backup-modal.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { ExportBackupTreeComponent } from './export-backup-tree/export-backup-tree.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 describe('ExportBackupModalComponent', () => {
   let component: ExportBackupModalComponent;
@@ -8,7 +12,9 @@ describe('ExportBackupModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExportBackupModalComponent]
+      imports: [FontAwesomeModule, FormsModule],
+      declarations: [ExportBackupModalComponent, ExportBackupTreeComponent],
+      providers: stubServiceProviders,
     })
     .compileComponents();
 

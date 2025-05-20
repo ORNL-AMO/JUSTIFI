@@ -12,8 +12,6 @@ import { IconDefinition, faAngleDown, faAngleRight, faBuilding, faIndustry, faCa
 export class ExportBackupTreeComponent {
   @Input()
   nodes: ExportTreeNode[] = [];
-  @Input()
-  level: number = 0;
 
   faAngleRight: IconDefinition = faAngleRight;
   faAngleDown: IconDefinition = faAngleDown;

@@ -62,8 +62,12 @@ export class ExportBackupModalComponent {
   }
 
   ngOnDestroy() {
-    this.showExportModalSub.unsubscribe();
-    this.dataInitializedSub.unsubscribe();
+    if (this.showExportModalSub) {
+      this.showExportModalSub.unsubscribe();
+    }
+    if (this.dataInitializedSub) {
+      this.dataInitializedSub.unsubscribe();
+    }
   }
 
   getExportTree() {
