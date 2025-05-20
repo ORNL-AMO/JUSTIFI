@@ -21,10 +21,7 @@
             </label>
         </div>
         <div class="subtree-list" *ngIf="node.expanded && node.children && node.children.length > 0">
-            <app-export-backup-tree
-                [nodes]="node.children"
-                [level]="level + 1">
-            </app-export-backup-tree>
+            <app-export-backup-tree [nodes]="node.children"></app-export-backup-tree>
         </div>
     </li>
   </ul>
