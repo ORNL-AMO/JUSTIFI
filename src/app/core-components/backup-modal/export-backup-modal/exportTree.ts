@@ -38,7 +38,7 @@ export function buildExportTree(
       type: 'company',
       checked: true,
       indeterminate: false,
-      expanded: false,
+      expanded: true,
       parent: parent,
       children: []
     };
@@ -51,7 +51,7 @@ export function buildExportTree(
         type: 'facility',
         checked: true,
         indeterminate: false,
-        expanded: false,
+        expanded: true,
         parent: companyNode,
         children: []
       };
@@ -68,7 +68,7 @@ export function buildExportTree(
           type: 'visit',
           checked: true,
           indeterminate: false,
-          expanded: false,
+          expanded: true,
           parent: facilityNode,
           children: []
         };
@@ -80,7 +80,7 @@ export function buildExportTree(
           type: 'assessment',
           checked: true,
           indeterminate: false,
-          expanded: false,
+          expanded: true,
           parent: visitNode,
           children: []
         }));

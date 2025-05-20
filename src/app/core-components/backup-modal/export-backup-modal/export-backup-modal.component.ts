@@ -84,4 +84,40 @@ export class ExportBackupModalComponent {
     // let selectedUser = this.userIdbService.user.getValue();
     this.closeExportDataModal();
   }
+
+  selectAll() {
+    this.setSelectAll(this.exportTree, true);
+  }
+  unselectAll() {
+    this.setSelectAll(this.exportTree, false);
+  }
+  expandAll() {
+    this.setExpandAll(this.exportTree, true);
+  }
+  collapseAll() {
+    this.setExpandAll(this.exportTree, false);
+  }
+
+  private setSelectAll(exportTree: ExportTreeNode[], checked: boolean) {
+    exportTree.forEach(node => {
+      node.checked = checked;
+      node.indeterminate = false;
+      if (node.children && node.children.length > 0) {
+        this.setSelectAll(node.children, checked);
+      }
+    });
+  }
+
+  private setExpandAll(exportTree: ExportTreeNode[], expanded: boolean) {
+    exportTree.forEach(node => {
+      node.expanded = expanded;
+      if (node.children && node.children.length > 0) {
+        this.setExpandAll(node.children, expanded);
+      }
+    });
+  }
+
+  isNoneSelected(exportTree: ExportTreeNode[]): boolean {
+    return exportTree.every(node => !node.checked && !node.indeterminate);
+  }
 }
