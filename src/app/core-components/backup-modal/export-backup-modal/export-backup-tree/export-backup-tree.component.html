@@ -1,16 +1,30 @@
 <ul class="tree-list" *ngIf="nodes">
     <li *ngFor="let node of nodes">
-        <span *ngIf="node.children && node.children.length > 0" (click)="toggleNode(node)" class="tree-toggle">
-            <span>{{ node.expanded ? "-" : "+"}}</span>
-        </span>
-        <input class="form-check-input" type="checkbox" [checked]="node.checked"
-            [indeterminate]="node.indeterminate"
-            [(ngModel)]="node.checked"
-            (change)="onCheckboxChange(node)" />
-        <span>{{ node.name }}</span>
-        <app-export-backup-tree *ngIf="node.expanded && node.children && node.children.length > 0"
-            [nodes]="node.children"
-            [level]="level + 1">
-        </app-export-backup-tree>
+        <div class="form-check">
+                <span *ngIf="node.children && node.children.length > 0" (click)="toggleNode(node)" class="tree-toggle">
+                <fa-icon [icon]="node.expanded ? faAngleDown : faAngleRight"></fa-icon>
+            </span>
+            <input class="form-check-input" type="checkbox" [id]="'export_node' + node.item.guid"
+                [checked]="node.checked"
+                [indeterminate]="node.indeterminate"
+                [(ngModel)]="node.checked"
+                (change)="onCheckboxChange(node)" />
+            <label class="form-check-label" [for]="'export_node_' + node.item.guid">
+                <ng-container [ngSwitch]="node.type">
+                    <fa-icon *ngSwitchCase="'company'" [icon]="faBuilding" class="me-1"></fa-icon>
+                    <fa-icon *ngSwitchCase="'facility'" [icon]="faIndustry" class="me-1"></fa-icon>
+                    <fa-icon *ngSwitchCase="'visit'" [icon]="faCalendar" class="me-1"></fa-icon>
+                    <fa-icon *ngSwitchCase="'assessment'" [icon]="faScrewdriverWrench" class="me-1"></fa-icon>
+                    <fa-icon *ngSwitchDefault [icon]="faScrewdriverWrench" class="me-1"></fa-icon>
+                </ng-container>
+                {{ node.name }}
+            </label>
+        </div>
+        <div class="subtree-list" *ngIf="node.expanded && node.children && node.children.length > 0">
+            <app-export-backup-tree
+                [nodes]="node.children"
+                [level]="level + 1">
+            </app-export-backup-tree>
+        </div>
     </li>
   </ul>

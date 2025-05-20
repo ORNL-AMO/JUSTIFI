@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ExportTreeNode } from '../exportTree';
+import { IconDefinition, faAngleDown, faAngleRight, faBuilding, faIndustry, faCalendar, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-export-backup-tree',
@@ -13,6 +14,13 @@ export class ExportBackupTreeComponent {
   nodes: ExportTreeNode[] = [];
   @Input()
   level: number = 0;
+
+  faAngleRight: IconDefinition = faAngleRight;
+  faAngleDown: IconDefinition = faAngleDown;
+  faBuilding: IconDefinition = faBuilding;
+  faIndustry: IconDefinition = faIndustry;
+  faCalendar: IconDefinition = faCalendar;
+  faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   
   constructor() { }
 

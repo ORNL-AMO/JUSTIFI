@@ -11,14 +11,16 @@
         </div>
         <hr>
         <!-- Export file name -->
-        <div class="d-flex align-items-center">
-            <label for="exportFileName" class="form-label me-2 mb-0" style="min-width: 90px;">File Name</label>
-            <input type="text" class="form-control" id="exportFileName" [(ngModel)]="exportFileName"
+        <div class="input-group">
+            <label for="exportFileName" class="col-form-label col-sm-4">File Name</label>
+            <input type="text" class="form-control col-sm-8" id="exportFileName" [(ngModel)]="exportFileName"
                     placeholder="Enter file name" />
         </div>
-        <div class="form-text">The file will be saved as {{exportFileName}}.json</div>
+        <div class="fw-light small mt-1">The file will be saved as {{exportFileName? exportFileName : 'JUSTIFI_backup'}}.json</div>
         <hr>
         <!-- Export Tree -->
+        <p class="fw-light italic">Select the companies, facilities, on-site visits, assessments to export.</p>
+
         <app-export-backup-tree [nodes]="exportTree" [level]="0"></app-export-backup-tree>
     </div>
     <div class="popup-footer d-flex justify-content-end">

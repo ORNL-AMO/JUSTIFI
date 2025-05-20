@@ -56,10 +56,14 @@ export function buildExportTree(
         children: []
       };
       const facilityVisits = visits.filter(v => v.facilityId === facility.guid);
+      let visitName = 'On-site Visit';
       facilityNode.children = facilityVisits.map(visit => {
+        if (visit.visitDate) {
+          visitName += ': ' + new Date(visit.visitDate).toLocaleDateString();
+        }
         const visitNode: ExportTreeNode = {
           guid: visit.guid,
-          name: visit.visitDate?.toString() || 'Visit',
+          name: visitName,
           item: visit,
           type: 'visit',
           checked: true,
