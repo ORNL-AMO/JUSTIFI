@@ -124,3 +124,7 @@ hr.spacer{
 .nav-link.section-active{
     background-color: #9ec5de;
 }
+
+.text-sidebar{
+    font-size: 17px;
+}
