@@ -147,7 +147,7 @@ export class PaybackWaterfallChartComponent {
         yaxis: {
           type: "linear",
           tickprefix: this.currencySymbol,
-          range: [implementationCost, maxY]
+          range: [implementationCost * 1.5, maxY]
         },
         autosize: true,
         showlegend: false,
@@ -167,7 +167,7 @@ export class PaybackWaterfallChartComponent {
         yaxis: {
           type: "linear",
           tickprefix: this.currencySymbol,
-          range: [implementationCost, maxY]
+          range: [implementationCost * 1.5, maxY]
         },
         autosize: true,
         showlegend: false,

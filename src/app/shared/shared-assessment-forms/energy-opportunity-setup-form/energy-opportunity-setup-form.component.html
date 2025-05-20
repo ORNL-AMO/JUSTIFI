@@ -55,21 +55,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="row">
-        <div class="col-12">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch"
-                    id="{{'includeSavings_'+energyOpportunity.guid}}" [(ngModel)]="energyOpportunity.includeSavings"
-                    name="{{'includeSavings_'+energyOpportunity.guid}}" (input)="saveEnergyOpportunity()"
-                    (focus)="focusField('includeSavings')">
-                <div class="form-check-label">
-                    <app-label-with-tooltip [field]="'includeSavingsEnergyOpp'"
-                        [labelId]="'includeSavings_'+energyOpportunity.guid"
-                        [label]="'Include Savings'"></app-label-with-tooltip>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
     <ng-container *ngIf="!utilitySavingsByAssessment">
         <ng-template [ngIf]="energyOpportunity?.utilityCategory == 'water'" [ngIfElse]="energySavingBlock">

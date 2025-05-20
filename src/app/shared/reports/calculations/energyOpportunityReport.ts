@@ -64,7 +64,8 @@ export function getEnergyOpportunityReport(
         totalFinancialImpact: totalFinancialImpact,
         paybackWithNebs: paybackWithNebs,
         paybackWithoutNebs: paybackWithoutNebs,
-        totalRebates: totalRebates
+        totalRebates: totalRebates,
+        finalImplementationCost: energyOpportunity.implementationCost - totalRebates
     }
 }
 
@@ -79,7 +80,8 @@ export interface EnergyOpportunityReport {
     totalFinancialImpact: number,
     paybackWithNebs: number,
     paybackWithoutNebs: number,
-    totalRebates: number
+    totalRebates: number,
+    finalImplementationCost: number
 }
 
 export interface AdditionalEnergyOpportunityReport {

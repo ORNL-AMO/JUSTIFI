@@ -1,118 +1,439 @@
-<table class="table table-bordered savings-table table-hover">
-    <thead>
-        <tr>
-            <th>
+<ng-template [ngIf]="assessmentReport.assessment.utilitySavingsByAssessment" [ngIfElse]="eemSavingsTableBlock">
+    <h6>Payback Period Comparison</h6>
+    <!--Assessment report with savings entered at assessment level-->
+    <table class="table table-bordered savings-table table-hover">
+        <thead>
+            <tr>
+                <th class="w-33 bg-neutral"></th>
+                <th class="bg-without-nebs text-center">
+                    Without NEBs
+                </th>
+                <th class="bg-with-nebs text-center">
+                    With NEBs
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="assessmentReport.totalRebates">
+                <td class="ps-3 bg-neutral">
+                    Implementation Cost ({{ currencyCode | currencySymbol }})
+                </td>
+                <td class="bg-without-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.assessment.implementationCost"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.assessment.implementationCost"></app-single-cell-item>
+                </td>
+            </tr>
+            <tr *ngIf="assessmentReport.totalRebates">
+                <td class="ps-3 bg-neutral">
+                    Rebates ({{ currencyCode | currencySymbol }})
+                </td>
+                <td class="bg-without-nebs-light">
+                    <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalRebates"></app-single-cell-item>
+                </td>
+            </tr>
+            <tr class="bold">
+                <td class="bg-neutral">
+                    <ng-template [ngIf]="assessmentReport.totalRebates" [ngIfElse]="noRebatesLabelBlock">
+                        Final Implementation Cost ({{ currencyCode | currencySymbol }})
+                    </ng-template>
+                    <ng-template #noRebatesLabelBlock>
+                        Implementation Cost ({{ currencyCode | currencySymbol }})
+                    </ng-template>
+                </td>
+                <td class="bg-without-nebs">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.assessment.implementationCost"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.finalImplementationCost"></app-single-cell-item>
+                </td>
+            </tr>
+            <tr>
+                <td class="ps-3 bg-neutral">
+                    Energy Cost Savings ({{ currencyCode | currencySymbol }}/yr)
+                </td>
+                <td class="bg-without-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.assessment.costSavings"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.assessment.costSavings"></app-single-cell-item>
+                </td>
+            </tr>
+            <tr>
+                <td class="ps-3 bg-neutral">
+                    NEBs Financial Impact ({{ currencyCode | currencySymbol }}/yr)
+                </td>
+                <td class="bg-without-nebs-light">
+                    <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalNebFinancialImpact"></app-single-cell-item>
+                </td>
+            </tr>
+            <tr class="bold">
+                <td class="bg-neutral">
+                    Total Financial Impact ({{ currencyCode | currencySymbol }}/yr)
+                </td>
+                <td class="bg-without-nebs">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalNonNebCostSavings"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalFinancialImpact"></app-single-cell-item>
+                </td>
+            </tr>
+            <tr class="bold">
+                <td class="bg-neutral">
+                    Simple Payback (yrs)
+                </td>
+                <td class="bg-without-nebs">
+                    <app-single-cell-item [isCurrency]="false"
+                        [numValue]="assessmentReport.totalPaybackWithoutNebs"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs">
+                    <app-single-cell-item [isCurrency]="false"
+                        [numValue]="assessmentReport.totalPaybackWithNebs"></app-single-cell-item>
+                </td>
+            </tr>
+        </tbody>
 
-            </th>
-            <th>
-                Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
-            </th>
-            <th>
-                Cost Savings<br> ({{ currencyCode | currencySymbol }}/yr)
-            </th>
-            <th>
-                Rebates<br> ({{ currencyCode | currencySymbol }})
-            </th>
-            <th>
-                Financial Impact<br> With NEBs<br> ({{ currencyCode | currencySymbol }}/yr)
-            </th>
-            <th>
-                Simple Payback<br> (yrs)
-            </th>
-            <th>
-                Simple Payback<br> With NEBs<br> (yrs)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                {{assessmentReport.assessment.name}}
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="assessmentReport.assessment.implementationCost"></app-single-cell-item>
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="assessmentReport.assessment.costSavings"></app-single-cell-item>
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="assessmentReport.totalNonOpportunityRebates"></app-single-cell-item>
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="assessmentReport.totalNonOpportunityCostSavings"></app-single-cell-item>
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="false"
-                    [numValue]="assessmentReport.nonOpportunityPaybackWithoutNebs"></app-single-cell-item>
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="false"
-                    [numValue]="assessmentReport.nonOpportunityPaybackWithNebs"></app-single-cell-item>
-            </td>
-        </tr>
-        <tr *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
-            <td class="ps-4">
-                {{energyOpportunityReport.energyOpportunity.name}}
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="energyOpportunityReport.energyOpportunity.implementationCost"></app-single-cell-item>
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="energyOpportunityReport.totalNonNebCostSavings"></app-single-cell-item>
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="energyOpportunityReport.totalRebates"></app-single-cell-item>
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="energyOpportunityReport.totalFinancialImpact"></app-single-cell-item>
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="false"
-                    [numValue]="energyOpportunityReport.paybackWithoutNebs"></app-single-cell-item>
-            </td>
-            <td>
-                <app-single-cell-item [isCurrency]="false"
-                    [numValue]="energyOpportunityReport.paybackWithNebs"></app-single-cell-item>
-            </td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>
-                Assessment Total
-            </th>
-            <th>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="assessmentReport.totalImplementationCost"></app-single-cell-item>
-            </th>
-            <th>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="assessmentReport.totalNonNebCostSavings"></app-single-cell-item>
-            </th>
-            <th>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="assessmentReport.totalRebates"></app-single-cell-item>
-            </th>
-            <th>
-                <app-single-cell-item [isCurrency]="true"
-                    [numValue]="assessmentReport.totalFinancialImpact"></app-single-cell-item>
-            </th>
-            <th>
-                <app-single-cell-item [isCurrency]="false"
-                    [numValue]="assessmentReport.totalPaybackWithoutNebs"></app-single-cell-item>
-            </th>
-            <th>
-                <app-single-cell-item [isCurrency]="false"
-                    [numValue]="assessmentReport.totalPaybackWithNebs"></app-single-cell-item>
-            </th>
-        </tr>
-    </tfoot>
-</table>
+    </table>
+
+
+</ng-template>
+
+
+<ng-template #eemSavingsTableBlock>
+    <!--Assessment report with savings entered at EEM level-->
+    <!--implementation costs-->
+    <ng-container *ngIf="assessmentReport.totalRebates">
+        <h6>Impact on Implementation Costs</h6>
+        <table class="table table-bordered savings-table table-hover">
+            <thead>
+                <tr>
+                    <th class="w-25 bg-neutral"></th>
+                    <th class="bg-without-nebs text-center">
+                        Without NEBs
+                    </th>
+                    <th colspan="2" class="bg-with-nebs text-center">
+                        With NEBs
+                    </th>
+                </tr>
+                <tr>
+                    <th class="w-25 bg-neutral">
+
+                    </th>
+                    <th class="w-25 bg-without-nebs-light">
+                        Implementation<br> Cost ({{ currencyCode | currencySymbol }})
+                    </th>
+                    <th class="w-25 bg-with-nebs-light">
+                        Rebates ({{ currencyCode | currencySymbol }})
+                    </th>
+                    <th class="w-25 bg-with-nebs-light">
+                        Final<br> Implementation<br> Cost ({{ currencyCode | currencySymbol }})
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
+                    <td class="bg-neutral">
+                        {{energyOpportunityReport.energyOpportunity.name}}
+                    </td>
+                    <td class="bg-without-nebs-light">
+                        <app-single-cell-item [isCurrency]="true"
+                            [numValue]="energyOpportunityReport.energyOpportunity.implementationCost"></app-single-cell-item>
+                    </td>
+                    <td class="bg-with-nebs-light">
+                        <app-single-cell-item [isCurrency]="true"
+                            [numValue]="energyOpportunityReport.totalRebates"></app-single-cell-item>
+                    </td>
+                    <td class="bg-with-nebs-light">
+                        <app-single-cell-item [isCurrency]="true"
+                            [numValue]="energyOpportunityReport.finalImplementationCost"></app-single-cell-item>
+                    </td>
+                </tr>
+                <tr *ngIf="assessmentReport.totalNonOpportunityRebates">
+                    <td class="bg-neutral">
+                        Additional Rebates
+                    </td>
+                    <td class="bg-without-nebs-light">
+                        <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
+                    </td>
+                    <td class="bg-with-nebs-light">
+                        (<app-single-cell-item [isCurrency]="true"
+                            [numValue]="assessmentReport.totalNonOpportunityRebates"></app-single-cell-item>)
+                    </td>
+                    <td class="bg-with-nebs-light">
+                        (<app-single-cell-item [isCurrency]="true"
+                            [numValue]="assessmentReport.totalNonOpportunityRebates"></app-single-cell-item>)
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th class="bg-neutral">
+                        Assessment Total
+                    </th>
+                    <th class="bg-without-nebs">
+                        <app-single-cell-item [isCurrency]="true"
+                            [numValue]="assessmentReport.totalImplementationCost"></app-single-cell-item>
+                    </th>
+                    <th class="bg-with-nebs">
+                        (<app-single-cell-item [isCurrency]="true"
+                            [numValue]="assessmentReport.totalRebates"></app-single-cell-item>)
+                    </th>
+                    <th class="bg-with-nebs">
+                        <app-single-cell-item [isCurrency]="true"
+                            [numValue]="assessmentReport.finalImplementationCost"></app-single-cell-item>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </ng-container>
+
+    <!--cost savings-->
+    <h6>Impact on Annual Costs</h6>
+    <table class="table table-bordered savings-table table-hover">
+        <thead>
+            <tr>
+                <th class="w-25 bg-neutral"></th>
+                <th class="bg-without-nebs text-center">
+                    Without NEBs
+                </th>
+                <th colspan="2" class="bg-with-nebs text-center">
+                    With NEBs
+                </th>
+            </tr>
+            <tr>
+                <th class="w-25 bg-neutral">
+
+                </th>
+                <th class="w-25 bg-without-nebs-light">
+                    Energy <br>Cost Savings<br> ({{ currencyCode | currencySymbol }}/yr)
+                </th>
+                <th class="w-25 bg-with-nebs-light">
+                    NEBs Financial<br> Impact ({{ currencyCode | currencySymbol }}/yr)
+                </th>
+                <th class="w-25 bg-with-nebs-light">
+                    Total Financial<br> Impact ({{ currencyCode | currencySymbol }}/yr)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
+                <td class="bg-neutral">
+                    {{energyOpportunityReport.energyOpportunity.name}}
+                </td>
+                <td class="bg-without-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="energyOpportunityReport.totalNonNebCostSavings"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="energyOpportunityReport.totalNebFinancialImpact"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="energyOpportunityReport.totalFinancialImpact"></app-single-cell-item>
+                </td>
+            </tr>
+            <tr *ngIf="assessmentReport.totalAssessmentNebFinancialImpact">
+                <td class="bg-neutral">
+                    Additional NEBs
+                </td>
+                <td class="bg-without-nebs-light">
+                    <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalAssessmentNebFinancialImpact"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalAssessmentNebFinancialImpact"></app-single-cell-item>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th class="bg-neutral">
+                    Assessment Total
+                </th>
+                <th class="bg-without-nebs">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalNonNebCostSavings"></app-single-cell-item>
+                </th>
+                <th class="bg-with-nebs">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalNebFinancialImpact"></app-single-cell-item>
+                </th>
+                <th class="bg-with-nebs">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalFinancialImpact"></app-single-cell-item>
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+
+
+
+
+
+
+    <!--cost savings-->
+    <h6>Impact on Project Payback</h6>
+    <table class="table table-bordered savings-table table-hover">
+        @let nebColumns = assessmentReport.totalRebates ? 3 : 2;
+        @let startColumns = assessmentReport.totalRebates ? 1 : 2;
+        <thead>
+            <tr>
+                <th class="bg-neutral" [attr.colspan]="startColumns">
+
+                </th>
+                <th class="text-center bg-without-nebs" [attr.colspan]="nebColumns">
+                    Without NEBs
+                </th>
+                <th class="text-center bg-with-nebs" [attr.colspan]="nebColumns">
+                    With NEBs
+                </th>
+            </tr>
+            <tr>
+                <th class="bg-neutral">
+
+                </th>
+                <th
+                    [ngClass]="{'bg-without-nebs-light': assessmentReport.totalRebates, 'bg-neutral': !assessmentReport.totalRebates}">
+                    Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
+                </th>
+                <th class="bg-without-nebs-light">
+                    Financial Impact<br> ({{ currencyCode | currencySymbol }}/yr)
+                </th>
+                <th class="bg-without-nebs-light">
+                    Simple Payback<br> (yrs)
+                </th>
+                <th class="bg-with-nebs-light" *ngIf="assessmentReport.totalRebates">
+                    Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
+                </th>
+                <th class="bg-with-nebs-light">
+                    Financial Impact<br> ({{ currencyCode | currencySymbol }}/yr)
+                </th>
+                <th class="bg-with-nebs-light">
+                    Simple Payback<br> (yrs)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
+                <td class="bg-neutral">
+                    {{energyOpportunityReport.energyOpportunity.name}}
+                </td>
+                <!--without nebs-->
+                <td
+                    [ngClass]="{'bg-without-nebs-light': assessmentReport.totalRebates, 'bg-neutral': !assessmentReport.totalRebates}">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="energyOpportunityReport.energyOpportunity.implementationCost"></app-single-cell-item>
+                </td>
+                <td class="bg-without-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="energyOpportunityReport.totalNonNebCostSavings"></app-single-cell-item>
+                </td>
+                <td class="bg-without-nebs-light">
+                    <app-single-cell-item [isCurrency]="false"
+                        [numValue]="energyOpportunityReport.paybackWithoutNebs"></app-single-cell-item>
+                </td>
+                <!--with nebs-->
+                <td class="bg-with-nebs-light" *ngIf="assessmentReport.totalRebates">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="energyOpportunityReport.finalImplementationCost"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="energyOpportunityReport.totalFinancialImpact"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="false"
+                        [numValue]="energyOpportunityReport.paybackWithNebs"></app-single-cell-item>
+                </td>
+            </tr>
+            <tr
+                *ngIf="assessmentReport.totalAssessmentNebFinancialImpact || assessmentReport.totalNonOpportunityRebates">
+                <td class="bg-neutral">
+                    Additional NEBs/Rebates
+                </td>
+                <td
+                    [ngClass]="{'bg-without-nebs-light': assessmentReport.totalRebates, 'bg-neutral': !assessmentReport.totalRebates}">
+                    <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
+                </td>
+                <td class="bg-without-nebs-light">
+                    <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
+                </td>
+                <td class="bg-without-nebs-light">
+                    <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light" *ngIf="assessmentReport.totalRebates">
+                    <ng-template [ngIf]="assessmentReport.totalNonOpportunityRebates" [ngIfElse]="noRebatesBlock">
+                        (<app-single-cell-item [isCurrency]="true"
+                            [numValue]="assessmentReport.totalNonOpportunityRebates"></app-single-cell-item>)
+                    </ng-template>
+                    <ng-template #noRebatesBlock>
+                        <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
+                    </ng-template>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalAssessmentNebFinancialImpact"></app-single-cell-item>
+                </td>
+                <td class="bg-with-nebs-light">
+                    <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th class="bg-neutral">
+                    Assessment Total
+                </th>
+                <!--without nebs-->
+                <th
+                    [ngClass]="{'bg-without-nebs': assessmentReport.totalRebates, 'bg-neutral': !assessmentReport.totalRebates}">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalImplementationCost"></app-single-cell-item>
+                </th>
+                <th class="bg-without-nebs">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalNonNebCostSavings"></app-single-cell-item>
+                </th>
+                <th class="bg-without-nebs">
+                    <app-single-cell-item [isCurrency]="false"
+                        [numValue]="assessmentReport.totalPaybackWithoutNebs"></app-single-cell-item>
+                </th>
+                <!--with nebs-->
+                <th class="bg-with-nebs" *ngIf="assessmentReport.totalRebates">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.finalImplementationCost"></app-single-cell-item>
+                </th>
+                <th class="bg-with-nebs">
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalFinancialImpact"></app-single-cell-item>
+                </th>
+                <th class="bg-with-nebs">
+                    <app-single-cell-item [isCurrency]="false"
+                        [numValue]="assessmentReport.totalPaybackWithNebs"></app-single-cell-item>
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+</ng-template>

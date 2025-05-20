@@ -71,20 +71,18 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         }
         return 0;
     });
-    let totalPaybackWithoutNebs: number = (totalImplementationCost / totalNonNebCostSavings);
+    let finalImplementationCost: number = totalImplementationCost - totalRebates;
+    let totalPaybackWithoutNebs: number = (finalImplementationCost / totalNonNebCostSavings);
     if (totalPaybackWithoutNebs == Infinity || isNaN(totalPaybackWithoutNebs)) {
         totalPaybackWithoutNebs = 0;
     }
-    let totalPaybackWithNebs: number = (totalImplementationCost / totalFinancialImpact);
+    let totalPaybackWithNebs: number = (finalImplementationCost / totalFinancialImpact);
     if (totalPaybackWithNebs == Infinity || isNaN(totalPaybackWithNebs)) {
         totalPaybackWithNebs = 0;
     }
 
-    let totalNonKpmNebs: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
-        if (report.totalNonKpmNebs) {
-            return report.totalNonKpmNebs
-        }
-        return 0;
+    let totalAssessmentNebFinancialImpact: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.totalAssessmentNebFinancialImpact
     });
 
     return {
@@ -101,7 +99,8 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         totalNebFinancialImpact: totalNebFinancialImpact,
         totalNonNebCostSavings: totalNonNebCostSavings,
         totalRebates: totalRebates,
-        totalNonKpmNebs: totalNonKpmNebs
+        totalAssessmentNebFinancialImpact: totalAssessmentNebFinancialImpact,
+        finalImplementationCost: finalImplementationCost
     };
 }
 
@@ -120,5 +119,6 @@ export interface OnSiteVisitReport {
     totalNebFinancialImpact: number,
     totalNonNebCostSavings: number,
     totalRebates: number,
-    totalNonKpmNebs: number
+    totalAssessmentNebFinancialImpact: number,
+    finalImplementationCost: number
 }

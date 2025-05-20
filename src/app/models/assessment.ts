@@ -66,6 +66,6 @@ export function getNewIdbAssessment(userId: string, companyId: string, facilityI
         sidebarOpen: false,
         isUtilityCostUpdated: true,
         utilityCategory: 'energy',
-        utilitySavingsByAssessment: true
+        utilitySavingsByAssessment: false
     }
 }

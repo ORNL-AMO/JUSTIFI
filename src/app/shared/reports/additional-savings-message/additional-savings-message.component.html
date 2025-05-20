@@ -1,7 +1,7 @@
 <ng-template [ngIf]="context == 'assessment'" [ngIfElse]="onSiteVisitMessageBlock">
-    <div class="alert alert-success text-center p-2" *ngIf="assessmentReport.totalNonKpmNebs">
+    <div class="alert alert-success text-center p-2" *ngIf="assessmentReport.totalAssessmentNebFinancialImpact">
         <fa-icon [icon]="faExclamationCircle"></fa-icon>
-        <b><app-single-cell-item [isCurrency]="true" [numValue]="assessmentReport.totalNonKpmNebs"
+        <b><app-single-cell-item [isCurrency]="true" [numValue]="assessmentReport.totalAssessmentNebFinancialImpact"
                 [per]="'yr'"></app-single-cell-item></b> of additional financial impacts were identified that
         are not directly connected to performance metrics!
     </div>
@@ -14,9 +14,9 @@
 
 </ng-template>
 <ng-template #onSiteVisitMessageBlock>
-    <div class="alert alert-success text-center p-2" *ngIf="onSiteVisitReport.totalNonKpmNebs">
+    <div class="alert alert-success text-center p-2" *ngIf="onSiteVisitReport.totalAssessmentNebFinancialImpact">
         <fa-icon [icon]="faExclamationCircle"></fa-icon>
-        <b><app-single-cell-item [isCurrency]="true" [numValue]="onSiteVisitReport.totalNonKpmNebs"
+        <b><app-single-cell-item [isCurrency]="true" [numValue]="onSiteVisitReport.totalAssessmentNebFinancialImpact"
                 [per]="'yr'"></app-single-cell-item></b> of additional financial impacts were identified that
         are not directly connected to performance metrics!
     </div>

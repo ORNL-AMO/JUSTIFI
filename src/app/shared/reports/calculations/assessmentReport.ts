@@ -20,16 +20,18 @@ export function getAssessmentReport(
     keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
     report?: IdbReport): AssessmentReport {
 
-    if (!assessment.energySavings) {
-        assessment.energySavings = 0;
-    }
+    if (assessment.utilitySavingsByAssessment) {
+        if (!assessment.energySavings) {
+            assessment.energySavings = 0;
+        }
 
-    if (!assessment.costSavings) {
-        assessment.costSavings = 0;
-    }
+        if (!assessment.costSavings) {
+            assessment.costSavings = 0;
+        }
 
-    if (!assessment.implementationCost) {
-        assessment.implementationCost = 0;
+        if (!assessment.implementationCost) {
+            assessment.implementationCost = 0;
+        }
     }
 
     let energyOpportunityReports: Array<EnergyOpportunityReport> = new Array();
@@ -122,7 +124,7 @@ export function getAssessmentReport(
     if (energyOpportunityImplementationCost) {
         implementationCost += energyOpportunityImplementationCost;
     }
-    if (assessment.implementationCost) {
+    if (assessment.utilitySavingsByAssessment && assessment.implementationCost) {
         implementationCost += assessment.implementationCost;
     }
 
@@ -162,7 +164,7 @@ export function getAssessmentReport(
 
     // Assessment level/Non-Opportunity Cost Savings
     let totalNonOpportunityCostSavings: number = totalAssessmentNebFinancialImpact;
-    if (assessment.costSavings) {
+    if (assessment.costSavings && assessment.utilitySavingsByAssessment) {
         totalNonOpportunityCostSavings += assessment.costSavings;
     }
 
@@ -174,13 +176,6 @@ export function getAssessmentReport(
     if (nonOpportunityPaybackWithNebs == Infinity) {
         nonOpportunityPaybackWithNebs = 0;
     }
-
-    let totalNonKpmNebs: number = 0;
-    allNebReports.forEach(nebReport => {
-        if(nebReport.nonEnergyBenefit.costImpact && nebReport.nonEnergyBenefit.costImpactType == 'annual'){
-            totalNonKpmNebs += nebReport.nonEnergyBenefit.costImpact;
-        }
-    })
 
 
     return {
@@ -208,7 +203,7 @@ export function getAssessmentReport(
         utilityCategory: utilityCategory,
         totalNonOpportunityRebates: totalNonOpportunityRebates,
         totalRebates: totalRebates,
-        totalNonKpmNebs: totalNonKpmNebs
+        finalImplementationCost: implementationCost - totalRebates
     }
 }
 
@@ -235,8 +230,8 @@ export interface AssessmentReport {
     keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport,
     utilityCategory?: string,
     totalRebates: number,
-    totalNonOpportunityRebates: number,
-    totalNonKpmNebs: number
+    finalImplementationCost: number,
+    totalNonOpportunityRebates: number
 }
 
 

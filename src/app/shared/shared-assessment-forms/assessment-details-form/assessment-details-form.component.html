@@ -26,36 +26,22 @@
     <hr>
     <div class="row" *ngIf="!inPreAssessment">
         <div class="col-12">
-            <!-- <app-label-with-tooltip [field]="'utilitySavingsByAssessment'" [label]="'How do you want to enter savings?'"
-                [labelId]="'utilitySavingsByAssessment'"></app-label-with-tooltip> -->
-            <!-- <label class="bold" for="utilitySavingsByAssessment">
-                
-            </label> -->
-            <h6>How do you want to enter savings?</h6>
-        </div>
-        <div class="col-12">
+            <h6>Combine Utility Savings</h6>
             <p class="fw-light mb-1 small italic">
-                Savings can either be entered at the Energy Efficiency Measure (EEM) level or at the assessment level.
-                If
-                savings can be desegregated by EEM than enter savings at the EEM level. Otherwise, enter combined EEM
-                savings at the
-                assessment level.
+                Check the box below to combine the implementation costs and utility savings for the Energy Efficiency
+                Measures (EEMs) at the assessment level <b><u>if the utility savings cannot be separated for each EEM</u></b>.
+                Otherwise, enter itemized savings and implementation costs for each EEM separately. Entering
+                itemized savings will allow you to generate a more detailed report that shows
+                the payback
+                periods for each individual EEM.
             </p>
-        </div>
-        <!-- <label class="col-sm-5 col-form-label" for="utilitySavingsByAssessment">Utility Savings Entry</label> -->
-        <div class="col-sm-12">
-
 
             <div class="form-check">
-                <input type="radio" class="form-check-input" name="utilitySavingsByAssessment" [value]="true"
-                    id="assessmentSavings" [(ngModel)]="assessment.utilitySavingsByAssessment">
-                <label class="form-check-label" for="assessmentSavings"> Assessment Savings</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" name="utilitySavingsByAssessment" [value]="false"
-                    id="eemSavings" [(ngModel)]="assessment.utilitySavingsByAssessment">
-                <label class="form-check-label" for="eemSavings">Energy Efficiency Measure Savings</label>
-
+                <input class="form-check-input" type="checkbox" id="utilitySavingsByAssessment" (change)="saveChanges()"
+                    [(ngModel)]="assessment.utilitySavingsByAssessment" name="utilitySavingsByAssessment">
+                <label class="form-check-label" for="utilitySavingsByAssessment">
+                    Combine Utility Savings and Implementation Cost for all EEMs
+                </label>
             </div>
         </div>
     </div>
@@ -229,7 +215,7 @@
             {{assessment.costSavings | currency: currencyCode:'symbol':'1.0-2'}}
         </div>
     </div>
-    <ng-container *ngIf="!hasThreeColumns">
+    <ng-container *ngIf="hasThreeColumns">
         <hr>
         <div class="row">
             <label class="col-sm-5 col-form-label" for="implementationCost">Implementation Cost</label>
