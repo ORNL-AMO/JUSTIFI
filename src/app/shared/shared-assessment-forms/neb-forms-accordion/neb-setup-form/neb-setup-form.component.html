@@ -15,7 +15,15 @@
 <form>
     <ng-template [ngIf]="nonEnergyBenefit.isCustom">
         <div class="row">
-            <label class="col-sm-5 col-form-label" for="{{'nebName'+nonEnergyBenefit.guid}}">NEB Name</label>
+            <label class="col-sm-5 col-form-label" for="{{'nebName'+nonEnergyBenefit.guid}}">
+                <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+                    NEB Name
+                </ng-container>
+                <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
+                    Incentive Name
+                </ng-container>
+
+            </label>
             <div class="col-sm-7">
                 <input name="{{'nebName'+nonEnergyBenefit.guid}}" type="text" class="form-control"
                     [(ngModel)]="nonEnergyBenefit.name" minlength="1" maxlength="42"
@@ -41,7 +49,7 @@
                     id="{{'associatedEEM'+nonEnergyBenefit.guid}}" [(ngModel)]="nonEnergyBenefit.energyOpportunityId"
                     (change)="changeAssociatedEEM()">
                     <option [ngValue]="undefined">
-                        No directly associated opportunity
+                        No directly associated EEM
                     </option>
                     <option *ngFor="let opp of energyOpportunities" [value]="opp.guid">
                         {{opp.name}}
@@ -58,7 +66,7 @@
                     [labelId]="'costImpact'+nonEnergyBenefit.guid"></app-label-with-tooltip>
             </ng-template>
             <ng-template #rebateLabelBlock>
-                Rebate Amount
+                Incentive Amount
             </ng-template>
         </div>
         <div class="col-sm-7">
@@ -81,10 +89,16 @@
     <div class="row">
         <div class="col-sm-12 col-form-label">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch"
+                <input class="form-check-input my-auto" type="checkbox" role="switch"
                     id="{{'includeNEBNote'+nonEnergyBenefit.guid}}" [(ngModel)]="nonEnergyBenefit.includeNote"
                     name="{{'includeNEBNote'+nonEnergyBenefit.guid}}" (input)="saveChanges()">
-                <label class="form-check-label" for="{{'includeNEBNote'+nonEnergyBenefit.guid}}">Non-Energy Benefit
+                <label class="form-check-label" for="{{'includeNEBNote'+nonEnergyBenefit.guid}}">
+                    <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+                        Non-Energy Benefit
+                    </ng-container>
+                    <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
+                        Incentive
+                    </ng-container>
                     Notes</label>
             </div>
         </div>
@@ -93,7 +107,7 @@
                 id="nebNotes"></textarea>
         </div>
     </div>
-    <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'annual'" [ngIfElse]="rebateHelpBlock">
+    <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'annual'">
         <div class="row">
             <div class="col-12">
                 <hr>
@@ -147,15 +161,6 @@
                 No performance metrics tracked for this NEB.
             </div>
         </ng-template>
-    </ng-template>
-    <ng-template #rebateHelpBlock>
-        <div class="alert alert-info">
-            <fa-icon [icon]="faBookOpen"></fa-icon> Check out the
-                <a href="https://www.nrel.gov/docs/libraries/manufacturing/non-energy-benefits-funding-resources.pdf?sfvrsn=2705593b_0"
-                    target="_blank">
-                    NREL Knowledge Library for Non-energy Benefits Funding Resources.
-                </a>
-        </div>
     </ng-template>
 </form>
 <!--END FORM-->
