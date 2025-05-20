@@ -66,6 +66,12 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
         }
         return 0;
     });
+    let finalImplementationCost: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        if (report.finalImplementationCost) {
+            return report.finalImplementationCost
+        }
+        return 0;
+    });
     // calculate total visit revenues and costs
     let keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport = getKeyPerformanceIndicatorReport(allNebReports);
     let totalCostSavings: number = totalUtilityCostSavings;
@@ -124,7 +130,8 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
         totalUtilityCosts: totalUtilityCosts,
         totalUtilityCostSavings: totalUtilityCostSavings,
         utilityCategory: utilityCategory,
-        totalRebates: totalRebates
+        totalRebates: totalRebates,
+        finalImplementationCost: finalImplementationCost
     };
 }
 export interface ExecutiveSummaryReport {
@@ -143,5 +150,6 @@ export interface ExecutiveSummaryReport {
     totalUtilityCosts: number;
     totalUtilityCostSavings: number;
     utilityCategory?: string;
-    totalRebates: number
+    totalRebates: number,
+    finalImplementationCost: number
 }
