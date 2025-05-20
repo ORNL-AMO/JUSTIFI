@@ -53,6 +53,10 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="alert alert-info text-center">
+            <b>Total Energy Use = {{ totalEnergyUsed | number:numValueDigits }} {{ companyEnergyUnit | unitsDisplay}}/yr</b>
+        </div>
     </ng-template>
 
     <ng-template #noEquipmentAddedBlock>
