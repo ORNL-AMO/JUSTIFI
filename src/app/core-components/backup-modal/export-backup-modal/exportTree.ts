@@ -2,6 +2,7 @@ import { IdbAssessment } from "src/app/models/assessment";
 import { IdbCompany } from "src/app/models/company";
 import { IdbFacility } from "src/app/models/facility";
 import { IdbOnSiteVisit } from "src/app/models/onSiteVisit";
+import _ from "lodash";
 
 export interface ExportTreeNode {
   guid: string;
@@ -13,6 +14,13 @@ export interface ExportTreeNode {
   expanded: boolean;
   children?: ExportTreeNode[];
   parent?: ExportTreeNode | null;
+}
+
+export interface SelectedExportGuids {
+  companyGuids: string[];
+  facilityGuids: string[];
+  visitGuids: string[];
+  assessmentGuids: string[];
 }
 
 export function buildExportTree(
@@ -78,4 +86,41 @@ export function buildExportTree(
     });
     return companyNode;
   });
+}
+
+export function getSelectedExportGuids(exportTree: ExportTreeNode[]): SelectedExportGuids {
+  let selectedGuids: SelectedExportGuids = {
+    companyGuids: [],
+    facilityGuids: [],
+    visitGuids: [],
+    assessmentGuids: []
+  };
+
+  exportTree.forEach(company => {
+    if (company.checked || company.indeterminate) {
+      selectedGuids.companyGuids.push(company.guid);
+      company.children?.forEach(facility => {
+        if (facility.checked || facility.indeterminate) {
+          selectedGuids.facilityGuids.push(facility.guid);
+          facility.children?.forEach(visit => {
+            if (visit.checked || visit.indeterminate) {
+              selectedGuids.visitGuids.push(visit.guid);
+              visit.children?.forEach(assessment => {
+                if (assessment.checked || assessment.indeterminate) {
+                  selectedGuids.assessmentGuids.push(assessment.guid);
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+
+  selectedGuids.companyGuids = _.uniq(selectedGuids.companyGuids);
+  selectedGuids.facilityGuids = _.uniq(selectedGuids.facilityGuids);
+  selectedGuids.visitGuids = _.uniq(selectedGuids.visitGuids);
+  selectedGuids.assessmentGuids = _.uniq(selectedGuids.assessmentGuids);
+
+  return selectedGuids;
 }

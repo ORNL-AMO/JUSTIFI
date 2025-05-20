@@ -13,6 +13,7 @@ import { IdbCompany } from 'src/app/models/company';
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { IdbAssessment } from 'src/app/models/assessment';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
   selector: 'app-export-backup-modal',
@@ -33,6 +34,7 @@ export class ExportBackupModalComponent {
   exportName: string;
   overwriteData: boolean = true;
 
+  dataInitializedSub: Subscription;
   exportFileName: string = 'JUSTIFI_backup';
   exportTree: ExportTreeNode[] = [];
 
@@ -45,17 +47,23 @@ export class ExportBackupModalComponent {
     private facilityIdbService: FacilityIdbService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
+    private sharedDataService: SharedDataService,
   ) { }
 
   ngOnInit(): void {
     this.showExportModalSub = this.backupModalService.showExportModal.subscribe(value => {
       this.showExportModal = value;
     });
-    this.getExportTree();
+    this.dataInitializedSub = this.sharedDataService.dataInitialized.subscribe(dataInitialized => {
+      if (dataInitialized) {
+        this.getExportTree();
+      }
+    });
   }
 
   ngOnDestroy() {
     this.showExportModalSub.unsubscribe();
+    this.dataInitializedSub.unsubscribe();
   }
 
   getExportTree() {
@@ -76,5 +84,4 @@ export class ExportBackupModalComponent {
     // let selectedUser = this.userIdbService.user.getValue();
     this.closeExportDataModal();
   }
-
 }

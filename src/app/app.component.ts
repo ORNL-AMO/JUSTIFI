@@ -52,6 +52,7 @@ export class AppComponent {
       this.print = print;
     });
     await this.initializeData();
+    this.sharedDataService.dataInitialized.next(true);
     this.checkRouter();
     this.toastNotificationService.showWebDisclaimer();
   }
