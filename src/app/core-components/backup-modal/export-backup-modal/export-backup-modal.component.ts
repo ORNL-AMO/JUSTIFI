@@ -51,11 +51,15 @@ export class ExportBackupModalComponent {
   ) { }
 
   ngOnInit(): void {
-    this.showExportModalSub = this.backupModalService.showExportModal.subscribe(value => {
-      this.showExportModal = value;
-    });
+    // Ensure the app is initialized before retrieving data (in case of long loading)
     this.dataInitializedSub = this.sharedDataService.dataInitialized.subscribe(dataInitialized => {
       if (dataInitialized) {
+        this.getExportTree();
+      }
+    });
+    this.showExportModalSub = this.backupModalService.showExportModal.subscribe(value => {
+      this.showExportModal = value;
+      if (this.showExportModal) { // Load current data
         this.getExportTree();
       }
     });
