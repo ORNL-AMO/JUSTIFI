@@ -30,13 +30,13 @@ export class KpiListFilterPipe implements PipeTransform {
 
   getPrimaryOrder(option: KeyPerformanceIndicatorOption): number {
     switch (option.primaryKPI) {
-      case 'Operations':
+      case 'Operations Impact':
         return 1;
-      case 'Employee and Workplace Environment':
+      case 'Employee Environment':
         return 2;
-      case 'Energy and Material Efficiency':
+      case 'Resource Efficiency':
         return 3;
-      case 'Strategic and Growth':
+      case 'Strategic Growth':
         return 4;
       case 'Other':
         return 5;

@@ -28,6 +28,7 @@ import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
+import { ExportTreeNode, getSelectedExportGuids, SelectedExportGuids } from 'src/app/core-components/backup-modal/export-backup-modal/exportTree';
 
 @Injectable({
   providedIn: 'root'
@@ -50,9 +51,9 @@ export class BackupDataService {
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService
   ) { }
 
-  backupData() {
-    let backupFile: BackupFile = this.getBackupFile();
-    let backupFileName: string = 'JUSTIFI_' + backupFile.companies[0]?.generalInformation.name + '_backup_';
+  backupData(exportFileName: string, exportTree: ExportTreeNode[]): void {
+    let backupFile: BackupFile = this.getBackupFile(exportTree);
+    let backupFileName: string = exportFileName || 'JUSTIFI_backup';
     this.downloadBackup(backupFile, backupFileName);
   }
 
@@ -61,27 +62,61 @@ export class BackupDataService {
     let dlLink = window.document.createElement("a");
     let dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(jsonData);
     dlLink.setAttribute("href", dataStr);
-    const date = backupFile.timeStamp;
-    const filename = backupFileName + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0') + '-' + date.getFullYear() + '_'
-      + date.getHours().toString().padStart(2, '0') + '-' + date.getMinutes().toString().padStart(2, '0') + '-' + date.getSeconds().toString().padStart(2, '0');
-    dlLink.setAttribute('download', filename + '.json');
+    dlLink.setAttribute('download', backupFileName + '.json');
     dlLink.click();
   }
 
-  getBackupFile(): BackupFile {
+  getBackupFile(exportTree: ExportTreeNode[]): BackupFile {
+    // Traverse the export tree and collect the guids
+    const selectedExportGuids: SelectedExportGuids = getSelectedExportGuids(exportTree);
+    // filter the data to be exported
+    const selectedUser: IdbUser = this.userIdbService.user.getValue();
+    const companies: Array<IdbCompany> = this.companyIdbService.companies.getValue();
+    const selectedCompanies: Array<IdbCompany> = companies.filter(company => 
+      selectedExportGuids.companyGuids.includes(company.guid));
+    const facilities: Array<IdbFacility> = this.facilityIdbService.facilities.getValue();
+    const selectedFacilities: Array<IdbFacility> = facilities.filter(facility => 
+      selectedExportGuids.facilityGuids.includes(facility.guid));
+    const onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisitIdbService.onSiteVisits.getValue();
+    const selectedOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits.filter(visit => 
+      selectedExportGuids.visitGuids.includes(visit.guid));
+    const assessments: Array<IdbAssessment> = this.assessmentIdbService.assessments.getValue();
+    const selectedAssessments: Array<IdbAssessment> = assessments.filter(assessment => 
+      selectedExportGuids.assessmentGuids.includes(assessment.guid));
+    // 1. related to company
+    const selectedContacts: Array<IdbContact> = this.contactIdbService.contacts.getValue()
+      .filter(contact => contact.companyId && selectedExportGuids.companyGuids.includes(contact.companyId)); 
+    // 2. related to facility
+    const selectedEnergyEquipment: Array<IdbEnergyEquipment> = this.energyEquipmentIdbService.energyEquipments.getValue()
+      .filter(equipment => equipment.facilityId && selectedExportGuids.facilityGuids.includes(equipment.facilityId));
+    const selectedProcessEquipment: Array<IdbProcessEquipment> = this.processEquipmentIdbService.processEquipments.getValue()
+      .filter(equipment => equipment.facilityId && selectedExportGuids.facilityGuids.includes(equipment.facilityId));
+    const selectedKeyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorsIdbService.keyPerformanceIndicators.getValue()
+      .filter(kpi => kpi.facilityId && selectedExportGuids.facilityGuids.includes(kpi.facilityId));
+    // 3. related to assessment
+    selectedOnSiteVisits.forEach(visit => {
+      visit.assessmentIds = visit.assessmentIds.filter(assessmentId => selectedExportGuids.assessmentGuids.includes(assessmentId));
+    });
+    const selectedEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue()
+      .filter(energyOpportunity => energyOpportunity.assessmentId && selectedExportGuids.assessmentGuids.includes(energyOpportunity.assessmentId));
+    const selectedNonEnergyBenefits: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.getValue()
+      .filter(nonEnergyBenefit => nonEnergyBenefit.assessmentId && selectedExportGuids.assessmentGuids.includes(nonEnergyBenefit.assessmentId));
+    const selectedKeyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactIdbService.keyPerformanceMetricImpacts.getValue()
+      .filter(kpmImpact => kpmImpact.assessmentId && selectedExportGuids.assessmentGuids.includes(kpmImpact.assessmentId));
+    
     let backupFile: BackupFile = {
-      user: this.userIdbService.user.getValue(),
-      companies: this.companyIdbService.companies.getValue(),
-      facilities: this.facilityIdbService.facilities.getValue(),
-      contacts: this.contactIdbService.contacts.getValue(),
-      energyOpportunities: this.energyOpportunityIdbService.energyOpportunities.getValue(),
-      assessments: this.assessmentIdbService.assessments.getValue(),
-      keyPerformanceIndicators: this.keyPerformanceIndicatorsIdbService.keyPerformanceIndicators.getValue(),
-      nonEnergyBenefits: this.nonEnergyBenefitsIdbService.nonEnergyBenefits.getValue(),
-      onSiteVisits: this.onSiteVisitIdbService.onSiteVisits.getValue(),
-      energyEquipment: this.energyEquipmentIdbService.energyEquipments.getValue(),
-      processEquipment: this.processEquipmentIdbService.processEquipments.getValue(),
-      keyPerformanceMetricImpacts: this.keyPerformanceMetricImpactIdbService.keyPerformanceMetricImpacts.getValue(),
+      user: selectedUser,
+      companies: selectedCompanies,
+      facilities: selectedFacilities,
+      contacts: selectedContacts,
+      energyOpportunities: selectedEnergyOpportunities,
+      assessments: selectedAssessments,
+      keyPerformanceIndicators: selectedKeyPerformanceIndicators,
+      nonEnergyBenefits: selectedNonEnergyBenefits,
+      onSiteVisits: selectedOnSiteVisits,
+      energyEquipment: selectedEnergyEquipment,
+      processEquipment: selectedProcessEquipment,
+      keyPerformanceMetricImpacts: selectedKeyPerformanceMetricImpacts,
       origin: "JUSTIFI",
       version: environment.version,
       backupFileType: "User",

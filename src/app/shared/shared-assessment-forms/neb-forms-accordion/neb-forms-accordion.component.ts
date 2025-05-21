@@ -5,7 +5,7 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import * as _ from 'lodash';
-import { IconDefinition, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faMoneyBillWave, faWeightHanging } from '@fortawesome/free-solid-svg-icons';
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
@@ -21,6 +21,7 @@ export class NebFormsAccordionComponent {
   assessment: IdbAssessment;
 
   faWeightHanging: IconDefinition = faWeightHanging;
+  faMoneyBillWave: IconDefinition = faMoneyBillWave;
 
   nebGuids: Array<string> = [];
   nonEnergyBenefitsSub: Subscription;

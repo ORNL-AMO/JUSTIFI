@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faPlus, faSearchPlus, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faMoneyBillWave, faPlus, faSearchPlus, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -29,6 +29,7 @@ export class AssessmentNebsHomeComponent {
   faPlus: IconDefinition = faPlus;
   faWeightHanging: IconDefinition = faWeightHanging;
   faSearchPlus: IconDefinition = faSearchPlus;
+  faMoneyBillWave: IconDefinition = faMoneyBillWave;
 
   assessment: IdbAssessment;
   assessmentSub: Subscription;
@@ -108,9 +109,13 @@ export class AssessmentNebsHomeComponent {
     });
   }
 
-  async addNEB() {
+  async addNEB(isRebate: boolean) {
     this.showAddNebDropdown = false;
     let newNonEnergyBenefit: IdbNonEnergyBenefit = getNewIdbNonEnergyBenefit(this.assessment.userId, this.assessment.companyId, this.assessment.facilityId, this.assessment.guid, undefined, undefined, true);
+    if (isRebate) {
+      newNonEnergyBenefit.costImpactType = 'oneTime';
+      newNonEnergyBenefit.name = 'One-time Incentive';
+    }
     await firstValueFrom(this.nonEnergyBenefitsIdbService.addWithObservable(newNonEnergyBenefit));
     let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.getByAssessmentGUID(newNonEnergyBenefit.assessmentId);
     await this.reportIdbService.addNonEnergyBenefit(newNonEnergyBenefit, onSiteVisit.guid);

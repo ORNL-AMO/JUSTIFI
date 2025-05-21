@@ -30,6 +30,7 @@ export interface IdbAssessment extends IdbEntry {
     implementationCost: number,
     sidebarOpen: boolean,
     isUtilityCostUpdated: boolean,
+    utilityCategory?: 'energy' | 'water',
 }
 
 const defaultAssessmentType: AssessmentType = "Pump";
@@ -63,5 +64,6 @@ export function getNewIdbAssessment(userId: string, companyId: string, facilityI
         implementationCost: 0,
         sidebarOpen: false,
         isUtilityCostUpdated: true,
+        utilityCategory: 'energy',
     }
 }

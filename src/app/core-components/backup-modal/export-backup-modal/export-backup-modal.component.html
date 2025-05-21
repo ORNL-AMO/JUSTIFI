@@ -1,0 +1,43 @@
+<div [ngClass]="{'window-overlay': showExportModal}"></div>
+<div class="popup" [ngClass]="{'open': showExportModal }">
+    <div class="popup-header">Export Data
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeExportDataModal()"></button>
+    </div>
+    <div class="popup-body">
+        <div class="alert alert-info">
+            Would you like to backup the current state of your data? A .json file will be created in your downloads
+            folder that can be uploaded into JUSTIFI. This can be used to share your data with others or restore to an
+            older state.
+        </div>
+        <hr>
+        <!-- Export file name -->
+        <div class="input-group">
+            <label for="exportFileName" class="col-form-label col-sm-4">File Name</label>
+            <input type="text" class="form-control col-sm-8" id="exportFileName" [(ngModel)]="exportFileName"
+                    placeholder="Enter file name" />
+        </div>
+        <div class="fw-light small my-2">The file will be saved as {{exportFileName? exportFileName : 'JUSTIFI_backup'}}.json</div>
+        <!-- Export Tree -->
+        <ng-template [ngIf]="exportTree && exportTree.length > 0" [ngIfElse]="noDataBlock">
+            <div class="d-flex gap-2 flex-wrap ms-2">
+                <button class="btn btn-outline-primary btn-sm border-0" (click)="selectAll()">Select All</button>
+                <button class="btn btn-outline-secondary btn-sm border-0" (click)="unselectAll()">Unselect All</button>
+                <button class="btn btn-outline-primary btn-sm border-0" (click)="expandAll()">Expand All</button>
+                <button class="btn btn-outline-secondary btn-sm border-0" (click)="collapseAll()">Collapse All</button>
+            </div>
+            <hr class="mt-1 mb-2">
+            <app-export-backup-tree [nodes]="exportTree"></app-export-backup-tree>
+        </ng-template>
+        <ng-template #noDataBlock>
+            <div class="alert alert-warning">
+                No data available to export.
+            </div>
+        </ng-template>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-sm btn-secondary me-2" (click)="closeExportDataModal()">Cancel</button>
+        <button class="btn btn-sm btn-success" (click)="backupData()"
+            [disabled]="isNoneSelected(exportTree)"><fa-icon [icon]="faDownload"></fa-icon>
+            Export Data</button>
+    </div>
+</div>
