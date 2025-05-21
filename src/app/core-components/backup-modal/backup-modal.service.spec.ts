@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ImportBackupModalService } from './import-backup-modal.service';
+import { BackupModalService } from './backup-modal.service';
 
 describe('ImportBackupModalService', () => {
-  let service: ImportBackupModalService;
+  let service: BackupModalService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ImportBackupModalService);
+    service = TestBed.inject(BackupModalService);
   });
 
   it('should be created', () => {

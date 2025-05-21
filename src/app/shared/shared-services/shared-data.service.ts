@@ -9,6 +9,7 @@ export class SharedDataService {
 
   sidebarOpen: BehaviorSubject<boolean>;
   createAssessmentModalOpen: BehaviorSubject<boolean>;
+  dataInitialized: BehaviorSubject<boolean>;
 
   displayAddNebsModal: BehaviorSubject<{
     assessmentId: string,
@@ -21,5 +22,6 @@ export class SharedDataService {
     this.sidebarOpen = new BehaviorSubject<boolean>(false);
     this.displayAddNebsModal = new BehaviorSubject<{ assessmentId: string, energyOpportunityId: string }>(undefined);
     this.print = new BehaviorSubject<boolean>(false);
+    this.dataInitialized = new BehaviorSubject<boolean>(false);
   }
 }

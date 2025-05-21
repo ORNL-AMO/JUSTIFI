@@ -1,0 +1,18 @@
+.tree-list {
+  font-size: 0.95em;
+  list-style: none;
+  padding-left: 16px;
+}
+.tree-toggle {
+  cursor: pointer;
+  margin-right: 6px;
+  font-weight: bold;
+}
+.tree-toggle:hover {
+  color: #0056b3;
+}
+
+.tree-list .subtree-list {
+  border-left: 1px solid black;
+  margin-left: 8px;
+}
