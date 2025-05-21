@@ -1,4 +1,3 @@
-
 <table class="table table-bordered savings-table table-hover" *ngIf="assessmentReport">
     <thead>
         <tr>
@@ -58,23 +57,21 @@
                 Additional Operational Benefits
             </td>
         </tr>
-        <tr *ngFor="let nebReport of assessmentReport.assessmentNebReports">
-            <td class="ps-4">
-                <ng-container *ngIf="nebReport.nonEnergyBenefit.costImpactType == 'oneTime'">
-                    <fa-icon [icon]="faMoneyBillWave"></fa-icon>
-                    {{nebReport.nonEnergyBenefit.name}}
-                    ({{nebReport.nonEnergyBenefit.costImpact | currency : currencyCode : 'symbol': '1.0-0'}})
-                </ng-container>
-                <ng-container *ngIf="nebReport.nonEnergyBenefit.costImpactType != 'oneTime'">
-                    <fa-icon [icon]="faWeightHanging"></fa-icon>
-                    {{nebReport.nonEnergyBenefit.name}}
-                </ng-container>
-            </td>
-            <td class="text-right">
-                <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
-                    [isCurrency]="true"></app-single-cell-item>
-            </td>
-        </tr>
+        <ng-container *ngFor="let nebReport of assessmentReport.assessmentNebReports">
+            <ng-container *ngIf="nebReport.nonEnergyBenefit.costImpactType != 'oneTime'">
+                <tr>
+                    <td class="ps-4">
+                        <fa-icon [icon]="faWeightHanging"></fa-icon>
+                        {{nebReport.nonEnergyBenefit.name}}
+                    </td>
+                    <td class="text-right">
+                        <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-container>
+
         <tr>
             <td class="w-50 bold">
                 Total Assessment Level Impact
@@ -113,23 +110,20 @@
                     </td>
                 </ng-template>
             </tr>
-            <tr *ngFor="let nebReport of energyOpportunityReport.nebReports">
-                <td class="ps-4">
-                    <ng-container *ngIf="nebReport.nonEnergyBenefit.costImpactType == 'oneTime'">
-                        <fa-icon [icon]="faMoneyBillWave"></fa-icon>
-                        {{nebReport.nonEnergyBenefit.name}}
-                        ({{nebReport.nonEnergyBenefit.costImpact | currency : currencyCode : 'symbol': '1.0-0'}})
-                    </ng-container>
-                    <ng-container *ngIf="nebReport.nonEnergyBenefit.costImpactType != 'oneTime'">
-                        <fa-icon [icon]="faWeightHanging"></fa-icon>
-                        {{nebReport.nonEnergyBenefit.name}}
-                    </ng-container>
-                </td>
-                <td class="text-right">
-                    <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
-                        [isCurrency]="true"></app-single-cell-item>
-                </td>
-            </tr>
+            <ng-container *ngFor="let nebReport of energyOpportunityReport.nebReports">
+                <ng-container *ngIf="nebReport.nonEnergyBenefit.costImpactType != 'oneTime'">
+                    <tr>
+                        <td class="ps-4">
+                            <fa-icon [icon]="faWeightHanging"></fa-icon>
+                            {{nebReport.nonEnergyBenefit.name}}
+                        </td>
+                        <td class="text-right">
+                            <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
+                                [isCurrency]="true"></app-single-cell-item>
+                        </td>
+                    </tr>
+                </ng-container>
+            </ng-container>
             <tr>
                 <td class="ps-3 bold">
                     {{energyOpportunityReport.energyOpportunity.name}} Total Impact

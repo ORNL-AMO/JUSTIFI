@@ -29,14 +29,14 @@
             </tr>
             <tr *ngIf="assessmentReport.totalRebates">
                 <td class="ps-3 bg-neutral">
-                    Rebates ({{ currencyCode | currencySymbol }})
+                    One-time Incentives ({{ currencyCode | currencySymbol }})
                 </td>
                 <td class="bg-without-nebs-light">
                     <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
                 </td>
                 <td class="bg-with-nebs-light">
-                    <app-single-cell-item [isCurrency]="true"
-                        [numValue]="assessmentReport.totalRebates"></app-single-cell-item>
+                    (<app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalRebates"></app-single-cell-item>)
                 </td>
             </tr>
             <tr class="bold">
@@ -157,8 +157,8 @@
                             [numValue]="energyOpportunityReport.energyOpportunity.implementationCost"></app-single-cell-item>
                     </td>
                     <td class="bg-with-nebs-light">
-                        <app-single-cell-item [isCurrency]="true"
-                            [numValue]="energyOpportunityReport.totalRebates"></app-single-cell-item>
+                        (<app-single-cell-item [isCurrency]="true"
+                            [numValue]="energyOpportunityReport.totalRebates"></app-single-cell-item>)
                     </td>
                     <td class="bg-with-nebs-light">
                         <app-single-cell-item [isCurrency]="true"
@@ -167,7 +167,7 @@
                 </tr>
                 <tr *ngIf="assessmentReport.totalNonOpportunityRebates">
                     <td class="bg-neutral">
-                        Additional Rebates
+                        Additional One-time Incentives
                     </td>
                     <td class="bg-without-nebs-light">
                         <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
@@ -371,7 +371,7 @@
             <tr
                 *ngIf="assessmentReport.totalAssessmentNebFinancialImpact || assessmentReport.totalNonOpportunityRebates">
                 <td class="bg-neutral">
-                    Additional NEBs/Rebates
+                    Additional NEBs/Incentives
                 </td>
                 <td
                     [ngClass]="{'bg-without-nebs-light': assessmentReport.totalRebates, 'bg-neutral': !assessmentReport.totalRebates}">
