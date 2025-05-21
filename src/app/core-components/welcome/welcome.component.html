@@ -1,6 +1,6 @@
 <div class="container-fluid dashboard">
-    <div class="row">
-        <div class="col mt-3">
+    <div class="row pt-3 pb-3">
+        <div class="col-8">
             <div class="card">
                 <div class="card-body">
                     <div class="card-title large">
@@ -15,196 +15,190 @@
                 </div>
             </div>
             <hr>
-            <div class="row">
-                <div class="col-8">
 
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title secondary">
-                                <fa-icon [icon]="faSearchPlus"></fa-icon>
-                                Find Non-Energy Benefits
-                            </div>
-                            <p class="card-text fw-light">
-                                Use the setup wizard to work through the process of finding non-energy benefits. In the
-                                wizard you will create and provide details for a company and facility. Then you will add
-                                energy assessment details that will allow you to discover additional non-energy
-                                benefits.
-                            </p>
-                            <div class="d-flex justify-content-center">
-                                <button class="btn btn-outline-success" (click)="openWizardModal()">
-                                    <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
-                                    Setup Wizard</button>
-                            </div>
-                            <hr>
-                            <div>
-                                <div class="card-title secondary">
-                                    <fa-icon [icon]="faFolderOpen"></fa-icon>
-                                    JUSTIFI Portfolio
-                                </div>
-                                <p class="card-text fw-light">
-                                    View the companies, facilities and assessments inside of your JUSTIFI application
-                                    from the portfolio window.
-                                </p>
-                                <div class="d-flex justify-content-center">
-                                    <button class="btn nav-btn" routerLink="/portfolio">
-                                        <fa-icon [icon]="faFolderOpen"></fa-icon>
-                                        My Portfolio</button>
-                                </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title secondary">
+                        <fa-icon [icon]="faSearchPlus"></fa-icon>
+                        Find Non-Energy Benefits
+                    </div>
+                    <p class="card-text fw-light">
+                        Use the setup wizard to work through the process of finding non-energy benefits. In the
+                        wizard you will create and provide details for a company and facility. Then you will add
+                        energy assessment details that will allow you to discover additional non-energy
+                        benefits.
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-outline-success" (click)="openWizardModal()">
+                            <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+                            Setup Wizard</button>
+                    </div>
+                    <hr>
+                    <div>
+                        <div class="card-title secondary">
+                            <fa-icon [icon]="faFolderOpen"></fa-icon>
+                            JUSTIFI Portfolio
+                        </div>
+                        <p class="card-text fw-light">
+                            View the companies, facilities and assessments inside of your JUSTIFI application
+                            from the portfolio window.
+                        </p>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn nav-btn" routerLink="/portfolio">
+                                <fa-icon [icon]="faFolderOpen"></fa-icon>
+                                My Portfolio</button>
+                        </div>
 
-                                <div class="input-group pt-2">
-                                    <label>
-                                        <input class="form-check-input mt-0" type="checkbox"
-                                            [(ngModel)]="user.skipSplashScreen" (change)="saveChanges()">
-                                        Skip this screen next time and go directly to portfolio on startup.</label>
-                                </div>
-                            </div>
-                            <hr>
-                            <div>
-                                <div class="card-title secondary">
-                                    <fa-icon [icon]="faStopwatch"></fa-icon>
-                                    Latest Modified On-Site Visits
-                                </div>
-                                <p class="card-text fw-light">
-                                    Below is a list of the latest visits conducted in JUSTIFI so you can jump back in.
-                                    Just click the "<fa-icon [icon]="faWandMagicSparkles"></fa-icon>" button.
-                                </p>
-                                <ng-template [ngIf]="onSiteVisits.length > 0" [ngIfElse]="noVisitsBlock">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    Facility
-                                                </th>
-                                                <th>
-                                                    Visit Date
-                                                </th>
-                                                <th>
-                                                    Last Modified
-                                                </th>
-                                                <th class="actions">
-
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let visit of onSiteVisits">
-                                                <td>
-                                                    <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
-                                                        {{visit.facilityId | facilityName: facilities}}
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    {{visit.visitDate | date}}
-                                                </td>
-                                                <td>
-                                                    {{visit.modifiedDate | date}}
-                                                </td>
-                                                <th class="actions">
-                                                    <button class="btn btn-outline-success p-1"
-                                                        (click)="goToVisit(visit)">
-                                                        <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
-                                                    </button>
-                                                </th>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </ng-template>
-                                <ng-template #noVisitsBlock>
-                                    <div class="alert alert-warning p-2">
-                                        No visits found. Use the setup wizard to add your first on site visit.
-                                    </div>
-                                </ng-template>
-                            </div>
+                        <div class="input-group pt-2">
+                            <label>
+                                <input class="form-check-input mt-0" type="checkbox" [(ngModel)]="user.skipSplashScreen"
+                                    (change)="saveChanges()">
+                                Skip this screen next time and go directly to portfolio on startup.</label>
                         </div>
                     </div>
-                </div>
+                    <hr>
+                    <div>
+                        <div class="card-title secondary">
+                            <fa-icon [icon]="faStopwatch"></fa-icon>
+                            Latest Modified On-Site Visits
+                        </div>
+                        <p class="card-text fw-light">
+                            Below is a list of the latest visits conducted in JUSTIFI so you can jump back in.
+                            Just click the "<fa-icon [icon]="faWandMagicSparkles"></fa-icon>" button.
+                        </p>
+                        <ng-template [ngIf]="onSiteVisits.length > 0" [ngIfElse]="noVisitsBlock">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Facility
+                                        </th>
+                                        <th>
+                                            Visit Date
+                                        </th>
+                                        <th>
+                                            Last Modified
+                                        </th>
+                                        <th class="actions">
 
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title secondary">
-                                <fa-icon [icon]="faBookOpen"></fa-icon>
-                                Non-Energy Benefits Resources
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let visit of onSiteVisits">
+                                        <td>
+                                            <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
+                                                {{visit.facilityId | facilityName: facilities}}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{visit.visitDate | date}}
+                                        </td>
+                                        <td>
+                                            {{visit.modifiedDate | date}}
+                                        </td>
+                                        <th class="actions">
+                                            <button class="btn btn-outline-success p-1" (click)="goToVisit(visit)">
+                                                <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ng-template>
+                        <ng-template #noVisitsBlock>
+                            <div class="alert alert-warning p-2">
+                                No visits found. Use the setup wizard to add your first on site visit.
                             </div>
-                            <div class="d-flex flex-column">
-                                <div>
-                                    <fa-icon [icon]="faFileCirclePlus"></fa-icon>
-                                    <a class="click-link" (click)="openAddExampleModal();">
-                                        Cocoa Co. Example Data
-                                    </a>
-                                    <p class="card-text fw-light">
-                                        Click the above link to add an example company to your portfolio. This will
-                                        allow
-                                        you to view a completed example energy assessment visit to
-                                        a fictional chocolate company's
-                                        facilities.
-                                    </p>
-                                </div>
-                                <div class="col-12">
-                                    <hr>
-                                </div>
-                                <div>
-                                    <a [href]="'https://www.nrel.gov/manufacturing/non-energy-benefits'" target="_blank">
-                                        <fa-icon [icon]="faExternalLink"></fa-icon>
-                                        NEBs Knowledge Library
-                                    </a>
-                                    <p class="card-text fw-light">
-                                        The Non-energy Benefits Knowledge Library provides resources for
-                                        industrial auditors,
-                                        energy efficiency learners,
-                                        and those seeking to maximize the benefits of energy efficiency projects.
-                                        The NEBs Finding Process,
-                                        supported by the JUSTIFI software and NEBs protocol,
-                                        integrates non-energy benefits into assessments
-                                        using the structured DMAIC methodology,
-                                        identifying plant-specific NEBs
-                                        and generating reports on cost savings and added value.
-                                    </p>
-                                </div>
-                                <div class="col-12">
-                                    <hr>
-                                </div>
-                                <div>
-                                    <a>
-                                        <fa-icon [icon]="faQuestionCircle"></fa-icon>
-                                        JUSTIFI Help Content
-                                    </a>
-                                    <p class="card-text fw-light">
-                                        <span class="badge bg-warning">Coming Soon</span> View help documents and
-                                        tutorials to learn more about using the JUSTIFI
-                                        application.
-                                    </p>
-                                </div>
-                                <div class="col-12">
-                                    <hr>
-                                </div>
-                                <div>
-                                    <fa-icon [icon]="faDatabase"></fa-icon>
-                                    <a [routerLink]="'/nebs-database'">
-                                        NEBs Database
-                                    </a>
-                                    <p class="card-text fw-light">
-                                        Explore a list of potential Non-energy Benefits existing in the tool.
-                                    </p>
-                                </div>
-                                <div class="col-12">
-                                    <hr>
-                                </div>
-                                <div>
-                                    <fa-icon [icon]="faInbox" class="pe-1"></fa-icon>
-                                    <a class="click-link" [routerLink]="'/feedback'"
-                                        [routerLinkActive]="['active']">Feedback
-                                    </a>
-                                    <p class="card-text fw-light">
-                                        We'd love to hear from you. If you have any feedback on the tool you would like
-                                        to share, use the email link provided for the <a
-                                            href="mailto:justifi-help@ornl.gov">JUSTIFI help desk</a>
-                                        (justifi-help&#64;ornl.gov) to contact our team and let us know your
-                                        thoughts. The feedback link can also be used to report any bugs you find along
-                                        the way!
-                                    </p>
-                                </div>
-                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title secondary">
+                        <fa-icon [icon]="faBookOpen"></fa-icon>
+                        Non-Energy Benefits Resources
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div>
+                            <fa-icon [icon]="faFileCirclePlus"></fa-icon>
+                            <a class="click-link" (click)="openAddExampleModal();">
+                                Cocoa Co. Example Data
+                            </a>
+                            <p class="card-text fw-light">
+                                Click the above link to add an example company to your portfolio. This will
+                                allow
+                                you to view a completed example energy assessment visit to
+                                a fictional chocolate company's
+                                facilities.
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        <div>
+                            <a [href]="'https://www.nrel.gov/manufacturing/non-energy-benefits'" target="_blank">
+                                <fa-icon [icon]="faExternalLink"></fa-icon>
+                                NEBs Knowledge Library
+                            </a>
+                            <p class="card-text fw-light">
+                                The Non-energy Benefits Knowledge Library provides resources for
+                                industrial auditors,
+                                energy efficiency learners,
+                                and those seeking to maximize the benefits of energy efficiency projects.
+                                The NEBs Finding Process,
+                                supported by the JUSTIFI software and NEBs protocol,
+                                integrates non-energy benefits into assessments
+                                using the structured DMAIC methodology,
+                                identifying plant-specific NEBs
+                                and generating reports on cost savings and added value.
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        <div>
+                            <a>
+                                <fa-icon [icon]="faQuestionCircle"></fa-icon>
+                                JUSTIFI Help Content
+                            </a>
+                            <p class="card-text fw-light">
+                                <span class="badge bg-warning">Coming Soon</span> View help documents and
+                                tutorials to learn more about using the JUSTIFI
+                                application.
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        <div>
+                            <fa-icon [icon]="faDatabase"></fa-icon>
+                            <a [routerLink]="'/nebs-database'">
+                                NEBs Database
+                            </a>
+                            <p class="card-text fw-light">
+                                Explore a list of potential Non-energy Benefits existing in the tool.
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        <div>
+                            <fa-icon [icon]="faInbox" class="pe-1"></fa-icon>
+                            <a class="click-link" [routerLink]="'/feedback'" [routerLinkActive]="['active']">Feedback
+                            </a>
+                            <p class="card-text fw-light">
+                                We'd love to hear from you. If you have any feedback on the tool you would like
+                                to share, use the email link provided for the <a
+                                    href="mailto:justifi-help@ornl.gov">JUSTIFI help desk</a>
+                                (justifi-help&#64;ornl.gov) to contact our team and let us know your
+                                thoughts. The feedback link can also be used to report any bugs you find along
+                                the way!
+                            </p>
                         </div>
                     </div>
                 </div>
