@@ -14,10 +14,14 @@
         <!-- Export Tree -->
         <ng-template [ngIf]="exportTree && exportTree.length > 0" [ngIfElse]="noDataBlock">
             <div class="d-flex gap-2 flex-wrap ms-2">
-                <button class="btn btn-outline-primary btn-sm border-0" (click)="selectAll()">Select All</button>
-                <button class="btn btn-outline-secondary btn-sm border-0" (click)="unselectAll()">Unselect All</button>
-                <button class="btn btn-outline-primary btn-sm border-0" (click)="expandAll()">Expand All</button>
-                <button class="btn btn-outline-secondary btn-sm border-0" (click)="collapseAll()">Collapse All</button>
+                <button class="btn btn-outline-primary btn-sm border-0" (click)="selectAll()">
+                    <fa-icon [icon]="faCheckSquare"></fa-icon> Select All</button>
+                <button class="btn btn-outline-secondary btn-sm border-0" (click)="unselectAll()">
+                    <fa-icon [icon]="faSquare"></fa-icon> Unselect All</button>
+                <button class="btn btn-outline-primary btn-sm border-0" (click)="expandAll()">
+                    <fa-icon [icon]="faAnglesDown"></fa-icon> Expand All</button>
+                <button class="btn btn-outline-secondary btn-sm border-0" (click)="collapseAll()">
+                    <fa-icon [icon]="faAnglesUp"></fa-icon> Collapse All</button>
             </div>
             <hr class="mt-1 mb-2">
             <app-export-backup-tree [nodes]="exportTree"></app-export-backup-tree>

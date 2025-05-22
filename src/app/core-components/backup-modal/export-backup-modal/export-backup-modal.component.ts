@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BackupModalService } from '../backup-modal.service';
 import { BackupDataService } from 'src/app/shared/shared-services/backup-data.service';
-import { faDownload, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, IconDefinition, faCheckSquare, faSquare, faAnglesDown, faAnglesUp } from '@fortawesome/free-solid-svg-icons';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
@@ -39,6 +39,10 @@ export class ExportBackupModalComponent {
   exportTree: ExportTreeNode[] = [];
 
   faDownload: IconDefinition = faDownload;
+  faCheckSquare: IconDefinition = faCheckSquare;
+  faSquare: IconDefinition = faSquare;
+  faAnglesDown: IconDefinition = faAnglesDown;
+  faAnglesUp: IconDefinition = faAnglesUp;
 
   constructor(
     private backupModalService: BackupModalService,
