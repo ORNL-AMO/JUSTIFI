@@ -237,7 +237,8 @@
                         <div class="nav-item">
                             <a class="nav-link"
                                 [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/details'"
-                                [routerLinkActive]="['active']">
+                                [routerLinkActive]="['active']"
+                                (click)="setBtnText('Details')">
                                 <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
                                 Details
                             </a>
@@ -245,7 +246,8 @@
                         <div class="nav-item">
                             <a class="nav-link"
                                 [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/energy-opportunities'"
-                                [routerLinkActive]="['active']">
+                                [routerLinkActive]="['active']"
+                                (click)="setBtnText('EEMs')">
                                 <fa-icon [icon]="faFileLines"></fa-icon>
                                 EEMs
                             </a>
@@ -253,7 +255,8 @@
                         <div class="nav-item">
                             <a class="nav-link"
                                 [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/nebs'"
-                                [routerLinkActive]="['active']">
+                                [routerLinkActive]="['active']"
+                                (click)="setBtnText('NEBs')">
                                 <fa-icon [icon]="faWeightHanging"></fa-icon>
                                 NEBs
                             </a>

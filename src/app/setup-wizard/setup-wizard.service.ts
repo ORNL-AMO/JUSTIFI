@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,10 @@ export class SetupWizardService {
   helpWidth: number = 200;
   sidebarWidth: number = 200;
   focusedHelp: BehaviorSubject<string>;
+  btnTextSubject: BehaviorSubject<string>;
+  btnText: Observable<string>; 
+  flagSubject: BehaviorSubject<boolean>;
+  flag: Observable<boolean>;
   constructor(private localStorageService: LocalStorageService) {
     this.helpWidth = this.localStorageService.retrieve("helpWidth");
     if (!this.helpWidth) {
@@ -34,6 +38,12 @@ export class SetupWizardService {
     }
 
     this.focusedHelp = new BehaviorSubject<string>(undefined);
+
+    this.btnTextSubject = new BehaviorSubject<string>(undefined);
+    this.btnText = this.btnTextSubject.asObservable();
+
+    this.flagSubject = new BehaviorSubject<boolean>(false);
+    this.flag = this.flagSubject.asObservable();
   }
 
   setHelpWidth(val: number) {
@@ -46,4 +56,11 @@ export class SetupWizardService {
     this.localStorageService.store("sidebarWidth", val);
   }
 
+  setBtnText(value: string){
+    this.btnTextSubject.next(value);
+  }
+
+  setFlag(value: boolean){
+    this.flagSubject.next(value);
+  }
 }

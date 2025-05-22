@@ -17,14 +17,14 @@
                 <nav class="navbar">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link" [routerLink]="'details'" [routerLinkActive]="['active']">Details</a>
+                            <a class="nav-link" [routerLink]="'details'" [routerLinkActive]="['active']" (click)="setTextOnTabChange('EEMs', 'NEBs')">Details</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" [routerLink]="'energy-opportunities'"
-                                [routerLinkActive]="['active']">EEMs</a>
+                                [routerLinkActive]="['active']" (click)="setTextOnTabChange('NEBs', 'Details')">EEMs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" [routerLink]="'nebs'" [routerLinkActive]="['active']">NEBs</a>
+                            <a class="nav-link" [routerLink]="'nebs'" [routerLinkActive]="['active']" (click)="setTextOnTabChange('Details', 'EEMs')">NEBs</a>
                         </li>
                     </ul>
                 </nav>
@@ -40,6 +40,7 @@
         <div class="col-3">
             <button class="btn nav-btn btn-sm" (click)="goBack()">
                 <fa-icon [icon]="faChevronLeft"></fa-icon>
+                {{ textBack }}
             </button>
         </div>
         <!-- <div class="col-6">
@@ -67,6 +68,7 @@
         <div class="col-3">
             <div class="d-flex  justify-content-end">
                 <button class="btn nav-btn btn-sm" (click)="goToNext()">
+                    {{ textNext }}
                     <fa-icon [icon]="faChevronRight"></fa-icon>
                 </button>
             </div>

@@ -100,6 +100,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
 
   reports: Array<IdbReport>;
   reportsSub: Subscription;
+  flag: boolean;
 
   routerUrl: string;
   constructor(private router: Router, private setupWizardService: SetupWizardService,
@@ -305,4 +306,10 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.onSiteVisit.sidebarReportsOpen = !this.onSiteVisit.sidebarReportsOpen;
     await this.onSiteVisitIdbService.asyncUpdate(this.onSiteVisit);
   }
+
+  setBtnText(text: string){
+    this.setupWizardService.setBtnText(text);
+    this.setupWizardService.setFlag(true);
+  }
+
 }
