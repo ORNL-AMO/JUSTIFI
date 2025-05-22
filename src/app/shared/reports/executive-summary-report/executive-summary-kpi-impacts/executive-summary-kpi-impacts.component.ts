@@ -6,6 +6,7 @@ import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { ExecutiveSummaryReport } from '../../calculations/executiveSummaryReport';
 import { IdbFacility } from 'src/app/models/facility';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { faBullseye, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-executive-summary-kpi-impacts',
@@ -15,10 +16,12 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
   styleUrl: './executive-summary-kpi-impacts.component.css'
 })
 export class ExecutiveSummaryKpiImpactsComponent {
-
   @Input({ required: true })
   executiveSummaryReport: ExecutiveSummaryReport;
 
+  faBullseye: IconDefinition = faBullseye;
+
+  
   topKpis: Array<KeyPerformanceIndicatorOption>;
   kpiReportItems: Array<KeyPerformanceIndicatorReportItem>;
   kpiReportCostItems: Array<KeyPerformanceIndicatorReportItem>;

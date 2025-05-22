@@ -11,3 +11,20 @@ th:not(:first-of-type), td:not(:first-of-type){
 .text-left{
     text-align: left;
 }
+
+.ordered-th{
+    text-decoration: underline;
+}
+
+.w-20{
+    width: 20%;
+}
+
+.limit-options{
+    width: 50px;
+}
+
+th:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}

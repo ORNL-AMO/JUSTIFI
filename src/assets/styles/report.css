@@ -17,7 +17,9 @@ table.ordered th:hover {
     cursor: pointer;
 }
 
-
+.table.table-bordered {
+    border: 1px solid black;
+}  
 
 
 .report .savings-table .bg-with-nebs{
@@ -35,7 +37,7 @@ table.ordered th:hover {
 }
 
 .report .savings-table .bg-with-nebs-light{
-    background-color: #a2d9ce;
+    background-color: #d1e7dd;
 }
 
 .report .savings-table .bg-neutral{

@@ -39,7 +39,7 @@ export class ExecutiveSummaryProjectSummaryComponent {
   };
   topKpis: Array<KeyPerformanceIndicatorReportItem>;
   limit: number = 3; // limit top KPIs to show
-  orderByField: 'UtilitySavings' | 'PaybackNoNeb' | 'FinancialImpact' | 'PaybackWNeb' = 'FinancialImpact';
+  orderByField: 'totalImplementationCost' | 'totalNonNebCostSavings' | 'totalPaybackWithoutNebs' | 'finalImplementationCost' | 'totalFinancialImpact' | 'totalPaybackWithNebs' = 'totalFinancialImpact';
   orderByDir: 'asc' | 'desc' = 'desc';
 
   currencyCode: string;
@@ -49,6 +49,7 @@ export class ExecutiveSummaryProjectSummaryComponent {
   topReports: Array<TopReportsItem>;
   additionalReports: AdditionalEnergyOpportunityReport;
   numberOfProjects: number = 0;
+  limitOptions: Array<number> = [];
   constructor(
     private localeService: LocaleService,
   ) { }
@@ -72,8 +73,7 @@ export class ExecutiveSummaryProjectSummaryComponent {
 
   setTopReports() {
     let allReportItems: Array<TopReportsItem> = [];
-
-
+    this.numberOfProjects = 0;
     this.executiveSummaryReport.assessmentReports.forEach(assessmentReport => {
       if (assessmentReport.energyOpportunityReports.length) {
         this.numberOfProjects += assessmentReport.energyOpportunityReports.length;
@@ -97,19 +97,15 @@ export class ExecutiveSummaryProjectSummaryComponent {
         });
       }
     });
-    allReportItems.sort((a, b) => {
-      if (this.orderByField == 'UtilitySavings') {
-        return this.orderByDir == 'asc' ? a.report.totalNonNebCostSavings - b.report.totalNonNebCostSavings : b.report.totalNonNebCostSavings - a.report.totalNonNebCostSavings;
-      } else if (this.orderByField == 'PaybackNoNeb') {
-        return this.orderByDir == 'asc' ? a.report.totalPaybackWithoutNebs - b.report.totalPaybackWithoutNebs : b.report.totalPaybackWithoutNebs - a.report.totalPaybackWithoutNebs;
-      } else if (this.orderByField == 'FinancialImpact') {
-        return this.orderByDir == 'asc' ? a.report.totalFinancialImpact - b.report.totalFinancialImpact : b.report.totalFinancialImpact - a.report.totalFinancialImpact;
-      } else if (this.orderByField == 'PaybackWNeb') {
-        return this.orderByDir == 'asc' ? a.report.totalPaybackWithNebs - b.report.totalPaybackWithNebs : b.report.totalPaybackWithNebs - a.report.totalPaybackWithNebs;
-      }
-      return 0;
-    });
+    allReportItems = _.orderBy(allReportItems, (item: TopReportsItem) => {
+      return item.report[this.orderByField]
+    }, this.orderByDir)
     this.topReports = [];
+    this.limitOptions = [];
+    for(let i = 0; i < this.numberOfProjects; i++){
+      this.limitOptions.push(i + 1);}
+
+
     for (let i = 0; i < this.limit; i++) {
       if (allReportItems[i]) {
         this.topReports.push(allReportItems[i])
@@ -180,9 +176,17 @@ export class ExecutiveSummaryProjectSummaryComponent {
     kpiReportItems = _.uniqBy(kpiReportItems, (item: KeyPerformanceIndicatorReportItem) => {
       return item.keyPerformanceIndicator.optionValue
     });
-    this.topKpis = kpiReportItems.slice(0, this.limit);
+    this.topKpis = kpiReportItems.slice(0, 3);
   }
 
+  setOrderByField(orderByField: 'totalImplementationCost' | 'totalNonNebCostSavings' | 'totalPaybackWithoutNebs' | 'finalImplementationCost' | 'totalFinancialImpact' | 'totalPaybackWithNebs') {
+    if (orderByField == this.orderByField) {
+      this.orderByDir = this.orderByDir == 'asc' ? 'desc' : 'asc';
+    } else {
+      this.orderByField = orderByField;
+    }
+    this.setTopReports();
+  }
 
   // setEEMReports() {
   //   // flatten all EEM reports

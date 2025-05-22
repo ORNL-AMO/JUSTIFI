@@ -168,15 +168,11 @@
   per year that support our goals:
 
   <div class="d-flex justify-content-center">
-      <div class="ps-1 pe-1" *ngFor="let kpiItem of topKpis;">
-        <fa-icon [icon]="faBullseye" class="pe-1"></fa-icon><strong
-          [innerHTML]="kpiItem.keyPerformanceIndicator.htmlLabel"></strong>
+    <div class="ps-1 pe-1" *ngFor="let kpiItem of topKpis;">
+      <fa-icon [icon]="faBullseye" class="pe-1"></fa-icon><strong
+        [innerHTML]="kpiItem.keyPerformanceIndicator.htmlLabel"></strong>
     </div>
   </div>
-  <!-- <span *ngFor="let kpi of topKpis; let isLast = last; let isFirst = first">
-    <span *ngIf="isLast && !isFirst">and </span><strong [innerHTML]="kpi.htmlLabel"></strong>
-    <span *ngIf="!isLast">, </span>
-  </span> goals. -->
 </div>
 <div class="alert alert-success p-1 text-center" *ngIf="executiveSummaryReport.totalRebates">
   <fa-icon [icon]="faMoneyBillWave"></fa-icon>
@@ -189,13 +185,22 @@
 
 
 
-
+<div class="d-flex justify-content-end hide-print" *ngIf="numberOfProjects > 3">
+  <div class="d-flex pb-2">
+    <label class="form-label pe-2 my-auto" for="limit">Top Projects</label>
+    <select class="form-select limit-options" [(ngModel)]="limit" name="limit" (change)="setTopReports()" id="limit">
+      <option *ngFor="let limitItem of limitOptions" [value]="limitItem">
+        {{ limitItem }}
+      </option>
+    </select>
+  </div>
+</div>
 <table class="table table-bordered savings-table table-hover">
   @let nebColumns = executiveSummaryReport.totalRebates ? 3 : 2;
   @let startColumns = executiveSummaryReport.totalRebates ? 1 : 2;
   <thead>
     <tr>
-      <th class="bg-neutral" [attr.colspan]="startColumns">
+      <th class="bg-neutral w-20" [attr.colspan]="startColumns">
 
       </th>
       <th class="text-center bg-without-nebs" [attr.colspan]="nebColumns">
@@ -210,29 +215,37 @@
 
       </th>
       <th
-        [ngClass]="{'bg-without-nebs-light': executiveSummaryReport.totalRebates, 'bg-neutral': !executiveSummaryReport.totalRebates}">
+        [ngClass]="{'bg-without-nebs-light': executiveSummaryReport.totalRebates, 'bg-neutral': !executiveSummaryReport.totalRebates, 'ordered-th': orderByField == 'totalImplementationCost'}"
+        (click)="setOrderByField('totalImplementationCost')">
         Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
       </th>
-      <th class="bg-without-nebs-light">
+      <th class="bg-without-nebs-light" (click)="setOrderByField('totalNonNebCostSavings')"
+        [ngClass]="{'ordered-th': orderByField == 'totalNonNebCostSavings'}">
         Financial Impact<br> ({{ currencyCode | currencySymbol }}/yr)
       </th>
-      <th class="bg-without-nebs-light">
+      <th class="bg-without-nebs-light" (click)="setOrderByField('totalPaybackWithoutNebs')"
+        [ngClass]="{'ordered-th': orderByField == 'totalPaybackWithoutNebs'}">
         Simple Payback<br> (yrs)
       </th>
-      <th class="bg-with-nebs-light" *ngIf="executiveSummaryReport.totalRebates">
+      <th class="bg-with-nebs-light" *ngIf="executiveSummaryReport.totalRebates"
+        (click)="setOrderByField('finalImplementationCost')"
+        [ngClass]="{'ordered-th': orderByField == 'finalImplementationCost'}">
         Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
       </th>
-      <th class="bg-with-nebs-light">
+      <th class="bg-with-nebs-light" (click)="setOrderByField('totalFinancialImpact')"
+        [ngClass]="{'ordered-th': orderByField == 'totalFinancialImpact'}">
         Financial Impact<br> ({{ currencyCode | currencySymbol }}/yr)
       </th>
-      <th class="bg-with-nebs-light">
+      <th class="bg-with-nebs-light" (click)="setOrderByField('totalPaybackWithNebs')"
+        [ngClass]="{'ordered-th': orderByField == 'totalPaybackWithNebs'}">
         Simple Payback<br> (yrs)
       </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let reportItem of topReports">
+    <tr *ngFor="let reportItem of topReports; let index = index;">
       <td class="bg-neutral">
+        {{index + 1}}.
         {{reportItem.report.name}}
       </td>
       <!--without nebs-->
