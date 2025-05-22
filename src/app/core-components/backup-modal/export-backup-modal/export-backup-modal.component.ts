@@ -14,6 +14,7 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-export-backup-modal',
@@ -37,6 +38,8 @@ export class ExportBackupModalComponent {
   dataInitializedSub: Subscription;
   exportFileName: string = 'JUSTIFI_backup';
   exportTree: ExportTreeNode[] = [];
+  exportOption: 'all' | 'visit' | 'custom' = 'all';
+  visitGuid: string | null = null;
 
   faDownload: IconDefinition = faDownload;
   faCheckSquare: IconDefinition = faCheckSquare;
@@ -52,6 +55,7 @@ export class ExportBackupModalComponent {
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private sharedDataService: SharedDataService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -65,6 +69,7 @@ export class ExportBackupModalComponent {
       this.showExportModal = value;
       if (this.showExportModal) { // Load current data
         this.getExportTree();
+        this.setDefaultExportOption();
       }
     });
   }
@@ -88,6 +93,7 @@ export class ExportBackupModalComponent {
 
   closeExportDataModal(){
     this.backupModalService.showExportModal.next(false);
+    this.visitGuid = null;
   }
 
   backupData() {
@@ -131,5 +137,36 @@ export class ExportBackupModalComponent {
 
   isNoneSelected(exportTree: ExportTreeNode[]): boolean {
     return exportTree.every(node => !node.checked && !node.indeterminate);
+  }
+
+  setDefaultExportOption() {
+    const url = this.router.url;
+    if (url.includes('setup-wizard')) {
+      this.exportOption = 'visit';
+      const pathParts = url.split('/');
+      const wizardStepIndex = pathParts.findIndex(part => 
+        part === 'pre-visit' || part === 'data-collection' || part === 'data-evaluation');
+      if (wizardStepIndex !== -1 && pathParts[wizardStepIndex + 1]) {
+        this.visitGuid = pathParts[wizardStepIndex + 1];
+        // TODO: set the selected visit in the export tree
+        console.log('Visit guid found in setup-wizard URL:', this.visitGuid);
+      } else {
+        console.log('No visit guid found in setup-wizard URL');
+        this.exportOption = 'all';
+        this.setSelectAll(this.exportTree, true);
+      }
+    } else {
+      this.exportOption = 'all';
+      this.setSelectAll(this.exportTree, true);
+    }
+  }
+
+  onExportOptionChange() {
+    const option = this.exportOption;
+    if (option === 'all') {
+      this.setSelectAll(this.exportTree, true);
+    } else if (option === 'visit') {
+      // TODO: set the selected visit in the export tree
+    }
   }
 }

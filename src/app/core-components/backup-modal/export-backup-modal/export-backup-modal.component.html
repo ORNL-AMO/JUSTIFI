@@ -11,20 +11,41 @@
                     placeholder="Enter file name" />
         </div>
         <div class="fw-light small my-2">The file will be saved as {{exportFileName? exportFileName : 'JUSTIFI_backup'}}.json</div>
-        <!-- Export Tree -->
-        <ng-template [ngIf]="exportTree && exportTree.length > 0" [ngIfElse]="noDataBlock">
-            <div class="d-flex gap-2 flex-wrap ms-2">
-                <button class="btn btn-outline-primary btn-sm border-0" (click)="selectAll()">
-                    <fa-icon [icon]="faCheckSquare"></fa-icon> Select All</button>
-                <button class="btn btn-outline-secondary btn-sm border-0" (click)="unselectAll()">
-                    <fa-icon [icon]="faSquare"></fa-icon> Unselect All</button>
-                <button class="btn btn-outline-primary btn-sm border-0" (click)="expandAll()">
-                    <fa-icon [icon]="faAnglesDown"></fa-icon> Expand All</button>
-                <button class="btn btn-outline-secondary btn-sm border-0" (click)="collapseAll()">
-                    <fa-icon [icon]="faAnglesUp"></fa-icon> Collapse All</button>
+        <!-- Export Options -->
+        <div class="mb-3">
+            <label class="form-label fw-bold">Export Option</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="exportAll" name="exportOption"
+                    [(ngModel)]="exportOption" value="all" (change)="onExportOptionChange()">
+                <label class="form-check-label" for="exportAll">Export all data</label>
             </div>
-            <hr class="mt-1 mb-2">
-            <app-export-backup-tree [nodes]="exportTree"></app-export-backup-tree>
+            <div *ngIf="visitGuid" class="form-check">
+                <input class="form-check-input" type="radio" id="exportCurrentVisit" name="exportOption"
+                    [(ngModel)]="exportOption" value="visit" (change)="onExportOptionChange()">
+                <label class="form-check-label" for="exportCurrentVisit">Export current visit</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="exportCustom" name="exportOption"
+                    [(ngModel)]="exportOption" value="custom" (change)="onExportOptionChange()">
+                <label class="form-check-label" for="exportCustom">Custom selection</label>
+            </div>
+        </div>
+        <!-- Custom Export Tree -->
+        <ng-template [ngIf]="exportTree && exportTree.length > 0" [ngIfElse]="noDataBlock">
+            <div *ngIf="exportOption === 'custom'">
+                <div class="d-flex gap-2 flex-wrap ms-2">
+                    <button class="btn btn-outline-primary btn-sm border-0" (click)="selectAll()">
+                        <fa-icon [icon]="faCheckSquare"></fa-icon> Select All</button>
+                    <button class="btn btn-outline-secondary btn-sm border-0" (click)="unselectAll()">
+                        <fa-icon [icon]="faSquare"></fa-icon> Unselect All</button>
+                    <button class="btn btn-outline-primary btn-sm border-0" (click)="expandAll()">
+                        <fa-icon [icon]="faAnglesDown"></fa-icon> Expand All</button>
+                    <button class="btn btn-outline-secondary btn-sm border-0" (click)="collapseAll()">
+                        <fa-icon [icon]="faAnglesUp"></fa-icon> Collapse All</button>
+                </div>
+                <hr class="mt-1 mb-2">
+                <app-export-backup-tree [nodes]="exportTree"></app-export-backup-tree>
+            </div>
         </ng-template>
         <ng-template #noDataBlock>
             <div class="alert alert-warning">
@@ -32,6 +53,7 @@
             </div>
         </ng-template>
     </div>
+    <hr class="mt-0 mb-2">
     <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-sm btn-secondary me-2" (click)="closeExportDataModal()">Cancel</button>
         <button class="btn btn-sm btn-success" (click)="backupData()"
