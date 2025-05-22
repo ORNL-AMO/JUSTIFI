@@ -8,7 +8,7 @@ import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
-import { buildExportTree, ExportTreeNode } from './exportTree';
+import { buildExportTree, ExportTreeNode, setExportNodeByGuid } from './exportTree';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
@@ -148,8 +148,8 @@ export class ExportBackupModalComponent {
         part === 'pre-visit' || part === 'data-collection' || part === 'data-evaluation');
       if (wizardStepIndex !== -1 && pathParts[wizardStepIndex + 1]) {
         this.visitGuid = pathParts[wizardStepIndex + 1];
-        // TODO: set the selected visit in the export tree
-        console.log('Visit guid found in setup-wizard URL:', this.visitGuid);
+        this.setSelectAll(this.exportTree, false);
+        setExportNodeByGuid(this.exportTree, this.visitGuid);
       } else {
         console.log('No visit guid found in setup-wizard URL');
         this.exportOption = 'all';
@@ -166,7 +166,8 @@ export class ExportBackupModalComponent {
     if (option === 'all') {
       this.setSelectAll(this.exportTree, true);
     } else if (option === 'visit') {
-      // TODO: set the selected visit in the export tree
+      this.setSelectAll(this.exportTree, false);
+      setExportNodeByGuid(this.exportTree, this.visitGuid);
     }
   }
 }
