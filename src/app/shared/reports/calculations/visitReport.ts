@@ -39,6 +39,10 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         return report.allNebReports
     });
 
+    let totalNonKpiCostSavings: number = _.sumBy(allNebReports, (report: AssessmentReport) => {
+        return report.totalNonKpiCostSavings
+    });
+
     let totalEnergyCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
         return report.totalEnergyCostSavings
     });
@@ -100,7 +104,8 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         totalNonNebCostSavings: totalNonNebCostSavings,
         totalRebates: totalRebates,
         totalAssessmentNebFinancialImpact: totalAssessmentNebFinancialImpact,
-        finalImplementationCost: finalImplementationCost
+        finalImplementationCost: finalImplementationCost,
+        totalNonKpiCostSavings: totalNonKpiCostSavings
     };
 }
 
@@ -120,5 +125,6 @@ export interface OnSiteVisitReport {
     totalNonNebCostSavings: number,
     totalRebates: number,
     totalAssessmentNebFinancialImpact: number,
-    finalImplementationCost: number
+    finalImplementationCost: number,
+    totalNonKpiCostSavings: number
 }

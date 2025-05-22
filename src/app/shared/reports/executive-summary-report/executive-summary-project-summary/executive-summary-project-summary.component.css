@@ -1,0 +1,13 @@
+th:not(:first-of-type), td:not(:first-of-type){
+    /* width: 25%; */
+    text-align: right;
+}
+.table td, .table th{
+    padding: .25rem;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.text-left{
+    text-align: left;
+}

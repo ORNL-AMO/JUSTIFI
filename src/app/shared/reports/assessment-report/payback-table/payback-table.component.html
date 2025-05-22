@@ -1,5 +1,5 @@
 <ng-template [ngIf]="assessmentReport.assessment.utilitySavingsByAssessment" [ngIfElse]="eemSavingsTableBlock">
-    <h6>Payback Period Comparison</h6>
+    <h6 class="bold">Payback Period Comparison</h6>
     <!--Assessment report with savings entered at assessment level-->
     <table class="table table-bordered savings-table table-hover">
         <thead>
@@ -120,7 +120,7 @@
     <!--Assessment report with savings entered at EEM level-->
     <!--implementation costs-->
     <ng-container *ngIf="assessmentReport.totalRebates">
-        <h6>Impact on Implementation Costs</h6>
+        <h6 class="bold">Impact on Implementation Costs</h6>
         <table class="table table-bordered savings-table table-hover">
             <thead>
                 <tr>
@@ -205,7 +205,7 @@
     </ng-container>
 
     <!--cost savings-->
-    <h6>Impact on Annual Costs</h6>
+    <h6 class="bold">Impact on Annual Costs</h6>
     <table class="table table-bordered savings-table table-hover">
         <thead>
             <tr>
@@ -294,7 +294,7 @@
 
 
     <!--cost savings-->
-    <h6>Impact on Project Payback</h6>
+    <h6 class="bold">Impact on Project Payback</h6>
     <table class="table table-bordered savings-table table-hover">
         @let nebColumns = assessmentReport.totalRebates ? 3 : 2;
         @let startColumns = assessmentReport.totalRebates ? 1 : 2;
@@ -352,7 +352,7 @@
                 </td>
                 <td class="bg-without-nebs-light">
                     <app-single-cell-item [isCurrency]="false"
-                        [numValue]="energyOpportunityReport.paybackWithoutNebs"></app-single-cell-item>
+                        [numValue]="energyOpportunityReport.totalPaybackWithoutNebs"></app-single-cell-item>
                 </td>
                 <!--with nebs-->
                 <td class="bg-with-nebs-light" *ngIf="assessmentReport.totalRebates">
@@ -365,7 +365,7 @@
                 </td>
                 <td class="bg-with-nebs-light">
                     <app-single-cell-item [isCurrency]="false"
-                        [numValue]="energyOpportunityReport.paybackWithNebs"></app-single-cell-item>
+                        [numValue]="energyOpportunityReport.totalPaybackWithNebs"></app-single-cell-item>
                 </td>
             </tr>
             <tr

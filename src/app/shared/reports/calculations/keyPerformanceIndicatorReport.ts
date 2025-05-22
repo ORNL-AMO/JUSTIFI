@@ -9,70 +9,72 @@ import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicat
 export function getKeyPerformanceIndicatorReport(nebReports: Array<NebReport>): KeyPerformanceIndicatorReport {
     let kpmReportItems: Array<KeyPerformanceMetricReportItem> = new Array();
     nebReports.forEach(nebReport => {
-        nebReport.reportPerformanceMetrics.forEach(reportKPM => {
-            if (isNaN(reportKPM.performanceMetricImpact.costAdjustment)) {
-                reportKPM.performanceMetricImpact.costAdjustment = 0;
-            }
-            if (isNaN(reportKPM.keyPerformanceMetric.baselineCost)) {
-                reportKPM.keyPerformanceMetric.baselineCost = 0;
-            }
+        if (nebReport.nonEnergyBenefit.costImpactType == 'annual') {
+            nebReport.reportPerformanceMetrics.forEach(reportKPM => {
+                if (isNaN(reportKPM.performanceMetricImpact.costAdjustment)) {
+                    reportKPM.performanceMetricImpact.costAdjustment = 0;
+                }
+                if (isNaN(reportKPM.keyPerformanceMetric.baselineCost)) {
+                    reportKPM.keyPerformanceMetric.baselineCost = 0;
+                }
 
-            let itemExistIndex: number = kpmReportItems.findIndex(reportItem => {
-                if (reportItem.keyPerformanceMetric.isCustom == false) {
-                    return reportItem.keyPerformanceMetric.value == reportKPM.keyPerformanceMetric.value;
+                let itemExistIndex: number = kpmReportItems.findIndex(reportItem => {
+                    if (reportItem.keyPerformanceMetric.isCustom == false) {
+                        return reportItem.keyPerformanceMetric.value == reportKPM.keyPerformanceMetric.value;
+                    } else {
+                        return reportItem.keyPerformanceMetric.label == reportKPM.keyPerformanceMetric.label;
+                    }
+                });
+                if (itemExistIndex != -1) {
+                    if (reportKPM.performanceMetricImpact.costAdjustment) {
+                        kpmReportItems[itemExistIndex].performanceMetricImpact.costAdjustment += reportKPM.performanceMetricImpact.costAdjustment;
+                    }
+                    if (reportKPM.performanceMetricImpact.modificationValue) {
+                        kpmReportItems[itemExistIndex].performanceMetricImpact.modificationValue += reportKPM.performanceMetricImpact.modificationValue;
+                    }
+                    if (kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineCost) {
+                        kpmReportItems[itemExistIndex].performanceMetricImpact.percentSavings = (kpmReportItems[itemExistIndex].performanceMetricImpact.costAdjustment / kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineCost) * 100;
+                    } else if (kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineValue && kpmReportItems[itemExistIndex].performanceMetricImpact.modificationValue) {
+                        kpmReportItems[itemExistIndex].performanceMetricImpact.percentSavings = (kpmReportItems[itemExistIndex].performanceMetricImpact.modificationValue / kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineValue) * 100;
+                    }
                 } else {
-                    return reportItem.keyPerformanceMetric.label == reportKPM.keyPerformanceMetric.label;
-                }
-            });
-            if (itemExistIndex != -1) {
-                if (reportKPM.performanceMetricImpact.costAdjustment) {
-                    kpmReportItems[itemExistIndex].performanceMetricImpact.costAdjustment += reportKPM.performanceMetricImpact.costAdjustment;
-                }
-                if (reportKPM.performanceMetricImpact.modificationValue) {
-                    kpmReportItems[itemExistIndex].performanceMetricImpact.modificationValue += reportKPM.performanceMetricImpact.modificationValue;
-                }
-                if (kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineCost) {
-                    kpmReportItems[itemExistIndex].performanceMetricImpact.percentSavings = (kpmReportItems[itemExistIndex].performanceMetricImpact.costAdjustment / kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineCost) * 100;
-                } else if (kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineValue && kpmReportItems[itemExistIndex].performanceMetricImpact.modificationValue) {
-                    kpmReportItems[itemExistIndex].performanceMetricImpact.percentSavings = (kpmReportItems[itemExistIndex].performanceMetricImpact.modificationValue / kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineValue) * 100;
-                }
-            } else {
-                if (reportKPM.keyPerformanceMetric.isCustom) {
+                    if (reportKPM.keyPerformanceMetric.isCustom) {
 
-                }
-                let percentSavings: number = 0;
+                    }
+                    let percentSavings: number = 0;
 
-                if (reportKPM.keyPerformanceMetric.baselineCost) {
-                    percentSavings = (reportKPM.performanceMetricImpact.costAdjustment / reportKPM.keyPerformanceMetric.baselineCost) * 100;
-                } else if (reportKPM.keyPerformanceMetric.baselineValue && reportKPM.performanceMetricImpact.modificationValue) {
-                    percentSavings = (reportKPM.performanceMetricImpact.modificationValue / reportKPM.keyPerformanceMetric.baselineValue) * 100;
-                }
+                    if (reportKPM.keyPerformanceMetric.baselineCost) {
+                        percentSavings = (reportKPM.performanceMetricImpact.costAdjustment / reportKPM.keyPerformanceMetric.baselineCost) * 100;
+                    } else if (reportKPM.keyPerformanceMetric.baselineValue && reportKPM.performanceMetricImpact.modificationValue) {
+                        percentSavings = (reportKPM.performanceMetricImpact.modificationValue / reportKPM.keyPerformanceMetric.baselineValue) * 100;
+                    }
 
-                let modifiedCost: number;
-                if(reportKPM.keyPerformanceMetric.goalToIncrease){
-                    modifiedCost = reportKPM.keyPerformanceMetric.baselineCost + reportKPM.performanceMetricImpact.costAdjustment
-                }else{
-                    modifiedCost = reportKPM.keyPerformanceMetric.baselineCost - reportKPM.performanceMetricImpact.costAdjustment
-                }
+                    let modifiedCost: number;
+                    if (reportKPM.keyPerformanceMetric.goalToIncrease) {
+                        modifiedCost = reportKPM.keyPerformanceMetric.baselineCost + reportKPM.performanceMetricImpact.costAdjustment
+                    } else {
+                        modifiedCost = reportKPM.keyPerformanceMetric.baselineCost - reportKPM.performanceMetricImpact.costAdjustment
+                    }
 
 
-                kpmReportItems.push({
-                    keyPerformanceMetric: reportKPM.keyPerformanceMetric,
-                    performanceMetricImpact: {
-                        ...reportKPM.performanceMetricImpact,
-                        percentSavings: percentSavings,
-                        modifiedCost: modifiedCost
-                    },
-                    keyPerformanceIndicator: reportKPM.keyPerformanceIndicator,
-                    // nebsImpacts: [{
-                    //     nebName: string,
-                    //     nebValue: NebOptionValue,
-                    //     performanceMetricImpact: PerformanceMetricImpact
-                    // }]
+                    kpmReportItems.push({
+                        keyPerformanceMetric: reportKPM.keyPerformanceMetric,
+                        performanceMetricImpact: {
+                            ...reportKPM.performanceMetricImpact,
+                            percentSavings: percentSavings,
+                            modifiedCost: modifiedCost
+                        },
+                        keyPerformanceIndicator: reportKPM.keyPerformanceIndicator,
+                        // nebsImpacts: [{
+                        //     nebName: string,
+                        //     nebValue: NebOptionValue,
+                        //     performanceMetricImpact: PerformanceMetricImpact
+                        // }]
 
-                })
-            }
-        })
+                    })
+                }
+            })
+        }
     })
 
     let baselineCost: number = _.sumBy(kpmReportItems, (reportItem: KeyPerformanceMetricReportItem) => {

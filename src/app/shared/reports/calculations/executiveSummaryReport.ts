@@ -6,7 +6,7 @@ import { KeyPerformanceMetric } from "../../constants/keyPerformanceMetrics";
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
 import { IdbReport, ReportOption } from "src/app/models/report";
 import { AssessmentReport, getAssessmentReport } from "./assessmentReport";
-import { getKeyPerformanceIndicatorReport, KeyPerformanceIndicatorReport } from "./keyPerformanceIndicatorReport";
+import { getKeyPerformanceIndicatorReport, KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem, KeyPerformanceMetricReportItem } from "./keyPerformanceIndicatorReport";
 import { NebReport } from "./nebReport";
 import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicator";
 
@@ -74,22 +74,18 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
     });
     // calculate total visit revenues and costs
     let keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport = getKeyPerformanceIndicatorReport(allNebReports);
-    let totalCostSavings: number = totalUtilityCostSavings;
-    let totalRevenues: number = 0;
-    keyPerformanceIndicatorReport.kpmReportItems.forEach(item => {
-        if (item.keyPerformanceMetric.goalToIncrease == false) {
-            totalCostSavings += item.performanceMetricImpact.costAdjustment;
-        } else {
-            totalRevenues += item.performanceMetricImpact.costAdjustment;
-        }
+    
+
+    let kpmCostSavings: number = _.sumBy(keyPerformanceIndicatorReport.kpiReportItems, (item: KeyPerformanceIndicatorReportItem) => {
+        return item.costSaving;
     });
-    // calculate non-associated neb impacts
-    let totalAssessmentNebFinancialImpact: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
-        let nebReports: Array<NebReport> = report.assessmentNebReports;
-        let totalNebFinancialImpact: number = _.sumBy(nebReports, (nebReport: NebReport) => {
-            return nebReport.totalFinancialImpact
-        });
-        return totalNebFinancialImpact;
+    let totalNonKpiCostSavings: number = _.sumBy(allNebReports, (item: NebReport) => {
+        return item.totalNonKpiCostSavings;
+    })
+    let totalCostSavings: number = totalUtilityCostSavings + kpmCostSavings + totalNonKpiCostSavings;
+
+    let totalRevenues: number =  _.sumBy(keyPerformanceIndicatorReport.kpiReportItems, (item: KeyPerformanceIndicatorReportItem) => {
+        return item.revenue;
     });
     // update utility category
     let utilityCategory: string = "energy"; // Default to "energy"
@@ -124,7 +120,7 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
         totalFinancialImpact: totalFinancialImpact,
         totalCostSavings: totalCostSavings,
         totalRevenues: totalRevenues,
-        totalAssessmentNebFinancialImpact: totalAssessmentNebFinancialImpact,
+        // totalAssessmentNebFinancialImpact: totalAssessmentNebFinancialImpact,
         totalPaybackWithoutNebs: totalPaybackWithoutNebs,
         totalPaybackWithNebs: totalPaybackWithNebs,
         totalUtilityCosts: totalUtilityCosts,
@@ -144,7 +140,7 @@ export interface ExecutiveSummaryReport {
     totalFinancialImpact: number;
     totalCostSavings: number;
     totalRevenues: number;
-    totalAssessmentNebFinancialImpact: number;
+    // totalAssessmentNebFinancialImpact: number;
     totalPaybackWithoutNebs: number;
     totalPaybackWithNebs: number;
     totalUtilityCosts: number;

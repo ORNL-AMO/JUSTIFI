@@ -8,38 +8,3 @@ th:not(:first-of-type), td:not(:first-of-type){
     font-size: 14px;
     vertical-align: middle;
 }
-
-tr.bold td{
-    /* background-color: #efefef; */
-}
-
-
-.bg-with-nebs{
-    background-color: #085646;
-    color: white;
-}
-
-.bg-without-nebs{
-    background-color: #2e86c1;
-    color: white;
-}
-
-.bg-without-nebs-light{
-    background-color: #aed6f1;
-}
-
-.bg-with-nebs-light{
-    background-color: #a2d9ce;
-}
-
-.bg-neutral{
-    background-color: #abb2b9;
-}
-
-.text-center{
-    text-align: center;
-}
-
-.w-33{
-    width: 33%;
-}

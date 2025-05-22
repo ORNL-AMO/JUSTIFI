@@ -16,3 +16,37 @@ table.ordered .ordered-th {
 table.ordered th:hover {
     cursor: pointer;
 }
+
+
+
+
+.report .savings-table .bg-with-nebs{
+    background-color: #085646;
+    color: white;
+}
+
+.report .savings-table .bg-without-nebs{
+    background-color: #2e86c1;
+    color: white;
+}
+
+.report .savings-table .bg-without-nebs-light{
+    background-color: #aed6f1;
+}
+
+.report .savings-table .bg-with-nebs-light{
+    background-color: #a2d9ce;
+}
+
+.report .savings-table .bg-neutral{
+    background-color: #34495e;
+    color: white;;
+}
+
+.report .savings-table .text-center{
+    text-align: center;
+}
+
+.w-33{
+    width: 33%;
+}

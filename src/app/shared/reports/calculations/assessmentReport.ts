@@ -55,24 +55,26 @@ export function getAssessmentReport(
 
     let allNebReports: Array<NebReport> = _.concat(energyOpportunityNebReports, assessmentNebReports);
 
-    let energyOpportunityEnergyCostSavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
-        return report.totalEnergyCostSavings
-    });
-    let energyOpportunityWaterCostSavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
-        return report.totalWaterCostSavings
-    });
     let totalNonNebEnergyCostSavings: number = 0;
     let totalNonNebWaterCostSavings: number = 0;
     let totalNonNebCostSavings: number = 0;
 
-    if (energyOpportunityEnergyCostSavings) {
-        totalNonNebEnergyCostSavings += energyOpportunityEnergyCostSavings;
-        totalNonNebCostSavings += energyOpportunityEnergyCostSavings;
-    };
-    if (energyOpportunityWaterCostSavings) {
-        totalNonNebWaterCostSavings += energyOpportunityWaterCostSavings;
-        totalNonNebCostSavings += energyOpportunityWaterCostSavings;
-    };
+    if (!assessment.utilitySavingsByAssessment) {
+        let energyOpportunityEnergyCostSavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
+            return report.totalEnergyCostSavings
+        });
+        let energyOpportunityWaterCostSavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
+            return report.totalWaterCostSavings
+        });
+        if (energyOpportunityEnergyCostSavings) {
+            totalNonNebEnergyCostSavings += energyOpportunityEnergyCostSavings;
+            totalNonNebCostSavings += energyOpportunityEnergyCostSavings;
+        };
+        if (energyOpportunityWaterCostSavings) {
+            totalNonNebWaterCostSavings += energyOpportunityWaterCostSavings;
+            totalNonNebCostSavings += energyOpportunityWaterCostSavings;
+        };
+    }
     if (assessment.utilitySavingsByAssessment) {
         if (assessment.energyCostSavings) {
             totalNonNebEnergyCostSavings += assessment.energyCostSavings;
@@ -88,6 +90,9 @@ export function getAssessmentReport(
     let totalAssessmentNebFinancialImpact: number = _.sumBy(assessmentNebReports, (report: NebReport) => {
         return report.totalFinancialImpact
     });
+    let totalNonKpiCostSavings: number = _.sumBy(assessmentNebReports, (report: NebReport) => {
+        return report.totalNonKpiCostSavings
+    });
     let energyOpportunityNebFinancialImpact: number = _.sumBy(energyOpportunityNebReports, (report: NebReport) => {
         return report.totalFinancialImpact
     });
@@ -95,20 +100,21 @@ export function getAssessmentReport(
 
     let totalFinancialImpact: number = totalNonNebCostSavings + totalNebFinancialImpact;
 
-    let opportunityEnergySavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
-        if (report.energyOpportunity.includeSavings &&
-            report.energyOpportunity.utilityCategory == 'energy'
-            && report.energyOpportunity.energySavings) {
-            return report.energyOpportunity.energySavings;
-        }
-        return 0;
-    });
+
 
     let totalEnergySavings: number = 0;
-    if (assessment.energySavings) {
+    if (assessment.utilitySavingsByAssessment && assessment.energySavings) {
         totalEnergySavings += assessment.energySavings;
     }
-    if (opportunityEnergySavings) {
+    if (!assessment.utilitySavingsByAssessment) {
+        let opportunityEnergySavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
+            if (report.energyOpportunity.includeSavings &&
+                report.energyOpportunity.utilityCategory == 'energy'
+                && report.energyOpportunity.energySavings) {
+                return report.energyOpportunity.energySavings;
+            }
+            return 0;
+        });
         totalEnergySavings += opportunityEnergySavings;
     };
 
@@ -121,7 +127,7 @@ export function getAssessmentReport(
     })
 
     let implementationCost: number = 0;
-    if (energyOpportunityImplementationCost) {
+    if (!assessment.utilitySavingsByAssessment && energyOpportunityImplementationCost) {
         implementationCost += energyOpportunityImplementationCost;
     }
     if (assessment.utilitySavingsByAssessment && assessment.implementationCost) {
@@ -179,6 +185,7 @@ export function getAssessmentReport(
 
 
     return {
+        name: assessment.name,
         assessment: assessment,
         energyOpportunityReports: energyOpportunityReports,
         assessmentNebReports: assessmentNebReports,
@@ -203,11 +210,13 @@ export function getAssessmentReport(
         utilityCategory: utilityCategory,
         totalNonOpportunityRebates: totalNonOpportunityRebates,
         totalRebates: totalRebates,
-        finalImplementationCost: implementationCost - totalRebates
+        finalImplementationCost: implementationCost - totalRebates,
+        totalNonKpiCostSavings: totalNonKpiCostSavings
     }
 }
 
 export interface AssessmentReport {
+    name: string,
     assessment: IdbAssessment,
     energyOpportunityReports: Array<EnergyOpportunityReport>,
     assessmentNebReports: Array<NebReport>,
@@ -231,7 +240,8 @@ export interface AssessmentReport {
     utilityCategory?: string,
     totalRebates: number,
     finalImplementationCost: number,
-    totalNonOpportunityRebates: number
+    totalNonOpportunityRebates: number,
+    totalNonKpiCostSavings: number
 }
 
 

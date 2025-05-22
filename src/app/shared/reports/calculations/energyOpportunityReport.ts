@@ -55,6 +55,8 @@ export function getEnergyOpportunityReport(
     }
 
     return {
+        name: energyOpportunity.name,
+        totalImplementationCost: energyOpportunity.implementationCost,
         energyOpportunity: energyOpportunity,
         nebReports: nebReports,
         totalEnergyCostSavings: totalEnergyCostSavings,
@@ -62,8 +64,8 @@ export function getEnergyOpportunityReport(
         totalNonNebCostSavings: totalNonNebCostSavings,
         totalNebFinancialImpact: totalNebFinancialImpact,
         totalFinancialImpact: totalFinancialImpact,
-        paybackWithNebs: paybackWithNebs,
-        paybackWithoutNebs: paybackWithoutNebs,
+        totalPaybackWithNebs: paybackWithNebs,
+        totalPaybackWithoutNebs: paybackWithoutNebs,
         totalRebates: totalRebates,
         finalImplementationCost: energyOpportunity.implementationCost - totalRebates
     }
@@ -71,6 +73,8 @@ export function getEnergyOpportunityReport(
 
 
 export interface EnergyOpportunityReport {
+    name: string,
+    totalImplementationCost: number,
     energyOpportunity: IdbEnergyOpportunity
     nebReports: Array<NebReport>,
     totalEnergyCostSavings: number,
@@ -78,8 +82,8 @@ export interface EnergyOpportunityReport {
     totalNonNebCostSavings: number,
     totalNebFinancialImpact: number,
     totalFinancialImpact: number,
-    paybackWithNebs: number,
-    paybackWithoutNebs: number,
+    totalPaybackWithNebs: number,
+    totalPaybackWithoutNebs: number,
     totalRebates: number,
     finalImplementationCost: number
 }
@@ -92,4 +96,7 @@ export interface AdditionalEnergyOpportunityReport {
     totalNonNebCostSavings: number,
     totalNebFinancialImpact: number,
     totalFinancialImpact: number,
+    totalPaybackWithoutNebs: number,
+    totalPaybackWithNebs: number,
+    finalImplementationCost: number
 }
