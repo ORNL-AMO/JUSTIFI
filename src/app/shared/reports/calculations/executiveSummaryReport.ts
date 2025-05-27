@@ -6,9 +6,10 @@ import { KeyPerformanceMetric } from "../../constants/keyPerformanceMetrics";
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
 import { IdbReport, ReportOption } from "src/app/models/report";
 import { AssessmentReport, getAssessmentReport } from "./assessmentReport";
-import { getKeyPerformanceIndicatorReport, KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem, KeyPerformanceMetricReportItem } from "./keyPerformanceIndicatorReport";
+import { getKeyPerformanceIndicatorReport, KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem } from "./keyPerformanceIndicatorReport";
 import { NebReport } from "./nebReport";
 import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicator";
+import { IdbFacility } from "src/app/models/facility";
 
 // If no report is passed as a parameter, all data (assessments/EEMs/NEBs) included
 export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<string>, assessments: Array<IdbAssessment>,
@@ -74,7 +75,7 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
     });
     // calculate total visit revenues and costs
     let keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport = getKeyPerformanceIndicatorReport(allNebReports);
-    
+
 
     let kpmCostSavings: number = _.sumBy(keyPerformanceIndicatorReport.kpiReportItems, (item: KeyPerformanceIndicatorReportItem) => {
         return item.costSaving;

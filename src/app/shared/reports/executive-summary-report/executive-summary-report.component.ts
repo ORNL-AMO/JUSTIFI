@@ -8,7 +8,6 @@ import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benef
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { IdbReport } from 'src/app/models/report';
 import { SharedDataService } from '../../shared-services/shared-data.service';
-import { getOnSiteVisitReport } from '../calculations/visitReport';
 import { ExecutiveSummaryReport, getExecutiveSummaryReport } from '../calculations/executiveSummaryReport';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
@@ -52,6 +51,7 @@ export class ExecutiveSummaryReportComponent {
     let facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.onSiteVisit?.facilityId);
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
     this.executiveSummaryReport = getExecutiveSummaryReport(this.onSiteVisit.visitDate, this.onSiteVisit.assessmentIds, allAssessments, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, this.report);
+    console.log(this.executiveSummaryReport);
     this.printSub = this.sharedDataService.print.subscribe(_print => {
       this.print = _print;
     })

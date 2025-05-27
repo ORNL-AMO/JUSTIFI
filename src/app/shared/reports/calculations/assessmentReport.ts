@@ -183,7 +183,6 @@ export function getAssessmentReport(
         nonOpportunityPaybackWithNebs = 0;
     }
 
-
     return {
         name: assessment.name,
         assessment: assessment,

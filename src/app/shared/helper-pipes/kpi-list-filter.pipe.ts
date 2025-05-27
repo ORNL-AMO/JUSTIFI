@@ -40,6 +40,8 @@ export class KpiListFilterPipe implements PipeTransform {
         return 4;
       case 'Other':
         return 5;
+      case 'Utility Use and Costs':
+        return 6
     }
   }
 }

@@ -6,3 +6,16 @@ th{
     background-color: #d1e7dd !important;
     color: black;
 } */
+th fa-icon.ng-fa-icon{
+    display: none;
+}
+th.ordered-th fa-icon.ng-fa-icon{
+    display: inline;
+}
+th:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.limit-options{
+    width: 50px;
+}

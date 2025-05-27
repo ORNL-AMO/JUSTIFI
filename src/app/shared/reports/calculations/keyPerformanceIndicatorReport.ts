@@ -1,4 +1,4 @@
-import { KeyPerformanceMetric, KeyPerformanceMetricOption } from "../../constants/keyPerformanceMetrics";
+import { KeyPerformanceMetric } from "../../constants/keyPerformanceMetrics";
 import * as _ from 'lodash';
 import { NebReport } from "./nebReport";
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
@@ -75,7 +75,7 @@ export function getKeyPerformanceIndicatorReport(nebReports: Array<NebReport>): 
                 }
             })
         }
-    })
+    });
 
     let baselineCost: number = _.sumBy(kpmReportItems, (reportItem: KeyPerformanceMetricReportItem) => {
         if (reportItem.keyPerformanceMetric.isQuantitative && reportItem.keyPerformanceMetric.baselineCost) {
@@ -90,7 +90,8 @@ export function getKeyPerformanceIndicatorReport(nebReports: Array<NebReport>): 
         return 0
     });
     let modifiedCost: number = baselineCost - annualSavings;
-    let percentSavings: number = (annualSavings / baselineCost) * 100
+    let percentSavings: number = (annualSavings / baselineCost) * 100;
+
     return {
         kpmReportItems: kpmReportItems,
         kpiReportItems: getKeyPerformanceIndicatorReportItems(kpmReportItems),

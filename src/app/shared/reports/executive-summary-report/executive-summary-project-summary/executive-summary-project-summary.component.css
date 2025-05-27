@@ -16,6 +16,13 @@ th:not(:first-of-type), td:not(:first-of-type){
     text-decoration: underline;
 }
 
+th fa-icon.ng-fa-icon{
+    display: none;
+}
+th.ordered-th fa-icon.ng-fa-icon{
+    display: inline;
+}
+
 .w-20{
     width: 20%;
 }
