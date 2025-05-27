@@ -81,7 +81,7 @@ export class OnSiteAssessmentComponent {
     this.navigateToOnSiteAssessment(this.onSiteVisit.assessmentIds[this.assessmentIndex + 1], 'details');
   }
 
-  goBack() {
+  goBack(button: HTMLButtonElement) {
     if (this.router.url.includes('details')) {
       if (this.assessmentIndex != 0) {
         this.navigateToOnSiteAssessment(this.onSiteVisit.assessmentIds[this.assessmentIndex - 1], 'nebs');
@@ -93,6 +93,7 @@ export class OnSiteAssessmentComponent {
     } else if (this.router.url.includes('nebs')) {
       this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/energy-opportunities');
     }
+    button.blur();
   }
 
   navigateToOnSiteAssessment(guid: string, subUrl: string) {
@@ -103,7 +104,7 @@ export class OnSiteAssessmentComponent {
     this.sharedDataService.displayAddNebsModal.next({ assessmentId: this.assessment.guid, energyOpportunityId: undefined });
   }
 
-  goToNext() {
+  goToNext(button: HTMLButtonElement) {
     if (this.router.url.includes('details')) {
       this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/energy-opportunities');
     } else if (this.router.url.includes('energy-opportunities')) {
@@ -117,5 +118,6 @@ export class OnSiteAssessmentComponent {
         this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid);
       }
     }
+    button.blur();
   }
 }
