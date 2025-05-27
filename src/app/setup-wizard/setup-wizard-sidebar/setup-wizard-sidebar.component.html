@@ -16,7 +16,7 @@
                 <a class="nav-link" (click)="toggleCollapsePrevisit()"
                     [ngClass]="routerUrl | navItemActive:'pre-visit'">
                     <fa-icon class="toggle" [icon]="collapsePreVisit ? faChevronRight : faChevronDown"></fa-icon>
-                    Pre-Visit
+                    <span class="text-sidebar"><b>&nbsp;Pre-Visit</b></span>
                 </a>
             </div>
             <div class="sidebar-section first-section" *ngIf="!collapsePreVisit">
@@ -32,7 +32,7 @@
                         <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/company-setup'"
                             [routerLinkActive]="['active']">
                             <fa-icon [icon]="faGear"></fa-icon>
-                            General Details
+                            Company Details
                         </a>
                     </div>
                     <div class="nav-item">
@@ -76,7 +76,7 @@
                         <a class="nav-link" [routerLink]="'pre-visit/'+onSiteVisit.guid+'/facility-setup'"
                             [routerLinkActive]="['active']">
                             <fa-icon [icon]="faGear"></fa-icon>
-                            General Details
+                            Facility Details
                         </a>
                     </div>
                     <div class="nav-item">
@@ -211,7 +211,7 @@
                 <a class="nav-link" (click)="toggleCollapseDataCollection()"
                     [ngClass]="routerUrl | navItemActive:'data-collection'">
                     <fa-icon class="toggle" [icon]="collapseDataCollection ? faChevronRight : faChevronDown"></fa-icon>
-                    Data Collection
+                    <span class="text-sidebar"><b>&nbsp;Data Collection</b></span>
                 </a>
             </div>
             <div class="sidebar-section" *ngIf="!collapseDataCollection">
@@ -245,7 +245,7 @@
                         <div class="nav-item">
                             <a class="nav-link"
                                 [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/energy-opportunities'"
-                                [routerLinkActive]="['active']">
+                                [routerLinkActive]="['active']" title="Energy Efficiency Measures">
                                 <fa-icon [icon]="faFileLines"></fa-icon>
                                 EEMs
                             </a>
@@ -253,7 +253,7 @@
                         <div class="nav-item">
                             <a class="nav-link"
                                 [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/nebs'"
-                                [routerLinkActive]="['active']">
+                                [routerLinkActive]="['active']" title="Non-energy benefits">
                                 <fa-icon [icon]="faWeightHanging"></fa-icon>
                                 NEBs &plus; Incentives
                             </a>
@@ -268,7 +268,7 @@
                 <a class="nav-link" (click)="toggleCollapseDataEvaluation()"
                     [ngClass]="routerUrl | navItemActive:'data-evaluation'">
                     <fa-icon class="toggle" [icon]="collapseDataEvaluation ? faChevronRight : faChevronDown"></fa-icon>
-                    Data Evaluation
+                    <span class="text-sidebar"><b>&nbsp;Data Evaluation</b></span>
                 </a>
             </div>
             <div class="sidebar-section" *ngIf="!collapseDataEvaluation">

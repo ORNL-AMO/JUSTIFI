@@ -4,8 +4,7 @@ import { LoadingService } from '../loading/loading.service';
 import { IconDefinition, faDownload, faUpload, faInbox, faCog } from '@fortawesome/free-solid-svg-icons';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 import { environment } from 'src/environments/environment';
-import { ImportBackupModalService } from '../import-backup-modal/import-backup-modal.service';
-import { BackupDataService } from 'src/app/shared/shared-services/backup-data.service';
+import { BackupModalService } from '../backup-modal/backup-modal.service';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { localeCurrency, LocaleCurrencyOption } from 'src/app/shared/constants/localeCurrency';
 import { IdbUser } from 'src/app/models/user';
@@ -27,7 +26,6 @@ export class NavbarComponent{
 
   version: string = environment.version;
   showResetModal: boolean = false;
-  showBackupDataModal: boolean = false;
   showFeedbackModal: boolean = false;
   showSettingsModal: boolean = false;
 
@@ -40,8 +38,7 @@ export class NavbarComponent{
   constructor(private userIdbService: UserIdbService,
     private loadingService: LoadingService,
     private sharedDataService: SharedDataService,
-    private importBackupModalService: ImportBackupModalService,
-    private backupDataService: BackupDataService,
+    private backupModalService: BackupModalService,
     private localeService: LocaleService,
     private router: Router
   ) {}
@@ -59,15 +56,12 @@ export class NavbarComponent{
     }
   }
 
-  backupData() {
-    this.backupDataService.backupData();
-    // to do: update lastBackup property for selectedUser
-    // let selectedUser = this.userIdbService.user.getValue();
-    this.closeBackupDataModal();
+  openImportDataModal() {
+    this.backupModalService.showImportModal.next(true);
   }
 
-  openImportDataModal() {
-    this.importBackupModalService.showImportModal.next(true);
+  openExportDataModal() {
+    this.backupModalService.showExportModal.next(true);
   }
 
   resetDatabase() {
@@ -88,14 +82,6 @@ export class NavbarComponent{
 
   openSidebar(){
     this.sharedDataService.sidebarOpen.next(true);
-  }
-
-  openBackupDataModal(){
-    this.showBackupDataModal = true;
-  }
-
-  closeBackupDataModal(){
-    this.showBackupDataModal = false;
   }
 
   openFeedbackModal(){

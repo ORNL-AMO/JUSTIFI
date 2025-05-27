@@ -113,7 +113,7 @@ let setupWizardService: Partial<SetupWizardService> = {
 
 let option: KeyPerformanceIndicatorOption =
 {
-    primaryKPI: 'Operations',
+    primaryKPI: 'Operations Impact',
     label: 'Expense Cost',
     htmlLabel: 'Expense Cost',
     optionValue: 'reduceExpenseCost'
@@ -153,7 +153,8 @@ let sharedDataService: Partial<SharedDataService> = {
     createAssessmentModalOpen: new BehaviorSubject<boolean>(false),
     sidebarOpen: new BehaviorSubject<boolean>(false),
     displayAddNebsModal: new BehaviorSubject<{ assessmentId: string, energyOpportunityId: string }>(undefined),
-    print: new BehaviorSubject<boolean>(false)
+    print: new BehaviorSubject<boolean>(false),
+    dataInitialized: new BehaviorSubject<boolean>(false),
 }
 
 let companyContactsFormService: Partial<CompanyContactsFormService> = {

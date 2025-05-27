@@ -49,10 +49,10 @@ export class UpdateDbEntriesService {
 
   async updateDbEntries(user: IdbUser): Promise<IdbUser> {
     let userNeedsUpdate: boolean = false;
-    if (!user.kpiFacilityMigrationDone) {
+    if (!user.kpiFacilityMigrationDoneV2) {
       await this.updateToFacilityKPI();
       await this.updateKpiKpmNames();
-      user.kpiFacilityMigrationDone = true;
+      user.kpiFacilityMigrationDoneV2 = true;
       userNeedsUpdate = true;
     }
 
