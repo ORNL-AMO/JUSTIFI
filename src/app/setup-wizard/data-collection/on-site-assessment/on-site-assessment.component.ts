@@ -77,8 +77,13 @@ export class OnSiteAssessmentComponent {
       }
     });
 
-    this.flagSub = this.setupWizardService.flag.subscribe(value => {
-      this.flag = value;
+    this.flagSub = this.setupWizardService.flag.subscribe(flag => {
+      this.flag = flag;
+      this.setBtnTxtSidebarSub = this.setupWizardService.btnText.subscribe(value => {
+        if (this.flag) {
+          this.setTextOnSidebarClick(value);
+        }
+      });
     });
 
     this.activatedRoute.params.subscribe(params => {
@@ -86,8 +91,9 @@ export class OnSiteAssessmentComponent {
       if (this.onSiteVisit && this.onSiteVisit.assessmentIds) {
         this.assessmentIndex = this.onSiteVisit.assessmentIds.findIndex(_assessmentGuid => { return _assessmentGuid == assessmentGUID });
         this.setBtnTxtSidebarSub = this.setupWizardService.btnText.subscribe(value => {
-          if (this.flag)
+          if (this.flag) {
             this.setTextOnSidebarClick(value);
+          }
         });
       }
     });
@@ -146,6 +152,7 @@ export class OnSiteAssessmentComponent {
   }
 
   setTextOnTabChange(textNext: string, textBack: string) {
+    this.flag = false;
     this.textNext = textNext;
     this.textBack = textBack;
     if (textNext == 'Details') {
@@ -165,6 +172,7 @@ export class OnSiteAssessmentComponent {
   }
 
   setTextOnNext() {
+    this.flag = false;
     if (this.router.url.includes('details')) {
       this.textNext = 'NEBs';
       this.textBack = 'Details';
@@ -185,6 +193,7 @@ export class OnSiteAssessmentComponent {
   }
 
   setTextOnBack() {
+    this.flag = false;
     if (this.router.url.includes('nebs')) {
       this.textNext = 'NEBs';
       this.textBack = 'Details';
@@ -211,7 +220,6 @@ export class OnSiteAssessmentComponent {
         this.textBack = 'EEMs';
       }
       else {
-        //this.textNext = 'Details';
         this.textNext = 'Next Assessment';
         this.textBack = 'EEMs';
       }
@@ -224,7 +232,6 @@ export class OnSiteAssessmentComponent {
       }
       else {
         this.textNext = 'EEMs';
-        // this.textBack = 'NEBs';
         this.textBack = 'Previous Assessment'
       }
     }
