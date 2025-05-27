@@ -128,3 +128,38 @@ export function getSelectedExportGuids(exportTree: ExportTreeNode[]): SelectedEx
 
   return selectedGuids;
 }
+
+export function  updateChildren(node: ExportTreeNode, checked: boolean) {
+  // update the checked state of the node and its children recursively
+  node.checked = checked;
+  node.indeterminate = false;
+  if (node.children && node.children.length > 0) {
+    node.children.forEach(child => updateChildren(child, checked));
+  }
+}
+export function updateParent(parent: ExportTreeNode) {
+  if (!parent) return;
+  const children = parent.children || [];
+  const allChecked = children.every(child => child.checked);
+  const anyCheckedOrIndeterminate = children.some(child => child.checked || child.indeterminate);
+  parent.checked = allChecked;
+  parent.indeterminate = !allChecked && anyCheckedOrIndeterminate;
+  updateParent(parent.parent);
+}
+
+export function setExportNodeByGuid(exportTree: ExportTreeNode[], guid: string) {
+  const node = exportTree.find(node => node.guid === guid);
+  if (node) {
+    node.checked = true;
+    node.indeterminate = false;
+    updateChildren(node, true);
+    updateParent(node.parent);
+    return;
+  } else {
+    exportTree.forEach(node => {
+      if (node.children && node.children.length > 0) {
+        setExportNodeByGuid(node.children, guid);
+      }
+    });
+  }
+}
