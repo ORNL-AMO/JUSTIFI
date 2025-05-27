@@ -105,7 +105,7 @@
         <div class="row">
             <div class="col-sm-5">
                 <button class="btn btn-outline-primary btn-sm border-0"
-                    [disabled]="energyOpportunity.utilityType | isUtilityTracked: facilityUnitSettings"
+                    [disabled]="!(energyOpportunity.utilityType | isUtilityTracked: facilityUnitSettings)"
                     (click)="calculateCostSavings()">
                     <fa-icon [icon]="faCalculator"></fa-icon> Calculate Savings
                 </button>

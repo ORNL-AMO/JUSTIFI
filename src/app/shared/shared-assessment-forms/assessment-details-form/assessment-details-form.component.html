@@ -144,7 +144,7 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="use.include && (use.utilityType | isUtilityTracked: facilityUnitSettings)">
+            <ng-container *ngIf="use.include && !(use.utilityType | isUtilityTracked: facilityUnitSettings)">
                 <div class="col-12">
                     <div class="alert alert-warning small m-0 ms-5 p-1">
                         This utility is not tracked under current facility.
