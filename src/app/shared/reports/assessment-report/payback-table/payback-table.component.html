@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             <tr *ngIf="assessmentReport.totalRebates">
-                <td class="ps-3 bg-neutral">
+                <td class="ps-3 bg-neutral-light">
                     Implementation Cost ({{ currencyCode | currencySymbol }})
                 </td>
                 <td class="bg-without-nebs-light">
@@ -28,7 +28,7 @@
                 </td>
             </tr>
             <tr *ngIf="assessmentReport.totalRebates">
-                <td class="ps-3 bg-neutral">
+                <td class="ps-3 bg-neutral-light">
                     One-time Incentives ({{ currencyCode | currencySymbol }})
                 </td>
                 <td class="bg-without-nebs-light">
@@ -58,7 +58,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="ps-3 bg-neutral">
+                <td class="ps-3 bg-neutral-light">
                     Energy Cost Savings ({{ currencyCode | currencySymbol }}/yr)
                 </td>
                 <td class="bg-without-nebs-light">
@@ -71,7 +71,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="ps-3 bg-neutral">
+                <td class="ps-3 bg-neutral-light">
                     NEBs Financial Impact ({{ currencyCode | currencySymbol }}/yr)
                 </td>
                 <td class="bg-without-nebs-light">
@@ -136,20 +136,20 @@
                     <th class="w-25 bg-neutral">
 
                     </th>
-                    <th class="w-25 bg-without-nebs-light">
+                    <th class="w-25 bg-without-nebs">
                         Implementation<br> Cost ({{ currencyCode | currencySymbol }})
                     </th>
-                    <th class="w-25 bg-with-nebs-light">
+                    <th class="w-25 bg-with-nebs">
                         Rebates ({{ currencyCode | currencySymbol }})
                     </th>
-                    <th class="w-25 bg-with-nebs-light">
+                    <th class="w-25 bg-with-nebs">
                         Final<br> Implementation<br> Cost ({{ currencyCode | currencySymbol }})
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
-                    <td class="bg-neutral">
+                    <td class="bg-neutral-light">
                         {{energyOpportunityReport.energyOpportunity.name}}
                     </td>
                     <td class="bg-without-nebs-light">
@@ -166,7 +166,7 @@
                     </td>
                 </tr>
                 <tr *ngIf="assessmentReport.totalNonOpportunityRebates">
-                    <td class="bg-neutral">
+                    <td class="bg-neutral-light">
                         Additional One-time Incentives
                     </td>
                     <td class="bg-without-nebs-light">
@@ -221,20 +221,20 @@
                 <th class="w-25 bg-neutral">
 
                 </th>
-                <th class="w-25 bg-without-nebs-light">
+                <th class="w-25 bg-without-nebs">
                     Energy <br>Cost Savings<br> ({{ currencyCode | currencySymbol }}/yr)
                 </th>
-                <th class="w-25 bg-with-nebs-light">
+                <th class="w-25 bg-with-nebs">
                     NEBs Financial<br> Impact ({{ currencyCode | currencySymbol }}/yr)
                 </th>
-                <th class="w-25 bg-with-nebs-light">
+                <th class="w-25 bg-with-nebs">
                     Total Financial<br> Impact ({{ currencyCode | currencySymbol }}/yr)
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
-                <td class="bg-neutral">
+                <td class="bg-neutral-light">
                     {{energyOpportunityReport.energyOpportunity.name}}
                 </td>
                 <td class="bg-without-nebs-light">
@@ -251,7 +251,7 @@
                 </td>
             </tr>
             <tr *ngIf="assessmentReport.totalAssessmentNebFinancialImpact">
-                <td class="bg-neutral">
+                <td class="bg-neutral-light">
                     Additional NEBs
                 </td>
                 <td class="bg-without-nebs-light">
@@ -315,34 +315,34 @@
 
                 </th>
                 <th
-                    [ngClass]="{'bg-without-nebs-light': assessmentReport.totalRebates, 'bg-neutral': !assessmentReport.totalRebates}">
+                    [ngClass]="{'bg-without-nebs': assessmentReport.totalRebates, 'bg-neutral': !assessmentReport.totalRebates}">
                     Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
                 </th>
-                <th class="bg-without-nebs-light">
+                <th class="bg-without-nebs">
                     Financial Impact<br> ({{ currencyCode | currencySymbol }}/yr)
                 </th>
-                <th class="bg-without-nebs-light">
+                <th class="bg-without-nebs">
                     Simple Payback<br> (yrs)
                 </th>
-                <th class="bg-with-nebs-light" *ngIf="assessmentReport.totalRebates">
+                <th class="bg-with-nebs" *ngIf="assessmentReport.totalRebates">
                     Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
                 </th>
-                <th class="bg-with-nebs-light">
+                <th class="bg-with-nebs">
                     Financial Impact<br> ({{ currencyCode | currencySymbol }}/yr)
                 </th>
-                <th class="bg-with-nebs-light">
+                <th class="bg-with-nebs">
                     Simple Payback<br> (yrs)
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
-                <td class="bg-neutral">
+                <td class="bg-neutral-light">
                     {{energyOpportunityReport.energyOpportunity.name}}
                 </td>
                 <!--without nebs-->
                 <td
-                    [ngClass]="{'bg-without-nebs-light': assessmentReport.totalRebates, 'bg-neutral': !assessmentReport.totalRebates}">
+                    [ngClass]="{'bg-without-nebs-light': assessmentReport.totalRebates, 'bg-neutral-light': !assessmentReport.totalRebates}">
                     <app-single-cell-item [isCurrency]="true"
                         [numValue]="energyOpportunityReport.energyOpportunity.implementationCost"></app-single-cell-item>
                 </td>
@@ -370,11 +370,11 @@
             </tr>
             <tr
                 *ngIf="assessmentReport.totalAssessmentNebFinancialImpact || assessmentReport.totalNonOpportunityRebates">
-                <td class="bg-neutral">
+                <td class="bg-neutral-light">
                     Additional NEBs/Incentives
                 </td>
                 <td
-                    [ngClass]="{'bg-without-nebs-light': assessmentReport.totalRebates, 'bg-neutral': !assessmentReport.totalRebates}">
+                    [ngClass]="{'bg-without-nebs-light': assessmentReport.totalRebates, 'bg-neutral-light': !assessmentReport.totalRebates}">
                     <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
                 </td>
                 <td class="bg-without-nebs-light">
