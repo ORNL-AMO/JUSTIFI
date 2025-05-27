@@ -197,12 +197,7 @@ export class EnergyOpportunitySetupFormComponent {
   toggleAddNebDropdown() {
     this.showAddNebDropdown = !this.showAddNebDropdown;
   }
-
-  isUtilityTracked(utilityType: string): boolean {
-    let trimmed = utilityType.replace(/\s+/g, '');
-    return this.facilityUnitSettings[`include${trimmed}`];
-  }
-
+  
   focusField(str: string) {
     this.setupWizardService.focusedHelp.next(str);
   }

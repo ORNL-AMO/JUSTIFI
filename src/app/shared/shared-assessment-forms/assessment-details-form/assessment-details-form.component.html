@@ -29,7 +29,8 @@
             <h6>Combine Utility Savings</h6>
             <p class="fw-light mb-1 small italic">
                 Check the box below to combine the implementation costs and utility savings for the Energy Efficiency
-                Measures (EEMs) at the assessment level <b><u>if the utility savings cannot be separated for each EEM</u></b>.
+                Measures (EEMs) at the assessment level <b><u>if the utility savings cannot be separated for each
+                        EEM</u></b>.
                 Otherwise, enter itemized savings and implementation costs for each EEM separately. Entering
                 itemized savings will allow you to generate a more detailed report that shows
                 the payback
@@ -143,7 +144,7 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="use.include && !isUtilityTracked(use.utilityType)">
+            <ng-container *ngIf="use.include && (use.utilityType | isUtilityTracked: facilityUnitSettings)">
                 <div class="col-12">
                     <div class="alert alert-warning small m-0 ms-5 p-1">
                         This utility is not tracked under current facility.
