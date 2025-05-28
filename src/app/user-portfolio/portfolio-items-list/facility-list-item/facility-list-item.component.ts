@@ -8,14 +8,15 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbFacility } from 'src/app/models/facility';
+import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-    selector: 'app-facility-list-item',
-    templateUrl: './facility-list-item.component.html',
-    styleUrl: './facility-list-item.component.css',
-    standalone: false
+  selector: 'app-facility-list-item',
+  templateUrl: './facility-list-item.component.html',
+  styleUrl: './facility-list-item.component.css',
+  standalone: false
 })
 export class FacilityListItemComponent {
   @Input({ required: true })
@@ -72,10 +73,12 @@ export class FacilityListItemComponent {
     this.facilityIdbService.setSelectedFromGUID(this.facility.guid);
     if (assessment) {
       this.onSiteVisitIdbService.setSelectedFromAssessmentGUID(assessment.guid);
+      let visit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+      this.router.navigateByUrl('/setup-wizard/data-collection/' + visit.guid + '/assessment/' + assessment.guid + '/details');
     } else {
       this.onSiteVisitIdbService.selectedVisit.next(undefined);
+      this.sharedDataService.createAssessmentModalOpen.next(true);
     }
-    this.sharedDataService.createAssessmentModalOpen.next(true);
   }
 
 }
