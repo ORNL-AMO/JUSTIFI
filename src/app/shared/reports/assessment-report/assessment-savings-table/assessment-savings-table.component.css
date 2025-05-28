@@ -10,3 +10,8 @@
 .table.table-bordered.side-panel-report td, .table.table-bordered.side-panel-report th{
     font-size: 12px;
 }
+
+p{
+    text-align: center;
+    font-size: 18px;
+}
