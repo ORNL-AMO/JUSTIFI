@@ -77,7 +77,6 @@ export class LatestVisitsTableComponent {
   goToVisit(visit: IdbOnSiteVisit) {
     this.companyIdbService.setSelectedFromGUID(visit.companyId);
     this.facilityIdbService.setSelectedFromGUID(visit.facilityId);
-    // this.onSiteVisitIdbService.setSelectedFromAssessmentGUID(visit.assessmentIds[0]);
     this.onSiteVisitIdbService.setSelectedFromGUID(visit.guid);
     this.router.navigateByUrl('/setup-wizard/pre-visit/' + visit.guid);
   }
