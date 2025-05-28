@@ -27,6 +27,7 @@ import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
 import { localeCurrency } from './shared/constants/localeCurrency';
 import { ExportBackupModalComponent } from './core-components/backup-modal/export-backup-modal/export-backup-modal.component';
 import { ExportBackupTreeComponent } from './core-components/backup-modal/export-backup-modal/export-backup-tree/export-backup-tree.component';
+import { WelcomeSlideshowComponent } from './core-components/welcome-slideshow/welcome-slideshow.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ExportBackupTreeComponent } from './core-components/backup-modal/export
     AlphaDisclaimerComponent,
     ToastNotificationsComponent,
     ExportBackupModalComponent,
-    ExportBackupTreeComponent
+    ExportBackupTreeComponent,
+    WelcomeSlideshowComponent
   ],
   imports: [
     BrowserModule,
