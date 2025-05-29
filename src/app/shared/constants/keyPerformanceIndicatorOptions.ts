@@ -1,4 +1,4 @@
-export type PrimaryKPI = 'Strategic Growth' | 'Operations Impact' | 'Resource Efficiency' | 'Employee Environment' | 'Other';
+export type PrimaryKPI = 'Strategic Growth' | 'Operations Impact' | 'Resource Efficiency' | 'Employee Environment' | 'Other' | 'Utility Use and Costs';
 export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic Growth', 'Operations Impact', 'Resource Efficiency', 'Employee Environment', 'Other']
 export type KeyPerformanceIndicatorValue =
     'productivity' |
@@ -15,7 +15,8 @@ export type KeyPerformanceIndicatorValue =
     'other' |
     'airEnvironmentalQuality' |
     'customerSatisfaction' |
-    'salesGrowth';
+    'salesGrowth' |
+    'utilityUse';
 
 export interface KeyPerformanceIndicatorOption {
     primaryKPI: PrimaryKPI,
@@ -159,3 +160,11 @@ export const PrimaryKpiRenames: Array<PrimaryKpiRename> = [
         current: 'Employee Environment'
     },
 ]
+
+export const UtilityUseKpi: KeyPerformanceIndicatorOption =
+{
+    primaryKPI: 'Utility Use and Costs',
+    label: 'Utility Use and Costs',
+    htmlLabel: 'Utility Use and Costs',
+    optionValue: 'utilityUse'
+}

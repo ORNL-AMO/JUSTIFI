@@ -20,23 +20,25 @@ export function getAssessmentReport(
     keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
     report?: IdbReport): AssessmentReport {
 
-    if (!assessment.energySavings) {
-        assessment.energySavings = 0;
-    }
+    if (assessment.utilitySavingsByAssessment) {
+        if (!assessment.energySavings) {
+            assessment.energySavings = 0;
+        }
 
-    if (!assessment.costSavings) {
-        assessment.costSavings = 0;
-    }
+        if (!assessment.costSavings) {
+            assessment.costSavings = 0;
+        }
 
-    if (!assessment.implementationCost) {
-        assessment.implementationCost = 0;
+        if (!assessment.implementationCost) {
+            assessment.implementationCost = 0;
+        }
     }
 
     let energyOpportunityReports: Array<EnergyOpportunityReport> = new Array();
     let assessmentEnergyOpportunities: Array<IdbEnergyOpportunity> = filterEnergyOpps(energyOpportunities, assessment.guid, report?.energyOpportunityOptions);
     assessmentEnergyOpportunities.forEach(energyOpportunity => {
         let energyOpportunityReport: EnergyOpportunityReport = getEnergyOpportunityReport(
-            energyOpportunity, nonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, report);
+            energyOpportunity, nonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, assessment, report);
         energyOpportunityReports.push(energyOpportunityReport);
     });
 
@@ -53,37 +55,43 @@ export function getAssessmentReport(
 
     let allNebReports: Array<NebReport> = _.concat(energyOpportunityNebReports, assessmentNebReports);
 
-    let energyOpportunityEnergyCostSavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
-        return report.totalEnergyCostSavings
-    });
-    let energyOpportunityWaterCostSavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
-        return report.totalWaterCostSavings
-    });
     let totalNonNebEnergyCostSavings: number = 0;
     let totalNonNebWaterCostSavings: number = 0;
     let totalNonNebCostSavings: number = 0;
 
-    if (energyOpportunityEnergyCostSavings) {
-        totalNonNebEnergyCostSavings += energyOpportunityEnergyCostSavings;
-        totalNonNebCostSavings += energyOpportunityEnergyCostSavings;
-    };
-    if (energyOpportunityWaterCostSavings) {
-        totalNonNebWaterCostSavings += energyOpportunityWaterCostSavings;
-        totalNonNebCostSavings += energyOpportunityWaterCostSavings;
-    };
-
-    if (assessment.energyCostSavings) {
-        totalNonNebEnergyCostSavings += assessment.energyCostSavings;
+    if (!assessment.utilitySavingsByAssessment) {
+        let energyOpportunityEnergyCostSavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
+            return report.totalEnergyCostSavings
+        });
+        let energyOpportunityWaterCostSavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
+            return report.totalWaterCostSavings
+        });
+        if (energyOpportunityEnergyCostSavings) {
+            totalNonNebEnergyCostSavings += energyOpportunityEnergyCostSavings;
+            totalNonNebCostSavings += energyOpportunityEnergyCostSavings;
+        };
+        if (energyOpportunityWaterCostSavings) {
+            totalNonNebWaterCostSavings += energyOpportunityWaterCostSavings;
+            totalNonNebCostSavings += energyOpportunityWaterCostSavings;
+        };
     }
-    if (assessment.waterCostSavings) {
-        totalNonNebWaterCostSavings += assessment.waterCostSavings;
-    }
-    if (assessment.costSavings) {
-        totalNonNebCostSavings += assessment.costSavings;
+    if (assessment.utilitySavingsByAssessment) {
+        if (assessment.energyCostSavings) {
+            totalNonNebEnergyCostSavings += assessment.energyCostSavings;
+        }
+        if (assessment.waterCostSavings) {
+            totalNonNebWaterCostSavings += assessment.waterCostSavings;
+        }
+        if (assessment.costSavings) {
+            totalNonNebCostSavings += assessment.costSavings;
+        }
     }
 
     let totalAssessmentNebFinancialImpact: number = _.sumBy(assessmentNebReports, (report: NebReport) => {
         return report.totalFinancialImpact
+    });
+    let totalNonKpiCostSavings: number = _.sumBy(assessmentNebReports, (report: NebReport) => {
+        return report.totalNonKpiCostSavings
     });
     let energyOpportunityNebFinancialImpact: number = _.sumBy(energyOpportunityNebReports, (report: NebReport) => {
         return report.totalFinancialImpact
@@ -92,20 +100,21 @@ export function getAssessmentReport(
 
     let totalFinancialImpact: number = totalNonNebCostSavings + totalNebFinancialImpact;
 
-    let opportunityEnergySavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
-        if (report.energyOpportunity.includeSavings &&
-            report.energyOpportunity.utilityCategory == 'energy'
-            && report.energyOpportunity.energySavings) {
-            return report.energyOpportunity.energySavings;
-        }
-        return 0;
-    });
+
 
     let totalEnergySavings: number = 0;
-    if (assessment.energySavings) {
+    if (assessment.utilitySavingsByAssessment && assessment.energySavings) {
         totalEnergySavings += assessment.energySavings;
     }
-    if (opportunityEnergySavings) {
+    if (!assessment.utilitySavingsByAssessment) {
+        let opportunityEnergySavings: number = _.sumBy(energyOpportunityReports, (report: EnergyOpportunityReport) => {
+            if (report.energyOpportunity.includeSavings &&
+                report.energyOpportunity.utilityCategory == 'energy'
+                && report.energyOpportunity.energySavings) {
+                return report.energyOpportunity.energySavings;
+            }
+            return 0;
+        });
         totalEnergySavings += opportunityEnergySavings;
     };
 
@@ -118,10 +127,10 @@ export function getAssessmentReport(
     })
 
     let implementationCost: number = 0;
-    if (energyOpportunityImplementationCost) {
+    if (!assessment.utilitySavingsByAssessment && energyOpportunityImplementationCost) {
         implementationCost += energyOpportunityImplementationCost;
     }
-    if (assessment.implementationCost) {
+    if (assessment.utilitySavingsByAssessment && assessment.implementationCost) {
         implementationCost += assessment.implementationCost;
     }
 
@@ -161,7 +170,7 @@ export function getAssessmentReport(
 
     // Assessment level/Non-Opportunity Cost Savings
     let totalNonOpportunityCostSavings: number = totalAssessmentNebFinancialImpact;
-    if (assessment.costSavings) {
+    if (assessment.costSavings && assessment.utilitySavingsByAssessment) {
         totalNonOpportunityCostSavings += assessment.costSavings;
     }
 
@@ -174,15 +183,8 @@ export function getAssessmentReport(
         nonOpportunityPaybackWithNebs = 0;
     }
 
-    let totalNonKpmNebs: number = 0;
-    allNebReports.forEach(nebReport => {
-        if(nebReport.nonEnergyBenefit.costImpact && nebReport.nonEnergyBenefit.costImpactType == 'annual'){
-            totalNonKpmNebs += nebReport.nonEnergyBenefit.costImpact;
-        }
-    })
-
-
     return {
+        name: assessment.name,
         assessment: assessment,
         energyOpportunityReports: energyOpportunityReports,
         assessmentNebReports: assessmentNebReports,
@@ -207,11 +209,13 @@ export function getAssessmentReport(
         utilityCategory: utilityCategory,
         totalNonOpportunityRebates: totalNonOpportunityRebates,
         totalRebates: totalRebates,
-        totalNonKpmNebs: totalNonKpmNebs
+        finalImplementationCost: implementationCost - totalRebates,
+        totalNonKpiCostSavings: totalNonKpiCostSavings
     }
 }
 
 export interface AssessmentReport {
+    name: string,
     assessment: IdbAssessment,
     energyOpportunityReports: Array<EnergyOpportunityReport>,
     assessmentNebReports: Array<NebReport>,
@@ -234,8 +238,9 @@ export interface AssessmentReport {
     keyPerformanceIndicatorReport: KeyPerformanceIndicatorReport,
     utilityCategory?: string,
     totalRebates: number,
+    finalImplementationCost: number,
     totalNonOpportunityRebates: number,
-    totalNonKpmNebs: number
+    totalNonKpiCostSavings: number
 }
 
 

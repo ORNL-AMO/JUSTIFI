@@ -8,7 +8,6 @@ import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benef
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { IdbReport } from 'src/app/models/report';
 import { SharedDataService } from '../../shared-services/shared-data.service';
-import { getOnSiteVisitReport } from '../calculations/visitReport';
 import { ExecutiveSummaryReport, getExecutiveSummaryReport } from '../calculations/executiveSummaryReport';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';

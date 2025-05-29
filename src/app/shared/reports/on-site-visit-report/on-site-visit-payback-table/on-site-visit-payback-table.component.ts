@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { OnSiteVisitReport } from '../../calculations/visitReport';
 import { Subscription } from 'rxjs';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
+import { faMoneyBillWave, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-on-site-visit-payback-table',
@@ -12,6 +13,8 @@ import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 export class OnSiteVisitPaybackTableComponent {
   @Input({ required: true })
   onSiteVisitReport: OnSiteVisitReport;
+
+  faMoneyBillWave: IconDefinition = faMoneyBillWave;
 
   currencyCode: string;
   currencySub: Subscription;
