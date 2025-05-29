@@ -168,18 +168,36 @@
 <!--DELETE MODAL-->
 <div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
 <div class="popup" [ngClass]="{'open': displayDeleteModal }">
-    <div class="popup-header">Discard this NEB?
+    <div class="popup-header">Discard this
+        <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+            NEB
+        </ng-container>
+        <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
+            Incentive
+        </ng-container>?
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
     </div>
     <div class="popup-body">
         <div class="alert alert-info">
-            Are you sure you want to discard this NEB?
+            Are you sure you want to discard this
+            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+                NEB
+            </ng-container>
+            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
+                Incentive
+            </ng-container>?
         </div>
         <hr>
     </div>
     <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteModal()">Cancel</button>
         <button class="btn btn-danger btn-sm" (click)="deleteNonEnergyBenefit()"><fa-icon [icon]="faTrash"
-                class="me-1"></fa-icon>Discard NEB</button>
+                class="me-1"></fa-icon>Discard
+            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+                NEB
+            </ng-container>
+            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
+                Incentive
+            </ng-container></button>
     </div>
 </div>

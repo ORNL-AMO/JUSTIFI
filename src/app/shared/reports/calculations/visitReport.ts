@@ -66,7 +66,10 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
     });
 
     let totalRebates: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
-        return report.totalRebates
+        if (report.totalRebates) {
+            return report.totalRebates
+        }
+        return 0;
     });
 
     let totalImplementationCost: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {

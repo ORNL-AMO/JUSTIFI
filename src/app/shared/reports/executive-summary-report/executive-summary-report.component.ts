@@ -51,7 +51,6 @@ export class ExecutiveSummaryReportComponent {
     let facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.onSiteVisit?.facilityId);
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
     this.executiveSummaryReport = getExecutiveSummaryReport(this.onSiteVisit.visitDate, this.onSiteVisit.assessmentIds, allAssessments, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, this.report);
-    console.log(this.executiveSummaryReport);
     this.printSub = this.sharedDataService.print.subscribe(_print => {
       this.print = _print;
     })

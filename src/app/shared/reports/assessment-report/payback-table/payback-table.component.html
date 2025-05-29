@@ -35,8 +35,8 @@
                     <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
                 </td>
                 <td class="bg-with-nebs-light">
-                    (<app-single-cell-item [isCurrency]="true"
-                        [numValue]="assessmentReport.totalRebates"></app-single-cell-item>)
+                    <app-single-cell-item [isCurrency]="true"
+                        [numValue]="assessmentReport.totalRebates" [negativeNumber]="true"></app-single-cell-item>
                 </td>
             </tr>
             <tr class="bold">
@@ -140,7 +140,7 @@
                         Implementation<br> Cost ({{ currencyCode | currencySymbol }})
                     </th>
                     <th class="w-25 bg-with-nebs">
-                        Rebates ({{ currencyCode | currencySymbol }})
+                        Incentives ({{ currencyCode | currencySymbol }})
                     </th>
                     <th class="w-25 bg-with-nebs">
                         Final<br> Implementation<br> Cost ({{ currencyCode | currencySymbol }})
@@ -157,8 +157,8 @@
                             [numValue]="energyOpportunityReport.energyOpportunity.implementationCost"></app-single-cell-item>
                     </td>
                     <td class="bg-with-nebs-light">
-                        (<app-single-cell-item [isCurrency]="true"
-                            [numValue]="energyOpportunityReport.totalRebates"></app-single-cell-item>)
+                        <app-single-cell-item [isCurrency]="true"
+                            [numValue]="energyOpportunityReport.totalRebates" [negativeNumber]="true"></app-single-cell-item>
                     </td>
                     <td class="bg-with-nebs-light">
                         <app-single-cell-item [isCurrency]="true"
@@ -173,12 +173,12 @@
                         <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
                     </td>
                     <td class="bg-with-nebs-light">
-                        (<app-single-cell-item [isCurrency]="true"
-                            [numValue]="assessmentReport.totalNonOpportunityRebates"></app-single-cell-item>)
+                        <app-single-cell-item [isCurrency]="true"
+                            [numValue]="assessmentReport.totalNonOpportunityRebates" [negativeNumber]="true"></app-single-cell-item>
                     </td>
                     <td class="bg-with-nebs-light">
-                        (<app-single-cell-item [isCurrency]="true"
-                            [numValue]="assessmentReport.totalNonOpportunityRebates"></app-single-cell-item>)
+                        <app-single-cell-item [isCurrency]="true"
+                            [numValue]="0"></app-single-cell-item>
                     </td>
                 </tr>
             </tbody>
@@ -192,8 +192,8 @@
                             [numValue]="assessmentReport.totalImplementationCost"></app-single-cell-item>
                     </th>
                     <th class="bg-with-nebs">
-                        (<app-single-cell-item [isCurrency]="true"
-                            [numValue]="assessmentReport.totalRebates"></app-single-cell-item>)
+                        <app-single-cell-item [isCurrency]="true"
+                            [numValue]="assessmentReport.totalRebates" [negativeNumber]="true"></app-single-cell-item>
                     </th>
                     <th class="bg-with-nebs">
                         <app-single-cell-item [isCurrency]="true"
