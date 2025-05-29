@@ -1,36 +1,49 @@
 <h6 class="pb-2">
     <div class="d-flex w-100 justify-content-between">
         <div class="mt-auto bold">
-            Non-Energy Benefits
+            Non-Energy Benefits &plus; Incentives
         </div>
-        <div class="dropdown">
-            <button class="btn btn-outline-neb btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false" (click)="toggleAddNebDropdown()">
-                <fa-icon [icon]="faPlus"></fa-icon> Add NEB
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" [ngClass]="{'show': showAddNebDropdown}">
-                <li>
-                    <a class="dropdown-item" (click)="addNEB(false)">
-                        <fa-icon [icon]="faPlus"></fa-icon> Add Custom NEB
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" (click)="openNebModal()">
-                        <fa-icon [icon]="faSearchPlus"></fa-icon> Search NEBs Database
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" (click)="addNEB(true)">
-                        <fa-icon [icon]="faMoneyBillWave"></fa-icon> Add One-time Incentive
-                    </a>
-                </li>
-            </ul>
+        <div class="d-flex">
+            <div class="dropdown">
+                <button class="btn btn-outline-neb btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" (click)="toggleAddNebDropdown()">
+                    <fa-icon [icon]="faPlus"></fa-icon> Add NEB
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" [ngClass]="{'show': showAddNebDropdown}">
+                    <li>
+                        <a class="dropdown-item" (click)="addNEB(false)">
+                            <fa-icon [icon]="faPlus"></fa-icon> Add Custom NEB
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" (click)="openNebModal()">
+                            <fa-icon [icon]="faSearchPlus"></fa-icon> Search NEBs Database
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="ps-1">
+                <button class="btn btn-outline-dark btn-sm" type="button" (click)="addNEB(true)">
+                    <fa-icon [icon]="faPlus"></fa-icon> Add Incentive
+                </button>
+            </div>
         </div>
     </div>
 </h6>
 <p class="fw-light small">
     Use the "<fa-icon [icon]="faPlus"></fa-icon> Add NEB" dropdown to add Non-Energy Benefits
-    (<fa-icon [icon]="faWeightHanging"></fa-icon>) to this assessment. 
+    (<fa-icon [icon]="faWeightHanging"></fa-icon>) to this assessment. Use the "<fa-icon [icon]="faPlus"></fa-icon>
+    Add Incentive" button to add incentives (<fa-icon [icon]="faMoneyBillWave"></fa-icon>) to this assessment.
+    Incentives are one-time savings items like rebates or tax credits that help reduce implementation costs.
+</p>
+
+<p class="fw-light small">
+    <fa-icon [icon]="faBookOpen"></fa-icon> Check out
+    the NREL Knowledge Library for
+    <a href="https://www.nrel.gov/docs/libraries/manufacturing/non-energy-benefits-funding-resources.pdf?sfvrsn=2705593b_0"
+        target="_blank">Non-energy Benefits Funding Resources
+    </a> for potential funding sources.
+
 </p>
 
 <app-neb-forms-accordion [assessment]="assessment"></app-neb-forms-accordion>

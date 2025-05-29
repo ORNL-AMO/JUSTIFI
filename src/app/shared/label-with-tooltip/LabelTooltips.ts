@@ -14,6 +14,9 @@ export const LabelTooltips = {
     "associatedEEM": {
         "tooltip": "Is this NEB realized because of the implementation of a specific energy efficiency measure?"
     },
+    "utilitySavingsByAssessment": {
+        "tooltip": "If the savings cannot be desegregated by energy efficiency measure than enter Assessment Savings."
+    },
     "costImpact": {
         "tooltip": "Add financial impacts not tied to Key Performance Metrics."
     }

@@ -2,3 +2,13 @@
     padding: .25rem;
     font-size: 14px;
 }
+th fa-icon.ng-fa-icon{
+    display: none;
+}
+th.ordered-th fa-icon.ng-fa-icon{
+    display: inline;
+}
+th:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
