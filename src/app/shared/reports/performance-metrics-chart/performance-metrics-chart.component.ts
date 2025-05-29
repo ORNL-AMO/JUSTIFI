@@ -81,7 +81,7 @@ export class PerformanceMetricsChartComponent {
         name: 'Current (' + this.currencySymbol + '/yr)',
         type: 'bar',
         marker: {
-          color: '#e67e22'
+          color: '#4d5656'
         },
         // orientation: 'h'
       };

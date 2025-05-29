@@ -6,4 +6,27 @@ th:not(:first-of-type), td:not(:first-of-type){
 .table td, .table th{
     padding: .25rem;
     font-size: 14px;
+    vertical-align: middle;
+}
+
+.bg-with-nebs{
+    background-color: #085646;
+    color: white;
+}
+
+.bg-without-nebs{
+    background-color: #2e86c1;
+    color: white;
+}
+
+.bg-without-nebs-light{
+    background-color: #aed6f1;
+}
+
+.bg-with-nebs-light{
+    background-color: #a2d9ce;
+}
+
+.bg-neutral{
+    background-color: #abb2b9;
 }

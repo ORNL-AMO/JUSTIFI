@@ -16,3 +16,44 @@ table.ordered .ordered-th {
 table.ordered th:hover {
     cursor: pointer;
 }
+
+.table.table-bordered {
+    border: 1px solid black;
+}  
+
+
+.report .savings-table .bg-with-nebs{
+    background-color: #085646;
+    /* background-color: #0079c2; */
+    color: white;
+}
+
+.report .savings-table .bg-without-nebs{
+    background-color: #4d5656;
+    color: white;
+}
+
+.report .savings-table .bg-without-nebs-light{
+    background-color: #bfc9ca;
+}
+
+.report .savings-table .bg-with-nebs-light{
+    background-color: #d1e7dd;
+    /* background-color: #aed6f1; */
+}
+
+.report .savings-table .bg-neutral{
+    background-color: #34495e;
+    color: white;
+}
+.report .savings-table .bg-neutral-light{
+    background-color: #aeb6bf;
+}
+
+.report .savings-table .text-center{
+    text-align: center;
+}
+
+.w-33{
+    width: 33%;
+}

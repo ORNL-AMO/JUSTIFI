@@ -5,16 +5,13 @@ import { AdditionalEnergyOpportunityReport, EnergyOpportunityReport } from '../.
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
-import { NebReport } from '../../calculations/nebReport';
-import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
-import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
-import { Icon } from '@fortawesome/fontawesome-svg-core';
-import { faMoneyBillWave, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faBullseye, faMoneyBillWave, faSort, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { KeyPerformanceIndicatorReportItem } from '../../calculations/keyPerformanceIndicatorReport';
 
 @Component({
   selector: 'app-executive-summary-project-summary',
   standalone: false,
-  
+
   templateUrl: './executive-summary-project-summary.component.html',
   styleUrl: './executive-summary-project-summary.component.css'
 })
@@ -23,36 +20,31 @@ export class ExecutiveSummaryProjectSummaryComponent {
   executiveSummaryReport: ExecutiveSummaryReport;
 
   faMoneyBillWave: IconDefinition = faMoneyBillWave;
+  faBullseye: IconDefinition = faBullseye;
+  faSort: IconDefinition = faSort;
 
-  allEEMReports: Array<EnergyOpportunityReport>;
-  reducedEEMReports: Array<EnergyOpportunityReport>;
-  additionalEEMReport: AdditionalEnergyOpportunityReport = {
-    name: 'Additional Projects/NEBs',
-    implementationCost: 0,
-    totalEnergyCostSavings: 0,
-    totalWaterCostSavings: 0,
-    totalNonNebCostSavings: 0,
-    totalNebFinancialImpact: 0,
-    totalFinancialImpact: 0,
-  };
-  topKpis: Array<KeyPerformanceIndicatorOption>;
-  limit: number = 4; // limit top KPIs to show
-  orderByField: 'UtilitySavings' | 'PaybackNoNeb' | 'FinancialImpact' | 'PaybackWNeb' = 'FinancialImpact';
+  topKpis: Array<KeyPerformanceIndicatorReportItem>;
+  limit: number = 3; // limit top KPIs to show
+  orderByField: 'totalImplementationCost' | 'totalNonNebCostSavings' | 'totalPaybackWithoutNebs' | 'finalImplementationCost' | 'totalFinancialImpact' | 'totalPaybackWithNebs' = 'totalFinancialImpact';
   orderByDir: 'asc' | 'desc' = 'desc';
 
   currencyCode: string;
   currencySub: Subscription;
+  topReports: Array<TopReportsItem>;
+  additionalReports: AdditionalEnergyOpportunityReport;
+  numberOfProjects: number = 0;
+  limitOptions: Array<number> = [];
 
   constructor(
     private localeService: LocaleService,
   ) { }
 
   ngOnInit() {
-    // Set EEM Reports
-    this.setEEMReports();
+    this.setTopReports();
+    this.setTopKpis()
     // get currency code and symbol
     this.currencySub = this.localeService.currencyCode.subscribe(
-      code => {this.currencyCode = code}
+      code => { this.currencyCode = code }
     );
   }
 
@@ -60,97 +52,126 @@ export class ExecutiveSummaryProjectSummaryComponent {
     this.currencySub.unsubscribe();
   }
 
-  setEEMReports() {
-    // flatten all EEM reports
-    this.allEEMReports = this.executiveSummaryReport.assessmentReports.flatMap(
-      (assessmentReport: AssessmentReport) => {
-        return assessmentReport.energyOpportunityReports;
+  setTopReports() {
+    let allReportItems: Array<TopReportsItem> = [];
+    this.numberOfProjects = 0;
+    this.executiveSummaryReport.assessmentReports.forEach(assessmentReport => {
+      if (assessmentReport.energyOpportunityReports.length) {
+        this.numberOfProjects += assessmentReport.energyOpportunityReports.length;
+      } else {
+        this.numberOfProjects += 1;
       }
-    );
-    // sort and aggregate EEM reports
-    this.sortEEMReports(this.allEEMReports, this.orderByField, this.orderByDir);
-    this.reducedEEMReports = this.orderReduceEEMReportsByCostSavings(this.allEEMReports, this.limit);
+      if (assessmentReport.assessment.utilitySavingsByAssessment) {
+        allReportItems.push({
+          assessmentId: assessmentReport.assessment.guid,
+          report: assessmentReport,
+          type: 'Assessment'
+        });
+      } else {
+        assessmentReport.energyOpportunityReports.forEach(energyOpportunityReport => {
+          allReportItems.push({
+            assessmentId: assessmentReport.assessment.guid,
+            report: energyOpportunityReport,
+            opportunityId: energyOpportunityReport.energyOpportunity.guid,
+            type: 'EEM'
+          });
+        });
+      }
+    });
+    allReportItems = _.orderBy(allReportItems, (item: TopReportsItem) => {
+      return item.report[this.orderByField]
+    }, this.orderByDir)
+    this.topReports = [];
+    this.limitOptions = [];
+    for(let i = 0; i < this.numberOfProjects; i++){
+      this.limitOptions.push(i + 1);}
+
+
+    for (let i = 0; i < this.limit; i++) {
+      if (allReportItems[i]) {
+        this.topReports.push(allReportItems[i])
+      }
+    }
+
+    let totalEnergyCostSavings: number = 0;
+    let totalWaterCostSavings: number = 0;
+    let totalNebFinancialImpact: number = 0;
+    let totalNonNebCostSavings: number = 0;
+    let totalFinancialImpact: number = 0;
+    let totalImplementationCost: number = 0;
+    let totalFinalImplementationCost: number = 0;
+
+    this.executiveSummaryReport.assessmentReports.forEach(assessmentReport => {
+      totalEnergyCostSavings += assessmentReport.totalEnergyCostSavings;
+      totalWaterCostSavings += assessmentReport.totalWaterCostSavings;
+      totalNebFinancialImpact += assessmentReport.totalNebFinancialImpact;
+      totalNonNebCostSavings += assessmentReport.totalNonNebCostSavings;
+      totalFinancialImpact += assessmentReport.totalFinancialImpact;
+      totalImplementationCost += assessmentReport.totalImplementationCost;
+      totalFinalImplementationCost += assessmentReport.finalImplementationCost;
+
+      let inTopReports: Array<TopReportsItem> = this.topReports.filter((report) => {
+        return report.assessmentId == assessmentReport.assessment.guid
+      });
+      inTopReports.forEach((reportItem) => {
+        totalEnergyCostSavings -= reportItem.report.totalEnergyCostSavings;
+        totalWaterCostSavings -= reportItem.report.totalWaterCostSavings;
+        totalNebFinancialImpact -= reportItem.report.totalNebFinancialImpact;
+        totalNonNebCostSavings -= reportItem.report.totalNonNebCostSavings;
+        totalFinancialImpact -= reportItem.report.totalFinancialImpact;
+        totalImplementationCost -= reportItem.report.totalImplementationCost;
+        totalFinalImplementationCost -= reportItem.report.finalImplementationCost;
+      });
+    })
+
+    let paybackWithNebs: number = (totalFinalImplementationCost / totalFinancialImpact);
+    if (paybackWithNebs == Infinity) {
+      paybackWithNebs = 0;
+    }
+    let paybackWithoutNebs: number = (totalImplementationCost / totalNonNebCostSavings);
+    if (paybackWithoutNebs == Infinity) {
+      paybackWithoutNebs = 0;
+    }
+    this.additionalReports = {
+      name: 'Additional Projects/NEBs',
+      implementationCost: totalImplementationCost,
+      totalEnergyCostSavings: totalEnergyCostSavings,
+      totalWaterCostSavings: totalWaterCostSavings,
+      totalNonNebCostSavings: totalNonNebCostSavings,
+      totalNebFinancialImpact: totalNebFinancialImpact,
+      totalFinancialImpact: totalFinancialImpact,
+      finalImplementationCost: totalFinalImplementationCost,
+      totalPaybackWithNebs: paybackWithNebs,
+      totalPaybackWithoutNebs: paybackWithoutNebs
+    }
+  }
+
+  setTopKpis() {
     // filter top 3 KPIs
-    const kpiReportItems = this.executiveSummaryReport.keyPerformanceIndicatorReport.kpiReportItems;
+    let kpiReportItems = this.executiveSummaryReport.keyPerformanceIndicatorReport.kpiReportItems;
     kpiReportItems.sort((a, b) => {
       return b.percentSavings - a.percentSavings;
     });
-    this.topKpis = kpiReportItems.slice(0, this.limit - 1).map(item => item.keyPerformanceIndicator);
-  }
-
-  setOrderByField(orderByField: 'UtilitySavings' | 'PaybackNoNeb' | 'FinancialImpact' | 'PaybackWNeb') {
-    this.orderByField = orderByField;
-    if (orderByField == 'UtilitySavings') {
-      this.orderByDir = 'desc';
-    } else if (orderByField == 'PaybackNoNeb') {
-      this.orderByDir = 'asc';
-    } else if (orderByField == 'FinancialImpact') {
-      this.orderByDir = 'desc';
-    } else if (orderByField == 'PaybackWNeb') {
-      this.orderByDir = 'asc';
-    } else {
-      this.orderByDir = 'desc';
-    }
-    this.sortEEMReports(this.reducedEEMReports, orderByField, this.orderByDir);
-    this.reducedEEMReports = this.orderReduceEEMReportsByCostSavings(this.allEEMReports, this.limit);
-  }
-  sortEEMReports(EEMReports: Array<EnergyOpportunityReport>,
-    orderByField: 'UtilitySavings' | 'PaybackNoNeb' | 'FinancialImpact' | 'PaybackWNeb',
-    orderByDir: 'asc' | 'desc') {
-    EEMReports.sort((a, b) => {
-      if (orderByField == 'UtilitySavings') {
-        return orderByDir == 'asc' ? a.totalNonNebCostSavings - b.totalNonNebCostSavings : b.totalNonNebCostSavings - a.totalNonNebCostSavings;
-      } else if (orderByField == 'PaybackNoNeb') {
-        return orderByDir == 'asc' ? a.paybackWithoutNebs - b.paybackWithoutNebs : b.paybackWithoutNebs - a.paybackWithoutNebs;
-      } else if (orderByField == 'FinancialImpact') {
-        return orderByDir == 'asc' ? a.totalFinancialImpact - b.totalFinancialImpact : b.totalFinancialImpact - a.totalFinancialImpact;
-      } else if (orderByField == 'PaybackWNeb') {
-        return orderByDir == 'asc' ? a.paybackWithNebs - b.paybackWithNebs : b.paybackWithNebs - a.paybackWithNebs;
-      }
-      return 0;
+    kpiReportItems = _.uniqBy(kpiReportItems, (item: KeyPerformanceIndicatorReportItem) => {
+      return item.keyPerformanceIndicator.optionValue
     });
+    this.topKpis = kpiReportItems.slice(0, 3);
   }
 
-  orderReduceEEMReportsByCostSavings(allEEMReports: Array<EnergyOpportunityReport>, limit: number): Array<EnergyOpportunityReport> {
-    if (allEEMReports.length > limit) {
-      const topReports = allEEMReports.slice(0, limit - 1);
-      const otherReports = allEEMReports.slice(limit - 1);
-      // collapse other reports into one report
-      let totalEnergyCostSavings: number = otherReports.reduce((sum, report) => sum + report.totalEnergyCostSavings, 0);
-      let totalWaterCostSavings: number = otherReports.reduce((sum, report) => sum + report.totalWaterCostSavings, 0);
-      let totalNebFinancialImpact: number = otherReports.reduce((sum, report) => sum + report.totalNebFinancialImpact, 0);
-      let totalNonNebCostSavings: number = otherReports.reduce((sum, report) => sum + report.totalNonNebCostSavings, 0);
-      let totalFinancialImpact: number = otherReports.reduce((sum, report) => sum + report.totalFinancialImpact, 0);
-      let totalImplementationCost: number = otherReports.reduce((sum, report) => sum + report.energyOpportunity.implementationCost, 0);
-      let paybackWithNebs: number = (totalImplementationCost / totalFinancialImpact);
-      if (paybackWithNebs == Infinity) {
-          paybackWithNebs = 0;
-      }
-      let paybackWithoutNebs: number = (totalImplementationCost / totalNonNebCostSavings);
-      if (paybackWithoutNebs == Infinity) {
-          paybackWithoutNebs = 0;
-      }
-      this.additionalEEMReport = {
-        ...this.additionalEEMReport,
-        implementationCost: totalImplementationCost,
-        totalEnergyCostSavings: totalEnergyCostSavings,
-        totalWaterCostSavings: totalWaterCostSavings,
-        totalNonNebCostSavings: totalNonNebCostSavings,
-        totalNebFinancialImpact: totalNebFinancialImpact + this.executiveSummaryReport.totalAssessmentNebFinancialImpact,
-        totalFinancialImpact: totalFinancialImpact + this.executiveSummaryReport.totalAssessmentNebFinancialImpact,
-      }
-      return [...topReports];
+  setOrderByField(orderByField: 'totalImplementationCost' | 'totalNonNebCostSavings' | 'totalPaybackWithoutNebs' | 'finalImplementationCost' | 'totalFinancialImpact' | 'totalPaybackWithNebs') {
+    if (orderByField == this.orderByField) {
+      this.orderByDir = this.orderByDir == 'asc' ? 'desc' : 'asc';
     } else {
-      this.additionalEEMReport = {
-        ...this.additionalEEMReport,
-        implementationCost: 0,
-        totalEnergyCostSavings: 0,
-        totalWaterCostSavings: 0,
-        totalNonNebCostSavings: 0,
-        totalNebFinancialImpact: this.executiveSummaryReport.totalAssessmentNebFinancialImpact,
-        totalFinancialImpact: this.executiveSummaryReport.totalAssessmentNebFinancialImpact,
-      };
-      return allEEMReports;
+      this.orderByField = orderByField;
     }
+    this.setTopReports();
   }
+}
+
+
+export interface TopReportsItem {
+  report: EnergyOpportunityReport | AssessmentReport,
+  assessmentId: string,
+  opportunityId?: string,
+  type: 'EEM' | 'Assessment'
 }
