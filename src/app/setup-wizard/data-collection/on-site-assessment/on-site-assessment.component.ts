@@ -34,17 +34,14 @@ export class OnSiteAssessmentComponent {
   displayAddNebsModal: { energyOpportunityId: string, assessmentId: string };
   displayAddNebsModalSub: Subscription;
 
-  textNext: string = 'EEMs';
-  textBack: string = 'Manage Assessments';
-  setBtnTxtSidebarSub: Subscription;
-  flagSub: Subscription;
-  flag: boolean = false;
+  backLabel: string;
+  nextLabel: string;
+  routerSub: Subscription;
 
   constructor(private router: Router, private assessmentIdbService: AssessmentIdbService,
     private activatedRoute: ActivatedRoute,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private sharedDataService: SharedDataService,
-    private setupWizardService: SetupWizardService
+    private sharedDataService: SharedDataService
   ) { }
 
   ngOnInit() {
@@ -75,26 +72,14 @@ export class OnSiteAssessmentComponent {
         console.log('visit does not exist. Nav back to getting started..');
         this.router.navigateByUrl('/welcome');
       }
+      this.setBackLabel();
+      this.setNextLabel();
     });
 
-    this.flagSub = this.setupWizardService.flag.subscribe(flag => {
-      this.flag = flag;
-      this.setBtnTxtSidebarSub = this.setupWizardService.btnText.subscribe(value => {
-        if (this.flag) {
-          this.setTextOnSidebarClick(value);
-        }
-      });
-    });
-
-    this.activatedRoute.params.subscribe(params => {
-      let assessmentGUID: string = params['id'];
-      if (this.onSiteVisit && this.onSiteVisit.assessmentIds) {
-        this.assessmentIndex = this.onSiteVisit.assessmentIds.findIndex(_assessmentGuid => { return _assessmentGuid == assessmentGUID });
-        this.setBtnTxtSidebarSub = this.setupWizardService.btnText.subscribe(value => {
-          if (this.flag) {
-            this.setTextOnSidebarClick(value);
-          }
-        });
+    this.routerSub = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.setBackLabel();
+        this.setNextLabel();
       }
     });
   }
@@ -103,8 +88,7 @@ export class OnSiteAssessmentComponent {
     this.assessmentSub.unsubscribe();
     this.onSiteVisitSub.unsubscribe();
     this.displayAddNebsModalSub.unsubscribe();
-    this.setBtnTxtSidebarSub.unsubscribe();
-    this.flagSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   goToNextAssessment() {
@@ -112,7 +96,6 @@ export class OnSiteAssessmentComponent {
   }
 
   goBack() {
-    this.setTextOnBack();
     if (this.router.url.includes('details')) {
       if (this.assessmentIndex != 0) {
         this.navigateToOnSiteAssessment(this.onSiteVisit.assessmentIds[this.assessmentIndex - 1], 'nebs');
@@ -135,7 +118,6 @@ export class OnSiteAssessmentComponent {
   }
 
   goToNext() {
-    this.setTextOnNext();
     if (this.router.url.includes('details')) {
       this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/energy-opportunities');
     } else if (this.router.url.includes('energy-opportunities')) {
@@ -151,94 +133,35 @@ export class OnSiteAssessmentComponent {
     }
   }
 
-  setTextOnTabChange(textNext: string, textBack: string) {
-    this.flag = false;
-    this.textNext = textNext;
-    this.textBack = textBack;
-    if (textNext == 'Details') {
-      if (this.assessmentIndex == this.onSiteVisit.assessmentIds.length - 1) {
-        this.textNext = 'Data Evaluation';
-      }
-      else
-        this.textNext = 'Next Assessment';
-    }
-    if (textBack == 'NEBs') {
-      if (this.assessmentIndex == 0) {
-        this.textBack = 'Manage Assessments';
-      }
-      else
-        this.textBack = 'Previous Assessment'
-    }
-  }
-
-  setTextOnNext() {
-    this.flag = false;
+  setBackLabel() {
     if (this.router.url.includes('details')) {
-      this.textNext = 'NEBs';
-      this.textBack = 'Details';
-    }
-    else if (this.router.url.includes('energy-opportunities')) {
-      this.textNext = 'Next Assessment';
-      this.textBack = 'EEMs';
-    }
-    else if (this.router.url.includes('nebs')) {
-      this.textNext = 'EEMs';
-      this.textBack = 'Previous Assessment';
-    }
-    if (this.router.url.includes('energy-opportunities')) {
-      if (this.assessmentIndex == this.onSiteVisit.assessmentIds.length - 1) {
-        this.textNext = 'Data Evaluation';
+      if (this.assessmentIndex != 0) {
+        this.backLabel = 'Previous Assessment';
+      } else {
+        this.backLabel = 'Manage Assessments';
       }
+    } else if (this.router.url.includes('energy-opportunities')) {
+      this.backLabel = 'Details';
+    } else if (this.router.url.includes('nebs')) {
+      //EEM or Energy Efficiency Measures ?
+      this.backLabel = 'Energy Efficiency Measures';
     }
   }
 
-  setTextOnBack() {
-    this.flag = false;
-    if (this.router.url.includes('nebs')) {
-      this.textNext = 'NEBs';
-      this.textBack = 'Details';
-    }
-    else if (this.router.url.includes('energy-opportunities')) {
-      this.textNext = 'EEMs';
-      this.textBack = 'Previous Assessment';
-    }
-    else if (this.router.url.includes('details')) {
-      this.textNext = 'Next Assessment';
-      this.textBack = 'EEMs';
-    }
-    if (this.router.url.includes('energy-opportunities')) {
-      if (this.assessmentIndex == 0) {
-        this.textBack = 'Manage Assessments';
-      }
-    }
-  }
-
-  setTextOnSidebarClick(text: string) {
-    if (text == 'NEBs') {
-      if (this.assessmentIndex == this.onSiteVisit.assessmentIds.length - 1) {
-        this.textNext = 'Data Evaluation';
-        this.textBack = 'EEMs';
+  setNextLabel() {
+    if (this.router.url.includes('details')) {
+      //EEM or Energy Efficiency Measures ?
+      this.nextLabel = 'Energy Efficiency Measures';
+    } else if (this.router.url.includes('energy-opportunities')) {
+      //incoming changes will have + Incentives
+      this.nextLabel = 'NEBs + Incentives';
+    } else if (this.router.url.includes('nebs')) {
+      if (this.assessmentIndex != this.onSiteVisit.assessmentIds.length - 1) {
+        this.nextLabel = 'Next Assessment';
       }
       else {
-        this.textNext = 'Next Assessment';
-        this.textBack = 'EEMs';
+        this.nextLabel = 'Review Data Collection';
       }
-    }
-
-    if (text == 'Details') {
-      if (this.assessmentIndex == 0) {
-        this.textBack = 'Manage Assessments';
-        this.textNext = 'EEMs';
-      }
-      else {
-        this.textNext = 'EEMs';
-        this.textBack = 'Previous Assessment'
-      }
-    }
-
-    if (text == 'EEMs') {
-      this.textNext = 'NEBs';
-      this.textBack = 'Details';
     }
   }
 }
