@@ -65,6 +65,13 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         return report.assessment.cost
     });
 
+    let utilityCategory: 'energy' | 'water' = 'energy';
+    assessmentReports.forEach(report => {
+        if (report.utilityCategory === 'water') {
+            utilityCategory = 'water';
+        }
+    });
+
     let totalRebates: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
         if (report.totalRebates) {
             return report.totalRebates
@@ -100,6 +107,7 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         totalWaterCostSavings: totalWaterCostSavings,
         totalFinancialImpact: totalFinancialImpact,
         totalUtilityCosts: totalUtilityCosts,
+        utilityCategory: utilityCategory,
         totalPaybackWithNebs: totalPaybackWithNebs,
         totalPaybackWithoutNebs: totalPaybackWithoutNebs,
         totalImplementationCost: totalImplementationCost,
@@ -120,6 +128,7 @@ export interface OnSiteVisitReport {
     totalEnergyCostSavings: number,
     totalWaterCostSavings: number,
     totalUtilityCosts: number,
+    utilityCategory?: 'energy' | 'water',
     totalFinancialImpact: number,
     totalImplementationCost: number,
     totalPaybackWithoutNebs: number,

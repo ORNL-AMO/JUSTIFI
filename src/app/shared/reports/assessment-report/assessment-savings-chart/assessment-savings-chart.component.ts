@@ -62,13 +62,14 @@ export class AssessmentSavingsChartComponent {
 
   drawTotalSavingsChart() {
     if (this.totalSavingsChart) {
+      let costSavingLabel: string = this.assessmentReport.utilityCategory === 'energy' ? 'Energy Cost Savings' : 'Utility Cost Savings';
       var trace1 = {
-        y: ['Utility Cost Savings'],
+        y: [costSavingLabel],
         x: [this.assessmentReport.totalNonNebCostSavings],
         // width: [.5],
         text: [this.assessmentReport.totalNonNebCostSavings],
         texttemplate: this.currencyUnicode + "%{text:,.0f}",
-        name: 'Utility Cost Savings',
+        name: costSavingLabel,
         type: 'bar',
         marker: {
           color: '#2e86c1'
