@@ -105,11 +105,16 @@ export class NebsDatabaseTableComponent {
 
   filterKeywordList() {
     const searchStr = this.nebSearchStr.toLowerCase().trim();
-    const keywordMatched = _.uniq(
-      this.keywordList.filter(keyword =>
-        keyword.toLowerCase().startsWith(searchStr)
-      )
+    // keyword matching: start with the search string
+    const keywordsStartsWith = this.keywordList.filter(keyword =>
+      keyword.toLowerCase().startsWith(searchStr)
     );
+    // keyword matching: contains the search string
+    const keywordContains = this.keywordList.filter(keyword =>
+      !keyword.toLowerCase().startsWith(searchStr) && keyword.toLowerCase().includes(searchStr)
+    );
+    // combine the two lists
+    const keywordMatched = _.uniq([...keywordsStartsWith, ...keywordContains]);
     this.filteredKeywordList = keywordMatched.slice(0, 10); // limit to 10 matches
     if (keywordMatched.length > 10) {
       this.filteredKeywordList.push('...');
