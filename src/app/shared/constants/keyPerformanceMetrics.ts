@@ -118,7 +118,8 @@ export type KeyPerformanceMetricValue =
     'powerFactorCosts' |
     'mobileFuelEmissions'|
     'processEmissions' |
-    'reduceRegulatoryFees';
+    'reduceRegulatoryFees' | 
+    'utilityCosts';
 
 
 export type KpmCalculationMethod = 'costPerUnit' | 'percentTotal' | 'directCost';

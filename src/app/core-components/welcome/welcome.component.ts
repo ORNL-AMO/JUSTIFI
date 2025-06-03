@@ -106,7 +106,7 @@ export class WelcomeComponent {
     this.companyIdbService.setSelectedFromGUID(visit.companyId);
     this.facilityIdbService.setSelectedFromGUID(visit.facilityId);
     this.onSiteVisitIdbService.setSelectedFromGUID(visit.guid);
-    this.sharedDataService.createAssessmentModalOpen.next(true);
+    this.router.navigateByUrl('/setup-wizard/pre-visit/' + visit.guid);
   }
 
   openAddExampleModal() {

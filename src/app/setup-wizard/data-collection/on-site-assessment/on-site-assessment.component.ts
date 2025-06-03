@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { IconDefinition, faChevronLeft, faChevronRight, faPlus, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import { IdbAssessment } from 'src/app/models/assessment';
-import { Subscription } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { ContactContext, IdbContact } from 'src/app/models/contact';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
+import { SetupWizardService } from '../../setup-wizard.service';
 
 @Component({
-    selector: 'app-on-site-assessment',
-    templateUrl: './on-site-assessment.component.html',
-    styleUrl: './on-site-assessment.component.css',
-    standalone: false
+  selector: 'app-on-site-assessment',
+  templateUrl: './on-site-assessment.component.html',
+  styleUrl: './on-site-assessment.component.css',
+  standalone: false
 })
 export class OnSiteAssessmentComponent {
 
@@ -32,6 +33,10 @@ export class OnSiteAssessmentComponent {
 
   displayAddNebsModal: { energyOpportunityId: string, assessmentId: string };
   displayAddNebsModalSub: Subscription;
+
+  backLabel: string;
+  nextLabel: string;
+  routerSub: Subscription;
 
   constructor(private router: Router, private assessmentIdbService: AssessmentIdbService,
     private activatedRoute: ActivatedRoute,
@@ -52,7 +57,6 @@ export class OnSiteAssessmentComponent {
       this.displayAddNebsModal = _displayAddNebsModal;
     });
 
-
     this.activatedRoute.params.subscribe(params => {
       let assessmentGUID: string = params['id'];
       if (this.onSiteVisit && this.onSiteVisit.assessmentIds) {
@@ -68,6 +72,15 @@ export class OnSiteAssessmentComponent {
         console.log('visit does not exist. Nav back to getting started..');
         this.router.navigateByUrl('/welcome');
       }
+      this.setBackLabel();
+      this.setNextLabel();
+    });
+
+    this.routerSub = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.setBackLabel();
+        this.setNextLabel();
+      }
     });
   }
 
@@ -75,6 +88,7 @@ export class OnSiteAssessmentComponent {
     this.assessmentSub.unsubscribe();
     this.onSiteVisitSub.unsubscribe();
     this.displayAddNebsModalSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   goToNextAssessment() {
@@ -115,6 +129,38 @@ export class OnSiteAssessmentComponent {
         //TODO: Issue 226
         // this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/review-data-collection');
         this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid);
+      }
+    }
+  }
+
+  setBackLabel() {
+    if (this.router.url.includes('details')) {
+      if (this.assessmentIndex != 0) {
+        this.backLabel = 'Previous Assessment';
+      } else {
+        this.backLabel = 'Manage Assessments';
+      }
+    } else if (this.router.url.includes('energy-opportunities')) {
+      this.backLabel = 'Details';
+    } else if (this.router.url.includes('nebs')) {
+      //EEM or Energy Efficiency Measures ?
+      this.backLabel = 'Energy Efficiency Measures';
+    }
+  }
+
+  setNextLabel() {
+    if (this.router.url.includes('details')) {
+      //EEM or Energy Efficiency Measures ?
+      this.nextLabel = 'Energy Efficiency Measures';
+    } else if (this.router.url.includes('energy-opportunities')) {
+      //incoming changes will have + Incentives
+      this.nextLabel = 'NEBs + Incentives';
+    } else if (this.router.url.includes('nebs')) {
+      if (this.assessmentIndex != this.onSiteVisit.assessmentIds.length - 1) {
+        this.nextLabel = 'Next Assessment';
+      }
+      else {
+        this.nextLabel = 'Review Data Collection';
       }
     }
   }

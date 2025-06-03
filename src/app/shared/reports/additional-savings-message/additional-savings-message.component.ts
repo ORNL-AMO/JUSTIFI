@@ -17,6 +17,8 @@ export class AdditionalSavingsMessageComponent {
   onSiteVisitReport: OnSiteVisitReport;
   @Input({required: true})
   context: 'onSiteVisit' | 'assessment';
+  @Input()
+  includesKpiTable: boolean;
 
   faExclamationCircle: IconDefinition = faExclamationCircle;
   faMoneyBillWave: IconDefinition = faMoneyBillWave;

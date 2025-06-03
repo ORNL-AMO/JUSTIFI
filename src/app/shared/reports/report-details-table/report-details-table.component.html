@@ -1,38 +1,32 @@
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th colspan="2">
-                <ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentBlock">
-                    On Site Details
-                </ng-template>
-                <ng-template #assessmentBlock>
-                    Assessment Details
-                </ng-template>
-            </th>
-        </tr>
-    </thead>
+<ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentTitle">
+   <h6 class="bold">On Site Details</h6>
+</ng-template>
+<ng-template #assessmentTitle>
+    <h6 class="bold">Assessment Details</h6>
+</ng-template>
+<table class="table table-bordered table-hover savings-table">
     <tbody>
         <tr>
-            <td class="w-50">
+            <td class="w-50 bg-neutral-light">
                 Company
             </td>
-            <td>
+            <td class="bg-neutral-light">
                 {{company.generalInformation.name}}
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="bg-neutral-light">
                 Facility
             </td>
-            <td>
+            <td class="bg-neutral-light">
                 {{facility.generalInformation.name}}
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="bg-neutral-light">
                 Visit Date
             </td>
-            <td>
+            <td class="bg-neutral-light">
                 <ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentVisitDateBlock">
                     {{onSiteVisit.visitDate | date}}
                 </ng-template>
@@ -42,10 +36,10 @@
             </td>
         </tr>
         <tr *ngIf="onSiteVisitReport">
-            <td>
+            <td class="bg-neutral-light">
                 Assessments
             </td>
-            <td>
+            <td class="bg-neutral-light">
                 <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
                     <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
                     {{assessmentReport.assessment.name}}<br>
@@ -63,18 +57,18 @@
         </tr> -->
         <ng-container *ngIf="assessment">
             <tr>
-                <td>
+                <td class="bg-neutral-light">
                     Assessment Type
                 </td>
-                <td>
+                <td class="bg-neutral-light">
                     {{assessment.assessmentType}}
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="bg-neutral-light">
                     Utility Types
                 </td>
-                <td>
+                <td class="bg-neutral-light">
 
                     <ng-container *ngFor="let utilityType of assessment.utilityEnergyUses">
                         <ng-container *ngIf="utilityType.include">

@@ -8,6 +8,7 @@ import { ExecutiveSummaryKpiImpactsComponent } from './executive-summary-kpi-imp
 import { CurrencySymbolPipe } from '../../helper-pipes/currency-symbol.pipe';
 import { TableEntriesModule } from '../../table-entries/table-entries.module';
 import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('ExecutiveSummaryReportComponent', () => {
   let component: ExecutiveSummaryReportComponent;
@@ -18,6 +19,7 @@ describe('ExecutiveSummaryReportComponent', () => {
       imports: [
         TableEntriesModule,
         HelperPipesModule,
+        FontAwesomeModule
       ],
       declarations: [
         ExecutiveSummaryReportComponent,

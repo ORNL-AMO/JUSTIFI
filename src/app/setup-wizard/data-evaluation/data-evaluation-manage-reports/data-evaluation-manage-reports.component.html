@@ -49,10 +49,12 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
+            Rollup Report
         </button>
 
         <ng-template [ngIf]="onSiteReports.length != 0" [ngIfElse]="noReportsFooterBlock">
             <button class="btn nav-btn btn-sm" (click)="goToReport(onSiteReports[0].guid)">
+                Report
                 <fa-icon [icon]="faChevronRight"></fa-icon>
             </button>
         </ng-template>

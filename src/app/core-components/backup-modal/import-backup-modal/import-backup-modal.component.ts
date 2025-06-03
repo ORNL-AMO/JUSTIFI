@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { BackupDataService, BackupFile } from 'src/app/shared/shared-services/backup-data.service';
-import { LoadingService } from '../loading/loading.service';
+import { LoadingService } from '../../loading/loading.service';
 import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
 import { IdbUser } from 'src/app/models/user';
 import { Subscription } from 'rxjs';
-import { ImportBackupModalService } from './import-backup-modal.service';
+import { BackupModalService } from '../backup-modal.service';
 import { environment } from 'src/environments/environment';
 import { UpdateDbEntriesService } from 'src/app/indexed-db/update-db-entries.service';
 
@@ -34,14 +34,14 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
     private backupDataService: BackupDataService,
     private dbChangesService: DbChangesService,
     private router: Router,
-    private importBackupModalService: ImportBackupModalService,
+    private backupModalService: BackupModalService,
     private updateDbEntriesService: UpdateDbEntriesService
   ) {
 
   }
 
   ngOnInit(): void {
-    this.showImportModalSub = this.importBackupModalService.showImportModal.subscribe(value => {
+    this.showImportModalSub = this.backupModalService.showImportModal.subscribe(value => {
       this.showImportModal = value;
       if (this.showImportModal) {
         // Load current user
@@ -63,7 +63,7 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
   }
 
   cancelImportBackup() {
-    this.importBackupModalService.showImportModal.next(false);
+    this.backupModalService.showImportModal.next(false);
     this.importFile = undefined;
     this.importFileError = undefined;
     (document.getElementById('selectImportFile') as HTMLInputElement).value = '';

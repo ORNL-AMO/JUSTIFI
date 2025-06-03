@@ -33,6 +33,8 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
+            <span *ngIf="isFirstReport"> Manage Custom Reports</span>
+            <span *ngIf="!isFirstReport"> Previous Report</span>
         </button>
         <button class="btn btn-success btn-sm" (click)="togglePrint()">
             <fa-icon [icon]="faFilePdf"></fa-icon>
@@ -40,6 +42,7 @@
         </button>
         <ng-template [ngIf]="!isLastReport" [ngIfElse]="goToPortfolioBlock">
             <button class="btn nav-btn btn-sm" (click)="goToNext()">
+                Next Report
                 <fa-icon [icon]="faChevronRight"></fa-icon>
             </button>
         </ng-template>

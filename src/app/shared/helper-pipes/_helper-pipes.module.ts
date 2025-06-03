@@ -50,6 +50,7 @@ import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
 import { OnSiteReportsListPipe } from './on-site-reports-list.pipe';
 import { KpmImpactLabelPipe } from './kpm-impact-label.pipe';
 import { ReportTypeDisplayPipe } from './report-type-display.pipe';
+import { IsUtilityTrackedPipe } from './is-utility-tracked.pipe';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { ReportTypeDisplayPipe } from './report-type-display.pipe';
     FormatPlaceholderTextPipe,
     OnSiteReportsListPipe,
     KpmImpactLabelPipe,
-    ReportTypeDisplayPipe
+    ReportTypeDisplayPipe,
+    IsUtilityTrackedPipe
   ],
   imports: [
     CommonModule
@@ -158,7 +160,8 @@ import { ReportTypeDisplayPipe } from './report-type-display.pipe';
     FormatPlaceholderTextPipe,
     OnSiteReportsListPipe,
     KpmImpactLabelPipe,
-    ReportTypeDisplayPipe
+    ReportTypeDisplayPipe,
+    IsUtilityTrackedPipe
   ]
 })
 export class HelperPipesModule { }
