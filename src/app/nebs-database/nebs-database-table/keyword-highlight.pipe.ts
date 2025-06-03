@@ -9,12 +9,12 @@ export class KeywordHighlightPipe implements PipeTransform {
 
   transform(keyword: string, searchStr: string): string {
     if (!searchStr) return keyword;
-    const idx = keyword.toLowerCase().indexOf(searchStr.toLowerCase());
-    if (idx === -1) return keyword;
-    const before = keyword.substring(0, idx);
-    const match = keyword.substring(idx, idx + searchStr.length);
-    const after = keyword.substring(idx + searchStr.length);
-    return `${before}<b>${match}</b>${after}`;
+    const lowerStr = searchStr.toLowerCase();
+    return keyword.replace(/\w+/g, (word) => {
+      if (word.toLowerCase().startsWith(lowerStr)) {
+        return `<b>${word.substring(0, lowerStr.length)}</b>${word.substring(lowerStr.length)}`;
+      }
+      return word;
+    });
   }
-
 }
