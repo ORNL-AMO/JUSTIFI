@@ -5,10 +5,10 @@ import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.serv
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-    selector: 'app-data-follow-up',
-    templateUrl: './data-follow-up.component.html',
-    styleUrl: './data-follow-up.component.css',
-    standalone: false
+  selector: 'app-data-follow-up',
+  templateUrl: './data-follow-up.component.html',
+  styleUrl: './data-follow-up.component.css',
+  standalone: false
 })
 export class DataFollowUpComponent {
 
@@ -28,12 +28,16 @@ export class DataFollowUpComponent {
   }
 
   goNext() {
-    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/assessment-report/' + this.onSiteVisit.assessmentIds[0]);
+    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/executive-summary');
   }
 
   goBack() {
     //TODO: Issue 226
     // this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/review-data-collection');
-    this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.onSiteVisit.assessmentIds[this.onSiteVisit.assessmentIds.length - 1] + '/results');
+    if (this.onSiteVisit.assessmentIds.length === 0) {
+      this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/manage-assessments')
+    } else {
+      this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.onSiteVisit.assessmentIds[this.onSiteVisit.assessmentIds.length - 1] + '/nebs');
+    }
   }
 }

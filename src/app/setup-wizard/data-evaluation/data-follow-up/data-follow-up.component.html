@@ -23,16 +23,13 @@
         <div class="col-3">
             <button class="btn nav-btn btn-sm" (click)="goBack()">
                 <fa-icon [icon]="faChevronLeft"></fa-icon>
-                <span class="d-md-none">
-                    Back
-                </span>
+                Back
             </button>
         </div>
         <div class="col-3">
             <div class="d-flex  justify-content-end">
-                <button class="btn nav-btn btn-sm" (click)="goNext()"
-                    [disabled]="onSiteVisit.assessmentIds.length == 0">
-                    Assessment Report
+                <button class="btn nav-btn btn-sm" (click)="goNext()">
+                    Executive Summary
                     <fa-icon [icon]="faChevronRight"></fa-icon>
                 </button>
             </div>
