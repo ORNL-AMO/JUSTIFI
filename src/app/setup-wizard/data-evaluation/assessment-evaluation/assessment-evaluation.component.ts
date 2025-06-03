@@ -90,7 +90,7 @@ export class AssessmentEvaluationComponent {
       this.navigateToAssessmentReport(this.onSiteVisit.assessmentIds[this.assessmentIndex - 1]);
     } else {
       this.isFirstAssessment = true;
-      this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/follow-up');
+      this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/executive-summary');
     }
   }
 
