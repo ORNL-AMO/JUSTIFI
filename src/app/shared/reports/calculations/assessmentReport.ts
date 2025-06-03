@@ -135,8 +135,11 @@ export function getAssessmentReport(
     }
 
     // update utilityCategory based on assessment and EEMs
-    let utilityCategory: string = assessment.utilityCategory;
-    if (utilityCategory == 'energy') {
+    let utilityCategory: string;
+    if (assessment.utilitySavingsByAssessment) {
+        utilityCategory = assessment.utilityCategory;
+    } else {
+        utilityCategory = 'energy';
         for (const report of energyOpportunityReports) {
             if (report.energyOpportunity.utilityCategory == 'water') {
                 utilityCategory = 'water';
