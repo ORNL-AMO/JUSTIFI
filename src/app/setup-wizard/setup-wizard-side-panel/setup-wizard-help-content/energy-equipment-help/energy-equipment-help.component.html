@@ -19,7 +19,7 @@
     </p>
     <hr>
 </ng-template>
-<ng-template [ngIf]="focusedHelp == 'utlityType'">
+<ng-template [ngIf]="focusedHelp == 'utilityType'">
     <p>
         <span class="bold">Utility Type</span> sets the units available for <span class="bold">Total
             Size</span>.
@@ -32,13 +32,23 @@
     </p>
     <hr>
 </ng-template>
-<ng-template [ngIf]="focusedHelp == 'fuelConsumption'">
-    <!--NEEDED-->
-    <!-- <p>
-        <span class="bold">Operating Hours</span> refers to the hours the equipment (not the entire facility) is
-        operating.
+<ng-template [ngIf]="focusedHelp == 'fuelConsumptionCompressedAir'">
+    <p>
+        <span class="bold">Consumption Rate</span> refers to the amount of compressed air used over one hour..
     </p>
-    <hr> -->
+    <hr>
+</ng-template>
+<ng-template [ngIf]="focusedHelp == 'fuelConsumptionOtherFuels'">
+    <p>
+        <span class="bold">Consumption Rate</span> refers to the amount of fuels consumed over one hour..
+    </p>
+    <hr>
+</ng-template>
+<ng-template [ngIf]="focusedHelp == 'fuelConsumptionSteam'">
+    <p>
+        <span class="bold">Consumption Rate</span> refers to the amount of steam used over one hour.
+    </p>
+    <hr>
 </ng-template>
 <ng-template [ngIf]="focusedHelp == 'heatingValue'">
     <!--NEEDED-->
