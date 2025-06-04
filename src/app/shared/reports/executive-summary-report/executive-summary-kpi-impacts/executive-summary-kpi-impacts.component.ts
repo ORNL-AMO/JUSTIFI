@@ -110,6 +110,7 @@ export class ExecutiveSummaryKpiImpactsComponent {
     this.kpiReportRevenueItems = this.kpiReportItems.filter(item => {
       return item.revenue > 0
     });
+    this.limitOptions = Array.from({ length: Math.max(this.kpiReportCostItems.length, this.kpiReportRevenueItems.length) }, (_, i) => i + 1);
     this.orderReportItems();
   }
 
