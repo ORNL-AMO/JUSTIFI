@@ -60,13 +60,14 @@ export class OnSiteVisitSavingsChartComponent {
 
   drawTotalSavaingsChart() {
     if (this.onSiteVisitSavingsChart) {
+      let costSavingLabel = this.onSiteVisitReport.utilityCategory === 'energy' ? 'Energy Cost Savings' : 'Utility Cost Savings';
       var trace1 = {
-        y: ['Utility Cost Savings'],
+        y: [costSavingLabel],
         x: [this.onSiteVisitReport.totalNonNebCostSavings],
         // width: [.5],
         text: [this.onSiteVisitReport.totalNonNebCostSavings],
         texttemplate: this.currencyUnicode + "%{text:,.0f}",
-        name: 'Utility Cost Savings',
+        name: costSavingLabel,
         type: 'bar',
         marker: {
           color: '#2e86c1'

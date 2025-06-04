@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +45,4 @@ export class SetupWizardService {
     this.sidebarWidth = val;
     this.localStorageService.store("sidebarWidth", val);
   }
-
 }

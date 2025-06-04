@@ -46,11 +46,15 @@ export class ExecutiveSummaryEvaluationComponent {
   }
 
   goNext() {
-    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/custom-report');
+    if (this.onSiteVisit.assessmentIds.length == 0) {
+      this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/visit-report');
+    } else {
+      this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/assessment-report/' + this.onSiteVisit.assessmentIds[0]);
+    }
   }
 
   goBack() {
-    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/assessment-report/visit-report');
+    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/follow-up');
   }
 
   togglePrint() {

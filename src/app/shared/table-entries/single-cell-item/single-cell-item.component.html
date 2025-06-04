@@ -12,25 +12,24 @@
 
     <ng-template #numValueBlock>
         <ng-template [ngIf]="!isCurrency" [ngIfElse]="currencyBlock">
-            <span [ngClass]="{'negative-number': negativeNumber}">
+            <span>
                 {{ negativeNumber ?
-                    '(' + (numValue | number:numValueDigits) + ')'
-                    : numValue | number:numValueDigits }}
+                '(' + (numValue | number:numValueDigits) + ')'
+                : numValue | number:numValueDigits }}
             </span>
         </ng-template>
         <ng-template #currencyBlock>
-            <span [ngClass]="{'negative-number': negativeNumber}">
-                {{ negativeNumber ? 
-                    '(' + (numValue | currency : currencyCode : 'symbol' : numValueDigits) + ')'
-                    : numValue | currency : currencyCode : 'symbol' : numValueDigits }}
+            <span>
+                {{ negativeNumber ?
+                '(' + (numValue | currency : currencyCode : 'symbol' : numValueDigits) + ')'
+                : numValue | currency : currencyCode : 'symbol' : numValueDigits }}
             </span>
         </ng-template>
         <ng-template [ngIf]="units && !per">
-            <span [ngClass]="{'negative-number': negativeNumber}" [innerHTML]="units | unitsDisplay"></span>
+            <span [innerHTML]="units | unitsDisplay"></span>
         </ng-template>
         <ng-template [ngIf]="units && per">
-            <span [ngClass]="{'negative-number': negativeNumber}"
-                [innerHTML]="units | unitsDisplay"></span>/<span [innerHTML]="per | unitsDisplay"></span>
+            <span [innerHTML]="units | unitsDisplay"></span>/<span [innerHTML]="per | unitsDisplay"></span>
         </ng-template>
         <ng-template [ngIf]="isCurrency && per">
             /<span [innerHTML]="per | unitsDisplay"></span>

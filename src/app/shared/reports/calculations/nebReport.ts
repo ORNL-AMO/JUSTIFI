@@ -43,7 +43,15 @@ export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, facilityPerf
         }
     });
     let totalRevenue: number = 0;
-    let totalCostDecrease: number = nonEnergyBenefit.costImpact || 0;
+    let totalCostDecrease: number = 0;
+    let totalRebates: number = 0;
+    let totalNonKpiCostSavings: number = 0;
+    if (nonEnergyBenefit.costImpactType == 'annual' && nonEnergyBenefit.costImpact) {
+        totalCostDecrease = nonEnergyBenefit.costImpact;
+        totalNonKpiCostSavings = nonEnergyBenefit.costImpact;
+    } else if (nonEnergyBenefit.costImpactType == 'oneTime') {
+        totalRebates = nonEnergyBenefit.costImpact;
+    }
     reportPerformanceMetrics.forEach(reportPerformanceMetric => {
         if (reportPerformanceMetric.keyPerformanceMetric.goalToIncrease) {
             //revenue
@@ -63,7 +71,9 @@ export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, facilityPerf
         reportPerformanceMetrics: reportPerformanceMetrics,
         totalRevenue: totalRevenue,
         totalCostDecrease: totalCostDecrease,
-        totalFinancialImpact: totalRevenue + totalCostDecrease
+        totalFinancialImpact: totalRevenue + totalCostDecrease,
+        totalRebates: totalRebates,
+        totalNonKpiCostSavings: totalNonKpiCostSavings
     }
 }
 
@@ -73,6 +83,8 @@ export interface NebReport {
     totalRevenue: number,
     totalCostDecrease: number,
     totalFinancialImpact: number,
+    totalRebates: number,
+    totalNonKpiCostSavings: number,
 
 }
 

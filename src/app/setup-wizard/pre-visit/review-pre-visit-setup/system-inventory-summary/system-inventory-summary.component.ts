@@ -10,10 +10,10 @@ import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
-    selector: 'app-system-inventory-summary',
-    templateUrl: './system-inventory-summary.component.html',
-    styleUrl: './system-inventory-summary.component.css',
-    standalone: false
+  selector: 'app-system-inventory-summary',
+  templateUrl: './system-inventory-summary.component.html',
+  styleUrl: './system-inventory-summary.component.css',
+  standalone: false
 })
 export class SystemInventorySummaryComponent {
 
@@ -21,7 +21,8 @@ export class SystemInventorySummaryComponent {
 
   facility: IdbFacility;
   energyEquipments: Array<IdbEnergyEquipment>;
-
+  totalEnergyUsed: number = 0;
+  numValueDigits: string = '1.0-0';
   companyEnergyUnit: string;
 
   contacts: Array<IdbContact>;
@@ -37,5 +38,6 @@ export class SystemInventorySummaryComponent {
     this.facility = this.facilityIdbService.selectedFacility.getValue();
     this.energyEquipments = this.energyEquipmentIdbService.getByOtherGuid(this.facility.guid, 'facility');
     this.contacts = this.contactIdbService.contacts.getValue();
+    this.totalEnergyUsed = this.energyEquipments.reduce((sum, equipment) => (sum + equipment.annualEnergyUse), 0);
   }
 }

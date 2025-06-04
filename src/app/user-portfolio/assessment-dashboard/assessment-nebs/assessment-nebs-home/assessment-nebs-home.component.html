@@ -10,13 +10,18 @@
             </button>
             <ul class="dropdown-menu" [ngClass]="{'show': showAddNebDropdown}">
                 <li>
-                    <a class="dropdown-item" (click)="addNEB()">
+                    <a class="dropdown-item" (click)="addNEB(false)">
                         <fa-icon [icon]="faPlus"></fa-icon> Add Custom NEB
                     </a>
                 </li>
                 <li>
                     <a class="dropdown-item" (click)="showSuggestedNEBs()">
                         <fa-icon [icon]="faSearchPlus"></fa-icon> Search NEBs Database
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" (click)="addNEB(true)">
+                        <fa-icon [icon]="faMoneyBillWave"></fa-icon> Add One-time Incentive
                     </a>
                 </li>
             </ul>

@@ -8,15 +8,29 @@
         <app-on-site-visit-savings-chart [onSiteVisitReport]="onSiteVisitReport"></app-on-site-visit-savings-chart>
     </div>
     <hr>
-    <div class="print-break-avoid">
-        <app-performance-metrics-table
-            [keyPerformanceIndicatorReport]="onSiteVisitReport.keyPerformanceIndicatorReport"></app-performance-metrics-table>
-    </div>
-    <div class="print-break-avoid">
-        <app-performance-metrics-chart
-            [keyPerformanceIndicatorReport]="onSiteVisitReport.keyPerformanceIndicatorReport"></app-performance-metrics-chart>
-    </div>
-    <hr>
+    <ng-template [ngIf]="onSiteVisitReport.keyPerformanceIndicatorReport.kpiReportItems.length > 0"
+        [ngIfElse]="noKpiReportsBlock">
+
+        <div class="print-break-avoid">
+            <app-performance-metrics-table
+                [keyPerformanceIndicatorReport]="onSiteVisitReport.keyPerformanceIndicatorReport"></app-performance-metrics-table>
+        </div>
+        <div class="print-break-avoid">
+            <app-additional-savings-message [onSiteVisitReport]="onSiteVisitReport" [context]="'onSiteVisit'"
+                [includesKpiTable]="true"></app-additional-savings-message>
+        </div>
+        <div class="print-break-avoid">
+            <app-performance-metrics-chart
+                [keyPerformanceIndicatorReport]="onSiteVisitReport.keyPerformanceIndicatorReport"></app-performance-metrics-chart>
+        </div>
+        <hr>
+    </ng-template>
+    <ng-template #noKpiReportsBlock>
+        <div class="print-break-avoid">
+            <app-additional-savings-message [onSiteVisitReport]="onSiteVisitReport" [context]="'onSiteVisit'"
+                [includesKpiTable]="false"></app-additional-savings-message>
+        </div>
+    </ng-template>
     <div class="print-break-avoid print-break-before">
         <app-on-site-visit-payback-table [onSiteVisitReport]="onSiteVisitReport"></app-on-site-visit-payback-table>
     </div>
@@ -25,7 +39,8 @@
     </div>
     <div class="print-break-avoid">
         <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-            <app-neb-contributions-bar-chart [assessmentReport]="assessmentReport" [totalNebFinancialImpact]="onSiteVisitReport.totalNebFinancialImpact"></app-neb-contributions-bar-chart>
+            <app-neb-contributions-bar-chart [assessmentReport]="assessmentReport"
+                [totalNebFinancialImpact]="onSiteVisitReport.totalNebFinancialImpact"></app-neb-contributions-bar-chart>
         </ng-container>
     </div>
 </div>

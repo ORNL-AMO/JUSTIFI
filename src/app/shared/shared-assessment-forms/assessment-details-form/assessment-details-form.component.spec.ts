@@ -9,6 +9,7 @@ import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stu
 import { AssociatedContactsModule } from '../../associated-contacts/associated-contacts.module';
 import { AssociatedEnergyEquipmentModule } from '../../associated-energy-equipment/associated-energy-equipment.module';
 import { AssociatedProcessEquipmentModule } from '../../associated-process-equipment/associated-process-equipment.module';
+import { LabelWithTooltipModule } from '../../label-with-tooltip/label-with-tooltip.module';
 
 describe('AssessmentDetailsFormComponent', () => {
   let component: AssessmentDetailsFormComponent;
@@ -16,7 +17,9 @@ describe('AssessmentDetailsFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule, AssociatedContactsModule, AssociatedEnergyEquipmentModule, AssociatedProcessEquipmentModule],
+      imports: [FontAwesomeModule, FormsModule, RouterTestingModule, HelperPipesModule, AssociatedContactsModule, AssociatedEnergyEquipmentModule, AssociatedProcessEquipmentModule,
+         LabelWithTooltipModule
+      ],
       declarations: [AssessmentDetailsFormComponent],
       providers: stubServiceProviders
     })

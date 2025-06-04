@@ -13,7 +13,8 @@ import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicat
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 import { KeyPerformanceMetric, KeyPerformanceMetricOption, KeyPerformanceMetricOptions, KeyPerformanceMetricValue } from 'src/app/shared/constants/keyPerformanceMetrics';
-import { NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefitOptions';
+import { NebKeywords, NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefitOptions';
+import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
@@ -35,7 +36,10 @@ export class NebsDatabaseTableComponent {
   faMagnifyingGlass: IconDefinition = faMagnifyingGlass;
 
   nebOptions: Array<NebOption>;
-
+  keywordList: Array<string> = [];
+  filteredKeywordList: Array<string> = [];
+  topKeywords: Array<string> = [];
+  
   orderByDir: 'asc' | 'desc' = 'asc';
   nebSearchStr: string = '';
   kpiValue: KeyPerformanceIndicatorValue;
@@ -52,7 +56,8 @@ export class NebsDatabaseTableComponent {
     private sharedDataService: SharedDataService,
     private assessmentIdbService: AssessmentIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
-    private facilityIdbService: FacilityIdbService
+    private facilityIdbService: FacilityIdbService,
+    private localStorageDataService: LocalStorageDataService,
   ) { }
 
   ngOnInit() {
@@ -64,6 +69,7 @@ export class NebsDatabaseTableComponent {
       return option.label;
     }, 'asc');
     this.setKpmOptions();
+    this.topKeywords = this.localStorageDataService.topKeywords;
   }
 
   setKpmOptions() {
@@ -97,7 +103,38 @@ export class NebsDatabaseTableComponent {
     this.cd.detectChanges();
   }
 
+  filterKeywordList() {
+    const searchStr = this.nebSearchStr.toLowerCase().trim();
+    if (!searchStr) {
+      this.filteredKeywordList = [];
+      return;
+    }
+    const keywordWithIndex = this.keywordList
+      .map(keyword => {
+        const words = keyword.toLowerCase().split(/\s+/);
+        const index = words.findIndex(word => word.startsWith(searchStr));
+        return { keyword, index }; // return keyword and index
+      })
+      .filter(item => item.index !== -1); // filter out non-matching keywords
+    
+    keywordWithIndex.sort((a, b) => a.index - b.index); // sort by index
+    const keywordMatched = _.uniq(keywordWithIndex.map(item => item.keyword));
+    this.filteredKeywordList = keywordMatched.slice(0, 10); // limit to 10 matches
+    if (keywordMatched.length > 10) {
+      this.filteredKeywordList.push('...');
+    }
+    // TODO: update top keywords
+  }
 
+  selectKeyword(keyword: string) {
+    this.nebSearchStr = keyword;
+    this.filteredKeywordList = [];
+  }
+
+  selectTopKeyword(keyword: string) {
+    this.nebSearchStr = keyword;
+    this.filteredKeywordList = [];
+  }
 
   setNebOptions() {
     let nebOptionsList: Array<NebOption> = new Array();
@@ -123,6 +160,9 @@ export class NebsDatabaseTableComponent {
         }
       });
     }
+    this.keywordList = nebOptionsList
+      .map(option => NebKeywords[option.optionValue] || [])
+      .flat();
     this.nebOptions = nebOptionsList;
   }
 

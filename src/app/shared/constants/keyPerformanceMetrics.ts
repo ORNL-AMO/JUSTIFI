@@ -118,7 +118,8 @@ export type KeyPerformanceMetricValue =
     'powerFactorCosts' |
     'mobileFuelEmissions'|
     'processEmissions' |
-    'reduceRegulatoryFees';
+    'reduceRegulatoryFees' | 
+    'utilityCosts';
 
 
 export type KpmCalculationMethod = 'costPerUnit' | 'percentTotal' | 'directCost';
@@ -783,7 +784,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Treatment Chemicals",
         htmlLabel: "Treatment Chemicals",
         value: "treatmentChemicals",
-        kpiValue: "reduceExpenseCost",
+        kpiValue: "materialUtilization",
         isQuantitative: true,
         totalUnit: '',
         goalToIncrease: false,
@@ -794,7 +795,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Raw Materials",
         htmlLabel: "Raw Materials",
         value: "rawMaterials",
-        kpiValue: "reduceExpenseCost",
+        kpiValue: "materialUtilization",
         isQuantitative: true,
         totalUnit: '',
         goalToIncrease: false,
@@ -805,7 +806,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Intermediate Goods",
         htmlLabel: "Intermediate Goods",
         value: "intermediateGoods",
-        kpiValue: "reduceExpenseCost",
+        kpiValue: "materialUtilization",
         isQuantitative: true,
         totalUnit: '',
         goalToIncrease: false,

@@ -1,0 +1,29 @@
+<ng-template [ngIf]="context == 'assessment'" [ngIfElse]="onSiteVisitMessageBlock">
+    <div class="alert alert-success text-center p-2" *ngIf="assessmentReport.totalNonKpiCostSavings && includesKpiTable">
+        <fa-icon [icon]="faExclamationCircle"></fa-icon>
+        <b><app-single-cell-item [isCurrency]="true" [numValue]="assessmentReport.totalNonKpiCostSavings"
+                [per]="'yr'"></app-single-cell-item></b> of additional financial impacts were identified that
+        are not directly connected to performance metrics!
+    </div>
+    <div class="alert alert-success text-center p-2" *ngIf="assessmentReport.totalRebates">
+        <fa-icon [icon]="faMoneyBillWave"></fa-icon>
+        This assessment also includes <b><app-single-cell-item [isCurrency]="true"
+                [numValue]="assessmentReport.totalRebates"></app-single-cell-item></b> in additional one-time incentives
+        that will help reduce implementation costs!
+    </div>
+
+</ng-template>
+<ng-template #onSiteVisitMessageBlock>
+    <div class="alert alert-success text-center p-2" *ngIf="onSiteVisitReport.totalNonKpiCostSavings && includesKpiTable">
+        <fa-icon [icon]="faExclamationCircle"></fa-icon>
+        <b><app-single-cell-item [isCurrency]="true" [numValue]="onSiteVisitReport.totalNonKpiCostSavings"
+                [per]="'yr'"></app-single-cell-item></b> of additional financial impacts were identified that
+        are not directly connected to performance metrics!
+    </div>
+    <div class="alert alert-success text-center p-2" *ngIf="onSiteVisitReport.totalRebates">
+        <fa-icon [icon]="faMoneyBillWave"></fa-icon>
+        This visit also includes <b><app-single-cell-item [isCurrency]="true"
+                [numValue]="onSiteVisitReport.totalRebates"></app-single-cell-item></b> in additional one-time
+        incentives that will help reduce implementation costs!
+    </div>
+</ng-template>

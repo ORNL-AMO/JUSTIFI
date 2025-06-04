@@ -39,6 +39,10 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         return report.allNebReports
     });
 
+    let totalNonKpiCostSavings: number = _.sumBy(allNebReports, (report: AssessmentReport) => {
+        return report.totalNonKpiCostSavings
+    });
+
     let totalEnergyCostSavings: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
         return report.totalEnergyCostSavings
     });
@@ -61,20 +65,40 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         return report.assessment.cost
     });
 
+    let utilityCategory: 'energy' | 'water' = 'energy';
+    assessmentReports.forEach(report => {
+        if (report.utilityCategory === 'water') {
+            utilityCategory = 'water';
+        }
+    });
+
+    let totalRebates: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        if (report.totalRebates) {
+            return report.totalRebates
+        }
+        return 0;
+    });
+
     let totalImplementationCost: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
         if (report.totalImplementationCost) {
             return report.totalImplementationCost
         }
         return 0;
     });
-    let totalPaybackWithoutNebs: number = (totalImplementationCost / totalNonNebCostSavings);
+    let finalImplementationCost: number = totalImplementationCost - totalRebates;
+    let totalPaybackWithoutNebs: number = (finalImplementationCost / totalNonNebCostSavings);
     if (totalPaybackWithoutNebs == Infinity || isNaN(totalPaybackWithoutNebs)) {
         totalPaybackWithoutNebs = 0;
     }
-    let totalPaybackWithNebs: number = (totalImplementationCost / totalFinancialImpact);
+    let totalPaybackWithNebs: number = (finalImplementationCost / totalFinancialImpact);
     if (totalPaybackWithNebs == Infinity || isNaN(totalPaybackWithNebs)) {
         totalPaybackWithNebs = 0;
     }
+
+    let totalAssessmentNebFinancialImpact: number = _.sumBy(assessmentReports, (report: AssessmentReport) => {
+        return report.totalAssessmentNebFinancialImpact
+    });
+
     return {
         assessmentReports: assessmentReports,
         allNebReports: allNebReports,
@@ -83,11 +107,16 @@ export function getOnSiteVisitReport(assessmentIds: Array<string>, assessments: 
         totalWaterCostSavings: totalWaterCostSavings,
         totalFinancialImpact: totalFinancialImpact,
         totalUtilityCosts: totalUtilityCosts,
+        utilityCategory: utilityCategory,
         totalPaybackWithNebs: totalPaybackWithNebs,
         totalPaybackWithoutNebs: totalPaybackWithoutNebs,
         totalImplementationCost: totalImplementationCost,
         totalNebFinancialImpact: totalNebFinancialImpact,
-        totalNonNebCostSavings: totalNonNebCostSavings
+        totalNonNebCostSavings: totalNonNebCostSavings,
+        totalRebates: totalRebates,
+        totalAssessmentNebFinancialImpact: totalAssessmentNebFinancialImpact,
+        finalImplementationCost: finalImplementationCost,
+        totalNonKpiCostSavings: totalNonKpiCostSavings
     };
 }
 
@@ -99,10 +128,15 @@ export interface OnSiteVisitReport {
     totalEnergyCostSavings: number,
     totalWaterCostSavings: number,
     totalUtilityCosts: number,
+    utilityCategory?: 'energy' | 'water',
     totalFinancialImpact: number,
     totalImplementationCost: number,
     totalPaybackWithoutNebs: number,
     totalPaybackWithNebs: number,
     totalNebFinancialImpact: number,
-    totalNonNebCostSavings: number
+    totalNonNebCostSavings: number,
+    totalRebates: number,
+    totalAssessmentNebFinancialImpact: number,
+    finalImplementationCost: number,
+    totalNonKpiCostSavings: number
 }

@@ -15,6 +15,9 @@ export class LocalStorageDataService {
   assessmentAccordionGuid: string;
   disableAlphaDisclaimer: boolean;
   disableDataDisclaimer: boolean;
+  topKeywordsDefault: string[] = ['productivity', 'efficiency', 'savings'];
+  topKeywords: string[] = this.topKeywordsDefault;
+
   constructor(private localStorageService: LocalStorageService) {
     this.setupHelpPanelCollapsed = this.localStorageService.retrieve("setupHelpPanelCollapsed");
     if (this.setupHelpPanelCollapsed == undefined) {
@@ -34,6 +37,12 @@ export class LocalStorageDataService {
     this.assessmentAccordionGuid = this.localStorageService.retrieve("assessmentAccordionGuid");
     this.disableAlphaDisclaimer = this.localStorageService.retrieve("disableAlphaDisclaimer");
     this.disableDataDisclaimer = this.localStorageService.retrieve("disableDataDisclaimer");
+    const storedTopKeywords = this.localStorageService.retrieve("topKeywords");
+    if (storedTopKeywords == undefined) {
+      this.topKeywords = this.topKeywordsDefault;
+    } else {
+      this.topKeywords = storedTopKeywords;
+    }
   }
 
   setSetupPanelCollapsed(val: boolean) {
@@ -79,5 +88,10 @@ export class LocalStorageDataService {
   setDisableDataDisclaimer(disableDataDisclaimer: boolean) {
     this.disableDataDisclaimer = disableDataDisclaimer;
     this.localStorageService.store('disableDataDisclaimer', this.disableDataDisclaimer);
+  }
+
+  setTopKeywords(topKeywords: string[]) {
+    this.topKeywords = topKeywords;
+    this.localStorageService.store('topKeywords', this.topKeywords);
   }
 }

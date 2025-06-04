@@ -19,7 +19,8 @@ export class PaybackWaterfallChartComponent {
   reportData: {
     totalImplementationCost: number,
     totalFinancialImpact: number,
-    totalNonNebCostSavings: number
+    totalNonNebCostSavings: number,
+    totalRebates: number
   };
 
 
@@ -69,16 +70,27 @@ export class PaybackWaterfallChartComponent {
   drawChart() {
     if (this.paybackWaterfallChart) {
       let xVals = ["Implementation Cost"];
+      let xValNebs = ["Implementation Cost"];
       let implementationCost: number = this.reportData.totalImplementationCost * (-1)
       let yVals = [implementationCost];
       let yValsNebs = [implementationCost];
       let year = 1;
       let years: number = Math.ceil(this.reportData.totalImplementationCost / this.reportData.totalNonNebCostSavings);      
+
+      if(this.reportData.totalRebates){
+        xValNebs.push("Rebates")
+        // yVals.push(this.reportData.totalRebates);
+        yValsNebs.push(this.reportData.totalRebates)
+      }
+
+
+
       if(years == Infinity || years > 15 || isNaN(years)){
         years = 15;
       }
       for (let i = 0; i < years; i++) {
         xVals.push('Year ' + year);
+        xValNebs.push('Year ' + year);
         yVals.push(this.reportData.totalNonNebCostSavings)
         yValsNebs.push(this.reportData.totalFinancialImpact)
         year++;
@@ -107,7 +119,7 @@ export class PaybackWaterfallChartComponent {
           name: "Payback W/ NEBs",
           type: "waterfall",
           orientation: "v",
-          x: xVals,
+          x: xValNebs,
           textposition: "outside",
           texttemplate: this.currencyUnicode + "%{final:,.2s}",
           y: yValsNebs,
@@ -135,7 +147,7 @@ export class PaybackWaterfallChartComponent {
         yaxis: {
           type: "linear",
           tickprefix: this.currencySymbol,
-          range: [implementationCost, maxY]
+          range: [implementationCost * 1.5, maxY]
         },
         autosize: true,
         showlegend: false,
@@ -155,7 +167,7 @@ export class PaybackWaterfallChartComponent {
         yaxis: {
           type: "linear",
           tickprefix: this.currencySymbol,
-          range: [implementationCost, maxY]
+          range: [implementationCost * 1.5, maxY]
         },
         autosize: true,
         showlegend: false,
