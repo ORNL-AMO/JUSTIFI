@@ -261,7 +261,10 @@ export class EnergyEquipmentFormComponent {
     this.closeDeleteModal();
   }
 
-  focusField(str: string){
+  focusField(str: string, utilityType?: string){
+    if (utilityType) {
+      str += utilityType.replace(/\s+/g, '');
+    }
     this.setupWizardService.focusedHelp.next(str);
   }
 
