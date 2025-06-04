@@ -10,8 +10,9 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { SharedDataService } from '../../shared/shared-services/shared-data.service';
 import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
 import { IdbUser } from 'src/app/models/user';
-import * as XLSX from 'xlsx';
+// import * as XLSX from 'xlsx';
 import { ParseExcelTemplateService } from 'src/app/shared/shared-services/parse-excel-template.service';
+import * as ExcelJS from 'exceljs';
 
 @Component({
   selector: 'app-setup-wizard-modal',
@@ -46,7 +47,7 @@ export class SetupWizardModalComponent {
   createAssessmentSub: Subscription;
 
   manualSetup: boolean = true;
-  workbook: XLSX.WorkBook;
+  workbook: ExcelJS.Workbook;
   fileUploadError: string = '';
   constructor(private companyIdbService: CompanyIdbService, private facilityIdbService: FacilityIdbService,
     private router: Router,
@@ -205,15 +206,15 @@ export class SetupWizardModalComponent {
 
   addFile(file: File) {
     const reader: FileReader = new FileReader();
-    reader.onload = (e: any) => {
-      const bstr: string = e.target.result;
-      let workBook: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary', cellDates: true, dateNF: 'mm/dd/yyyy' });
+    reader.onload = async (e: any) => {
+      const bstr: ArrayBuffer = e.target.result;
+      // let workBook: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary', cellDates: true, dateNF: 'mm/dd/yyyy' });
+      const workbook = new ExcelJS.Workbook();
+      await workbook.xlsx.load(bstr);
       try {
-        console.log('try!')
-        console.log(workBook);
-        let isTemplate: boolean = workBook.SheetNames.find(sheetName => { return sheetName == 'JUSTIFI_UPLOAD_V1' }) != undefined
+        let isTemplate: boolean = workbook.getWorksheet('JUSTIFI_UPLOAD_V1') !== undefined;
         if (isTemplate) {
-          this.workbook = workBook;
+          this.workbook = workbook;
         } else {
           this.fileUploadError = 'Only template files from JUSTIFI can be uploaded.'
         }
@@ -231,10 +232,11 @@ export class SetupWizardModalComponent {
       //create company
       this.selectedCompanyGuid = await this.companyIdbService.addNewCompany(user.guid);
     }
+    let selectedCompany: IdbCompany = this.companyIdbService.getByGUID(this.selectedCompanyGuid);
     let parseResults: {
       facilityGuid: string,
       visitGuid: string,
-    } = await this.parseExcelTemplateService.parseWorkbook(this.workbook, user, this.selectedCompanyGuid)
+    } = await this.parseExcelTemplateService.parseWorkbook(this.workbook, user, selectedCompany)
     this.selectedOnSiteVisitGuid = parseResults.visitGuid;
     this.selectedFacilityGuid = parseResults.facilityGuid;
     this.router.navigateByUrl('/setup-wizard/pre-visit/' + this.selectedOnSiteVisitGuid);
