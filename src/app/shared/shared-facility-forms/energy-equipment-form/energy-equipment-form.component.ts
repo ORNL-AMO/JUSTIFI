@@ -77,6 +77,8 @@ export class EnergyEquipmentFormComponent {
     'Compressed Air': 'Specific Power',
   };
 
+  sizeLabel: string = 'Total Size'
+
   collapseEnergyDetails: boolean = true;
   constructor(private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private dbChangesService: DbChangesService,
@@ -139,7 +141,47 @@ export class EnergyEquipmentFormComponent {
     } else {
       this.energyEquipment.facilityUtilityUnit = this.companyEnergyUnit;
     }
+    this.updateSizeLabel(); // update the size label
+    this.updateSizeUnit(mode, this.energyEquipment.facilityUtilityUnit); // update size unit
+    await this.updateEnergyCalculations();
+  }
 
+  updateSizeLabel() {
+    const eq = this.energyEquipment;
+    if (!eq) {
+      this.sizeLabel = 'Total Size';
+      return;
+    }
+    if (['Pump', 'Fan', 'Motor', 'Other'].includes(eq.equipmentType)) {
+      this.sizeLabel = 'Rated Power';
+    } else if (eq.equipmentType === 'Compressed Air') {
+      if (eq.utilityType === 'Compressed Air') {
+        this.sizeLabel = 'Estimated Power';
+      } else {
+        this.sizeLabel = 'Rated Power';
+      }
+    } else if (eq.equipmentType === 'Lighting') {
+      this.sizeLabel = 'Light Wattage';
+    } else if (eq.equipmentType === 'Process Heating') {
+      this.sizeLabel = 'Rated Capacity';
+    } else if (eq.equipmentType === 'Steam') {
+      if (eq.utilityType === 'Steam') {
+        this.sizeLabel = 'Estimated Capacity';
+      } else {
+        this.sizeLabel = 'Rated Capacity';
+      }
+    // } else if (eq.equipmentType === 'Process Cooling') {
+    //   this.sizeLabel = 'Cooling Capacity';
+    // } else if (eq.equipmentType === 'HVAC') {
+    //   this.sizeLabel = 'System Capacity';
+    // } else if (eq.equipmentType === 'Mobile') {
+    //   this.sizeLabel = 'Mobile Capacity';
+    } else {
+      this.sizeLabel = 'Total Size';
+    }
+  }
+
+  updateSizeUnit(mode: 'default' | 'normal', facilityUtilityEnergyUnit: string) {
     // update size unit
     if (this.energyEquipment.equipmentType === 'Process Cooling') { // Process Cooling unit changes
       this.energyEquipment.sizeUnit = this.processCoolingUnitOptions[0].value;
@@ -154,8 +196,6 @@ export class EnergyEquipmentFormComponent {
         this.energyEquipment.sizeUnit = powerUnit || 'kW';
       }
     }
-    
-    await this.updateEnergyCalculations();
   }
 
   async updateEnergyCalculations() {
