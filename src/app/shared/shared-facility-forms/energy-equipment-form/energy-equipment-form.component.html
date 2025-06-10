@@ -164,11 +164,11 @@
                                             <input type="number" class="form-control" name="heatingValue"
                                                 id="heatingValue" [(ngModel)]="energyEquipment.fuelHHV"
                                                 (input)="updateEnergyCalculations()"
-                                                (focus)="focusField('heatingValue')">
+                                                (focus)="focusField('heatingValue', energyEquipment.utilityType)">
                                             <select class="input-group-text" id="heatingUnit" name="heatingUnit"
                                                 [(ngModel)]="energyEquipment.fuelEnergyUnit"
                                                 (change)="updateEnergyCalculations()"
-                                                (focus)="focusField('heatingValue')">
+                                                (focus)="focusField('heatingValue', energyEquipment.utilityType)">
                                                 <option *ngFor="let option of fuelEnergyUnitOptions"
                                                     [ngValue]="option.value">
                                                     <span
