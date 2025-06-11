@@ -1,7 +1,9 @@
-# NEB Tool
+# JUSTIFI
 <!-- Add CI / Download badges, once we have them -->
 
 A user friendly, graphical, open-source application (Web/Mac/Windows) of the multiple benefits framework for non-energy benefits, incorporating additional aspects to make the tool effective for use in the United States.
+
+The latest version of the application can be found at [https://justifi.ornl.gov](https://justifi.ornl.gov)
 
 <!-- Link to downloads, once we have them -->
 
@@ -59,9 +61,5 @@ Check the [Karma Config](https://karma-runner.github.io/6.4/config/configuration
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.8.
-
-## Acknowledgements
-
-Contributors to this software include: Jordan Perr-Sauer and Mark Root.
 
 Released under software record NREL/SWR-24-08.
