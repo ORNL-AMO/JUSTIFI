@@ -24,6 +24,8 @@ import { AssessmentType } from '../constants/assessmentTypes';
 import { UtilityType } from '../constants/utilityTypes';
 import { updateAssessmentUtilityUseCostSavings } from '../reports/calculations/utilityCalculation';
 import { IdbCompany } from 'src/app/models/company';
+import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
+import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -37,14 +39,52 @@ export class ParseExcelTemplateService {
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private loadingService: LoadingService,
     private toastnotificationService: ToastNotificationsService,
-    private dbChangesService: DbChangesService
+    private dbChangesService: DbChangesService,
+    private userIdbService: UserIdbService,
+    private companyIdbService: CompanyIdbService
   ) { }
 
   /*
     * calculate assessment savings based on facility utility costs  
   */
 
-  //return facility guid
+  async parseWorkbookFromWizard(workbook: ExcelJS.Workbook, onSiteVisit: IdbOnSiteVisit): Promise<{
+    facility: IdbFacility,
+    industrialSystems: Array<IdbEnergyEquipment>,
+    endUses: Array<IdbProcessEquipment>,
+    assessments: Array<IdbAssessment>,
+    energyEfficiencyMeasures: Array<IdbEnergyOpportunity>
+  }> {
+    let user: IdbUser = this.userIdbService.user.getValue();
+    let company: IdbCompany = this.companyIdbService.selectedCompany.getValue();
+    let facility: IdbFacility = await this.parseFacility(workbook, user.guid, company.guid);
+
+    if (facility) {
+      let industrialSystems: Array<IdbEnergyEquipment> = await this.parseIndustrialSystems(workbook, facility, false);
+      industrialSystems = this.checkIndustrialSystemsExist(industrialSystems, facility);
+      let endUses: Array<IdbProcessEquipment> = await this.parseEndUses(workbook, facility, false);
+      endUses = this.checkEndUsesExist(endUses, facility);
+      let assessmentsAndVisits: {
+        assessments: Array<IdbAssessment>,
+        onsiteVisits: Array<IdbOnSiteVisit>,
+        facility: IdbFacility
+      } = await this.parseAssessments(workbook, facility, company.companyEnergyUnit, onSiteVisit, false);
+      assessmentsAndVisits.assessments = this.checkAssessmentsExist(assessmentsAndVisits.assessments, onSiteVisit);
+      let energyEfficiencyMeasures = await this.parseEnergyEfficiencyMeasures(workbook, assessmentsAndVisits.assessments, false);
+      energyEfficiencyMeasures = this.checkAssessmentEnergyEfficiencyMeasuresExist(energyEfficiencyMeasures, assessmentsAndVisits.assessments);
+      return {
+        facility: facility,
+        industrialSystems: industrialSystems,
+        endUses: endUses,
+        assessments: assessmentsAndVisits.assessments,
+        energyEfficiencyMeasures: energyEfficiencyMeasures,
+      };
+    }
+    return undefined;
+  }
+
+
+  //return facility guid and visit guid
   async parseWorkbook(workbook: ExcelJS.Workbook, user: IdbUser, company: IdbCompany): Promise<{
     facilityGuid: string,
     visitGuid: string,
@@ -53,14 +93,14 @@ export class ParseExcelTemplateService {
     this.loadingService.setLoadingStatus(true);
     let facility: IdbFacility = await this.parseFacility(workbook, user.guid, company.guid);
     if (facility) {
-      let industrialSystems = await this.parseIndustrialSystems(workbook, facility);
-      let endUses = await this.parseEndUses(workbook, facility);
+      let industrialSystems = await this.parseIndustrialSystems(workbook, facility, true);
+      let endUses = await this.parseEndUses(workbook, facility, true);
       let assessmentsAndVisits: {
         assessments: Array<IdbAssessment>,
         onsiteVisits: Array<IdbOnSiteVisit>,
         facility: IdbFacility
-      } = await this.parseAssessments(workbook, facility, company.companyEnergyUnit);
-      let energyEfficiencyMeasures = await this.parseEnergyEfficiencyMeasures(workbook, assessmentsAndVisits.assessments);
+      } = await this.parseAssessments(workbook, facility, company.companyEnergyUnit, undefined, true);
+      let energyEfficiencyMeasures = await this.parseEnergyEfficiencyMeasures(workbook, assessmentsAndVisits.assessments, true);
       await this.dbChangesService.selectUser(user, true)
       this.loadingService.setLoadingStatus(false);
       let toastBody = `Parsed ${facility.generalInformation.name} with, ${industrialSystems.length} Industrial Systems, ${endUses.length} End Uses, ${assessmentsAndVisits.assessments.length} Assessments, ${energyEfficiencyMeasures.length} Energy Efficiency Measures`;
@@ -129,7 +169,7 @@ export class ParseExcelTemplateService {
     return newFacility;
   }
 
-  async parseIndustrialSystems(workbook: ExcelJS.Workbook, facility: IdbFacility): Promise<Array<IdbEnergyEquipment>> {
+  async parseIndustrialSystems(workbook: ExcelJS.Workbook, facility: IdbFacility, addItems: boolean): Promise<Array<IdbEnergyEquipment>> {
     let newIndustrialSystems: Array<IdbEnergyEquipment> = [];
     //energy equipment
     let worksheet: ExcelJS.Worksheet = workbook.getWorksheet('Industrial_Systems');
@@ -142,14 +182,15 @@ export class ParseExcelTemplateService {
 
       }
     });
-    for (let i = 0; i < newIndustrialSystems.length; i++) {
-      await firstValueFrom(this.energyEquipmentIdbService.addWithObservable(newIndustrialSystems[i]));
+    if (addItems) {
+      for (let i = 0; i < newIndustrialSystems.length; i++) {
+        await firstValueFrom(this.energyEquipmentIdbService.addWithObservable(newIndustrialSystems[i]));
+      }
     }
-
     return newIndustrialSystems;
   }
 
-  async parseEndUses(workbook: ExcelJS.Workbook, facility: IdbFacility): Promise<Array<IdbProcessEquipment>> {
+  async parseEndUses(workbook: ExcelJS.Workbook, facility: IdbFacility, addItems: boolean): Promise<Array<IdbProcessEquipment>> {
     let newEndUses: Array<IdbProcessEquipment> = [];
     //process equipment
     let worksheet: ExcelJS.Worksheet = workbook.getWorksheet('Industrial_Systems');
@@ -161,14 +202,16 @@ export class ParseExcelTemplateService {
         newEndUses.push(newEndUse);
       }
     });
-    for (let i = 0; i < newEndUses.length; i++) {
-      await firstValueFrom(this.processEquipmentIdbService.addWithObservable(newEndUses[i]));
+    if (addItems) {
+      for (let i = 0; i < newEndUses.length; i++) {
+        await firstValueFrom(this.processEquipmentIdbService.addWithObservable(newEndUses[i]));
+      }
     }
 
     return newEndUses;
   }
 
-  async parseAssessments(workbook: ExcelJS.Workbook, facility: IdbFacility, companyEnergyUnit: string): Promise<{ assessments: Array<IdbAssessment>, onsiteVisits: Array<IdbOnSiteVisit>, facility: IdbFacility }> {
+  async parseAssessments(workbook: ExcelJS.Workbook, facility: IdbFacility, companyEnergyUnit: string, _onSiteVisit: IdbOnSiteVisit, addItems: boolean): Promise<{ assessments: Array<IdbAssessment>, onsiteVisits: Array<IdbOnSiteVisit>, facility: IdbFacility }> {
     let addedAssessments: Array<IdbAssessment> = [];
     let addedOnSiteVisits: Array<IdbOnSiteVisit> = [];
     let worksheet: ExcelJS.Worksheet = workbook.getWorksheet('Assessments');
@@ -185,11 +228,18 @@ export class ParseExcelTemplateService {
 
         //get onsite visit
         let isNewVisit: boolean = false;
-        let onSiteVisit: IdbOnSiteVisit = addedOnSiteVisits.find(visit => {
-          return visit.visitDate.getFullYear() === assessmentDate.getFullYear() &&
-            visit.visitDate.getMonth() === assessmentDate.getMonth() &&
-            visit.visitDate.getDate() === assessmentDate.getDate()
-        });
+        let onSiteVisit: IdbOnSiteVisit;
+
+        if (_onSiteVisit) {
+          onSiteVisit = _onSiteVisit;
+        } else {
+          onSiteVisit = addedOnSiteVisits.find(visit => {
+            return visit.visitDate.getFullYear() === assessmentDate.getFullYear() &&
+              visit.visitDate.getMonth() === assessmentDate.getMonth() &&
+              visit.visitDate.getDate() === assessmentDate.getDate()
+          });
+
+        }
         if (!onSiteVisit) {
           isNewVisit = true;
           onSiteVisit = getNewIdbOnSiteVisit(facility.userId, facility.companyId, facility.guid);
@@ -199,7 +249,9 @@ export class ParseExcelTemplateService {
 
 
         let newAssessment: IdbAssessment = getNewIdbAssessment(facility.userId, facility.companyId, facility.guid, facility.unitSettings);
-        onSiteVisit.assessmentIds.push(newAssessment.guid);
+        if (addItems) {
+          onSiteVisit.assessmentIds.push(newAssessment.guid);
+        }
         newAssessment.name = row.getCell('A').value as string;
         newAssessment.assessmentType = row.getCell('B').value as AssessmentType;
         if (row.getCell('D').value === 'Assessment') {
@@ -318,15 +370,17 @@ export class ParseExcelTemplateService {
       }
     });
 
-    for (let i = 0; i < addedAssessments.length; i++) {
-      addedAssessments[i] = updateAssessmentUtilityUseCostSavings(addedAssessments[i], facility.unitSettings, companyEnergyUnit);
-      await firstValueFrom(this.assessmentIdbService.addWithObservable(addedAssessments[i]));
-    }
-    for (let i = 0; i < addedOnSiteVisits.length; i++) {
-      await firstValueFrom(this.onSiteVisitIdbService.addWithObservable(addedOnSiteVisits[i]));
-    }
-    if (facilityNeedsUpdate) {
-      facility = await firstValueFrom(this.facilityIdbService.updateWithObservable(facility));
+    if (addItems) {
+      for (let i = 0; i < addedAssessments.length; i++) {
+        addedAssessments[i] = updateAssessmentUtilityUseCostSavings(addedAssessments[i], facility.unitSettings, companyEnergyUnit);
+        await firstValueFrom(this.assessmentIdbService.addWithObservable(addedAssessments[i]));
+      }
+      for (let i = 0; i < addedOnSiteVisits.length; i++) {
+        await firstValueFrom(this.onSiteVisitIdbService.addWithObservable(addedOnSiteVisits[i]));
+      }
+      if (facilityNeedsUpdate) {
+        facility = await firstValueFrom(this.facilityIdbService.updateWithObservable(facility));
+      }
     }
     return {
       assessments: addedAssessments,
@@ -335,7 +389,7 @@ export class ParseExcelTemplateService {
     };
   }
 
-  async parseEnergyEfficiencyMeasures(workbook: ExcelJS.Workbook, assessments: Array<IdbAssessment>): Promise<Array<IdbEnergyOpportunity>> {
+  async parseEnergyEfficiencyMeasures(workbook: ExcelJS.Workbook, assessments: Array<IdbAssessment>, addItems: boolean): Promise<Array<IdbEnergyOpportunity>> {
     let newEnergyEfficiencyMeasures: Array<IdbEnergyOpportunity> = [];
     //energy efficiency measures
 
@@ -363,9 +417,73 @@ export class ParseExcelTemplateService {
         }
       }
     });
-    for (let i = 0; i < newEnergyEfficiencyMeasures.length; i++) {
-      await firstValueFrom(this.energyOpportunityIdbService.addWithObservable(newEnergyEfficiencyMeasures[i]));
+    if (addItems) {
+      for (let i = 0; i < newEnergyEfficiencyMeasures.length; i++) {
+        await firstValueFrom(this.energyOpportunityIdbService.addWithObservable(newEnergyEfficiencyMeasures[i]));
+      }
     }
     return newEnergyEfficiencyMeasures;
   }
+
+
+  // industrialSystems: Array<IdbEnergyEquipment>
+  checkIndustrialSystemsExist(industrialSystems: Array<IdbEnergyEquipment>, facility: IdbFacility): Array<IdbEnergyEquipment> {
+    let facilityIndustrialSystems: Array<IdbEnergyEquipment> = this.energyEquipmentIdbService.getByOtherGuid(facility.guid, 'facility');
+    for (let i = 0; i < industrialSystems.length; i++) {
+      let existingSystem: IdbEnergyEquipment = facilityIndustrialSystems.find(system => system.equipmentName === industrialSystems[i].equipmentName);
+      if (existingSystem) {
+        industrialSystems[i].guid = existingSystem.guid;
+        industrialSystems[i].id = existingSystem.id; // keep the id for updates
+      }
+    }
+    return industrialSystems;
+  }
+  // endUses: Array<IdbProcessEquipment>,
+  checkEndUsesExist(endUses: Array<IdbProcessEquipment>, facility: IdbFacility): Array<IdbProcessEquipment> {
+    let facilityEndUses: Array<IdbProcessEquipment> = this.processEquipmentIdbService.getFacilityProcessEquipment(facility.guid);
+    for (let i = 0; i < endUses.length; i++) {
+      let existingEndUse: IdbProcessEquipment = facilityEndUses.find(endUse => endUse.equipmentName === endUses[i].equipmentName);
+      if (existingEndUse) {
+        endUses[i].guid = existingEndUse.guid;
+        endUses[i].id = existingEndUse.id; // keep the id for updates
+      }
+    }
+    return endUses;
+  }
+  // assessments: Array<IdbAssessment>,
+  checkAssessmentsExist(assessments: Array<IdbAssessment>, onSiteVisit: IdbOnSiteVisit): Array<IdbAssessment> {
+    let visitAssessments: Array<IdbAssessment> = [];
+    onSiteVisit.assessmentIds.forEach(assessmentGuid => {
+      let existingAssessment: IdbAssessment = this.assessmentIdbService.getByGuid(assessmentGuid);
+      if (existingAssessment) {
+        visitAssessments.push(existingAssessment);
+      }
+    });
+    for (let i = 0; i < assessments.length; i++) {
+      let existingAssessment: IdbAssessment = visitAssessments.find(assessment => assessment.name === assessments[i].name);
+      if (existingAssessment) {
+        assessments[i].guid = existingAssessment.guid;
+        assessments[i].id = existingAssessment.id; // keep the id for updates
+      }
+    }
+    return assessments;
+  }
+  // energyEfficiencyMeasures: Array<IdbEnergyOpportunity>
+  checkAssessmentEnergyEfficiencyMeasuresExist(energyEfficiencyMeasures: Array<IdbEnergyOpportunity>, assessments: Array<IdbAssessment>): Array<IdbEnergyOpportunity> {
+    for (let i = 0; i < energyEfficiencyMeasures.length; i++) {
+      let assessment: IdbAssessment = assessments.find(a => a.guid === energyEfficiencyMeasures[i].assessmentId);
+      if (assessment) {
+        let assessmentEEMs: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.getByOtherGuid(assessment.guid, 'assessment');
+        let existingEEM: IdbEnergyOpportunity = assessmentEEMs.find(eem => eem.name === energyEfficiencyMeasures[i].name);
+        if (existingEEM) {
+          energyEfficiencyMeasures[i].guid = existingEEM.guid;
+          energyEfficiencyMeasures[i].id = existingEEM.id; // keep the id for updates
+        } else {
+          energyEfficiencyMeasures[i].guid = undefined; // new EEM
+        }
+      }
+    }
+    return energyEfficiencyMeasures;
+  }
+
 }

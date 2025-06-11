@@ -1,0 +1,140 @@
+<div class="setup-wizard-content">
+    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+        <div class="col-10 pt-4 pb-4">
+            <div class="form-paper shadow">
+                <h5>
+                    <fa-icon [icon]="faUpload"></fa-icon> Upload Template
+                </h5>
+                <hr>
+                <ng-template [ngIf]="!parsedResults" [ngIfElse]="parsedResultsBlock">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div class="w-75 me-3">
+                            <p class="fw-light small mb-0">
+                                If you would prefer to enter your assessments in a spreadsheet, you can download the
+                                template provided here,
+                                fill it out, and upload it here. Additionally, if you are a user of MEASUR,
+                                functionality is
+                                available within MEASUR to export your assessments to the template that can be uploaded
+                                here!
+                            </p>
+                        </div>
+                        <div class="p-0 my-auto">
+                            <a class="btn btn-outline-primary btn-sm me-1"
+                                href="/assets/template-files/JUSTIFI_Upload_Template.xlsx"
+                                download="assessment-template.xlsx">
+                                <fa-icon [icon]="faFileExcel"></fa-icon>
+                                Download Template
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <label class="form-label">
+                            Upload Template File Here:
+                        </label>
+                        <input class="form-control" type="file" id="templateUpload" name="templateUpload"
+                            (change)="onFileSelected($event.target)" accept=".xlsx" />
+                    </div>
+                    <div class="alert alert-danger p-1" *ngIf="fileUploadError">
+                        {{fileUploadError}}
+                    </div>
+                    <div class="d-flex w-100 justify-content-end" *ngIf="workbook && !fileUploadError">
+                        <button class="btn btn-outline-success btn-sm mt-2" (click)="parseWorkbook()">
+                            Parse Template
+                        </button>
+                    </div>
+                </ng-template>
+                <ng-template #parsedResultsBlock>
+                    <p class="fw-light small">
+                        The following data was parsed from the uploaded template. If you would like to make changes,
+                        you can upload a new template. Otherwise, you can click "Save Parsed Data" to save the
+                        parsed data to the database.
+                    </p>
+                    <div class="d-flex w-100 justify-content-between mb-2">
+                        <div>
+                            <p class="fw-light">
+                                <fa-icon [icon]="faAsterisk"></fa-icon> Indicates item existing in the database.
+                            </p>
+                        </div>
+                        <div>
+                            <button class="btn btn-outline-success btn-sm mt-2" (click)="save()">
+                                <fa-icon [icon]="faSave"></fa-icon>
+                                Save Parsed Data
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card-item">
+                                <label class="bold">
+                                    Industrial Systems ({{industrialSystems.length}})
+                                </label>
+                                <ng-container *ngIf="industrialSystems.length">
+                                    <hr class="my-1">
+                                    <ng-container *ngFor="let equipment of industrialSystems; let systemIndex = index;">
+                                        <div class="item-label">
+                                            <fa-icon [icon]="faCube"></fa-icon>
+                                            <span class="fw-bold">{{equipment.equipmentName}}</span>
+                                            <fa-icon [icon]="faAsterisk" *ngIf="equipment.id"></fa-icon>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card-item">
+                                <label class="bold">
+                                    End Uses: ({{endUses.length}})
+                                </label>
+                                <ng-container *ngIf="endUses.length">
+                                    <hr class="my-1">
+                                    <ng-container *ngFor="let endUse of endUses; let endUseIndex = index;">
+                                        <div class="item-label">
+                                            <fa-icon [icon]="faSplotch"></fa-icon>
+                                            <span class="fw-bold">{{endUse.equipmentName}}</span>
+                                            <fa-icon [icon]="faAsterisk" *ngIf="endUse.id"></fa-icon>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="card-item">
+                                <label class="bold">
+                                    Assessments: ({{assessments.length}})
+                                </label>
+                                <ng-container *ngIf="assessments.length">
+                                    <hr class="my-1">
+                                    <ng-container
+                                        *ngFor="let assessmentItem of assessments; let assessmentIndex = index;">
+                                        <div class="item-label">
+                                            <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                                            {{assessmentItem.assessment.name}}
+                                            <fa-icon [icon]="faAsterisk" *ngIf="assessmentItem.assessment.id"></fa-icon>
+                                        </div>
+                                        <ng-template [ngIf]="assessmentItem.energyEfficiencyMeasures.length">
+                                            <ng-container *ngFor="let eem of assessmentItem.energyEfficiencyMeasures">
+                                                <div class="d-flex">
+                                                    <div class="associated-item">
+
+                                                    </div>
+                                                    <div class="ps-1 item-label">
+                                                        <fa-icon [icon]="faFileLines"></fa-icon>
+                                                        {{eem.name}}
+                                                        <fa-icon [icon]="faAsterisk" *ngIf="eem.id"></fa-icon>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-template>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
