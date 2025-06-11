@@ -46,7 +46,9 @@ export class DataEvaluationCustomReportComponent {
     });
     this.reportSub = this.reportIdbService.selectedReport.subscribe(_report => {
       this.report = _report;
-      this.setIsLastReport();
+      if (this.report) {
+        this.setIsLastReport();
+      }
     });
 
     this.activatedRoute.params.subscribe(params => {
@@ -95,7 +97,7 @@ export class DataEvaluationCustomReportComponent {
     let onSiteVisitReports: Array<IdbReport> = this.reportIdbService.getReportsByOnSiteVisitId(this.onSiteVisit.guid);
     let reportIndex: number = onSiteVisitReports.findIndex(report => { return report.guid == this.report.guid });
     this.isLastReport = (onSiteVisitReports.length - 1) == reportIndex;
-    this.isFirstReport = (reportIndex == 0)? true: false;
+    this.isFirstReport = (reportIndex == 0) ? true : false;
   }
 
 

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AdditionalKeyPerformanceIndicatorReportItem, KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem } from '../../calculations/keyPerformanceIndicatorReport';
-import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorValue, UtilityUseKpi } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
+import { KeyPerformanceIndicatorOption, UtilityUseKpi, EnergyUseKpi } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 import { Subscription } from 'rxjs';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { ExecutiveSummaryReport } from '../../calculations/executiveSummaryReport';
@@ -88,8 +88,9 @@ export class ExecutiveSummaryKpiImpactsComponent {
       this.limitOptions.push(i + 1);
     }
     //add energy kpi item
+    const utilityKpi: KeyPerformanceIndicatorOption = this.executiveSummaryReport.utilityCategory === 'energy' ? EnergyUseKpi : UtilityUseKpi;
     let tmpEnergyKpi: KeyPerformanceIndicatorReportItem = {
-      keyPerformanceIndicator: getNewKeyPerformanceIndicator('', '', UtilityUseKpi, true, ''),
+      keyPerformanceIndicator: getNewKeyPerformanceIndicator('', '', utilityKpi, true, ''),
       baselineCost: this.facility.cost,
       financialImpact: this.executiveSummaryReport.totalUtilityCostSavings,
       costSaving: this.executiveSummaryReport.totalUtilityCostSavings,
@@ -109,6 +110,7 @@ export class ExecutiveSummaryKpiImpactsComponent {
     this.kpiReportRevenueItems = this.kpiReportItems.filter(item => {
       return item.revenue > 0
     });
+    this.limitOptions = Array.from({ length: Math.max(this.kpiReportCostItems.length, this.kpiReportRevenueItems.length) }, (_, i) => i + 1);
     this.orderReportItems();
   }
 

@@ -3,8 +3,8 @@ import { UtilityType, UtilityTypes } from "./utilityTypes";
 // export type AssessmentType = "Pump" | "Fan" | "Process heating" | "Steam" | "Compressed Air" | "Water" | "Treasure Hunt" | "Other";
 // export const AssessmentTypes: Array<AssessmentType> = ["Pump",  "Fan", "Process heating", "Steam", "Compressed Air", "Water", "Treasure Hunt", "Other"];
 
-export type AssessmentType = "Pump" | "Fan" | "Process heating" | "Steam" | "Compressed Air" | "Treasure Hunt" | "Motor" | "Lighting" | "Building Envelope" | "Water" | "Other";
-export const AssessmentTypes: Array<AssessmentType> = ["Pump", "Fan", "Process heating", "Steam", "Compressed Air", "Treasure Hunt", "Motor", "Lighting", "Building Envelope", "Water", "Other"];
+export type AssessmentType = "Pump" | "Fan" | "Process heating" | "Steam" | "Compressed Air" | "Treasure Hunt" | "Motor" | "Lighting" | "Building Envelope" | "Water" | "Waste Water" | "Other";
+export const AssessmentTypes: Array<AssessmentType> = ["Pump", "Fan", "Process heating", "Steam", "Compressed Air", "Treasure Hunt", "Motor", "Lighting", "Building Envelope", "Water", "Waste Water", "Other"];
 
 // Define the ONE - MANY relationship between Assessment Type and Utility Type
 export interface AssessmentOption {
@@ -24,5 +24,7 @@ export const AssessmentOptions: Array<AssessmentOption> = [
     { assessmentType: "Lighting", utilityTypes: ['Electricity'] },
     { assessmentType: "Building Envelope", utilityTypes: UtilityTypes },
     { assessmentType: "Water", utilityTypes: UtilityTypes },
+    { assessmentType: "Waste Water", utilityTypes: ['Electricity'] },
     { assessmentType: "Other", utilityTypes: UtilityTypes }
+   
 ];
