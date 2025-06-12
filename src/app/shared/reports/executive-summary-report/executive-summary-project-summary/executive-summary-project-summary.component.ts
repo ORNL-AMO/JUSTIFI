@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 import { faBullseye, faMoneyBillWave, faSort, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { KeyPerformanceIndicatorReportItem } from '../../calculations/keyPerformanceIndicatorReport';
+import { PowerpointReportGeneratorService } from 'src/app/shared/shared-services/powerpoint-report-generator.service';
 
 @Component({
   selector: 'app-executive-summary-project-summary',
@@ -37,11 +38,12 @@ export class ExecutiveSummaryProjectSummaryComponent {
 
   constructor(
     private localeService: LocaleService,
+    private powerpointReportGeneratorService: PowerpointReportGeneratorService
   ) { }
 
   ngOnInit() {
     this.setTopReports();
-    this.setTopKpis()
+    this.setTopKpis();
     // get currency code and symbol
     this.currencySub = this.localeService.currencyCode.subscribe(
       code => { this.currencyCode = code }
@@ -144,6 +146,7 @@ export class ExecutiveSummaryProjectSummaryComponent {
       totalPaybackWithNebs: paybackWithNebs,
       totalPaybackWithoutNebs: paybackWithoutNebs
     }
+    this.powerpointReportGeneratorService.setExecutiveSummaryReports(this.topReports, this.additionalReports, this.numberOfProjects);
   }
 
   setTopKpis() {

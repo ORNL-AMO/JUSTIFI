@@ -15,6 +15,7 @@ import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { KeyPerformanceMetric } from '../../constants/keyPerformanceMetrics';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
+import { PowerpointReportGeneratorService } from '../../shared-services/powerpoint-report-generator.service';
 
 @Component({
   selector: 'app-executive-summary-report',
@@ -28,17 +29,17 @@ export class ExecutiveSummaryReportComponent {
   onSiteVisit: IdbOnSiteVisit;
   @Input()
   report: IdbReport;
-
   executiveSummaryReport: ExecutiveSummaryReport;
-
   print: boolean;
   printSub: Subscription;
+  createPowerPointSub: Subscription;
   constructor(private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private powerpointReportGeneratorService: PowerpointReportGeneratorService
   ) {
 
   }
@@ -53,10 +54,20 @@ export class ExecutiveSummaryReportComponent {
     this.executiveSummaryReport = getExecutiveSummaryReport(this.onSiteVisit.visitDate, this.onSiteVisit.assessmentIds, allAssessments, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, this.report);
     this.printSub = this.sharedDataService.print.subscribe(_print => {
       this.print = _print;
-    })
+    });
+    this.createPowerPointSub = this.sharedDataService.createPowerPoint.subscribe(_createPowerPoint => {
+      if (_createPowerPoint == true) {
+        this.generatePowerPoint();
+      }
+    });
   }
 
   ngOnDestroy() {
     this.printSub.unsubscribe();
+    this.createPowerPointSub.unsubscribe();
+  }
+
+   generatePowerPoint() {
+    this.powerpointReportGeneratorService.createExecutiveSummaryPPT(this.executiveSummaryReport);
   }
 }

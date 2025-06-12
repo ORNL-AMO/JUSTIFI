@@ -40,7 +40,6 @@ export class PerformanceMetricsTableComponent {
       this.currencyCode = code;
     });
     this.setReports();
-    this.powerpointReportGeneratorService.setReports(this.kpmRevenueReports, this.kpmCostSavingsReports, this.qualitativeReports, this.totalCostSavings, this.totalRevenue);
   }
 
   ngOnDestroy() {
@@ -50,7 +49,6 @@ export class PerformanceMetricsTableComponent {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['keyPerformanceIndicatorReport'] && !changes['keyPerformanceIndicatorReport'].firstChange) {
       this.setReports();
-      this.powerpointReportGeneratorService.setReports(this.kpmRevenueReports, this.kpmCostSavingsReports, this.qualitativeReports, this.totalCostSavings, this.totalRevenue);
     }
   }
 

@@ -41,7 +41,6 @@ export class AssessmentReportComponent {
   energyEquipments: Array<IdbEnergyEquipment>;
   printSub: Subscription;
   print: boolean;
-
   createPowerPointSub: Subscription;
   constructor(private facilityIdbService: FacilityIdbService, private companyIdbService: CompanyIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
@@ -84,6 +83,6 @@ export class AssessmentReportComponent {
 
 
   generatePowerPoint() {
-    this.powerpointReportGeneratorService.createPPT(this.assessmentReport, this.company, this.facility, this.inRollup, this.assessment);
+    this.powerpointReportGeneratorService.createAssessmentPPT(this.assessmentReport, this.company, this.facility, this.inRollup, this.assessment);
   }
 }
