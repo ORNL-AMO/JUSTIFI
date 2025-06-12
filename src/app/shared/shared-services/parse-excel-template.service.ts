@@ -65,7 +65,7 @@ export class ParseExcelTemplateService {
       endUses = this.checkEndUsesExist(endUses, facility);
       let assessmentsAndVisits: {
         assessments: Array<IdbAssessment>,
-        onsiteVisits: Array<IdbOnSiteVisit>,
+        onSiteVisit: IdbOnSiteVisit,
         facility: IdbFacility
       } = await this.parseAssessments(workbook, facility, company.companyEnergyUnit, onSiteVisit, false);
       assessmentsAndVisits.assessments = this.checkAssessmentsExist(assessmentsAndVisits.assessments, onSiteVisit);
@@ -173,7 +173,7 @@ export class ParseExcelTemplateService {
       let endUses = await this.parseEndUses(workbook, facility, true);
       let assessmentsAndVisits: {
         assessments: Array<IdbAssessment>,
-        onsiteVisits: Array<IdbOnSiteVisit>,
+        onSiteVisit: IdbOnSiteVisit,
         facility: IdbFacility
       } = await this.parseAssessments(workbook, facility, company.companyEnergyUnit, undefined, true);
       let energyEfficiencyMeasures = await this.parseEnergyEfficiencyMeasures(workbook, assessmentsAndVisits.assessments, true);
@@ -183,7 +183,7 @@ export class ParseExcelTemplateService {
       this.toastNotificationService.showToast('Excel Template Parsed Successfully', toastBody, 'bg-success', true, false);
       return {
         facilityGuid: facility.guid,
-        visitGuid: assessmentsAndVisits.onsiteVisits[0]?.guid
+        visitGuid: assessmentsAndVisits.onSiteVisit.guid
       };
     } else {
       this.loadingService.setLoadingStatus(false);
@@ -269,7 +269,7 @@ export class ParseExcelTemplateService {
   async parseEndUses(workbook: ExcelJS.Workbook, facility: IdbFacility, addItems: boolean): Promise<Array<IdbProcessEquipment>> {
     let newEndUses: Array<IdbProcessEquipment> = [];
     //process equipment
-    let worksheet: ExcelJS.Worksheet = workbook.getWorksheet('Industrial_Systems');
+    let worksheet: ExcelJS.Worksheet = workbook.getWorksheet('End_Use_Inventory');
     worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
       if (rowNumber >= 3 && row.getCell('A').value) { // first two rows are headers. check equipment name in column A
         let newEndUse: IdbProcessEquipment = getNewIdbProcessEquipment(facility.userId, facility.companyId, facility.guid);
@@ -287,51 +287,29 @@ export class ParseExcelTemplateService {
     return newEndUses;
   }
 
-  async parseAssessments(workbook: ExcelJS.Workbook, facility: IdbFacility, companyEnergyUnit: string, _onSiteVisit: IdbOnSiteVisit, addItems: boolean): Promise<{ assessments: Array<IdbAssessment>, onsiteVisits: Array<IdbOnSiteVisit>, facility: IdbFacility }> {
+  async parseAssessments(workbook: ExcelJS.Workbook, facility: IdbFacility, companyEnergyUnit: string, _onSiteVisit: IdbOnSiteVisit, addItems: boolean): Promise<{ assessments: Array<IdbAssessment>, onSiteVisit: IdbOnSiteVisit, facility: IdbFacility }> {
     let addedAssessments: Array<IdbAssessment> = [];
-    let addedOnSiteVisits: Array<IdbOnSiteVisit> = [];
+    let isNewVisit: boolean = false;
+    let onSiteVisit: IdbOnSiteVisit;
+    if (_onSiteVisit) {
+      isNewVisit = false;
+      onSiteVisit = _onSiteVisit;
+    } else {
+      isNewVisit = true;
+      onSiteVisit = getNewIdbOnSiteVisit(facility.userId, facility.companyId, facility.guid)
+    }
     let worksheet: ExcelJS.Worksheet = workbook.getWorksheet('Assessments');
     let facilityNeedsUpdate: boolean = false;
     worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
       if (rowNumber >= 3 && row.getCell('A').value) { // first two rows are headers. check assessment name in column A
-        let assessmentDate: Date = new Date();
-        if (row.getCell('C').value) {
-          const cellValue = row.getCell('C').value;
-          if (typeof cellValue === 'string' || typeof cellValue === 'number' || cellValue instanceof Date) {
-            assessmentDate = new Date(cellValue);
-          }
-        }
-
-        //get onsite visit
-        let isNewVisit: boolean = false;
-        let onSiteVisit: IdbOnSiteVisit;
-
-        if (_onSiteVisit) {
-          onSiteVisit = _onSiteVisit;
-        } else {
-          onSiteVisit = addedOnSiteVisits.find(visit => {
-            return visit.visitDate.getFullYear() === assessmentDate.getFullYear() &&
-              visit.visitDate.getMonth() === assessmentDate.getMonth() &&
-              visit.visitDate.getDate() === assessmentDate.getDate()
-          });
-
-        }
-        if (!onSiteVisit) {
-          isNewVisit = true;
-          onSiteVisit = getNewIdbOnSiteVisit(facility.userId, facility.companyId, facility.guid);
-          onSiteVisit.visitDate = assessmentDate;
-          onSiteVisit.sidebarReportsOpen = false;
-        }
-
-
         let newAssessment: IdbAssessment = getNewIdbAssessment(facility.userId, facility.companyId, facility.guid, facility.unitSettings);
         if (addItems) {
           onSiteVisit.assessmentIds.push(newAssessment.guid);
         }
         newAssessment.name = row.getCell('A').value as string;
         newAssessment.assessmentType = row.getCell('B').value as AssessmentType;
-        if (row.getCell('D').value === 'Assessment') {
-          newAssessment.implementationCost = row.getCell('E').value as number || 0;
+        if (row.getCell('C').value === 'Assessment') {
+          newAssessment.implementationCost = row.getCell('D').value as number || 0;
           newAssessment.utilitySavingsByAssessment = true;
         }
         else {
@@ -341,108 +319,105 @@ export class ParseExcelTemplateService {
         for (let i = 0; i < newAssessment.utilityEnergyUses.length; i++) {
           let utilityEnergyUse: UtilityEnergyUse = newAssessment.utilityEnergyUses[i];
           if (utilityEnergyUse.utilityType === 'Electricity') {
-            utilityEnergyUse.include = row.getCell('F').value ? true : false;
+            utilityEnergyUse.include = row.getCell('E').value ? true : false;
             if (utilityEnergyUse.include) {
               if (!facility.unitSettings.includeElectricity) {
                 facility.unitSettings.includeElectricity = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('F').value as number || 0;
-              utilityEnergyUse.energyUnit = row.getCell('G').value as string || 'kWh';
+              utilityEnergyUse.energyUse = row.getCell('E').value as number || 0;
+              utilityEnergyUse.energyUnit = row.getCell('F').value as string || 'kWh';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('H').value as number || 0;
+                utilityEnergyUse.utilitySaving = row.getCell('G').value as number || 0;
               }
             }
           }
           else if (utilityEnergyUse.utilityType === 'Natural Gas') {
-            utilityEnergyUse.include = row.getCell('I').value ? true : false;
+            utilityEnergyUse.include = row.getCell('H').value ? true : false;
             if (utilityEnergyUse.include) {
               if (!facility.unitSettings.includeNaturalGas) {
                 facility.unitSettings.includeNaturalGas = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('I').value as number || 0;
-              utilityEnergyUse.energyUnit = row.getCell('J').value as string || 'MMBtu';
+              utilityEnergyUse.energyUse = row.getCell('H').value as number || 0;
+              utilityEnergyUse.energyUnit = row.getCell('I').value as string || 'MMBtu';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('K').value as number || 0;
+                utilityEnergyUse.utilitySaving = row.getCell('J').value as number || 0;
               }
             }
           }
           else if (utilityEnergyUse.utilityType === 'Other Fuels') {
-            utilityEnergyUse.include = row.getCell('L').value ? true : false;
+            utilityEnergyUse.include = row.getCell('K').value ? true : false;
             if (utilityEnergyUse.include) {
               if (!facility.unitSettings.includeOtherFuels) {
                 facility.unitSettings.includeOtherFuels = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('L').value as number || 0;
-              utilityEnergyUse.energyUnit = row.getCell('M').value as string || 'MMBtu';
+              utilityEnergyUse.energyUse = row.getCell('K').value as number || 0;
+              utilityEnergyUse.energyUnit = row.getCell('L').value as string || 'MMBtu';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('N').value as number || 0;
+                utilityEnergyUse.utilitySaving = row.getCell('M').value as number || 0;
               }
             }
           }
           else if (utilityEnergyUse.utilityType === 'Water') {
-            utilityEnergyUse.include = row.getCell('O').value ? true : false;
+            utilityEnergyUse.include = row.getCell('N').value ? true : false;
             if (utilityEnergyUse.include) {
               if (!facility.unitSettings.includeWater) {
                 facility.unitSettings.includeWater = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('O').value as number || 0;
-              utilityEnergyUse.energyUnit = row.getCell('P').value as string || 'kgal';
+              utilityEnergyUse.energyUse = row.getCell('N').value as number || 0;
+              utilityEnergyUse.energyUnit = row.getCell('O').value as string || 'kgal';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('Q').value as number || 0;
+                utilityEnergyUse.utilitySaving = row.getCell('P').value as number || 0;
               }
             }
           }
           else if (utilityEnergyUse.utilityType === 'Waste Water') {
-            utilityEnergyUse.include = row.getCell('R').value ? true : false;
+            utilityEnergyUse.include = row.getCell('Q').value ? true : false;
             if (utilityEnergyUse.include) {
               if (!facility.unitSettings.includeWasteWater) {
                 facility.unitSettings.includeWasteWater = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('R').value as number || 0;
-              utilityEnergyUse.energyUnit = row.getCell('S').value as string || 'kgal';
+              utilityEnergyUse.energyUse = row.getCell('Q').value as number || 0;
+              utilityEnergyUse.energyUnit = row.getCell('R').value as string || 'kgal';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('T').value as number || 0;
+                utilityEnergyUse.utilitySaving = row.getCell('S').value as number || 0;
               }
             }
           }
           else if (utilityEnergyUse.utilityType === 'Compressed Air') {
-            utilityEnergyUse.include = row.getCell('U').value ? true : false;
+            utilityEnergyUse.include = row.getCell('T').value ? true : false;
             if (utilityEnergyUse.include) {
               if (!facility.unitSettings.includeCompressedAir) {
                 facility.unitSettings.includeCompressedAir = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('U').value as number || 0;
-              utilityEnergyUse.energyUnit = row.getCell('V').value as string || 'kSCF';
+              utilityEnergyUse.energyUse = row.getCell('T').value as number || 0;
+              utilityEnergyUse.energyUnit = row.getCell('U').value as string || 'kSCF';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('W').value as number || 0;
+                utilityEnergyUse.utilitySaving = row.getCell('V').value as number || 0;
               }
             }
           }
           else if (utilityEnergyUse.utilityType === 'Steam') {
-            utilityEnergyUse.include = row.getCell('X').value ? true : false;
+            utilityEnergyUse.include = row.getCell('W').value ? true : false;
             if (utilityEnergyUse.include) {
               if (!facility.unitSettings.includeSteam) {
                 facility.unitSettings.includeSteam = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('X').value as number || 0;
-              utilityEnergyUse.energyUnit = row.getCell('Y').value as string || 'klb';
+              utilityEnergyUse.energyUse = row.getCell('W').value as number || 0;
+              utilityEnergyUse.energyUnit = row.getCell('X').value as string || 'klb';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('Z').value as number || 0;
+                utilityEnergyUse.utilitySaving = row.getCell('Y').value as number || 0;
               }
             }
           }
         }
         addedAssessments.push(newAssessment);
-        if (isNewVisit) {
-          addedOnSiteVisits.push(onSiteVisit);
-        }
       }
     });
 
@@ -451,8 +426,8 @@ export class ParseExcelTemplateService {
         addedAssessments[i] = updateAssessmentUtilityUseCostSavings(addedAssessments[i], facility.unitSettings, companyEnergyUnit);
         await firstValueFrom(this.assessmentIdbService.addWithObservable(addedAssessments[i]));
       }
-      for (let i = 0; i < addedOnSiteVisits.length; i++) {
-        await firstValueFrom(this.onSiteVisitIdbService.addWithObservable(addedOnSiteVisits[i]));
+      if (isNewVisit) {
+        await firstValueFrom(this.onSiteVisitIdbService.addWithObservable(onSiteVisit));
       }
       if (facilityNeedsUpdate) {
         facility = await firstValueFrom(this.facilityIdbService.updateWithObservable(facility));
@@ -460,7 +435,7 @@ export class ParseExcelTemplateService {
     }
     return {
       assessments: addedAssessments,
-      onsiteVisits: addedOnSiteVisits,
+      onSiteVisit: onSiteVisit,
       facility: facility
     };
   }
