@@ -12,7 +12,7 @@
                             <p class="fw-light small mb-0">
                                 If you would prefer to enter your assessments in a spreadsheet, you can download the
                                 template provided here,
-                                fill it out, and upload it here. Additionally, if you are a user of MEASUR,
+                                fill it out, and upload it below. Additionally, if you are a user of MEASUR,
                                 functionality is
                                 available within MEASUR to export your assessments to the template that can be uploaded
                                 here!
@@ -50,16 +50,20 @@
                         you can upload a new template. Otherwise, you can click "Save Parsed Data" to save the
                         parsed data to the database.
                     </p>
-                    <div class="d-flex w-100 justify-content-between mb-2">
+                    <p class="fw-light mb-0 mt-auto">
+                        <fa-icon [icon]="faAsterisk"></fa-icon> Indicates item exists in the database. Existing
+                        items will be skipped. Facility information from the template will also be skipped.
+                    </p>
+                    <div class="d-flex w-100 justify-content-end mb-2 mt-2">
                         <div>
-                            <p class="fw-light">
-                                <fa-icon [icon]="faAsterisk"></fa-icon> Indicates item existing in the database.
-                            </p>
-                        </div>
-                        <div>
-                            <button class="btn btn-outline-success btn-sm mt-2" (click)="save()">
+                            <button class="btn btn-success btn-sm" (click)="save()">
                                 <fa-icon [icon]="faSave"></fa-icon>
                                 Save Parsed Data
+                            </button>
+
+                            <button class="btn btn-outline-dark btn-sm ms-1" (click)="startOver()">
+                                <fa-icon [icon]="faRefresh"></fa-icon>
+                                Start Over
                             </button>
                         </div>
                     </div>
@@ -103,12 +107,12 @@
                         <div class="col-12">
                             <div class="card-item">
                                 <label class="bold">
-                                    Assessments: ({{assessments.length}})
+                                    Assessments: ({{assessments.length}}), EEMs: ({{energyEfficiencyMeasures.length}})
                                 </label>
                                 <ng-container *ngIf="assessments.length">
                                     <hr class="my-1">
                                     <ng-container
-                                        *ngFor="let assessmentItem of assessments; let assessmentIndex = index;">
+                                        *ngFor="let assessmentItem of mappedAssessments; let assessmentIndex = index;">
                                         <div class="item-label">
                                             <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
                                             {{assessmentItem.assessment.name}}

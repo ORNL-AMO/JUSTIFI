@@ -96,22 +96,34 @@
             </form>
         </ng-template>
         <ng-template #noCompaniesBlock>
-            <div class="alert alert-info">
+            <div class="alert alert-info p-1">
                 No companies found in your system. Click confirm to create your first company!
             </div>
             <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="templateUpload">Template Upload</label>
+                <label class="col-sm-5 col-form-label" for="setupMethod">Setup Method</label>
                 <div class="col-7">
-                    <input type="file" id="templateUpload" name="templateUpload" class="form-control"
-                        (change)="onFileSelected($event.target)" accept=".xlsx" />
+                    <select id="setupMethod" name="setupMethod" class="form-select" [(ngModel)]="manualSetup"
+                        (change)="changeSetupMethod()">
+                        <option [ngValue]="true">Manual Setup</option>
+                        <option [ngValue]="false">Template Upload</option>
+                    </select>
                 </div>
             </div>
-            <div class="alert alert-danger p-1" *ngIf="fileUploadError">
-                {{fileUploadError}}
-            </div>
-            <div class="alert alert-secondary p-1" *ngIf="workbook">
-                This template file will be parsed and the data will be imported into the system.
-            </div>
+            <ng-container *ngIf="!manualSetup">
+                <div class="row mb-1">
+                    <label class="col-sm-5 col-form-label" for="templateUpload">Template Upload</label>
+                    <div class="col-7">
+                        <input type="file" id="templateUpload" name="templateUpload" class="form-control"
+                            (change)="onFileSelected($event.target)" accept=".xlsx" />
+                    </div>
+                </div>
+                <div class="alert alert-danger p-1" *ngIf="fileUploadError">
+                    {{fileUploadError}}
+                </div>
+                <div class="alert alert-secondary p-1" *ngIf="workbook">
+                    This template file will be parsed and the data will be imported into the system.
+                </div>
+            </ng-container>
         </ng-template>
         <hr>
     </div>

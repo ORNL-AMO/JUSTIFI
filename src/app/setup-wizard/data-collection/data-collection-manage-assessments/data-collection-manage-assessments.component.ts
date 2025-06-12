@@ -117,7 +117,7 @@ export class DataCollectionManageAssessmentsComponent {
   }
 
 
-  goToUploadTemplateModal() {
+  goToUploadTemplate() {
     this.router.navigateByUrl('/setup-wizard/upload-template/' + this.onSiteVisit.guid);
   }
 }

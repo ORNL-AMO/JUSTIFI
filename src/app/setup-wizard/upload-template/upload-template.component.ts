@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faAsterisk, faCube, faFileExcel, faFileLines, faSave, faScrewdriverWrench, faSplotch, faUpload, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faAsterisk, faCube, faFileExcel, faFileLines, faRefresh, faSave, faScrewdriverWrench, faSplotch, faUpload, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import * as ExcelJS from 'exceljs';
 import { ParseExcelTemplateService } from 'src/app/shared/shared-services/parse-excel-template.service';
@@ -28,18 +28,20 @@ export class UploadTemplateComponent {
   faAsterisk: IconDefinition = faAsterisk;
   faCube: IconDefinition = faCube;
   faSplotch: IconDefinition = faSplotch;
-  
+  faRefresh: IconDefinition = faRefresh;
+
   workbook: ExcelJS.Workbook;
   fileUploadError: string = '';
   parsedResults: boolean = false;
   facility: IdbFacility;
   industrialSystems: Array<IdbEnergyEquipment>;
   endUses: Array<IdbProcessEquipment>;
-  assessments: Array<{
+  mappedAssessments: Array<{
     assessment: IdbAssessment,
     energyEfficiencyMeasures: Array<IdbEnergyOpportunity>
   }>;
-
+  assessments: Array<IdbAssessment>;
+  energyEfficiencyMeasures: Array<IdbEnergyOpportunity>;
   constructor(private activatedRoute: ActivatedRoute,
     private dbChangesService: DbChangesService,
     private router: Router,
@@ -108,10 +110,12 @@ export class UploadTemplateComponent {
     this.facility = results.facility;
     this.industrialSystems = results.industrialSystems;
     this.endUses = results.endUses;
-    this.assessments = new Array();
+    this.assessments = results.assessments;
+    this.energyEfficiencyMeasures = results.energyEfficiencyMeasures;
+    this.mappedAssessments = new Array();
     results.assessments.forEach(assessment => {
       let energyEfficiencyMeasures: Array<IdbEnergyOpportunity> = results.energyEfficiencyMeasures.filter(eem => eem.assessmentId === assessment.guid);
-      this.assessments.push({
+      this.mappedAssessments.push({
         assessment: assessment,
         energyEfficiencyMeasures: energyEfficiencyMeasures
       });
@@ -121,9 +125,21 @@ export class UploadTemplateComponent {
     this.fileUploadError = '';
   }
 
-  save() {
-
+  async save() {
+    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+    await this.parseExcelTemplateService.importData(this.facility, this.industrialSystems, this.endUses, this.assessments, this.energyEfficiencyMeasures, onSiteVisit);
+    this.startOver();
   }
 
+  startOver(){
+    this.parsedResults = false;
+    this.workbook = undefined;
+    this.fileUploadError = '';
+    this.industrialSystems = [];
+    this.endUses = [];
+    this.mappedAssessments = [];
+    this.assessments = [];
+    this.energyEfficiencyMeasures = [];
+  }
 
 }

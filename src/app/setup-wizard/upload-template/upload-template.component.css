@@ -19,3 +19,7 @@
     white-space: nowrap;
     width: 100%;
 }
+
+.setup-wizard-content{
+    height: 100% !important
+}

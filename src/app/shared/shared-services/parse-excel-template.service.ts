@@ -38,16 +38,15 @@ export class ParseExcelTemplateService {
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private loadingService: LoadingService,
-    private toastnotificationService: ToastNotificationsService,
+    private toastNotificationService: ToastNotificationsService,
     private dbChangesService: DbChangesService,
     private userIdbService: UserIdbService,
     private companyIdbService: CompanyIdbService
   ) { }
 
-  /*
-    * calculate assessment savings based on facility utility costs  
-  */
-
+  //Parse the workbook from the wizard
+  // This function is used to parse the workbook from the wizard and return the parsed data
+  // without adding the data to the database.
   async parseWorkbookFromWizard(workbook: ExcelJS.Workbook, onSiteVisit: IdbOnSiteVisit): Promise<{
     facility: IdbFacility,
     industrialSystems: Array<IdbEnergyEquipment>,
@@ -83,8 +82,85 @@ export class ParseExcelTemplateService {
     return undefined;
   }
 
+  //add parsed data to the database
+  //from the wizard
+  async importData(
+    facility: IdbFacility,
+    industrialSystems: Array<IdbEnergyEquipment>,
+    endUses: Array<IdbProcessEquipment>,
+    assessments: Array<IdbAssessment>,
+    energyEfficiencyMeasures: Array<IdbEnergyOpportunity>,
+    onSiteVisit: IdbOnSiteVisit) {
+    let visitCopy: IdbOnSiteVisit = JSON.parse(JSON.stringify(onSiteVisit))
+    this.loadingService.setLoadingMessage('Updating Database with Parsed Data');
+    this.loadingService.setLoadingStatus(true);
+    //update facility utility settings
+    //may change on upload
+    await this.facilityIdbService.asyncUpdate(facility);
+
+    let numOfIndustrialSystems: number = 0;
+    for (let i = 0; i < industrialSystems.length; i++) {
+      let industrialSystem: IdbEnergyEquipment = industrialSystems[i];
+      if (!industrialSystem.id) {
+        numOfIndustrialSystems++;
+        industrialSystem = await firstValueFrom(this.energyEquipmentIdbService.addWithObservable(industrialSystem));
+      }
+    }
+    if (numOfIndustrialSystems) {
+      await this.energyEquipmentIdbService.setEnergyEquipments();
+    }
+    let numOfEndUses: number = 0;
+    for (let i = 0; i < endUses.length; i++) {
+      let endUse: IdbProcessEquipment = endUses[i];
+      if (!endUse.id) {
+        numOfEndUses++;
+        endUse = await firstValueFrom(this.processEquipmentIdbService.addWithObservable(endUse));
+      }
+    }
+    if (numOfEndUses) {
+      await this.processEquipmentIdbService.setProcessEquipments();
+    }
+    let numOfAssessments: number = 0;
+    for (let i = 0; i < assessments.length; i++) {
+      let assessment: IdbAssessment = assessments[i];
+      assessment = updateAssessmentUtilityUseCostSavings(assessment, facility.unitSettings, facility.companyId);
+      if (!assessment.id) {
+        numOfAssessments++;
+        assessment = await firstValueFrom(this.assessmentIdbService.addWithObservable(assessment));
+      }
+      //add assessment to onSiteVisit
+      if (visitCopy && !visitCopy.assessmentIds.includes(assessment.guid)) {
+        visitCopy.assessmentIds.push(assessment.guid);
+      }
+    }
+    if (numOfAssessments) {
+      await this.assessmentIdbService.setAssessments();
+    }
+    let numOfEEMs: number = 0;
+    for (let i = 0; i < energyEfficiencyMeasures.length; i++) {
+      let energyEfficiencyMeasure: IdbEnergyOpportunity = energyEfficiencyMeasures[i];
+      if (!energyEfficiencyMeasure.id) {
+        numOfEEMs++;
+        energyEfficiencyMeasure = await firstValueFrom(this.energyOpportunityIdbService.addWithObservable(energyEfficiencyMeasure));
+      }
+    }
+    if (numOfEEMs) {
+      await this.energyOpportunityIdbService.setEnergyOpportunities();
+    }
+
+    await this.onSiteVisitIdbService.asyncUpdate(visitCopy);
+    let user: IdbUser = this.userIdbService.user.getValue();
+    await this.dbChangesService.selectUser(user, true);
+    this.loadingService.setLoadingStatus(false);
+    let toastBody = `Parsed ${facility.generalInformation.name} with, ${numOfIndustrialSystems} Industrial Systems, ${numOfEndUses} End Uses, ${numOfAssessments} Assessments, ${numOfEEMs} Energy Efficiency Measures`;
+    this.toastNotificationService.showToast('Excel Template Parsed Successfully', toastBody, 'bg-success', true, false);
+    return;
+  }
+
 
   //return facility guid and visit guid
+  //adds data automatically to the database
+  //called from the setup wizard modal
   async parseWorkbook(workbook: ExcelJS.Workbook, user: IdbUser, company: IdbCompany): Promise<{
     facilityGuid: string,
     visitGuid: string,
@@ -104,14 +180,14 @@ export class ParseExcelTemplateService {
       await this.dbChangesService.selectUser(user, true)
       this.loadingService.setLoadingStatus(false);
       let toastBody = `Parsed ${facility.generalInformation.name} with, ${industrialSystems.length} Industrial Systems, ${endUses.length} End Uses, ${assessmentsAndVisits.assessments.length} Assessments, ${energyEfficiencyMeasures.length} Energy Efficiency Measures`;
-      this.toastnotificationService.showToast('Excel Template Parsed Successfully', toastBody, 'bg-success', true, false);
+      this.toastNotificationService.showToast('Excel Template Parsed Successfully', toastBody, 'bg-success', true, false);
       return {
         facilityGuid: facility.guid,
         visitGuid: assessmentsAndVisits.onsiteVisits[0]?.guid
       };
     } else {
       this.loadingService.setLoadingStatus(false);
-      this.toastnotificationService.showToast('Excel Template Parsing Failed', 'No Facilities Found in the Excel Template', 'bg-danger', true, false);
+      this.toastNotificationService.showToast('Excel Template Parsing Failed', 'No Facilities Found in the Excel Template', 'bg-danger', true, false);
       return undefined;
     }
   }
