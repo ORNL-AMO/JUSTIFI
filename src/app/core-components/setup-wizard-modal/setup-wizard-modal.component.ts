@@ -185,11 +185,7 @@ export class SetupWizardModalComponent {
       await this.parseWorkbook();
     }
   }
-
-  changeSetupMethod() {
-
-  }
-
+  
   onFileSelected(event: EventTarget) {
     let files: FileList = (event as HTMLInputElement).files;
     if (files) {
