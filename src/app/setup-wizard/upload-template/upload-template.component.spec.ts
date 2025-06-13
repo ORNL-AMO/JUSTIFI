@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UploadTemplateComponent } from './upload-template.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 describe('UploadTemplateComponent', () => {
   let component: UploadTemplateComponent;
@@ -8,7 +11,9 @@ describe('UploadTemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UploadTemplateComponent]
+      imports: [FontAwesomeModule, FormsModule],
+      declarations: [UploadTemplateComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 
