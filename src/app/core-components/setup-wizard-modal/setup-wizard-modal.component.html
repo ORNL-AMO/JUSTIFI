@@ -102,8 +102,7 @@
             <div class="row mb-1">
                 <label class="col-sm-5 col-form-label" for="setupMethod">Setup Method</label>
                 <div class="col-7">
-                    <select id="setupMethod" name="setupMethod" class="form-select" [(ngModel)]="manualSetup"
-                        (change)="changeSetupMethod()">
+                    <select id="setupMethod" name="setupMethod" class="form-select" [(ngModel)]="manualSetup">
                         <option [ngValue]="true">Manual Setup</option>
                         <option [ngValue]="false">Template Upload</option>
                     </select>
