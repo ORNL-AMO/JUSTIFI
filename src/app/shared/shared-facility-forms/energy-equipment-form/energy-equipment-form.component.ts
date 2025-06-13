@@ -37,7 +37,9 @@ export class EnergyEquipmentFormComponent {
   faContactBook: IconDefinition = faContactBook;
   faFilePen: IconDefinition = faFilePen;
 
-  equipmentTypes: Array<EquipmentType> = EquipmentTypes;
+  equipmentTypes: Array<EquipmentType> = EquipmentTypes.filter(
+    type => type !== 'Mobile' // TODO: hide Mobile option issue-524
+  );
   equipmentTypeOptions: Array<{
     equipmentType: EquipmentType,
     utilityTypes: Array<UtilityType>,
