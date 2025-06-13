@@ -22,6 +22,7 @@ export interface IdbEnergyEquipment extends IdbEntry {
     loadFactor: number,
     efficiency: number,
     efficiencyUnit?: '%' | 'COP' | 'EER' | 'kW/ton',
+    ballastFactor: number,
     numberOfEquipment: number,
     annualEnergyUse: number,
     facilityUtilityUnit: string;
@@ -79,6 +80,7 @@ export function getNewIdbEnergyEquipment(userId: string, companyId: string, faci
         loadFactor: 100,
         efficiency: 100,
         efficiencyUnit: '%',
+        ballastFactor: 1.15,
         numberOfEquipment: 1,
         notes: undefined,
         annualEnergyUse: 0,

@@ -191,7 +191,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="energyEquipment.equipmentType !== 'Lighting'">
                                 <label class="col-sm-5 col-form-label" for="loadFactor">Load
                                     Factor</label>
                                 <div class="col-sm-7">
@@ -203,7 +203,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="energyEquipment.equipmentType !== 'Lighting'">
                                 <label class="col-sm-5 col-form-label" for="efficiency">
                                     {{ (energyEquipment.equipmentType === 'Process Cooling' || 
                                     energyEquipment.equipmentType === 'HVAC') ? 'Efficiency / COP' : 'Efficiency' }}
@@ -231,6 +231,18 @@
                                                 {{energyEquipment.efficiencyUnit}}
                                             </span>
                                         </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="energyEquipment.equipmentType === 'Lighting'">
+                                <label class="col-sm-5 col-form-label" for="ballastFactor">Ballast Factor</label>
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                    <input type="number" class="form-control" id="ballastFactor"
+                                        name="ballastFactor"
+                                        [(ngModel)]="energyEquipment.ballastFactor"
+                                        (input)="calculateAnnualEnergyUse()"
+                                        (focus)="focusField('ballastFactor')">
                                     </div>
                                 </div>
                             </div>

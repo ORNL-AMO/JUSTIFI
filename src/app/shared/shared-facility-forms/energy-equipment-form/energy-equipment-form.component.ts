@@ -100,11 +100,11 @@ export class EnergyEquipmentFormComponent {
       this.activatedRoute.params.subscribe(params => {
         this.energyEquipmentGuid = params['id'];
         this.energyEquipment = this.energyEquipmentIdbService.getByGuid(this.energyEquipmentGuid);
-        this.updateSizeAndEfficiency();
+        this.initializeEquipmentFields();
       });
     } else {
       this.energyEquipment = this.energyEquipmentIdbService.getByGuid(this.energyEquipmentGuid);
-      this.updateSizeAndEfficiency();
+      this.initializeEquipmentFields();
     }
 
     this.contactSub = this.contactIdbService.contacts.subscribe(_contacts => {
@@ -128,7 +128,7 @@ export class EnergyEquipmentFormComponent {
     this.facilitySub.unsubscribe();
   }
 
-  async updateSizeAndEfficiency() {
+  async initializeEquipmentFields() {
     this.updateSizeLabel(); // update the size label
     // check legacy size unit for process cooling and HVAC
     if (this.energyEquipment.equipmentType === 'Process Cooling' ||
@@ -142,6 +142,11 @@ export class EnergyEquipmentFormComponent {
     if (!this.energyEquipment.efficiencyUnit) {
       await this.updateEfficiencyUnit();
     }
+    // check if ballast factor is properly set
+    if (this.energyEquipment.equipmentType === 'Lighting' && !this.energyEquipment.ballastFactor) {
+      this.energyEquipment.ballastFactor = 1.15; // Set default ballast factor
+      await this.updateEnergyCalculations();
+    }
   }
 
   async industrialSystemChange() {
@@ -149,6 +154,9 @@ export class EnergyEquipmentFormComponent {
       option => option.equipmentType === this.energyEquipment.equipmentType
     )?.utilityTypes || [];
     this.energyEquipment.utilityType = _utilityTypes[0]; // Set to first utility type
+    if (this.energyEquipment.equipmentType === 'Lighting' && !this.energyEquipment.ballastFactor) {
+      this.energyEquipment.ballastFactor = 1.15;
+    }
     await this.utilityTypeChange('default');
   }
 
@@ -268,7 +276,10 @@ export class EnergyEquipmentFormComponent {
     return this.energyEquipment.size * unitConv;
   }
 
-  calculateTrueEfficiency(): number {
+  getCOPEfficiency(): number {
+    if (this.energyEquipment.equipmentType === 'Lighting') {
+      return 1; // Lighting efficiency is always 1 (100%)
+    }
     const eff = this.energyEquipment.efficiency;
     switch (this.energyEquipment.efficiencyUnit) {
       case 'kW/ton':
@@ -284,11 +295,27 @@ export class EnergyEquipmentFormComponent {
     }
   }
 
+  getLoadFactor(): number {
+    if (this.energyEquipment.equipmentType === 'Lighting') {
+      return 1;
+    }
+    return this.energyEquipment.loadFactor / 100;
+  }
+
+  getBallastFactor(): number {
+    if (this.energyEquipment.equipmentType === 'Lighting') {
+      return this.energyEquipment.ballastFactor || 1.15;
+    }
+    return 1;
+  }
+
   async calculateAnnualEnergyUse() {
     let convertedSize = this.convertSize();
-    const trueEfficiency = this.calculateTrueEfficiency();
+    const COP = this.getCOPEfficiency();
+    const loadFactor = this.getLoadFactor();
+    const ballastFactor = this.getBallastFactor();
     this.energyEquipment.annualEnergyUse = convertedSize * this.energyEquipment.operatingHours *
-      (this.energyEquipment.loadFactor / 100) / trueEfficiency * this.energyEquipment.numberOfEquipment;
+      loadFactor / COP * this.energyEquipment.numberOfEquipment * ballastFactor;
     if (!this.energyEquipment.annualEnergyUse || this.energyEquipment.annualEnergyUse === Infinity) {
       this.energyEquipment.annualEnergyUse = 0;
     }
