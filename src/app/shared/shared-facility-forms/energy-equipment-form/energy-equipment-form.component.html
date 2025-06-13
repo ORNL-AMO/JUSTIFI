@@ -205,8 +205,14 @@
                             </div>
                             <div class="row" *ngIf="energyEquipment.equipmentType !== 'Lighting'">
                                 <label class="col-sm-5 col-form-label" for="efficiency">
-                                    {{ (energyEquipment.equipmentType === 'Process Cooling' || 
-                                    energyEquipment.equipmentType === 'HVAC') ? 'Efficiency / COP' : 'Efficiency' }}
+                                    <ng-container *ngIf="energyEquipment.equipmentType === 'Process Cooling' 
+                                    || energyEquipment.equipmentType === 'HVAC'; else defaultEfficiencyLabel">
+                                        <app-label-with-tooltip [label]="'Efficiency / COP'" [field]="'equipmentEfficiency'"
+                                        [labelId]="'efficiency_COP_' + energyEquipment.guid"></app-label-with-tooltip>
+                                    </ng-container>
+                                    <ng-template #defaultEfficiencyLabel>
+                                        Efficiency
+                                    </ng-template>
                                 </label>
                                 <div class="col-sm-7">
                                     <div class="input-group">
