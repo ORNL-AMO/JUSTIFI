@@ -14,7 +14,7 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span *ngIf="isFirstAssessment"> Follow-up</span>
+            <span *ngIf="isFirstAssessment">Executive Summary</span>
             <span *ngIf="!isFirstAssessment"> Assessment Report&nbsp;</span>
         </button>
         <button class="btn btn-success btn-sm" (click)="togglePrint()">

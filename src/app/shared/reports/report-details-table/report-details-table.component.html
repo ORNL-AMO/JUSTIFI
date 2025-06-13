@@ -1,16 +1,10 @@
+<ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentTitle">
+   <h6 class="bold">On Site Details</h6>
+</ng-template>
+<ng-template #assessmentTitle>
+    <h6 class="bold">Assessment Details</h6>
+</ng-template>
 <table class="table table-bordered table-hover savings-table">
-    <thead>
-        <tr>
-            <th class="bg-neutral" colspan="2">
-                <ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentBlock">
-                    On Site Details
-                </ng-template>
-                <ng-template #assessmentBlock>
-                    Assessment Details
-                </ng-template>
-            </th>
-        </tr>
-    </thead>
     <tbody>
         <tr>
             <td class="w-50 bg-neutral-light">

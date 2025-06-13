@@ -105,11 +105,20 @@ export class NebsDatabaseTableComponent {
 
   filterKeywordList() {
     const searchStr = this.nebSearchStr.toLowerCase().trim();
-    const keywordMatched = _.uniq(
-      this.keywordList.filter(keyword =>
-        keyword.toLowerCase().startsWith(searchStr)
-      )
-    );
+    if (!searchStr) {
+      this.filteredKeywordList = [];
+      return;
+    }
+    const keywordWithIndex = this.keywordList
+      .map(keyword => {
+        const words = keyword.toLowerCase().split(/\s+/);
+        const index = words.findIndex(word => word.startsWith(searchStr));
+        return { keyword, index }; // return keyword and index
+      })
+      .filter(item => item.index !== -1); // filter out non-matching keywords
+    
+    keywordWithIndex.sort((a, b) => a.index - b.index); // sort by index
+    const keywordMatched = _.uniq(keywordWithIndex.map(item => item.keyword));
     this.filteredKeywordList = keywordMatched.slice(0, 10); // limit to 10 matches
     if (keywordMatched.length > 10) {
       this.filteredKeywordList.push('...');

@@ -17,8 +17,8 @@
                 *ngFor="let keyword of filteredKeywordList"
                 class="dropdown-item"
                 (click)="keyword != '...' && selectKeyword(keyword)"
+                [innerHTML]="keyword | keywordHighlight: nebSearchStr"
             >
-                {{ keyword }}
             </li>
         </ul>
     </div>
