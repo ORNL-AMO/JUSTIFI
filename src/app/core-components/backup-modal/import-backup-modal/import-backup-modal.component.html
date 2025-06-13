@@ -83,24 +83,29 @@
                 {{importFileError}}
             </p>
         </ng-container>
-
-
-
-
-
     </div>
     <hr>
-    <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2" (click)="cancelImportBackup()">Cancel</button>
+    <div class="popup-footer d-flex justify-content-between">
+        <div>
+            <a class="btn btn-outline-primary btn-sm" href="/assets/template-files/JUSTIFI_Upload_Template.xlsx"
+                download="assessment-template.xlsx">
+                <fa-icon [icon]="faFileExcel"></fa-icon>
+                Download Template
+            </a>
+        </div>
+        <div>
+            <button class="btn btn-secondary me-2 btn-sm" (click)="cancelImportBackup()">Cancel</button>
 
-        <ng-container *ngIf="importMethod === 'jsonFile'">
-            <button class="btn btn-primary" (click)="importBackupFile()"
-                [disabled]="importFile == undefined || importFileError != undefined">Import</button>
-        </ng-container>
+            <ng-container *ngIf="importMethod === 'jsonFile'">
+                <button class="btn btn-primary btn-sm" (click)="importBackupFile()"
+                    [disabled]="importFile == undefined || importFileError != undefined">Import</button>
+            </ng-container>
 
-        <ng-container *ngIf="importMethod === 'template'">
-            <button class="btn btn-primary" (click)="parseWorkbook()"
-                [disabled]="workbook == undefined || importFileError != undefined">Import</button>
-        </ng-container>
+            <ng-container *ngIf="importMethod === 'template'">
+                <button class="btn btn-primary btn-sm" (click)="parseWorkbook()"
+                    [disabled]="workbook == undefined || importFileError != undefined">Import</button>
+            </ng-container>
+
+        </div>
     </div>
 </div>

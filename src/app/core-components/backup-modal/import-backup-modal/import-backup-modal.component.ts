@@ -5,16 +5,15 @@ import { BackupDataService, BackupFile } from 'src/app/shared/shared-services/ba
 import { LoadingService } from '../../loading/loading.service';
 import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
 import { IdbUser } from 'src/app/models/user';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { BackupModalService } from '../backup-modal.service';
 import { environment } from 'src/environments/environment';
 import { UpdateDbEntriesService } from 'src/app/indexed-db/update-db-entries.service';
 import * as ExcelJS from 'exceljs';
 import { ParseExcelTemplateService } from 'src/app/shared/shared-services/parse-excel-template.service';
-import { getNewIdbCompany, IdbCompany } from 'src/app/models/company';
-import { IdbFacility } from 'src/app/models/facility';
-import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
+import { IdbCompany } from 'src/app/models/company';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { faFileExcel, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-import-backup-modal',
@@ -24,6 +23,7 @@ import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 })
 export class ImportBackupModalComponent implements OnInit, OnDestroy {
 
+  faFileExcel: IconDefinition = faFileExcel;
 
   showImportModalSub: Subscription;
   showImportModal: boolean;
@@ -77,7 +77,9 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
     this.backupModalService.showImportModal.next(false);
     this.importFile = undefined;
     this.importFileError = undefined;
-    (document.getElementById('selectImportFile') as HTMLInputElement).value = '';
+    if (document.getElementById('selectImportFile')) {
+      (document.getElementById('selectImportFile') as HTMLInputElement).value = '';
+    }
     this.importMethod = undefined;
   }
 

@@ -162,20 +162,6 @@
                             <hr>
                         </div>
                         <div>
-                            <a>
-                                <fa-icon [icon]="faQuestionCircle"></fa-icon>
-                                JUSTIFI Help Content
-                            </a>
-                            <p class="card-text fw-light">
-                                <span class="badge bg-warning">Coming Soon</span> View help documents and
-                                tutorials to learn more about using the JUSTIFI
-                                application.
-                            </p>
-                        </div>
-                        <div class="col-12">
-                            <hr>
-                        </div>
-                        <div>
                             <fa-icon [icon]="faDatabase"></fa-icon>
                             <a [routerLink]="'/nebs-database'">
                                 NEBs Database
@@ -198,6 +184,39 @@
                                 (justifi-help&#64;ornl.gov) to contact our team and let us know your
                                 thoughts. The feedback link can also be used to report any bugs you find along
                                 the way!
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        <div>
+                            <a class="btn btn-outline-primary btn-sm"
+                                href="/assets/template-files/JUSTIFI_Upload_Template.xlsx"
+                                download="assessment-template.xlsx">
+                                <fa-icon [icon]="faFileExcel"></fa-icon>
+                                Download Template
+                            </a>
+                            <p class="card-text fw-light">
+                                Download the JUSTIFI template if you would prefer to fill out data in an excel
+                                spreadsheet.
+                                If you are a <a href="https://measur.ornl.gov" target="_blank">MEASUR</a> user,
+                                functionality has been added to MEASUR to export your
+                                assessment data to the template for easy upload into JUSTIFI! Just look for the "Export
+                                To JUSTIFI" buttons!
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        <div>
+                            <a>
+                                <fa-icon [icon]="faQuestionCircle"></fa-icon>
+                                JUSTIFI Help Content
+                            </a>
+                            <p class="card-text fw-light">
+                                <span class="badge bg-warning">Coming Soon</span> View help documents and
+                                tutorials to learn more about using the JUSTIFI
+                                application.
                             </p>
                         </div>
                     </div>
