@@ -11,7 +11,7 @@ import { IdbContact } from 'src/app/models/contact';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { UnitSettings } from 'src/app/models/unitSettings';
 import { EquipmentType, EquipmentTypeOptions, EquipmentTypes } from 'src/app/shared/constants/equipmentTypes';
-import { Energy2PowerUnitMap, EnergyUnitOptions, ProcessCoolingUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from 'src/app/shared/constants/unitOptions';
+import { Energy2PowerUnitMap, EnergyUnitOptions, ProcessCoolingHVACUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from 'src/app/shared/constants/unitOptions';
 import { UtilityOption, UtilityOptions, UtilityType, UtilityTypes } from 'src/app/shared/constants/utilityTypes';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { SharedDataService } from '../../shared-services/shared-data.service';
@@ -47,7 +47,7 @@ export class EnergyEquipmentFormComponent {
 
   fuelEnergyUnitOptions: Array<UnitOption> = EnergyUnitOptions;
 
-  processCoolingUnitOptions: Array<UnitOption> = ProcessCoolingUnitOptions;
+  processCoolingHVACUnitOptions: Array<UnitOption> = ProcessCoolingHVACUnitOptions;
 
   convertValue: ConvertValue = new ConvertValue();
 
@@ -78,6 +78,7 @@ export class EnergyEquipmentFormComponent {
   };
 
   sizeLabel: string = 'Total Size'
+  efficiencyUnitOptions: string[] = ['kW/ton', 'COP', 'EER'];;
 
   collapseEnergyDetails: boolean = true;
   constructor(private energyEquipmentIdbService: EnergyEquipmentIdbService,
@@ -99,9 +100,11 @@ export class EnergyEquipmentFormComponent {
       this.activatedRoute.params.subscribe(params => {
         this.energyEquipmentGuid = params['id'];
         this.energyEquipment = this.energyEquipmentIdbService.getByGuid(this.energyEquipmentGuid);
+        this.updateSizeAndEfficiency();
       });
     } else {
       this.energyEquipment = this.energyEquipmentIdbService.getByGuid(this.energyEquipmentGuid);
+      this.updateSizeAndEfficiency();
     }
 
     this.contactSub = this.contactIdbService.contacts.subscribe(_contacts => {
@@ -115,6 +118,7 @@ export class EnergyEquipmentFormComponent {
     this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(_facility => {
       this.facilityUnitSettings = _facility.unitSettings;
     });
+    
   }
 
   ngOnDestroy() {
@@ -122,6 +126,22 @@ export class EnergyEquipmentFormComponent {
     this.contactSub.unsubscribe();
     this.companySub.unsubscribe();
     this.facilitySub.unsubscribe();
+  }
+
+  async updateSizeAndEfficiency() {
+    this.updateSizeLabel(); // update the size label
+    // check legacy size unit for process cooling and HVAC
+    if (this.energyEquipment.equipmentType === 'Process Cooling' ||
+      this.energyEquipment.equipmentType === 'HVAC') {
+      const processCoolingHVACUnitValues = this.processCoolingHVACUnitOptions.map(option => option.value);if (!this.energyEquipment.sizeUnit || !processCoolingHVACUnitValues.includes(this.energyEquipment.sizeUnit)) {
+        await this.updateSizeUnit('default', this.energyEquipment.facilityUtilityUnit);
+        return;
+      }
+    }
+    // check if efficiency unit is properly set
+    if (!this.energyEquipment.efficiencyUnit) {
+      await this.updateEfficiencyUnit();
+    }
   }
 
   async industrialSystemChange() {
@@ -142,8 +162,7 @@ export class EnergyEquipmentFormComponent {
       this.energyEquipment.facilityUtilityUnit = this.companyEnergyUnit;
     }
     this.updateSizeLabel(); // update the size label
-    this.updateSizeUnit(mode, this.energyEquipment.facilityUtilityUnit); // update size unit
-    await this.updateEnergyCalculations();
+    await this.updateSizeUnit(mode, this.energyEquipment.facilityUtilityUnit); // update size unit
   }
 
   updateSizeLabel() {
@@ -162,7 +181,9 @@ export class EnergyEquipmentFormComponent {
       }
     } else if (eq.equipmentType === 'Lighting') {
       this.sizeLabel = 'Light Wattage';
-    } else if (eq.equipmentType === 'Process Heating') {
+    } else if (eq.equipmentType === 'Process Heating'
+      || eq.equipmentType === 'Process Cooling'
+      || eq.equipmentType === 'HVAC') {
       this.sizeLabel = 'Rated Capacity';
     } else if (eq.equipmentType === 'Steam') {
       if (eq.utilityType === 'Steam') {
@@ -170,10 +191,6 @@ export class EnergyEquipmentFormComponent {
       } else {
         this.sizeLabel = 'Rated Capacity';
       }
-    // } else if (eq.equipmentType === 'Process Cooling') {
-    //   this.sizeLabel = 'Cooling Capacity';
-    // } else if (eq.equipmentType === 'HVAC') {
-    //   this.sizeLabel = 'System Capacity';
     // } else if (eq.equipmentType === 'Mobile') {
     //   this.sizeLabel = 'Mobile Capacity';
     } else {
@@ -181,10 +198,12 @@ export class EnergyEquipmentFormComponent {
     }
   }
 
-  updateSizeUnit(mode: 'default' | 'normal', facilityUtilityEnergyUnit: string) {
+  async updateSizeUnit(mode: 'default' | 'normal', facilityUtilityEnergyUnit: string) {
     // update size unit
-    if (this.energyEquipment.equipmentType === 'Process Cooling') { // Process Cooling unit changes
-      this.energyEquipment.sizeUnit = this.processCoolingUnitOptions[0].value;
+    if (this.energyEquipment.equipmentType === 'Process Cooling' ||
+      this.energyEquipment.equipmentType === 'HVAC'
+    ) { // Process Cooling/ HVAC unit changes
+      this.energyEquipment.sizeUnit = this.processCoolingHVACUnitOptions[0].value;
     } else {
       if (mode === 'default') { // default unit for system type change
         this.energyEquipment.sizeUnit = this.equipmentTypeOptions.find(
@@ -196,6 +215,25 @@ export class EnergyEquipmentFormComponent {
         this.energyEquipment.sizeUnit = powerUnit || 'kW';
       }
     }
+    await this.updateEfficiencyUnit();
+  }
+
+  async updateEfficiencyUnit() {
+    if (this.energyEquipment.equipmentType === 'Process Cooling' || this.energyEquipment.equipmentType === 'HVAC') {
+      const capUnit = this.energyEquipment.sizeUnit;
+      if (capUnit === 'TR') {
+        this.energyEquipment.efficiencyUnit = 'kW/ton';
+      } else if (capUnit === 'kW') {
+        this.energyEquipment.efficiencyUnit = 'EER';
+      } else if (capUnit === 'btuhr') {
+        this.energyEquipment.efficiencyUnit = 'EER';
+      } else {
+        this.energyEquipment.efficiencyUnit = 'COP';
+      }
+    } else {
+      this.energyEquipment.efficiencyUnit = '%';
+    }
+    await this.updateEnergyCalculations();
   }
 
   async updateEnergyCalculations() {
@@ -230,10 +268,27 @@ export class EnergyEquipmentFormComponent {
     return this.energyEquipment.size * unitConv;
   }
 
+  calculateTrueEfficiency(): number {
+    const eff = this.energyEquipment.efficiency;
+    switch (this.energyEquipment.efficiencyUnit) {
+      case 'kW/ton':
+        return 12 / (eff * 3.412);
+      case 'COP':
+        return eff;
+      case 'EER':
+        return eff / 3.412;
+      case '%':
+        return eff / 100;
+      default:
+        return eff / 100; // Default to percentage
+    }
+  }
+
   async calculateAnnualEnergyUse() {
     let convertedSize = this.convertSize();
+    const trueEfficiency = this.calculateTrueEfficiency();
     this.energyEquipment.annualEnergyUse = convertedSize * this.energyEquipment.operatingHours *
-      (this.energyEquipment.loadFactor / 100) / (this.energyEquipment.efficiency / 100) * this.energyEquipment.numberOfEquipment;
+      (this.energyEquipment.loadFactor / 100) / trueEfficiency * this.energyEquipment.numberOfEquipment;
     if (!this.energyEquipment.annualEnergyUse || this.energyEquipment.annualEnergyUse === Infinity) {
       this.energyEquipment.annualEnergyUse = 0;
     }

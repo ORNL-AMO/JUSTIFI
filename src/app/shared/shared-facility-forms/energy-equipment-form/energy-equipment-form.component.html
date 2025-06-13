@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="this.energyEquipmentGuid && energyEquipment">
     <div class="col-12">
         <form>
             <div class="row">
@@ -119,11 +119,11 @@
                                             [readOnly]="energyEquipment.autoCalculate"
                                             (input)="calculateAnnualEnergyUse()" (focus)="focusField('size')">
                                         <select class="input-group-text" id="sizeUnit" name="sizeUnit"
-                                            [(ngModel)]="energyEquipment.sizeUnit" (change)="updateEnergyCalculations()"
+                                            [(ngModel)]="energyEquipment.sizeUnit" (change)="updateEfficiencyUnit(); updateEnergyCalculations()"
                                             (focus)="focusField('size')">
                                             <option
-                                                *ngFor="let option of (energyEquipment.equipmentType === 'Process Cooling' ?
-                                                processCoolingUnitOptions : (energyEquipment.utilityType | linkedUnitOptions: 'Power'))"
+                                                *ngFor="let option of (energyEquipment.equipmentType === 'Process Cooling' || energyEquipment.equipmentType === 'HVAC' ?
+                                                processCoolingHVACUnitOptions : (energyEquipment.utilityType | linkedUnitOptions: 'Power'))"
                                                 [ngValue]="option.value">
                                                 <span [innerHTML]="option.value | unitsDisplay"></span>
                                             </option>
@@ -204,13 +204,33 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <label class="col-sm-5 col-form-label" for="efficiency">Efficiency</label>
+                                <label class="col-sm-5 col-form-label" for="efficiency">
+                                    {{ (energyEquipment.equipmentType === 'Process Cooling' || 
+                                    energyEquipment.equipmentType === 'HVAC') ? 'Efficiency / COP' : 'Efficiency' }}
+                                </label>
                                 <div class="col-sm-7">
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="efficiency" name="efficiency"
+                                        <input type="number" class="form-control" id="efficiency" 
+                                            name="efficiency"
                                             [(ngModel)]="energyEquipment.efficiency"
-                                            (input)="calculateAnnualEnergyUse()" (focus)="focusField('efficiency')">
-                                        <span class="input-group-text">&percnt;</span>
+                                            (input)="calculateAnnualEnergyUse()"
+                                            (focus)="focusField('efficiency')">
+                                        <ng-template [ngIf]="(energyEquipment.equipmentType === 'Process Cooling' || 
+                                            energyEquipment.equipmentType === 'HVAC')" [ngIfElse]="percentUnitTemplate">
+                                            <select class="input-group-text" id="efficiencyUnit"
+                                                name="efficiencyUnit"
+                                                [(ngModel)]="energyEquipment.efficiencyUnit"
+                                                (change)="calculateAnnualEnergyUse()">
+                                                <option *ngFor="let unit of efficiencyUnitOptions" [ngValue]="unit">
+                                                    {{unit}}
+                                                </option>
+                                            </select>
+                                        </ng-template>
+                                        <ng-template #percentUnitTemplate>
+                                            <span class="input-group-text">
+                                                {{energyEquipment.efficiencyUnit}}
+                                            </span>
+                                        </ng-template>
                                     </div>
                                 </div>
                             </div>
