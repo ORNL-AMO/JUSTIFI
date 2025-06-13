@@ -79,8 +79,8 @@
                     with content from the file</span></p>
             <input type="file" #selectImportFile id="selectImportFile" (input)="onFileSelected($event.target)"
                 accept=".xlsx">
-            <p class="alert alert-danger" *ngIf="importFileError">
-                {{importFileError}}
+            <p class="alert alert-danger" *ngIf="fileUploadError">
+                {{fileUploadError}}
             </p>
         </ng-container>
     </div>
