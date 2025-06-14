@@ -27,7 +27,7 @@ import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
 import { localeCurrency } from './shared/constants/localeCurrency';
 import { ExportBackupModalComponent } from './core-components/backup-modal/export-backup-modal/export-backup-modal.component';
 import { ExportBackupTreeComponent } from './core-components/backup-modal/export-backup-modal/export-backup-tree/export-backup-tree.component';
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { PerformanceMetricsTablePipe } from './shared/reports/performance-metrics-table/performance-metrics-table.pipe';
 
 @NgModule({
@@ -74,7 +74,7 @@ import { PerformanceMetricsTablePipe } from './shared/reports/performance-metric
         return currencyOption ? currencyOption.currencyCode : 'USD';
       },
     },
-    [DatePipe, PerformanceMetricsTablePipe]
+    [DatePipe, PerformanceMetricsTablePipe, CurrencyPipe]
   ],
   bootstrap: [AppComponent]
 })
