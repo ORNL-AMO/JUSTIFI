@@ -987,7 +987,7 @@ export const KpmKeywords: { [key: string]: Array<string> } = {
     'electricalDemandCosts': ["electrical demand costs", "energy demand charges", "power demand costs", "electricity expenses"],
     'powerFactorCosts': ["power factor costs", "power factor penalties", "electricity efficiency", "power quality"],
     'mobileFuelEmissions': ["mobile fuel emissions", "transport emissions", "vehicle emissions", "mobile sources"],
-    'processEmissions': ["mobile fuel emissions", "transport emissions", "vehicle emissions", "mobile sources"],
+    'processEmissions': ["process emissions", "industrial emissions", "manufacturing emissions", "production emissions", "process pollutants"],
     'reduceRegulatoryFees': ["reduce regulatory fees", "regulatory cost reduction", "compliance cost savings", "regulatory fee management"],
     'utilityCosts': ["utility costs", "energy expenses", "utility bills", "electricity costs"],
 }
