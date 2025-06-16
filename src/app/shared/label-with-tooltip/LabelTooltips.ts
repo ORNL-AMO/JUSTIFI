@@ -19,5 +19,8 @@ export const LabelTooltips = {
     },
     "costImpact": {
         "tooltip": "Add financial impacts not tied to Key Performance Metrics."
-    }
+    },
+    "equipmentEfficiency": {
+        "tooltip": "EER is defined as Btu/hr / W."
+    },
 }

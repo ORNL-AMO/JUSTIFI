@@ -32,6 +32,7 @@ import { ProcessEquipmentTakeStockComponent } from './discovery-process-equipmen
 import { ProcessEquipmentOperationsComponent } from './discovery-process-equipment-questions/process-equipment-operations/process-equipment-operations.component';
 import { ProcessEquipmentEmployeeEngagementComponent } from './discovery-process-equipment-questions/process-equipment-employee-engagement/process-equipment-employee-engagement.component';
 import { ProcessEquipmentSustainabilityComponent } from './discovery-process-equipment-questions/process-equipment-sustainability/process-equipment-sustainability.component';
+import { LabelWithTooltipModule } from "../label-with-tooltip/label-with-tooltip.module";
 
 @NgModule({
   declarations: [
@@ -71,8 +72,9 @@ import { ProcessEquipmentSustainabilityComponent } from './discovery-process-equ
     SharedAssessmentFormsModule,
     AssociatedContactsModule,
     AssociatedProcessEquipmentModule,
-    AssociatedEnergyEquipmentModule
-  ],
+    AssociatedEnergyEquipmentModule,
+    LabelWithTooltipModule
+],
   exports: [
     FacilitySetupFormComponent,
     EnergyEquipmentFormComponent,
