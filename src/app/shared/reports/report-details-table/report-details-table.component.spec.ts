@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import { getNewIdbFacility, IdbFacility } from 'src/app/models/facility';
 import { getNewIdbAssessment } from 'src/app/models/assessment';
 import { getDefaultUnitSettings } from 'src/app/models/unitSettings';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('ReportDetailsTableComponent', () => {
   let component: ReportDetailsTableComponent;
@@ -25,6 +26,7 @@ describe('ReportDetailsTableComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ReportDetailsTableComponent],
       providers: [
+        stubServiceProviders,
         { provide: FacilityIdbService, useValue: facilityIdbService },
         { provide: CompanyIdbService, useValue: companyIdbService },
       ]

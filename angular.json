@@ -51,6 +51,7 @@
               "lodash",
               "semver",
               "exceljs",
+              "pptxgenjs",
               "xlsx"
             ],
             "browser": "src/main.ts"
