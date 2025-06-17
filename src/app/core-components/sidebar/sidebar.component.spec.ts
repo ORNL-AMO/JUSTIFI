@@ -2,43 +2,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SidebarComponent } from './sidebar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
-import { IdbCompany } from 'src/app/models/company';
-import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
-import { IdbFacility } from 'src/app/models/facility';
-import { BehaviorSubject } from 'rxjs';
-import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
-import { IdbAssessment } from 'src/app/models/assessment';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
 
-  let companyIdbService: Partial<CompanyIdbService> = {
-    companies: new BehaviorSubject<Array<IdbCompany>>([])
-  };
-  let facilityIdbService: Partial<FacilityIdbService> = {
-    facilities: new BehaviorSubject<Array<IdbFacility>>([])
-  };
-  let sharedDataService: Partial<SharedDataService> = {
-    sidebarOpen: new BehaviorSubject<boolean>(true)
-  }
-  let assessmentIdbService: Partial<AssessmentIdbService> = {
-    selectedAssessment: new BehaviorSubject<IdbAssessment>(undefined),
-    assessments: new BehaviorSubject<Array<IdbAssessment>>([])
-  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, RouterTestingModule],
+      imports: [FontAwesomeModule, RouterTestingModule, HelperPipesModule],
       declarations: [SidebarComponent],
-      providers: [
-        { provide: CompanyIdbService, useValue: companyIdbService },
-        { provide: FacilityIdbService, useValue: facilityIdbService },
-        { provide: SharedDataService, useValue: sharedDataService },
-        { provide: AssessmentIdbService, useValue: assessmentIdbService },
-      ]
+      providers: stubServiceProviders
     })
     .compileComponents();
     

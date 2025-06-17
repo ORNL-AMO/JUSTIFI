@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AutoUpdateToastComponent } from './auto-update-toast.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('AutoUpdateToastComponent', () => {
   let component: AutoUpdateToastComponent;
@@ -8,7 +10,9 @@ describe('AutoUpdateToastComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AutoUpdateToastComponent]
+      imports: [FontAwesomeModule],
+      declarations: [AutoUpdateToastComponent],
+      providers: stubServiceProviders
     })
     .compileComponents();
 
