@@ -17,3 +17,8 @@
 tr:hover{
     cursor: pointer;
 }
+
+.dropdown-menu.scrollable{
+    max-height: 200px;
+    overflow-y: auto;
+}

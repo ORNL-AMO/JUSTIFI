@@ -12,7 +12,7 @@
                 (input)="filterKeywordList()"
             />
         </div>
-        <ul class="dropdown-menu show" *ngIf="nebSearchStr && filteredKeywordList.length > 0">
+        <ul class="dropdown-menu show scrollable" *ngIf="nebSearchStr && filteredKeywordList.length > 0">
             <li
                 *ngFor="let keyword of filteredKeywordList"
                 class="dropdown-item"
