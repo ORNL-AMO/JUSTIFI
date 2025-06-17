@@ -1,0 +1,4 @@
+.popup{
+    width: 80vw;
+    left: calc(50% - 40vw);
+}

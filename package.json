@@ -85,6 +85,7 @@
     "semver": "^7.6.2",
     "tslib": "2.7.0",
     "val-zip": "^1.0.13",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
