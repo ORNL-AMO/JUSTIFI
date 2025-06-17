@@ -19,7 +19,7 @@
     </p>
     <hr>
 </ng-template>
-<ng-template [ngIf]="focusedHelp == 'utlityType'">
+<ng-template [ngIf]="focusedHelp == 'utilityType'">
     <p>
         <span class="bold">Utility Type</span> sets the units available for <span class="bold">Total
             Size</span>.
@@ -32,21 +32,41 @@
     </p>
     <hr>
 </ng-template>
-<ng-template [ngIf]="focusedHelp == 'fuelConsumption'">
-    <!--NEEDED-->
-    <!-- <p>
-        <span class="bold">Operating Hours</span> refers to the hours the equipment (not the entire facility) is
-        operating.
+<ng-template [ngIf]="focusedHelp == 'fuelConsumptionCompressedAir'">
+    <p>
+        <span class="bold">Consumption Rate</span> refers to the amount of compressed air used over one hour.
     </p>
-    <hr> -->
+    <hr>
 </ng-template>
-<ng-template [ngIf]="focusedHelp == 'heatingValue'">
-    <!--NEEDED-->
-    <!-- <p>
-        <span class="bold">Operating Hours</span> refers to the hours the equipment (not the entire facility) is
-        operating.
+<ng-template [ngIf]="focusedHelp == 'fuelConsumptionOtherFuels'">
+    <p>
+        <span class="bold">Consumption Rate</span> refers to the amount of fuels consumed over one hour.
     </p>
-    <hr> -->
+    <hr>
+</ng-template>
+<ng-template [ngIf]="focusedHelp == 'fuelConsumptionSteam'">
+    <p>
+        <span class="bold">Consumption Rate</span> refers to the amount of steam used over one hour.
+    </p>
+    <hr>
+</ng-template>
+<ng-template [ngIf]="focusedHelp == 'heatingValueCompressedAir'">
+    <p>
+        <span class="bold">Specific Power</span> the approximate energy required to produce a given amount of compressed air. This depends on your compressor type and controls. Can be estimated in MEASUR.
+    </p>
+    <hr>
+</ng-template>
+<ng-template [ngIf]="focusedHelp == 'heatingValueSteam'">
+    <p>
+        <span class="bold">Enthalpy</span> the combination of the steam's internal energy and the work needed to make room for the material, compared to the standard state, in terms of mass. Can be estimated in MEASUR.
+    </p>
+    <hr>
+</ng-template>
+<ng-template [ngIf]="focusedHelp == 'heatingValueOtherFuels'">
+    <p>
+        <span class="bold">Higher Heating Value</span> refers to the amount of energy released when a fuel is combusted. This can be estimated in MEASUR.
+    </p>
+    <hr>
 </ng-template>
 <ng-template [ngIf]="focusedHelp == 'operatingHours'">
     <p>

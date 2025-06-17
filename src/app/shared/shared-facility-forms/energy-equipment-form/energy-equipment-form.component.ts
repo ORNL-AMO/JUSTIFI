@@ -11,7 +11,7 @@ import { IdbContact } from 'src/app/models/contact';
 import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { UnitSettings } from 'src/app/models/unitSettings';
 import { EquipmentType, EquipmentTypeOptions, EquipmentTypes } from 'src/app/shared/constants/equipmentTypes';
-import { Energy2PowerUnitMap, EnergyUnitOptions, ProcessCoolingUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from 'src/app/shared/constants/unitOptions';
+import { Energy2PowerUnitMap, EnergyUnitOptions, ProcessCoolingHVACUnitOptions, UnitOption, VolumeGasOptions, VolumeLiquidOptions } from 'src/app/shared/constants/unitOptions';
 import { UtilityOption, UtilityOptions, UtilityType, UtilityTypes } from 'src/app/shared/constants/utilityTypes';
 import { ConvertValue } from 'src/app/shared/conversions/convertValue';
 import { SharedDataService } from '../../shared-services/shared-data.service';
@@ -37,7 +37,9 @@ export class EnergyEquipmentFormComponent {
   faContactBook: IconDefinition = faContactBook;
   faFilePen: IconDefinition = faFilePen;
 
-  equipmentTypes: Array<EquipmentType> = EquipmentTypes;
+  equipmentTypes: Array<EquipmentType> = EquipmentTypes.filter(
+    type => type !== 'Mobile' // TODO: hide Mobile option issue-524
+  );
   equipmentTypeOptions: Array<{
     equipmentType: EquipmentType,
     utilityTypes: Array<UtilityType>,
@@ -47,7 +49,7 @@ export class EnergyEquipmentFormComponent {
 
   fuelEnergyUnitOptions: Array<UnitOption> = EnergyUnitOptions;
 
-  processCoolingUnitOptions: Array<UnitOption> = ProcessCoolingUnitOptions;
+  processCoolingHVACUnitOptions: Array<UnitOption> = ProcessCoolingHVACUnitOptions;
 
   convertValue: ConvertValue = new ConvertValue();
 
@@ -77,6 +79,9 @@ export class EnergyEquipmentFormComponent {
     'Compressed Air': 'Specific Power',
   };
 
+  sizeLabel: string = 'Total Size'
+  efficiencyUnitOptions: string[] = ['kW/ton', 'COP', 'EER'];;
+
   collapseEnergyDetails: boolean = true;
   constructor(private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private dbChangesService: DbChangesService,
@@ -97,9 +102,11 @@ export class EnergyEquipmentFormComponent {
       this.activatedRoute.params.subscribe(params => {
         this.energyEquipmentGuid = params['id'];
         this.energyEquipment = this.energyEquipmentIdbService.getByGuid(this.energyEquipmentGuid);
+        this.initializeEquipmentFields();
       });
     } else {
       this.energyEquipment = this.energyEquipmentIdbService.getByGuid(this.energyEquipmentGuid);
+      this.initializeEquipmentFields();
     }
 
     this.contactSub = this.contactIdbService.contacts.subscribe(_contacts => {
@@ -113,6 +120,7 @@ export class EnergyEquipmentFormComponent {
     this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(_facility => {
       this.facilityUnitSettings = _facility.unitSettings;
     });
+    
   }
 
   ngOnDestroy() {
@@ -122,11 +130,35 @@ export class EnergyEquipmentFormComponent {
     this.facilitySub.unsubscribe();
   }
 
+  async initializeEquipmentFields() {
+    this.updateSizeLabel(); // update the size label
+    // check legacy size unit for process cooling and HVAC
+    if (this.energyEquipment.equipmentType === 'Process Cooling' ||
+      this.energyEquipment.equipmentType === 'HVAC') {
+      const processCoolingHVACUnitValues = this.processCoolingHVACUnitOptions.map(option => option.value);if (!this.energyEquipment.sizeUnit || !processCoolingHVACUnitValues.includes(this.energyEquipment.sizeUnit)) {
+        await this.updateSizeUnit('default', this.energyEquipment.facilityUtilityUnit);
+        return;
+      }
+    }
+    // check if efficiency unit is properly set
+    if (!this.energyEquipment.efficiencyUnit) {
+      await this.updateEfficiencyUnit();
+    }
+    // check if ballast factor is properly set
+    if (this.energyEquipment.equipmentType === 'Lighting' && !this.energyEquipment.ballastFactor) {
+      this.energyEquipment.ballastFactor = 1.15; // Set default ballast factor
+      await this.updateEnergyCalculations();
+    }
+  }
+
   async industrialSystemChange() {
     let _utilityTypes = this.equipmentTypeOptions.find(
       option => option.equipmentType === this.energyEquipment.equipmentType
     )?.utilityTypes || [];
     this.energyEquipment.utilityType = _utilityTypes[0]; // Set to first utility type
+    if (this.energyEquipment.equipmentType === 'Lighting' && !this.energyEquipment.ballastFactor) {
+      this.energyEquipment.ballastFactor = 1.15;
+    }
     await this.utilityTypeChange('default');
   }
 
@@ -139,10 +171,49 @@ export class EnergyEquipmentFormComponent {
     } else {
       this.energyEquipment.facilityUtilityUnit = this.companyEnergyUnit;
     }
+    this.updateSizeLabel(); // update the size label
+    await this.updateSizeUnit(mode, this.energyEquipment.facilityUtilityUnit); // update size unit
+  }
 
+  updateSizeLabel() {
+    const eq = this.energyEquipment;
+    if (!eq) {
+      this.sizeLabel = 'Total Size';
+      return;
+    }
+    if (['Pump', 'Fan', 'Motor', 'Other'].includes(eq.equipmentType)) {
+      this.sizeLabel = 'Rated Power';
+    } else if (eq.equipmentType === 'Compressed Air') {
+      if (eq.utilityType === 'Compressed Air') {
+        this.sizeLabel = 'Estimated Power';
+      } else {
+        this.sizeLabel = 'Rated Power';
+      }
+    } else if (eq.equipmentType === 'Lighting') {
+      this.sizeLabel = 'Light Wattage';
+    } else if (eq.equipmentType === 'Process Heating'
+      || eq.equipmentType === 'Process Cooling'
+      || eq.equipmentType === 'HVAC') {
+      this.sizeLabel = 'Rated Capacity';
+    } else if (eq.equipmentType === 'Steam') {
+      if (eq.utilityType === 'Steam') {
+        this.sizeLabel = 'Estimated Capacity';
+      } else {
+        this.sizeLabel = 'Rated Capacity';
+      }
+    // } else if (eq.equipmentType === 'Mobile') {
+    //   this.sizeLabel = 'Mobile Capacity';
+    } else {
+      this.sizeLabel = 'Total Size';
+    }
+  }
+
+  async updateSizeUnit(mode: 'default' | 'normal', facilityUtilityEnergyUnit: string) {
     // update size unit
-    if (this.energyEquipment.equipmentType === 'Process Cooling') { // Process Cooling unit changes
-      this.energyEquipment.sizeUnit = this.processCoolingUnitOptions[0].value;
+    if (this.energyEquipment.equipmentType === 'Process Cooling' ||
+      this.energyEquipment.equipmentType === 'HVAC'
+    ) { // Process Cooling/ HVAC unit changes
+      this.energyEquipment.sizeUnit = this.processCoolingHVACUnitOptions[0].value;
     } else {
       if (mode === 'default') { // default unit for system type change
         this.energyEquipment.sizeUnit = this.equipmentTypeOptions.find(
@@ -154,7 +225,24 @@ export class EnergyEquipmentFormComponent {
         this.energyEquipment.sizeUnit = powerUnit || 'kW';
       }
     }
-    
+    await this.updateEfficiencyUnit();
+  }
+
+  async updateEfficiencyUnit() {
+    if (this.energyEquipment.equipmentType === 'Process Cooling' || this.energyEquipment.equipmentType === 'HVAC') {
+      const capUnit = this.energyEquipment.sizeUnit;
+      if (capUnit === 'TR') {
+        this.energyEquipment.efficiencyUnit = 'kW/ton';
+      } else if (capUnit === 'kW') {
+        this.energyEquipment.efficiencyUnit = 'EER';
+      } else if (capUnit === 'btuhr') {
+        this.energyEquipment.efficiencyUnit = 'EER';
+      } else {
+        this.energyEquipment.efficiencyUnit = 'COP';
+      }
+    } else {
+      this.energyEquipment.efficiencyUnit = '%';
+    }
     await this.updateEnergyCalculations();
   }
 
@@ -190,10 +278,46 @@ export class EnergyEquipmentFormComponent {
     return this.energyEquipment.size * unitConv;
   }
 
+  getCOPEfficiency(): number {
+    if (this.energyEquipment.equipmentType === 'Lighting') {
+      return 1; // Lighting efficiency is always 1 (100%)
+    }
+    const eff = this.energyEquipment.efficiency;
+    switch (this.energyEquipment.efficiencyUnit) {
+      case 'kW/ton':
+        return 12 / (eff * 3.412);
+      case 'COP':
+        return eff;
+      case 'EER':
+        return eff / 3.412;
+      case '%':
+        return eff / 100;
+      default:
+        return eff / 100; // Default to percentage
+    }
+  }
+
+  getLoadFactor(): number {
+    if (this.energyEquipment.equipmentType === 'Lighting') {
+      return 1;
+    }
+    return this.energyEquipment.loadFactor / 100;
+  }
+
+  getBallastFactor(): number {
+    if (this.energyEquipment.equipmentType === 'Lighting') {
+      return this.energyEquipment.ballastFactor || 1.15;
+    }
+    return 1;
+  }
+
   async calculateAnnualEnergyUse() {
     let convertedSize = this.convertSize();
+    const COP = this.getCOPEfficiency();
+    const loadFactor = this.getLoadFactor();
+    const ballastFactor = this.getBallastFactor();
     this.energyEquipment.annualEnergyUse = convertedSize * this.energyEquipment.operatingHours *
-      (this.energyEquipment.loadFactor / 100) / (this.energyEquipment.efficiency / 100) * this.energyEquipment.numberOfEquipment;
+      loadFactor / COP * this.energyEquipment.numberOfEquipment * ballastFactor;
     if (!this.energyEquipment.annualEnergyUse || this.energyEquipment.annualEnergyUse === Infinity) {
       this.energyEquipment.annualEnergyUse = 0;
     }
@@ -261,7 +385,10 @@ export class EnergyEquipmentFormComponent {
     this.closeDeleteModal();
   }
 
-  focusField(str: string){
+  focusField(str: string, utilityType?: string){
+    if (utilityType) {
+      str += utilityType.replace(/\s+/g, '');
+    }
     this.setupWizardService.focusedHelp.next(str);
   }
 

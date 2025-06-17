@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IconDefinition, faChevronLeft, faChevronRight, faList, faPlus, faScrewdriverWrench, faToolbox, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronLeft, faChevronRight, faList, faPlus, faScrewdriverWrench, faToolbox, faTrash, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { Subscription, firstValueFrom } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
@@ -24,6 +24,7 @@ export class DataCollectionManageAssessmentsComponent {
   faPlus: IconDefinition = faPlus;
   faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faTrash: IconDefinition = faTrash;
+  faUpload: IconDefinition = faUpload;
 
   onSiteVisit: IdbOnSiteVisit;
   onSiteVisitSub: Subscription;
@@ -115,4 +116,8 @@ export class DataCollectionManageAssessmentsComponent {
     this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + guid);
   }
 
+
+  goToUploadTemplate() {
+    this.router.navigateByUrl('/setup-wizard/upload-template/' + this.onSiteVisit.guid);
+  }
 }

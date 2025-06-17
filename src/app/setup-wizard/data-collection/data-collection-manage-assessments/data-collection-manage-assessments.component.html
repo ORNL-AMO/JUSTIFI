@@ -17,6 +17,10 @@
                         </div>
                     </div>
                     <div class="p-0">
+                        <button class="btn btn-outline-dark btn-sm me-1" (click)="goToUploadTemplate()">
+                            <fa-icon [icon]="faUpload"></fa-icon>
+                            Upload Template
+                        </button>
                         <button class="btn btn-outline-success btn-sm" (click)="addAssessment()">
                             <fa-icon [icon]="faPlus"></fa-icon>
                             Add Assessment
@@ -30,7 +34,7 @@
                         *ngFor="let assessment of (onSiteVisit.assessmentIds | assessmentListOnSite: assessments); let assessmentIndex = index;">
                         <div class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
-                                <div class="p-0">
+                                <div class="p-0 my-auto">
                                     <fa-icon [icon]="faScrewdriverWrench" class="me-1"></fa-icon>
                                     <a class="click-link" (click)="goToAssessment(assessment.guid)">{{assessment.name}}
                                     </a>
@@ -72,7 +76,7 @@
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
     </div>
     <div class="popup-body">
-        <div class="alert alert-danger">
+        <div class="alert alert-danger p-2">
             Are you sure you want to delete this assessment? This cannot be undone.
         </div>
         <hr>
