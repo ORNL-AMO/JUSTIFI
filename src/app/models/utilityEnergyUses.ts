@@ -1,8 +1,6 @@
 
-import { FacilityIdbService } from "../indexed-db/facility-idb.service";
 import { UtilityOptions, UtilityType } from "../shared/constants/utilityTypes";
-import { energy } from "../shared/conversions/definitions/energy";
-import { getDefaultUnitSettings, UnitSettings } from "./unitSettings";
+import { UnitSettings } from "./unitSettings";
 
 export interface UtilityEnergyUse {
     utilityType: UtilityType;

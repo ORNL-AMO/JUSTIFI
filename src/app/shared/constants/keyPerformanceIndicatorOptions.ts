@@ -16,7 +16,8 @@ export type KeyPerformanceIndicatorValue =
     'airEnvironmentalQuality' |
     'customerSatisfaction' |
     'salesGrowth' |
-    'utilityUse';
+    'utilityUse' |
+    'energyUse';
 
 export interface KeyPerformanceIndicatorOption {
     primaryKPI: PrimaryKPI,
@@ -167,4 +168,12 @@ export const UtilityUseKpi: KeyPerformanceIndicatorOption =
     label: 'Utility Use and Costs',
     htmlLabel: 'Utility Use and Costs',
     optionValue: 'utilityUse'
+}
+
+export const EnergyUseKpi: KeyPerformanceIndicatorOption =
+{
+    primaryKPI: 'Utility Use and Costs',
+    label: 'Energy Use and Costs',
+    htmlLabel: 'Energy Use and Costs',
+    optionValue: 'energyUse'
 }

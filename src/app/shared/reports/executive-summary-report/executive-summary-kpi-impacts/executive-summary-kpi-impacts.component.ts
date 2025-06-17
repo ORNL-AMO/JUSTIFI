@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AdditionalKeyPerformanceIndicatorReportItem, KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem } from '../../calculations/keyPerformanceIndicatorReport';
-import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorValue, UtilityUseKpi } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
+import { KeyPerformanceIndicatorOption, UtilityUseKpi, EnergyUseKpi } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 import { Subscription } from 'rxjs';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { ExecutiveSummaryReport } from '../../calculations/executiveSummaryReport';
@@ -9,6 +9,7 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { faBullseye, faSort, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { getNewKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import * as _ from 'lodash';
+import { PowerpointReportGeneratorService } from 'src/app/shared/shared-services/powerpoint-report-generator.service';
 @Component({
   selector: 'app-executive-summary-kpi-impacts',
   standalone: false,
@@ -56,6 +57,7 @@ export class ExecutiveSummaryKpiImpactsComponent {
   constructor(
     private facilityIdbService: FacilityIdbService,
     private localeService: LocaleService,
+    private powerpointReportGeneratorService: PowerpointReportGeneratorService
   ) { }
 
   ngOnInit() {
@@ -88,8 +90,9 @@ export class ExecutiveSummaryKpiImpactsComponent {
       this.limitOptions.push(i + 1);
     }
     //add energy kpi item
+    const utilityKpi: KeyPerformanceIndicatorOption = this.executiveSummaryReport.utilityCategory === 'energy' ? EnergyUseKpi : UtilityUseKpi;
     let tmpEnergyKpi: KeyPerformanceIndicatorReportItem = {
-      keyPerformanceIndicator: getNewKeyPerformanceIndicator('', '', UtilityUseKpi, true, ''),
+      keyPerformanceIndicator: getNewKeyPerformanceIndicator('', '', utilityKpi, true, ''),
       baselineCost: this.facility.cost,
       financialImpact: this.executiveSummaryReport.totalUtilityCostSavings,
       costSaving: this.executiveSummaryReport.totalUtilityCostSavings,
@@ -109,7 +112,9 @@ export class ExecutiveSummaryKpiImpactsComponent {
     this.kpiReportRevenueItems = this.kpiReportItems.filter(item => {
       return item.revenue > 0
     });
+    this.limitOptions = Array.from({ length: Math.max(this.kpiReportCostItems.length, this.kpiReportRevenueItems.length) }, (_, i) => i + 1);
     this.orderReportItems();
+    this.powerpointReportGeneratorService.setExecutiveSummaryKpiItems(this.reducedKpiReportCostItems, this.additionalKpiReportCostItem, this.reducedKpiReportRevenueItems, this.additionalKpiReportRevenueItem, this.topKpis);
   }
 
   setOrderByField(_orderByField: 'percentSavings' | 'financialImpact') {
@@ -120,6 +125,7 @@ export class ExecutiveSummaryKpiImpactsComponent {
       this.orderByField = _orderByField;
     }
     this.orderReportItems();
+    this.powerpointReportGeneratorService.setExecutiveSummaryKpiItems(this.reducedKpiReportCostItems, this.additionalKpiReportCostItem, this.reducedKpiReportRevenueItems, this.additionalKpiReportRevenueItem, this.topKpis);
   }
 
   orderReportItems() {

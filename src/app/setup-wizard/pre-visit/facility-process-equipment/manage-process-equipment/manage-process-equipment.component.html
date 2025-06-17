@@ -9,6 +9,10 @@
                 <hr>
                 <div class="d-flex w-100 justify-content-end pb-2">
                     <div class="p-0">
+                        <button class="btn btn-outline-dark btn-sm me-1" (click)="goToUploadTemplate()">
+                            <fa-icon [icon]="faUpload"></fa-icon>
+                            Upload Template
+                        </button>
                         <button class="btn btn-outline-success btn-sm" (click)="addEquipment()">
                             <fa-icon [icon]="faPlus" class="pe-1"></fa-icon>
                             Add End Use
@@ -58,7 +62,7 @@
                     </table>
                 </ng-template>
                 <ng-template #noEnergyEquipmentBlock>
-                    <div class="alert alert-info text-center">
+                    <div class="alert alert-info text-center p-2">
                         Empty Inventory. Click "Add End Use" to the end uses system inventory.
                     </div>
                 </ng-template>

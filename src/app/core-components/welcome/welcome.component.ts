@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IconDefinition, faBookOpen, faInbox, faBuilding, faChevronRight, faDatabase, faExternalLink, faFileCirclePlus, faFolderOpen, faIndustry, faQuestionCircle, faSearchPlus, faStopwatch, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faBookOpen, faInbox, faBuilding, faChevronRight, faDatabase, faExternalLink, faFileCirclePlus, faFolderOpen, faIndustry, faQuestionCircle, faSearchPlus, faStopwatch, faWandMagicSparkles, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
@@ -39,6 +39,7 @@ export class WelcomeComponent {
   faStopwatch: IconDefinition = faStopwatch;
   faInbox: IconDefinition = faInbox;
   faFileCirclePlus: IconDefinition = faFileCirclePlus;
+  faFileExcel: IconDefinition = faFileExcel;
 
   userSub: Subscription
   user: IdbUser;
@@ -106,7 +107,7 @@ export class WelcomeComponent {
     this.companyIdbService.setSelectedFromGUID(visit.companyId);
     this.facilityIdbService.setSelectedFromGUID(visit.facilityId);
     this.onSiteVisitIdbService.setSelectedFromGUID(visit.guid);
-    this.sharedDataService.createAssessmentModalOpen.next(true);
+    this.router.navigateByUrl('/setup-wizard/pre-visit/' + visit.guid);
   }
 
   openAddExampleModal() {

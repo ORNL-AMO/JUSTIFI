@@ -19,12 +19,13 @@ import { Subscription } from 'rxjs';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 import { IdbReport } from 'src/app/models/report';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
+import { PowerpointReportGeneratorService } from '../../shared-services/powerpoint-report-generator.service';
 
 @Component({
-    selector: 'app-assessment-report',
-    templateUrl: './assessment-report.component.html',
-    styleUrl: './assessment-report.component.css',
-    standalone: false
+  selector: 'app-assessment-report',
+  templateUrl: './assessment-report.component.html',
+  styleUrl: './assessment-report.component.css',
+  standalone: false
 })
 export class AssessmentReportComponent {
   @Input({ required: true })
@@ -40,13 +41,15 @@ export class AssessmentReportComponent {
   energyEquipments: Array<IdbEnergyEquipment>;
   printSub: Subscription;
   print: boolean;
+  createPowerPointSub: Subscription;
   constructor(private facilityIdbService: FacilityIdbService, private companyIdbService: CompanyIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private powerpointReportGeneratorService: PowerpointReportGeneratorService
   ) {
   }
 
@@ -56,11 +59,17 @@ export class AssessmentReportComponent {
     this.energyEquipments = this.energyEquipmentIdbService.energyEquipments.getValue();
     this.printSub = this.sharedDataService.print.subscribe(_print => {
       this.print = _print;
-    })
+    });
+    this.createPowerPointSub = this.sharedDataService.createPowerPoint.subscribe(_createPowerPoint => {
+      if (_createPowerPoint == true) {
+        this.generatePowerPoint();
+      }
+    });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.printSub.unsubscribe();
+    this.createPowerPointSub.unsubscribe();
   }
 
   ngOnChanges() {
@@ -70,5 +79,10 @@ export class AssessmentReportComponent {
     let facilityPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.assessment.facilityId);
     let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
     this.assessmentReport = getAssessmentReport(this.assessment, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, this.report);
+  }
+
+
+  generatePowerPoint() {
+    this.powerpointReportGeneratorService.createAssessmentPPT(this.assessmentReport, this.company, this.facility, this.inRollup, this.assessment);
   }
 }

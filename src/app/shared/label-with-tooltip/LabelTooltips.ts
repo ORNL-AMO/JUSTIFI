@@ -15,9 +15,12 @@ export const LabelTooltips = {
         "tooltip": "Is this NEB realized because of the implementation of a specific energy efficiency measure?"
     },
     "utilitySavingsByAssessment": {
-        "tooltip": "If the savings cannot be desegregated by energy efficiency measure than enter Assessment Savings."
+        "tooltip": "Select how you estimate savings and costs for all the projects in the assessment."
     },
     "costImpact": {
         "tooltip": "Add financial impacts not tied to Key Performance Metrics."
-    }
+    },
+    "equipmentEfficiency": {
+        "tooltip": "EER is defined as Btu/hr / W."
+    },
 }

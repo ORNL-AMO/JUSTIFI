@@ -12,9 +12,11 @@
 </h6>
 
 <p class="fw-light small">
-    Provide details about this energy efficiency measure in this assessment. Providing an implementation cost will
-    allow for
-    payback calculations. These details will be rolled up to generate a final report on the assessment.
+    Provide details about this energy efficiency measure in this assessment.
+    <ng-container *ngIf="!utilitySavingsByAssessment">
+        Providing an implementation cost will allow for
+        payback calculations. These details will be rolled up to generate a final report on the assessment.
+    </ng-container>
 </p>
 
 
@@ -42,21 +44,21 @@
             </select>
         </div>
     </div>
-    <div class="row">
-        <label class="col-sm-5 col-form-label" for="{{'implementationCost_'+energyOpportunity.guid}}">Implementation
-            Cost</label>
-        <div class="col-sm-7">
-            <div class="input-group">
-                <input name="{{'implementationCost_'+energyOpportunity.guid}}" type="number" class="form-control"
-                    [(ngModel)]="energyOpportunity.implementationCost"
-                    id="{{'implementationCost_'+energyOpportunity.guid}}" (input)="saveEnergyOpportunity()"
-                    (focus)="focusField('implementationCost')">
-                <span class="input-group-text">{{ currencyCode | currencySymbol }}</span>
+    <ng-container *ngIf="!utilitySavingsByAssessment">
+        <div class="row">
+            <label class="col-sm-5 col-form-label" for="{{'implementationCost_'+energyOpportunity.guid}}">Implementation
+                Cost</label>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <input name="{{'implementationCost_'+energyOpportunity.guid}}" type="number" class="form-control"
+                        [(ngModel)]="energyOpportunity.implementationCost"
+                        id="{{'implementationCost_'+energyOpportunity.guid}}" (input)="saveEnergyOpportunity()"
+                        (focus)="focusField('implementationCost')">
+                    <span class="input-group-text">{{ currencyCode | currencySymbol }}</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <ng-container *ngIf="!utilitySavingsByAssessment">
         <ng-template [ngIf]="energyOpportunity?.utilityCategory == 'water'" [ngIfElse]="energySavingBlock">
             <div class="row">
                 <label class="col-sm-5 col-form-label" for="{{'waterSavings_'+energyOpportunity.guid}}">

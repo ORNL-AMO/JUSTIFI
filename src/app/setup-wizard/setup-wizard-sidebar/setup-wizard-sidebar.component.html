@@ -279,6 +279,13 @@
                         Follow-up
                     </a>
                 </div>
+                <div class="nav-item">
+                    <a class="nav-link" [routerLink]="'data-evaluation/'+onSiteVisit.guid+'/executive-summary'"
+                        [routerLinkActive]="['active']">
+                        <fa-icon [icon]="faSackDollar"></fa-icon>
+                        Executive Summary Report
+                    </a>
+                </div>
                 <ng-container *ngFor="let assessmentGuid of onSiteVisit.assessmentIds">
                     <div class="nav-item">
                         <a class="nav-link"
@@ -294,13 +301,6 @@
                         [routerLinkActive]="['active']">
                         <fa-icon [icon]="faChartColumn"></fa-icon>
                         Rollup Report
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a class="nav-link" [routerLink]="'data-evaluation/'+onSiteVisit.guid+'/executive-summary'"
-                        [routerLinkActive]="['active']">
-                        <fa-icon [icon]="faSackDollar"></fa-icon>
-                        Executive Summary Report
                     </a>
                 </div>
 
@@ -334,6 +334,19 @@
                 </div>
             </div>
 
+
+            <div class="w-100">
+                <hr class="spacer">
+            </div>
+
+            <div class="nav-item">
+                <a class="nav-link bold"
+                    [routerLink]="'upload-template/'+onSiteVisit.guid"
+                    [routerLinkActive]="['active']">
+                    <fa-icon [icon]="faUpload"></fa-icon>
+                    Upload Template
+                </a>
+            </div>
 
             <div class="w-100">
                 <hr class="spacer">

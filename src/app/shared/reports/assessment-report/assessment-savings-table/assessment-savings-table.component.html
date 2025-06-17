@@ -19,7 +19,7 @@
         <ng-container *ngIf="assessmentReport.assessment.utilitySavingsByAssessment">
             <tr>
                 <td class="w-50 ps-3">
-                    Assessment Total Utility Savings
+                    {{ assessmentReport.utilityCategory === 'energy' ? 'Total Assessment Energy Cost' : 'Total Assessment Utility Cost' }}
                 </td>
                 <td class="text-right">
                     <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
@@ -137,7 +137,7 @@
         </ng-container>
         <tr class="section-border">
             <td class="w-50 bold">
-                Total Utility Savings
+                {{ assessmentReport.assessment.utilityCategory === 'energy' ? 'Total Energy Savings' : 'Total Utility Savings' }}
             </td>
             <td class="text-right bold w-25">
                 <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"

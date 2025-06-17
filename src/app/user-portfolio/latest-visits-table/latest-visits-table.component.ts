@@ -11,6 +11,7 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 import * as _ from 'lodash';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-latest-visits-table',
   templateUrl: './latest-visits-table.component.html',
@@ -40,7 +41,8 @@ export class LatestVisitsTableComponent {
     private facilityIdbService: FacilityIdbService,
     private companyIdbService: CompanyIdbService,
     private sharedDataService: SharedDataService,
-    private assessmentIdbService: AssessmentIdbService
+    private assessmentIdbService: AssessmentIdbService,
+    private router: Router
   ) {
 
   }
@@ -75,8 +77,8 @@ export class LatestVisitsTableComponent {
   goToVisit(visit: IdbOnSiteVisit) {
     this.companyIdbService.setSelectedFromGUID(visit.companyId);
     this.facilityIdbService.setSelectedFromGUID(visit.facilityId);
-    this.onSiteVisitIdbService.setSelectedFromAssessmentGUID(visit.assessmentIds[0]);
-    this.sharedDataService.createAssessmentModalOpen.next(true);
+    this.onSiteVisitIdbService.setSelectedFromGUID(visit.guid);
+    this.router.navigateByUrl('/setup-wizard/pre-visit/' + visit.guid);
   }
 
   openWizardModal() {

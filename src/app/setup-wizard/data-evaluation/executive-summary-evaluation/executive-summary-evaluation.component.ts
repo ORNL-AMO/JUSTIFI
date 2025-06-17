@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faChevronLeft, faChevronRight, faFilePdf, faSackDollar, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faFilePdf, faFilePowerpoint, faSackDollar, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
@@ -18,6 +18,7 @@ export class ExecutiveSummaryEvaluationComponent {
   faChevronLeft: IconDefinition = faChevronLeft;
   faChevronRight: IconDefinition = faChevronRight;
   faFilePdf: IconDefinition = faFilePdf;
+  faFilePowerpoint: IconDefinition = faFilePowerpoint;
 
   faSackDollar: IconDefinition = faSackDollar;
 
@@ -46,11 +47,15 @@ export class ExecutiveSummaryEvaluationComponent {
   }
 
   goNext() {
-    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/custom-report');
+    if (this.onSiteVisit.assessmentIds.length == 0) {
+      this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/visit-report');
+    } else {
+      this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/assessment-report/' + this.onSiteVisit.assessmentIds[0]);
+    }
   }
 
   goBack() {
-    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/assessment-report/visit-report');
+    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/follow-up');
   }
 
   togglePrint() {
@@ -65,5 +70,10 @@ export class ExecutiveSummaryEvaluationComponent {
         this.sharedDataService.print.next(false)
       }, 1000)
     }, 100)
+  }
+
+  generatePowerPoint() {
+    this.sharedDataService.createPowerPoint.next(true);
+    this.sharedDataService.createPowerPoint.next(false);
   }
 }

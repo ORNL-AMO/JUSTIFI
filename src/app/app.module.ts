@@ -28,6 +28,8 @@ import { localeCurrency } from './shared/constants/localeCurrency';
 import { ExportBackupModalComponent } from './core-components/backup-modal/export-backup-modal/export-backup-modal.component';
 import { ExportBackupTreeComponent } from './core-components/backup-modal/export-backup-modal/export-backup-tree/export-backup-tree.component';
 import { WelcomeSlideshowComponent } from './core-components/welcome-slideshow/welcome-slideshow.component';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { PerformanceMetricsTablePipe } from './shared/reports/performance-metrics-table/performance-metrics-table.pipe';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,8 @@ import { WelcomeSlideshowComponent } from './core-components/welcome-slideshow/w
         );
         return currencyOption ? currencyOption.currencyCode : 'USD';
       },
-    }
+    },
+    [DatePipe, PerformanceMetricsTablePipe, CurrencyPipe]
   ],
   bootstrap: [AppComponent]
 })
