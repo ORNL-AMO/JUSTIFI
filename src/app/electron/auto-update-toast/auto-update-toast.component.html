@@ -1,0 +1,37 @@
+<div class="toast-container position-fixed top-0 end-0 p-3 hide-print">
+    <div #updateToastElement role="alert" aria-live="assertive" aria-atomic="true" class="toast text-bg-dark"
+        [attr.data-bs-autohide]="false">
+        <div class="toast-header bg-dark text-bg-dark d-flex justify-content-between align-items-center">
+            <div class="large">
+                <fa-icon [icon]="faExclamationCircle" class="pe-1"></fa-icon>
+
+                <ng-container *ngIf="!updateError">A new version of VERIFI is available!</ng-container>
+                <ng-container *ngIf="updateError">Ooops! Something went wrong!</ng-container>
+            </div>
+            <div>
+                <button type="button" class="btn-close btn-close-white" (click)="closeUpdateAvailable()" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="toast-body bg-dark" *ngIf="updateInfo?.releaseName">
+            <ng-template [ngIf]="!updateError">
+                <p>{{updateInfo.releaseName}} is now available! Click the download button below to download the
+                    updated version of the application.</p>
+            </ng-template>
+            <ng-template [ngIf]="updateError">
+                <p>Something went wrong, please contact ORNL to inform them that there was an error downloading the
+                    update and they will fix the issue as quickly as possible.</p>
+                <hr>
+                <p>
+                    Use the <a class="router-link" routerLink="/feedback">Feedback</a> page in the side bar to find
+                    information on reporting bugs.
+                </p>
+            </ng-template>
+        </div>
+        <div class="toast-footer ps-2 pe-2 pb-2 text-right" *ngIf="!updateError">
+            <button class="btn btn-sm btn-success" (click)="update()">
+                <fa-icon [icon]="faDownload"></fa-icon>    
+                Download Update
+            </button>
+        </div>
+    </div>
+</div>
