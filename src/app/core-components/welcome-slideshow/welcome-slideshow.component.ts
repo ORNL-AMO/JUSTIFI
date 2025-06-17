@@ -27,7 +27,6 @@ export class WelcomeSlideshowComponent {
   ngAfterViewInit() {
     if (!this.disableWelcomeSlides) {
       setTimeout(() => {
-        console.log('show slides');
         this.showSlides = true;
         this.cd.detectChanges();
       }, 1000)

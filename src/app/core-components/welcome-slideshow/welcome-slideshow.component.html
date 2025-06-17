@@ -1,7 +1,7 @@
 <div [ngClass]="{'window-overlay': showSlides}"></div>
 <div class="popup" [ngClass]="{'open': showSlides}">
     <div class="popup-header">
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="hideSlides()"></button>
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="disableSlides()"></button>
     </div>
     <div class="popup-body">
         <div id="carouselExampleIndicators" class="carousel slide">
@@ -82,7 +82,7 @@
                             <img src="assets/Welcome-To-JUSTIFI/Slide8.png" alt="Details For Developers"
                                 class="img-fluid" />
                         </div>
-                        <button class="btn btn-outline-neb get-started-button" (click)="hideSlides()">
+                        <button class="btn btn-outline-neb get-started-button" (click)="disableSlides()">
                             Start Discovering NEBs!
                         </button>
                     </div>
@@ -98,11 +98,4 @@
             </button>
         </div>
     </div>
-    <!-- <div class="pe-2 ps-1">
-        <hr class="m-0">
-    </div>
-    <div class="p-2 d-flex justify-content-end">
-        <button class="btn btn-secondary btn-sm me-2" (click)="disableDisclaimer()">Don't Show Me Again</button>
-        <button class="btn btn-secondary btn-sm" (click)="hideDisclaimer()">Close Disclaimer</button>
-    </div> -->
 </div>
