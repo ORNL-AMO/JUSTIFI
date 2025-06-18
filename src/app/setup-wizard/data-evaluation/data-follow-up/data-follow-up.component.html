@@ -48,15 +48,15 @@
                     The following items have been flagged for having possible follow-up actions needed.
                 </p>
                 <ng-template [ngIf]="followUpItems.length === 0">
-                    <div class="alert alert-info p-2">
-                        No follow-up items found.
+                    <div class="alert alert-success text-center p-2">
+                        No follow-up items found. Proceed to reports!
                     </div>
                 </ng-template>
                 <ng-template [ngIf]="followUpItems.length > 0">
                     <ul class="list-group">
                         <li class="list-group-item" *ngFor="let item of followUpItems">
                             <fa-icon [icon]="faExclamationCircle"></fa-icon>
-                            <a [routerLink]="item.linkUrl">
+                            <a class="click-link" (click)="goToItem(item)">
                                 {{item.label}}
                             </a>
                         </li>

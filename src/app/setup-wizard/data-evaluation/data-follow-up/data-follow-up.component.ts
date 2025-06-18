@@ -12,6 +12,7 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { UtilityOptions } from 'src/app/shared/constants/utilityTypes';
+import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 
 @Component({
   selector: 'app-data-follow-up',
@@ -37,7 +38,8 @@ export class DataFollowUpComponent {
 
   followUpItems: Array<{
     label: string,
-    linkUrl: string
+    linkUrl: string,
+    energyOppGuid?: string
   }>;
 
   constructor(private router: Router,
@@ -45,7 +47,8 @@ export class DataFollowUpComponent {
     private facilityIdbService: FacilityIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
-    private assessmentIdbService: AssessmentIdbService
+    private assessmentIdbService: AssessmentIdbService,
+    private localStorageDataService: LocalStorageDataService
   ) {
 
   }
@@ -109,10 +112,18 @@ export class DataFollowUpComponent {
         if (assessment.utilitySavingsByAssessment) {
           if (!assessment.implementationCost) {
             this.followUpItems.push({
-              label: `Implementation cost missing for assessment: "${assessment.name}".`,
+              label: `Missing implementation cost for assessment: "${assessment.name}".`,
               linkUrl: `/setup-wizard/data-collection/${this.onSiteVisit.guid}/assessment/${assessment.guid}/details`
             })
           }
+
+          if (!assessment.energySavings && !assessment.waterSavings) {
+            this.followUpItems.push({
+              label: `Missing utility savings for assessment: "${assessment.name}".`,
+              linkUrl: `/setup-wizard/data-collection/${this.onSiteVisit.guid}/assessment/${assessment.guid}/details`
+            });
+          }
+
         } else {
           const energyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.getByOtherGuid(assessmentId, 'assessment');
           if (energyOpportunities.length === 0) {
@@ -124,15 +135,33 @@ export class DataFollowUpComponent {
             energyOpportunities.forEach((opportunity) => {
               if (!opportunity.implementationCost) {
                 this.followUpItems.push({
-                  label: `Implementation cost missing for EEM: "${opportunity.name}" in assessment: "${assessment.name}".`,
-                  linkUrl: `/setup-wizard/data-collection/${this.onSiteVisit.guid}/assessment/${assessment.guid}/energy-opportunities`
+                  label: `Missing implemenation costs for EEM: "${opportunity.name}" in assessment: "${assessment.name}".`,
+                  linkUrl: `/setup-wizard/data-collection/${this.onSiteVisit.guid}/assessment/${assessment.guid}/energy-opportunities`,
+                  energyOppGuid: opportunity.guid
+                });
+              }
+              if (!opportunity.energySavings && !opportunity.waterSavings) {
+                this.followUpItems.push({
+                  label: `Missing utility savings for EEM: "${opportunity.name}" in assessment: "${assessment.name}".`,
+                  linkUrl: `/setup-wizard/data-collection/${this.onSiteVisit.guid}/assessment/${assessment.guid}/energy-opportunities`,
+                  energyOppGuid: opportunity.guid
                 });
               }
             });
           }
         }
       });
-
     }
+  }
+
+  goToItem(item: {
+    label: string,
+    linkUrl: string,
+    energyOppGuid?: string
+  }) {
+    if (item.energyOppGuid) {
+      this.localStorageDataService.setEnergyOppAccordionGuid(item.energyOppGuid);
+    }
+    this.router.navigateByUrl(item.linkUrl);
   }
 }
