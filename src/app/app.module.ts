@@ -21,7 +21,6 @@ import { FeedbackPageComponent } from './core-components/feedback-page/feedback-
 import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
 import { AboutComponent } from './core-components/about/about.component';
 import { HelpComponent } from './core-components/help/help.component';
-import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
 import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
 import { localeCurrency } from './shared/constants/localeCurrency';
@@ -45,7 +44,6 @@ import { PerformanceMetricsTablePipe } from './shared/reports/performance-metric
     AcknowledgmentsComponent,
     AboutComponent,
     HelpComponent,
-    AlphaDisclaimerComponent,
     ToastNotificationsComponent,
     ExportBackupModalComponent,
     ExportBackupTreeComponent,
