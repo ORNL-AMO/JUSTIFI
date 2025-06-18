@@ -6,17 +6,17 @@ import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 import { ProcessEquipmentSustainabilityHelp } from 'src/app/shared/help-content/process-equipment-help';
 
 @Component({
-  selector: 'app-process-equipment-sustainablity',
+  selector: 'app-process-equipment-sustainability',
   standalone: false,
 
-  templateUrl: './process-equipment-sustainablity.component.html',
-  styleUrl: './process-equipment-sustainablity.component.css'
+  templateUrl: './process-equipment-sustainability.component.html',
+  styleUrl: './process-equipment-sustainability.component.css'
 })
-export class ProcessEquipmentSustainablityComponent {
+export class ProcessEquipmentSustainabilityComponent {
   @Input()
   inPortfolio: boolean;
 
-  ProcessEquipmentSustainablityHelp = ProcessEquipmentSustainabilityHelp;
+  ProcessEquipmentSustainabilityHelp = ProcessEquipmentSustainabilityHelp;
 
   processEquipmentGuid: string;
 

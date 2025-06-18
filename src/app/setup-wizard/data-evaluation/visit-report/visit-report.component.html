@@ -28,10 +28,16 @@
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             Assessment Report
         </button>
-        <button class="btn btn-success btn-sm" (click)="togglePrint()">
-            <fa-icon [icon]="faFilePdf"></fa-icon>
-            Generate PDF
-        </button>
+        <div>
+            <button class="btn btn-success btn-sm me-1" (click)="togglePrint()">
+                <fa-icon [icon]="faFilePdf"></fa-icon>
+                Generate PDF
+            </button>
+            <button class="btn btn-success btn-sm ms-1" (click)="generatePowerPoint()">
+                <fa-icon [icon]="faFilePowerpoint"></fa-icon>
+                Generate PowerPoint
+            </button>
+        </div>
         <button class="btn nav-btn btn-sm" (click)="goNext()">
             Custom Reports
             <fa-icon [icon]="faChevronRight"></fa-icon>

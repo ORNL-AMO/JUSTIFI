@@ -13,6 +13,7 @@ export const Energy2PowerUnitMap: { [key: string]: string } = {
     'GJ': 'GJhr',
     'MJ': 'MJhr',
     'MMBtu': 'MMBtuhr',
+    'Btu': 'Btuhr',
 }
 
 export const EnergyUnitOptions: Array<UnitOption> = [
@@ -112,8 +113,13 @@ export const PowerUnitOptions: Array<UnitOption> = [
     {
         display: 'Million British Thermal Units per hour (MMBtu/hr)',
         value: 'MMBtuhr',
-        unitsOfMeasure: 'Metric'
-    }
+        unitsOfMeasure: 'Imperial'
+    },
+    {
+        display: 'British Thermal Units per hour (Btu/hr)',
+        value: 'btuhr',
+        unitsOfMeasure: 'Imperial'
+    },
 ]
 
 
@@ -386,7 +392,7 @@ export const ChilledWaterUnitOptions: Array<UnitOption> = [
 
 // ]
 
-export const ProcessCoolingUnitOptions: Array<UnitOption> = [
+export const ProcessCoolingHVACUnitOptions: Array<UnitOption> = [
     {
         display: 'Tons of Refrigeration (TR)',
         value: 'TR',
@@ -397,5 +403,9 @@ export const ProcessCoolingUnitOptions: Array<UnitOption> = [
         value: 'kW',
         unitsOfMeasure: 'Metric'
     },
-
+    {
+        display: 'British Thermal Units per hour (Btu/hr)',
+        value: 'btuhr',
+        unitsOfMeasure: 'Imperial'
+    },
 ]

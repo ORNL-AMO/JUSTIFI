@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IconDefinition, faChartColumn, faChevronLeft, faChevronRight, faFilePdf, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChartColumn, faChevronLeft, faChevronRight, faFilePdf, faFilePowerpoint, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
+import { PowerpointReportGeneratorService } from 'src/app/shared/shared-services/powerpoint-report-generator.service';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class VisitReportComponent {
   faChevronRight: IconDefinition = faChevronRight;
   faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faFilePdf: IconDefinition = faFilePdf;
+  faFilePowerpoint: IconDefinition = faFilePowerpoint;
 
   faChartColumn: IconDefinition = faChartColumn;
 
@@ -30,7 +32,8 @@ export class VisitReportComponent {
   constructor(private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private powerpointReportGeneratorService: PowerpointReportGeneratorService
   ) {
 
   }
@@ -78,5 +81,9 @@ export class VisitReportComponent {
         this.sharedDataService.print.next(false)
       }, 1000)
     }, 100)
+  }
+
+  generatePowerPoint() {
+    this.powerpointReportGeneratorService.createRollupPPT(this.onSiteVisit);   
   }
 }

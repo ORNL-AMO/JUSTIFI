@@ -8,6 +8,7 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { OnSiteVisitReport } from '../calculations/visitReport';
 import { faScrewdriverWrench, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { PowerpointReportGeneratorService } from '../../shared-services/powerpoint-report-generator.service';
 
 @Component({
     selector: 'app-report-details-table',
@@ -28,7 +29,8 @@ export class ReportDetailsTableComponent {
   facility: IdbFacility;
   constructor(
     private facilityIdbService: FacilityIdbService,
-    private companyIdbService: CompanyIdbService
+    private companyIdbService: CompanyIdbService,
+    private powerpointReportGeneratorService: PowerpointReportGeneratorService
   ) {}
 
   ngOnInit(){
@@ -39,5 +41,6 @@ export class ReportDetailsTableComponent {
       this.company = this.companyIdbService.getByGUID(this.assessment.companyId);
       this.facility = this.facilityIdbService.getByGUID(this.assessment.facilityId);
     }
+    this.powerpointReportGeneratorService.setVisitType(this.onSiteVisitReport, this.company, this.facility);
   }
 }

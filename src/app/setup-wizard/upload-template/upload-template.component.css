@@ -1,0 +1,25 @@
+.card-item{
+    border: solid 1px black;
+    padding: 0.5rem;
+}
+
+.associated-item{
+    margin-left: .5rem;
+    padding-left: .75rem;
+    border-left: solid 1px;
+    border-bottom: solid 1px;
+    margin-bottom: 11px;
+}
+
+.item-label{
+    display: inline-block;
+    /* line-height: normal; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.setup-wizard-content{
+    height: 100% !important
+}

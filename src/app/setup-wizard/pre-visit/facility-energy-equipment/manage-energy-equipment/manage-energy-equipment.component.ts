@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faChevronLeft, faChevronRight, faList, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faList, faPlus, faUpload, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -26,6 +26,7 @@ export class ManageEnergyEquipmentComponent {
   faChevronLeft: IconDefinition = faChevronLeft;
   faList: IconDefinition = faList;
   faPlus: IconDefinition = faPlus;
+  faUpload: IconDefinition = faUpload;
 
   energyEquipments: Array<IdbEnergyEquipment>;
   energyEquipmentSub: Subscription;
@@ -113,5 +114,9 @@ export class ManageEnergyEquipmentComponent {
 
   goToEnergyEquipment(equipment: IdbEnergyEquipment) {
     this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-energy-equipment/' + equipment.guid);
+  }
+
+  goToUploadTemplate() {
+    this.router.navigateByUrl('/setup-wizard/upload-template/' + this.onSiteVisit.guid);
   }
 }
