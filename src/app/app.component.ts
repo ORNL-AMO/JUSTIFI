@@ -14,7 +14,6 @@ import { EnergyOpportunityIdbService } from './indexed-db/energy-opportunity-idb
 import { EnergyEquipmentIdbService } from './indexed-db/energy-equipment-idb.service';
 import { ProcessEquipmentIdbService } from './indexed-db/process-equipment-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from './indexed-db/key-performance-metric-impacts-idb.service';
-// import { ToastNotificationsService } from './core-components/toast-notifications/toast-notifications.service';
 import { UpdateDbEntriesService } from './indexed-db/update-db-entries.service';
 import { Subscription } from 'rxjs';
 import { ReportIdbService } from './indexed-db/report-idb.service';
@@ -42,7 +41,6 @@ export class AppComponent {
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
-    // private toastNotificationService: ToastNotificationsService,
     private updateDbEntriesService: UpdateDbEntriesService,
     private reportIdbService: ReportIdbService) {
   }
@@ -54,7 +52,6 @@ export class AppComponent {
     await this.initializeData();
     this.sharedDataService.dataInitialized.next(true);
     this.checkRouter();
-    // this.toastNotificationService.showWebDisclaimer();
   }
 
   async initializeData() {
