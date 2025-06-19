@@ -1,10 +1,18 @@
-<h5>
-    <fa-icon [icon]="faBullseye"></fa-icon>
-    <span class="ps-1" [innerHTML]="keyPerformanceIndicator.htmlLabel"></span>
-</h5>
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        <h5>
+            <fa-icon [icon]="faBullseye"></fa-icon>
+            <span class="ps-1" [innerHTML]="keyPerformanceIndicator.htmlLabel"></span>
+        </h5>
+    </div>
+    <div>
+        <app-primary-kpi-badge class="w-100" [kpiOption]="keyPerformanceIndicator"
+            [fullWidth]="true"></app-primary-kpi-badge>
+    </div>
+</div>
 <hr class="my-1">
 <form>
-    <ng-template [ngIf]="keyPerformanceIndicator.isCustom">
+    <ng-template [ngIf]="keyPerformanceIndicator.isCustom" [ngIfElse]="nonCustomKpiBlock">
         <div class="row">
             <label class="col-sm-6 col-form-label" for="{{'kpiName_'+keyPerformanceIndicator.guid}}">
                 Performance Indicator Name
@@ -14,60 +22,47 @@
                     <div class="input-group-text">
                         <fa-icon [icon]="faBullseye"></fa-icon>
                     </div>
-                    <input name="{{'kpiName_'+keyPerformanceIndicator.guid}}" type="text"
-                        class="form-control" [(ngModel)]="keyPerformanceIndicator.label"
-                        id="{{'kpiName_'+keyPerformanceIndicator.guid}}" (input)="saveChanges()">
+                    <input name="{{'kpiName_'+keyPerformanceIndicator.guid}}" type="text" class="form-control"
+                        [(ngModel)]="keyPerformanceIndicator.label" id="{{'kpiName_'+keyPerformanceIndicator.guid}}"
+                        (input)="saveChanges()">
                 </div>
             </div>
         </div>
-    </ng-template>
 
-    <div class="row">
-        <label class="col-sm-6 col-form-label" for="{{'kpiCategory_'+keyPerformanceIndicator.guid}}">
-            KPI Category
-        </label>
-        <div class="col-6">
-            <ng-template [ngIf]="keyPerformanceIndicator.isCustom" [ngIfElse]="indicatorCategory">
-                <select class="form-select" name="kpiCategory"
-                    id="{{'kpiCategory_'+keyPerformanceIndicator.guid}}"
+        <div class="row">
+            <label class="col-sm-6 col-form-label" for="{{'kpiCategory_'+keyPerformanceIndicator.guid}}">
+                KPI Category
+            </label>
+            <div class="col-6">
+                <select class="form-select" name="kpiCategory" id="{{'kpiCategory_'+keyPerformanceIndicator.guid}}"
                     [(ngModel)]="keyPerformanceIndicator.primaryKPI" (change)="saveChanges()">
                     <option *ngFor="let primaryKPI of primaryKPIs" [ngValue]="primaryKPI">
                         {{primaryKPI}}
                     </option>
                 </select>
-            </ng-template>
-            <ng-template #indicatorCategory>
-                <div class="d-flex w-100 justify-content-center">
-                    <app-primary-kpi-badge class="w-100" [kpiOption]="keyPerformanceIndicator"
-                        [fullWidth]="true"></app-primary-kpi-badge>
-                </div>
-            </ng-template>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <label class="col-sm-6 col-form-label" for="{{'kpiDescription_'+keyPerformanceIndicator.guid}}">
-            KPI Description
-        </label>
-        <div class="col-6">
-            <ng-template [ngIf]="keyPerformanceIndicator.isCustom" [ngIfElse]="indicatorDescription">
+        <div class="row">
+            <label class="col-sm-6 col-form-label" for="{{'kpiDescription_'+keyPerformanceIndicator.guid}}">
+                KPI Description
+            </label>
+            <div class="col-6">
                 <textarea class="form-control" name="{{'kpiDescription_'+keyPerformanceIndicator.guid}}"
                     id="{{'kpiDescription_'+keyPerformanceIndicator.guid}}"
-                    [(ngModel)]="keyPerformanceIndicator.description"
-                    (input)="saveChanges()"></textarea>
-            </ng-template>
-            <ng-template #indicatorDescription>
-                <p class="fw-light small">
-                    <span [innerHTML]="keyPerformanceIndicator.optionValue | kpiDescription"></span>
-                </p>
-            </ng-template>
+                    [(ngModel)]="keyPerformanceIndicator.description" (input)="saveChanges()"></textarea>
+            </div>
         </div>
-    </div>
+    </ng-template>
+    <ng-template #nonCustomKpiBlock>
+        <p class="fw-light small">
+            <span [innerHTML]="keyPerformanceIndicator.optionValue | kpiDescription"></span>
+        </p>
+    </ng-template>
 
     <div class="row pt-2">
         <div class="col">
-            <app-associated-contacts-buttons [companyGuid]="keyPerformanceIndicator.companyId"
-                [contactContext]="'KPI'"
+            <app-associated-contacts-buttons [companyGuid]="keyPerformanceIndicator.companyId" [contactContext]="'KPI'"
                 [contextGuid]="keyPerformanceIndicator.guid"></app-associated-contacts-buttons>
         </div>
     </div>
@@ -84,12 +79,10 @@
                 Associated Key Performance Metrics
             </div>
             <div>
-                <ng-template [ngIf]="keyPerformanceIndicator.optionValue != 'other'"
-                    [ngIfElse]="customAddBlock">
+                <ng-template [ngIf]="keyPerformanceIndicator.optionValue != 'other'" [ngIfElse]="customAddBlock">
                     <div class="dropdown">
                         <button class="btn btn-outline-metric btn-sm dropdown-toggle" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false"
-                            (click)="toggleAddMetricDropdown()">
+                            data-bs-toggle="dropdown" aria-expanded="false" (click)="toggleAddMetricDropdown()">
                             <fa-icon [icon]="faPlus"></fa-icon> Add Performance Metric
                         </button>
                         <ul class="dropdown-menu" [ngClass]="{'show': showAddMetricDropdown}">
@@ -116,8 +109,7 @@
         </div>
     </h6>
     <p class="fw-light small">
-        The below associated key performance metrics (<fa-icon
-            [icon]="faScaleUnbalancedFlip"></fa-icon>)
+        The below associated key performance metrics (<fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>)
         will be used later on during an assessment to tie Non-Energy Benefits found back to facility Key
         Performance Indicators. This information can be added to and modified at a later time if not all
         of the details are currently known.
@@ -127,8 +119,7 @@
             <hr class="metric-hr mt-0">
         </div>
     </div>
-    <ng-template [ngIf]="keyPerformanceIndicator.performanceMetrics.length > 0"
-        [ngIfElse]="noKpmsBlock">
+    <ng-template [ngIf]="keyPerformanceIndicator.performanceMetrics.length > 0" [ngIfElse]="noKpmsBlock">
         <ng-container *ngFor="let keyPerformanceMetric of keyPerformanceIndicator.performanceMetrics">
             <div class="metric-block">
                 <div class="dropdown">
@@ -138,11 +129,9 @@
                         <fa-icon [icon]="faScaleUnbalancedFlip" class="me-2"></fa-icon>
                         <span [innerHTML]="keyPerformanceMetric.htmlLabel"></span>
                     </button>
-                    <ul class="dropdown-menu"
-                        [ngClass]="{'show': dropdownMenuGuid == keyPerformanceMetric.guid}">
+                    <ul class="dropdown-menu" [ngClass]="{'show': dropdownMenuGuid == keyPerformanceMetric.guid}">
                         <li>
-                            <a class="dropdown-item"
-                                (click)="openDeleteMetricModal(keyPerformanceMetric)">
+                            <a class="dropdown-item" (click)="openDeleteMetricModal(keyPerformanceMetric)">
                                 <fa-icon [icon]="faTrash"></fa-icon>
                                 Remove Metric
                             </a>
@@ -151,8 +140,7 @@
                 </div>
                 <ng-template [ngIf]="keyPerformanceMetric.isCustom">
                     <div class="row">
-                        <label class="col-sm-6 col-form-label"
-                            for="{{'kpmName_'+keyPerformanceMetric.guid}}">
+                        <label class="col-sm-6 col-form-label" for="{{'kpmName_'+keyPerformanceMetric.guid}}">
                             Performance Metric Name
                         </label>
                         <div class="col-6">
@@ -160,23 +148,20 @@
                                 <div class="input-group-text">
                                     <fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>
                                 </div>
-                                <input name="{{'kpmName_'+keyPerformanceMetric.guid}}" type="text"
-                                    class="form-control" [(ngModel)]="keyPerformanceMetric.label"
-                                    id="{{'kpmName_'+keyPerformanceMetric.guid}}"
-                                    (input)="saveChanges()">
+                                <input name="{{'kpmName_'+keyPerformanceMetric.guid}}" type="text" class="form-control"
+                                    [(ngModel)]="keyPerformanceMetric.label"
+                                    id="{{'kpmName_'+keyPerformanceMetric.guid}}" (input)="saveChanges()">
                             </div>
                         </div>
                     </div>
                 </ng-template>
-                <app-kpm-details-form [keyPerformanceMetric]="keyPerformanceMetric"
-                    (emitSave)="saveChanges()" (emitCalculate)="calculateCost(keyPerformanceMetric)"
-                    [context]="'preVisit'"
+                <app-kpm-details-form [keyPerformanceMetric]="keyPerformanceMetric" (emitSave)="saveChanges()"
+                    (emitCalculate)="calculateCost(keyPerformanceMetric)" [context]="'preVisit'"
                     [currencyCode]="currencyCode"></app-kpm-details-form>
                 <ng-template
                     [ngIf]="(keyPerformanceMetricImpacts | keyPerformanceMetricImpactsList: keyPerformanceMetric.guid).length">
                     <div class="mt-3">
-                        <app-kpm-impacts-table
-                            [kpmGuid]="keyPerformanceMetric.guid"></app-kpm-impacts-table>
+                        <app-kpm-impacts-table [kpmGuid]="keyPerformanceMetric.guid"></app-kpm-impacts-table>
                     </div>
                 </ng-template>
                 <div class="row">
