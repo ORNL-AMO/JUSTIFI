@@ -128,7 +128,7 @@ export class DataFollowUpComponent {
           const energyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.getByOtherGuid(assessmentId, 'assessment');
           if (energyOpportunities.length === 0) {
             this.followUpItems.push({
-              label: `No EEM's created for assessment: "${assessment.name}".`,
+              label: `No EEMs created for assessment: "${assessment.name}".`,
               linkUrl: `/setup-wizard/data-collection/${this.onSiteVisit.guid}/assessment/${assessment.guid}/energy-opportunities`
             });
           } else {
