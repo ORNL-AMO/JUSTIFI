@@ -1,0 +1,101 @@
+<div [ngClass]="{'window-overlay': showSlides}"></div>
+<div class="popup" [ngClass]="{'open': showSlides}">
+    <div class="popup-header">
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="disableSlides()"></button>
+    </div>
+    <div class="popup-body">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                    aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
+                    aria-label="Slide 5"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"
+                    aria-label="Slide 6"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"
+                    aria-label="Slide 7"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7"
+                    aria-label="Slide 8"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-container">
+                            <img src="assets/Welcome-To-JUSTIFI/Slide1.png" alt="Welcome" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-container">
+                            <img src="assets/Welcome-To-JUSTIFI/Slide2.png" alt="About JUSTIFI" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-container">
+                            <img src="assets/Welcome-To-JUSTIFI/Slide3.png" alt="Additional Features" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-container">
+                            <img src="assets/Welcome-To-JUSTIFI/Slide4.png" alt="Terminology" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-container">
+                            <img src="assets/Welcome-To-JUSTIFI/Slide5.png" alt="Help Content"
+                                class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-container">
+                            <img src="assets/Welcome-To-JUSTIFI/Slide6.png" alt="Beta - Thank you"
+                                class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-container">
+                            <img src="assets/Welcome-To-JUSTIFI/Slide7.png" alt="Notes on Data"
+                                class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-container">
+                            <img src="assets/Welcome-To-JUSTIFI/Slide8.png" alt="Thank you - get started"
+                                class="img-fluid" />
+                        </div>
+                        <button class="btn btn-outline-neb get-started-button" (click)="disableSlides()">
+                            Start Discovering NEBs!
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <fa-icon [icon]="faChevronLeft"></fa-icon>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <fa-icon [icon]="faChevronRight"></fa-icon>
+            </button>
+        </div>
+    </div>
+</div>

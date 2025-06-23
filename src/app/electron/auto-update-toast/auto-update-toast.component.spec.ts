@@ -1,24 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SidebarComponent } from './sidebar.component';
+import { AutoUpdateToastComponent } from './auto-update-toast.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RouterTestingModule } from '@angular/router/testing';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
-import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 
-describe('SidebarComponent', () => {
-  let component: SidebarComponent;
-  let fixture: ComponentFixture<SidebarComponent>;
+describe('AutoUpdateToastComponent', () => {
+  let component: AutoUpdateToastComponent;
+  let fixture: ComponentFixture<AutoUpdateToastComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, RouterTestingModule, HelperPipesModule],
-      declarations: [SidebarComponent],
+      imports: [FontAwesomeModule],
+      declarations: [AutoUpdateToastComponent],
       providers: stubServiceProviders
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(SidebarComponent);
+
+    fixture = TestBed.createComponent(AutoUpdateToastComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
