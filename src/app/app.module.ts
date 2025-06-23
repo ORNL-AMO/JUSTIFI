@@ -29,6 +29,7 @@ import { ExportBackupTreeComponent } from './core-components/backup-modal/export
 import { WelcomeSlideshowComponent } from './core-components/welcome-slideshow/welcome-slideshow.component';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { PerformanceMetricsTablePipe } from './shared/reports/performance-metrics-table/performance-metrics-table.pipe';
+import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-update-toast.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { PerformanceMetricsTablePipe } from './shared/reports/performance-metric
     ToastNotificationsComponent,
     ExportBackupModalComponent,
     ExportBackupTreeComponent,
+    AutoUpdateToastComponent,
     WelcomeSlideshowComponent
   ],
   imports: [

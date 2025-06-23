@@ -1,9 +1,13 @@
 <nav class="navbar">
     <div class="container-fluid">
         <div class="d-flex align-items-center">
-            <button class="navbar-toggler" type="button" aria-label="Toggle navigation" (click)="openSidebar()">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <div>
+                <button class="navbar-toggler" type="button" aria-label="Toggle navigation" (click)="openSidebar()">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <fa-icon *ngIf="updateAvailable" [icon]="faExclamationCircle" class="update-available"></fa-icon>
+            </div>
+
             <a [style]="{'color': 'white'}" class="navbar-brand ms-2" routerLink="/welcome">
                 JUSTIFI</a>
             <div>
