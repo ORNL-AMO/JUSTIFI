@@ -18,6 +18,7 @@ export class LocalStorageDataService {
   topKeywordsDefault: string[] = ['productivity', 'efficiency', 'savings'];
   topKeywords: string[] = this.topKeywordsDefault;
 
+  disableWelcomeSlides: boolean;
   constructor(private localStorageService: LocalStorageService) {
     this.setupHelpPanelCollapsed = this.localStorageService.retrieve("setupHelpPanelCollapsed");
     if (this.setupHelpPanelCollapsed == undefined) {
@@ -37,6 +38,8 @@ export class LocalStorageDataService {
     this.assessmentAccordionGuid = this.localStorageService.retrieve("assessmentAccordionGuid");
     this.disableAlphaDisclaimer = this.localStorageService.retrieve("disableAlphaDisclaimer");
     this.disableDataDisclaimer = this.localStorageService.retrieve("disableDataDisclaimer");
+    this.disableWelcomeSlides = this.localStorageService.retrieve("disableWelcomeSlides");
+
     const storedTopKeywords = this.localStorageService.retrieve("topKeywords");
     if (storedTopKeywords == undefined) {
       this.topKeywords = this.topKeywordsDefault;
@@ -93,5 +96,10 @@ export class LocalStorageDataService {
   setTopKeywords(topKeywords: string[]) {
     this.topKeywords = topKeywords;
     this.localStorageService.store('topKeywords', this.topKeywords);
+  }
+  
+  setDisableWelcomeSlides(disableWelcomeSlides: boolean) {
+    this.disableWelcomeSlides = disableWelcomeSlides;
+    this.localStorageService.store('disableWelcomeSlides', this.disableWelcomeSlides);
   }
 }

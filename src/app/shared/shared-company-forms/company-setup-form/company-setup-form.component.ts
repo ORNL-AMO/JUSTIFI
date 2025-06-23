@@ -40,7 +40,7 @@ export class CompanySetupFormComponent {
 
   constructor(
     private companyIdbService: CompanyIdbService,
-    private preAassessmentSetupService: PreAssessmentSetupService,
+    private preAssessmentSetupService: PreAssessmentSetupService,
     private assessmentIdbService: AssessmentIdbService,
     private facilityIdbService: FacilityIdbService,
     private facilitySetupService: FacilitySetupService,
@@ -79,10 +79,14 @@ export class CompanySetupFormComponent {
   async saveUnitChanges() {
     this.energyUnitChange = true;
     await this.saveChanges();
-    await this.preAassessmentSetupService.updateAssessmentUtilityUseSaving(
-      this.companyAssessments, this.energyUnit.value);
     await this.facilitySetupService.updateFacilityEnergyUse(
       this.companyFacilities, this.energyUnit.value);
+    for (const facility of this.companyFacilities) {
+      let facilityAssessments = this.companyAssessments.filter(
+        assessment => assessment.guid === facility.guid);
+      await this.preAssessmentSetupService.updateAssessmentUtilityUseSaving(
+        facilityAssessments, facility.unitSettings, this.energyUnit.value);
+    }
     await this.assessmentEnergyOpportunitiesFormService.updateEnergyOpportunityEnergyUseFromCompany(
       this.companyEnergyOpportunities, this.energyUnit.value);
     await this.facilityEnergyEquipmentSetupService.updateEnergyEquipmentEnergyUse(
