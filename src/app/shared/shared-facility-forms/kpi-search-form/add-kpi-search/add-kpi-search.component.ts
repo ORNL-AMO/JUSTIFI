@@ -50,7 +50,7 @@ export class AddKpiSearchComponent {
   }
 
   async addKPI(option: KeyPerformanceIndicatorOption) {
-    let newKPI: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator(this.facility.userId, this.facility.companyId, option, false, this.facility.guid);
+    let newKPI: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator(this.facility.userId, this.facility.companyId, option, (option.optionValue == 'other'), this.facility.guid);
     await firstValueFrom(this.keyPerformanceIndicatorIdbService.addWithObservable(newKPI));
     await this.keyPerformanceIndicatorIdbService.setKeyPerformanceIndicators();
   }

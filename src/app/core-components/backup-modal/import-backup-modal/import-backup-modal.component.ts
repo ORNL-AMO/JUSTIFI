@@ -9,15 +9,21 @@ import { Subscription } from 'rxjs';
 import { BackupModalService } from '../backup-modal.service';
 import { environment } from 'src/environments/environment';
 import { UpdateDbEntriesService } from 'src/app/indexed-db/update-db-entries.service';
+import * as ExcelJS from 'exceljs';
+import { ParseExcelTemplateService } from 'src/app/shared/shared-services/parse-excel-template.service';
+import { IdbCompany } from 'src/app/models/company';
+import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { faFileExcel, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-    selector: 'app-import-backup-modal',
-    templateUrl: './import-backup-modal.component.html',
-    styleUrl: './import-backup-modal.component.css',
-    standalone: false
+  selector: 'app-import-backup-modal',
+  templateUrl: './import-backup-modal.component.html',
+  styleUrl: './import-backup-modal.component.css',
+  standalone: false
 })
 export class ImportBackupModalComponent implements OnInit, OnDestroy {
-  
+
+  faFileExcel: IconDefinition = faFileExcel;
 
   showImportModalSub: Subscription;
   showImportModal: boolean;
@@ -29,13 +35,18 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
   importName: string;
   overwriteData: boolean = true;
 
+  importMethod: 'jsonFile' | 'template' = undefined;
+  workbook: ExcelJS.Workbook;
+  fileUploadError: string = '';
   constructor(private userIdbService: UserIdbService,
     private loadingService: LoadingService,
     private backupDataService: BackupDataService,
     private dbChangesService: DbChangesService,
     private router: Router,
     private backupModalService: BackupModalService,
-    private updateDbEntriesService: UpdateDbEntriesService
+    private updateDbEntriesService: UpdateDbEntriesService,
+    private parseExcelTemplateService: ParseExcelTemplateService,
+    private companyIdbService: CompanyIdbService
   ) {
 
   }
@@ -66,10 +77,13 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
     this.backupModalService.showImportModal.next(false);
     this.importFile = undefined;
     this.importFileError = undefined;
-    (document.getElementById('selectImportFile') as HTMLInputElement).value = '';
+    if (document.getElementById('selectImportFile')) {
+      (document.getElementById('selectImportFile') as HTMLInputElement).value = '';
+    }
+    this.importMethod = undefined;
   }
 
-  
+
   setImportFile(event: EventTarget) {
     let files: FileList = (event as HTMLInputElement).files;
     if (files) {
@@ -138,6 +152,61 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
     await this.dbChangesService.deleteCurrentUserData(this.currentUser);
     // Add backup data to current user
     await this.addToCurrentUser(importFile);
+  }
+
+  setImportType(type: 'jsonFile' | 'template') {
+    this.importMethod = type;
+  }
+
+
+  onFileSelected(event: EventTarget) {
+    let files: FileList = (event as HTMLInputElement).files;
+    if (files) {
+      if (files.length !== 0) {
+        let regex3 = /.xlsx$/;
+        for (let index = 0; index < files.length; index++) {
+          if (regex3.test(files[index].name)) {
+            this.addFile(files[index]);
+          }
+        }
+      }
+    }
+  }
+
+  addFile(file: File) {
+    const reader: FileReader = new FileReader();
+    reader.onload = async (e: any) => {
+      const bstr: ArrayBuffer = e.target.result;
+      // let workBook: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary', cellDates: true, dateNF: 'mm/dd/yyyy' });
+      const workbook = new ExcelJS.Workbook();
+      await workbook.xlsx.load(bstr);
+      try {
+        let isTemplate: boolean = workbook.getWorksheet('JUSTIFI_UPLOAD_V1') !== undefined;
+        if (isTemplate) {
+          this.workbook = workbook;
+        } else {
+          this.fileUploadError = 'Only template files from JUSTIFI can be uploaded.'
+        }
+      } catch (err) {
+        console.log(err);
+        this.fileUploadError = 'An Error Occured Parsing The File.'
+      }
+    };
+    reader.readAsBinaryString(file);
+  }
+
+  async parseWorkbook() {
+    let user: IdbUser = this.userIdbService.user.getValue();
+    let newCompanyGuid: string = await this.companyIdbService.addNewCompany(user.guid);
+    let selectedCompany: IdbCompany = this.companyIdbService.getByGUID(newCompanyGuid);
+    let parseResults: {
+      facilityGuid: string,
+      visitGuid: string,
+    } = await this.parseExcelTemplateService.parseWorkbook(this.workbook, user, selectedCompany)
+    this.router.navigateByUrl('/setup-wizard/pre-visit/' + parseResults.visitGuid);
+    this.cancelImportBackup();
+    this.workbook = undefined;
+    this.fileUploadError = '';
   }
 
 }

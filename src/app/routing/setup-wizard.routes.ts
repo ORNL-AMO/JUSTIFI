@@ -32,6 +32,7 @@ import { DataEvaluationCustomReportComponent } from "../setup-wizard/data-evalua
 import { CustomReportOptionsComponent } from "../shared/reports/custom-reports/custom-report-options/custom-report-options.component";
 import { CustomReportComponent } from "../shared/reports/custom-reports/custom-report/custom-report.component";
 import { ExecutiveSummaryEvaluationComponent } from "../setup-wizard/data-evaluation/executive-summary-evaluation/executive-summary-evaluation.component";
+import { UploadTemplateComponent } from "../setup-wizard/upload-template/upload-template.component";
 
 
 export const SetupWizardRoutes: Route = {
@@ -198,6 +199,10 @@ export const SetupWizardRoutes: Route = {
                     ]
                 }
             ]
+        },
+        {
+            path: 'upload-template/:id',
+            component: UploadTemplateComponent
         }
     ]
 }

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faChevronLeft, faChevronRight, faList, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faList, faPlus, faTrash, faUpload, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
+import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
@@ -15,10 +16,10 @@ import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Component({
-    selector: 'app-manage-pre-assessments',
-    templateUrl: './manage-pre-assessments.component.html',
-    styleUrl: './manage-pre-assessments.component.css',
-    standalone: false
+  selector: 'app-manage-pre-assessments',
+  templateUrl: './manage-pre-assessments.component.html',
+  styleUrl: './manage-pre-assessments.component.css',
+  standalone: false
 })
 export class ManagePreAssessmentsComponent {
 
@@ -26,6 +27,8 @@ export class ManagePreAssessmentsComponent {
   faChevronLeft: IconDefinition = faChevronLeft;
   faList: IconDefinition = faList;
   faPlus: IconDefinition = faPlus;
+  faUpload: IconDefinition = faUpload;
+  faTrash: IconDefinition = faTrash;
 
   assessments: Array<IdbAssessment>;
   assessmentsSub: Subscription;
@@ -38,6 +41,8 @@ export class ManagePreAssessmentsComponent {
 
   contacts: Array<IdbContact>;
   contactsSub: Subscription;
+  displayDeleteModal: boolean = false;
+  assessmentToDelete: IdbAssessment;
 
   constructor(private router: Router,
     private facilityIdbService: FacilityIdbService,
@@ -45,7 +50,8 @@ export class ManagePreAssessmentsComponent {
     private contactIdbService: ContactIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
-    private reportIdbService: ReportIdbService
+    private reportIdbService: ReportIdbService,
+    private dbChangesService: DbChangesService
   ) {
   }
 
@@ -123,5 +129,24 @@ export class ManagePreAssessmentsComponent {
     }
     await this.assessmentIdbService.setAssessments();
     await this.onSiteVisitIdbService.asyncUpdate(this.onSiteVisit);
+  }
+
+  async deleteAssessment() {
+    await this.dbChangesService.deleteAssessment(this.assessmentToDelete);
+    this.closeDeleteModal();
+  }
+
+  openDeleteModal(assessment: IdbAssessment) {
+    this.assessmentToDelete = assessment;
+    this.displayDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.displayDeleteModal = false;
+    this.assessmentToDelete = undefined;
+  }
+
+  goToUploadTemplate() {
+    this.router.navigateByUrl('/setup-wizard/upload-template/' + this.onSiteVisit.guid);
   }
 }

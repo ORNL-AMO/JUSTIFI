@@ -127,7 +127,7 @@
         </div>
         <div class="col-sm-12 mb-1" *ngIf="energyOpportunity.includeNote">
             <textarea name="opportunityNotes" type="number" class="form-control" [(ngModel)]="energyOpportunity.notes"
-                id="opportunityNotes" (focus)="focusField('name')"></textarea>
+                id="opportunityNotes" (focus)="focusField('name')" (input)="saveEnergyOpportunity()"></textarea>
         </div>
     </div>
     <hr class="my-1">

@@ -1,8 +1,6 @@
 
-import { FacilityIdbService } from "../indexed-db/facility-idb.service";
 import { UtilityOptions, UtilityType } from "../shared/constants/utilityTypes";
-import { energy } from "../shared/conversions/definitions/energy";
-import { getDefaultUnitSettings, UnitSettings } from "./unitSettings";
+import { UnitSettings } from "./unitSettings";
 
 export interface UtilityEnergyUse {
     utilityType: UtilityType;
@@ -27,13 +25,10 @@ export function getDefaultUtilityEnergyUses(facilityUnitSettings: UnitSettings):
             if (facilityUnitSettings[`${camelCaseType}Unit`]) {
                 energyUnit = facilityUnitSettings[`${camelCaseType}Unit`];
             }
-            if (facilityUnitSettings[`${camelCaseType}HHV`]) {
-                energyHHV = facilityUnitSettings[`${camelCaseType}HHV`];
-            }
-            if (facilityUnitSettings[`${camelCaseType}EnergyUnit`]) {
-                energyUnitStandard = facilityUnitSettings[`${camelCaseType}EnergyUnit`];
-            }
         }
+        // Override assessment HHV and Standard Energy Unit by facility settings
+        energyHHV = facilityUnitSettings[`${camelCaseType}HHV`];
+        energyUnitStandard = facilityUnitSettings[`${camelCaseType}EnergyUnit`];
         return {
             utilityType: option.utilityType,
             include: false,

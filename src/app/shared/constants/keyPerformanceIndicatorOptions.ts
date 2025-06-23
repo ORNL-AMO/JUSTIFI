@@ -86,8 +86,8 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Resource Efficiency',
-        label: 'Water Use, Disposal, Quality',
-        htmlLabel: 'Water Use, Disposal, Quality',
+        label: 'Water Use, Quality, Disposal',
+        htmlLabel: 'Water Use, Quality, Disposal',
         optionValue: 'waterConsumption'
     },
     {

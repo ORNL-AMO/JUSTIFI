@@ -109,36 +109,6 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="use.include
-                &&  use.utilityType !== 'Water' && use.utilityType !== 'Waste Water'
-                && !(use.utilityType | isStandardUnit :use.energyUnit : 'Energy')">
-                <div [ngClass]="{'col-5': !hasThreeColumns, 'col-4': hasThreeColumns}">
-                    <div class="input-group">
-                        <input type="text" class="form-control disabled-input-label-secondary"
-                            value="{{use.utilityType | utilityHhvDisplay}}" [disabled]="true">
-                    </div>
-                </div>
-                <div [ngClass]="{'col-7': !hasThreeColumns, 'col-4': hasThreeColumns}">
-                    <div class="input-group">
-                        <input class="form-control" type="number" step="any" min="0"
-                            name="{{'energyHHV_' + use.utilityType + assessment.guid}}"
-                            id="{{'energyHHV_' + use.utilityType + assessment.guid}}" [(ngModel)]="use.energyHHV"
-                            (input)="calculateUtilityUseCostSavings()" [disabled]="isDisabled">
-                        <select class="input-group-text"
-                            name="{{'energyUnitStandard_' + use.utilityType + assessment.guid}}"
-                            id="{{'energyUnitStandard_' + use.utilityType + assessment.guid}}"
-                            [(ngModel)]="use.energyUnitStandard" (change)="calculateUtilityUseCostSavings()"
-                            [disabled]="isDisabled">
-                            <option *ngFor="let energyUnitOption of energyUnitOptions"
-                                [ngValue]="energyUnitOption.value">
-                                <span [innerHTML]="energyUnitOption.value | unitsDisplay">
-                                </span>/<span [innerHTML]="use.energyUnit| unitsDisplay">
-                                </span>
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </ng-container>
             <ng-container *ngIf="use.include && !(use.utilityType | isUtilityTracked: facilityUnitSettings)">
                 <div class="col-12">
                     <div class="alert alert-warning small m-0 ms-5 p-1">

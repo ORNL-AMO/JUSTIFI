@@ -35,8 +35,9 @@ import { LocalStorageService } from "ngx-webstorage";
 import { UpdateDbEntriesService } from "../indexed-db/update-db-entries.service";
 import { ReportIdbService } from "../indexed-db/report-idb.service";
 import { getNewIdbReport, IdbReport } from "../models/report";
-import { CurrencyPipe } from "@angular/common";
+import { CurrencyPipe, DatePipe } from "@angular/common";
 import { CurrencySymbolPipe } from "../shared/helper-pipes/currency-symbol.pipe";
+import { PerformanceMetricsTablePipe } from "../shared/reports/performance-metrics-table/performance-metrics-table.pipe";
 
 let stubCompany: IdbCompany = getNewIdbCompany('123');
 stubCompany.guid = '123';
@@ -155,6 +156,7 @@ let sharedDataService: Partial<SharedDataService> = {
     displayAddNebsModal: new BehaviorSubject<{ assessmentId: string, energyOpportunityId: string }>(undefined),
     print: new BehaviorSubject<boolean>(false),
     dataInitialized: new BehaviorSubject<boolean>(false),
+    createPowerPoint: new BehaviorSubject<boolean>(false),
 }
 
 let companyContactsFormService: Partial<CompanyContactsFormService> = {
@@ -186,7 +188,9 @@ let reportIdbService: Partial<ReportIdbService> = {
 }
 
 let currencyPipe: CurrencyPipe = new CurrencyPipe('en-US')
+let datePipe: DatePipe = new DatePipe('en-US');
 let currencySymbolPipe: Partial<CurrencySymbolPipe> = new CurrencySymbolPipe(currencyPipe);
+let performanceMetricsTablePipe: PerformanceMetricsTablePipe = new PerformanceMetricsTablePipe();
 
 export const stubServiceProviders: Array<{ provide: any, useValue: any }> = [
     { provide: CompanyIdbService, useValue: companyIdbService },
@@ -214,5 +218,7 @@ export const stubServiceProviders: Array<{ provide: any, useValue: any }> = [
         }
     },
     { provide: CurrencyPipe, useValue: currencyPipe },
-    { provide: CurrencySymbolPipe, useValue: currencySymbolPipe }
+    { provide: CurrencySymbolPipe, useValue: currencySymbolPipe },
+    { provide: PerformanceMetricsTablePipe, useValue: performanceMetricsTablePipe },
+    { provide: DatePipe, useValue: datePipe }
 ]
