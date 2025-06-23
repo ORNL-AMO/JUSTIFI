@@ -1,0 +1,4 @@
+.popup{
+    max-height: calc(100vh - 10%);
+    overflow-y: auto;
+}
