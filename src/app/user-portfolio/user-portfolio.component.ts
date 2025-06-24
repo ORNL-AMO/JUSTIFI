@@ -9,12 +9,14 @@ import { IdbFacility } from '../models/facility';
 import { IdbAssessment } from '../models/assessment';
 import { Subscription } from 'rxjs';
 import { SharedDataService } from '../shared/shared-services/shared-data.service';
+import { IdbOnSiteVisit } from '../models/onSiteVisit';
+import { OnSiteVisitIdbService } from '../indexed-db/on-site-visit-idb.service';
 
 @Component({
-    selector: 'app-user-portfolio',
-    templateUrl: './user-portfolio.component.html',
-    styleUrl: './user-portfolio.component.css',
-    standalone: false
+  selector: 'app-user-portfolio',
+  templateUrl: './user-portfolio.component.html',
+  styleUrl: './user-portfolio.component.css',
+  standalone: false
 })
 export class UserPortfolioComponent {
 
@@ -39,6 +41,10 @@ export class UserPortfolioComponent {
 
   printSub: Subscription;
   print: boolean;
+
+  onSiteVisit: IdbOnSiteVisit;
+  onSiteVisitSub: Subscription;
+  displayVisitButton: boolean = false;
   constructor(
     private router: Router,
     private companyIdbService: CompanyIdbService,
@@ -46,6 +52,7 @@ export class UserPortfolioComponent {
     private assessmentIdbService: AssessmentIdbService,
     private cd: ChangeDetectorRef,
     private sharedDataService: SharedDataService,
+    private onSiteVisitIdbService: OnSiteVisitIdbService
   ) {
   }
 
@@ -58,14 +65,17 @@ export class UserPortfolioComponent {
     this.setContext(this.router.url);
     this.companySub = this.companyIdbService.selectedCompany.subscribe(selectedCompany => {
       this.company = selectedCompany;
+      this.setDisplayVisitButton();
       this.cd.detectChanges();
     });
     this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(selectedFacility => {
       this.facility = selectedFacility;
+      this.setDisplayVisitButton();
       this.cd.detectChanges();
     });
     this.assessmentSub = this.assessmentIdbService.selectedAssessment.subscribe(selectedAssessment => {
       this.assessment = selectedAssessment;
+      this.setDisplayVisitButton();
       this.cd.detectChanges();
     })
     this.displayAddNebsModalSub = this.sharedDataService.displayAddNebsModal.subscribe(val => {
@@ -73,7 +83,11 @@ export class UserPortfolioComponent {
     });
     this.printSub = this.sharedDataService.print.subscribe(print => {
       this.print = print;
-    })
+    });
+    this.onSiteVisitSub = this.onSiteVisitIdbService.selectedVisit.subscribe(onSiteVisit => {
+      this.onSiteVisit = onSiteVisit;
+      this.setDisplayVisitButton();
+    });
   }
 
   ngOnDestroy() {
@@ -83,6 +97,7 @@ export class UserPortfolioComponent {
     this.assessmentSub.unsubscribe();
     this.routerSub.unsubscribe();
     this.printSub.unsubscribe();
+    this.onSiteVisitSub.unsubscribe();
   }
 
   setContext(url: string) {
@@ -101,6 +116,7 @@ export class UserPortfolioComponent {
       this.assessmentIdbService.selectedAssessment.next(undefined);
       this.companyIdbService.selectedCompany.next(undefined);
     }
+    this.setDisplayVisitButton();
   }
 
   setValues(guid: string) {
@@ -121,4 +137,59 @@ export class UserPortfolioComponent {
     }
   }
 
+  setDisplayVisitButton() {
+    if (this.onSiteVisit) {
+      if (this.context == 'company' && this.company && this.company.guid == this.onSiteVisit.companyId) {
+        this.displayVisitButton = true;
+      } else if (this.context == 'facility' && this.facility && this.facility.guid == this.onSiteVisit.facilityId) {
+        this.displayVisitButton = true;
+      } else if (this.context == 'assessment' && this.assessment && this.onSiteVisit.assessmentIds.includes(this.assessment.guid)) {
+        this.displayVisitButton = true;
+      } else if (this.context == 'home') {
+        this.displayVisitButton = true;
+      } else {
+        this.displayVisitButton = false;
+      }
+    } else {
+      this.displayVisitButton = false;
+    }
+  }
+
+  returnToVisit() {
+    let facility: IdbFacility = this.facilityIdbService.getByGUID(this.onSiteVisit.facilityId);
+    this.facilityIdbService.selectedFacility.next(facility);
+    let company: IdbCompany = this.companyIdbService.getByGUID(this.onSiteVisit.companyId);
+    this.companyIdbService.selectedCompany.next(company);
+    if (this.context == 'home') {
+      this.router.navigateByUrl('/setup-wizard/pre-visit/' + this.onSiteVisit.guid);
+    } else if (this.context == 'company') {
+      if (this.router.url.includes('stakeholders')) {
+        this.router.navigateByUrl('/setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/company-contacts');
+      } else {
+        this.router.navigateByUrl('/setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/company-setup');
+      }
+    } else if (this.context == 'facility') {
+      if (this.router.url.includes('performance-indicators')) {
+        this.router.navigateByUrl('/setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-kpi-select');
+      } else if (this.router.url.includes('questions')) {
+        this.router.navigateByUrl('/setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-questions');
+      } else if (this.router.url.includes('system-inventory')) {
+        this.router.navigateByUrl('/setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-energy-equipment');
+      } else if (this.router.url.includes('end-use-inventory')) {
+        this.router.navigateByUrl('/setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-end-uses');
+      } else {
+        this.router.navigateByUrl('/setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-setup');
+      }
+    } else if (this.context == 'assessment') {
+      if (this.router.url.includes('energy-opportunities')) {
+        this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/energy-opportunities');
+      } else if (this.router.url.includes('nebs')) {
+        this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/nebs');
+      } else if (this.router.url.includes('reports')) {
+        this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/assessment-reports/' + this.assessment.guid);
+      } else {
+        this.router.navigateByUrl('/setup-wizard/data-collection/' + this.onSiteVisit.guid + '/assessment/' + this.assessment.guid + '/details');
+      }
+    }
+  }
 }

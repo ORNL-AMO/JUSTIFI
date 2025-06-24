@@ -47,7 +47,8 @@
         <div [id]="'#sustainability'" class="accordion-collapse collapse" [ngClass]="{'show': !collapseSustainability}"
             [attr.data-bs-parent]="'#energyEquipmentDiscoveryAccordion'">
             <div class="accordion-body">
-                <app-process-equipment-sustainability [inPortfolio]="inPortfolio"></app-process-equipment-sustainability>
+                <app-process-equipment-sustainability
+                    [inPortfolio]="inPortfolio"></app-process-equipment-sustainability>
             </div>
         </div>
     </div>
@@ -70,3 +71,30 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="d-flex justify-content-end mt-1" *ngIf="!inPortfolio">
+    <button class="btn nav-btn btn-sm" (click)="showProtocolModal()">
+        <fa-icon [icon]="faClipboardQuestion" class="me-1"></fa-icon>Additional Questions</button>
+</div>
+
+
+<div [ngClass]="{'window-overlay': displayNavModal}"></div>
+<div class="popup" [ngClass]="{'open': displayNavModal }">
+    <div class="popup-header"><fa-icon [icon]="faClipboardQuestion" class="me-1"></fa-icon>Additional Questions
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeNavModal()"></button>
+    </div>
+    <div class="popup-body">
+        <p class="fw-light">
+            Additional questions regarding operations, energy and material efficiency, and employee engagement are
+            available within the portfolio view. Click "Go To Portfolio" below to leave the setup wizard and be
+            taken to
+            the portfolio view.
+        </p>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary me-2 btn-sm" (click)="closeNavModal()">Cancel</button>
+        <button class="btn nav-btn btn-sm" (click)="goToPortfolio()">Go To Portfolio</button>
+    </div>
+</div>

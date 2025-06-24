@@ -2,6 +2,9 @@ import { Component, Input } from '@angular/core';
 import { BootstrapService } from '../../shared-services/bootstrap.service';
 import { faClipboardQuestion, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
+import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 
 @Component({
   selector: 'app-discovery-energy-equipment-questions',
@@ -15,26 +18,34 @@ export class DiscoveryEnergyEquipmentQuestionsComponent {
   inPortfolio: boolean;
 
   faClipboardQuestion: IconDefinition = faClipboardQuestion;
-  
+
   collapseTackStock: boolean = true;
   collapseOperations: boolean = true;
   collapseSustainability: boolean = true;
   collapseEmployeeEngagement: boolean = true;
+  displayNavModal: boolean = false;
 
+  energyEquipment: IdbEnergyEquipment;
   constructor(
     private bootstrapService: BootstrapService,
-    private setupWizardService: SetupWizardService
+    private setupWizardService: SetupWizardService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private energyEquipmentIdbService: EnergyEquipmentIdbService
   ) {
   }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(params => {
+      this.energyEquipment = this.energyEquipmentIdbService.getByGuid(params['id']);
+    });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.setupWizardService.focusedHelp.next(undefined);
   }
 
-  
+
   focusField(str: string) {
     this.setupWizardService.focusedHelp.next(str);
   }
@@ -43,33 +54,45 @@ export class DiscoveryEnergyEquipmentQuestionsComponent {
     this.bootstrapService.bsCollapse('#' + collapseId);
     if (collapseId == 'takeStock') {
       this.collapseTackStock = !this.collapseTackStock;
-      if(!this.collapseTackStock){
+      if (!this.collapseTackStock) {
         this.collapseOperations = true;
         this.collapseEmployeeEngagement = true;
         this.collapseSustainability = true;
       }
     } else if (collapseId == 'operations') {
       this.collapseOperations = !this.collapseOperations;
-      if(!this.collapseOperations){
+      if (!this.collapseOperations) {
         this.collapseTackStock = true;
         this.collapseEmployeeEngagement = true;
         this.collapseSustainability = true;
       }
-    } else if(collapseId == 'sustainability'){
+    } else if (collapseId == 'sustainability') {
       this.collapseSustainability = !this.collapseSustainability;
-      if(!this.collapseSustainability){
+      if (!this.collapseSustainability) {
         this.collapseTackStock = true;
         this.collapseEmployeeEngagement = true;
         this.collapseOperations = true;
       }
-    } else if(collapseId == 'employeeEngagement'){
+    } else if (collapseId == 'employeeEngagement') {
       this.collapseEmployeeEngagement = !this.collapseEmployeeEngagement;
-      if(!this.collapseEmployeeEngagement){
+      if (!this.collapseEmployeeEngagement) {
         this.collapseTackStock = true;
         this.collapseSustainability = true;
         this.collapseOperations = true;
       }
     }
     this.focusField(collapseId)
+  }
+
+  showProtocolModal() {
+    this.displayNavModal = true;
+  }
+
+  closeNavModal() {
+    this.displayNavModal = false;
+  }
+
+  goToPortfolio() {
+    this.router.navigateByUrl('/portfolio/facility/' + this.energyEquipment.facilityId + '/system-inventory/' + this.energyEquipment.guid);
   }
 }

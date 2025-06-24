@@ -61,7 +61,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   faSackDollar: IconDefinition = faSackDollar;
   faUpload: IconDefinition = faUpload;
 
-  displayStartOverModal: boolean;
+  displayPortfolioModal: boolean;
 
   assessmentsSub: Subscription;
   assessments: Array<IdbAssessment>;
@@ -193,16 +193,16 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.checkCollapseDataEvaluation();
   }
 
-  openStartOverModal() {
-    this.displayStartOverModal = true;
+  openPortfolioModal() {
+    this.displayPortfolioModal = true;
   }
 
-  closeStartOverModal() {
-    this.displayStartOverModal = false;
+  closePortfolioModal() {
+    this.displayPortfolioModal = false;
   }
 
-  confirmStartOver() {
-    this.router.navigateByUrl('/portfolio');
+  goToPortfolio() {
+    this.router.navigateByUrl('/portfolio/company/'+this.company.guid);
   }
 
   toggleSidebar() {
