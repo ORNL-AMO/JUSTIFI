@@ -352,9 +352,9 @@
                 <hr class="spacer">
             </div>
             <div class="nav-item">
-                <a class="nav-link bold" (click)="openStartOverModal()">
+                <a class="nav-link bold" (click)="openPortfolioModal()">
                     <fa-icon [icon]="faFolderOpen"></fa-icon>
-                    Return to Portfolio</a>
+                    Go to Portfolio</a>
             </div>
 
             <div class="w-100">
@@ -364,10 +364,10 @@
     </ng-container>
 </div>
 
-<div [ngClass]="{'window-overlay': displayStartOverModal}"></div>
-<div class="popup" [ngClass]="{'open': displayStartOverModal }">
+<div [ngClass]="{'window-overlay': displayPortfolioModal}"></div>
+<div class="popup" [ngClass]="{'open': displayPortfolioModal }">
     <div class="popup-header">Go to Portfolio
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeStartOverModal()"></button>
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closePortfolioModal()"></button>
     </div>
     <div class="popup-body">
         <div class="alert alert-info p-1">
@@ -376,8 +376,8 @@
         <hr>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary btn-sm me-2" (click)="closeStartOverModal()">Cancel</button>
-        <button class="btn btn-success btn-sm" (click)="confirmStartOver()"><fa-icon [icon]="faFolderOpen"></fa-icon>
-            Return to Portfolio</button>
+        <button class="btn btn-secondary btn-sm me-2" (click)="closePortfolioModal()">Cancel</button>
+        <button class="btn nav-btn btn-sm" (click)="goToPortfolio()"><fa-icon [icon]="faFolderOpen"></fa-icon>
+            Go to Portfolio</button>
     </div>
 </div>

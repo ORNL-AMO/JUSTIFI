@@ -2,6 +2,9 @@ import { Component, Input } from '@angular/core';
 import { faClipboardQuestion, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { BootstrapService } from '../../shared-services/bootstrap.service';
 import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IdbProcessEquipment } from 'src/app/models/processEquipment';
+import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 
 @Component({
   selector: 'app-discovery-process-equipment-questions',
@@ -15,19 +18,27 @@ export class DiscoveryProcessEquipmentQuestionsComponent {
   inPortfolio: boolean;
 
   faClipboardQuestion: IconDefinition = faClipboardQuestion;
-  
+
   collapseTackStock: boolean = true;
   collapseOperations: boolean = true;
   collapseSustainability: boolean = true;
   collapseEmployeeEngagement: boolean = true;
 
+  displayNavModal: boolean = false;
+  processEquipment: IdbProcessEquipment;
   constructor(
     private bootstrapService: BootstrapService,
-    private setupWizardService: SetupWizardService
+    private setupWizardService: SetupWizardService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private processEquipmentIdbService: ProcessEquipmentIdbService
   ) {
   }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(params => {
+      this.processEquipment = this.processEquipmentIdbService.getByGuid(params['id']);
+    });
   }
 
   ngOnDestroy() {
@@ -71,5 +82,17 @@ export class DiscoveryProcessEquipmentQuestionsComponent {
       }
     }
     this.focusField(collapseId)
+  }
+
+  showProtocolModal() {
+    this.displayNavModal = true;
+  }
+
+  closeNavModal() {
+    this.displayNavModal = false;
+  }
+
+  goToPortfolio() {
+    this.router.navigateByUrl('/portfolio/facility/' + this.processEquipment.facilityId + '/end-use-inventory/' + this.processEquipment.guid);
   }
 }
