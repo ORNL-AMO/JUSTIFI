@@ -1,5 +1,5 @@
 import { getGUID } from "../helpFunctions";
-import { KeyPerformanceIndicatorValue } from "./keyPerformanceIndicatorOptions";
+import { KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue } from "./keyPerformanceIndicatorOptions";
 
 export function getPerformanceMetrics(keyPerformanceIndicatorValue: KeyPerformanceIndicatorValue, kpiGuid: string): Array<KeyPerformanceMetric> {
     if (keyPerformanceIndicatorValue != 'other') {
@@ -916,7 +916,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
 
 
 // keywords for each KeyPerformanceMetricValue
-export const KpmKeywords: { [key: string]: Array<string> } = {
+const KpmKeywords: { [key: string]: Array<string> } = {
     "contributeCompanyVision": ["company vision", "company strategy", "company mission", "company goals"],
     "salesGrowth": ["sales growth", "revenue growth", "sales increase", "revenue increase"],
     "customerSatisfactionRatings": ["customer satisfaction", "customer ratings", "customer feedback", "customer reviews"],
@@ -991,5 +991,21 @@ export const KpmKeywords: { [key: string]: Array<string> } = {
     'reduceRegulatoryFees': ["reduce regulatory fees", "regulatory cost reduction", "compliance cost savings", "regulatory fee management"],
     'utilityCosts': ["utility costs", "energy expenses", "utility bills", "electricity costs"],
 }
+
+// Add linked kpi label to keywords
+Object.keys(KpmKeywords).forEach(key => {
+    const kpmOption = KeyPerformanceMetricOptions.find(option => option.kpiValue === key);
+    if (kpmOption) {
+        const kpiOption = KeyPerformanceIndicatorOptions.find(option => option.optionValue === kpmOption.kpiValue);
+        if (kpiOption) {
+            const label = kpiOption.label.toLowerCase();
+            if (!KpmKeywords[key].includes(label)) {
+                KpmKeywords[key].push(label);
+            }
+        }
+    }
+});
+
+export { KpmKeywords };
 
 export const KpmKeywordList: string[] = Array.from(new Set(Object.values(KpmKeywords).flat()));
