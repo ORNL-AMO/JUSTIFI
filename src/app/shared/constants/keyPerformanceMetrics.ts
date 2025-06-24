@@ -994,7 +994,7 @@ const KpmKeywords: { [key: string]: Array<string> } = {
 
 // Add linked kpi label to keywords
 Object.keys(KpmKeywords).forEach(key => {
-    const kpmOption = KeyPerformanceMetricOptions.find(option => option.kpiValue === key);
+    const kpmOption = KeyPerformanceMetricOptions.find(option => option.value === key);
     if (kpmOption) {
         const kpiOption = KeyPerformanceIndicatorOptions.find(option => option.optionValue === kpmOption.kpiValue);
         if (kpiOption) {
