@@ -23,6 +23,7 @@ export interface IdbProcessEquipment extends IdbEntry {
     whatIsTheOutput: string,
     howDoesTheProcessWork: string,
     financialStatusOfEquipment: string,
+    financialMetricsUsed: string,
     //operations
     describeOutputRate: string,
     describeOutputQualityMeasurement: string,
@@ -60,6 +61,7 @@ export function getNewIdbProcessEquipment(userId: string, companyId: string, fac
         whatIsTheOutput: '',
         howDoesTheProcessWork: '',
         financialStatusOfEquipment: '',
+        financialMetricsUsed: '',
         describeOutputRate: '',
         describeOutputQualityMeasurement: '',
         describeMaintenanceNeeds: '',
