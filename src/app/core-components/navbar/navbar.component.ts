@@ -39,6 +39,8 @@ export class NavbarComponent {
 
   updateAvailable: boolean;
   updateAvailableSub: Subscription;
+
+  environment = environment;
   constructor(private userIdbService: UserIdbService,
     private loadingService: LoadingService,
     private sharedDataService: SharedDataService,
@@ -84,6 +86,7 @@ export class NavbarComponent {
   }
 
   openResetDatabaseModal() {
+    this.closeSettingsModal();
     this.showResetModal = true;
   }
 
