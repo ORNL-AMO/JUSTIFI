@@ -121,7 +121,7 @@ export function calculateAssessmentUtilityUseSavings(assessment: IdbAssessment, 
 }
 
 export function calculateAssessmentUtilityCostSavings(assessment: IdbAssessment, facilityUnitSettings: UnitSettings): IdbAssessment {
-  assessment = this.updateAssessmentHHV(assessment, facilityUnitSettings); // update assessment HHV from facility
+  assessment = updateAssessmentHHV(assessment, facilityUnitSettings); // update assessment HHV from facility
   const convertValue = new ConvertValue();
   let energyCost = 0, waterCost = 0;
   let energyCostSavings = 0, waterCostSavings = 0;
