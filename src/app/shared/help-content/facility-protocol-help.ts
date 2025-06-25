@@ -21,7 +21,7 @@ export const FacilityProtocolHelp = {
     outsidePressures: `Understand outside pressures which could influence financial decisions. The assessor can understand if external pressures which influence decision making which need to be considered for making energy assessment recommendations (such as regulatory pressures, shareholders, investors, competitors).`,
 
     financialMetricsUsed: `Tools or resources could include simple spreadsheets or larger software platforms. This can help assessors begin to identify what and how much data will be available for calculating NEBs and who to contact. This is just for keeping broad notes: there will be places to enter this specific data further into the tool.`,
-    efficiencyIncentives: `Check out the NREL Knowledge Library for Non-energy Benefits Funding Resources for potential funding sources.<a [href]="'https://www.nrel.gov/manufacturing/non-energy-benefits'" target="_blank">NEBs Knowledge Library</a>`,
+    efficiencyIncentives: `Check out the NREL Knowledge Library for Non-energy Benefits Funding Resources for potential funding sources. <a class="click-link" href="https://www.nrel.gov/manufacturing/non-energy-benefits" target="_blank">NEBs Knowledge Library</a>`,
     dependentFunding: `Understand where the facility's funding for energy projects comes from. Does the site have an energy / sustainability project budget? Is there an operations budget to fund smaller projects? Can teams co-fund projects with each other? Are they aware and can utilize external funding opportunities? Have they ever used Energy as a Service (EaaS), PACE loans, or other external avenues?`
 
 }
