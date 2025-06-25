@@ -21,7 +21,7 @@
 <hr class="my-1">
 <!--adverseEffects-->
 <label>
-    How are other areas adversely affected by energy inefficiencies in the system?
+    How would any recommendations to improve energy efficiency improve other areas within the facility?
 </label>
 <ng-container *ngIf="inPortfolio">
     <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.adverseEffects">
@@ -32,7 +32,7 @@
 <hr class="my-1">
 <!--equipmentFinancialStatus-->
 <label>
-    Describe the financial status of the equipment
+    Where is the equipment in its lifecycle? Are you considering replacement?
 </label>
 <ng-container *ngIf="inPortfolio">
     <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatus">
@@ -42,4 +42,15 @@
 </ng-container>
 <textarea id="equipmentFinancialStatus" name="equipmentFinancialStatus" class="form-control"
     [(ngModel)]="equipmentFinancialStatus" (input)="saveChanges()" (focus)="focusField('equipmentFinancialStatus')"
+    rows="3"></textarea>
+<!--financialMetricsUsed-->
+<label>
+    What financial metrics are used to understand the output of the system (/gpm, /scfm)?
+</label>
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.financialMetricsUsed">
+    </p>
+</ng-container>
+<textarea id="financialMetricsUsed" name="financialMetricsUsed" class="form-control"
+    [(ngModel)]="financialMetricsUsed" (input)="saveChanges()" (focus)="focusField('financialMetricsUsed')"
     rows="3"></textarea>

@@ -1,17 +1,20 @@
 export const ProcessEquipmentTakeStockHelp = {
     sectionHelp: `These questions are designed to help you think about how the system under assessment is connected to other parts of the plant and how changes here could impact operations. <u>Not all of these sections are relevant to every system and every site.</u> Only topics related to projects needing further justification and have benefits relating to site interests should be pursued further.`,
-    whatIsTheOutput: `Understand what this end use does and how it is part of the company's strategic goals.`,
+    whatIsTheOutput: `Understand what this end use does, how it connects to the industrial systems under assessment, and how it impacts the facility's KPIs and strategic goals.`,
     whatIsTheOutputQs: `Assessors can ask:<br>
                     What does the process or manufacturing technology do?<br>
                     Does it make an intermediate good within a supply chain or a finished product?<br>
                     Is the product critical for accomplishing the company's strategic goals?`,
     howDoesTheProcessWork: `Use the <b>End Use</b> button to connect this system to End Uses or the <b>Systems</b> button to connect to other Industrial Systems.<br><br>
                     Describe the steps involved in the process to understand how the industrial system under assessment supports it`,
-    financialStatusOfEquipment: `The age and financials of the equipment can impact how willing the site might be to equipment replacement or major overhauls. Understanding financial metrics for system can help quantify non-energy benefits related to the system (usually as cost per output: $/ton steam, $/scm air, $/gpm).`,
+    financialStatusOfEquipment: `The age and financials of the equipment can impact how willing the site might be to equipment replacement or major overhauls.`,
     financialStatusOfEquipmentQs: `Assessors can ask:<br>
-                        Has the system been fully expensed? <br>
-                        Is the system at end of life or are their existing plans for an upgrade? <br>
-                        Does the facility use financial metrics to gauge this system's operation?`
+                    Has the system been fully expensed?<br>
+                    Is the system at end of life or are their existing plans for an upgrade?`,
+    financialMetricsUsed: `Understanding financial metrics for system can help quantify non-energy benefits related to the system (usually as cost per output: /unit, /ton, $/batch).`,
+    financialMetricsUsedQs: `Assessors can ask:<br>
+                    What financial metrics are used to gauge the system's performance?<br>
+                    Does the facility use financial metrics to gauge this system's operation?`
 }
 
 export const ProcessEquipmentOperationsHelp = {

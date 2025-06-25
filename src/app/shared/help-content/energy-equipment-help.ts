@@ -1,21 +1,22 @@
 export const EnergyEquipmentTakeStockHelp = {
     sectionHelp: `These questions are designed to help you think about how the system is connected to other parts of the plant and how changes here could impact operations. <u>Not all of these questions are relevant to every system and every site.</u> Only topics related to projects needing further justification and have benefits relating to site interests should be pursued further.`,
-    howSupportPlant: `Understand how this system interacts with the rest of the facility.`,
+    howSupportPlant: `Understand how this system interacts with the rest of the facility. Use the End Use button to connect this system to End Uses or the Systems button to connect to other Industrial Systems.`,
     howSupportPlantQs: `Assessors can ask: <br>
                     Does it supply a utility for the whole plant or a flow for a system? <br>
                     Is it critical to another system that is critical to overall plant operations?`,
-    adverseEffects: `Use the End Use button to connect this system to <b>End Uses</b> or the <b>Systems</b> button to connect to other Industrial Systems. Do energy efficiency problems in the assessed equipment cause further problems at the end use? `,
-    equipmentFinancialStatus: `The age and financials of the equipment can impact how willing the site might be to equipment replacement or major overhauls. Understanding financial metrics for system can help quantify non-energy benefits related to the system (usually as cost per output: $/ton steam, $/scm air, $/gpm).`,
+    adverseEffects: `Use the End Use button to connect this system to <b>End Uses</b> or the <b>Systems</b> button to connect to other Industrial Systems.`,
+    equipmentFinancialStatus: `The age and financials of the equipment can impact how willing the site might be to equipment replacement or major overhauls.`,
     equipmentFinancialStatusQs: `Assessors can ask: <br>
-                    Has the system been fully expensed?<br>
-                    Is the system at end of life or are their existing plans for an upgrade?<br>
-                    Does the facility use financial metrics to gauge this system's operation?<br>`
-
+                    Has the system been fully expensed? <br>
+                    Is the system at end of life or are their existing plans for an upgrade? <br>`,
+    financialMetricsUsed: `Understanding financial metrics for system can help quantify non-energy benefits related to the system (usually as cost per output: /tonsteam, /scm air, $/gpm).`,
+    financialMetricsUsedQs: `Assessors can ask: <br>
+                    Does the facility use financial metrics to gauge this system's operation? <br>`
 }
 
 export const EnergyEquipmentOperationsHelp = {
     sectionHelp: `The questions outlined in this section are to help you think about how this system, the assessment, and possible energy efficiency measures (EEMS) connect with the sites Key Performance Indicators and Metrics (KPIs and KPMs) related to operations (production, quality, operating costs). <u>Not all of these sections are relevant to every system and every site.</u> Only topics related to projects needing further justification and have benefits relating to site interests should be pursued further.`,
-    describeOutputOfSystem: `Understand how operators monitor and assess the output of this system and match to downstream needs is necessary for the energy and NEB assessment. Output of these systems is often measured in batch time, or for continuous processes units per hour, gpm, cfm, etc. `,
+    describeOutputOfSystem: `Understand how operators monitor and assess the output of this system (higher pressure fluid, steam, compressed air) and match to downstream needs is necessary for the energy and NEB assessment. Output of these systems is often measured in batch time, or for continuous processes units per hour, gpm, cfm, etc.`,
     describeOutputOfSystemQs: `Assessors can ask:<br>
                     How is the output measured? <br>
                     Does the system output match the needs of the next stage or facility?<br>
@@ -24,7 +25,7 @@ export const EnergyEquipmentOperationsHelp = {
                     How long has this lasted?<br>
                     What tools, instruments, calculations are used to collect data to gauge effective/reliable operation? <br>
                     How is the data analyzed? <br>`,
-    describeServicingNeeds: `Understanding the metrics used to gauge equipment effectiveness is useful and can include Overall Equipment Effectiveness (OEE), Mean Time Between Failures (MTBF), Mean Time to Fail (MTTF), Work in Progress (WIP), Total Equipment Effective Performance (TEEP).`,
+    describeServicingNeeds: `Understand the maintenance of the system including total downtime (how often and why) and downtime length (operational or supply chain delays). This includes understanding importance of the system to plant operations, the service parts required (availability of backups, expensive, or long lead-time orders).`,
     describeServicingNeedsQs: `Assessors can ask:<br>
                     How critical is this system to plant operations?<br>
                     What metrics are used to gauge equipment effectiveness (non-financial)?<br>
@@ -32,7 +33,7 @@ export const EnergyEquipmentOperationsHelp = {
                     Are replacement parts/equipment in stock or need to be ordered, is labor on hand or third party?<br>
                     Does this system have backup equipment readily available? <br>
                     Does this system require more maintenance than expected?`,
-    describeLaborRequirements: `Understanding the non-maintenance, day-to-day labor around this process can help quantify any impacts to labor expenses. While many industrial systems do not have non-maintenance labor associated with them, process heating systems and utility-scale systems like compressed air and steam may have dedicated labor. `,
+    describeLaborRequirements: `Understand how changes to the system could impact the non-maintenance, day-to-day labor around this process (maintenance costs would be covered within the maintenance question). While many industrial systems do not have non-maintenance labor (productivity-related labor) associated with them, process heating systems and utility-scale systems like compressed air and steam may have dedicated labor.`,
     describeLaborRequirementsQs: `Assessors can ask:<br>
                     How are labor costs determined?<br>
                     What is the cost of labor?`,
@@ -46,7 +47,7 @@ export const EnergyEquipmentOperationsHelp = {
 
 export const EnergyEquipmentSustainabilityHelp = {
     sectionHelp: `The questions outlined in this section are to help you think about how this system, the assessment, and possible energy efficiency measures (EEMS) connect with the sites Key Performance Indicators and Metrics (KPIs and KPMs) related to sustainability (waste, water, emissions).  <u>Not all of these sections are relevant to every system and every site.</u> Only topics related to projects needing further justification and have benefits relating to site interests should be pursued further.`,
-    describeWasteStreams: `EEMs can reduce waste of industrial energy systems by reducing blowdown or improving the output of process heating systems.<br>
+    describeWasteStreams: `EEMs can reduce waste of industrial energy systems by reducing blowdown, treatment chemical use, or improving the output of process heating systems.<br>
                     When quantifying a waste-related EEM, be sure to not double count as it could impact several different KPIs (expenses, waste, water, regulatory, etc.)`,
     describeWasteStreamsQs: `Assessors can ask:<br>
                     What waste is generated and how it is disposed (sewer, landfill, recycled, special disposal)? <br>
@@ -54,7 +55,7 @@ export const EnergyEquipmentSustainabilityHelp = {
                     How much does disposal cost? <br>
                     Are there regulatory concerns about this waste?<br>
                     Are there opportunities to sell as byproduct?`,
-    describeWaterInputDischarge: `EEMs often target the unnecessary consumption, heating, or moving of water to match demand of end uses (pumping, steam generation or blowdown). Water use reductions also often pair with sewage reductions, to the point where many utilities companies only meter one of the two streams.<br>
+    describeWaterInputDischarge: `EEMs often target the unnecessary consumption, heating, or moving of water to match demand of end uses (pumping, steam generation or blowdown). Water use reductions also often pair with sewage reductions, to the point where many utilities companies only meter one of the two streams - be sure to account for both water use and discharge impacts. Projects reducing water can also reduce treatment needs, both for water and wastewater.<br>
                     When quantifying a waste-related EEM, be sure to not double count as it could impact several different KPIs (expenses, waste, water, regulatory, etc.)`,
     describeWaterInputDischargeQs: `Assessors can ask:<br>
                     Are any water streams utilized in this system?<br>
