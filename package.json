@@ -23,8 +23,8 @@
   },
   "private": true,
   "build": {
-    "appId": "gov.nrel.justifi",
-    "copyright": "Copyright 2023 NREL. All rights reserved.",
+    "appId": "gov.ornl.justifi",
+    "copyright": "Copyright 2025 ORNL. All rights reserved.",
     "productName": "JUSTIFI",
     "directories": {
       "output": "./output/"
