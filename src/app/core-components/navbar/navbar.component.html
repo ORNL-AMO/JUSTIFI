@@ -39,7 +39,7 @@
                     Download Backup Data
                 </span>
             </button>
-            <button class="btn btn-danger btn-sm" (click)="openResetDatabaseModal()">
+            <button *ngIf="!environment.production" class="btn btn-danger btn-sm" (click)="openResetDatabaseModal()">
                 Reset Database
             </button>
         </div>
@@ -51,17 +51,39 @@
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeSettingsModal()"></button>
     </div>
     <div class="popup-body">
-        <div class="alert alert-info">
+        <div class="alert alert-info p-1">
             Adjust system settings.
         </div>
-        <div class="input-group">
+        <div class="row">
             <label class="col-sm-5 col-form-label" for="userLocale">Currency Settings:</label>
-            <select class="form-select" name="userLocale" [(ngModel)]="userLocale" (change)="saveSettings()">
-                <option *ngFor="let option of localeCurrency" [ngValue]="option.locale">
-                    {{option.locale}}: {{option.currencyCode}} ({{option.currencyCode | currencySymbol}})
-                </option>
-            </select>
+            <div class="col-7">
+                <select class="form-select" name="userLocale" [(ngModel)]="userLocale" (change)="saveSettings()">
+                    <option *ngFor="let option of localeCurrency" [ngValue]="option.locale">
+                        {{option.locale}}: {{option.currencyCode}} ({{option.currencyCode | currencySymbol}})
+                    </option>
+                </select>
+            </div>
+            <div class="col-12">
+                <p class="fw-light small text-muted">
+                    Select your preferred currency format. This will affect how monetary values are displayed throughout
+                    the application. It will not convert existing values.
+
+                </p>
+            </div>
         </div>
+        <hr class="my-1">
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-danger btn-sm" (click)="openResetDatabaseModal()">Reset Database</button>
+            </div>
+            <div class="col-12">
+                <p class="fw-light small text-muted">
+                    If you are having issues with your application, you can reset your database. This will delete all
+                    data and reset the application to its initial state. Use this as a last resort.
+                </p>
+            </div>
+        </div>
+        <hr class="my-1">
     </div>
     <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-sm btn-secondary me-2" (click)="closeSettingsModal()">Close</button>
