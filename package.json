@@ -57,7 +57,10 @@
       ],
       "icon": "src/assets/icons/justifi-icon-512x512.png",
       "hardenedRuntime": false,
-      "gatekeeperAssess": false
+      "gatekeeperAssess": false,
+      "provisioningProfile": "./embedded.provisionprofile",
+      "entitlements": "entitlements.mac.inherit.plist",
+      "entitlementsInherit": "entitlements.mac.inherit.plist"
     }
   },
   "dependencies": {
