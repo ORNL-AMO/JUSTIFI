@@ -50,7 +50,7 @@ export class AppComponent {
 
   async ngOnInit() {
     if (environment.production) {
-      gtag('config', 'G-YG1QD02XSE');
+      gtag('config', 'G-TLLVV7DWV0');
       this.analyticsService.sendEvent('justifi_app_open', undefined);
       this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
