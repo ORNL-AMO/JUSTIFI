@@ -38,6 +38,7 @@ export interface IdbEnergyEquipment extends IdbEntry {
     howSupportPlant: string,
     adverseEffects: string,
     equipmentFinancialStatus: string,
+    financialMetricsUsed: string,
     //operations
     describeOutputOfSystem: string,
     describeServicingNeeds: string,
@@ -102,6 +103,7 @@ export function getNewIdbEnergyEquipment(userId: string, companyId: string, faci
         describeRefrigerantProcessDustEmissions: '',
         describeRegulations: '',
         describeSafetyConcerns: '',
-        describeWorkplaceEnvironment: ''
+        describeWorkplaceEnvironment: '',
+        financialMetricsUsed: ''
     }
 }

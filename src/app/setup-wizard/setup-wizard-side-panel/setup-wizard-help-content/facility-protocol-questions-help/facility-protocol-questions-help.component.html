@@ -14,21 +14,21 @@
 </ng-template>
 
 <ng-template [ngIf]="focusedHelp == 'equipmentAcquisition'">
-    <label> What does the facility use to judge equipment acquisition (lifecycle, performance, costs, etc.)?</label>
+    <label>What other considerations are used when making equipment acquisitions (lifecycle, performance, costs)?</label>
     <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.equipmentAcquisition">
     </p>
     <hr>
 </ng-template>
 
 <ng-template [ngIf]="focusedHelp == 'howCostsTracked'">
-    <label>How does the facility track its costs?</label>
+    <label>What key performance metrics (KPMs) does the facility track?</label>
     <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.howCostsTracked">
     </p>
     <hr>
 </ng-template>
 
 <ng-template [ngIf]="focusedHelp == 'financialCriteria'">
-    <label>What financial criteria does the facility use to evaluate projects?</label>
+    <label>Are there rules or guidelines for decision making for energy-related projects, such as payback period?</label>
     <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.financialCriteria">
     </p>
     <hr>
@@ -42,15 +42,8 @@
 </ng-template>
 
 <ng-template [ngIf]="focusedHelp == 'financialMetricsUsed'">
-    <label>What financial metrics are used to evaluate plant operations?</label>
+    <label>What tools or resources does the facility utilize to track and understand its operational costs and other KPMs?</label>
     <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.financialMetricsUsed">
-    </p>
-    <hr>
-</ng-template>
-
-<ng-template [ngIf]="focusedHelp == 'associatedCosts'">
-    <label>What costs are associated with operations (beyond energy)?</label>
-    <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.associatedCosts">
     </p>
     <hr>
 </ng-template>
@@ -64,7 +57,7 @@
 
 
 <ng-template [ngIf]="focusedHelp == 'dependentFunding'">
-    <label>Does the facility depend on internal or external funding for energy projects?</label>
+    <label>How does the facility fund energy-related projects - internal budgets (Operations or Capital), alternative external funding, a combination?</label>
     <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.dependentFunding">
     </p>
     <hr>
