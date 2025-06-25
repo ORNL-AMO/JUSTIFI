@@ -27,7 +27,7 @@
     "copyright": "Copyright 2023 NREL. All rights reserved.",
     "productName": "JUSTIFI",
     "directories": {
-      "output": "./output/justifi/"
+      "output": "./output/"
     },
     "win": {
       "target": "nsis",
