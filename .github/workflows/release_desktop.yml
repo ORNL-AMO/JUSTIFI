@@ -38,7 +38,7 @@ jobs:
 
           npm ci
 
-          security -v unlock-keychain -p "${{ secrets.KC_SECRET }}" ~/Library/Keychains/login.keychain-db
+          security -v unlock-keychain -p "${{ secrets.APPLE_KC_SECRET }}" ~/Library/Keychains/login.keychain-db
       - name: Build
         run: npm run build-prod-electron
       - name: Bundle
