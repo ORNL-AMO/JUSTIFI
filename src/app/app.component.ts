@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { UserIdbService } from './indexed-db/user-idb.service';
 import { CompanyIdbService } from './indexed-db/company-idb.service';
 import { FacilityIdbService } from './indexed-db/facility-idb.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { IdbUser } from './models/user';
 import { SharedDataService } from './shared/shared-services/shared-data.service';
 import { AssessmentIdbService } from './indexed-db/assessment-idb.service';
@@ -17,7 +17,9 @@ import { KeyPerformanceMetricImpactsIdbService } from './indexed-db/key-performa
 import { UpdateDbEntriesService } from './indexed-db/update-db-entries.service';
 import { Subscription } from 'rxjs';
 import { ReportIdbService } from './indexed-db/report-idb.service';
-
+import { environment } from 'src/environments/environment';
+import { AnalyticsService } from './analytics/analytics.service';
+declare let gtag: Function;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -42,10 +44,21 @@ export class AppComponent {
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
     private updateDbEntriesService: UpdateDbEntriesService,
-    private reportIdbService: ReportIdbService) {
+    private reportIdbService: ReportIdbService,
+    private analyticsService: AnalyticsService) {
   }
 
   async ngOnInit() {
+    if (environment.production) {
+      gtag('config', 'G-TLLVV7DWV0');
+      this.analyticsService.sendEvent('justifi_app_open', undefined);
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          let page_path: string = this.analyticsService.getPageWithoutId(event.urlAfterRedirects);
+          this.analyticsService.sendEvent('page_view', page_path);
+        }
+      });
+    }
     this.printSub = this.sharedDataService.print.subscribe(print => {
       this.print = print;
     });
