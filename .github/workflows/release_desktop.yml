@@ -1,0 +1,135 @@
+name: "Release: Desktop"
+
+on:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.ref_name == 'master'
+    runs-on: [self-hosted, build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch_depth: 1
+      - name: Get Node version
+        run: echo "BUILD_NODE_VER=$(ggrep -o -P -m 1 '(?<=node":\s").*(?=")' package.json)" >> "$GITHUB_ENV"
+      - name: Node setup
+        run: source ~/load_nvm.sh && nvm install ${{ env.BUILD_NODE_VER }}
+      - name: Cache setup
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+      - name: Dependency setup
+        run: |
+          TMP_PROV_PROF_PATH=$RUNNER_TEMP/embedded.provisionprofile
+          TMP_WIN_CERT_PATH=$RUNNER_TEMP/cert_win.pem
+
+          echo -n "${{ secrets.APPLE_PROV_PROF_BASE64 }}" | base64 --decode -o $TMP_PROV_PROF_PATH
+          echo -n "${{ secrets.WIN_CERT_BASE64 }}" | base64 --decode -o $TMP_WIN_CERT_PATH
+
+          cp "$TMP_PROV_PROF_PATH" ./embedded.provisionprofile
+          cp "$TMP_WIN_CERT_PATH" ./cert_win.pem
+
+          npm ci && npm install -g electron-builder
+
+          security -v unlock-keychain -p "${{ secrets.KC_SECRET }}" ~/Library/Keychains/login.keychain-db
+      - name: Build
+        run: npm run build-prod-electron
+      - name: Bundle
+        run: |
+          electron-builder --mac --universal --publish never & (
+          electron-builder --win --x64 --publish never &&
+          WIN_BUNDLE_PATH=$(find ./output -name "JUSTIFI-*-*.exe") &&
+          java -jar ~/jsign.jar \
+            --storetype "${{ secrets.WIN_STORE_TYPE }}" \
+            --storepass "${{ secrets.WIN_STORE_SECRET }}" \
+            --tsaurl "http://timestamp.sectigo.com" \
+            --certfile ./cert_win.pem \
+            WIN_BUNDLE_PATH &&
+          OLD_HASH=$(ggrep -o -P -m 1 '(?<=sha512:\s).*' ./output/latest.yml) &&
+          NEW_HASH=$(node ~/gen_hash.js -f $WIN_BUNDLE_PATH) &&
+          docker run -v ./output:/output ubuntu:latest bash -c 'sed "s/$OLD_HASH/$NEW_HASH/g" /output/latest.yml'
+          ) &
+          electron-builder --linux --x64 --publish never
+      - name: Prepare output
+        run: |
+          VERSION=$(ggrep -A3 'version:' ../output/latest-mac.yml | head -n1 | awk '{print $2}')
+          OUTPUT_DIR="$(pwd)/output"
+          echo "BUILD_VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "RUNNER_OUTPUT_DIR=$OUTPUT_DIR" >> "$GITHUB_ENV"
+      - name: Upload notarization artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: notarization-artifact
+          path: |
+            ${{ env.RUNNER_OUTPUT_DIR }}/*.dmg
+          compression-level: 1
+          if-no-files-found: error
+          retention-days: 1
+      - name: Upload winux artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: winux-release-artifact
+          path: |
+            ${{ env.RUNNER_OUTPUT_DIR }}/*
+            !${{ env.RUNNER_OUTPUT_DIR }}/*-unpacked
+            !${{ env.RUNNER_OUTPUT_DIR }}/*-universal
+            !${{ env.RUNNER_OUTPUT_DIR }}/*.dmg
+            !${{ env.RUNNER_OUTPUT_DIR }}/builder*
+          compression-level: 1
+          if-no-files-found: error
+          retention-days: 1
+    outputs:
+            BUILD_VERSION: ${{ steps.output.outputs.BUILD_VERSION }}
+
+  notarization:
+    if: github.ref_name == 'master'
+    runs-on: macos-13
+    needs: [build]
+    steps:
+      - name: Get artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: notarization-artifact
+      - name: Notarize
+        run: |
+          xcrun notarytool submit --wait --apple-id "${{ secrets.APPLE_ID }}" --password "${{ secrets.APPLE_APP_SECRET }}" --team-id "${{ secrets.APPLE_TEAM_ID }}" $(find ./ -name "JUSTIFI-*-*.dmg") &&
+          sleep 60 &&
+          xcrun stapler staple $(find ./ -name "JUSTIFI-*-*.dmg")
+      - name: Upload notarized artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-release-artifact
+          path: ./*.dmg
+          compression-level: 1
+          if-no-files-found: error
+          retention-days: 1
+
+  release:
+    if: github.ref_name == 'master'
+    runs-on: ubuntu-22.04
+    needs: [build,notarization]
+    env:
+      VERSION: ${{ needs.build.outputs.BUILD_VERSION }}
+    steps:
+      - name: Get artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: *-release-artifact
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        # if: startsWith(github.ref, 'refs/tags/') # Uncomment if enabling tag gating
+        with:
+          name: JUSTIFI v${{ env.VERSION }}
+          tag_name: v${{ env.VERSION }}
+          draft: true # Comment out if enabling tag gating and publishing via action
+          generate_release_notes: false
+          files: |
+            macos-release-artifact/*
+            winux-release-artifact/*
