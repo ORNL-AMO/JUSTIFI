@@ -44,8 +44,11 @@ jobs:
       - name: Bundle
         run: |
           npm run dist -- --mac --universal --publish never & (
-            npm run dist -- --win --x64 --publish never &&
-            WIN_BUNDLE_PATH=$(find ./output -name "JUSTIFI-*-*.exe") &&
+            docker run \
+              -v ./:/project \
+              electronuserland/builder:wine \
+              npm run dist -- --win --x64 --publish never &&
+            WIN_BUNDLE_PATH=$(find ./output -name "JUSTIFI-Setup-*.exe") &&
             java -jar ~/jsign.jar \
               --storetype "${{ secrets.WIN_STORE_TYPE }}" \
               --storepass "${{ secrets.WIN_STORE_SECRET }}" \
@@ -54,7 +57,12 @@ jobs:
               $WIN_BUNDLE_PATH &&
             OLD_HASH=$(ggrep -o -P -m 1 '(?<=sha512:\s).*' ./output/latest.yml) &&
             NEW_HASH=$(node ~/gen_hash.js -f $WIN_BUNDLE_PATH) &&
-            docker run -v ./output:/output ubuntu:latest bash -c 'sed "s/$OLD_HASH/$NEW_HASH/g" ./output/latest.yml'
+            docker run \
+              --env OLD_HASH=$OLD_HASH \
+              --env NEW_HASH=$NEW_HASH \
+              -v ./output:/output \
+              ubuntu:latest \
+              sed -i "s|$OLD_HASH|$NEW_HASH|g" /output/latest.yml
           ) &
           npm run dist -- --linux --x64 --publish never
       - name: Prepare output
@@ -103,9 +111,9 @@ jobs:
             --apple-id "${{ secrets.APPLE_ID }}" \
             --password "${{ secrets.APPLE_APP_SECRET }}" \
             --team-id "${{ secrets.APPLE_TEAM_ID }}" \
-            $(find ./ -name "JUSTIFI-*-*.dmg") &&
+            $(find ./ -name "JUSTIFI-*.dmg") &&
           sleep 60 &&
-          xcrun stapler staple $(find ./ -name "JUSTIFI-*-*.dmg")
+          xcrun stapler staple $(find ./ -name "JUSTIFI-*.dmg")
       - name: Upload notarized artifact
         uses: actions/upload-artifact@v4
         with:
