@@ -5,6 +5,7 @@ on:
 
 jobs:
   build:
+    if: github.ref_name == 'develop' || github.ref_name == 'master'
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -14,11 +15,11 @@ jobs:
           submodules: true
           lfs: false
       - name: Get Node version
-        run: echo "BUILD_NODE_VER=$(grep -o -P -m 1 '(?<=node":\s").*(?=")' package.json)" >> $GITHUB_ENV
+        run: echo "BUILD_NODE_VERSION=$(grep -o -P -m 1 '(?<=node":\s").*(?=")' package.json)" >> $GITHUB_ENV
       - name: Node setup
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.BUILD_NODE_VER }}
+          node-version: ${{ env.BUILD_NODE_VERSION }}
       - name: Attach SHA to build
         if: github.ref_name == 'develop'
         run: |
@@ -42,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: ./dist/neb-tool/browser
+          path: ./dist/browser
           if-no-files-found: error
           retention-days: 3
   

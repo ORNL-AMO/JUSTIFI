@@ -33,7 +33,7 @@ app.on('ready', function () {
 
     // Specify entry point
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'dist/neb-tool/browser/index.html'),
+        pathname: path.join(__dirname, 'dist/browser/index.html'),
         protocol: 'file',
         slashes: true
     }));
