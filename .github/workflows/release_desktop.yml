@@ -244,9 +244,12 @@ jobs:
             --certfile $TMP_CERT_PATH \
             $BUNDLE_PATH
 
+          _OLD_HASH=$(ggrep -o -P -m 1 '(?<=sha512:\s).*' ./output/latest.yml)
+          _NEW_HASH=$(node ~/gen_hash.js -f $BUNDLE_PATH)
+
           docker run \
-            --env OLD_HASH=$(ggrep -o -P -m 1 '(?<=sha512:\s).*' ./output/latest.yml) \
-            --env NEW_HASH=$(node ~/gen_hash.js -f $BUNDLE_PATH) \
+            --env OLD_HASH=$_OLD_HASH \
+            --env NEW_HASH=$_NEW_HASH \
             -v ./output:/output \
             ubuntu:latest \
             sed -i "s|$OLD_HASH|$NEW_HASH|g" /output/latest.yml
