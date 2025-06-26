@@ -5,9 +5,7 @@ const log = require('electron-log');
 const { autoUpdater } = require('electron-updater');
 
 function isDev() {
-    // return require.main.filename.indexOf('app.asar') === -1;
-    //TODO: update to check for dev
-    return true;
+    return app.isPackaged == false;
 };
 
 app.allowRendererProcessReuse = false
