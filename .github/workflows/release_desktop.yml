@@ -9,16 +9,18 @@ permissions:
 jobs:
   build:
     if: github.ref_name == 'master'
-    runs-on: [self-hosted, build]
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch_depth: 1
+          fetch-depth: 1
       - name: Fetch node version
-        run: echo "BUILD_NODE_VERSION=$(ggrep -o -P -m 1 '(?<=node":\s").*(?=")' package.json)" >> "$GITHUB_ENV"
+        run: echo "BUILD_NODE_VERSION=$(grep -o -P -m 1 '(?<=node":\s").*(?=")' package.json)" >> "$GITHUB_ENV"
       - name: Setup node
-        run: source ~/load_nvm.sh && nvm install ${{ env.BUILD_NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.BUILD_NODE_VERSION }}
       - name: Setup cache
         uses: actions/cache@v4
         with:
@@ -26,107 +28,215 @@ jobs:
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
       - name: Setup dependencies
-        run: |
-          TMP_PROV_PROF_PATH="$RUNNER_TEMP/embedded.provisionprofile"
-          TMP_WIN_CERT_PATH="$RUNNER_TEMP/cert_win.pem"
-
-          echo -n "${{ secrets.APPLE_PROV_PROF_BASE64 }}" | base64 --decode -o $TMP_PROV_PROF_PATH
-          echo -n "${{ secrets.WIN_CERT_BASE64 }}" | base64 --decode -o $TMP_WIN_CERT_PATH
-
-          cp "$TMP_PROV_PROF_PATH" ./embedded.provisionprofile
-          cp "$TMP_WIN_CERT_PATH" ./cert_win.pem
-
-          npm ci
-
-          security -v unlock-keychain -p "${{ secrets.APPLE_KC_SECRET }}" ~/Library/Keychains/login.keychain-db
+        run: npm ci
       - name: Build
         run: npm run build-prod-electron
-      - name: Bundle
-        run: |
-          npm run dist -- --mac --universal --publish never & (
-            docker run \
-              -v ./:/project \
-              electronuserland/builder:wine \
-              npm run dist -- --win --x64 --publish never &&
-            WIN_BUNDLE_PATH=$(find ./output -name "JUSTIFI-Setup-*.exe") &&
-            java -jar ~/jsign.jar \
-              --storetype "${{ secrets.WIN_STORE_TYPE }}" \
-              --storepass "${{ secrets.WIN_STORE_SECRET }}" \
-              --tsaurl "http://timestamp.sectigo.com" \
-              --certfile ./cert_win.pem \
-              $WIN_BUNDLE_PATH &&
-            OLD_HASH=$(ggrep -o -P -m 1 '(?<=sha512:\s).*' ./output/latest.yml) &&
-            NEW_HASH=$(node ~/gen_hash.js -f $WIN_BUNDLE_PATH) &&
-            docker run \
-              --env OLD_HASH=$OLD_HASH \
-              --env NEW_HASH=$NEW_HASH \
-              -v ./output:/output \
-              ubuntu:latest \
-              sed -i "s|$OLD_HASH|$NEW_HASH|g" /output/latest.yml
-          ) &
-          npm run dist -- --linux --x64 --publish never
-      - name: Prepare output
-        run: |
-          VERSION=$(ggrep -A3 'version:' ./output/latest-mac.yml | head -n1 | awk '{print $2}')
-          OUTPUT_DIR="$(pwd)/output"
-          echo "BUILD_VERSION=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "RUNNER_OUTPUT_DIR=$OUTPUT_DIR" >> "$GITHUB_ENV"
-      - name: Upload notarize artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: notarize-artifact
+          name: build-artifact
           path: |
-            ${{ env.RUNNER_OUTPUT_DIR }}/*.dmg
-          compression-level: 1
+            dist/
+            angular.json
+            package.json
+          compression-level: 6
           if-no-files-found: error
           retention-days: 1
-      - name: Upload Win/Linux artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-winux-artifact
-          path: |
-            ${{ env.RUNNER_OUTPUT_DIR }}/*
-            !${{ env.RUNNER_OUTPUT_DIR }}/*-unpacked
-            !${{ env.RUNNER_OUTPUT_DIR }}/*-universal
-            !${{ env.RUNNER_OUTPUT_DIR }}/*.dmg
-            !${{ env.RUNNER_OUTPUT_DIR }}/builder*
-          compression-level: 1
-          if-no-files-found: error
-          retention-days: 1
-    outputs:
-      BUILD_VERSION: ${{ steps.output.outputs.BUILD_VERSION }}
 
-  notarize:
+  bundle_macos:
     if: github.ref_name == 'master'
     runs-on: macos-13
     needs: [build]
     steps:
-      - name: Get artifact
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: notarize-artifact
+          name: build-artifact
+      - name: Fetch node version
+        run: echo "BUILD_NODE_VERSION=$(grep -o -P -m 1 '(?<=node":\s").*(?=")' package.json)" >> "$GITHUB_ENV"
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.BUILD_NODE_VERSION }}
+      - name: Setup cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+      - name: Install dependencies
+        run: npm ci
+      - name: Codesigning Setup
+        env:
+          APPLE_CERT_A_BASE64: ${{ secrets.APPLE_CERT_A_BASE64 }}
+          APPLE_CERT_I_BASE64: ${{ secrets.APPLE_CERT_I_BASE64 }}
+          APPLE_PROV_PROF_BASE64: ${{ secrets.APPLE_PROV_PROF_BASE64 }}
+          APPLE_CERT_SECRET: ${{ secrets.APPLE_CERT_SECRET }}
+          APPLE_KEYCHAIN_SECRET: ${{ secrets.APPLE_KEYCHAIN_SECRET }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SECRET: ${{ secrets.APPLE_APP_SECRET }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          CERT_A_PATH=$RUNNER_TEMP/app_certificate.p12
+          CERT_I_PATH=$RUNNER_TEMP/ins_certificate.p12
+          PROV_PROF_PATH=$RUNNER_TEMP/AMO.provisionprofile
+          KEYCHAIN_PATH=$RUNNER_TEMP/build.keychain
+
+          echo -n "$APPLE_CERT_A_BASE64" | base64 --decode -o $CERT_A_PATH
+          echo -n "$APPLE_CERT_I_BASE64" | base64 --decode -o $CERT_I_PATH
+          echo -n "$APPLE_PROV_PROF_BASE64" | base64 --decode -o $PROV_PROF_PATH
+
+          security -v create-keychain -p "$APPLE_KEYCHAIN_SECRET" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security -v default-keychain -s $KEYCHAIN_PATH
+          security -v unlock-keychain -p "$APPLE_KEYCHAIN_SECRET" $KEYCHAIN_PATH
+
+          security -v import $CERT_A_PATH -P "$APPLE_CERT_SECRET" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security -v import $CERT_I_PATH -P "$APPLE_CERT_SECRET" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$APPLE_KEYCHAIN_SECRET" $KEYCHAIN_PATH
+
+          cp "$PROV_PROF_PATH" ./embedded.provisionprofile
+      - name: Bundle
+        run: npm run dist -- --mac --universal --publish never
       - name: Notarize
         run: |
           xcrun notarytool submit --wait \
             --apple-id "${{ secrets.APPLE_ID }}" \
             --password "${{ secrets.APPLE_APP_SECRET }}" \
             --team-id "${{ secrets.APPLE_TEAM_ID }}" \
-            $(find ./ -name "JUSTIFI-*.dmg") &&
-          sleep 60 &&
-          xcrun stapler staple $(find ./ -name "JUSTIFI-*.dmg")
-      - name: Upload notarized artifact
+            $(find ./output/ -name "JUSTIFI-*.dmg") &&
+          xcrun stapler staple $(find ./output/ -name "JUSTIFI-*.dmg")
+      - name: Upload release artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-macos-artifact
-          path: ./*.dmg
-          compression-level: 1
+          path: |
+            output/*.zip
+            output/*.dmg
+            output/*.dmg.blockmap
+            output/latest*.yml
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 1
+
+  bundle_winux:
+    if: github.ref_name == 'master'
+    runs-on: ubuntu-24.04
+    container:
+      image: electronuserland/builder:wine
+    needs: [build]
+    strategy:
+      matrix:
+        include:
+          - OS: "linux"
+          - OS: "win"
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+      - name: Fetch node version
+        run: echo "BUILD_NODE_VERSION=$(grep -o -P -m 1 '(?<=node":\s").*(?=")' package.json)" >> "$GITHUB_ENV"
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.BUILD_NODE_VERSION }}
+      - name: Setup cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+      - name: Install dependencies
+        run: npm ci
+      - name: Bundle
+        run: |
+          npm run dist -- --${{ matrix.OS }} --x64 --publish never
+      - name: Prepare output
+        id: output
+        run: |
+          VERSION=$(grep '"version"' package.json | head -n1 | sed -E 's/.*"version": *"([^"]+)".*/\1/')
+          echo "BUILD_VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+      - name: Upload codesign artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sign-${{ matrix.OS }}-artifact
+          path: |
+            output/*.AppImage
+            output/latest-linux.yml
+            output/*.exe
+            output/latest.yml
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 1
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.OS}}-partial-artifact
+          path: |
+            output/*.tar.gz
+            output/*.exe.blockmap
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 1
+    outputs:
+      BUILD_VERSION: ${{ steps.output.outputs.BUILD_VERSION }}
+
+
+  sign_winux:
+    if: github.ref_name == 'master'
+    runs-on: [self-hosted, cs]
+    needs: [bundle_winux]
+    strategy:
+      matrix:
+        include:
+          - OS: "linux"
+            BUNDLE: "JUSTIFI-*.AppImage"
+            METADATA: "latest-linux.yml"
+          - OS: "win"
+            BUNDLE: "JUSTIFI-Setup-*.exe"
+            METADATA: "latest.yml"
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sign-${{ matrix.OS }}-artifact
+      - name: Codesign
+        run: |
+          TMP_CERT_PATH="$RUNNER_TEMP/cert.pem"
+          BUNDLE_PATH=$(find ./ -name "${{ matrix.BUNDLE }}")
+
+          echo -n "${{ secrets.WIN_CERT_BASE64 }}" | base64 --decode -o $TMP_CERT_PATH
+
+          java -jar ~/jsign.jar \
+            --storetype "${{ secrets.WIN_STORE_TYPE }}" \
+            --storepass "${{ secrets.WIN_STORE_SECRET }}" \
+            --tsaurl "http://timestamp.sectigo.com" \
+            --certfile $TMP_WIN_CERT_PATH \
+            $BUNDLE_PATH
+
+          docker run \
+            --env OLD_HASH=$(ggrep -o -P -m 1 '(?<=sha512:\s).*' ./latest.yml) \
+            --env NEW_HASH=$(node ~/gen_hash.js -f $BUNDLE_PATH) \
+            -v ./output:/output \
+            ubuntu:latest \
+            sed -i "s|$OLD_HASH|$NEW_HASH|g" /output/${{ matrix.METADATA }}
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.OS }}-artifact
+          path: |
+            ./*.AppImage
+            ./*.exe
+            ./latest*.yml
+          compression-level: 0
           if-no-files-found: error
           retention-days: 1
 
   release:
     if: github.ref_name == 'master'
     runs-on: ubuntu-24.04
-    needs: [build,notarize]
+    needs: [bundle_macos, sign_winux]
     env:
       VERSION: ${{ needs.build.outputs.BUILD_VERSION }}
     steps:
@@ -134,13 +244,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: release-*-artifact
+          path: release/
+          merge-multiple: true
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           name: JUSTIFI v${{ env.VERSION }}
           tag_name: v${{ env.VERSION }}
           draft: true
-          generate_release_nutes: false
+          generate_release_notes: false
           files: |
-            release-macos-artifact/*
-            release-winux-artifact/*
+            release/*
+        
