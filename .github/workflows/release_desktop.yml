@@ -36,9 +36,7 @@ jobs:
         with:
           name: build-artifact
           path: |
-            dist/
-            angular.json
-            package.json
+            dist
           compression-level: 6
           if-no-files-found: error
           retention-days: 1
@@ -48,6 +46,10 @@ jobs:
     runs-on: macos-13
     needs: [build]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
@@ -131,6 +133,10 @@ jobs:
           - OS: "linux"
           - OS: "win"
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
