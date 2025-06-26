@@ -241,7 +241,7 @@ jobs:
             --storetype "${{ secrets.WIN_STORE_TYPE }}" \
             --storepass "${{ secrets.WIN_STORE_SECRET }}" \
             --tsaurl "http://timestamp.sectigo.com" \
-            --certfile $TMP_WIN_CERT_PATH \
+            --certfile $TMP_CERT_PATH \
             $BUNDLE_PATH
 
           docker run \
@@ -260,6 +260,8 @@ jobs:
           compression-level: 0
           if-no-files-found: error
           retention-days: 1
+      - name: Cleanup
+        run: rm -rf ./output
 
   release:
     if: github.ref_name == 'master'
