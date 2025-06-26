@@ -57,7 +57,7 @@
       ],
       "icon": "src/assets/icons/justifi-icon-512x512.png",
       "artifactName": "${productName}-${version}-${arch}.${ext}",
-      "hardenedRuntime": false,
+      "hardenedRuntime": true,
       "gatekeeperAssess": false,
       "provisioningProfile": "./embedded.provisionprofile",
       "entitlements": "entitlements.mac.inherit.plist",
