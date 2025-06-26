@@ -1,16 +1,5 @@
 <div class="row">
     <div class="col">
-        <!--ghg emissions-->
-        <!--hiding "for now" from feedback-->
-        <!-- <label class="bold">
-            Does the facility track their Greenhouse Gas Emissions (GHGs) related to energy intensity?
-        </label>
-        <p class="fw-light small" *ngIf="inPortfolio" [innerHTML]="FacilityProtocolHelp.doesFacilityTrackGHG">
-        </p>
-        <textarea id="doesFacilityTrackGHG" name="doesFacilityTrackGHG" class="form-control"
-            [(ngModel)]="doesFacilityTrackGHG" (input)="saveChanges()" (focus)="focusField('doesFacilityTrackGHG')"
-            rows="3"></textarea>
-        <hr> -->
         <!--how costs are tracked-->
         <label class="bold">
             What key performance metrics (KPMs) does the facility track?
@@ -32,7 +21,7 @@
         <hr>
         <!--external financial pressures-->
         <label class="bold">
-            Are there any external financial pressures?
+            Are there any financial pressures?
         </label>
         <p class="fw-light small" *ngIf="inPortfolio" [innerHTML]="FacilityProtocolHelp.outsidePressures">
         </p>
