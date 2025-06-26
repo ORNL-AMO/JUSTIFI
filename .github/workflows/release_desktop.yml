@@ -82,13 +82,10 @@ jobs:
           APPLE_PROV_PROF_BASE64: ${{ secrets.APPLE_PROV_PROF_BASE64 }}
           APPLE_CERT_SECRET: ${{ secrets.APPLE_CERT_SECRET }}
           APPLE_KEYCHAIN_SECRET: ${{ secrets.APPLE_KEYCHAIN_SECRET }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_APP_SECRET: ${{ secrets.APPLE_APP_SECRET }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           CERT_A_PATH=$RUNNER_TEMP/app_certificate.p12
           CERT_I_PATH=$RUNNER_TEMP/ins_certificate.p12
-          PROV_PROF_PATH=$RUNNER_TEMP/AMO.provisionprofile
+          PROV_PROF_PATH=$RUNNER_TEMP/embedded.provisionprofile
           KEYCHAIN_PATH=$RUNNER_TEMP/build.keychain
 
           echo -n "$APPLE_CERT_A_BASE64" | base64 --decode -o $CERT_A_PATH
@@ -106,21 +103,30 @@ jobs:
 
           cp "$PROV_PROF_PATH" ./embedded.provisionprofile
       - name: Bundle
-        run: npm run dist -- --mac --universal --publish never
+        run: npm run dist -- --mac --x64 --arm64 --publish never
       - name: Notarize
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SECRET: ${{ secrets.APPLE_APP_SECRET }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
-          xcrun notarytool submit --wait \
-            --apple-id "${{ secrets.APPLE_ID }}" \
-            --password "${{ secrets.APPLE_APP_SECRET }}" \
-            --team-id "${{ secrets.APPLE_TEAM_ID }}" \
-            $(find ./output/ -name "JUSTIFI-*.dmg") &&
-          xcrun stapler staple $(find ./output/ -name "JUSTIFI-*.dmg")
+          BINARIES=($(find ./output/ -name "JUSTIFI-*-arm64.dmg") $(find ./output/ -name "JUSTIFI-*-x64.dmg"))
+          for BINARY in "${BINARIES[@]}"; do
+            xcrun notarytool submit --wait \
+              --apple-id "$APPLE_ID" \
+              --password "$APPLE_APP_SECRET" \
+              --team-id "$APPLE_TEAM_ID" \
+              $BINARY &&
+            sleep 30 &&
+            xcrun stapler staple $BINARY
+          done
       - name: Upload release artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-macos-artifact
           path: |
             output/*.zip
+            output/*.zip.blockmap
             output/*.dmg
             output/*.dmg.blockmap
             output/latest*.yml

@@ -46,7 +46,7 @@
       ],
       "icon": "src/assets/icons/",
       "executableName": "JUSTIFI",
-      "maintainer": "National Renewable Energy Laboratory",
+      "maintainer": "Oak Ridge National Laboratory",
       "artifactName": "${productName}-${version}.${ext}",
       "category": "Science"
     },
@@ -56,6 +56,7 @@
         "zip"
       ],
       "icon": "src/assets/icons/justifi-icon-512x512.png",
+      "artifactName": "${productName}-${version}-${arch}.${ext}",
       "hardenedRuntime": false,
       "gatekeeperAssess": false,
       "provisioningProfile": "./embedded.provisionprofile",
