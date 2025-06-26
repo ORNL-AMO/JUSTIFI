@@ -245,7 +245,7 @@ jobs:
             $BUNDLE_PATH
 
           docker run \
-            --env OLD_HASH=$(ggrep -o -P -m 1 '(?<=sha512:\s).*' ./latest.yml) \
+            --env OLD_HASH=$(ggrep -o -P -m 1 '(?<=sha512:\s).*' ./output/latest.yml) \
             --env NEW_HASH=$(node ~/gen_hash.js -f $BUNDLE_PATH) \
             -v ./output:/output \
             ubuntu:latest \
