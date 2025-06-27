@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
 import { LoadingService } from '../loading/loading.service';
-import { IconDefinition, faDownload, faUpload, faInbox, faCog } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faDownload, faUpload, faInbox, faCog, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 import { environment } from 'src/environments/environment';
 import { BackupModalService } from '../backup-modal/backup-modal.service';
@@ -10,19 +10,21 @@ import { localeCurrency, LocaleCurrencyOption } from 'src/app/shared/constants/l
 import { IdbUser } from 'src/app/models/user';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { Router } from '@angular/router';
+import { ElectronService } from 'src/app/electron/electron.service';
 
 @Component({
-    selector: 'app-navbar',
-    templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.css'],
-    standalone: false
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css'],
+  standalone: false
 })
-export class NavbarComponent{
+export class NavbarComponent {
 
-  faDownload: IconDefinition =faDownload;
+  faDownload: IconDefinition = faDownload;
   faUpload: IconDefinition = faUpload;
   faInbox: IconDefinition = faInbox;
   faCog: IconDefinition = faCog;
+  faExclamationCircle: IconDefinition = faExclamationCircle;
 
   version: string = environment.version;
   showResetModal: boolean = false;
@@ -35,25 +37,36 @@ export class NavbarComponent{
   localeCurrency: Array<LocaleCurrencyOption> = localeCurrency;
   isSettingChanged: boolean = false;
 
+  updateAvailable: boolean;
+  updateAvailableSub: Subscription;
+
+  environment = environment;
   constructor(private userIdbService: UserIdbService,
     private loadingService: LoadingService,
     private sharedDataService: SharedDataService,
     private backupModalService: BackupModalService,
     private localeService: LocaleService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private electronService: ElectronService
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.userSub = this.userIdbService.user.subscribe(_user => {
       this.user = _user;
       this.userLocale = this.user ? this.user.locale : 'en-US';
     });
+    if (this.electronService.isElectron) {
+      this.updateAvailableSub = this.electronService.updateAvailable.subscribe(val => {
+        this.updateAvailable = val;
+      });
+    }
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     if (this.userSub) {
       this.userSub.unsubscribe();
     }
+    this.updateAvailableSub?.unsubscribe();
   }
 
   openImportDataModal() {
@@ -73,6 +86,7 @@ export class NavbarComponent{
   }
 
   openResetDatabaseModal() {
+    this.closeSettingsModal();
     this.showResetModal = true;
   }
 
@@ -80,28 +94,28 @@ export class NavbarComponent{
     this.showResetModal = false;
   }
 
-  openSidebar(){
+  openSidebar() {
     this.sharedDataService.sidebarOpen.next(true);
   }
 
-  openFeedbackModal(){
+  openFeedbackModal() {
     this.showFeedbackModal = true;
   }
 
-  closeFeedbackModal(){
+  closeFeedbackModal() {
     this.showFeedbackModal = false;
   }
 
-  openSettingsModal(){
+  openSettingsModal() {
     this.showSettingsModal = true;
   }
 
-  async saveSettings(){
+  async saveSettings() {
     this.isSettingChanged = true;
     this.localeService.setCurrencyCode(this.userLocale);
   }
 
-  async closeSettingsModal(){
+  async closeSettingsModal() {
     if (this.isSettingChanged) {
       if (this.user) {
         this.user.locale = this.userLocale;

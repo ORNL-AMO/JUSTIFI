@@ -1,21 +1,29 @@
-.navbar{
-    background-color:#0079c2;
+.navbar {
+    background-color: #0079c2;
     flex-wrap: nowrap;
 }
 
-nav.navbar{
+nav.navbar {
     height: 4rem;
 }
 
-.popup-lg{
+.popup-lg {
     width: 800px;
     left: calc(50% - 400px);
 }
 
-.btn:hover .d-md-none{
+.btn:hover .d-md-none {
     display: inline !important;
 }
 
-.navbar-brand{
+.navbar-brand {
     font-size: 24px;
+}
+
+.update-available {
+    color: red;
+    position: relative;
+    top: -12px;
+    right: 10px;
+    font-size: 22px;
 }

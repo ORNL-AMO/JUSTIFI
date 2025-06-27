@@ -21,6 +21,8 @@ export interface IdbEnergyEquipment extends IdbEntry {
     operatingHours: number,
     loadFactor: number,
     efficiency: number,
+    efficiencyUnit?: '%' | 'COP' | 'EER' | 'kW/ton',
+    ballastFactor: number,
     numberOfEquipment: number,
     annualEnergyUse: number,
     facilityUtilityUnit: string;
@@ -36,6 +38,7 @@ export interface IdbEnergyEquipment extends IdbEntry {
     howSupportPlant: string,
     adverseEffects: string,
     equipmentFinancialStatus: string,
+    financialMetricsUsed: string,
     //operations
     describeOutputOfSystem: string,
     describeServicingNeeds: string,
@@ -77,6 +80,8 @@ export function getNewIdbEnergyEquipment(userId: string, companyId: string, faci
         operatingHours: 0,
         loadFactor: 100,
         efficiency: 100,
+        efficiencyUnit: '%',
+        ballastFactor: 1.15,
         numberOfEquipment: 1,
         notes: undefined,
         annualEnergyUse: 0,
@@ -98,6 +103,7 @@ export function getNewIdbEnergyEquipment(userId: string, companyId: string, faci
         describeRefrigerantProcessDustEmissions: '',
         describeRegulations: '',
         describeSafetyConcerns: '',
-        describeWorkplaceEnvironment: ''
+        describeWorkplaceEnvironment: '',
+        financialMetricsUsed: ''
     }
 }

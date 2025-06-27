@@ -6,6 +6,14 @@
     </div>
     <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <ng-container *ngIf="updateAvailable">
+                <button class="btn btn-outline-success" (click)="downloadUpdate()">
+                    <fa-icon [icon]="faExclamationCircle"></fa-icon>
+                    {{updateInfo?.releaseName}} is available! Click to download update!
+                </button>
+                <hr>
+            </ng-container>
+
 
             <button class="btn btn-outline-success" (click)="openSetupWizardModal()">
                 <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
@@ -55,8 +63,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="'/nebs-database'"
-                [routerLinkActive]="['active']">
+                <a class="nav-link" [routerLink]="'/nebs-database'" [routerLinkActive]="['active']">
                     <fa-icon [icon]="faDatabase" class="pe-1"></fa-icon>NEBs Database</a>
             </li>
             <li class="nav-item">

@@ -122,17 +122,17 @@ export const power = {
         plural: 'Tons of Refrigeration',
         display: '(ton)'
       }
-      , to_anchor: 4.714
+      , to_anchor: 4.716177347066712
     }
   },
   _anchors: {
     metric: {
       unit: 'W',
-      ratio: 1 / 745.7
+      ratio: 0.00134102209
     },
     imperial: {
       unit: 'hp',
-      ratio: 745.7
+      ratio: 745.6998715823
     }
   }
 };

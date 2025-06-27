@@ -1,5 +1,6 @@
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { AppRoutingModule } from './routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,12 +22,15 @@ import { FeedbackPageComponent } from './core-components/feedback-page/feedback-
 import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
 import { AboutComponent } from './core-components/about/about.component';
 import { HelpComponent } from './core-components/help/help.component';
-import { AlphaDisclaimerComponent } from './core-components/alpha-disclaimer/alpha-disclaimer.component';
 import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
 import { localeCurrency } from './shared/constants/localeCurrency';
 import { ExportBackupModalComponent } from './core-components/backup-modal/export-backup-modal/export-backup-modal.component';
 import { ExportBackupTreeComponent } from './core-components/backup-modal/export-backup-modal/export-backup-tree/export-backup-tree.component';
+import { WelcomeSlideshowComponent } from './core-components/welcome-slideshow/welcome-slideshow.component';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { PerformanceMetricsTablePipe } from './shared/reports/performance-metrics-table/performance-metrics-table.pipe';
+import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-update-toast.component';
 
 @NgModule({
   declarations: [
@@ -42,10 +46,11 @@ import { ExportBackupTreeComponent } from './core-components/backup-modal/export
     AcknowledgmentsComponent,
     AboutComponent,
     HelpComponent,
-    AlphaDisclaimerComponent,
     ToastNotificationsComponent,
     ExportBackupModalComponent,
-    ExportBackupTreeComponent
+    ExportBackupTreeComponent,
+    AutoUpdateToastComponent,
+    WelcomeSlideshowComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,7 @@ import { ExportBackupTreeComponent } from './core-components/backup-modal/export
     UserPortfolioModule,
     PlotlyViaWindowModule,
     PlotlyViaWindowModule,
-    NebsDatabaseModule
+    NebsDatabaseModule,
   ],
   providers: [
     { 
@@ -71,7 +76,9 @@ import { ExportBackupTreeComponent } from './core-components/backup-modal/export
         );
         return currencyOption ? currencyOption.currencyCode : 'USD';
       },
-    }
+    },
+    [DatePipe, PerformanceMetricsTablePipe, CurrencyPipe],
+    provideHttpClient(withInterceptorsFromDi()),
   ],
   bootstrap: [AppComponent]
 })

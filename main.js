@@ -5,9 +5,7 @@ const log = require('electron-log');
 const { autoUpdater } = require('electron-updater');
 
 function isDev() {
-    // return require.main.filename.indexOf('app.asar') === -1;
-    //TODO: update to check for dev
-    return true;
+    return app.isPackaged == false;
 };
 
 app.allowRendererProcessReuse = false
@@ -35,7 +33,7 @@ app.on('ready', function () {
 
     // Specify entry point
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'dist/neb-tool/browser/index.html'),
+        pathname: path.join(__dirname, 'dist/browser/index.html'),
         protocol: 'file',
         slashes: true
     }));

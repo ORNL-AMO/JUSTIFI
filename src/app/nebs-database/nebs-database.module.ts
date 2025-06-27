@@ -6,7 +6,7 @@ import { NebOptionsFilterPipe } from './nebs-database-table/neb-options-filter.p
 import { FormsModule } from '@angular/forms';
 import { NebsDatabaseTableComponent } from './nebs-database-table/nebs-database-table.component';
 import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
-import { KeywordHighlightPipe } from './nebs-database-table/keyword-highlight.pipe';
+import { KeywordHighlightPipe } from '../shared/helper-pipes/keyword-highlight.pipe';
 
 
 
@@ -14,7 +14,6 @@ import { KeywordHighlightPipe } from './nebs-database-table/keyword-highlight.pi
   declarations: [
     NebsDatabaseComponent,
     NebOptionsFilterPipe,
-    KeywordHighlightPipe,
     NebsDatabaseTableComponent
   ],
   imports: [

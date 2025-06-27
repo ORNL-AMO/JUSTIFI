@@ -30,6 +30,7 @@ import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetr
 import { getDefaultUnitSettings } from 'src/app/models/unitSettings';
 import { ReportDetailsTableComponent } from '../report-details-table/report-details-table.component';
 import { AdditionalSavingsMessageComponent } from '../additional-savings-message/additional-savings-message.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('AssessmentReportComponent', () => {
   let component: AssessmentReportComponent;
@@ -76,6 +77,7 @@ describe('AssessmentReportComponent', () => {
       imports: [FontAwesomeModule, RouterTestingModule, TableEntriesModule, HelperPipesModule],
       declarations: [AssessmentReportComponent, AssessmentSavingsTableComponent, PaybackTableComponent, ReportDetailsTableComponent, AdditionalSavingsMessageComponent],
       providers: [
+        stubServiceProviders,
         { provide: OnSiteVisitIdbService, useValue: onSiteVisitIdbService },
         { provide: AssessmentIdbService, useValue: assessmentIdbService },
         { provide: FacilityIdbService, useValue: facilityIdbService },

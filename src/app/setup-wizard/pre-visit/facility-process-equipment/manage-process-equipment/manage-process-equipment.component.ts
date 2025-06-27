@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faChevronLeft, faChevronRight, faList, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faList, faPlus, faUpload, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
@@ -24,6 +24,7 @@ export class ManageProcessEquipmentComponent {
   faChevronLeft: IconDefinition = faChevronLeft;
   faList: IconDefinition = faList;
   faPlus: IconDefinition = faPlus;
+  faUpload: IconDefinition = faUpload;
 
   processEquipments: Array<IdbProcessEquipment>;
   processEquipmentSub: Subscription;
@@ -107,5 +108,9 @@ export class ManageProcessEquipmentComponent {
 
   goToProcessEquipment(equipment: IdbProcessEquipment) {
     this.router.navigateByUrl('setup-wizard/pre-visit/' + this.onSiteVisit.guid + '/facility-end-uses/' + equipment.guid);
+  }
+  
+  goToUploadTemplate() {
+    this.router.navigateByUrl('/setup-wizard/upload-template/' + this.onSiteVisit.guid);
   }
 }

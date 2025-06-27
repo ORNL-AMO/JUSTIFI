@@ -121,6 +121,7 @@ export function calculateAssessmentUtilityUseSavings(assessment: IdbAssessment, 
 }
 
 export function calculateAssessmentUtilityCostSavings(assessment: IdbAssessment, facilityUnitSettings: UnitSettings): IdbAssessment {
+  assessment = updateAssessmentHHV(assessment, facilityUnitSettings); // update assessment HHV from facility
   const convertValue = new ConvertValue();
   let energyCost = 0, waterCost = 0;
   let energyCostSavings = 0, waterCostSavings = 0;
@@ -183,5 +184,15 @@ export function calculateAssessmentUtilityCostSavings(assessment: IdbAssessment,
   assessment.energyCostSavings = energyCostSavings;
   assessment.waterCostSavings = waterCostSavings;
   assessment.costSavings = energyCostSavings + waterCostSavings;
+  return assessment;
+}
+
+export function updateAssessmentHHV(assessment: IdbAssessment, facilityUnitSettings: UnitSettings): IdbAssessment {
+  assessment.utilityEnergyUses.forEach(utilityEnergyUse => {
+    let trimmedType = utilityEnergyUse.utilityType.replace(/\s+/g, ''); // Remove spaces
+    let camelCaseType = trimmedType.charAt(0).toLowerCase() + trimmedType.slice(1);
+    utilityEnergyUse.energyHHV = facilityUnitSettings[`${camelCaseType}HHV`];
+    utilityEnergyUse.energyUnitStandard = facilityUnitSettings[`${camelCaseType}EnergyUnit`];
+  });
   return assessment;
 }

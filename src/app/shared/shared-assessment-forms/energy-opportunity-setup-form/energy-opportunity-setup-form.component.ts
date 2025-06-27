@@ -160,7 +160,7 @@ export class EnergyOpportunitySetupFormComponent {
         useSavings * this.facilityUnitSettings[`${camelCaseType}Price`],
         this.energyOpportunity.energyUnit,
         this.facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
-      this.energyOpportunity.costSavings = costSavings;
+      this.energyOpportunity.costSavings = Math.round(costSavings);
     }
     await this.saveEnergyOpportunity();
   }
