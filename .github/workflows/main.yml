@@ -9,9 +9,8 @@ on:
 
 jobs:
   web:
-    uses: ./.github/workflows/web.yml
+    uses: ./.github/workflows/release_web.yml
 
-  # NOTE: To be implemented at a later date
-  # desktop:
-  #   uses: ./.github/workflows/desktop.yml
-  #   secrets: inherit
+  desktop:
+    uses: ./.github/workflows/release_desktop.yml
+    secrets: inherit

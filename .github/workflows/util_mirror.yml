@@ -1,4 +1,4 @@
-name: Sync Mirror
+name: "Util: Mirror"
 
 on:
   workflow_dispatch:
