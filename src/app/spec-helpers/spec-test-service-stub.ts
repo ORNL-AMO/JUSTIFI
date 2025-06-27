@@ -157,6 +157,7 @@ let sharedDataService: Partial<SharedDataService> = {
     print: new BehaviorSubject<boolean>(false),
     dataInitialized: new BehaviorSubject<boolean>(false),
     createPowerPoint: new BehaviorSubject<boolean>(false),
+    showSlideShow: new BehaviorSubject<boolean>(false),
 }
 
 let companyContactsFormService: Partial<CompanyContactsFormService> = {
