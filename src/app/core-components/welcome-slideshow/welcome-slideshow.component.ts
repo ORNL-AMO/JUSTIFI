@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { LocalStorageDataService } from '../../shared/shared-services/local-storage-data.service';
 import { faChevronLeft, faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-welcome-slideshow',
@@ -15,13 +17,30 @@ export class WelcomeSlideshowComponent {
 
   showSlides: boolean = false;
   disableWelcomeSlides: boolean;
+
+  showSlidesSubscription: Subscription;
+  forceShowSlides: boolean = false;
   constructor(private localStorageDataService: LocalStorageDataService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private sharedDataService: SharedDataService
   ) {
   }
 
   ngOnInit() {
     this.disableWelcomeSlides = this.localStorageDataService.disableWelcomeSlides;
+    this.showSlidesSubscription = this.sharedDataService.showSlideShow.subscribe(show => {
+      this.forceShowSlides = show;
+      if (this.forceShowSlides) {
+        this.showSlides = true;
+      }
+      this.cd.detectChanges();
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.showSlidesSubscription) {
+      this.showSlidesSubscription.unsubscribe();
+    }
   }
 
   ngAfterViewInit() {
@@ -35,6 +54,7 @@ export class WelcomeSlideshowComponent {
 
   hideSlides() {
     this.showSlides = false;
+    this.sharedDataService.showSlideShow.next(false);
   }
 
   disableSlides() {
