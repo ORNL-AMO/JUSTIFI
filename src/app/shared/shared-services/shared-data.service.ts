@@ -18,6 +18,7 @@ export class SharedDataService {
 
   print: BehaviorSubject<boolean>;
   createPowerPoint: BehaviorSubject<boolean>;
+  showSlideShow: BehaviorSubject<boolean>
   constructor() {
     this.createAssessmentModalOpen = new BehaviorSubject<boolean>(false);
     this.sidebarOpen = new BehaviorSubject<boolean>(false);
@@ -25,5 +26,6 @@ export class SharedDataService {
     this.print = new BehaviorSubject<boolean>(false);
     this.dataInitialized = new BehaviorSubject<boolean>(false);
     this.createPowerPoint = new BehaviorSubject<boolean>(false);
+    this.showSlideShow = new BehaviorSubject<boolean>(false);
   }
 }

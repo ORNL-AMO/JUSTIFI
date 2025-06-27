@@ -154,4 +154,8 @@ export class WelcomeComponent {
     };
     request.send();
   }
+
+  showSlidesShow(){
+    this.sharedDataService.showSlideShow.next(true);
+  }
 }
