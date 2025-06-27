@@ -233,7 +233,7 @@ jobs:
       - name: Codesign
         run: |
           TMP_CERT_PATH="$RUNNER_TEMP/cert.pem"
-          BUNDLE_PATH=$(find ./ -name "JUSTIFI-Setup-*.exe")
+          BUNDLE_PATH=$(find . -name "JUSTIFI-Setup-*.exe")
 
           echo -n "${{ secrets.WIN_CERT_BASE64 }}" | base64 --decode -o $TMP_CERT_PATH
 
@@ -244,12 +244,12 @@ jobs:
             --certfile $TMP_CERT_PATH \
             $BUNDLE_PATH
 
-          _OLD_HASH=$(ggrep -o -P -m 1 '(?<=sha512:\s).*' ./output/latest.yml)
-          _NEW_HASH=$(node ~/gen_hash.js -f $BUNDLE_PATH)
+          OLD_HASH=$(ggrep -o -P -m 1 '(?<=sha512:\s).*' ./output/latest.yml)
+          NEW_HASH=$(node ~/gen_hash.js -f "$BUNDLE_PATH")
 
           docker run \
-            --env OLD_HASH=$_OLD_HASH \
-            --env NEW_HASH=$_NEW_HASH \
+            --env OLD_HASH="$OLD_HASH" \
+            --env NEW_HASH="$NEW_HASH" \
             -v ./output:/output \
             ubuntu:latest \
             sed -i "s|$OLD_HASH|$NEW_HASH|g" /output/latest.yml
@@ -258,8 +258,8 @@ jobs:
         with:
           name: release-win-artifact
           path: |
-            ./*.exe
-            ./latest.yml
+            output/*.exe
+            output/latest.yml
           compression-level: 0
           if-no-files-found: error
           retention-days: 1
