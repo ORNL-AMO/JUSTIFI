@@ -271,7 +271,7 @@ jobs:
     runs-on: ubuntu-24.04
     needs: [build, bundle_macos, bundle_linux, sign_win]
     env:
-      VERSION: ${{ needs.build.outputs.NODE_VERSION }}
+      VERSION: ${{ needs.build.outputs.BUILD_VERSION }}
     steps:
       - name: Get artifacts
         uses: actions/download-artifact@v4
