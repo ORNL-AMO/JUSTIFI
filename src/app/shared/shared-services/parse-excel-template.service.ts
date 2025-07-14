@@ -26,6 +26,9 @@ import { updateAssessmentUtilityUseCostSavings } from '../reports/calculations/u
 import { IdbCompany } from 'src/app/models/company';
 import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { EquipmentType, EquipmentTypes } from '../constants/equipmentTypes';
+import { getNewIdbContact, IdbContact } from 'src/app/models/contact';
+import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -41,7 +44,8 @@ export class ParseExcelTemplateService {
     private toastNotificationService: ToastNotificationsService,
     private dbChangesService: DbChangesService,
     private userIdbService: UserIdbService,
-    private companyIdbService: CompanyIdbService
+    private companyIdbService: CompanyIdbService,
+    private contactIdbService: ContactIdbService
   ) { }
 
   //Parse the workbook from the wizard
@@ -169,6 +173,7 @@ export class ParseExcelTemplateService {
     this.loadingService.setLoadingStatus(true);
     let facility: IdbFacility = await this.parseFacility(workbook, user.guid, company.guid);
     if (facility) {
+      let contacts: Array<IdbContact> = await this.parseContacts(workbook, company);
       let industrialSystems = await this.parseIndustrialSystems(workbook, facility, true);
       let endUses = await this.parseEndUses(workbook, facility, true);
       let assessmentsAndVisits: {
@@ -179,7 +184,7 @@ export class ParseExcelTemplateService {
       let energyEfficiencyMeasures = await this.parseEnergyEfficiencyMeasures(workbook, assessmentsAndVisits.assessments, true);
       await this.dbChangesService.selectUser(user, true)
       this.loadingService.setLoadingStatus(false);
-      let toastBody = `Parsed ${facility.generalInformation.name} with, ${industrialSystems.length} Industrial Systems, ${endUses.length} End Uses, ${assessmentsAndVisits.assessments.length} Assessments, ${energyEfficiencyMeasures.length} Energy Efficiency Measures`;
+      let toastBody = `Parsed ${facility.generalInformation.name} with, ${industrialSystems.length} Industrial Systems, ${endUses.length} End Uses, ${assessmentsAndVisits.assessments.length} Assessments, ${energyEfficiencyMeasures.length} Energy Efficiency Measures, ${contacts.length} Contacts`;
       this.toastNotificationService.showToast('Excel Template Parsed Successfully', toastBody, 'bg-success', true, false);
       return {
         facilityGuid: facility.guid,
@@ -245,6 +250,31 @@ export class ParseExcelTemplateService {
     return newFacility;
   }
 
+  async parseContacts(workbook: ExcelJS.Workbook, company: IdbCompany): Promise<Array<IdbContact>> {
+    let newContacts: Array<IdbContact> = [];
+    let worksheet: ExcelJS.Worksheet = workbook.getWorksheet('Stakeholders');
+    worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+      if (rowNumber >= 3 && row.getCell('A').value) { // first two rows are headers. check contact name in column A
+        let newContact: IdbContact = getNewIdbContact(company.userId, company.guid);
+        newContact.firstName = row.getCell('A').value as string || 'New';
+        newContact.lastName = row.getCell('B').value as string || 'Contact';
+        newContact.phone = row.getCell('C').value as string || '';
+        newContact.email = row.getCell('D').value as string || '';
+        newContact.role = row.getCell('E').value as string || '';
+        newContact.team = row.getCell('F').value as string || '';
+        newContact.notes = row.getCell('G').value as string || '';
+        newContacts.push(newContact);
+      }
+    });
+    if (newContacts.length > 0) {
+      for (let i = 0; i < newContacts.length; i++) {
+        await firstValueFrom(this.contactIdbService.addWithObservable(newContacts[i]));
+      }
+    }
+    return newContacts;
+  }
+
+
   async parseIndustrialSystems(workbook: ExcelJS.Workbook, facility: IdbFacility, addItems: boolean): Promise<Array<IdbEnergyEquipment>> {
     let newIndustrialSystems: Array<IdbEnergyEquipment> = [];
     //energy equipment
@@ -254,6 +284,24 @@ export class ParseExcelTemplateService {
         let newIndustrialSystem: IdbEnergyEquipment = getNewIdbEnergyEquipment(facility.userId, facility.companyId, facility.guid, facility.unitSettings);
         newIndustrialSystem.equipmentName = row.getCell('A').value as string;
         //TODO: add other fields from the excel sheet to the industrial system object
+        //B industrial system type
+        newIndustrialSystem.equipmentType = row.getCell('B').value as EquipmentType || undefined;
+        //E utility type
+        newIndustrialSystem.utilityType = row.getCell('E').value as UtilityType || 'Electricity';
+        //F size
+        newIndustrialSystem.size = row.getCell('F').value as number || 0;
+        //G size units
+        newIndustrialSystem.sizeUnit = row.getCell('G').value as string || 'kW';
+        //H annual operating hours
+        newIndustrialSystem.operatingHours = row.getCell('H').value as number || 0;
+        //I load factor
+        newIndustrialSystem.loadFactor = row.getCell('I').value as number || 0;
+        //J Efficiency
+        newIndustrialSystem.efficiency = row.getCell('J').value as number || 0;
+        //K number of equipment
+        newIndustrialSystem.numberOfEquipment = row.getCell('K').value as number || 0;
+        //L notes
+        newIndustrialSystem.notes = row.getCell('L').value as string || '';
         newIndustrialSystems.push(newIndustrialSystem);
 
       }
@@ -309,7 +357,7 @@ export class ParseExcelTemplateService {
         newAssessment.name = row.getCell('A').value as string;
         newAssessment.assessmentType = row.getCell('B').value as AssessmentType;
         if (row.getCell('C').value === 'Assessment') {
-          newAssessment.implementationCost = row.getCell('D').value as number || 0;
+          newAssessment.implementationCost = this.getExcelValueNum(row.getCell('D'));
           newAssessment.utilitySavingsByAssessment = true;
         }
         else {
@@ -325,10 +373,10 @@ export class ParseExcelTemplateService {
                 facility.unitSettings.includeElectricity = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('E').value as number || 0;
+              utilityEnergyUse.energyUse = this.getExcelValueNum(row.getCell('E'));
               utilityEnergyUse.energyUnit = row.getCell('F').value as string || 'kWh';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('G').value as number || 0;
+                utilityEnergyUse.utilitySaving = this.getExcelValueNum(row.getCell('G'));
               }
             }
           }
@@ -339,10 +387,10 @@ export class ParseExcelTemplateService {
                 facility.unitSettings.includeNaturalGas = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('H').value as number || 0;
+              utilityEnergyUse.energyUse = this.getExcelValueNum(row.getCell('H'));
               utilityEnergyUse.energyUnit = row.getCell('I').value as string || 'MMBtu';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('J').value as number || 0;
+                utilityEnergyUse.utilitySaving = this.getExcelValueNum(row.getCell('J'));
               }
             }
           }
@@ -353,10 +401,10 @@ export class ParseExcelTemplateService {
                 facility.unitSettings.includeOtherFuels = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('K').value as number || 0;
+              utilityEnergyUse.energyUse = this.getExcelValueNum(row.getCell('K'));
               utilityEnergyUse.energyUnit = row.getCell('L').value as string || 'MMBtu';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('M').value as number || 0;
+                utilityEnergyUse.utilitySaving = this.getExcelValueNum(row.getCell('M'));
               }
             }
           }
@@ -367,10 +415,10 @@ export class ParseExcelTemplateService {
                 facility.unitSettings.includeWater = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('N').value as number || 0;
+              utilityEnergyUse.energyUse = this.getExcelValueNum(row.getCell('N'));
               utilityEnergyUse.energyUnit = row.getCell('O').value as string || 'kgal';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('P').value as number || 0;
+                utilityEnergyUse.utilitySaving = this.getExcelValueNum(row.getCell('P'));
               }
             }
           }
@@ -381,10 +429,10 @@ export class ParseExcelTemplateService {
                 facility.unitSettings.includeWasteWater = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('Q').value as number || 0;
+              utilityEnergyUse.energyUse = this.getExcelValueNum(row.getCell('Q'));
               utilityEnergyUse.energyUnit = row.getCell('R').value as string || 'kgal';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('S').value as number || 0;
+                utilityEnergyUse.utilitySaving = this.getExcelValueNum(row.getCell('S'));
               }
             }
           }
@@ -395,10 +443,10 @@ export class ParseExcelTemplateService {
                 facility.unitSettings.includeCompressedAir = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('T').value as number || 0;
+              utilityEnergyUse.energyUse = this.getExcelValueNum(row.getCell('T'));
               utilityEnergyUse.energyUnit = row.getCell('U').value as string || 'kSCF';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('V').value as number || 0;
+                utilityEnergyUse.utilitySaving = this.getExcelValueNum(row.getCell('V'));
               }
             }
           }
@@ -409,10 +457,10 @@ export class ParseExcelTemplateService {
                 facility.unitSettings.includeSteam = true;
                 facilityNeedsUpdate = true;
               }
-              utilityEnergyUse.energyUse = row.getCell('W').value as number || 0;
+              utilityEnergyUse.energyUse = this.getExcelValueNum(row.getCell('W'));
               utilityEnergyUse.energyUnit = row.getCell('X').value as string || 'klb';
               if (newAssessment.utilitySavingsByAssessment) {
-                utilityEnergyUse.utilitySaving = row.getCell('Y').value as number || 0;
+                utilityEnergyUse.utilitySaving = this.getExcelValueNum(row.getCell('Y'));
               }
             }
           }
@@ -455,14 +503,13 @@ export class ParseExcelTemplateService {
           newEnergyEfficiencyMeasure.utilityType = row.getCell('E').value as UtilityType;
           if (assessment.utilitySavingsByAssessment === false) {
             if (newEnergyEfficiencyMeasure.utilityType === 'Water' || newEnergyEfficiencyMeasure.utilityType === 'Waste Water') {
-              newEnergyEfficiencyMeasure.waterSavings = row.getCell('G').value as number || 0;
+              newEnergyEfficiencyMeasure.waterSavings = this.getExcelValueNum(row.getCell('G'));
             } else {
-              newEnergyEfficiencyMeasure.energySavings = row.getCell('G').value as number || 0;
+              newEnergyEfficiencyMeasure.energySavings = this.getExcelValueNum(row.getCell('G'));
             }
             newEnergyEfficiencyMeasure.energyUnit = row.getCell('H').value as string;
-            //TODO: set default if not provided based on utility type
-            newEnergyEfficiencyMeasure.implementationCost = row.getCell('F').value as number || 0;
-            newEnergyEfficiencyMeasure.costSavings = row.getCell('I').value as number || 0;
+            newEnergyEfficiencyMeasure.implementationCost = this.getExcelValueNum(row.getCell('F'));
+            newEnergyEfficiencyMeasure.costSavings = this.getExcelValueNum(row.getCell('I'));
           }
           newEnergyEfficiencyMeasures.push(newEnergyEfficiencyMeasure);
         }
@@ -475,7 +522,6 @@ export class ParseExcelTemplateService {
     }
     return newEnergyEfficiencyMeasures;
   }
-
 
   // industrialSystems: Array<IdbEnergyEquipment>
   checkIndustrialSystemsExist(industrialSystems: Array<IdbEnergyEquipment>, facility: IdbFacility): Array<IdbEnergyEquipment> {
@@ -535,6 +581,11 @@ export class ParseExcelTemplateService {
       }
     }
     return energyEfficiencyMeasures;
+  }
+
+  getExcelValueNum(cell: ExcelJS.Cell): number {
+    const value = cell.result !== undefined ? cell.result : cell.value;
+    return value as number || 0;
   }
 
 }
