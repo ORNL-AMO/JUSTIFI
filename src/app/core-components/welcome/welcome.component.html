@@ -137,6 +137,16 @@
                                 facilities.
                             </p>
                         </div>
+                        <div>
+                            <fa-icon [icon]="faFileCirclePlus"></fa-icon>
+                            <a class="click-link" (click)="openAddCanopyModal();">
+                                Canopy ACEEE 2025 Summary Study Example
+                            </a>
+                            <p class="card-text fw-light">
+                                Click the above link to add the Canopy example demonstrated at the ACEEE 2025 Summer
+                                Study on Energy Efficiency in Industry.
+                            </p>
+                        </div>
                         <div class="col-12">
                             <hr>
                         </div>
@@ -227,7 +237,7 @@
 </div>
 
 
-<div [ngClass]="{'window-overlay': showAddExampleModal}"></div>
+<div [ngClass]="{'window-overlay': showAddExampleModal || showAddCanopyModal}"></div>
 <div class="popup" [ngClass]="{'open': showAddExampleModal }">
     <div class="popup-header">Add Example Data
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeAddExampleModal()"></button>
@@ -253,5 +263,22 @@
     <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-secondary btn-sm me-2" (click)="closeAddExampleModal()">Cancel</button>
         <button class="btn btn-success btn-sm" (click)="addExample()">Add Example</button>
+    </div>
+</div>
+
+<div class="popup" [ngClass]="{'open': showAddCanopyModal }">
+    <div class="popup-header">Add Canopy Example Data
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeAddCanopyModal()"></button>
+    </div>
+    <div class="popup-body">
+        <p>
+            This example data was created to demonstrate the JUSTIFI application at the ACEEE 2025 Summer
+            Study on Energy Efficiency in Industry.
+        </p>
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary btn-sm me-2" (click)="closeAddCanopyModal()">Cancel</button>
+        <button class="btn btn-success btn-sm" (click)="addCanopy()">Add Canopy Example</button>
     </div>
 </div>
