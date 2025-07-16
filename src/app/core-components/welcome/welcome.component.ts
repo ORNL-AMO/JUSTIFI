@@ -19,10 +19,10 @@ import { ToastNotificationsService } from '../toast-notifications/toast-notifica
 import { UpdateDbEntriesService } from 'src/app/indexed-db/update-db-entries.service';
 
 @Component({
-    selector: 'app-welcome',
-    templateUrl: './welcome.component.html',
-    styleUrls: ['./welcome.component.css'],
-    standalone: false
+  selector: 'app-welcome',
+  templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.css'],
+  standalone: false
 })
 export class WelcomeComponent {
 
@@ -54,6 +54,7 @@ export class WelcomeComponent {
   companiesSub: Subscription;
 
   showAddExampleModal: boolean = false;
+  showAddCanopyModal: boolean = false;
   constructor(private userIdbService: UserIdbService,
     private sharedDataService: SharedDataService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
@@ -141,7 +142,7 @@ export class WelcomeComponent {
           this.companyIdbService.setSelectedFromGUID(exampleVisit.companyId);
           this.facilityIdbService.setSelectedFromGUID(exampleVisit.facilityId);
           this.onSiteVisitIdbService.setSelectedFromGUID(exampleVisit.guid);
-          this.toastNotificationService.showToast('Cocoa Co. Example Added!', 
+          this.toastNotificationService.showToast('Cocoa Co. Example Added!',
             `Our example company and assessments have been added. 
             You can now explore a completed on-site energy assessment visit to view the possible impacts of NEBs!`,
             'bg-success', true, false);
@@ -155,7 +156,54 @@ export class WelcomeComponent {
     request.send();
   }
 
-  showSlidesShow(){
+  showSlidesShow() {
     this.sharedDataService.showSlideShow.next(true);
   }
+
+
+  openAddCanopyModal() {
+    this.showAddCanopyModal = true;
+  }
+
+  closeAddCanopyModal() {
+    this.showAddCanopyModal = false;
+  }
+
+  addCanopy() {
+    this.closeAddCanopyModal();
+    this.loadingService.setLoadingMessage('Loading Canopy Data..');
+    this.loadingService.setLoadingStatus(true);
+    var request = new XMLHttpRequest();
+    request.open('GET', 'assets/example-data/Canopy_ACEEE.json', true);
+    request.responseType = 'blob';
+    request.onload = () => {
+      var reader = new FileReader();
+      reader.readAsText(request.response);
+      reader.onloadend = async (e) => {
+        try {
+          let fileData: string = reader.result as string;
+          let tmpBackupFile: BackupFile = JSON.parse(fileData);
+          let updatedBackupFile: BackupFile = await this.backupDataService.importUserBackupFile(tmpBackupFile, this.user.guid);
+          this.user.kpiFacilityMigrationDoneV2 = false;
+          await this.updateDbEntriesService.updateDbEntries(this.user);
+          await this.dbChangesService.selectUser(this.user, false);
+          this.loadingService.setLoadingStatus(false);
+          let exampleVisit: IdbOnSiteVisit = updatedBackupFile.onSiteVisits[0];
+          this.companyIdbService.setSelectedFromGUID(exampleVisit.companyId);
+          this.facilityIdbService.setSelectedFromGUID(exampleVisit.facilityId);
+          this.onSiteVisitIdbService.setSelectedFromGUID(exampleVisit.guid);
+          this.toastNotificationService.showToast('Canopy Example Added!',
+            `Our example company and assessments have been added. 
+            You can now explore a completed on-site energy assessment visit to view the possible impacts of NEBs!`,
+            'bg-success', true, false);
+          this.router.navigateByUrl('/setup-wizard/pre-visit/' + exampleVisit.guid);
+        } catch (err) {
+          console.log(err);
+          this.loadingService.setLoadingMessage('Something has gone horribly wrong with the example data..');
+        }
+      };
+    };
+    request.send();
+  }
+
 }
