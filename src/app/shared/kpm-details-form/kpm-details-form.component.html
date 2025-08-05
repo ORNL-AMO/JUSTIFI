@@ -44,8 +44,8 @@
                 name="{{'calculationMethod_'+keyPerformanceMetric.value}}" class="form-select"
                 [(ngModel)]="keyPerformanceMetric.calculationMethod" (change)="calculateCost(true)"
                 [disabled]="disableForm">
-                <option [ngValue]="'costPerUnit'">Cost Per Unit</option>
-                <option [ngValue]="'directCost'">Direct Cost</option>
+                <option [ngValue]="'costPerUnit'">Per Unit</option>
+                <option [ngValue]="'directCost'">Direct Amount</option>
                 <option [ngValue]="'percentTotal'">Percent Total</option>
             </select>
         </div>
@@ -102,7 +102,7 @@
 
         <div class="row">
             <label class="col-sm-6 col-form-label" for="{{'costPerValue_'+keyPerformanceMetric.value}}">
-                Cost Per Unit
+                Per Unit
             </label>
             <div class="col-6">
                 <div class="input-group">
