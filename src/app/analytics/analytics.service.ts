@@ -11,7 +11,7 @@ declare let gtag: Function;
   providedIn: 'root'
 })
 export class AnalyticsService {
- private clientId: string;
+  private clientId: string;
   analyticsSessionId: string;
   httpOptions = {
     headers: new HttpHeaders({
@@ -103,7 +103,7 @@ export class AnalyticsService {
         ]
       }
     }
-    
+
     let url: string = environment.measurUtilitiesApi + 'gamp';
     if (environment.production) {
       this.httpClient.post<any>(url, postBody, this.httpOptions)
@@ -139,26 +139,44 @@ export class AnalyticsService {
       .join('/') || '/';
   }
 
-  sendEvent(eventName: AnalyticsEventString, path?: string) {
+  sendEvent(eventName: AnalyticsEventString, options?: { path?: string, kpi_name?: string, kpm_name?: string, neb_name?: string, kpm_impact_name?: string }) {
     if (environment.production) {
       if (!this.electronService.isElectron) {
         let eventParams: EventParameters = {
-          page_path: path,
+          page_path: options?.path || '',
           justifi_platform: 'justifi-web',
-          session_id: undefined
+          session_id: undefined,
+          neb_name: this.formatEventName(options?.neb_name),
+          kpi_name: this.formatEventName(options?.kpi_name),
+          kpm_name: this.formatEventName(options?.kpm_name),
+          kpm_impact_name: options?.kpm_impact_name
         }
         gtag('event', eventName, eventParams);
-      } else if (path) {
-        this.sendAnalyticsPageView(path)
+      } else if (options?.path) {
+        this.sendAnalyticsPageView(options.path)
       } else {
         let eventParams: EventParameters = {
-          page_path: path,
+          page_path: options?.path || '',
           justifi_platform: 'justifi-desktop',
-          session_id: undefined
+          session_id: undefined,
+          neb_name: this.formatEventName(options?.neb_name),
+          kpi_name: this.formatEventName(options?.kpi_name),
+          kpm_name: this.formatEventName(options?.kpm_name),
+          kpm_impact_name: options?.kpm_impact_name
         }
         this.sendAnalyticsEvent(eventName, eventParams);
       }
     }
+  }
+
+  formatEventName(eventName: string): string {
+    if (eventName) {
+      //remove commas and replace spaces with underscores
+      return eventName.replace(/,/g, '').replace(/\s+/g, '_').toLowerCase();
+    } else {
+      return undefined
+    }
+
   }
 
 }
@@ -182,7 +200,11 @@ export interface EventParameters {
   justifi_platform?: JustifiPlatformString,
   session_id: string,
   engagement_time_msec?: string,
+  kpi_name?: string,
+  kpm_name?: string,
+  neb_name?: string,
+  kpm_impact_name?: string
 }
 
-export type AnalyticsEventString = 'page_view' | 'justifi_app_open';
+export type AnalyticsEventString = 'page_view' | 'justifi_app_open' | 'add_kpi' | 'add_neb' | 'add_kpm' | 'add_assessment' | 'add_contact' | 'add_energy_equipment' | 'add_process_equipment' | 'add_energy_opportunity' | 'add_on_site_visit' | 'add_report' | 'add_company' | 'add_facility' | 'add_kpm_impact';
 export type JustifiPlatformString = 'justifi-desktop' | 'justifi-web';

@@ -3,6 +3,7 @@ import { IdbEnergyOpportunity } from '../models/energyOpportunity';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { guidType } from '../shared/constants/guidTypes';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class EnergyOpportunityIdbService {
 
   energyOpportunities: BehaviorSubject<Array<IdbEnergyOpportunity>>;
   selectedEnergyOpportunity: BehaviorSubject<IdbEnergyOpportunity>;
-  constructor(private dbService: NgxIndexedDBService) {
+  constructor(private dbService: NgxIndexedDBService,
+    private analyticsService: AnalyticsService
+  ) {
     this.energyOpportunities = new BehaviorSubject<Array<IdbEnergyOpportunity>>([]);
     this.selectedEnergyOpportunity = new BehaviorSubject<IdbEnergyOpportunity>(undefined);
   }
@@ -30,6 +33,7 @@ export class EnergyOpportunityIdbService {
   }
 
   addWithObservable(energyOpportunity: IdbEnergyOpportunity): Observable<IdbEnergyOpportunity> {
+    this.analyticsService.sendEvent('add_energy_opportunity', undefined);
     return this.dbService.add('energyOpportunity', energyOpportunity);
   }
 

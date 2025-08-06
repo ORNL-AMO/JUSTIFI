@@ -5,6 +5,7 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { IdbEnergyOpportunity } from '../models/energyOpportunity';
 import { IdbKeyPerformanceMetricImpact } from '../models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from '../models/nonEnergyBenefit';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class ReportIdbService {
 
   reports: BehaviorSubject<Array<IdbReport>>;
   selectedReport: BehaviorSubject<IdbReport>;
-  constructor(private dbService: NgxIndexedDBService) {
+  constructor(private dbService: NgxIndexedDBService,
+    private analyticsService: AnalyticsService
+  ) {
     this.reports = new BehaviorSubject<Array<IdbReport>>([]);
     this.selectedReport = new BehaviorSubject<IdbReport>(undefined);
   }
@@ -32,6 +35,7 @@ export class ReportIdbService {
   }
 
   addWithObservable(report: IdbReport): Observable<IdbReport> {
+    this.analyticsService.sendEvent('add_report', undefined);
     return this.dbService.add('report', report);
   }
 

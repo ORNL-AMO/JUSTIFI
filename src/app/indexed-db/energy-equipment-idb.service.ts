@@ -3,6 +3,7 @@ import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { IdbEnergyEquipment } from '../models/energyEquipment';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { guidType } from '../shared/constants/guidTypes';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class EnergyEquipmentIdbService {
 
   energyEquipments: BehaviorSubject<Array<IdbEnergyEquipment>>;
   selectedEnergyEquipment: BehaviorSubject<IdbEnergyEquipment>;
-  constructor(private dbService: NgxIndexedDBService) {
+  constructor(private dbService: NgxIndexedDBService,
+    private analyticsService: AnalyticsService
+  ) {
     this.energyEquipments = new BehaviorSubject<Array<IdbEnergyEquipment>>([]);
     this.selectedEnergyEquipment = new BehaviorSubject<IdbEnergyEquipment>(undefined);
   }
@@ -30,6 +33,7 @@ export class EnergyEquipmentIdbService {
   }
 
   addWithObservable(energyEquipment: IdbEnergyEquipment): Observable<IdbEnergyEquipment> {
+    this.analyticsService.sendEvent('add_energy_equipment', undefined);
     return this.dbService.add('energyEquipment', energyEquipment);
   }
 
