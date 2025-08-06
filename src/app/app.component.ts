@@ -55,7 +55,7 @@ export class AppComponent {
       this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
           let page_path: string = this.analyticsService.getPageWithoutId(event.urlAfterRedirects);
-          this.analyticsService.sendEvent('page_view', page_path);
+          this.analyticsService.sendEvent('page_view', { path: page_path });
         }
       });
     }
