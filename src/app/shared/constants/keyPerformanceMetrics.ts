@@ -667,7 +667,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'costPerUnit'
     },
     {
-        label: "Lost time inury rate (LTIFR)",
+        label: "Lost time injury rate (LTIFR)",
         htmlLabel: "Lost time injury rate (LTIFR)",
         value: "lostTimeInjuryRate",
         kpiValue: "safety",
