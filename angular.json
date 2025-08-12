@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/neb-tool"
+              "base": "dist/"
             },
             "index": "src/index.html",
             "polyfills": [

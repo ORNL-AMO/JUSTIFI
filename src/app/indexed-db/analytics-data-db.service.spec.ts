@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EnergyEquipmentIdbService } from './energy-equipment-idb.service';
+import { AnalyticsDataDbService } from './analytics-data-db.service';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { AnalyticsService } from '../analytics/analytics.service';
 
-describe('EnergyEquipmentIdbService', () => {
-  let service: EnergyEquipmentIdbService;
+describe('AnalyticsDataDbService', () => {
+  let service: AnalyticsDataDbService;
 
   let dbService: Partial<NgxIndexedDBService> = {}
   let analyticsService: Partial<AnalyticsService> = {}
@@ -16,7 +16,7 @@ describe('EnergyEquipmentIdbService', () => {
         { provide: AnalyticsService, useValue: analyticsService }
       ]
     });
-    service = TestBed.inject(EnergyEquipmentIdbService);
+    service = TestBed.inject(AnalyticsDataDbService);
   });
 
   it('should be created', () => {

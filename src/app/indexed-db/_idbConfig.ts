@@ -80,5 +80,13 @@ export const dbConfig: DBConfig = {
     storeConfig: { keyPath: 'id', autoIncrement: true },
     storeSchema: [
     ]
+  },
+  {
+    store: 'analyticsData',
+    storeConfig: { keyPath: 'id', autoIncrement: true },
+    storeSchema: [
+      { name: 'clientId', keypath: 'clientId', options: { unique: false } },
+      { name: 'modifiedDate', keypath: 'modifiedDate', options: { unique: false } },
+    ]
   }]
 };

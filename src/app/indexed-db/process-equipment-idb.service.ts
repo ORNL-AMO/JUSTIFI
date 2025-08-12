@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { IdbProcessEquipment } from '../models/processEquipment';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ export class ProcessEquipmentIdbService {
 
   processEquipments: BehaviorSubject<Array<IdbProcessEquipment>>;
   selectedProcessEquipment: BehaviorSubject<IdbProcessEquipment>;
-  constructor(private dbService: NgxIndexedDBService) {
+  constructor(private dbService: NgxIndexedDBService,
+    private analyticsService: AnalyticsService
+  ) {
     this.processEquipments = new BehaviorSubject<Array<IdbProcessEquipment>>([]);
     this.selectedProcessEquipment = new BehaviorSubject<IdbProcessEquipment>(undefined);
   }
@@ -29,6 +32,7 @@ export class ProcessEquipmentIdbService {
   }
 
   addWithObservable(processEquipment: IdbProcessEquipment): Observable<IdbProcessEquipment> {
+    this.analyticsService.sendEvent('add_process_equipment', undefined);
     return this.dbService.add('processEquipment', processEquipment);
   }
 
