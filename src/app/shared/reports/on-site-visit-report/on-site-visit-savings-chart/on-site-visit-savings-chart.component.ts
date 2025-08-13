@@ -6,6 +6,7 @@ import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { localeCurrency } from 'src/app/shared/constants/localeCurrency';
 import { CurrencySymbolPipe } from 'src/app/shared/helper-pipes/currency-symbol.pipe';
 import { CurrencyPipe } from '@angular/common';
+import { DisplayRoundedValuesPipe } from 'src/app/shared/helper-pipes/display-rounded-values.pipe';
 
 @Component({
   selector: 'app-on-site-visit-savings-chart',
@@ -27,7 +28,8 @@ export class OnSiteVisitSavingsChartComponent {
   currencySymbolPipe: CurrencySymbolPipe;
   constructor(private plotlyService: PlotlyService,
     private localeService: LocaleService,
-    private currencyPipe: CurrencyPipe
+    private currencyPipe: CurrencyPipe,
+    private displayRoundedValuesPipe: DisplayRoundedValuesPipe
   ) {
   }
 
@@ -97,10 +99,11 @@ export class OnSiteVisitSavingsChartComponent {
 
 
       var data = [trace1, trace2];
+      const roundedValue = this.displayRoundedValuesPipe.transform(this.onSiteVisitReport.totalFinancialImpact, true);
       var layout = {
         height: 250,
         title: {
-          text: 'Total Annual Financial Impact<br>' + this.currencyUnicode + this.onSiteVisitReport.totalFinancialImpact.toLocaleString() + ' (' + this.currencyUnicode + '/yr)',
+          text: 'Total Annual Financial Impact<br>' + this.currencyUnicode + roundedValue.toLocaleString() + ' (' + this.currencyUnicode + '/yr)',
           font: {
             weight: 'bold'
           }

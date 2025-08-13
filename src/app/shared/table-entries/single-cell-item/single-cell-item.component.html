@@ -14,15 +14,15 @@
         <ng-template [ngIf]="!isCurrency" [ngIfElse]="currencyBlock">
             <span>
                 {{ negativeNumber ?
-                '(' + (numValue | number:numValueDigits) + ')'
-                : numValue | number:numValueDigits }}
+                '(' + (numValue | displayRoundedValues : isCurrency | number:numValueDigits) + ')'
+                : numValue | displayRoundedValues : isCurrency | number:numValueDigits }}
             </span>
         </ng-template>
         <ng-template #currencyBlock>
             <span>
                 {{ negativeNumber ?
-                '(' + (numValue | currency : currencyCode : 'symbol' : numValueDigits) + ')'
-                : numValue | currency : currencyCode : 'symbol' : numValueDigits }}
+                '(' + (numValue | displayRoundedValues : isCurrency | currency : currencyCode : 'symbol' : numValueDigits) + ')'
+                : numValue | displayRoundedValues : isCurrency | currency : currencyCode : 'symbol' : numValueDigits }}
             </span>
         </ng-template>
         <ng-template [ngIf]="units && !per">
