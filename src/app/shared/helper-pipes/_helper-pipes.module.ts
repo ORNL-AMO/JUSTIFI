@@ -52,6 +52,7 @@ import { KpmImpactLabelPipe } from './kpm-impact-label.pipe';
 import { ReportTypeDisplayPipe } from './report-type-display.pipe';
 import { IsUtilityTrackedPipe } from './is-utility-tracked.pipe';
 import { KeywordHighlightPipe } from './keyword-highlight.pipe';
+import { DisplayRoundedValuesPipe } from './display-rounded-values.pipe';
 
 @NgModule({
   declarations: [
@@ -106,12 +107,14 @@ import { KeywordHighlightPipe } from './keyword-highlight.pipe';
     ReportTypeDisplayPipe,
     IsUtilityTrackedPipe,
     KeywordHighlightPipe,
+    DisplayRoundedValuesPipe,
   ],
   imports: [
     CommonModule
   ],
   providers: [
     CurrencyPipe,
+    DisplayRoundedValuesPipe
   ],
   exports: [
     CompanyNamePipe,
@@ -165,6 +168,7 @@ import { KeywordHighlightPipe } from './keyword-highlight.pipe';
     ReportTypeDisplayPipe,
     IsUtilityTrackedPipe,
     KeywordHighlightPipe,
+    DisplayRoundedValuesPipe
   ]
 })
 export class HelperPipesModule { }

@@ -17,12 +17,12 @@
   visit,
   we found
   <b>{{numberOfProjects}}</b>
-  projects that will result in a <b>{{executiveSummaryReport.totalFinancialImpact | currency: currencyCode: 'symbol':
+  projects that will result in a <b>{{executiveSummaryReport.totalFinancialImpact | displayRoundedValues : true | currency: currencyCode: 'symbol':
     '1.0-2'}}</b> annual financial impact.
 </div>
 <div class="alert alert-success p-1 text-center" *ngIf="executiveSummaryReport.totalRebates">
   <fa-icon [icon]="faMoneyBillWave"></fa-icon>
-  This visit also includes <b>{{executiveSummaryReport.totalRebates | currency: currencyCode:
+  This visit also includes <b>{{executiveSummaryReport.totalRebates | displayRoundedValues : true | currency: currencyCode:
     'symbol': '1.0-2'}}</b> in additional one-time incentives that will help reduce implementation costs!
 </div>
 
