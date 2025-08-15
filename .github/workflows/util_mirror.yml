@@ -27,7 +27,7 @@ jobs:
           git fetch --all
           git reset --hard upstream/${{ secrets.REMOTE_UPSTREAM_BRANCH }}
           git rm -rf .github/workflows
-          git checkout origin/mirror -- .github/workflows || true
+          git checkout origin/develop -- .github/workflows || true
           if ! git diff --quiet origin/mirror; then
             git commit -am "Sync mirror from upstream"
           fi
