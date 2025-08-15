@@ -2,15 +2,18 @@ import { TestBed } from '@angular/core/testing';
 
 import { CompanyIdbService } from './company-idb.service';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 describe('CompanyIdbService', () => {
   let service: CompanyIdbService;
 
+  let dbService: Partial<NgxIndexedDBService> = {}
+  let analyticsService: Partial<AnalyticsService> = {}
   beforeEach(() => {
-    let dbService: Partial<NgxIndexedDBService> = {}
     TestBed.configureTestingModule({
       providers: [
-        { provide: NgxIndexedDBService, useValue: dbService }
+        { provide: NgxIndexedDBService, useValue: dbService },
+        { provide: AnalyticsService, useValue: analyticsService }
       ]
     });
     service = TestBed.inject(CompanyIdbService);

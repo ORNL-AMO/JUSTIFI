@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IdbContact } from '../models/contact';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,9 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 export class ContactIdbService {
 
   contacts: BehaviorSubject<Array<IdbContact>>;
-  constructor(private dbService: NgxIndexedDBService) {
+  constructor(private dbService: NgxIndexedDBService,
+    private analyticsService: AnalyticsService
+  ) {
     this.contacts = new BehaviorSubject<Array<IdbContact>>([]);
   }
 
@@ -27,6 +30,7 @@ export class ContactIdbService {
   }
 
   addWithObservable(contact: IdbContact): Observable<IdbContact> {
+    this.analyticsService.sendEvent('add_contact', undefined);
     return this.dbService.add('contact', contact);
   }
 

@@ -1,5 +1,6 @@
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { AppRoutingModule } from './routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -62,7 +63,7 @@ import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-upda
     UserPortfolioModule,
     PlotlyViaWindowModule,
     PlotlyViaWindowModule,
-    NebsDatabaseModule
+    NebsDatabaseModule,
   ],
   providers: [
     { 
@@ -76,7 +77,8 @@ import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-upda
         return currencyOption ? currencyOption.currencyCode : 'USD';
       },
     },
-    [DatePipe, PerformanceMetricsTablePipe, CurrencyPipe]
+    [DatePipe, PerformanceMetricsTablePipe, CurrencyPipe],
+    provideHttpClient(withInterceptorsFromDi()),
   ],
   bootstrap: [AppComponent]
 })

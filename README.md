@@ -43,7 +43,7 @@ If you plan to contribute your code changes to this repository, please review th
 
 - `npm run dist` will create electron installers for your operating system
 
-- Installer will be created in an `./output/neb-tool/` directory 
+- Installer will be created in an `./output/` directory 
 
 
 ## Running unit tests
