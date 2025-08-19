@@ -4,6 +4,7 @@ import { getNewKeyPerformanceIndicator, IdbKeyPerformanceIndicator } from '../mo
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { getPerformanceMetrics, KeyPerformanceMetric, KeyPerformanceMetricOption } from '../shared/constants/keyPerformanceMetrics';
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue } from '../shared/constants/keyPerformanceIndicatorOptions';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerfo
 export class KeyPerformanceIndicatorsIdbService {
 
   keyPerformanceIndicators: BehaviorSubject<Array<IdbKeyPerformanceIndicator>>;
-  constructor(private dbService: NgxIndexedDBService) {
+  constructor(private dbService: NgxIndexedDBService,
+    private analyticsService: AnalyticsService
+  ) {
     this.keyPerformanceIndicators = new BehaviorSubject<Array<IdbKeyPerformanceIndicator>>([]);
   }
 
@@ -29,6 +32,7 @@ export class KeyPerformanceIndicatorsIdbService {
   }
 
   addWithObservable(keyPerformanceIndicator: IdbKeyPerformanceIndicator): Observable<IdbKeyPerformanceIndicator> {
+    this.analyticsService.sendEvent('add_kpi', { kpi_name: keyPerformanceIndicator.label });
     return this.dbService.add('keyPerformanceIndicator', keyPerformanceIndicator);
   }
 
@@ -80,20 +84,39 @@ export class KeyPerformanceIndicatorsIdbService {
     });
   }
 
-  async addKpmToKpi(companyId: string, performanceMetricToAdd: KeyPerformanceMetric | KeyPerformanceMetricOption, userId: string, facilityId: string): Promise<KeyPerformanceMetric> {
+  async addKpmToKpi(companyId: string, performanceMetricToAdd: KeyPerformanceMetric, userId: string, facilityId: string): Promise<KeyPerformanceMetric> {
+    this.analyticsService.sendEvent('add_kpm', { kpm_name: performanceMetricToAdd.label });
+
     let addedMetric: KeyPerformanceMetric;
-    let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.getKpiFromKpm(facilityId, performanceMetricToAdd.kpiValue);
+    let keyPerformanceIndicator: IdbKeyPerformanceIndicator;
+    if (performanceMetricToAdd.kpiGuid) {
+      keyPerformanceIndicator = this.getByGuid(performanceMetricToAdd.kpiGuid);
+    } else {
+      keyPerformanceIndicator = this.getKpiFromKpm(facilityId, performanceMetricToAdd.kpiValue);
+    }
     if (keyPerformanceIndicator) {
       //check metric is being tracked in existing KPI
-      addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {
-        return (_metric.value == performanceMetricToAdd.value);
-      });
+      if (performanceMetricToAdd.guid) {
+        addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {
+          return (_metric.guid == performanceMetricToAdd.guid);
+        });
+      } else {
+        addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {
+          return (_metric.value == performanceMetricToAdd.value);
+        });
+      }
       if (!addedMetric) {
         //if not being tracked. Add metric to existing KPI
         let metrics: Array<KeyPerformanceMetric> = getPerformanceMetrics(keyPerformanceIndicator.optionValue, keyPerformanceIndicator.guid);
-        addedMetric = metrics.find(_metric => {
-          return (_metric.value == performanceMetricToAdd.value);
-        });
+        if (performanceMetricToAdd.guid) {
+          addedMetric = metrics.find(_metric => {
+            return (_metric.guid == performanceMetricToAdd.guid);
+          });
+        } else {
+          addedMetric = metrics.find(_metric => {
+            return (_metric.value == performanceMetricToAdd.value);
+          });
+        }
         if (addedMetric) {
           keyPerformanceIndicator.performanceMetrics.push(addedMetric);
           await this.asyncUpdate(keyPerformanceIndicator);
@@ -105,9 +128,17 @@ export class KeyPerformanceIndicatorsIdbService {
         return option.optionValue == performanceMetricToAdd.kpiValue
       });
       keyPerformanceIndicator = getNewKeyPerformanceIndicator(userId, companyId, kpiOption, false, facilityId);
-      addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {
-        return (_metric.value == performanceMetricToAdd.value);
-      });
+
+      //check metric is being tracked in existing KPI
+      if (performanceMetricToAdd.guid) {
+        addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {
+          return (_metric.guid == performanceMetricToAdd.guid);
+        });
+      } else {
+        addedMetric = keyPerformanceIndicator.performanceMetrics.find(_metric => {
+          return (_metric.value == performanceMetricToAdd.value);
+        });
+      }
       await firstValueFrom(this.addWithObservable(keyPerformanceIndicator));
       await this.setKeyPerformanceIndicators();
     }

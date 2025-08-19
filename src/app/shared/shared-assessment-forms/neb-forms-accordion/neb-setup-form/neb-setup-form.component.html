@@ -104,7 +104,7 @@
         </div>
         <div class="col-sm-12" *ngIf="nonEnergyBenefit.includeNote">
             <textarea name="nebNotes" type="number" class="form-control" [(ngModel)]="nonEnergyBenefit.notes"
-                id="nebNotes"></textarea>
+                id="nebNotes" (input)="saveChanges()"></textarea>
         </div>
     </div>
     <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'annual'">

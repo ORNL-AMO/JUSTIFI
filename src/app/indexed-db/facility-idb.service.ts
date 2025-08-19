@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IdbFacility, getNewIdbFacility } from '../models/facility';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { guidType } from '../shared/constants/guidTypes';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ export class FacilityIdbService {
 
   facilities: BehaviorSubject<Array<IdbFacility>>;
   selectedFacility: BehaviorSubject<IdbFacility>;
-  constructor(private dbService: NgxIndexedDBService) {
+  constructor(private dbService: NgxIndexedDBService,
+    private analyticsService: AnalyticsService
+  ) {
     this.facilities = new BehaviorSubject<Array<IdbFacility>>([]);
     this.selectedFacility = new BehaviorSubject<IdbFacility>(undefined);
   }
@@ -31,6 +34,7 @@ export class FacilityIdbService {
   }
 
   addWithObservable(facility: IdbFacility): Observable<IdbFacility> {
+    this.analyticsService.sendEvent('add_facility', undefined);
     return this.dbService.add('facility', facility);
   }
 

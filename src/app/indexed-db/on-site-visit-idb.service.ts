@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IdbOnSiteVisit, getNewIdbOnSiteVisit } from '../models/onSiteVisit';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ export class OnSiteVisitIdbService {
 
   onSiteVisits: BehaviorSubject<Array<IdbOnSiteVisit>>;
   selectedVisit: BehaviorSubject<IdbOnSiteVisit>;
-  constructor(private dbService: NgxIndexedDBService) {
+  constructor(private dbService: NgxIndexedDBService,
+    private analyticsService: AnalyticsService
+  ) {
     this.onSiteVisits = new BehaviorSubject<Array<IdbOnSiteVisit>>([]);
     this.selectedVisit = new BehaviorSubject<IdbOnSiteVisit>(undefined);
   }
@@ -29,6 +32,7 @@ export class OnSiteVisitIdbService {
   }
 
   addWithObservable(onSiteVisit: IdbOnSiteVisit): Observable<IdbOnSiteVisit> {
+    this.analyticsService.sendEvent('add_on_site_visit', undefined);
     return this.dbService.add('onSiteVisit', onSiteVisit);
   }
 

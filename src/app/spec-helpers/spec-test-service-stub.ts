@@ -38,6 +38,7 @@ import { getNewIdbReport, IdbReport } from "../models/report";
 import { CurrencyPipe, DatePipe } from "@angular/common";
 import { CurrencySymbolPipe } from "../shared/helper-pipes/currency-symbol.pipe";
 import { PerformanceMetricsTablePipe } from "../shared/reports/performance-metrics-table/performance-metrics-table.pipe";
+import { DisplayRoundedValuesPipe } from "../shared/helper-pipes/display-rounded-values.pipe";
 import { AnalyticsService } from "../analytics/analytics.service";
 
 let stubCompany: IdbCompany = getNewIdbCompany('123');
@@ -193,6 +194,7 @@ let currencyPipe: CurrencyPipe = new CurrencyPipe('en-US')
 let datePipe: DatePipe = new DatePipe('en-US');
 let currencySymbolPipe: Partial<CurrencySymbolPipe> = new CurrencySymbolPipe(currencyPipe);
 let performanceMetricsTablePipe: PerformanceMetricsTablePipe = new PerformanceMetricsTablePipe();
+let displayRoundedValuesPipe: DisplayRoundedValuesPipe = new DisplayRoundedValuesPipe();
 let analyticsService: Partial<AnalyticsService> = {}
 export const stubServiceProviders: Array<{ provide: any, useValue: any }> = [
     { provide: CompanyIdbService, useValue: companyIdbService },
@@ -223,5 +225,6 @@ export const stubServiceProviders: Array<{ provide: any, useValue: any }> = [
     { provide: CurrencySymbolPipe, useValue: currencySymbolPipe },
     { provide: PerformanceMetricsTablePipe, useValue: performanceMetricsTablePipe },
     { provide: DatePipe, useValue: datePipe },
+    { provide: DisplayRoundedValuesPipe, useValue: displayRoundedValuesPipe },
     { provide: AnalyticsService, useValue: analyticsService }
 ]
