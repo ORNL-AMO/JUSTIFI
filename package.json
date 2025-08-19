@@ -1,6 +1,6 @@
 {
   "name": "justifi",
-  "version": "0.2.2-beta",
+  "version": "0.2.3-beta",
   "main": "main.js",
   "author": "National Renewable Energy Laboratory & Oak Ridge National Laboratory",
   "description": "A tool to identify, estimate potential and report on non-energy benefits (NEBs) that can be found while conducting energy assessments",
