@@ -162,11 +162,11 @@ export const energy = {
   _anchors: {
     metric: {
       unit: 'J',
-      ratio: 1 / 1055.06
+      ratio: 1 / 1055.055853
     },
     imperial: {
       unit: 'Btu',
-      ratio: 1055.06
+      ratio: 1055.055853
     }
   }
 };

@@ -55,6 +55,7 @@ export class EnergyOpportunitySetupFormComponent {
 
   assessmentSub: Subscription;
   assessmentEnergyUses: Array<UtilityEnergyUse>;
+  utilitySavingsByAssessment: boolean;
 
   facilitySub: Subscription;
   facilityUnitSettings: UnitSettings;
@@ -101,6 +102,7 @@ export class EnergyOpportunitySetupFormComponent {
     });
     this.assessmentSub = this.assessmentIdbService.selectedAssessment.subscribe(assessment => {
       this.assessmentEnergyUses = assessment.utilityEnergyUses;
+      this.utilitySavingsByAssessment = assessment.utilitySavingsByAssessment;
     });
     this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
       this.facilityUnitSettings = facility.unitSettings;
@@ -158,7 +160,7 @@ export class EnergyOpportunitySetupFormComponent {
         useSavings * this.facilityUnitSettings[`${camelCaseType}Price`],
         this.energyOpportunity.energyUnit,
         this.facilityUnitSettings[`${camelCaseType}Unit`]).convertedValue;
-      this.energyOpportunity.costSavings = costSavings;
+      this.energyOpportunity.costSavings = Math.round(costSavings);
     }
     await this.saveEnergyOpportunity();
   }
@@ -195,12 +197,7 @@ export class EnergyOpportunitySetupFormComponent {
   toggleAddNebDropdown() {
     this.showAddNebDropdown = !this.showAddNebDropdown;
   }
-
-  isUtilityTracked(utilityType: string): boolean {
-    let trimmed = utilityType.replace(/\s+/g, '');
-    return this.facilityUnitSettings[`include${trimmed}`];
-  }
-
+  
   focusField(str: string) {
     this.setupWizardService.focusedHelp.next(str);
   }

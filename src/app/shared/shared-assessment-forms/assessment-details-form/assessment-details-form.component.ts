@@ -183,11 +183,6 @@ export class AssessmentDetailsFormComponent {
     }
   }
 
-  isUtilityTracked(utilityType: string): boolean {
-    let trimmed = utilityType.replace(/\s+/g, '');
-    return this.facilityUnitSettings[`include${trimmed}`];
-  }
-
   goToFacilitySetup() {
     let onsiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
     this.router.navigateByUrl('/setup-wizard/pre-visit/' + onsiteVisit.guid + '/facility-setup');

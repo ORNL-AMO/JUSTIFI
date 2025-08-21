@@ -425,7 +425,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improvedThermalComfort",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -434,7 +434,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceUnscheduledBreaks",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -443,7 +443,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceWorkplaceIncidentsRelatedToHeat",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -452,7 +452,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "increaseWorkplaceSecurity",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["energyCostPerUnit", "workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
+        KPM: ["workspaceOrFactoryFloorComfort", "absenteeism", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {

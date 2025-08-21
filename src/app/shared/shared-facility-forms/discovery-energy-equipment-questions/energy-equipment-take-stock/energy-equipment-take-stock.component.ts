@@ -23,6 +23,7 @@ export class EnergyEquipmentTakeStockComponent {
   howSupportPlant: string;
   adverseEffects: string;
   equipmentFinancialStatus: string;
+  financialMetricsUsed: string;
 
   constructor(private activatedRoute: ActivatedRoute,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
@@ -37,6 +38,7 @@ export class EnergyEquipmentTakeStockComponent {
       this.howSupportPlant = energyEquipment.howSupportPlant;
       this.adverseEffects = energyEquipment.adverseEffects;
       this.equipmentFinancialStatus = energyEquipment.equipmentFinancialStatus;
+      this.financialMetricsUsed = energyEquipment.financialMetricsUsed;
     });
   }
 
@@ -49,6 +51,7 @@ export class EnergyEquipmentTakeStockComponent {
     energyEquipment.howSupportPlant = this.howSupportPlant;
     energyEquipment.adverseEffects = this.adverseEffects;
     energyEquipment.equipmentFinancialStatus = this.equipmentFinancialStatus;
+    energyEquipment.financialMetricsUsed = this.financialMetricsUsed;
     await this.energyEquipmentIdbService.asyncUpdate(energyEquipment);
   }
 

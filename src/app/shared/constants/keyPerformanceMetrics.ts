@@ -1,5 +1,5 @@
 import { getGUID } from "../helpFunctions";
-import { KeyPerformanceIndicatorValue } from "./keyPerformanceIndicatorOptions";
+import { KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue } from "./keyPerformanceIndicatorOptions";
 
 export function getPerformanceMetrics(keyPerformanceIndicatorValue: KeyPerformanceIndicatorValue, kpiGuid: string): Array<KeyPerformanceMetric> {
     if (keyPerformanceIndicatorValue != 'other') {
@@ -118,7 +118,8 @@ export type KeyPerformanceMetricValue =
     'powerFactorCosts' |
     'mobileFuelEmissions'|
     'processEmissions' |
-    'reduceRegulatoryFees';
+    'reduceRegulatoryFees' | 
+    'utilityCosts';
 
 
 export type KpmCalculationMethod = 'costPerUnit' | 'percentTotal' | 'directCost';
@@ -666,7 +667,7 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'costPerUnit'
     },
     {
-        label: "Lost time inury rate (LTIFR)",
+        label: "Lost time injury rate (LTIFR)",
         htmlLabel: "Lost time injury rate (LTIFR)",
         value: "lostTimeInjuryRate",
         kpiValue: "safety",
@@ -912,3 +913,99 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
 ]
+
+
+// keywords for each KeyPerformanceMetricValue
+const KpmKeywords: { [key: string]: Array<string> } = {
+    "contributeCompanyVision": ["company vision", "company strategy", "company mission", "company goals"],
+    "salesGrowth": ["sales growth", "revenue growth", "sales increase", "revenue increase"],
+    "customerSatisfactionRatings": ["customer satisfaction", "customer ratings", "customer feedback", "customer reviews"],
+    "customerChurnRate": ["customer churn", "customer retention", "customer loyalty", "customer attrition"],
+    "supplierSatisfactionRatings": ["supplier satisfaction", "supplier ratings", "supplier feedback", "supplier reviews"],
+    "lostCustomerSales": ["lost customer sales", "customer loss", "customer attrition", "customer churn"],
+    "productionCosts": ["production costs", "manufacturing costs", "operational costs", "cost of goods sold"],
+    "cycleTimeToMakeGoods": ["cycle time", "production cycle", "manufacturing cycle", "time to produce"],
+    "percentOnTimeToDueDate": ["on-time delivery", "due date compliance", "delivery performance", "timeliness"],
+    "revenuePerEmployee": ["revenue per employee", "employee productivity", "sales per employee", "efficiency"],
+    "perUnitProductCost": ["per unit cost", "product cost", "cost per unit", "unit economics"],
+    "workInProcess": ["work in process", "WIP", "inventory in process", "production inventory"],
+    "numberEquipmentCausedDefects": ["equipment defects", "machine defects", "defective equipment", "equipment failure"],
+    "equipmentDowntime": ["equipment downtime", "machine downtime", "production downtime", "operational downtime"],
+    "percentCapacityUtilization": ["capacity utilization", "utilization rate", "production capacity", "machine utilization"],
+    "overallEquipmentEffectiveness": ["overall equipment effectiveness", "OEE", "equipment performance", "machine efficiency"],
+    "forkTruckBreakdownTime": ["fork truck downtime", "industrial truck breakdown", "forklift downtime", "truck maintenance"],
+    "usefulEquipmentLifeExtended": ["equipment life", "useful life", "asset longevity", "equipment lifespan"],
+    "timeToIntroduceNewProducts": ["time to market", "product introduction time", "new product development", "NPD cycle time"],
+    "defectiveProductionDollar": ["defective production cost", "cost of defects", "defect costs", "quality costs"],
+    "defectRatePPMorDPM": ["defect rate", "PPM", "DPM", "defects per million", "defects per product"],
+    "qualityCustomerComplaints": ["customer complaints", "quality complaints", "customer feedback", "service issues"],
+    "qualityCustomerReturns": ["customer returns", "product returns", "return rate", "return policy"],
+    "percentProductionYield": ["production yield", "yield rate", "manufacturing yield", "product yield"],
+    "percentShrinkage": ["shrinkage", "inventory shrinkage", "loss prevention", "stock loss"],
+    "dollarConsumables": ["consumables cost", "consumables expense", "operational consumables", "supplies cost"],
+    "percentOptimizedSpace": ["space utilization", "optimized space", "facility efficiency", "warehouse space"],
+    "maintenanceCost": ["maintenance cost", "maintenance expense", "repair costs", "upkeep costs"],
+    "engineeringSupport": ["engineering support", "technical support", "engineering services", "technical assistance"],
+    "energyCostPerUnit": ["energy cost", "cost per unit energy", "energy efficiency", "energy consumption"],
+    "hazardousDisposalCosts": ["hazardous waste disposal", "hazardous waste costs", "hazardous materials disposal", "toxic waste"],
+    "nonHazardousDisposalCosts": ["non-hazardous waste disposal", "non-hazardous waste costs", "general waste disposal", "waste management"],
+    "percentTotalOrCost": ["total cost", "cost percentage", "overall cost", "cost analysis"],
+    "consumptionCostWater": ["water consumption cost", "water usage cost", "water expense", "water bill"],
+    "sewageVolume": ["sewage volume", "wastewater volume", "sewage management", "wastewater treatment"],
+    "percentOrTotalRefrigerantEmissions": ["refrigerant emissions", "refrigerant leakage", "refrigerant management", "cooling emissions"],
+    "TRIR": ["TRIR", "total recordable incident rate", "safety incidents", "workplace safety"],
+    "oshaRecordableIncidents": ["OSHA recordable incidents", "workplace incidents", "safety compliance", "incident reporting"],
+    "oshaNonRecordables": ["OSHA non-recordables", "non-recordable incidents", "safety near misses", "incident prevention"],
+    "daysAwayFromWork": ["days away from work", "work absence", "employee absenteeism", "workforce attendance"],
+    "lostTimeInjuryRate": ["lost time injury rate", "LTIR", "workplace injuries", "safety performance"],
+    "hearingConservationProgram": ["hearing conservation", "noise exposure", "hearing protection", "occupational health"],
+    "workspaceOrFactoryFloorComfort": ["workspace comfort", "factory floor comfort", "employee comfort", "work environment"],
+    "absenteeism": ["absenteeism", "employee absence", "workforce absenteeism", "attendance rate"],
+    "employeeEngagementSatisfaction": ["employee engagement", "employee satisfaction", "workforce engagement", "employee morale"],
+    "employeeRetentionRate": ["employee retention", "staff retention", "workforce stability", "talent retention"],
+    "talentTurnoverRate": ["talent turnover", "employee turnover", "staff turnover", "workforce turnover"],
+    "dustEmission": ["dust emissions", "air quality", "particulate matter", "environmental impact"],
+    "laborCosts": ["labor costs", "workforce costs", "employee costs", "staff expenses"],
+    "thirdPartyLabor": ["third-party labor", "contract labor", "outsourced labor", "external workforce"],
+    "serviceParts": ["service parts", "maintenance parts", "repair parts", "spare parts"],
+    "treatmentChemicals": ["treatment chemicals", "chemical usage", "chemical costs", "chemical management"],
+    "rawMaterials": ["raw materials", "material costs", "supply chain", "material procurement"],
+    "intermediateGoods": ["intermediate goods", "semi-finished products", "supply chain management", "goods in process"],
+    "custom": ["custom metrics", "custom KPIs", "tailored metrics", "bespoke performance indicators"],
+    "stationaryFuelEmissions": ["stationary fuel emissions", "fuel consumption", "energy emissions", "stationary sources"],
+    "purchasedEnergyEmissions": ["purchased energy emissions", "energy procurement", "energy consumption", "external energy sources"],
+    "valueChainEmissions": ["value chain emissions", "supply chain emissions", "indirect emissions", "life cycle emissions"],
+    "regulatoryCompliancePercentTests": ["regulatory compliance", "compliance testing", "environmental regulations", "regulatory standards"],
+    "noxSoxCoEmissions": ["NOx emissions", "SOx emissions", "CO emissions", "air pollutants"],
+    "particulateEmissions": ["particulate emissions", "air quality", "dust emissions", "particulate matter"],
+    "waterPollutantEmissions": ["water pollutant emissions", "water quality", "pollution control", "water management"],
+    'sewageCosts': ["sewage costs", "wastewater costs", "sewage management", "wastewater treatment"],
+    'regulatoryFeesWater': ["regulatory fees water", "water compliance costs", "water regulatory fees", "water management costs"],
+    'regulatoryFeesWaste': ["regulatory fees waste", "waste compliance costs", "waste regulatory fees", "waste management costs"],
+    'directLaborCosts': ["direct labor costs", "labor expenses", "workforce costs", "employee expenses"],
+    'emergencyEquipmentDowntime': ["emergency equipment downtime", "unplanned downtime", "equipment failure", "maintenance issues"],
+    'electricalDemandCosts': ["electrical demand costs", "energy demand charges", "power demand costs", "electricity expenses"],
+    'powerFactorCosts': ["power factor costs", "power factor penalties", "electricity efficiency", "power quality"],
+    'mobileFuelEmissions': ["mobile fuel emissions", "transport emissions", "vehicle emissions", "mobile sources"],
+    'processEmissions': ["process emissions", "industrial emissions", "manufacturing emissions", "production emissions", "process pollutants"],
+    'reduceRegulatoryFees': ["reduce regulatory fees", "regulatory cost reduction", "compliance cost savings", "regulatory fee management"],
+    'utilityCosts': ["utility costs", "energy expenses", "utility bills", "electricity costs"],
+}
+
+// Add linked kpi label to keywords
+Object.keys(KpmKeywords).forEach(key => {
+    const kpmOption = KeyPerformanceMetricOptions.find(option => option.value === key);
+    if (kpmOption) {
+        const kpiOption = KeyPerformanceIndicatorOptions.find(option => option.optionValue === kpmOption.kpiValue);
+        if (kpiOption) {
+            const label = kpiOption.label.toLowerCase();
+            if (!KpmKeywords[key].includes(label)) {
+                KpmKeywords[key].push(label);
+            }
+        }
+    }
+});
+
+export { KpmKeywords };
+
+export const KpmKeywordList: string[] = Array.from(new Set(Object.values(KpmKeywords).flat()));

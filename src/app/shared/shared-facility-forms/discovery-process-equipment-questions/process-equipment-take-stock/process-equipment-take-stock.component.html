@@ -7,7 +7,7 @@
 <hr class="my-2">
 <!--whatIsTheOutput-->
 <label>
-    What is the output of this process?
+    What is the output of this process? Is it an intermediate or final product of the facility?
 </label>
 <ng-container *ngIf="inPortfolio">
     <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.whatIsTheOutput">
@@ -31,7 +31,7 @@
 
 <!--financialStatusOfEquipment-->
 <label>
-    Describe the financial status of the equipment
+   Where is the process and its equipment in its lifecycle? Are you considering replacement?
 </label>
 <ng-container *ngIf="inPortfolio">
     <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipment">
@@ -41,4 +41,16 @@
 </ng-container>
 <textarea id="equipmentFinancialStatus" name="financialStatusOfEquipment" class="form-control"
     [(ngModel)]="financialStatusOfEquipment" (input)="saveChanges()" (focus)="focusField('financialStatusOfEquipment')"
+    rows="3"></textarea>
+
+<!--financialMetricsUsed-->
+<label>
+What financial metrics are used to understand the output of the process (/unit, /ton, $/batch)?
+</label>
+<ng-container *ngIf="inPortfolio">
+    <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialMetricsUsed">
+    </p>
+</ng-container>
+<textarea id="financialMetricsUsed" name="financialMetricsUsed" class="form-control"
+    [(ngModel)]="financialMetricsUsed" (input)="saveChanges()" (focus)="focusField('financialMetricsUsed')"
     rows="3"></textarea>

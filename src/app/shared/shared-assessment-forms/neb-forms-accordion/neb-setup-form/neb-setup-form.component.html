@@ -15,7 +15,15 @@
 <form>
     <ng-template [ngIf]="nonEnergyBenefit.isCustom">
         <div class="row">
-            <label class="col-sm-5 col-form-label" for="{{'nebName'+nonEnergyBenefit.guid}}">NEB Name</label>
+            <label class="col-sm-5 col-form-label" for="{{'nebName'+nonEnergyBenefit.guid}}">
+                <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+                    NEB Name
+                </ng-container>
+                <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
+                    Incentive Name
+                </ng-container>
+
+            </label>
             <div class="col-sm-7">
                 <input name="{{'nebName'+nonEnergyBenefit.guid}}" type="text" class="form-control"
                     [(ngModel)]="nonEnergyBenefit.name" minlength="1" maxlength="42"
@@ -41,7 +49,7 @@
                     id="{{'associatedEEM'+nonEnergyBenefit.guid}}" [(ngModel)]="nonEnergyBenefit.energyOpportunityId"
                     (change)="changeAssociatedEEM()">
                     <option [ngValue]="undefined">
-                        No directly associated opportunity
+                        No directly associated EEM
                     </option>
                     <option *ngFor="let opp of energyOpportunities" [value]="opp.guid">
                         {{opp.name}}
@@ -58,7 +66,7 @@
                     [labelId]="'costImpact'+nonEnergyBenefit.guid"></app-label-with-tooltip>
             </ng-template>
             <ng-template #rebateLabelBlock>
-                Rebate Amount
+                Incentive Amount
             </ng-template>
         </div>
         <div class="col-sm-7">
@@ -81,19 +89,25 @@
     <div class="row">
         <div class="col-sm-12 col-form-label">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch"
+                <input class="form-check-input my-auto" type="checkbox" role="switch"
                     id="{{'includeNEBNote'+nonEnergyBenefit.guid}}" [(ngModel)]="nonEnergyBenefit.includeNote"
                     name="{{'includeNEBNote'+nonEnergyBenefit.guid}}" (input)="saveChanges()">
-                <label class="form-check-label" for="{{'includeNEBNote'+nonEnergyBenefit.guid}}">Non-Energy Benefit
+                <label class="form-check-label" for="{{'includeNEBNote'+nonEnergyBenefit.guid}}">
+                    <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+                        Non-Energy Benefit
+                    </ng-container>
+                    <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
+                        Incentive
+                    </ng-container>
                     Notes</label>
             </div>
         </div>
         <div class="col-sm-12" *ngIf="nonEnergyBenefit.includeNote">
             <textarea name="nebNotes" type="number" class="form-control" [(ngModel)]="nonEnergyBenefit.notes"
-                id="nebNotes"></textarea>
+                id="nebNotes" (input)="saveChanges()"></textarea>
         </div>
     </div>
-    <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'annual'" [ngIfElse]="rebateHelpBlock">
+    <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'annual'">
         <div class="row">
             <div class="col-12">
                 <hr>
@@ -148,33 +162,42 @@
             </div>
         </ng-template>
     </ng-template>
-    <ng-template #rebateHelpBlock>
-        <div class="alert alert-info">
-            <fa-icon [icon]="faBookOpen"></fa-icon> Check out the
-                <a href="https://www.nrel.gov/docs/libraries/manufacturing/non-energy-benefits-funding-resources.pdf?sfvrsn=2705593b_0"
-                    target="_blank">
-                    NREL Knowledge Library for Non-energy Benefits Funding Resources.
-                </a>
-        </div>
-    </ng-template>
 </form>
 <!--END FORM-->
 
 <!--DELETE MODAL-->
 <div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
 <div class="popup" [ngClass]="{'open': displayDeleteModal }">
-    <div class="popup-header">Discard this NEB?
+    <div class="popup-header">Discard this
+        <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+            NEB
+        </ng-container>
+        <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
+            Incentive
+        </ng-container>?
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
     </div>
     <div class="popup-body">
         <div class="alert alert-info">
-            Are you sure you want to discard this NEB?
+            Are you sure you want to discard this
+            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+                NEB
+            </ng-container>
+            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
+                Incentive
+            </ng-container>?
         </div>
         <hr>
     </div>
     <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteModal()">Cancel</button>
         <button class="btn btn-danger btn-sm" (click)="deleteNonEnergyBenefit()"><fa-icon [icon]="faTrash"
-                class="me-1"></fa-icon>Discard NEB</button>
+                class="me-1"></fa-icon>Discard
+            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+                NEB
+            </ng-container>
+            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
+                Incentive
+            </ng-container></button>
     </div>
 </div>

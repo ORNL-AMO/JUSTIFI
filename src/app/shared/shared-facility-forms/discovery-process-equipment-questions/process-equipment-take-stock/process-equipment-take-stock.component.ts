@@ -25,6 +25,7 @@ export class ProcessEquipmentTakeStockComponent {
   whatIsTheOutput: string;
   howDoesTheProcessWork: string;
   financialStatusOfEquipment: string;
+  financialMetricsUsed: string;
 
   collapseTackStock: boolean = true;
   collapseOperations: boolean = true;
@@ -41,6 +42,7 @@ export class ProcessEquipmentTakeStockComponent {
       this.whatIsTheOutput = processEquipment.whatIsTheOutput;
       this.howDoesTheProcessWork = processEquipment.howDoesTheProcessWork;
       this.financialStatusOfEquipment = processEquipment.financialStatusOfEquipment;
+      this.financialMetricsUsed = processEquipment.financialMetricsUsed;
     });
   }
 
@@ -53,6 +55,7 @@ export class ProcessEquipmentTakeStockComponent {
     processEquipment.whatIsTheOutput = this.whatIsTheOutput;
     processEquipment.howDoesTheProcessWork = this.howDoesTheProcessWork;
     processEquipment.financialStatusOfEquipment = this.financialStatusOfEquipment;
+    processEquipment.financialMetricsUsed = this.financialMetricsUsed;
     await this.processEquipmentIdbService.asyncUpdate(processEquipment);
   }
 

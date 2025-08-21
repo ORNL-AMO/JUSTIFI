@@ -14,7 +14,13 @@ export const LabelTooltips = {
     "associatedEEM": {
         "tooltip": "Is this NEB realized because of the implementation of a specific energy efficiency measure?"
     },
+    "utilitySavingsByAssessment": {
+        "tooltip": "Select how you estimate savings and costs for all the projects in the assessment."
+    },
     "costImpact": {
         "tooltip": "Add financial impacts not tied to Key Performance Metrics."
-    }
+    },
+    "equipmentEfficiency": {
+        "tooltip": "EER is defined as Btu/hr / W."
+    },
 }

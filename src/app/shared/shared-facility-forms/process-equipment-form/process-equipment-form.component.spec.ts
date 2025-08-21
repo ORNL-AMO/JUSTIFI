@@ -10,7 +10,7 @@ import { AssociatedEnergyEquipmentModule } from '../../associated-energy-equipme
 import { DiscoveryProcessEquipmentQuestionsComponent } from '../discovery-process-equipment-questions/discovery-process-equipment-questions.component';
 import { ProcessEquipmentEmployeeEngagementComponent } from '../discovery-process-equipment-questions/process-equipment-employee-engagement/process-equipment-employee-engagement.component';
 import { ProcessEquipmentOperationsComponent } from '../discovery-process-equipment-questions/process-equipment-operations/process-equipment-operations.component';
-import { ProcessEquipmentSustainablityComponent } from '../discovery-process-equipment-questions/process-equipment-sustainablity/process-equipment-sustainablity.component';
+import { ProcessEquipmentSustainabilityComponent } from '../discovery-process-equipment-questions/process-equipment-sustainability/process-equipment-sustainability.component';
 import { ProcessEquipmentTakeStockComponent } from '../discovery-process-equipment-questions/process-equipment-take-stock/process-equipment-take-stock.component';
 
 describe('ProcessEquipmentFormComponent', () => {
@@ -20,7 +20,7 @@ describe('ProcessEquipmentFormComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FontAwesomeModule, HelperPipesModule, FormsModule, AssociatedContactsModule, AssociatedEnergyEquipmentModule],
-      declarations: [ProcessEquipmentFormComponent, DiscoveryProcessEquipmentQuestionsComponent, ProcessEquipmentEmployeeEngagementComponent, ProcessEquipmentOperationsComponent, ProcessEquipmentSustainablityComponent, ProcessEquipmentTakeStockComponent],
+      declarations: [ProcessEquipmentFormComponent, DiscoveryProcessEquipmentQuestionsComponent, ProcessEquipmentEmployeeEngagementComponent, ProcessEquipmentOperationsComponent, ProcessEquipmentSustainabilityComponent, ProcessEquipmentTakeStockComponent],
       providers: stubServiceProviders
     })
       .compileComponents();

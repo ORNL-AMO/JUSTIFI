@@ -78,6 +78,9 @@ export class NebFormsAccordionComponent {
       let assessmentNebs: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefits.filter(neb => {
         return neb.assessmentId == this.assessment.guid
       });
+      assessmentNebs = _.orderBy(assessmentNebs, (neb: IdbNonEnergyBenefit) => {
+        return neb.nebOptionValue
+      }, ['desc']);
       let tmpAssessmentNebs: Array<string> = assessmentNebs.map(neb => {
         return neb.guid
       });

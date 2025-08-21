@@ -6,7 +6,7 @@ import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-pe
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { getNewIdbKeyPerformanceMetricImpact, IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
-import { convertOptionTypeToMetricType, KeyPerformanceMetric, KeyPerformanceMetricOptions } from 'src/app/shared/constants/keyPerformanceMetrics';
+import { convertOptionTypeToMetricType, KeyPerformanceMetric, KeyPerformanceMetricOptions, KpmKeywordList } from 'src/app/shared/constants/keyPerformanceMetrics';
 import { NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefitOptions';
 
 @Component({
@@ -36,6 +36,8 @@ export class PerformanceMetricsModalComponent {
   orderByDir: 'asc' | 'desc' = 'asc';
   filterAssociatedMetrics: boolean = false;
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
+  kpmKeywordList: string[] = KpmKeywordList;
+  filteredKpmKeywordList: string[] = [];
 
   constructor(private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService
@@ -52,6 +54,33 @@ export class PerformanceMetricsModalComponent {
   closeAddMetricModal() {
     this.displayMetricsModal = false;
     this.performanceMetricToAdd = undefined;
+  }
+
+  filterKpmKeywordList() {
+    const searchStr = this.kpmSearchStr.toLowerCase().trim();
+    if (!searchStr) {
+      this.filteredKpmKeywordList = [];
+      return;
+    }
+    const keywordWithIndex = this.kpmKeywordList
+      .map(keyword => {
+        const words = keyword.toLowerCase().split(/\s+/);
+        const index = words.findIndex(word => word.startsWith(searchStr));
+        return { keyword, index };
+      })
+      .filter(item => item.index !== -1);
+
+    keywordWithIndex.sort((a, b) => a.index - b.index);
+    const keywordMatched = Array.from(new Set(keywordWithIndex.map(item => item.keyword)));
+    this.filteredKpmKeywordList = keywordMatched.slice(0, 10);
+    if (keywordMatched.length > 10) {
+      this.filteredKpmKeywordList.push('...');
+    }
+  }
+
+  selectKpmKeyword(keyword: string) {
+    this.kpmSearchStr = keyword;
+    this.filteredKpmKeywordList = [];
   }
 
   async confirmAddMetric() {

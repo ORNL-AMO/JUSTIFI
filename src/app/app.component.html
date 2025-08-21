@@ -10,7 +10,6 @@
                 <app-toast-notifications *ngIf="!print"></app-toast-notifications>
             </div>
         </div>
-        <!-- <router-outlet></router-outlet> -->
     </ng-template>
     <ng-template #initializingDataBlock>
         Initializing data...
@@ -18,6 +17,7 @@
     <ng-container *ngIf="!print">
         <app-loading></app-loading>
         <app-setup-wizard-modal></app-setup-wizard-modal>
-        <app-alpha-disclaimer></app-alpha-disclaimer>
+        <app-auto-update-toast></app-auto-update-toast>
+        <app-welcome-slideshow></app-welcome-slideshow>
     </ng-container>
 </div>

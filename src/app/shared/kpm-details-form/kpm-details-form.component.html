@@ -44,8 +44,8 @@
                 name="{{'calculationMethod_'+keyPerformanceMetric.value}}" class="form-select"
                 [(ngModel)]="keyPerformanceMetric.calculationMethod" (change)="calculateCost(true)"
                 [disabled]="disableForm">
-                <option [ngValue]="'costPerUnit'">Cost Per Unit</option>
-                <option [ngValue]="'directCost'">Direct Cost</option>
+                <option [ngValue]="'costPerUnit'">Per Unit</option>
+                <option [ngValue]="'directCost'">Direct Impact</option>
                 <option [ngValue]="'percentTotal'">Percent Total</option>
             </select>
         </div>
@@ -102,7 +102,7 @@
 
         <div class="row">
             <label class="col-sm-6 col-form-label" for="{{'costPerValue_'+keyPerformanceMetric.value}}">
-                Cost Per Unit
+                Per Unit
             </label>
             <div class="col-6">
                 <div class="input-group">
@@ -118,7 +118,7 @@
 
         <div class="row">
             <label class="col-sm-6 col-form-label" for="{{'baselineCost_'+keyPerformanceMetric.value}}">
-                Baseline Cost
+                {{ keyPerformanceMetric.goalToIncrease ? 'Baseline Revenue' : 'Baseline Cost' }}
             </label>
             <div class="col-6">
                 <ng-template [ngIf]="keyPerformanceMetric.baselineCost" [ngIfElse]="noCostBlock">
@@ -134,7 +134,7 @@
     <ng-template [ngIf]="keyPerformanceMetric.calculationMethod != 'costPerUnit'">
         <div class="row">
             <label class="col-sm-6 col-form-label" for="{{'baselineCost_'+keyPerformanceMetric.value}}">
-                Baseline Cost
+                {{ keyPerformanceMetric.goalToIncrease ? 'Baseline Revenue' : 'Baseline Cost' }}
             </label>
             <div class="col-6">
                 <div class="input-group">

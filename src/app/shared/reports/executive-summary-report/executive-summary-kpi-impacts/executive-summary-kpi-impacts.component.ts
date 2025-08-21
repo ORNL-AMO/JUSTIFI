@@ -1,23 +1,28 @@
 import { Component, Input } from '@angular/core';
 import { AdditionalKeyPerformanceIndicatorReportItem, KeyPerformanceIndicatorReport, KeyPerformanceIndicatorReportItem } from '../../calculations/keyPerformanceIndicatorReport';
-import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorValue } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
+import { KeyPerformanceIndicatorOption, UtilityUseKpi, EnergyUseKpi } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
 import { Subscription } from 'rxjs';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { ExecutiveSummaryReport } from '../../calculations/executiveSummaryReport';
 import { IdbFacility } from 'src/app/models/facility';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
-
+import { faBullseye, faSort, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { getNewKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
+import * as _ from 'lodash';
+import { PowerpointReportGeneratorService } from 'src/app/shared/shared-services/powerpoint-report-generator.service';
 @Component({
   selector: 'app-executive-summary-kpi-impacts',
   standalone: false,
-  
+
   templateUrl: './executive-summary-kpi-impacts.component.html',
   styleUrl: './executive-summary-kpi-impacts.component.css'
 })
 export class ExecutiveSummaryKpiImpactsComponent {
-
   @Input({ required: true })
   executiveSummaryReport: ExecutiveSummaryReport;
+
+  faBullseye: IconDefinition = faBullseye;
+  faSort: IconDefinition = faSort;
 
   topKpis: Array<KeyPerformanceIndicatorOption>;
   kpiReportItems: Array<KeyPerformanceIndicatorReportItem>;
@@ -25,9 +30,9 @@ export class ExecutiveSummaryKpiImpactsComponent {
   kpiReportRevenueItems: Array<KeyPerformanceIndicatorReportItem>;
   reducedKpiReportCostItems: Array<KeyPerformanceIndicatorReportItem>;
   reducedKpiReportRevenueItems: Array<KeyPerformanceIndicatorReportItem>;
-  limit: number = 4; // limit top KPIs to show
-  orderByField: 'PotentialChange' | 'PercentChange' = 'PotentialChange'; // default order by field
+  orderByField: 'percentSavings' | 'financialImpact' = 'financialImpact'; // default order by field
   orderByDir: 'asc' | 'desc' = 'desc'; // default order by direction
+
   additionalKpiReportCostItem: AdditionalKeyPerformanceIndicatorReportItem = {
     baselineCost: 0,
     financialImpact: 0,
@@ -40,32 +45,32 @@ export class ExecutiveSummaryKpiImpactsComponent {
     modifiedCost: 0,
     percentSavings: 0
   };
-
-  modifiedUtilityCosts: number;
-  utilityPercentageChange: number;
-
   currencyCode: string;
   currencySub: Subscription;
 
   facility: IdbFacility;
   facilitySub: Subscription;
 
+  limitOptions: Array<number> = [];
+  limit: number = 3;
+
   constructor(
     private facilityIdbService: FacilityIdbService,
     private localeService: LocaleService,
+    private powerpointReportGeneratorService: PowerpointReportGeneratorService
   ) { }
 
   ngOnInit() {
     // facility sub
     this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(
-      facility => {this.facility = facility}
+      facility => { this.facility = facility }
     );
     // calculate modified utility costs and percentage change
-    this.modifiedUtilityCosts = this.executiveSummaryReport.totalUtilityCosts - this.executiveSummaryReport.totalUtilityCostSavings;
-    this.utilityPercentageChange = (this.executiveSummaryReport.totalUtilityCostSavings / this.facility.cost) * 100; // utility percentage based on facility cost
+    // this.modifiedUtilityCosts = this.executiveSummaryReport.totalUtilityCosts - this.executiveSummaryReport.totalUtilityCostSavings;
+    // this.utilityPercentageChange = (this.executiveSummaryReport.totalUtilityCostSavings / this.facility.cost) * 100; // utility percentage based on facility cost
     // get currency code
     this.currencySub = this.localeService.currencyCode.subscribe(
-      code => {this.currencyCode = code}
+      code => { this.currencyCode = code }
     );
     // set reports
     this.setReports();
@@ -78,9 +83,26 @@ export class ExecutiveSummaryKpiImpactsComponent {
 
   setReports() {
     // filter top 3 KPIs
-    this.kpiReportItems = this.executiveSummaryReport.keyPerformanceIndicatorReport.kpiReportItems;
+    this.kpiReportItems = [];
+    this.limitOptions = [];
+    for (let i = 0; i < this.executiveSummaryReport.keyPerformanceIndicatorReport.kpiReportItems.length; i++) {
+      this.kpiReportItems.push(this.executiveSummaryReport.keyPerformanceIndicatorReport.kpiReportItems[i]);
+      this.limitOptions.push(i + 1);
+    }
+    //add energy kpi item
+    const utilityKpi: KeyPerformanceIndicatorOption = this.executiveSummaryReport.utilityCategory === 'energy' ? EnergyUseKpi : UtilityUseKpi;
+    let tmpEnergyKpi: KeyPerformanceIndicatorReportItem = {
+      keyPerformanceIndicator: getNewKeyPerformanceIndicator('', '', utilityKpi, true, ''),
+      baselineCost: this.facility.cost,
+      financialImpact: this.executiveSummaryReport.totalUtilityCostSavings,
+      costSaving: this.executiveSummaryReport.totalUtilityCostSavings,
+      revenue: 0,
+      modifiedCost: this.facility.cost - this.executiveSummaryReport.totalUtilityCostSavings,
+      percentSavings: (this.executiveSummaryReport.totalUtilityCostSavings / this.facility.cost) * 100
+    }
+    this.kpiReportItems.push(tmpEnergyKpi);
     this.kpiReportItems.sort((a, b) => {
-      return b.percentSavings - a.percentSavings;
+      return b.costSaving - a.costSaving;
     });
     this.topKpis = this.kpiReportItems.slice(0, 3).map(item => item.keyPerformanceIndicator);
     // filter top KPIs by cost savings and revenue
@@ -90,58 +112,55 @@ export class ExecutiveSummaryKpiImpactsComponent {
     this.kpiReportRevenueItems = this.kpiReportItems.filter(item => {
       return item.revenue > 0
     });
-    this.setOrderByField(this.orderByField);
+    this.limitOptions = Array.from({ length: Math.max(this.kpiReportCostItems.length, this.kpiReportRevenueItems.length) }, (_, i) => i + 1);
+    this.orderReportItems();
+    this.powerpointReportGeneratorService.setExecutiveSummaryKpiItems(this.reducedKpiReportCostItems, this.additionalKpiReportCostItem, this.reducedKpiReportRevenueItems, this.additionalKpiReportRevenueItem, this.topKpis);
   }
 
-  setOrderByField(orderByField: 'PotentialChange' | 'PercentChange') {
-    this.orderByField = orderByField;
-    this.sortKpiReportItems(this.kpiReportCostItems, this.orderByField, this.orderByDir);
-    this.reducedKpiReportCostItems = this.reduceKpiReportItemsByChange(this.kpiReportCostItems, this.limit, this.additionalKpiReportCostItem);
-    this.sortKpiReportItems(this.kpiReportRevenueItems, this.orderByField, this.orderByDir);
-    this.reducedKpiReportRevenueItems = this.reduceKpiReportItemsByChange(this.kpiReportRevenueItems, this.limit, this.additionalKpiReportRevenueItem);
-  }
-
-  sortKpiReportItems(kpiReportItems: Array<KeyPerformanceIndicatorReportItem>, orderByField: 'PotentialChange' | 'PercentChange', orderByDir: 'asc' | 'desc') {
-    // sort by orderByField and orderByDir
-    kpiReportItems.sort((a, b) => {
-      if (orderByField == 'PotentialChange') {
-        if (orderByDir == 'asc') {
-          return a.financialImpact - b.financialImpact;
-        } else {
-          return b.financialImpact - a.financialImpact;
-        }
-      } else if (orderByField == 'PercentChange') {
-        if (orderByDir == 'asc') {
-          return a.percentSavings - b.percentSavings;
-        } else {
-          return b.percentSavings - a.percentSavings;
-        }
-      } else {
-        return 0;
-      }
-    });
-  }
-
-  reduceKpiReportItemsByChange(kpiReportItems: Array<KeyPerformanceIndicatorReportItem>, limit: number, additionalKpiReportItem: AdditionalKeyPerformanceIndicatorReportItem): Array<KeyPerformanceIndicatorReportItem> {
-    if (kpiReportItems.length > limit) {
-      const topKpiReportItems = kpiReportItems.slice(0, limit - 1);
-      const otherKpiReportItems = kpiReportItems.slice(limit - 1);
-      // aggregate others into a single item
-      let baselineCost: number = otherKpiReportItems.reduce((acc, item) => acc + item.baselineCost, 0);
-      let financialImpact: number = otherKpiReportItems.reduce((acc, item) => acc + item.financialImpact, 0);
-      let modifiedCost: number = baselineCost - financialImpact;
-      let percentSavings: number = (financialImpact / baselineCost) * 100;
-      if (percentSavings == Infinity || percentSavings == -Infinity || isNaN(percentSavings)) {
-        percentSavings = 0;
-      }
-      additionalKpiReportItem.baselineCost = baselineCost;
-      additionalKpiReportItem.financialImpact = financialImpact;
-      additionalKpiReportItem.percentSavings = percentSavings;
-      additionalKpiReportItem.modifiedCost = modifiedCost;
-      return [...topKpiReportItems]
+  setOrderByField(_orderByField: 'percentSavings' | 'financialImpact') {
+    // set order by field and direction
+    if (this.orderByField == _orderByField) {
+      this.orderByDir = this.orderByDir === 'asc' ? 'desc' : 'asc'; // toggle direction
     } else {
-      return [...kpiReportItems];
+      this.orderByField = _orderByField;
+    }
+    this.orderReportItems();
+    this.powerpointReportGeneratorService.setExecutiveSummaryKpiItems(this.reducedKpiReportCostItems, this.additionalKpiReportCostItem, this.reducedKpiReportRevenueItems, this.additionalKpiReportRevenueItem, this.topKpis);
+  }
+
+  orderReportItems() {
+    //order lists
+    this.kpiReportCostItems = _.orderBy(this.kpiReportCostItems, (item: KeyPerformanceIndicatorReportItem) => {
+      return item[this.orderByField]
+    }, this.orderByDir)
+    this.kpiReportRevenueItems = _.orderBy(this.kpiReportRevenueItems, (item: KeyPerformanceIndicatorReportItem) => {
+      return item[this.orderByField]
+    }, this.orderByDir);
+    this.reducedKpiReportCostItems = this.kpiReportCostItems.slice(0, this.limit);
+    this.reducedKpiReportRevenueItems = this.kpiReportRevenueItems.slice(0, this.limit);
+    this.additionalKpiReportCostItem = {
+      baselineCost: 0,
+      financialImpact: 0,
+      modifiedCost: 0,
+      percentSavings: 0
+    }
+    //percent savings for combined doesn't make sense
+    for (let i = this.limit; i < this.kpiReportCostItems.length; i++) {
+      this.additionalKpiReportCostItem.baselineCost += this.kpiReportCostItems[i].baselineCost;
+      this.additionalKpiReportCostItem.financialImpact += this.kpiReportCostItems[i].financialImpact;
+      this.additionalKpiReportCostItem.modifiedCost += this.kpiReportCostItems[i].modifiedCost;
+    }
+
+    this.additionalKpiReportRevenueItem = {
+      baselineCost: 0,
+      financialImpact: 0,
+      modifiedCost: 0,
+      percentSavings: 0
+    }
+    for (let i = this.limit; i < this.kpiReportRevenueItems.length; i++) {
+      this.additionalKpiReportRevenueItem.baselineCost += this.kpiReportRevenueItems[i].baselineCost;
+      this.additionalKpiReportRevenueItem.financialImpact += this.kpiReportRevenueItems[i].financialImpact;
+      this.additionalKpiReportRevenueItem.modifiedCost += this.kpiReportRevenueItems[i].modifiedCost;
     }
   }
-
 }

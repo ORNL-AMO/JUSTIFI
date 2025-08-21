@@ -26,18 +26,20 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span class="d-md-none">
-                Back
-            </span>
+            Assessment Report
         </button>
-        <button class="btn btn-success btn-sm" (click)="togglePrint()">
-            <fa-icon [icon]="faFilePdf"></fa-icon>
-            Generate PDF
-        </button>
+        <div>
+            <button class="btn btn-success btn-sm me-1" (click)="togglePrint()">
+                <fa-icon [icon]="faFilePdf"></fa-icon>
+                Generate PDF
+            </button>
+            <button class="btn btn-success btn-sm ms-1" (click)="generatePowerPoint()">
+                <fa-icon [icon]="faFilePowerpoint"></fa-icon>
+                Generate PowerPoint
+            </button>
+        </div>
         <button class="btn nav-btn btn-sm" (click)="goNext()">
-            <span class="d-md-none">
-                Custom Reports
-            </span>
+            Custom Reports
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

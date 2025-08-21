@@ -50,6 +50,9 @@ import { FormatPlaceholderTextPipe } from './format-placeholder-text.pipe';
 import { OnSiteReportsListPipe } from './on-site-reports-list.pipe';
 import { KpmImpactLabelPipe } from './kpm-impact-label.pipe';
 import { ReportTypeDisplayPipe } from './report-type-display.pipe';
+import { IsUtilityTrackedPipe } from './is-utility-tracked.pipe';
+import { KeywordHighlightPipe } from './keyword-highlight.pipe';
+import { DisplayRoundedValuesPipe } from './display-rounded-values.pipe';
 
 @NgModule({
   declarations: [
@@ -101,13 +104,17 @@ import { ReportTypeDisplayPipe } from './report-type-display.pipe';
     FormatPlaceholderTextPipe,
     OnSiteReportsListPipe,
     KpmImpactLabelPipe,
-    ReportTypeDisplayPipe
+    ReportTypeDisplayPipe,
+    IsUtilityTrackedPipe,
+    KeywordHighlightPipe,
+    DisplayRoundedValuesPipe,
   ],
   imports: [
     CommonModule
   ],
   providers: [
     CurrencyPipe,
+    DisplayRoundedValuesPipe
   ],
   exports: [
     CompanyNamePipe,
@@ -158,7 +165,10 @@ import { ReportTypeDisplayPipe } from './report-type-display.pipe';
     FormatPlaceholderTextPipe,
     OnSiteReportsListPipe,
     KpmImpactLabelPipe,
-    ReportTypeDisplayPipe
+    ReportTypeDisplayPipe,
+    IsUtilityTrackedPipe,
+    KeywordHighlightPipe,
+    DisplayRoundedValuesPipe
   ]
 })
 export class HelperPipesModule { }

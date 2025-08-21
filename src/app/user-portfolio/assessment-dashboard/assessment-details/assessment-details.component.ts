@@ -9,13 +9,13 @@ import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
-import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
+import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
 @Component({
-    selector: 'app-assessment-details',
-    templateUrl: './assessment-details.component.html',
-    styleUrl: './assessment-details.component.css',
-    standalone: false
+  selector: 'app-assessment-details',
+  templateUrl: './assessment-details.component.html',
+  styleUrl: './assessment-details.component.css',
+  standalone: false
 })
 export class AssessmentDetailsComponent {
 
@@ -36,7 +36,6 @@ export class AssessmentDetailsComponent {
     private companyIdbService: CompanyIdbService,
     private facilityIdbService: FacilityIdbService,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private sharedDataService: SharedDataService,
     private dbChangesService: DbChangesService,
     private router: Router,
     private toastNotificationsService: ToastNotificationsService
@@ -56,7 +55,8 @@ export class AssessmentDetailsComponent {
     this.companyIdbService.setSelectedFromGUID(this.assessment.companyId);
     this.facilityIdbService.setSelectedFromGUID(this.assessment.facilityId);
     this.onSiteVisitIdbService.setSelectedFromAssessmentGUID(this.assessment.guid);
-    this.sharedDataService.createAssessmentModalOpen.next(true);
+    let visit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+    this.router.navigateByUrl('/setup-wizard/data-collection/' + visit.guid + '/assessment/' + this.assessment.guid + '/details');
   }
 
   openUnlockModal() {
@@ -76,7 +76,7 @@ export class AssessmentDetailsComponent {
     this.displayDeleteModal = true;
   }
 
-  closeDeleteModal(){
+  closeDeleteModal() {
     this.displayDeleteModal = false;
   }
 

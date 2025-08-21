@@ -7,13 +7,61 @@
                     Review and Follow-up
                 </h5>
                 <hr>
-                <div class="row pt-4 justify-content-center">
-                    <div class="col-lg-9 col-md-12">
-                        <div class="alert alert-dark">
-                            Content related to items flagged for review and follup up.
-                        </div>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                Data Summary
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="w-50">
+                                Assessments
+                            </td>
+                            <td>
+                                {{numAssessments}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Energy Opportunities
+                            </td>
+                            <td>
+                                {{numEnergyOpportunities}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Non-energy Benefits
+                            </td>
+                            <td>
+                                {{numNonEnergyBenefits}}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <hr>
+                <p class="mb-0">
+                    The following items have been flagged for having possible follow-up actions needed.
+                </p>
+                <ng-template [ngIf]="followUpItems.length === 0">
+                    <div class="alert alert-success text-center p-2">
+                        No follow-up items found. Proceed to reports!
                     </div>
-                </div>
+                </ng-template>
+                <ng-template [ngIf]="followUpItems.length > 0">
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let item of followUpItems">
+                            <fa-icon [icon]="faExclamationCircle"></fa-icon>
+                            <a class="click-link" (click)="goToItem(item)">
+                                {{item.label}}
+                            </a>
+                        </li>
+                    </ul>
+                </ng-template>
             </div>
         </div>
     </div>
@@ -23,16 +71,13 @@
         <div class="col-3">
             <button class="btn nav-btn btn-sm" (click)="goBack()">
                 <fa-icon [icon]="faChevronLeft"></fa-icon>
-                <span class="d-md-none">
-                    Back
-                </span>
+                Back
             </button>
         </div>
         <div class="col-3">
             <div class="d-flex  justify-content-end">
-                <button class="btn nav-btn btn-sm" (click)="goNext()"
-                    [disabled]="onSiteVisit.assessmentIds.length == 0">
-                    Assessment Report
+                <button class="btn nav-btn btn-sm" (click)="goNext()">
+                    Executive Summary
                     <fa-icon [icon]="faChevronRight"></fa-icon>
                 </button>
             </div>

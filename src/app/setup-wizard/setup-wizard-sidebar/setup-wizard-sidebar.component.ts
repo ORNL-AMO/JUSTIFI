@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { IconDefinition, faChevronDown, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube, faFileCircleCheck, faScrewdriverWrench, faFileLines, faWeightHanging, faChartPie, faPersonWalkingArrowLoopLeft, faChartColumn, faClipboardQuestion, faFilePen, faSackDollar } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronDown, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube, faFileCircleCheck, faScrewdriverWrench, faFileLines, faWeightHanging, faChartPie, faPersonWalkingArrowLoopLeft, faChartColumn, faClipboardQuestion, faFilePen, faSackDollar, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from '../setup-wizard.service';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -59,8 +59,9 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   faClipboardQuestion: IconDefinition = faClipboardQuestion;
   faFilePen: IconDefinition = faFilePen;
   faSackDollar: IconDefinition = faSackDollar;
+  faUpload: IconDefinition = faUpload;
 
-  displayStartOverModal: boolean;
+  displayPortfolioModal: boolean;
 
   assessmentsSub: Subscription;
   assessments: Array<IdbAssessment>;
@@ -192,16 +193,16 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.checkCollapseDataEvaluation();
   }
 
-  openStartOverModal() {
-    this.displayStartOverModal = true;
+  openPortfolioModal() {
+    this.displayPortfolioModal = true;
   }
 
-  closeStartOverModal() {
-    this.displayStartOverModal = false;
+  closePortfolioModal() {
+    this.displayPortfolioModal = false;
   }
 
-  confirmStartOver() {
-    this.router.navigateByUrl('/portfolio');
+  goToPortfolio() {
+    this.router.navigateByUrl('/portfolio/company/'+this.company.guid);
   }
 
   toggleSidebar() {

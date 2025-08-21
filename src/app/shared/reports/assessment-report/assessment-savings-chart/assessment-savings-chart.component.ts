@@ -6,6 +6,7 @@ import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 import { localeCurrency } from 'src/app/shared/constants/localeCurrency';
 import { CurrencySymbolPipe } from 'src/app/shared/helper-pipes/currency-symbol.pipe';
 import { CurrencyPipe } from '@angular/common';
+import { DisplayRoundedValuesPipe } from 'src/app/shared/helper-pipes/display-rounded-values.pipe';
 
 @Component({
   selector: 'app-assessment-savings-chart',
@@ -29,7 +30,8 @@ export class AssessmentSavingsChartComponent {
   currencySymbolPipe: CurrencySymbolPipe;
   constructor(private plotlyService: PlotlyService,
     private localeService: LocaleService,
-    private currencyPipe: CurrencyPipe
+    private currencyPipe: CurrencyPipe,
+    private displayRoundedValuesPipe: DisplayRoundedValuesPipe
   ) {
   }
 
@@ -62,13 +64,14 @@ export class AssessmentSavingsChartComponent {
 
   drawTotalSavingsChart() {
     if (this.totalSavingsChart) {
+      let costSavingLabel: string = this.assessmentReport.utilityCategory === 'energy' ? 'Energy Cost Savings' : 'Utility Cost Savings';
       var trace1 = {
-        y: ['Utility Cost Savings'],
+        y: [costSavingLabel],
         x: [this.assessmentReport.totalNonNebCostSavings],
         // width: [.5],
         text: [this.assessmentReport.totalNonNebCostSavings],
         texttemplate: this.currencyUnicode + "%{text:,.0f}",
-        name: 'Utility Cost Savings',
+        name: costSavingLabel,
         type: 'bar',
         marker: {
           color: '#2e86c1'
@@ -91,9 +94,10 @@ export class AssessmentSavingsChartComponent {
       };
       var data = [trace1, trace2];
 
-      let title: string = 'Annual Savings<br>' + this.currencyUnicode + this.assessmentReport.totalFinancialImpact.toLocaleString() + ' (' + this.currencyUnicode + '/yr)';
+      const roundedValue = this.displayRoundedValuesPipe.transform(this.assessmentReport.totalFinancialImpact, true);
+      let title: string = 'Annual Savings<br>' + this.currencyUnicode + roundedValue.toLocaleString() + ' (' + this.currencyUnicode + '/yr)';
       if (this.inRollup) {
-        title = this.assessmentReport.assessment.name + ' Annual Savings<br>' + this.currencyUnicode + this.assessmentReport.totalFinancialImpact.toLocaleString() + ' (' + this.currencyUnicode + '/yr)';
+        title = this.assessmentReport.assessment.name + ' Annual Savings<br>' + this.currencyUnicode + roundedValue.toLocaleString() + ' (' + this.currencyUnicode + '/yr)';
       }
 
       let xRange;

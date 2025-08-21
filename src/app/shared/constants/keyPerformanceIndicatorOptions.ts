@@ -1,4 +1,4 @@
-export type PrimaryKPI = 'Strategic Growth' | 'Operations Impact' | 'Resource Efficiency' | 'Employee Environment' | 'Other';
+export type PrimaryKPI = 'Strategic Growth' | 'Operations Impact' | 'Resource Efficiency' | 'Employee Environment' | 'Other' | 'Utility Use and Costs';
 export const PrimaryKPIs: Array<PrimaryKPI> = ['Strategic Growth', 'Operations Impact', 'Resource Efficiency', 'Employee Environment', 'Other']
 export type KeyPerformanceIndicatorValue =
     'productivity' |
@@ -15,7 +15,9 @@ export type KeyPerformanceIndicatorValue =
     'other' |
     'airEnvironmentalQuality' |
     'customerSatisfaction' |
-    'salesGrowth';
+    'salesGrowth' |
+    'utilityUse' |
+    'energyUse';
 
 export interface KeyPerformanceIndicatorOption {
     primaryKPI: PrimaryKPI,
@@ -84,8 +86,8 @@ export const KeyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption
     },
     {
         primaryKPI: 'Resource Efficiency',
-        label: 'Water Use, Disposal, Quality',
-        htmlLabel: 'Water Use, Disposal, Quality',
+        label: 'Water Use, Quality, Disposal',
+        htmlLabel: 'Water Use, Quality, Disposal',
         optionValue: 'waterConsumption'
     },
     {
@@ -159,3 +161,19 @@ export const PrimaryKpiRenames: Array<PrimaryKpiRename> = [
         current: 'Employee Environment'
     },
 ]
+
+export const UtilityUseKpi: KeyPerformanceIndicatorOption =
+{
+    primaryKPI: 'Utility Use and Costs',
+    label: 'Utility Use and Costs',
+    htmlLabel: 'Utility Use and Costs',
+    optionValue: 'utilityUse'
+}
+
+export const EnergyUseKpi: KeyPerformanceIndicatorOption =
+{
+    primaryKPI: 'Utility Use and Costs',
+    label: 'Energy Use and Costs',
+    htmlLabel: 'Energy Use and Costs',
+    optionValue: 'energyUse'
+}

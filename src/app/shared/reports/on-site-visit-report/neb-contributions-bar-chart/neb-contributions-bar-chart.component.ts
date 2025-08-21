@@ -71,21 +71,55 @@ export class NebContributionsBarChartComponent {
       allNebReports = allNebReports.filter(nebReport => {
         return nebReport.nonEnergyBenefit.costImpactType == 'annual'
       });
-      allNebReports = _.orderBy(allNebReports, (nebReport: NebReport) => {
-        return nebReport.totalFinancialImpact;
-      }, 'asc');
-      let nebNames: Array<string> = allNebReports.map(report => {
-        return report.nonEnergyBenefit.name;
-      });
+      if (allNebReports.length > 1) {
+        allNebReports = _.orderBy(allNebReports, (nebReport: NebReport) => {
+          return nebReport.totalFinancialImpact;
+        }, 'asc');
+        let nebNames: Array<string> = allNebReports.map(report => {
+          return report.nonEnergyBenefit.name;
+        });
 
-      nebNames = _.uniq(nebNames)
-      nebNames.forEach((nebName, index) => {
-        let trace = {
-          x: [],
-          y: [],
+        nebNames = _.uniq(nebNames)
+        nebNames.forEach((nebName, index) => {
+          let trace = {
+            x: [],
+            y: [],
+            texttemplate: this.currencyUnicode + "%{value:,.2s}",
+            hovertemplate: nebName,
+            name: nebName,
+            orientation: 'h',
+            marker: {
+              color: '#085646',
+              // width: 1,
+              line: {
+                color: '#fff',
+                width: 1
+              }
+            },
+            type: 'bar'
+          }
+          let matchingNebReport: Array<NebReport> = this.assessmentReport.allNebReports.filter(nebReport => {
+            return nebReport.nonEnergyBenefit.name == nebName;
+          });
+          if (matchingNebReport.length > 0) {
+            let totalSavings: number = _.sumBy(matchingNebReport, (matchingNebReport: NebReport) => {
+              return matchingNebReport.totalFinancialImpact
+            })
+            trace.x.push(totalSavings);
+          } else {
+            trace.x.push(0)
+          }
+          trace.y.push(nebName.length > 30 ? nebName.substring(0, 30) + '...' : nebName);
+          trace.hovertemplate
+          data.push(trace);
+        });
+
+        data.push({
+          x: [this.assessmentReport.totalNebFinancialImpact],
+          y: ['Total NEBs'],
           texttemplate: this.currencyUnicode + "%{value:,.2s}",
-          hovertemplate: nebName,
-          name: nebName,
+          hovertemplate: 'Total NEBs',
+          name: 'Total NEBs',
           orientation: 'h',
           marker: {
             color: '#085646',
@@ -96,73 +130,41 @@ export class NebContributionsBarChartComponent {
             }
           },
           type: 'bar'
-        }
-        let matchingNebReport: Array<NebReport> = this.assessmentReport.allNebReports.filter(nebReport => {
-          return nebReport.nonEnergyBenefit.name == nebName;
-        });
-        if (matchingNebReport.length > 0) {
-          let totalSavings: number = _.sumBy(matchingNebReport, (matchingNebReport: NebReport) => {
-            return matchingNebReport.totalFinancialImpact
-          })
-          trace.x.push(totalSavings);
-        } else {
-          trace.x.push(0)
-        }
-        trace.y.push(nebName.length > 30 ? nebName.substring(0, 30) + '...' : nebName);
-        trace.hovertemplate
-        data.push(trace);
-      });
+        })
 
-      data.push({
-        x: [this.assessmentReport.totalNebFinancialImpact],
-        y: ['Total NEBs'],
-        texttemplate: this.currencyUnicode + "%{value:,.2s}",
-        hovertemplate: 'Total NEBs',
-        name: 'Total NEBs',
-        orientation: 'h',
-        marker: {
-          color: '#085646',
-          // width: 1,
-          line: {
-            color: '#fff',
-            width: 1
-          }
-        },
-        type: 'bar'
-      })
-
-      var layout = {
-        title: {
-          text: this.assessmentReport.assessment.name + ' <br>Non-energy Benefits',
+        var layout = {
+          title: {
+            text: this.assessmentReport.assessment.name + ' <br>Non-energy Benefits',
+            font: {
+              weight: 'bold'
+            }
+          },
+          // barmode: 'stack',
+          yaxis: {
+            automargin: true,
+          },
+          xaxis: {
+            automargin: true,
+            tickprefix: this.currencySymbol,
+            range: [0, this.totalNebFinancialImpact]
+          },
+          legend: {
+            orientation: "h"
+          },
+          showlegend: false,
           font: {
-            weight: 'bold'
+            family: 'Arial'
           }
-        },
-        // barmode: 'stack',
-        yaxis: {
-          automargin: true,
-        },
-        xaxis: {
-          automargin: true,
-          tickprefix: this.currencySymbol,
-          range: [0, this.totalNebFinancialImpact]
-        },
-        legend: {
-          orientation: "h"
-        },
-        showlegend: false,
-        font: {
-          family: 'Arial'
-        }
-      };
+        };
 
-      let config = {
-        modeBarButtonsToRemove: ['autoScale2d', 'lasso2d', 'pan2d', 'select2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
-        displaylogo: false,
-        responsive: true,
-      };
+        let config = {
+          modeBarButtonsToRemove: ['autoScale2d', 'lasso2d', 'pan2d', 'select2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'],
+          displaylogo: false,
+          responsive: true,
+        };
 
-      this.plotlyService.newPlot(this.nebContributionBarChart.nativeElement, data, layout, config);
+        this.plotlyService.newPlot(this.nebContributionBarChart.nativeElement, data, layout, config);
+      }
     }
   }
 }
