@@ -38,4 +38,13 @@ export class KpmDetailsFormComponent {
     //   this.saveChanges();
     // }
   }
+
+  validatePositiveValue(fieldName: 'baselineValue' | 'costPerValue' | 'baselineCost') {
+    const value = this.keyPerformanceMetric[fieldName];
+    if (value !== undefined && value < 0) {
+      this.keyPerformanceMetric[fieldName] = 0;
+      this.calculateCost(false);
+      this.saveChanges();
+    }
+  }
 }
