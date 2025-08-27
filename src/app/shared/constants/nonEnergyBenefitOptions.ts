@@ -69,8 +69,8 @@ export type NebOptionValue = 'improvedImageOrReputation' |
 
 export const NebOptions: Array<NebOption> = [
     {
-        label: "Improved image or reputation",
-        htmlLabel: "Improved image or reputation",
+        label: "Improve image or reputation",
+        htmlLabel: "Improve image or reputation",
         optionValue: "improvedImageOrReputation",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -78,8 +78,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improved stakeholder relationship",
-        htmlLabel: "Improved stakeholder relationship",
+        label: "Improve stakeholder relationship",
+        htmlLabel: "Improve stakeholder relationship",
         optionValue: "improvedStakeholderRelationship",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -96,8 +96,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Increased customer satisfaction",
-        htmlLabel: "Increased customer satisfaction",
+        label: "Increase customer satisfaction",
+        htmlLabel: "Increase customer satisfaction",
         optionValue: "increasedCustomerSatisfaction",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -114,8 +114,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Increased customer loyalty",
-        htmlLabel: "Increased customer loyalty",
+        label: "Increase customer loyalty",
+        htmlLabel: "Increase customer loyalty",
         optionValue: "increasedCustomerLoyalty",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -123,8 +123,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improved supply chain relationships",
-        htmlLabel: "Improved supply chain relationships",
+        label: "Improve supply chain relationships",
+        htmlLabel: "Improve supply chain relationships",
         optionValue: "improvedSupplyChainRelationships",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -132,8 +132,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Increased Productivity",
-        htmlLabel: "Increased Productivity",
+        label: "Increase Productivity",
+        htmlLabel: "Increase Productivity",
         optionValue: "increasedProductivity",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -195,8 +195,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improved product quality by improving machine source",
-        htmlLabel: "Improved product quality by improving machine source",
+        label: "Improve product quality by improving machine source",
+        htmlLabel: "Improve product quality by improving machine source",
         optionValue: "improvedProductQualityMachineSource",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -204,8 +204,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improved product quality by reducing operator error",
-        htmlLabel: "Improved product quality by reducing operator error",
+        label: "Improve product quality by reducing operator error",
+        htmlLabel: "Improve product quality by reducing operator error",
         optionValue: "improvedProductQualityOperatorSource",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -213,8 +213,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improved product quality by reducing debris contamination",
-        htmlLabel: "Improved product quality by reducing debris contamination",
+        label: "Improve product quality by reducing debris contamination",
+        htmlLabel: "Improve product quality by reducing debris contamination",
         optionValue: "improvedProductQualityDebrisContamination",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -231,8 +231,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduced raw material loss",
-        htmlLabel: "Reduced raw material loss",
+        label: "Reduce raw material loss",
+        htmlLabel: "Reduce raw material loss",
         optionValue: "reducedRawMaterialLoss",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -258,8 +258,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduced wear and tear, reduced replacement and repair parts",
-        htmlLabel: "Reduced wear and tear, reduced replacement and repair parts",
+        label: "Reduce wear and tear, reduce replacement and repair parts",
+        htmlLabel: "Reduce wear and tear, reduce replacement and repair parts",
         optionValue: "reducedWearAndTear",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -276,8 +276,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduced costs for labor",
-        htmlLabel: "Reduced costs for labor",
+        label: "Reduce costs for labor",
+        htmlLabel: "Reduce costs for labor",
         optionValue: "reduceCostsForLabor",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -285,8 +285,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduced labor costs for problem solving and repair",
-        htmlLabel: "Reduced labor costs for problem solving and repair",
+        label: "Reduce labor costs for problem solving and repair",
+        htmlLabel: "Reduce labor costs for problem solving and repair",
         optionValue: "reducedLaborCostsForProblemSolvingAndRepair",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -402,8 +402,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improved air quality",
-        htmlLabel: "Improved air quality",
+        label: "Improve air quality",
+        htmlLabel: "Improve air quality",
         optionValue: "improveAmbientAirQuality",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -411,8 +411,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduced need for personal protective equipment (PPE)",
-        htmlLabel: "Reduced need for personal protective equipment (PPE)",
+        label: "Reduce need for personal protective equipment (PPE)",
+        htmlLabel: "Reduce need for personal protective equipment (PPE)",
         optionValue: "reducePPE",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -456,8 +456,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improved workplace visual comfort",
-        htmlLabel: "Improved workplace visual comfort",
+        label: "Improve workplace visual comfort",
+        htmlLabel: "Improve workplace visual comfort",
         optionValue: "improvedVisualComfort",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -501,8 +501,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improved staff satisfaction",
-        htmlLabel: "Improved staff satisfaction",
+        label: "Improve staff satisfaction",
+        htmlLabel: "Improve staff satisfaction",
         optionValue: "improvedStaffSatisfaction",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -546,8 +546,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improved water quality",
-        htmlLabel: "Improved water quality",
+        label: "Improve water quality",
+        htmlLabel: "Improve water quality",
         optionValue: "improvedWaterQuality",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -559,7 +559,7 @@ export const NebOptions: Array<NebOption> = [
 export const NebKeywords: { [key: string]: Array<string>} = {
     improvedImageOrReputation: [
         // Keywords from the NEB label
-        "improved image", "reputation", "branding", "public perception", "corporate image", "company reputation",
+        "improve image", "reputation", "branding", "public perception", "corporate image", "company reputation",
         "brand image", "brand reputation", "positive image", "brand equity", "public trust", "brand loyalty",
         "corporate branding", "corporate reputation", "organizational image", "organizational reputation",
     
@@ -570,7 +570,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     improvedStakeholderRelationship: [
         // Keywords from the NEB label
-        "improved stakeholder relationship", "stakeholder relationship", "stakeholder engagement", "stakeholder collaboration",
+        "improve stakeholder relationship", "stakeholder relationship", "stakeholder engagement", "stakeholder collaboration",
         "stakeholder trust", "stakeholder satisfaction", "stakeholder involvement", "stakeholder communication",
         "stakeholder partnerships", "stakeholder alignment", "stakeholder cooperation", "stakeholder connections",
     
@@ -590,16 +590,16 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     increasedCustomerSatisfaction: [
         // Keywords from the NEB label
-        "increased customer satisfaction", "customer satisfaction", "happy customers", "customer happiness",
-        "customer experience", "customer feedback", "improved customer experience", "customer delight",
-    
+        "increase customer satisfaction", "customer satisfaction", "happy customers", "customer happiness",
+        "customer experience", "customer feedback", "improve customer experience", "customer delight",
+
         // Synonyms and related terms
         "customer loyalty", "customer retention", "positive reviews", "customer trust", "customer engagement",
-        "customer appreciation", "customer service quality", "enhanced customer relationships", "customer-centric approach"
+        "customer appreciation", "customer service quality", "enhance customer relationships", "customer-centric approach"
     ],
     reduceCustomerLossThroughBetterPerformance: [
         // Keywords from the NEB label
-        "improve customer retention", "customer retention", "reduce customer loss", "improved performance",
+        "improve customer retention", "customer retention", "reduce customer loss", "improve performance",
         "retain customers", "customer loyalty", "better performance", "customer retention improvement",
     
         // Synonyms and related terms
@@ -609,7 +609,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     increasedCustomerLoyalty: [
         // Keywords from the NEB label
-        "increased customer loyalty", "customer loyalty", "loyal customers", "repeat customers", "customer retention",
+        "increase customer loyalty", "customer loyalty", "loyal customers", "repeat customers", "customer retention",
     
         // Synonyms and related terms
         "customer trust", "customer commitment", "brand loyalty", "customer engagement", "customer satisfaction",
@@ -618,7 +618,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     improvedSupplyChainRelationships: [
         // Keywords from the NEB label
-        "improved supply chain relationships", "supply chain relationships", "supply chain collaboration",
+        "improve supply chain relationships", "supply chain relationships", "supply chain collaboration",
         "supply chain partnerships", "supply chain efficiency", "supplier relationships", "supplier collaboration",
         "supplier partnerships", "supplier engagement", "supplier satisfaction", "supplier trust",
     
@@ -630,29 +630,29 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     increasedProductivity: [
         // Keywords from the NEB label
-        "increased productivity", "productivity", "improved productivity", "higher productivity", "work efficiency",
-    
+        "increase productivity", "productivity", "improve productivity", "higher productivity", "work efficiency",
+
         // Synonyms and related terms
         "efficiency improvement", "process efficiency", "work output", "operational efficiency", "performance improvement",
-        "workforce productivity", "production efficiency", "enhanced productivity", "business efficiency",
+        "workforce productivity", "production efficiency", "enhance productivity", "business efficiency",
         "output improvement", "process optimization", "work optimization", "task efficiency"
     ],
     shorterCycleTime: [
         // Keywords from the NEB label
-        "shorter cycle time", "cycle time", "reduced cycle time", "shorter production time", "faster production",
+        "shorter cycle time", "cycle time", "reduce cycle time", "shorter production time", "faster production",
     
         // Synonyms and related terms
-        "efficiency", "process speed", "time reduction", "production efficiency", "time to make goods", "reduced production time",
-        "faster manufacturing", "improved cycle efficiency", "time optimization", "process improvement"
+        "efficiency", "process speed", "time reduction", "production efficiency", "time to make goods", "reduce production time",
+        "faster manufacturing", "improve cycle efficiency", "time optimization", "process improvement"
     ],
     increaseEquipmentUptime: [
         // Keywords from the NEB label
-        "increase equipment uptime", "equipment uptime", "uptime", "improved uptime", "maximize uptime",
+        "increase equipment uptime", "equipment uptime", "uptime", "improve uptime", "maximize uptime",
     
         // Synonyms and related terms
-        "equipment reliability", "machine availability", "reduced downtime", "operational efficiency",
+        "equipment reliability", "machine availability", "reduce downtime", "operational efficiency",
         "equipment performance", "machine uptime", "equipment availability", "minimize downtime",
-        "enhanced equipment utilization", "improved machine reliability", "continuous operation",
+        "enhance equipment utilization", "improve machine reliability", "continuous operation",
         "efficiency"
     ],
     reduceIndustrialTrucksDowntime: [
@@ -680,35 +680,35 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     
         // Synonyms and related terms
         "schedule optimization", "production flexibility", "adaptive production schedule", "dynamic scheduling",
-        "flexible manufacturing", "production adaptability", "schedule efficiency", "improved scheduling",
+        "flexible manufacturing", "production adaptability", "schedule efficiency", "improve scheduling",
         "responsive production schedule", "adjustable production schedule",
         "efficiency"
     ],
     improvedProductQualityMachineSource: [
         // Keywords from the NEB label
-        "improved product quality", "product quality", "improving machine source", "machine source improvement",
+        "improve product quality", "product quality", "improving machine source", "machine source improvement",
     
         // Synonyms and related terms
-        "quality improvement", "machine reliability", "equipment performance", "reduce defects", "enhanced product quality",
-        "machine optimization", "equipment optimization", "reduce machine errors", "improved manufacturing quality",
-        "reduce equipment defects", "improve machine output", "enhanced production quality"
+        "quality improvement", "machine reliability", "equipment performance", "reduce defects", "enhance product quality",
+        "machine optimization", "equipment optimization", "reduce machine errors", "improve manufacturing quality",
+        "reduce equipment defects", "improve machine output", "enhance production quality"
     ],
     improvedProductQualityOperatorSource: [
         // Keywords from the NEB label
-        "improved product quality", "product quality", "reducing operator error", "operator error reduction",
-    
+        "improve product quality", "product quality", "reducing operator error", "operator error reduction",
+
         // Synonyms and related terms
-        "quality improvement", "reduce human error", "operator performance", "error minimization", "improved operator accuracy",
-        "operator training", "operator reliability", "reduce operator mistakes", "enhanced operator efficiency",
+        "quality improvement", "reduce human error", "operator performance", "error minimization", "improve operator accuracy",
+        "operator training", "operator reliability", "reduce operator mistakes", "enhance operator efficiency",
         "error prevention", "operator skill improvement", "reduce manual errors"
     ],
     improvedProductQualityDebrisContamination: [
         // Keywords from the NEB label
-        "improved product quality", "product quality", "reducing debris contamination", "debris contamination reduction",
-    
+        "improve product quality", "product quality", "reducing debris contamination", "debris contamination reduction",
+
         // Synonyms and related terms
         "quality improvement", "reduce contamination", "debris-free production", "clean manufacturing",
-        "reduce product defects", "enhanced product quality", "contamination control", "improved cleanliness",
+        "reduce product defects", "enhance product quality", "contamination control", "improve cleanliness",
         "reduce debris defects", "cleaner production processes"
     ],
     reduceProductionLossLaborMaterial: [
@@ -722,7 +722,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     reducedRawMaterialLoss: [
         // Keywords from the NEB label
-        "reduced raw material loss", "raw material loss", "reduce raw material waste", "raw material reduction",
+        "reduce raw material loss", "raw material loss", "reduce raw material waste", "raw material reduction",
     
         // Synonyms and related terms
         "minimize material waste", "reduce material consumption", "raw material efficiency", "material utilization improvement",
@@ -731,7 +731,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     reducedConsumables: [
         // Keywords from the NEB label
-        "reduce cost from using less consumables", "reduced consumables", "less consumables", "consumables cost reduction",
+        "reduce cost from using less consumables", "reduce consumables", "less consumables", "consumables cost reduction",
     
         // Synonyms and related terms
         "minimize consumables usage", "reduce consumables expenses", "consumables efficiency", "lower consumables cost",
@@ -741,15 +741,15 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     additionalSpaceFromLayoutChanges: [
         // Keywords from the NEB label
-        "better space utilization", "space utilization", "optimized space", "improved layout efficiency",
+        "better space utilization", "space utilization", "optimize space", "improve layout efficiency",
     
         // Synonyms and related terms
         "space optimization", "layout optimization", "efficient space usage", "maximize usable space",
-        "improved workspace layout", "space efficiency", "better floor plan", "optimized facility layout"
+        "improve workspace layout", "space efficiency", "better floor plan", "optimize facility layout"
     ],
     reducedWearAndTear: [
         // Keywords from the NEB label
-        "reduced wear and tear", "wear and tear", "reduced replacement parts", "reduced repair parts",
+        "reduce wear and tear", "wear and tear", "reduce replacement parts", "reduce repair parts",
     
         // Synonyms and related terms
         "minimize equipment wear", "reduce maintenance needs", "reduce part replacements", "reduce repair frequency",
@@ -759,8 +759,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     reducedLaborCostsForProblemSolvingAndRepair: [
         // Keywords from the NEB label
-        "reduced labor costs for problem solving and repair", "labor costs", "problem solving costs", "repair costs",
-    
+        "reduce labor costs for problem solving and repair", "labor costs", "problem solving costs", "repair costs",
+
         // Synonyms and related terms
         "minimize labor expenses", "reduce troubleshooting costs", "reduce repair labor costs", "optimize maintenance labor",
         "lower problem resolution costs", "reduce maintenance workforce costs", "reduce repair workforce expenses",
@@ -871,7 +871,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     improveAmbientAirQuality: [
         // Keywords from the NEB label
-        "improve air quality", "improved air quality", "better air quality", "enhance air quality",
+        "improve air quality", "improve air quality", "better air quality", "enhance air quality",
     
         // Synonyms and related terms
         "reduce air pollution", "reduce particulate matter", "reduce airborne contaminants", "cleaner air",
@@ -880,7 +880,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     reducePPE: [
         // Keywords from the NEB label
-        "reduce PPE", "reduced need for PPE", "reduce personal protective equipment", "reduced need for personal protective equipment",
+        "reduce PPE", "reduce need for PPE", "reduce personal protective equipment", "reduce need for personal protective equipment",
     
         // Synonyms and related terms
         "minimize PPE usage", "reduce safety equipment", "reduce protective gear", "reduce workplace protective equipment",
@@ -889,7 +889,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     improvedThermalComfort: [
         // Keywords from the NEB label
-        "improve workplace temperature comfort", "workplace temperature comfort", "improved thermal comfort", "better temperature control",
+        "improve workplace temperature comfort", "workplace temperature comfort", "improve thermal comfort", "better temperature control",
     
         // Synonyms and related terms
         "enhance thermal comfort", "improve temperature regulation", "better workplace climate", "improve indoor temperature",
@@ -930,10 +930,10 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     improvedVisualComfort: [
         // Keywords from the NEB label
-        "improved workplace visual comfort", "workplace visual comfort", "better visual comfort", "enhanced visual comfort",
+        "improve workplace visual comfort", "workplace visual comfort", "better visual comfort", "enhance visual comfort",
     
         // Synonyms and related terms
-        "improved lighting conditions", "better workplace lighting", "enhanced visibility", "reduce visual strain",
+        "improve lighting conditions", "better workplace lighting", "enhance visibility", "reduce visual strain",
         "improve visual ergonomics", "better lighting environment", "enhance visual clarity", "reduce eye fatigue"
     ],
     increaseEmployeeEngagement: [
@@ -963,7 +963,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     improvedStaffSatisfaction: [
         // Keywords from the NEB label
-        "improved staff satisfaction", "staff satisfaction improvement", "enhance staff satisfaction", "improve employee satisfaction",
+        "improve staff satisfaction", "staff satisfaction improvement", "enhance staff satisfaction", "improve employee satisfaction",
     
         // Synonyms and related terms
         "boost workforce morale", "increase employee happiness", "improve workplace satisfaction", "enhance employee well-being",
@@ -1022,7 +1022,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     improvedWaterQuality: [
         // Keywords from the NEB label
-        "improved water quality", "water quality improvement", "enhance water quality", "better water quality",
+        "improve water quality", "water quality improvement", "enhance water quality", "better water quality",
     
         // Synonyms and related terms
         "reduce water pollutants", "improve water cleanliness", "enhance water purity", "reduce water contamination",
