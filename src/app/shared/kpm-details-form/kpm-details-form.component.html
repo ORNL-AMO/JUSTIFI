@@ -89,7 +89,7 @@
                 <div class="input-group">
                     <input type="number" class="form-control" [(ngModel)]="keyPerformanceMetric.baselineValue"
                         name="{{'baselineValue_'+keyPerformanceMetric.value}}" (input)="calculateCost(false)"
-                        [disabled]="disableForm" min="0" (blur)="validatePositiveValue('baselineValue')">
+                        [disabled]="disableForm" min="0">
                     <span class="input-group-text">
                         <span [innerHTML]="keyPerformanceMetric.totalUnit | unitsDisplay"></span>/yr
                         <!--TODO: Issue 231-->
@@ -98,7 +98,7 @@
                     </span>
                 </div>
                 <div class="alert alert-warning form-error" *ngIf="keyPerformanceMetric.baselineValue < 0">
-                    Value can not be negative.
+                    Value should not be negative.
                 </div>
             </div>
         </div>
@@ -111,13 +111,13 @@
                 <div class="input-group">
                     <input type="number" class="form-control" [(ngModel)]="keyPerformanceMetric.costPerValue"
                         name="{{'costPerValue_'+keyPerformanceMetric.value}}" (input)="calculateCost(false)"
-                        [disabled]="disableForm" min="0" (blur)="validatePositiveValue('costPerValue')">
+                        [disabled]="disableForm" min="0">
                     <span class="input-group-text">
                         {{ currencyCode | currencySymbol }}/<span [innerHTML]="keyPerformanceMetric.totalUnit | unitsDisplay"></span>
                     </span>
                 </div>
                 <div class="alert alert-warning form-error" *ngIf="keyPerformanceMetric.costPerValue < 0">
-                    Value can not be negative.
+                    Value should not be negative.
                 </div>
             </div>
         </div>
@@ -146,13 +146,13 @@
                 <div class="input-group">
                     <input type="number" class="form-control" [(ngModel)]="keyPerformanceMetric.baselineCost"
                         name="{{'baselineCost_'+keyPerformanceMetric.value}}" (input)="calculateCost(false)"
-                        [disabled]="disableForm" min="0" (blur)="validatePositiveValue('baselineCost')">
+                        [disabled]="disableForm" min="0">
                     <span class="input-group-text">
                         {{ currencyCode | currencySymbol }}/yr
                     </span>
                 </div>
                 <div class="alert alert-warning form-error" *ngIf="keyPerformanceMetric.baselineCost < 0">
-                    Value can not be negative.
+                    Value should not be negative.
                 </div>
             </div>
         </div>
