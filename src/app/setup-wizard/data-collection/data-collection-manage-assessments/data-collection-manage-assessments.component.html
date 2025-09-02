@@ -59,15 +59,28 @@
     </div>
 </div>
 
-
 <nav class="setup-wizard-footer navbar shadow">
-    <div class="container-fluid justify-content-end">
-        <button class="btn nav-btn btn-sm" (click)="goToNext()" [disabled]="onSiteVisit.assessmentIds.length == 0">
-            Go to Assessment
-            <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
+    <div class="container-fluid justify-content-between">
+        <div class="col-3">
+            <button #prevBtn class="btn nav-btn btn-sm" (click)="goBack()">
+                <fa-icon [icon]="faChevronLeft"></fa-icon>
+                Back
+            </button>
+        </div>
+
+        <div class="col-3">
+            <div class="d-flex  justify-content-end">
+                <button #nxtBtn class="btn nav-btn btn-sm" (click)="goToNext()" [disabled]="onSiteVisit.assessmentIds.length == 0">
+                    Go to Assessment
+                    <fa-icon [icon]="faChevronRight"></fa-icon>
+                </button>
+            </div>
+        </div>
     </div>
 </nav>
+
+
+
 
 
 <div [ngClass]="{'window-overlay': displayDeleteModal}"></div>

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { IconDefinition, faChevronDown, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube, faFileCircleCheck, faScrewdriverWrench, faFileLines, faWeightHanging, faChartPie, faPersonWalkingArrowLoopLeft, faChartColumn, faClipboardQuestion, faFilePen, faSackDollar, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronDown, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube, faFileCircleCheck, faScrewdriverWrench, faFileLines, faWeightHanging, faChartPie, faPersonWalkingArrowLoopLeft, faChartColumn, faClipboardQuestion, faFilePen, faSackDollar, faUpload, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from '../setup-wizard.service';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -60,6 +60,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   faFilePen: IconDefinition = faFilePen;
   faSackDollar: IconDefinition = faSackDollar;
   faUpload: IconDefinition = faUpload;
+  faWandMagicSparkles: IconDefinition = faWandMagicSparkles;
 
   displayPortfolioModal: boolean;
 
@@ -121,10 +122,10 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.routerSub = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.setDisplaySidebar();
+        this.setDisplaySidebar(false);
       }
     });
-    this.setDisplaySidebar();
+    this.setDisplaySidebar(true);
 
     this.assessmentsSub = this.assessmentIdbService.assessments.subscribe(val => {
       this.assessments = val;
@@ -186,11 +187,13 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     this.reportsSub.unsubscribe();
   }
 
-  setDisplaySidebar() {
+  setDisplaySidebar(onInit: boolean) {
     this.routerUrl = this.router.url;
-    this.checkCollapsePrevisit();
-    this.checkCollapseDataCollection();
-    this.checkCollapseDataEvaluation();
+    if (!onInit) {
+      this.checkCollapsePrevisit();
+      this.checkCollapseDataCollection();
+      this.checkCollapseDataEvaluation();
+    }
   }
 
   openPortfolioModal() {
@@ -202,7 +205,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   }
 
   goToPortfolio() {
-    this.router.navigateByUrl('/portfolio/company/'+this.company.guid);
+    this.router.navigateByUrl('/portfolio/company/' + this.company.guid);
   }
 
   toggleSidebar() {
