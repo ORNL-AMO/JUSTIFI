@@ -172,11 +172,58 @@
             </div>
         </ng-container>
     </ng-template>
+    <!--NO KPMS SELECTED FOR KPI-->
     <ng-template #noKpmsBlock>
-        <div class="alert alert-info text-center">
-            No perfromance metrics connected to this KPI. Click "<fa-icon [icon]="faPlus"></fa-icon>
-            Add New Metric" to add a new performance metric.
-        </div>
+        <ng-template [ngIf]="keyPerformanceMetricOptions.length > 0" [ngIfElse]="noOptionsBlock">
+            <div class="alert alert-info text-center p-1 small">
+                No performance metrics are connected to this KPI. JUSTIFI has a preset list of related KPMs provided below. Select the
+                metrics you would like to track for this KPI. Click "<fa-icon [icon]="faPlus"></fa-icon>" to select the
+                metrics and then use the "Add Metrics" button to add the metrics to this KPI. Use the dropdown above to
+                add custom metrics if none of the items listed below meet your needs.
+            </div>
+            <table class="table table-bordered table-hover table-sm">
+                <tbody>
+                    <tr class="clickable" (click)="toggleMetric(performanceMetric)"
+                        *ngFor="let performanceMetric of keyPerformanceMetricOptions">
+                        <td class="add-td text-center">
+                            <a class="click-link">
+                                <ng-template [ngIf]="addMetricValues.includes(performanceMetric.value)"
+                                    [ngIfElse]="addMetricBlock">
+                                    <fa-icon [icon]="faCheck"></fa-icon>
+                                </ng-template>
+                                <ng-template #addMetricBlock>
+                                    <fa-icon [icon]="faPlus"></fa-icon>
+                                </ng-template>
+                            </a>
+                        </td>
+                        <td>
+                            <span [innerHTML]="performanceMetric.htmlLabel"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div *ngIf="usedPerformanceMetrics.length > 0" class="alert alert-warning small p-1">
+                Some metrics are already in use by another KPI and cannot be added again:
+                <ul class="mb-0">
+                    <li *ngFor="let metric of usedPerformanceMetrics" [innerHTML]="metric.htmlLabel"></li>
+                </ul>
+            </div>
+            <div class="d-flex w-100 justify-content-end">
+                <div>
+                    <button class="btn btn-outline-success btn-sm" [disabled]="addMetricValues.length == 0"
+                        (click)="addInitialMetrics()">Add Metrics</button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #noOptionsBlock>
+            <div class="alert alert-info text-center p-1">
+                No performance metrics connected to this KPI. Click "<fa-icon [icon]="faPlus"></fa-icon>" to select the
+                metrics and then use the "Add Metrics" button to add the metrics to this KPI.
+            </div>
+        </ng-template>
+
+
+
     </ng-template>
 </form>
 
