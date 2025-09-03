@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { faBug, faDownload, faInbox, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faBug, faDownload, faInbox, faHammer, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-feedback-page',
@@ -14,4 +14,5 @@ export class FeedbackPageComponent {
   faInbox: IconDefinition = faInbox;
   faBug: IconDefinition = faBug;
   faDownload: IconDefinition = faDownload;
+  faHammer: IconDefinition = faHammer;
 }
