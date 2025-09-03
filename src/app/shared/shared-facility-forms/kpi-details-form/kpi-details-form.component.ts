@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faBullseye, faCheck, faCircleQuestion, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faBullseye, faCheck, faCircleQuestion, faContactBook, faLinkSlash, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { PrimaryKPI, PrimaryKPIs } from '../../constants/keyPerformanceIndicatorOptions';
 import { firstValueFrom, Subscription } from 'rxjs';
@@ -39,6 +39,7 @@ export class KpiDetailsFormComponent {
   faPlus: IconDefinition = faPlus;
   faScaleUnbalancedFlip: IconDefinition = faScaleUnbalancedFlip;
   faCheck: IconDefinition = faCheck;
+  faLinkSlash: IconDefinition = faLinkSlash;
 
   companySub: Subscription;
   company: IdbCompany;
@@ -70,7 +71,6 @@ export class KpiDetailsFormComponent {
     private companyIdbService: CompanyIdbService,
     private contactIdbService: ContactIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
-    private sharedDataService: SharedDataService,
     private localeService: LocaleService,
     private dbChangesService: DbChangesService
   ) {
@@ -210,12 +210,12 @@ export class KpiDetailsFormComponent {
     this.usedPerformanceMetrics = new Array();
     if (!this.keyPerformanceIndicator.isCustom) {
       let allPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.keyPerformanceIndicator.facilityId);
-      let kpmValues: Array<KeyPerformanceMetricValue> = allPerformanceMetrics.map(metric => {
+      let usedKpmValues: Array<KeyPerformanceMetricValue> = allPerformanceMetrics.map(metric => {
         return metric.value
       });
       let tmpKeyPerformanceMetricOptions: Array<KeyPerformanceMetric> = getPerformanceMetrics(this.keyPerformanceIndicator.optionValue, this.keyPerformanceIndicator.guid)
       tmpKeyPerformanceMetricOptions.forEach(option => {
-        if (kpmValues.includes(option.value) == false) {
+        if (usedKpmValues.includes(option.value) == false) {
           this.keyPerformanceMetricOptions.push(option);
         } else {
           this.usedPerformanceMetrics.push(option);

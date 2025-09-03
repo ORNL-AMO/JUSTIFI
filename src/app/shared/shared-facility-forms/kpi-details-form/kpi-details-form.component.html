@@ -200,14 +200,20 @@
                             <span [innerHTML]="performanceMetric.htmlLabel"></span>
                         </td>
                     </tr>
+                    <tr *ngFor="let performanceMetric of usedPerformanceMetrics">
+                        <td class="darkgrey text-center">
+                            <fa-icon [icon]="faLinkSlash"></fa-icon>
+                        </td>
+                        <td class="darkgrey">
+                            <span [innerHTML]="performanceMetric.htmlLabel"></span>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-            <div *ngIf="usedPerformanceMetrics.length > 0" class="alert alert-warning small p-1">
-                Some metrics are already in use by another KPI and cannot be added again:
-                <ul class="mb-0">
-                    <li *ngFor="let metric of usedPerformanceMetrics" [innerHTML]="metric.htmlLabel"></li>
-                </ul>
-            </div>
+            <p *ngIf="usedPerformanceMetrics.length > 0" class="fw-light small mb-0">
+                <fa-icon [icon]="faLinkSlash"></fa-icon> Indicates metric is in use by another KPI and cannot be
+                duplicated here.
+            </p>
             <div class="d-flex w-100 justify-content-end">
                 <div>
                     <button class="btn btn-outline-success btn-sm" [disabled]="addMetricValues.length == 0"
