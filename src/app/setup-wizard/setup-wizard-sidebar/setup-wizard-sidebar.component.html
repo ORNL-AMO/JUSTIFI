@@ -2,8 +2,12 @@
     [ngClass]="{'collapsed': !sidebarOpen}">
 
     <div class="ps-1 pe-1 w-100 pb-2">
-        <div class="text-end toggle-collapse">
-            <a class="click-link" (click)="toggleSidebar()">
+        <div class="toggle-collapse d-flex">
+            <div class="setup-wizard-label mt-auto mb-auto" *ngIf="sidebarOpen">
+                <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+                Setup Wizard
+            </div>
+            <a class="click-link ms-auto" (click)="toggleSidebar()">
                 <fa-icon *ngIf="!sidebarOpen" [icon]="faChevronCircleRight"></fa-icon>
                 <fa-icon *ngIf="sidebarOpen" [icon]="faChevronCircleLeft"></fa-icon>
             </a>
@@ -340,8 +344,7 @@
             </div>
 
             <div class="nav-item">
-                <a class="nav-link bold"
-                    [routerLink]="'upload-template/'+onSiteVisit.guid"
+                <a class="nav-link bold" [routerLink]="'upload-template/'+onSiteVisit.guid"
                     [routerLinkActive]="['active']">
                     <fa-icon [icon]="faUpload"></fa-icon>
                     Upload Template
