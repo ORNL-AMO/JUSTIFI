@@ -1,19 +1,24 @@
 import { Component, Input } from '@angular/core';
-import { faAsterisk, faChevronDown, faChevronUp, faMagnifyingGlass, faPlus, faSearchPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { firstValueFrom } from 'rxjs';
+import { faAsterisk, faChevronDown, faChevronLeft, faChevronUp, faMagnifyingGlass, faPlus, faScaleUnbalancedFlip, faSearchPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { firstValueFrom, Subscription } from 'rxjs';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
+import { IdbFacility } from 'src/app/models/facility';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { getNewIdbKeyPerformanceMetricImpact, IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
-import { convertOptionTypeToMetricType, KeyPerformanceMetric, KeyPerformanceMetricOptions, KpmKeywordList } from 'src/app/shared/constants/keyPerformanceMetrics';
+import { convertOptionTypeToMetricType, getCustomKPM, KeyPerformanceMetric, KeyPerformanceMetricOptions, KpmKeywordList } from 'src/app/shared/constants/keyPerformanceMetrics';
 import { NebOption, NebOptions } from 'src/app/shared/constants/nonEnergyBenefitOptions';
+import { LocaleService } from 'src/app/shared/shared-services/locale.service';
+
+import * as bootstrap from 'bootstrap';
 
 @Component({
-    selector: 'app-performance-metrics-modal',
-    templateUrl: './performance-metrics-modal.component.html',
-    styleUrl: './performance-metrics-modal.component.css',
-    standalone: false
+  selector: 'app-performance-metrics-modal',
+  templateUrl: './performance-metrics-modal.component.html',
+  styleUrl: './performance-metrics-modal.component.css',
+  standalone: false
 })
 export class PerformanceMetricsModalComponent {
   @Input({ required: true })
@@ -25,6 +30,7 @@ export class PerformanceMetricsModalComponent {
   faChevronDown: IconDefinition = faChevronDown;
   faChevronUp: IconDefinition = faChevronUp;
   faAsterisk: IconDefinition = faAsterisk;
+  faChevronLeft: IconDefinition = faChevronLeft;
 
   displayMetricsModal: boolean = false;
 
@@ -39,21 +45,103 @@ export class PerformanceMetricsModalComponent {
   kpmKeywordList: string[] = KpmKeywordList;
   filteredKpmKeywordList: string[] = [];
 
+  isCustomKPM: boolean = false;
+  facility: IdbFacility;
+  selectedKpi: IdbKeyPerformanceIndicator;
+  customKpmToAdd: KeyPerformanceMetric;
+  faScaleUnbalancedFlip: IconDefinition = faScaleUnbalancedFlip;
+  facilityKpis: Array<IdbKeyPerformanceIndicator>;
+  currencyCode: string;
+  currencySub: Subscription;
+  showSuccessMsg: boolean = false;
+
   constructor(private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
-    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService
+    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
+    private localeService: LocaleService,
+    private facilityIdbService: FacilityIdbService
   ) {
 
+  }
+
+  ngOnInit() {
+    this.facility = this.facilityIdbService.selectedFacility.getValue();
+    this.facilityKpis = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.facility.guid);
+    this.currencySub = this.localeService.currencyCode.subscribe(code => {
+      this.currencyCode = code;
+    });
+  }
+
+  ngOnDestroy() {
+    this.currencySub.unsubscribe();
   }
 
   openMetricModal() {
     this.keyPerformanceIndicators = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
     this.displayMetricsModal = true;
     this.setMetricOptions();
+
+    if (bootstrap) {
+      setTimeout(() => {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+          new bootstrap.Tooltip(tooltipTriggerEl, { container: 'body' });
+        });
+      }, 0);
+    }
   }
 
   closeAddMetricModal() {
     this.displayMetricsModal = false;
     this.performanceMetricToAdd = undefined;
+    this.isCustomKPM = false;
+    this.selectedKpi = undefined;
+    this.customKpmToAdd = undefined;
+  }
+
+  addCustomKPM() {
+    this.isCustomKPM = true;
+  }
+
+  onSelectedKpiChange(selectedKpi: IdbKeyPerformanceIndicator) {
+    this.selectedKpi = selectedKpi;
+    if (this.selectedKpi) {
+      this.customKpmToAdd = getCustomKPM(this.selectedKpi.optionValue, this.selectedKpi.guid);
+    }
+  }
+
+  async saveChanges() {
+    if (this.selectedKpi.optionValue == 'other') {
+      this.selectedKpi.htmlLabel = this.selectedKpi.label;
+    }
+    this.selectedKpi.performanceMetrics.forEach(metric => {
+      if (metric.isCustom) {
+        metric.htmlLabel = metric.label;
+      }
+    });
+    await this.keyPerformanceIndicatorIdbService.asyncUpdate(this.selectedKpi);
+    await this.keyPerformanceIndicatorIdbService.setKeyPerformanceIndicators();
+  }
+
+  async calculateCost(keyPerformanceMetric: KeyPerformanceMetric) {
+    await this.keyPerformanceMetricImpactIdbService.updatePerformanceMetricBaseline(keyPerformanceMetric);
+    await this.saveChanges();
+  }
+
+  addSelectedKpi() {
+    if (this.selectedKpi && this.customKpmToAdd) {
+      this.selectedKpi.performanceMetrics.unshift(this.customKpmToAdd);
+      this.saveChanges();
+      this.showSuccessMsg = true;
+    }
+  }
+
+  goToMetricsList() {
+    this.isCustomKPM = false;
+    this.selectedKpi = undefined;
+    this.customKpmToAdd = undefined;
+    this.showSuccessMsg = false;
+    this.keyPerformanceIndicators = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
+    this.setMetricOptions();
   }
 
   filterKpmKeywordList() {

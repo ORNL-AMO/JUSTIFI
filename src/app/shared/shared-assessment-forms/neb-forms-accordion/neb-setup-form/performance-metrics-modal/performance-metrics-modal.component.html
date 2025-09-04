@@ -11,101 +11,105 @@
         <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeAddMetricModal()"></button>
     </div>
     <div class="popup-body" *ngIf="displayMetricsModal">
-        <ng-template [ngIf]="!performanceMetricToAdd" [ngIfElse]="selectedMetricBlock">
-            <div class="row justify-content-between mb-2">
-                <!-- <div class="col">
+        <ng-template [ngIf]="!isCustomKPM" [ngIfElse]="customKpmBlock">
+            <ng-template [ngIf]="!performanceMetricToAdd" [ngIfElse]="selectedMetricBlock">
+                <div class="row justify-content-between mb-2">
+                    <!-- <div class="col">
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" role="switch" id="displayAllMetrics"
                             [(ngModel)]="displayAllMetrics" (change)="setMetricOptions()">
                         <label class="form-check-label" for="displayAllMetrics">Display untracked KPMs</label>
                     </div>
                 </div> -->
-                <div class="col">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="filterAssociatedMetrics"
-                            [(ngModel)]="filterAssociatedMetrics" (change)="setMetricOptions()">
-                        <label class="form-check-label" for="filterAssociatedMetrics">Filter associated metrics</label>
+                    <div class="col">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="filterAssociatedMetrics"
+                                [(ngModel)]="filterAssociatedMetrics" (change)="setMetricOptions()">
+                            <label class="form-check-label" for="filterAssociatedMetrics">Filter associated
+                                metrics</label>
+                        </div>
+                        <p class="small mb-0">
+                            <fa-icon [icon]="faAsterisk"></fa-icon> Denotes metric typically associated with
+                            {{nonEnergyBenefit.name}}.
+                        </p>
                     </div>
-                    <p class="small mb-0">
-                        <fa-icon [icon]="faAsterisk"></fa-icon> Denotes metric typically associated with
-                        {{nonEnergyBenefit.name}}.
-                    </p>
-                </div>
-                <div class="col-3">
-                    <div class="input-group" role="search">
-                        <span class="input-group-text">
-                            <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-                        </span>
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search"
-                        name="kpmSearchStr" [(ngModel)]="kpmSearchStr" (input)="filterKpmKeywordList()">
+                    <div class="col-3">
+                        <div class="input-group" role="search">
+                            <span class="input-group-text">
+                                <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+                            </span>
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search"
+                                name="kpmSearchStr" [(ngModel)]="kpmSearchStr" (input)="filterKpmKeywordList()">
+                        </div>
+                        <ul *ngIf="kpmSearchStr && filteredKpmKeywordList.length > 0"
+                            class="dropdown-menu show scrollable">
+                            <li *ngFor="let keyword of filteredKpmKeywordList" class="dropdown-item"
+                                (click)="keyword != '...' && selectKpmKeyword(keyword)"
+                                [innerHTML]="keyword | keywordHighlight: kpmSearchStr">
+                            </li>
+                        </ul>
                     </div>
-                    <ul *ngIf="kpmSearchStr && filteredKpmKeywordList.length > 0" class="dropdown-menu show scrollable">
-                        <li *ngFor="let keyword of filteredKpmKeywordList"
-                        class="dropdown-item"
-                        (click)="keyword != '...' && selectKpmKeyword(keyword)"
-                        [innerHTML]="keyword | keywordHighlight: kpmSearchStr">
-                        </li>
-                    </ul>
                 </div>
-            </div>
-            <ng-template
-                [ngIf]="(performanceMetricOptions | metricOptionsModalList: kpmSearchStr: orderByDir).length > 0"
-                [ngIfElse]="noOptionsBlock">
-                <table class="table table-bordered table-hover table-sm">
-                    <thead>
-                        <tr>
-                            <th>
+                <ng-template
+                    [ngIf]="(performanceMetricOptions | metricOptionsModalList: kpmSearchStr: orderByDir).length > 0"
+                    [ngIfElse]="noOptionsBlock">
+                    <table class="table table-bordered table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th>
 
-                            </th>
-                            <th (click)="toggleOrderBy()">
-                                <fa-icon [icon]="faChevronDown" *ngIf="orderByDir == 'asc'"></fa-icon>
-                                <fa-icon [icon]="faChevronUp" *ngIf="orderByDir == 'desc'"></fa-icon>
-                                Key Performance Metric
-                            </th>
-                            <th>
-                                KPI
-                            </th>
-                            <th>
-                                Category
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="clickable" (click)="addMetric(performanceMetric)"
-                            *ngFor="let performanceMetric of performanceMetricOptions | metricOptionsModalList: kpmSearchStr: orderByDir">
-                            <td class="add-td text-center">
-                                <a class="click-link">
-                                    <fa-icon [icon]="faPlus"></fa-icon>
-                                </a>
-                            </td>
-                            <td>
-                                <ng-template [ngIf]="nonEnergyBenefit | associatedMetricIndicator: performanceMetric">
-                                    <fa-icon class="pe-2" [icon]="faAsterisk"></fa-icon>
-                                </ng-template>
-                                <span [innerHTML]="performanceMetric.htmlLabel"></span>
-                            </td>
-                            <td>
-                                <ng-template [ngIf]="performanceMetric.kpiGuid" [ngIfElse]="nonExistingBlock">
-                                    <span
-                                        [innerHTML]="performanceMetric.kpiGuid | kpiLabel:keyPerformanceIndicators"></span>
-                                </ng-template>
-                                <ng-template #nonExistingBlock>
-                                    <span
-                                        [innerHTML]="performanceMetric.kpiValue | kpiValueDisplay:keyPerformanceIndicators"></span>
-                                </ng-template>
-                            </td>
-                            <td>
-                                <app-primary-kpi-badge [kpiValue]="performanceMetric.kpiValue"
-                                    [facilityId]="nonEnergyBenefit.facilityId"></app-primary-kpi-badge>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </ng-template>
-            <ng-template #noOptionsBlock>
-                <div class="alert alert-warning">
-                    No performance metrics found matching the search criteria.
-                </div>
+                                </th>
+                                <th (click)="toggleOrderBy()">
+                                    <fa-icon [icon]="faChevronDown" *ngIf="orderByDir == 'asc'"></fa-icon>
+                                    <fa-icon [icon]="faChevronUp" *ngIf="orderByDir == 'desc'"></fa-icon>
+                                    Key Performance Metric
+                                </th>
+                                <th>
+                                    KPI
+                                </th>
+                                <th>
+                                    Category
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="clickable" (click)="addMetric(performanceMetric)"
+                                *ngFor="let performanceMetric of performanceMetricOptions | metricOptionsModalList: kpmSearchStr: orderByDir">
+                                <td class="add-td text-center">
+                                    <a class="click-link">
+                                        <fa-icon [icon]="faPlus"></fa-icon>
+                                    </a>
+                                </td>
+                                <td>
+                                    <ng-template
+                                        [ngIf]="nonEnergyBenefit | associatedMetricIndicator: performanceMetric">
+                                        <fa-icon class="pe-2" [icon]="faAsterisk"></fa-icon>
+                                    </ng-template>
+                                    <span [innerHTML]="performanceMetric.htmlLabel"></span>
+                                </td>
+                                <td>
+                                    <ng-template [ngIf]="performanceMetric.kpiGuid" [ngIfElse]="nonExistingBlock">
+                                        <span
+                                            [innerHTML]="performanceMetric.kpiGuid | kpiLabel:keyPerformanceIndicators"></span>
+                                    </ng-template>
+                                    <ng-template #nonExistingBlock>
+                                        <span
+                                            [innerHTML]="performanceMetric.kpiValue | kpiValueDisplay:keyPerformanceIndicators"></span>
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    <app-primary-kpi-badge [kpiValue]="performanceMetric.kpiValue"
+                                        [facilityId]="nonEnergyBenefit.facilityId"></app-primary-kpi-badge>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+                <ng-template #noOptionsBlock>
+                    <div class="alert alert-warning">
+                        No performance metrics found matching the search criteria.
+                    </div>
+                </ng-template>
             </ng-template>
         </ng-template>
         <ng-template #selectedMetricBlock>
@@ -113,6 +117,60 @@
                 Would you like to add this performance metric: <span class="bold"
                     [innerHTML]="performanceMetricToAdd?.htmlLabel"></span>?
             </div>
+        </ng-template>
+        <ng-template #customKpmBlock>
+             <a class="click-link mt-3 ms-3" (click)="goToMetricsList()">
+                <fa-icon [icon]="faChevronLeft" class="me-1"></fa-icon> Go to Metrics List
+            </a>
+            <div class="row justify-content-center mt-4">
+                <label class="col-1 col-form-label">Select KPI</label>
+                <div class="col-2">
+                    <select name="selectedKpi" class="form-select kpi-select" id="selectedKpi" [(ngModel)]="selectedKpi"
+                        (ngModelChange)="onSelectedKpiChange($event)">
+                        <option *ngFor="let kpi of facilityKpis" [ngValue]="kpi">
+                            {{kpi.htmlLabel}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+<button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" title="Test tooltip!">
+  Hover me
+</button>
+            <div class="mt-5" *ngIf="selectedKpi">
+                <div class="row">
+                    <label class="col-sm-6 col-form-label" for="{{'kpmName_'+customKpmToAdd?.guid}}">
+                        Performance Metric Name
+                    </label>
+                    <div class="col-6">
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>
+                            </div>
+                            <input name="{{'kpmName_'+customKpmToAdd?.guid}}" type="text" class="form-control"
+                                [(ngModel)]="customKpmToAdd.label" id="{{'kpmName_'+customKpmToAdd?.guid}}"
+                                (input)="saveChanges()">
+                        </div>
+                    </div>
+                </div>
+
+                <app-kpm-details-form [keyPerformanceMetric]="customKpmToAdd" (emitSave)="saveChanges()"
+                    (emitCalculate)="calculateCost(customKpmToAdd)" [context]="'preVisit'"
+                    [currencyCode]="currencyCode"></app-kpm-details-form>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <button *ngIf="!showSuccessMsg" class="me-2 btn btn-primary btn-sm px-5 py-2" (click)="addSelectedKpi()">
+                        <fa-icon [icon]="faPlus" class="me-1"></fa-icon>
+                        Add Performance Metric
+                    </button>
+
+                    <div *ngIf="showSuccessMsg" class="alert alert-success">
+                        The performance metric has been added to the selected KPI. 
+                    </div>
+                </div>
+
+            </div>
+
+
         </ng-template>
     </div>
     <div class="popup-footer">
@@ -122,6 +180,10 @@
             </div>
             <div class="d-flex justify-content-end">
                 <button class="btn btn-secondary btn-sm me-2" (click)="closeAddMetricModal()">Cancel</button>
+                <button *ngIf="!isCustomKPM" class="btn btn-outline-success btn-sm me-2" (click)="addCustomKPM()">
+                    <fa-icon [icon]="faPlus" class="me-1"></fa-icon>
+                    Add Custom KPM
+                </button>
                 <button class="btn btn-success btn-sm" (click)="confirmAddMetric()"
                     [disabled]="!performanceMetricToAdd"><fa-icon [icon]="faPlus" class="me-1"></fa-icon>Add
                     Metric</button>
