@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { faBullseye, faCheck, faCircleQuestion, faContactBook, faLinkSlash, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { PrimaryKPI, PrimaryKPIs } from '../../constants/keyPerformanceIndicatorOptions';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbContact } from 'src/app/models/contact';
 import { getCustomKPM, getPerformanceMetrics, KeyPerformanceMetric, KeyPerformanceMetricValue } from '../../constants/keyPerformanceMetrics';
@@ -12,7 +12,6 @@ import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-perfo
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
-import { SharedDataService } from '../../shared-services/shared-data.service';
 import { LocaleService } from '../../shared-services/locale.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 
