@@ -3,6 +3,7 @@ import { faChevronDown, faChevronRight, faDollar, faFileLines, faScrewdriverWren
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -12,10 +13,10 @@ import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 
 @Component({
-    selector: 'app-kpm-impacts-table',
-    templateUrl: './kpm-impacts-table.component.html',
-    styleUrl: './kpm-impacts-table.component.css',
-    standalone: false
+  selector: 'app-kpm-impacts-table',
+  templateUrl: './kpm-impacts-table.component.html',
+  styleUrl: './kpm-impacts-table.component.css',
+  standalone: false
 })
 export class KpmImpactsTableComponent {
   @Input({ required: true })
@@ -45,12 +46,14 @@ export class KpmImpactsTableComponent {
   currencyCode: string;
   currencySub: Subscription;
 
+  facilitySub: Subscription;
   constructor(
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private localeService: LocaleService,
+    private facilityIdbService: FacilityIdbService
   ) {
 
   }
@@ -75,6 +78,12 @@ export class KpmImpactsTableComponent {
     this.currencySub = this.localeService.currencyCode.subscribe(code => {
       this.currencyCode = code;
     });
+
+    this.facilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
+      if (facility && facility.isExample) {
+        this.displayTable = false;
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -85,7 +94,7 @@ export class KpmImpactsTableComponent {
     this.currencySub.unsubscribe();
   }
 
-  toggleDisplayTable(){
+  toggleDisplayTable() {
     this.displayTable = !this.displayTable;
   }
 }

@@ -1,55 +1,65 @@
 <div class="row g-0 justify-content-center">
     <div [ngClass]="{'col-lg-9 col-md-10 col-sm-11 static-content': !inModal, 'col-12': inModal}">
         <div [ngClass]="{'ps-3 pt-2 pe-3 pb-2': !inModal}">
-            <h4>
+            <h4 *ngIf="!inModal" class="mb-3">
+                Feedback & Support
+            </h4>
+            <p>
+                We'd love to hear from you! The JUSTIFI application is in active development, and your input helps 
+                us improve the user experience, add features, and fix issues quickly. Please reach out to the 
+                <a href="mailto:justifi-help@ornl.gov">JUSTIFI help desk</a> at justifi-help&#64;ornl.gov.
+            </p>
+            <h5>
                 <fa-icon [icon]="faInbox" class="pe-1"></fa-icon>
                 Feedback
-            </h4>
-            <p>
-                We'd love to hear from you! The JUSTIFI application is in active development and your feedback
-                is invaluable in shaping the user experience, new features and general content within the tool.
-                To provide feedback, please email the <a href="mailto:justifi-help@ornl.gov">JUSTIFI help desk</a>
-                (justifi-help&#64;ornl.gov) with the subject line
-                <span class="bold">“JUSTIFI Feedback - A Summary”</span>.
-                This will allow the team to follow up with any
-                clarification questions in a timely manner and update you on progress towards implementing your ideas!
-            </p>
-            <p>
-                If you would prefer to provide feedback via a survey, we have provided one: <a
-                    href="https://forms.office.com/g/mBL1Rvp9cP" target="_blank">Alpha Feedback Survey</a>. This survey
-                will be available during the alpha phase of JUSTIFI so that test users can provide their input on
-                initial impressions of JUSTIFI and give guidance as it is developed into a well thought out and easy to
-                use tool!
-            </p>
-            <hr>
-            <h4>
-                <fa-icon [icon]="faBug"></fa-icon> Bug Reporting
-            </h4>
-            <p>
-                If you happen to encounter a bug while using JUSTIFI please report them to the <a
-                    href="mailto:justifi-help@ornl.gov">JUSTIFI help desk</a> (justifi-help&#64;ornl.gov)
-                using the subject <span class="bold">“JUSTIFI Bug Reporting - A Summary”</span>.
-                The team will work with you to resolve the issue and
-                make sure the bug is fixed to prevent future occurrences.
-            </p>
-            <p>
-                To help us address the bug efficiently,
-                some suggested details to include in the bug report are:
+            </h5>
+            <p class="mb-0">
+                Do you have suggestions for improving JUSTIFI? We welcome your ideas!
             </p>
             <ul>
-                <li>
-                    A .json backup of the data in your system (use the "<fa-icon [icon]="faDownload"></fa-icon> Download
-                    Data" button) (if applicable)
-                </li>
-                <li>
-                    Detailed steps re-produce the bugs you encountered
-                </li>
-                <li>
-                    The type of browser you were using
-                </li>
-                <li>
-                    Screenshots of what you are seeing/encountering (if possible)
-                </li>
+                <li>Send an email with subject line: <span class="bold">“JUSTIFI Feedback - A Summary”</span></li>
+                <li>The team may follow up with you for clarification and updates.</li>
+            </ul>
+            <p>
+                <span class="bold">Prefer a survey?</span> Complete our
+                <a href="https://forms.office.com/g/mBL1Rvp9cP" target="_blank">Feedback Survey</a>
+                to share your impressions, experiences, and suggestions.
+            </p>
+            <hr>
+            <h5>
+                <fa-icon [icon]="faBug" class="pe-1"></fa-icon> Bug Reporting
+            </h5>
+            <p class="mb-0">
+                If you encounter unexpected behavior, errors, or crashes:
+            </p>
+            <ul>
+                <li>Send an email with subject line: <span class="bold">“JUSTIFI Bug Reporting - A Summary”</span></li>
+                <li>To help us resolve the issue faster, please include:</li>
+                <ul>
+                    <li>
+                        A .json backup file of the data (the "<fa-icon [icon]="faDownload"></fa-icon>
+                        Download Backup Data" button) (if applicable)
+                    </li>
+                    <li>
+                        Detailed steps to reproduce the bugs
+                    </li>
+                    <li>
+                        The browser you were using
+                    </li>
+                    <li>
+                        Screenshots (if possible)
+                    </li>
+                </ul>
+            </ul>
+            <hr>
+            <h5>
+                <fa-icon [icon]="faHammer" class="pe-1"></fa-icon> Technical Support
+            </h5>
+            <p class="mb-0">
+                For technical assistance, such as software installation, downloads, or troubleshooting: 
+            </p>
+            <ul>
+                <li>Send an email with subject line: <span class="bold">“JUSTIFI Technical Support - A Summary”</span></li>
             </ul>
         </div>
     </div>

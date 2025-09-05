@@ -4,6 +4,7 @@ import { KpmDatabaseModalComponent } from './kpm-database-modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { getNewKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { KeyPerformanceIndicatorOption } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 
 describe('KpmDatabaseModalComponent', () => {
   let component: KpmDatabaseModalComponent;
@@ -12,7 +13,8 @@ describe('KpmDatabaseModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FontAwesomeModule],
-      declarations: [KpmDatabaseModalComponent]
+      declarations: [KpmDatabaseModalComponent],
+      providers: stubServiceProviders
     })
       .compileComponents();
 
