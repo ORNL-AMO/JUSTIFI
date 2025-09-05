@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { faBullseye, faCircleQuestion, faContactBook, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faBullseye, faCheck, faCircleQuestion, faContactBook, faLinkSlash, faPlus, faScaleUnbalancedFlip, faSearchPlus, faTrash, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { PrimaryKPI, PrimaryKPIs } from '../../constants/keyPerformanceIndicatorOptions';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbContact } from 'src/app/models/contact';
-import { getCustomKPM, KeyPerformanceMetric } from '../../constants/keyPerformanceMetrics';
+import { getCustomKPM, getPerformanceMetrics, KeyPerformanceMetric, KeyPerformanceMetricValue } from '../../constants/keyPerformanceMetrics';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { ActivatedRoute } from '@angular/router';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
@@ -17,10 +17,10 @@ import { LocaleService } from '../../shared-services/locale.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 
 @Component({
-    selector: 'app-kpi-details-form',
-    templateUrl: './kpi-details-form.component.html',
-    styleUrl: './kpi-details-form.component.css',
-    standalone: false
+  selector: 'app-kpi-details-form',
+  templateUrl: './kpi-details-form.component.html',
+  styleUrl: './kpi-details-form.component.css',
+  standalone: false
 })
 export class KpiDetailsFormComponent {
   // @Input({ required: true })
@@ -38,6 +38,8 @@ export class KpiDetailsFormComponent {
   faBullseye: IconDefinition = faBullseye;
   faPlus: IconDefinition = faPlus;
   faScaleUnbalancedFlip: IconDefinition = faScaleUnbalancedFlip;
+  faCheck: IconDefinition = faCheck;
+  faLinkSlash: IconDefinition = faLinkSlash;
 
   companySub: Subscription;
   company: IdbCompany;
@@ -60,13 +62,15 @@ export class KpiDetailsFormComponent {
   currencyCode: string;
   currencySub: Subscription;
 
+  addMetricValues: Array<KeyPerformanceMetricValue> = [];
+  keyPerformanceMetricOptions: Array<KeyPerformanceMetric> = [];
+  usedPerformanceMetrics: Array<KeyPerformanceMetric> = [];
   constructor(
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private activatedRoute: ActivatedRoute,
     private companyIdbService: CompanyIdbService,
     private contactIdbService: ContactIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
-    private sharedDataService: SharedDataService,
     private localeService: LocaleService,
     private dbChangesService: DbChangesService
   ) {
@@ -88,6 +92,7 @@ export class KpiDetailsFormComponent {
       let kpiGuid: string = params['id'];
       this.keyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getByGuid(kpiGuid);
       this.showAddMetricDropdown = false;
+      this.setMetricOptions();
     });
 
     this.currencySub = this.localeService.currencyCode.subscribe(code => {
@@ -182,11 +187,48 @@ export class KpiDetailsFormComponent {
     this.displayAddMetricModal = false;
   }
 
-  addMetrics(metrics: Array<KeyPerformanceMetric>) {
+  async addMetrics(metrics: Array<KeyPerformanceMetric>) {
     metrics.forEach(metric => {
       this.keyPerformanceIndicator.performanceMetrics.unshift(metric);
     })
-    this.saveChanges();
+    await this.saveChanges();
+  }
+
+
+  toggleMetric(keyPerformanceMetric: KeyPerformanceMetric) {
+    if (this.addMetricValues.includes(keyPerformanceMetric.value)) {
+      this.addMetricValues = this.addMetricValues.filter(value => {
+        return value != keyPerformanceMetric.value
+      });
+    } else {
+      this.addMetricValues.push(keyPerformanceMetric.value);
+    }
+  }
+
+  setMetricOptions() {
+    this.keyPerformanceMetricOptions = new Array();
+    this.usedPerformanceMetrics = new Array();
+    if (!this.keyPerformanceIndicator.isCustom) {
+      let allPerformanceMetrics: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.keyPerformanceIndicator.facilityId);
+      let usedKpmValues: Array<KeyPerformanceMetricValue> = allPerformanceMetrics.map(metric => {
+        return metric.value
+      });
+      let tmpKeyPerformanceMetricOptions: Array<KeyPerformanceMetric> = getPerformanceMetrics(this.keyPerformanceIndicator.optionValue, this.keyPerformanceIndicator.guid)
+      tmpKeyPerformanceMetricOptions.forEach(option => {
+        if (usedKpmValues.includes(option.value) == false) {
+          this.keyPerformanceMetricOptions.push(option);
+        } else {
+          this.usedPerformanceMetrics.push(option);
+        }
+      });
+    }
+  }
+
+  async addInitialMetrics() {
+    let metricsToAdd: Array<KeyPerformanceMetric> = this.keyPerformanceMetricOptions.filter(option => {
+      return this.addMetricValues.includes(option.value)
+    });
+    await this.addMetrics(metricsToAdd);
   }
 
 }

@@ -22,6 +22,6 @@ export function getNewKeyPerformanceIndicator(userId: string, companyId: string,
         ...keyPerformanceIndicatorOption,
         isCustom: isCustom,
         description: undefined,
-        performanceMetrics: getPerformanceMetrics(keyPerformanceIndicatorOption.optionValue, idbEntry.guid)
+        performanceMetrics: []
     }
 }
