@@ -48,10 +48,10 @@ export class KpmDatabaseModalComponent {
     tmpKeyPerformanceMetricOptions.forEach(option => {
       if (usedKpmValues.includes(option.value) == false) {
         if (currentTrackedMetrics.includes(option.value) == false) {
-          this.keyPerformanceMetricOptions.push(option);
+          this.keyPerformanceMetricOptions.push({...option});
         }
       } else {
-        this.usedPerformanceMetrics.push(option);
+        this.usedPerformanceMetrics.push({...option});
       }
     });
   }

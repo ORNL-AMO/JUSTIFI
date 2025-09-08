@@ -117,3 +117,7 @@ hr.spacer{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.setup-wizard-label:hover{
+    cursor: default;
+}
