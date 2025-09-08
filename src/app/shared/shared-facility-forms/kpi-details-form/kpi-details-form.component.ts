@@ -215,9 +215,9 @@ export class KpiDetailsFormComponent {
       let tmpKeyPerformanceMetricOptions: Array<KeyPerformanceMetric> = getPerformanceMetrics(this.keyPerformanceIndicator.optionValue, this.keyPerformanceIndicator.guid)
       tmpKeyPerformanceMetricOptions.forEach(option => {
         if (usedKpmValues.includes(option.value) == false) {
-          this.keyPerformanceMetricOptions.push(option);
+          this.keyPerformanceMetricOptions.push({...option});
         } else {
-          this.usedPerformanceMetrics.push(option);
+          this.usedPerformanceMetrics.push({...option});
         }
       });
     }
