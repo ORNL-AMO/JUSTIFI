@@ -7,7 +7,6 @@ import * as _ from 'lodash';
 import { IdbCompany } from 'src/app/models/company';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FormGroup } from '@angular/forms';
-import { CompanyContactsFormService } from '../../shared-company-forms/company-contacts-form/company-contacts-form.service';
 import { CompanyContactsFormComponent } from '../../shared-company-forms/company-contacts-form/company-contacts-form.component';
 
 @Component({
@@ -29,14 +28,13 @@ export class AssociatedContactsModalComponent {
   @Input({ required: true })
   companyGuid: string;
 
-  @ViewChild('companyContactsForm') companyContactsForm: CompanyContactsFormComponent;
-
   selectedCompany: IdbCompany;
   selectedCompanySub: Subscription;
   showAddContactForm: boolean = false;
   newContact: IdbContact;
   contactsSub: Subscription;
   showInvalidFormAlert: boolean = false;
+  newContactIndex: number;
 
   displayModal: boolean = false;
   contacts: Array<IdbContact>;
@@ -105,6 +103,9 @@ export class AssociatedContactsModalComponent {
   }
 
   async saveChanges() {
+    if (this.showAddContactForm) {
+      this.toggleContactActive(this.newContactIndex);
+    }
     for (let i = 0; i < this.contacts.length; i++) {
       await firstValueFrom(this.contactIdbService.updateWithObservable(this.contacts[i]));
     }
@@ -166,5 +167,6 @@ export class AssociatedContactsModalComponent {
     await firstValueFrom(this.contactIdbService.addWithObservable(this.newContact))
     await this.contactIdbService.setContacts();
     this.showAddContactForm = true;
+    this.newContactIndex = this.contacts.findIndex(contact => { return contact.guid == this.newContact.guid; });
   }
 }

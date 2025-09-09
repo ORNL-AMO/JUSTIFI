@@ -36,75 +36,29 @@
             </ng-template>
         </ng-template>
         <ng-template #contactCard>
-            <a class="click-link" (click)="viewContact(undefined)">
-                <fa-icon [icon]="faChevronLeft"></fa-icon> View All Stakeholders
-            </a>
-            <table class="table table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th>
-                            Stakeholder
-                        </th>
-                        <th>
-                            <ng-template [ngIf]="(contextGuid | includesContact:contactContext: selectedContact)">
-                                <fa-icon class="success" [icon]="faCircleCheck"></fa-icon>
-                            </ng-template>
-                            {{selectedContact | contactNameDisplay}}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Phone
-                        </td>
-                        <td>
-                            {{selectedContact.phone}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Email
-                        </td>
-                        <td>
-                            {{selectedContact.email}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Title
-                        </td>
-                        <td>
-                            {{selectedContact.role}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Team
-                        </td>
-                        <td>
-                            {{selectedContact.team}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Notes
-                        </td>
-                        <td>
-                            {{selectedContact.notes}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </ng-template>
+            <div class="mb-3">
+                <a class="click-link" (click)="viewContact(undefined)">
+                    <fa-icon [icon]="faChevronLeft"></fa-icon> View All Stakeholders
+                </a>
+            </div>
 
+            <ng-template [ngIf]="(contextGuid | includesContact:contactContext: selectedContact)">
+                <fa-icon class="success me-1" [icon]="faCircleCheck"></fa-icon>
+                <span class="linked-contact-label">Linked Stakeholder</span>
+            </ng-template>
+
+            <div class="mt-2">
+                <app-company-contacts-form [contactGuid]="selectedContact.guid" [isModal]="true"
+                    [isViewForm]="true"></app-company-contacts-form>
+            </div>
+        </ng-template>
         <ng-template #addContactForm>
             <div class="mb-3">
                 <a class="click-link" (click)="viewContact(undefined)">
                     <fa-icon [icon]="faChevronLeft"></fa-icon> View All Stakeholders
                 </a>
             </div>
-            <app-company-contacts-form #companyContactsForm (formChanged)="onContactFormChanged($event)"
+            <app-company-contacts-form (formChanged)="onContactFormChanged($event)"
                 [contactGuid]="newContact.guid" [isModal]="true"></app-company-contacts-form>
             <div *ngIf="showInvalidFormAlert" class="alert alert-danger mt-2">
                 Please fill the required fields before proceeding.

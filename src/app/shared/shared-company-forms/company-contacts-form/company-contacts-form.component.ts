@@ -20,6 +20,8 @@ export class CompanyContactsFormComponent {
 
   @Input({required: false})
   isModal: boolean;
+  @Input({required: false})
+  isViewForm: boolean;
 
   @Output()
   formChanged = new EventEmitter<FormGroup>();
@@ -56,6 +58,10 @@ export class CompanyContactsFormComponent {
       this.contactForm.valueChanges.subscribe(() => {
         this.formChanged.emit(this.contactForm);
       });
+    }
+
+    if (this.isViewForm) {
+      this.contactForm.disable();
     }
 
   }
