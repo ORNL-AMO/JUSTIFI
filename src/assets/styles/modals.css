@@ -9,6 +9,10 @@
     z-index: 9990;
 }
 
+.tooltip {
+  z-index: 99999 !important; 
+}
+
 .popup {
     border-style: solid;
     border: 1px solid #ffffff;

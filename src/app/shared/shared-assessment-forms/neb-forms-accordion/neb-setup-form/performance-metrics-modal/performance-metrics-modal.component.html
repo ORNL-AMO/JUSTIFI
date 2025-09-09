@@ -119,9 +119,6 @@
             </div>
         </ng-template>
         <ng-template #customKpmBlock>
-             <a class="click-link mt-3 ms-3" (click)="goToMetricsList()">
-                <fa-icon [icon]="faChevronLeft" class="me-1"></fa-icon> Go to Metrics List
-            </a>
             <div class="row justify-content-center mt-4">
                 <label class="col-1 col-form-label">Select KPI</label>
                 <div class="col-2">
@@ -133,9 +130,7 @@
                     </select>
                 </div>
             </div>
-<button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" title="Test tooltip!">
-  Hover me
-</button>
+
             <div class="mt-5" *ngIf="selectedKpi">
                 <div class="row">
                     <label class="col-sm-6 col-form-label" for="{{'kpmName_'+customKpmToAdd?.guid}}">
@@ -156,18 +151,6 @@
                 <app-kpm-details-form [keyPerformanceMetric]="customKpmToAdd" (emitSave)="saveChanges()"
                     (emitCalculate)="calculateCost(customKpmToAdd)" [context]="'preVisit'"
                     [currencyCode]="currencyCode"></app-kpm-details-form>
-
-                <div class="d-flex justify-content-center mt-5">
-                    <button *ngIf="!showSuccessMsg" class="me-2 btn btn-primary btn-sm px-5 py-2" (click)="addSelectedKpi()">
-                        <fa-icon [icon]="faPlus" class="me-1"></fa-icon>
-                        Add Performance Metric
-                    </button>
-
-                    <div *ngIf="showSuccessMsg" class="alert alert-success">
-                        The performance metric has been added to the selected KPI. 
-                    </div>
-                </div>
-
             </div>
 
 
@@ -185,7 +168,7 @@
                     Add Custom KPM
                 </button>
                 <button class="btn btn-success btn-sm" (click)="confirmAddMetric()"
-                    [disabled]="!performanceMetricToAdd"><fa-icon [icon]="faPlus" class="me-1"></fa-icon>Add
+                    [disabled]="!performanceMetricToAdd && !customKpmToAdd"><fa-icon [icon]="faPlus" class="me-1"></fa-icon>Add
                     Metric</button>
             </div>
         </div>

@@ -53,7 +53,6 @@ export class PerformanceMetricsModalComponent {
   facilityKpis: Array<IdbKeyPerformanceIndicator>;
   currencyCode: string;
   currencySub: Subscription;
-  showSuccessMsg: boolean = false;
 
   constructor(private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
@@ -127,23 +126,6 @@ export class PerformanceMetricsModalComponent {
     await this.saveChanges();
   }
 
-  addSelectedKpi() {
-    if (this.selectedKpi && this.customKpmToAdd) {
-      this.selectedKpi.performanceMetrics.unshift(this.customKpmToAdd);
-      this.saveChanges();
-      this.showSuccessMsg = true;
-    }
-  }
-
-  goToMetricsList() {
-    this.isCustomKPM = false;
-    this.selectedKpi = undefined;
-    this.customKpmToAdd = undefined;
-    this.showSuccessMsg = false;
-    this.keyPerformanceIndicators = this.keyPerformanceIndicatorIdbService.keyPerformanceIndicators.getValue();
-    this.setMetricOptions();
-  }
-
   filterKpmKeywordList() {
     const searchStr = this.kpmSearchStr.toLowerCase().trim();
     if (!searchStr) {
@@ -172,6 +154,11 @@ export class PerformanceMetricsModalComponent {
   }
 
   async confirmAddMetric() {
+    if (this.selectedKpi && this.customKpmToAdd) {
+      this.selectedKpi.performanceMetrics.unshift(this.customKpmToAdd);
+      await this.saveChanges();
+      this.performanceMetricToAdd = this.customKpmToAdd;
+    }
     //make sure metric is tracked in KPI
     let addedMetric: KeyPerformanceMetric = await this.keyPerformanceIndicatorIdbService.addKpmToKpi(this.nonEnergyBenefit.companyId, this.performanceMetricToAdd, this.nonEnergyBenefit.userId, this.nonEnergyBenefit.facilityId);
     let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getKpiFromKpm(this.nonEnergyBenefit.facilityId, this.performanceMetricToAdd.kpiValue);
