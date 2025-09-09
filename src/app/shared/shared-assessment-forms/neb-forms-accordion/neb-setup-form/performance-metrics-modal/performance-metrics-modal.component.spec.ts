@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BehaviorSubject } from 'rxjs';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { getNewIdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 
 describe('PerformanceMetricsModalComponent', () => {
   let component: PerformanceMetricsModalComponent;
@@ -19,6 +20,7 @@ describe('PerformanceMetricsModalComponent', () => {
   let keyPerformanceIndicatorIdbService: Partial<KeyPerformanceIndicatorsIdbService> = {
     keyPerformanceIndicators: new BehaviorSubject<Array<IdbKeyPerformanceIndicator>>([])
   };
+  let dbService: Partial<NgxIndexedDBService> = {}
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -28,6 +30,7 @@ describe('PerformanceMetricsModalComponent', () => {
         { provide: NonEnergyBenefitsIdbService, useValue: nonEnergyBenefitsIdbService },
         { provide: KeyPerformanceMetricImpactsIdbService, useValue: keyPerformanceMetricImpactsIdbService },
         { provide: KeyPerformanceIndicatorsIdbService, useValue: keyPerformanceIndicatorIdbService },
+        { provide: NgxIndexedDBService, useValue: dbService }
       ]
     })
       .compileComponents();

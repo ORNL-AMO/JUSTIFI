@@ -64,14 +64,18 @@ export class PerformanceMetricsModalComponent {
 
   ngOnInit() {
     this.facility = this.facilityIdbService.selectedFacility.getValue();
-    this.facilityKpis = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.facility.guid);
+    if(this.facility) {
+      this.facilityKpis = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(this.facility.guid);
+    }
     this.currencySub = this.localeService.currencyCode.subscribe(code => {
       this.currencyCode = code;
     });
   }
 
   ngOnDestroy() {
-    this.currencySub.unsubscribe();
+    if (this.currencySub) {
+      this.currencySub.unsubscribe();
+    }
   }
 
   openMetricModal() {
