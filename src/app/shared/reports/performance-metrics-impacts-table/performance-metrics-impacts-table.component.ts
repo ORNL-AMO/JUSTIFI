@@ -81,15 +81,15 @@ export class PerformanceMetricsImpactsTableComponent {
           }
         } else if (reportItem.keyPerformanceMetric.calculationMethod == 'percentTotal') {
           impact = reportItem.keyPerformanceMetric.baselineCost - reportItem.performanceMetricImpact.modifiedCost
-        } else {
-          if (goalToIncrease) {
-
-          } else {
-
-          }
         }
         let percentChange: number = (impact / baselineValue) * 100;
-
+        if (percentChange > 10) {
+          //round to 1 decimal place if over 10%
+          percentChange = Number(percentChange.toFixed(1));
+        } else {
+          //round to 2 decimal places if under 10%
+          percentChange = Number(percentChange.toFixed(2));
+        }
 
         this.kpmImpactsReports.push({
           label: reportItem.keyPerformanceMetric.htmlLabel,
