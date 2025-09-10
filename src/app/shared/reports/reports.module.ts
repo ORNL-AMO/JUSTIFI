@@ -25,6 +25,8 @@ import { AssessmentCostTableComponent } from './assessment-report/assessment-cos
 import { ExecutiveSummaryProjectSummaryComponent } from './executive-summary-report/executive-summary-project-summary/executive-summary-project-summary.component';
 import { ExecutiveSummaryKpiImpactsComponent } from './executive-summary-report/executive-summary-kpi-impacts/executive-summary-kpi-impacts.component';
 import { AdditionalSavingsMessageComponent } from './additional-savings-message/additional-savings-message.component';
+import { PerformanceMetricsImpactsTableComponent } from './performance-metrics-impacts-table/performance-metrics-impacts-table.component';
+import { OrderPerformanceMetricsImpactsTablePipe } from './performance-metrics-impacts-table/order-performance-metrics-impacts-table.pipe';
 
 
 
@@ -50,7 +52,9 @@ import { AdditionalSavingsMessageComponent } from './additional-savings-message/
     AssessmentCostTableComponent,
     ExecutiveSummaryProjectSummaryComponent,
     ExecutiveSummaryKpiImpactsComponent,
-    AdditionalSavingsMessageComponent
+    AdditionalSavingsMessageComponent,
+    PerformanceMetricsImpactsTableComponent,
+    OrderPerformanceMetricsImpactsTablePipe
   ],
   imports: [
     CommonModule,
