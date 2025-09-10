@@ -7,7 +7,6 @@ import { SharedSettingsFormsModule } from '../shared-settings-forms/shared-setti
 import { CompanySetupFormComponent } from './company-setup-form/company-setup-form.component';
 import { HelperPipesModule } from '../helper-pipes/_helper-pipes.module';
 import { CompanyContactsFormComponent } from './company-contacts-form/company-contacts-form.component';
-import { AssociatedContactsModule } from '../associated-contacts/associated-contacts.module';
 
 
 
@@ -23,8 +22,7 @@ import { AssociatedContactsModule } from '../associated-contacts/associated-cont
     LabelWithTooltipModule,
     SharedSettingsFormsModule,
     FormsModule,
-    HelperPipesModule,
-    AssociatedContactsModule
+    HelperPipesModule
   ],
   exports: [
     CompanySetupFormComponent,

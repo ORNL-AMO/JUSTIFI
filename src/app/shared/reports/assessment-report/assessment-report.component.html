@@ -5,25 +5,31 @@
         <div class="print-break-avoid">
             <app-assessment-savings-chart [assessmentReport]="assessmentReport"></app-assessment-savings-chart>
         </div>
-        <ng-template [ngIf]="assessmentReport.keyPerformanceIndicatorReport.kpiReportItems.length > 0" [ngIfElse]="noKpiReportsBlock">
+        <ng-template [ngIf]="assessmentReport.keyPerformanceIndicatorReport.kpiReportItems.length > 0"
+            [ngIfElse]="noKpiReportsBlock">
             <div class="print-break-avoid">
                 <app-performance-metrics-table
                     [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-table>
             </div>
             <div class="print-break-avoid">
-                <app-additional-savings-message [assessmentReport]="assessmentReport"
-                    [context]="'assessment'" [includesKpiTable]="true"></app-additional-savings-message>
+                <app-additional-savings-message [assessmentReport]="assessmentReport" [context]="'assessment'"
+                    [includesKpiTable]="true"></app-additional-savings-message>
             </div>
             <div class="print-break-avoid">
                 <app-performance-metrics-chart
                     [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport"></app-performance-metrics-chart>
             </div>
+            <div class="print-break-avoid">
+                <app-performance-metrics-impacts-table
+                    [keyPerformanceIndicatorReport]="assessmentReport.keyPerformanceIndicatorReport">
+                </app-performance-metrics-impacts-table>
+            </div>
             <hr>
         </ng-template>
         <ng-template #noKpiReportsBlock>
             <div class="print-break-avoid">
-                <app-additional-savings-message [assessmentReport]="assessmentReport"
-                    [context]="'assessment'" [includesKpiTable]="false"></app-additional-savings-message>
+                <app-additional-savings-message [assessmentReport]="assessmentReport" [context]="'assessment'"
+                    [includesKpiTable]="false"></app-additional-savings-message>
             </div>
         </ng-template>
         <div class="print-break-avoid print-break-before">

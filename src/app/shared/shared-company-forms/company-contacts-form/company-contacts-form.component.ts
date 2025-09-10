@@ -9,14 +9,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 
 @Component({
-    selector: 'app-company-contacts-form',
-    templateUrl: './company-contacts-form.component.html',
-    styleUrl: './company-contacts-form.component.css',
-    standalone: false
+  selector: 'app-company-contacts-form',
+  templateUrl: './company-contacts-form.component.html',
+  styleUrl: './company-contacts-form.component.css',
+  standalone: false
 })
 export class CompanyContactsFormComponent {
   @Input({ required: true })
   contactGuid: string;
+
+  @Input({required: false})
+  isModal: boolean;
+  @Input({required: false})
+  isViewForm: boolean;
+
+  @Output()
+  formChanged = new EventEmitter<FormGroup>();
 
   faTrash: IconDefinition = faTrash;
   faUser: IconDefinition = faUser;
@@ -43,6 +51,17 @@ export class CompanyContactsFormComponent {
     } else {
       this.contact = this.contactIdbService.getContactByGuid(this.contactGuid);
       this.contactForm = this.companyContactsFormService.getFormFromIdbContact(this.contact);
+    }
+
+    if (this.contactForm) {
+      this.formChanged.emit(this.contactForm);
+      this.contactForm.valueChanges.subscribe(() => {
+        this.formChanged.emit(this.contactForm);
+      });
+    }
+
+    if (this.isViewForm) {
+      this.contactForm.disable();
     }
 
   }

@@ -5,6 +5,7 @@ import { AssociatedContactsModalComponent } from './associated-contacts-modal/as
 import { HelperPipesModule } from '../helper-pipes/_helper-pipes.module';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedCompanyFormsModule } from '../shared-company-forms/shared-company-forms.module';
 
 
 
@@ -17,7 +18,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CommonModule,
     FontAwesomeModule,
     FormsModule,
-    HelperPipesModule
+    HelperPipesModule,
+    SharedCompanyFormsModule
   ],
   exports: [
     AssociatedContactsButtonsComponent
