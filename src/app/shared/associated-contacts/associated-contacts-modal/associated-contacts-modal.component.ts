@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IconDefinition, faChevronLeft, faCircle, faCircleCheck, faLink, faPlus, faSave, faUser } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -7,7 +7,6 @@ import * as _ from 'lodash';
 import { IdbCompany } from 'src/app/models/company';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FormGroup } from '@angular/forms';
-import { CompanyContactsFormComponent } from '../../shared-company-forms/company-contacts-form/company-contacts-form.component';
 
 @Component({
   selector: 'app-associated-contacts-modal',
@@ -113,9 +112,14 @@ export class AssociatedContactsModalComponent {
     this.closeModal();
   }
 
-  viewContact(contact: IdbContact) {
+  async viewContact(contact: IdbContact) {
     this.selectedContact = contact;
     this.showAddContactForm = false;
+    this.toggleContactActive(this.newContactIndex);
+    for (let i = 0; i < this.contacts.length; i++) {
+      await firstValueFrom(this.contactIdbService.updateWithObservable(this.contacts[i]));
+    }
+    await this.contactIdbService.setContacts();
   }
 
   async toggleContactActive(contactIndex: number) {
