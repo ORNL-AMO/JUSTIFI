@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row g-0">
     <label class="col-sm-6 col-form-label" for="{{'isQuantitative_'+keyPerformanceMetric.value}}">
         Metric Type
     </label>
@@ -12,7 +12,7 @@
     </div>
 </div>
 <ng-template [ngIf]="keyPerformanceMetric.isQuantitative">
-    <div class="row">
+    <div class="row g-0">
         <!-- <label class="col-sm-6 col-form-label"
             for="{{'goalToIncrease_'+keyPerformanceMetric.value}}">
             Desired Impact
@@ -30,7 +30,7 @@
             </select>
         </div>
     </div>
-    <div class="row">
+    <div class="row g-0">
         <!-- <label class="col-sm-6 col-form-label" for="{{'calculationMethod_'+keyPerformanceMetric.value}}">
             Calculation Method
         </label> -->
@@ -53,7 +53,7 @@
 
     <!--COST PER UNIT-->
     <ng-template [ngIf]="keyPerformanceMetric.calculationMethod == 'costPerUnit'">
-        <div class="row">
+        <div class="row g-0">
             <label class="col-sm-6 col-form-label" for="{{'totalUnit_'+keyPerformanceMetric.value}}">
                 Unit
             </label>
@@ -81,7 +81,7 @@
                 </select>
             </div>
         </div> -->
-        <div class="row">
+        <div class="row g-0">
             <label class="col-sm-6 col-form-label" for="{{'baselineValue_'+keyPerformanceMetric.value}}">
                 Baseline Amount
             </label>
@@ -103,7 +103,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row g-0">
             <label class="col-sm-6 col-form-label" for="{{'costPerValue_'+keyPerformanceMetric.value}}">
                 Per Unit
             </label>
@@ -122,7 +122,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row g-0">
             <label class="col-sm-6 col-form-label" for="{{'baselineCost_'+keyPerformanceMetric.value}}">
                 {{ keyPerformanceMetric.goalToIncrease ? 'Baseline Revenue' : 'Baseline Cost' }}
             </label>
@@ -138,7 +138,7 @@
     </ng-template>
     <!--DIRECT COST or PERCENT-->
     <ng-template [ngIf]="keyPerformanceMetric.calculationMethod != 'costPerUnit'">
-        <div class="row">
+        <div class="row g-0">
             <label class="col-sm-6 col-form-label" for="{{'baselineCost_'+keyPerformanceMetric.value}}">
                 {{ keyPerformanceMetric.goalToIncrease ? 'Baseline Revenue' : 'Baseline Cost' }}
             </label>
