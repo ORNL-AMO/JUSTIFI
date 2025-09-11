@@ -2,3 +2,15 @@
     max-height: 200px;
     overflow-y: auto;
 }
+
+.kpi-select {
+    line-height: 1.5;
+}
+
+.alert.alert-success {
+    margin-bottom: 0;
+    align-self: center;
+    padding-right: 7rem;
+    padding-left: 7rem;
+    border-radius: 1rem;
+}

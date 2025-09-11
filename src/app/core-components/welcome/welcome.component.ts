@@ -133,6 +133,9 @@ export class WelcomeComponent {
         try {
           let fileData: string = reader.result as string;
           let tmpBackupFile: BackupFile = JSON.parse(fileData);
+          tmpBackupFile.facilities.forEach(facility => {
+            facility.isExample = true;
+          });
           let updatedBackupFile: BackupFile = await this.backupDataService.importUserBackupFile(tmpBackupFile, this.user.guid);
           this.user.kpiFacilityMigrationDoneV2 = false;
           await this.updateDbEntriesService.updateDbEntries(this.user);
@@ -183,6 +186,9 @@ export class WelcomeComponent {
         try {
           let fileData: string = reader.result as string;
           let tmpBackupFile: BackupFile = JSON.parse(fileData);
+          tmpBackupFile.facilities.forEach(facility => {
+            facility.isExample = true;
+          });
           let updatedBackupFile: BackupFile = await this.backupDataService.importUserBackupFile(tmpBackupFile, this.user.guid);
           this.user.kpiFacilityMigrationDoneV2 = false;
           await this.updateDbEntriesService.updateDbEntries(this.user);

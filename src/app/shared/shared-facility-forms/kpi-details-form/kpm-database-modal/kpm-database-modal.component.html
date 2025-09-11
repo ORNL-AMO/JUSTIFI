@@ -25,8 +25,20 @@
                             <span [innerHTML]="performanceMetric.htmlLabel"></span>
                         </td>
                     </tr>
+                    <tr *ngFor="let performanceMetric of usedPerformanceMetrics">
+                        <td class="darkgrey text-center">
+                            <fa-icon [icon]="faLinkSlash"></fa-icon>
+                        </td>
+                        <td class="darkgrey">
+                            <span [innerHTML]="performanceMetric.htmlLabel"></span>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
+            <p *ngIf="usedPerformanceMetrics.length > 0" class="fw-light small mb-0">
+                <fa-icon [icon]="faLinkSlash"></fa-icon> Indicates metric is in use by another KPI and cannot be
+                duplicated here.
+            </p>
         </ng-template>
         <ng-template #noOptionsBlock>
             <div class="alert alert-info">

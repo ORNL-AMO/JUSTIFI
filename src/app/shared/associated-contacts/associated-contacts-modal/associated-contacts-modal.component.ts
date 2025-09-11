@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IconDefinition, faChevronLeft, faCircle, faCircleCheck, faLink, faSave, faUser } from '@fortawesome/free-solid-svg-icons';
-import { firstValueFrom } from 'rxjs';
+import { IconDefinition, faChevronLeft, faCircle, faCircleCheck, faLink, faPlus, faSave, faUser } from '@fortawesome/free-solid-svg-icons';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
-import { ContactContext, IdbContact } from 'src/app/models/contact';
+import { ContactContext, getNewIdbContact, IdbContact } from 'src/app/models/contact';
 import * as _ from 'lodash';
+import { IdbCompany } from 'src/app/models/company';
+import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-associated-contacts-modal',
@@ -24,6 +27,14 @@ export class AssociatedContactsModalComponent {
   @Input({ required: true })
   companyGuid: string;
 
+  selectedCompany: IdbCompany;
+  selectedCompanySub: Subscription;
+  showAddContactForm: boolean = false;
+  newContact: IdbContact;
+  contactsSub: Subscription;
+  showInvalidFormAlert: boolean = false;
+  newContactIndex: number;
+
   displayModal: boolean = false;
   contacts: Array<IdbContact>;
   faSave: IconDefinition = faSave;
@@ -32,25 +43,57 @@ export class AssociatedContactsModalComponent {
   faUser: IconDefinition = faUser;
   faLink: IconDefinition = faLink;
   faCircle: IconDefinition = faCircle;
+  faPlus: IconDefinition = faPlus;
+  allContacts: Array<IdbContact>;
   constructor(
-    private contactIdbService: ContactIdbService
+    private contactIdbService: ContactIdbService,
+    private companyIdbService: CompanyIdbService
   ) {
   }
 
   ngOnInit() {
     //TODO: get contact within dashboards..
     //Use copy to not modify without hitting save
-    let allContacts: Array<IdbContact> = this.contactIdbService.contacts.getValue();
-    this.contacts = new Array();
-    allContacts.forEach(contact => {
-      if (contact.companyId == this.companyGuid) {
-        this.contacts.push(_.cloneDeep(contact));
-      }
-    })
+
+    this.contactsSub = this.contactIdbService.contacts.subscribe(contacts => {
+      this.allContacts = contacts;
+      this.setContacts();
+    });
+
+    this.selectedCompanySub = this.companyIdbService.selectedCompany.subscribe(_company => {
+      this.selectedCompany = _company;
+    });
 
     setTimeout(() => {
       this.displayModal = true;
     }, 100)
+  }
+
+  onContactFormChanged(form: FormGroup) {
+    if (form.valid) {
+      this.showInvalidFormAlert = false;
+    } else {
+      this.showInvalidFormAlert = true;
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.selectedCompanySub) {
+      this.selectedCompanySub.unsubscribe();
+    }
+
+    if (this.contactsSub) {
+      this.contactsSub.unsubscribe();
+    }
+  }
+
+  setContacts() {
+    this.contacts = new Array();
+    this.allContacts.forEach(contact => {
+      if (contact.companyId == this.companyGuid) {
+        this.contacts.push(_.cloneDeep(contact));
+      }
+    });
   }
 
   closeModal() {
@@ -59,6 +102,9 @@ export class AssociatedContactsModalComponent {
   }
 
   async saveChanges() {
+    if (this.showAddContactForm) {
+      this.toggleContactActive(this.newContactIndex);
+    }
     for (let i = 0; i < this.contacts.length; i++) {
       await firstValueFrom(this.contactIdbService.updateWithObservable(this.contacts[i]));
     }
@@ -66,8 +112,14 @@ export class AssociatedContactsModalComponent {
     this.closeModal();
   }
 
-  viewContact(contact: IdbContact) {
+  async viewContact(contact: IdbContact) {
     this.selectedContact = contact;
+    this.showAddContactForm = false;
+    this.toggleContactActive(this.newContactIndex);
+    for (let i = 0; i < this.contacts.length; i++) {
+      await firstValueFrom(this.contactIdbService.updateWithObservable(this.contacts[i]));
+    }
+    await this.contactIdbService.setContacts();
   }
 
   async toggleContactActive(contactIndex: number) {
@@ -112,5 +164,13 @@ export class AssociatedContactsModalComponent {
         this.contacts[contactIndex].energyEquipmentIds.push(this.contextGuid);
       }
     }
+  }
+
+  async addContact() {
+    this.newContact = getNewIdbContact(this.selectedCompany.userId, this.selectedCompany.guid);
+    await firstValueFrom(this.contactIdbService.addWithObservable(this.newContact))
+    await this.contactIdbService.setContacts();
+    this.showAddContactForm = true;
+    this.newContactIndex = this.contacts.findIndex(contact => { return contact.guid == this.newContact.guid; });
   }
 }

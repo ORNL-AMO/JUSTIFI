@@ -1,3 +1,10 @@
 .popup-header{
     font-weight: normal;
 }
+.darkgrey{
+    color: darkgrey;
+}
+
+.clickable:hover{
+    cursor: pointer;
+}

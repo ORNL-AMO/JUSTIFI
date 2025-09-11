@@ -36,28 +36,6 @@ a.nav-link, .btn.btn-dark, .link-section-heading{
     line-height: normal;
 }
 
-
-/* Small devices (landscape phones, 576px and up) */
-/* @media (min-width: 576px) {
-    .nav-item {
-        font-size: small;
-    }
-} */
-
-/* Medium devices (tablets, 768px and up) */
-/* @media (min-width: 768px) {
-    .nav-item {
-        font-size: medium;
-    }
-} */
-/* Large devices (tablets, 992px and up) */
-/* @media (min-width: 992px) {
-    .nav-item {
-        font-size: large;
-    }
-} */
-
-
 .nav-link {
     padding-left: .5rem;
 }
@@ -127,4 +105,19 @@ hr.spacer{
 
 .text-sidebar{
     font-size: 17px;
+}
+
+.setup-wizard-label{
+    font-size: 16px;
+    /* font-weight: bold; */
+    color: #198754;
+    display: inline-block;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.setup-wizard-label:hover{
+    cursor: default;
 }
