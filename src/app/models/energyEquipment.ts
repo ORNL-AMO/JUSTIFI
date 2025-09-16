@@ -68,7 +68,7 @@ export function getNewIdbEnergyEquipment(userId: string, companyId: string, faci
         companyId: companyId,
         facilityId: facilityId,
         equipmentName: 'New Industrial Equipment',
-        equipmentType: "Pump",
+        equipmentType: undefined,
         utilityType: "Electricity",
         size: 0,
         sizeUnit: "kW",
