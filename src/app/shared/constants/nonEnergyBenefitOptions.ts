@@ -375,8 +375,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce likeliness of accidents or occupational disease",
-        htmlLabel: "Reduce likeliness of accidents or occupational disease",
+        label: "Reduce reported near misses and close calls (potential accidents)",
+        htmlLabel: "Reduce reported near misses and close calls (potential accidents)",
         optionValue: "reduceLikelinessOfOccupationalDangers",
         isQualitative: true,
         howToCalculate: "N/A",
