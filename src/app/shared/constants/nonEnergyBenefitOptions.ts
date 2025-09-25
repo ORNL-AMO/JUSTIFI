@@ -15,8 +15,7 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'improvedStakeholderRelationship' |
     'newCustomers' |
     'increasedCustomerSatisfaction' |
-    'reduceCustomerLossThroughBetterPerformance' |
-    'increasedCustomerLoyalty' |
+    'increasedCustomerRetentionLoyalty' |
     'improvedSupplyChainRelationships' |
     'increasedProductivity' |
     'shorterCycleTime' |
@@ -104,19 +103,19 @@ export const NebOptions: Array<NebOption> = [
         KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate"],
         selectedKPM: []
     },
+    // {
+    //     label: "Improve customer retention through improved performance",
+    //     htmlLabel: "Improve customer retention through improved performance",
+    //     optionValue: "reduceCustomerLossThroughBetterPerformance",
+    //     isQualitative: true,
+    //     howToCalculate: "N/A",
+    //     KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate"],
+    //     selectedKPM: []
+    // },
     {
-        label: "Improve customer retention through improved performance",
-        htmlLabel: "Improve customer retention through improved performance",
-        optionValue: "reduceCustomerLossThroughBetterPerformance",
-        isQualitative: true,
-        howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate"],
-        selectedKPM: []
-    },
-    {
-        label: "Increase customer loyalty",
-        htmlLabel: "Increase customer loyalty",
-        optionValue: "increasedCustomerLoyalty",
+        label: "Increase customer retention/loyalty",
+        htmlLabel: "Increase customer retention/loyalty",
+        optionValue: "increasedCustomerRetentionLoyalty",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate"],
@@ -222,8 +221,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce production loss - labor and material",
-        htmlLabel: "Reduce production loss - labor and material",
+        label: "Reduce production loss - (material shrinkage or labor downtime)",
+        htmlLabel: "Reduce production loss - (material shrinkage or labor downtime)",
         optionValue: "reduceProductionLossLaborMaterial",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -258,8 +257,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce wear and tear, reduce replacement and repair parts",
-        htmlLabel: "Reduce wear and tear, reduce replacement and repair parts",
+        label: "Reduce repair or replacement part costs (including reduced wear and tear)",
+        htmlLabel: "Reduce repair or replacement part costs (including reduced wear and tear)",
         optionValue: "reducedWearAndTear",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -267,32 +266,23 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce cost from maintenance replacement/repair parts",
-        htmlLabel: "Reduce cost from maintenance replacement/repair parts",
-        optionValue: "reducedWearAndTear",
-        isQualitative: true,
-        howToCalculate: "N/A",
-        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
-        selectedKPM: []
-    },
-    {
-        label: "Reduce costs for labor",
-        htmlLabel: "Reduce costs for labor",
+        label: "Reduced direct and indirect labor costs for maintenance and repair",
+        htmlLabel: "Reduced direct and indirect labor costs for maintenance and repair",
         optionValue: "reduceCostsForLabor",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
         selectedKPM: []
     },
-    {
-        label: "Reduce labor costs for problem solving and repair",
-        htmlLabel: "Reduce labor costs for problem solving and repair",
-        optionValue: "reducedLaborCostsForProblemSolvingAndRepair",
-        isQualitative: true,
-        howToCalculate: "N/A",
-        KPM: ["maintenanceCost", "engineeringSupport", "laborCosts"],
-        selectedKPM: []
-    },
+    // {
+    //     label: "Reduce labor costs for problem solving and repair",
+    //     htmlLabel: "Reduce labor costs for problem solving and repair",
+    //     optionValue: "reducedLaborCostsForProblemSolvingAndRepair",
+    //     isQualitative: true,
+    //     howToCalculate: "N/A",
+    //     KPM: ["maintenanceCost", "engineeringSupport", "laborCosts"],
+    //     selectedKPM: []
+    // },
     {
         label: "Reduce hazardous waste",
         htmlLabel: "Reduce hazardous waste",
@@ -312,8 +302,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce product waste",
-        htmlLabel: "Reduce product waste",
+        label: "Reduce product waste (defective or nonconforming materials)",
+        htmlLabel: "Reduce product waste (defective or nonconforming materials)",
         optionValue: "reduceProductWaste",
         isQualitative: true,
         howToCalculate: "N/A",
