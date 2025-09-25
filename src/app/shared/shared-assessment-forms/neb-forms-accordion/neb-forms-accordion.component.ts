@@ -9,6 +9,7 @@ import { IconDefinition, faMoneyBillWave, faWeightHanging } from '@fortawesome/f
 import { BootstrapService } from 'src/app/shared/shared-services/bootstrap.service';
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
+import { SetupWizardService } from 'src/app/setup-wizard/setup-wizard.service';
 
 @Component({
     selector: 'app-neb-forms-accordion',
@@ -35,7 +36,8 @@ export class NebFormsAccordionComponent {
     private bootstrapService: BootstrapService,
     private cd: ChangeDetectorRef,
     private localStorageDataService: LocalStorageDataService,
-    private energyOpportuinitesIdbService: EnergyOpportunityIdbService
+    private energyOpportunityIdbService: EnergyOpportunityIdbService,
+    private setupWizardService: SetupWizardService
   ) {
 
   }
@@ -46,7 +48,7 @@ export class NebFormsAccordionComponent {
       this.setNebGuids();
     });
     this.isOnInit = false;
-    this.energyOpportunitiesSub = this.energyOpportuinitesIdbService.energyOpportunities.subscribe(opps => {
+    this.energyOpportunitiesSub = this.energyOpportunityIdbService.energyOpportunities.subscribe(opps => {
       this.energyOpportunities = opps;
     })
   }
@@ -54,6 +56,7 @@ export class NebFormsAccordionComponent {
   ngOnDestroy() {
     this.nonEnergyBenefitsSub.unsubscribe();
     this.energyOpportunitiesSub.unsubscribe();
+    this.setupWizardService.focusedHelp.next(undefined);
   }
 
   ngAfterViewInit() {
@@ -104,10 +107,25 @@ export class NebFormsAccordionComponent {
     this.bootstrapService.bsCollapse('#' + nebGuid);
     if (this.accordionGuid != nebGuid) {
       this.accordionGuid = nebGuid;
+      this.setFocusedHelp(nebGuid); // set focused help for expanded neb
     } else {
       this.accordionGuid = undefined;
+      this.setupWizardService.focusedHelp.next(undefined); // clear focused help
     }
     this.localStorageDataService.setNebAccordionGuid(this.accordionGuid);
+  }
+
+  private setFocusedHelp(nebGuid: string) {
+    if (nebGuid && this.nonEnergyBenefits) {
+      let neb: IdbNonEnergyBenefit = this.nonEnergyBenefits.find(n => n.guid === nebGuid);
+      if (neb && neb.nebOptionValue) {
+        // Set focused help as "neb-{nebOptionValue}"
+        this.setupWizardService.focusedHelp.next(`neb-${neb.nebOptionValue}`); 
+      } else {
+        // custom NEB, could add some generic help if needed
+        this.setupWizardService.focusedHelp.next('neb-custom');
+      }
+    }
   }
 
   childFormInitialized(oppGuid: string, isLast: boolean) {

@@ -47,7 +47,24 @@
     A list of NEBs found to be associated with specific energy efficiency measures is provided at the bottom of the
     screen.
 </p>
-
+<hr>
+<ng-template [ngIf]="focusedHelp == 'neb-reducedWearAndTear'">
+    <p>
+        This NEB covers material-related maintenance costs, such as parts used for repair or replacement, excluding labor costs. It also includes savings from reduced equipment wear and tear.
+    </p>
+    <hr>
+</ng-template>
+<ng-template [ngIf]="focusedHelp == 'neb-reduceCostsForIndirectLabor' || 
+    focusedHelp == 'neb-reduceCostsForDirectLabor'">
+    <p>
+        <strong>Direct labor:</strong> technicians performing hands-on maintenance and repair work.
+    </p>
+    <p>
+        <strong>Indirect labor:</strong> engineering and technical staff supporting maintenance, 
+        which typically involves higher wages and overhead.
+    </p>
+    <hr>
+</ng-template>
 <p class="fw-light help-disclaimer my-auto">
     <fa-icon [icon]="faExclamationCircle"></fa-icon>
     Help panel content is dynamic. Click on the accordion headers to view help for specific NEBs.
