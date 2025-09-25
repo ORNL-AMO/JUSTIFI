@@ -30,9 +30,7 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'reducedRawMaterialLoss' |
     'reducedConsumables' |
     'additionalSpaceFromLayoutChanges' |
-    'reducedLaborServiceAgreementAndOtherExpenses' |
     'reducedWearAndTear' |
-    'reducedLaborCostsForProblemSolvingAndRepair' |
     'reduceHazardousWaste' |
     'reduceNonhazardousWaste' |
     'reduceProductWaste' |
@@ -103,15 +101,6 @@ export const NebOptions: Array<NebOption> = [
         KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate"],
         selectedKPM: []
     },
-    // {
-    //     label: "Improve customer retention through improved performance",
-    //     htmlLabel: "Improve customer retention through improved performance",
-    //     optionValue: "reduceCustomerLossThroughBetterPerformance",
-    //     isQualitative: true,
-    //     howToCalculate: "N/A",
-    //     KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate"],
-    //     selectedKPM: []
-    // },
     {
         label: "Increase customer retention/loyalty",
         htmlLabel: "Increase customer retention/loyalty",
@@ -274,15 +263,6 @@ export const NebOptions: Array<NebOption> = [
         KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
         selectedKPM: []
     },
-    // {
-    //     label: "Reduce labor costs for problem solving and repair",
-    //     htmlLabel: "Reduce labor costs for problem solving and repair",
-    //     optionValue: "reducedLaborCostsForProblemSolvingAndRepair",
-    //     isQualitative: true,
-    //     howToCalculate: "N/A",
-    //     KPM: ["maintenanceCost", "engineeringSupport", "laborCosts"],
-    //     selectedKPM: []
-    // },
     {
         label: "Reduce hazardous waste",
         htmlLabel: "Reduce hazardous waste",
@@ -587,17 +567,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         "customer loyalty", "customer retention", "positive reviews", "customer trust", "customer engagement",
         "customer appreciation", "customer service quality", "enhance customer relationships", "customer-centric approach"
     ],
-    reduceCustomerLossThroughBetterPerformance: [
-        // Keywords from the NEB label
-        "improve customer retention", "customer retention", "reduce customer loss", "improve performance",
-        "retain customers", "customer loyalty", "better performance", "customer retention improvement",
-    
-        // Synonyms and related terms
-        "customer retention strategy", "reduce churn", "customer retention rate", "minimize customer loss",
-        "customer loyalty improvement", "retain existing customers", "reduce customer turnover",
-        "enhance customer experience", "improve customer satisfaction", "customer retention enhancement"
-    ],
-    increasedCustomerLoyalty: [
+    increasedCustomerRetentionLoyalty: [
         // Keywords from the NEB label
         "increase customer loyalty", "customer loyalty", "loyal customers", "repeat customers", "customer retention",
     
@@ -745,16 +715,6 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         "minimize equipment wear", "reduce maintenance needs", "reduce part replacements", "reduce repair frequency",
         "extend equipment lifespan", "improve equipment durability", "reduce component wear", "enhance equipment reliability",
         "reduce maintenance costs", "optimize equipment usage",
-        "savings"
-    ],
-    reducedLaborCostsForProblemSolvingAndRepair: [
-        // Keywords from the NEB label
-        "reduce labor costs for problem solving and repair", "labor costs", "problem solving costs", "repair costs",
-
-        // Synonyms and related terms
-        "minimize labor expenses", "reduce troubleshooting costs", "reduce repair labor costs", "optimize maintenance labor",
-        "lower problem resolution costs", "reduce maintenance workforce costs", "reduce repair workforce expenses",
-        "improve labor efficiency", "reduce operational labor costs",
         "savings"
     ],
     reduceHazardousWaste: [
