@@ -59,7 +59,8 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'reduceNeedOshaHearingProgram' |
     'reduceUnsafeOperatorActs' |
     'reduceLikelinessOfOccupationalDangers' |
-    'reduceCostsForLabor' |
+    'reduceCostsForIndirectLabor' |
+    'reduceCostsForDirectLabor' |
     'reduceRegulatoryCosts' |
     'improvedWaterQuality';
 
@@ -255,9 +256,18 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduced direct and indirect labor costs for maintenance and repair",
-        htmlLabel: "Reduced direct and indirect labor costs for maintenance and repair",
-        optionValue: "reduceCostsForLabor",
+        label: "Reduced indirect labor costs for maintenance and repair",
+        htmlLabel: "Reduced indirect labor costs for maintenance and repair",
+        optionValue: "reduceCostsForIndirectLabor",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
+        selectedKPM: []
+    },
+    {
+        label: "Reduced direct labor costs for maintenance and repair",
+        htmlLabel: "Reduced direct labor costs for maintenance and repair",
+        optionValue: "reduceCostsForDirectLabor",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
@@ -961,13 +971,33 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         "reduce regulatory burdens", "reduce legal compliance costs", "minimize regulatory obligations", "reduce administrative costs",
         "savings"
     ],
-    reduceCostsForLabor: [
+    reduceCostsForIndirectLabor: [
         // Keywords from the NEB label
         "reduce costs for labor", "labor cost reduction", "minimize labor expenses", "reduce workforce costs",
-    
-        // Synonyms and related terms
-        "lower labor costs", "reduce employee expenses", "optimize labor spending", "minimize workforce expenses",
-        "reduce payroll costs", "enhance labor efficiency", "improve workforce cost-effectiveness", "reduce labor overhead",
+        "reduce costs for indirect labor", "indirect labor cost reduction", "minimize indirect labor expenses", 
+        "reduce engineering staff costs", "reduce technical support costs",
+
+        // Synonyms and related terms - Indirect labor: engineering and technical staff supporting maintenance
+        "reduce engineering overhead", "lower technical staff wages", "minimize engineering support costs",
+        "reduce technical consulting fees", "optimize engineering resources", "reduce supervisory labor costs",
+        "minimize management overhead", "reduce professional services costs", "lower technical expertise costs",
+        "reduce planning and design costs", "optimize engineering staff utilization", "reduce administrative labor",
+        "minimize technical support overhead", "reduce engineering consulting expenses", "lower specialist wages",
+        "efficiency", "savings"
+    ],
+    reduceCostsForDirectLabor: [
+        // Keywords from the NEB label
+        "reduce costs for labor", "labor cost reduction", "minimize labor expenses", "reduce workforce costs",
+        "reduce costs for direct labor", "direct labor cost reduction", "minimize direct labor expenses", 
+        "reduce technician costs", "reduce hands-on maintenance costs",
+
+        // Synonyms and related terms - Direct labor: technicians performing hands-on maintenance and repair
+        "reduce technician wages", "lower maintenance worker costs", "minimize repair technician expenses",
+        "reduce hands-on labor costs", "optimize maintenance staff costs", "reduce field technician wages",
+        "minimize repair crew expenses", "reduce maintenance technician costs", "lower service technician wages",
+        "reduce operational labor costs", "minimize frontline worker expenses", "reduce skilled trades costs",
+        "optimize maintenance workforce", "reduce craftsman wages", "lower repair staff costs",
+        "reduce production worker expenses", "minimize maintenance crew costs", "reduce shop floor labor",
         "efficiency", "savings"
     ],
     improvedWaterQuality: [
