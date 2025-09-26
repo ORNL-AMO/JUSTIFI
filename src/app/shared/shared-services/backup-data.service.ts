@@ -72,20 +72,20 @@ export class BackupDataService {
     // filter the data to be exported
     const selectedUser: IdbUser = this.userIdbService.user.getValue();
     const companies: Array<IdbCompany> = this.companyIdbService.companies.getValue();
-    const selectedCompanies: Array<IdbCompany> = companies.filter(company => 
+    const selectedCompanies: Array<IdbCompany> = companies.filter(company =>
       selectedExportGuids.companyGuids.includes(company.guid));
     const facilities: Array<IdbFacility> = this.facilityIdbService.facilities.getValue();
-    const selectedFacilities: Array<IdbFacility> = facilities.filter(facility => 
+    const selectedFacilities: Array<IdbFacility> = facilities.filter(facility =>
       selectedExportGuids.facilityGuids.includes(facility.guid));
     const onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisitIdbService.onSiteVisits.getValue();
-    const selectedOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits.filter(visit => 
+    const selectedOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits.filter(visit =>
       selectedExportGuids.visitGuids.includes(visit.guid));
     const assessments: Array<IdbAssessment> = this.assessmentIdbService.assessments.getValue();
-    const selectedAssessments: Array<IdbAssessment> = assessments.filter(assessment => 
+    const selectedAssessments: Array<IdbAssessment> = assessments.filter(assessment =>
       selectedExportGuids.assessmentGuids.includes(assessment.guid));
     // 1. related to company
     const selectedContacts: Array<IdbContact> = this.contactIdbService.contacts.getValue()
-      .filter(contact => contact.companyId && selectedExportGuids.companyGuids.includes(contact.companyId)); 
+      .filter(contact => contact.companyId && selectedExportGuids.companyGuids.includes(contact.companyId));
     // 2. related to facility
     const selectedEnergyEquipment: Array<IdbEnergyEquipment> = this.energyEquipmentIdbService.energyEquipments.getValue()
       .filter(equipment => equipment.facilityId && selectedExportGuids.facilityGuids.includes(equipment.facilityId));
@@ -103,7 +103,7 @@ export class BackupDataService {
       .filter(nonEnergyBenefit => nonEnergyBenefit.assessmentId && selectedExportGuids.assessmentGuids.includes(nonEnergyBenefit.assessmentId));
     const selectedKeyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactIdbService.keyPerformanceMetricImpacts.getValue()
       .filter(kpmImpact => kpmImpact.assessmentId && selectedExportGuids.assessmentGuids.includes(kpmImpact.assessmentId));
-    
+
     let backupFile: BackupFile = {
       user: selectedUser,
       companies: selectedCompanies,
@@ -401,7 +401,7 @@ export class BackupDataService {
       contact.nonEnergyBenefitIds.forEach((nebId, idx) => {
         contact.nonEnergyBenefitIds[idx] = getNewId(nebId, nonEnergyBenefitGUIDs);
       });
-      
+
       await firstValueFrom(this.contactIdbService.addWithObservable(contact));
     }
 
@@ -460,18 +460,8 @@ export class BackupDataService {
     if (!parsedFileVersion || !parsedAppVersion) {
       return false;
     }
-
-    // avoid build metadata, for example, 0.0.1-alpha-06c66911e vs. 0.0.1-alpha
-    // use the shorter length to match
-    const lengthNoBuildMeta = Math.min(parsedFileVersion.prerelease.length, parsedAppVersion.prerelease.length);
-
-    // Compare major, minor, patch, and pre-release parts
-    return (
-      parsedFileVersion.major === parsedAppVersion.major &&
-      parsedFileVersion.minor === parsedAppVersion.minor &&
-      parsedFileVersion.patch === parsedAppVersion.patch &&
-      parsedFileVersion.prerelease.join('.').slice(0, lengthNoBuildMeta) === parsedAppVersion.prerelease.join('.').slice(0, lengthNoBuildMeta)
-    );
+    //only error on alpha versions
+    return (parsedFileVersion && !parsedFileVersion.prerelease.includes('alpha'));
   }
 }
 
