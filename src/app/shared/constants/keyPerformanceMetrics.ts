@@ -994,16 +994,16 @@ const KpmKeywords: { [key: string]: Array<string> } = {
 
 // Add linked kpi label to keywords
 Object.keys(KpmKeywords).forEach(key => {
-    const kpmOption = KeyPerformanceMetricOptions.find(option => option.value === key);
-    if (kpmOption) {
-        const kpiOption = KeyPerformanceIndicatorOptions.find(option => option.optionValue === kpmOption.kpiValue);
+    const kmpOptions = KeyPerformanceMetricOptions.filter(option => option.value === key);
+    kmpOptions.forEach(kmpOption => {
+        const kpiOption = KeyPerformanceIndicatorOptions.find(option => option.optionValue === kmpOption.kpiValue);
         if (kpiOption) {
             const label = kpiOption.label.toLowerCase();
             if (!KpmKeywords[key].includes(label)) {
                 KpmKeywords[key].push(label);
             }
         }
-    }
+    });
 });
 
 export { KpmKeywords };
