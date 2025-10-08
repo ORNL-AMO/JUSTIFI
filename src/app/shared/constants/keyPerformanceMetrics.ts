@@ -432,6 +432,28 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
     {
+        label: "Dollar Consumables",
+        htmlLabel: "&#36; Consumables",
+        value: "dollarConsumables",
+        kpiValue: "maintenanceExpense",
+        isQuantitative: true,
+        totalUnit: 'consumable',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Dollar Consumables",
+        htmlLabel: "&#36; Consumables",
+        value: "dollarConsumables",
+        kpiValue: "reduceExpenseCost",
+        isQuantitative: true,
+        totalUnit: 'consumable',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
         label: "Space Utilization",
         htmlLabel: "Space Utilization",
         value: "percentOptimizedSpace",
@@ -792,6 +814,28 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
     {
+        label: "Treatment Chemicals",
+        htmlLabel: "Treatment Chemicals",
+        value: "treatmentChemicals",
+        kpiValue: "reduceExpenseCost",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Treatment Chemicals",
+        htmlLabel: "Treatment Chemicals",
+        value: "treatmentChemicals",
+        kpiValue: "maintenanceExpense",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
         label: "Raw Materials",
         htmlLabel: "Raw Materials",
         value: "rawMaterials",
@@ -803,10 +847,54 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
     {
+        label: "Raw Materials",
+        htmlLabel: "Raw Materials",
+        value: "rawMaterials",
+        kpiValue: "reduceExpenseCost",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Raw Materials",
+        htmlLabel: "Raw Materials",
+        value: "rawMaterials",
+        kpiValue: "maintenanceExpense",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
         label: "Intermediate Goods",
         htmlLabel: "Intermediate Goods",
         value: "intermediateGoods",
         kpiValue: "materialUtilization",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Intermediate Goods",
+        htmlLabel: "Intermediate Goods",
+        value: "intermediateGoods",
+        kpiValue: "reduceExpenseCost",
+        isQuantitative: true,
+        totalUnit: '',
+        goalToIncrease: false,
+        timePeriod: 'yr',
+        calculationMethod: 'directCost'
+    },
+    {
+        label: "Intermediate Goods",
+        htmlLabel: "Intermediate Goods",
+        value: "intermediateGoods",
+        kpiValue: "maintenanceExpense",
         isQuantitative: true,
         totalUnit: '',
         goalToIncrease: false,
