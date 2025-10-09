@@ -8,7 +8,7 @@ export interface NebOption {
     howToCalculate: string,
     KPM: Array<KeyPerformanceMetricValue>,
     selected?: boolean,
-    selectedKPM?: Array<KeyPerformanceMetricValue>
+    selectedKPM?: Array<string> // store KeyPerformanceMetricValue or KPM_KPI
 };
 
 export type NebOptionValue = 'improvedImageOrReputation' |
