@@ -135,8 +135,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Increase Productivity",
-        htmlLabel: "Increase Productivity",
+        label: "Increase productivity",
+        htmlLabel: "Increase productivity",
         optionValue: "increasedProductivity",
         isQualitative: true,
         howToCalculate: "N/A",
