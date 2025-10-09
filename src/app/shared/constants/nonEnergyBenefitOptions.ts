@@ -67,8 +67,8 @@ export type NebOptionValue = 'improvedImageOrReputation' |
 
 export const NebOptions: Array<NebOption> = [
     {
-        label: "Improve image or reputation",
-        htmlLabel: "Improve image or reputation",
+        label: "Improve organization image or reputation",
+        htmlLabel: "Improve organization image or reputation",
         optionValue: "improvedImageOrReputation",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -184,9 +184,9 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improve product quality by improving machine source",
-        htmlLabel: "Improve product quality by improving machine source",
-        optionValue: "improvedProductQualityMachineSource",
+        label: "Improve product quality by enhancing equipment performance",
+        htmlLabel: "Improve product quality by enhancing equipment performance",
+        optionValue: "improvedProductQualityMachineSource", // keep the old value for backward compatibility
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["productionCosts", "cycleTimeToMakeGoods", "percentOnTimeToDueDate", "revenuePerEmployee", "perUnitProductCost", "numberEquipmentCausedDefects", "equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "defectiveProductionDollar", "defectRatePPMorDPM", "qualityCustomerComplaints", "qualityCustomerReturns", "percentProductionYield", "percentShrinkage", "maintenanceCost", "engineeringSupport", "laborCosts"],
@@ -229,8 +229,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce cost from using less consumables",
-        htmlLabel: "Reduce cost from using less consumables",
+        label: "Reduce use of consumables",
+        htmlLabel: "Reduce use of consumables",
         optionValue: "reducedConsumables",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -436,8 +436,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improve workplace visual comfort",
-        htmlLabel: "Improve workplace visual comfort",
+        label: "Improve workplace lighting and visual comfort",
+        htmlLabel: "Improve workplace lighting and visual comfort",
         optionValue: "improvedVisualComfort",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -472,8 +472,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improve social, economic, health burden conditions for surrounding community",
-        htmlLabel: "Improve social, economic, health burden conditions for surrounding community",
+        label: "Improve social, economic, health conditions for surrounding community",
+        htmlLabel: "Improve social, economic, health conditions for surrounding community",
         optionValue: "improveCommunityConditions",
         isQualitative: true,
         howToCalculate: "N/A",
