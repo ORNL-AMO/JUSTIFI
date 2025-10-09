@@ -64,7 +64,10 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'reduceLikelinessOfOccupationalDangers' |
     'reduceCostsForLabor' |
     'reduceRegulatoryCosts' |
-    'improvedWaterQuality';
+    'improvedWaterQuality' |
+    'improvePowerFactor' |
+    'reduceElectricalDemand' |
+    '';
 
 
 export const NebOptions: Array<NebOption> = [
@@ -553,6 +556,24 @@ export const NebOptions: Array<NebOption> = [
         howToCalculate: "N/A",
         KPM: ["waterPollutantEmissions"],
         selectedKPM: []
+    },
+    {
+        label: "Improve power factor",
+        htmlLabel: "Improve power factor",
+        optionValue: "improvePowerFactor",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["powerFactorCosts"],
+        selectedKPM: []
+    },
+    {
+        label: "Reduce electrical demand",
+        htmlLabel: "Reduce electrical demand",
+        optionValue: "reduceElectricalDemand",
+        isQualitative: true,
+        howToCalculate: "N/A",
+        KPM: ["electricalDemandCosts"],
+        selectedKPM: []
     }
 ]
 
@@ -1027,6 +1048,26 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         // Synonyms and related terms
         "reduce water pollutants", "improve water cleanliness", "enhance water purity", "reduce water contamination",
         "improve aquatic health", "reduce waterborne pollutants", "improve environmental water quality", "cleaner water"
+    ],
+    improvePowerFactor: [
+        // Keywords from the NEB label
+        "improve power factor", "power factor improvement", "enhance power factor", "better power factor",
+        "increase power factor", "optimize power factor",
+    
+        // Synonyms and related terms
+        "reduce reactive power", "improve electrical efficiency", "reduce power factor penalties", "reduce power factor costs",
+        "enhance electrical system efficiency", "reduce utility penalties", "power factor correction", "power factor optimization",
+        "improve electrical performance", "reduce kVAR", "reactive power compensation"
+    ],
+    reduceElectricalDemand: [
+        // Keywords from the NEB label
+        "reduce electrical demand", "electrical demand reduction", "minimize electrical demand", "reduce demand charges",
+        "lower electrical demand", "reduce peak demand",
+    
+        // Synonyms and related terms
+        "reduce electricity demand", "reduce peak electrical load", "minimize demand charges", "reduce demand costs",
+        "lower peak demand", "demand management", "demand response", "peak demand reduction", "reduce utility demand charges",
+        "reduce demand penalties", "optimize electrical demand", "reduce electrical load", "demand charge reduction"
     ]
 }
 
