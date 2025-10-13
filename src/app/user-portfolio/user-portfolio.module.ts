@@ -46,8 +46,9 @@ import { AssociatedContactsModule } from '../shared/associated-contacts/associat
 import { FacilityDashboardProtocolQuestionsComponent } from './facility-dashboard/facility-dashboard-protocol-questions/facility-dashboard-protocol-questions.component';
 import { FacilityReportsHomeComponent } from './facility-dashboard/facility-reports/facility-reports-home/facility-reports-home.component';
 import { FacilityReportComponent } from './facility-dashboard/facility-reports/facility-report/facility-report.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManageOnSiteVisitsComponent } from './facility-dashboard/manage-on-site-visits/manage-on-site-visits.component';
+import { ProtocolQuestionsModalComponent } from './facility-dashboard/protocol-questions-modal/protocol-questions-modal.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { ManageOnSiteVisitsComponent } from './facility-dashboard/manage-on-site
     FacilityDashboardProtocolQuestionsComponent,
     FacilityReportsHomeComponent,
     FacilityReportComponent,
-    ManageOnSiteVisitsComponent
+    ManageOnSiteVisitsComponent,
+    ProtocolQuestionsModalComponent
   ],
   imports: [
     CommonModule,
@@ -102,7 +104,8 @@ import { ManageOnSiteVisitsComponent } from './facility-dashboard/manage-on-site
     TableEntriesModule,
     TableEntriesModule,
     AssociatedContactsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 ]
 })
 export class UserPortfolioModule { }

@@ -1,5 +1,9 @@
 <div class="d-flex w-100 justify-content-end">
     <div>
+        <button class="btn action-btn btn-sm me-2" (click)="openExportModal()">
+            <fa-icon class="me-1" [icon]="faFileExcel"></fa-icon>
+            Export Questions to Excel
+        </button>
         <button class="btn btn-outline-success btn-sm" (click)="addEquipment()">
             <fa-icon [icon]="faPlus"></fa-icon>
             Add New Equipment
@@ -69,3 +73,5 @@
         Add New Equipment" button to add equipment to this facility.
     </div>
 </ng-template>
+
+<app-protocol-questions-modal [selectedModule]="selectedModule"></app-protocol-questions-modal>
