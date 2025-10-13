@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProtocolQuestionsModalComponent } from './protocol-questions-modal.component';
+import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 describe('ProtocolQuestionsModalComponent', () => {
   let component: ProtocolQuestionsModalComponent;
@@ -8,9 +11,11 @@ describe('ProtocolQuestionsModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProtocolQuestionsModalComponent]
+      imports: [FontAwesomeModule, FormsModule],
+      declarations: [ProtocolQuestionsModalComponent],
+      providers: stubServiceProviders
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ProtocolQuestionsModalComponent);
     component = fixture.componentInstance;
