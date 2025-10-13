@@ -27,6 +27,7 @@ import { AssessmentOptions } from '../shared/constants/assessmentTypes';
 import { UtilityEnergyUse } from '../models/utilityEnergyUses';
 import { NonEnergyBenefitsIdbService } from './non-energy-benefits-idb.service';
 import { IdbNonEnergyBenefit } from '../models/nonEnergyBenefit';
+import { NebOptions } from '../shared/constants/nonEnergyBenefitOptions';
 
 @Injectable({
   providedIn: 'root'
@@ -338,11 +339,24 @@ export class UpdateDbEntriesService {
   async updateNonEnergyBenefits() {
     let nonEnergyBenefits: Array<IdbNonEnergyBenefit> = await firstValueFrom(this.nonEnergyBenefitsIdbService.getAll());
     // back-compatibility for financial impact type
+    let needUpdate = false;
     for (let i = 0; i < nonEnergyBenefits.length; i++) {
       let nonEnergyBenefit: IdbNonEnergyBenefit = nonEnergyBenefits[i];
       if (nonEnergyBenefit.costImpactType == undefined) {
         nonEnergyBenefit.costImpactType = 'annual';
+        needUpdate = true;
+      }
+      if (nonEnergyBenefit.nebOptionValue) {
+        let isValidOption: boolean = NebOptions.some(option => option.optionValue === nonEnergyBenefit.nebOptionValue);
+        if (!isValidOption) { // Old nebOptionValue mark as custom NEB
+          nonEnergyBenefit.nebOptionValue = undefined;
+          nonEnergyBenefit.isCustom = true;
+        }
+        needUpdate = true;
+      }
+      if (needUpdate) {
         await firstValueFrom(this.nonEnergyBenefitsIdbService.updateWithObservable(nonEnergyBenefit));
+        needUpdate = false;
       }
     }
   }

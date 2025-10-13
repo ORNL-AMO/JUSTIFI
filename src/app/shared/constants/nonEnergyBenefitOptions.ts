@@ -15,8 +15,7 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'improvedStakeholderRelationship' |
     'newCustomers' |
     'increasedCustomerSatisfaction' |
-    'reduceCustomerLossThroughBetterPerformance' |
-    'increasedCustomerLoyalty' |
+    'increasedCustomerRetentionLoyalty' |
     'improvedSupplyChainRelationships' |
     'increasedProductivity' |
     'shorterCycleTime' |
@@ -31,9 +30,7 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'reducedRawMaterialLoss' |
     'reducedConsumables' |
     'additionalSpaceFromLayoutChanges' |
-    'reducedLaborServiceAgreementAndOtherExpenses' |
     'reducedWearAndTear' |
-    'reducedLaborCostsForProblemSolvingAndRepair' |
     'reduceHazardousWaste' |
     'reduceNonhazardousWaste' |
     'reduceProductWaste' |
@@ -62,7 +59,8 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'reduceNeedOshaHearingProgram' |
     'reduceUnsafeOperatorActs' |
     'reduceLikelinessOfOccupationalDangers' |
-    'reduceCostsForLabor' |
+    'reduceCostsForIndirectLabor' |
+    'reduceCostsForDirectLabor' |
     'reduceRegulatoryCosts' |
     'improvedWaterQuality';
 
@@ -105,18 +103,9 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Improve customer retention through improved performance",
-        htmlLabel: "Improve customer retention through improved performance",
-        optionValue: "reduceCustomerLossThroughBetterPerformance",
-        isQualitative: true,
-        howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate"],
-        selectedKPM: []
-    },
-    {
-        label: "Increase customer loyalty",
-        htmlLabel: "Increase customer loyalty",
-        optionValue: "increasedCustomerLoyalty",
+        label: "Increase customer retention/loyalty",
+        htmlLabel: "Increase customer retention/loyalty",
+        optionValue: "increasedCustomerRetentionLoyalty",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "customerSatisfactionRatings", "lostCustomerSales", "customerChurnRate"],
@@ -222,8 +211,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce production loss - labor and material",
-        htmlLabel: "Reduce production loss - labor and material",
+        label: "Reduce production loss - (material shrinkage or labor downtime)",
+        htmlLabel: "Reduce production loss - (material shrinkage or labor downtime)",
         optionValue: "reduceProductionLossLaborMaterial",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -258,8 +247,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce wear and tear, reduce replacement and repair parts",
-        htmlLabel: "Reduce wear and tear, reduce replacement and repair parts",
+        label: "Reduce repair or replacement part costs (including reduced wear and tear)",
+        htmlLabel: "Reduce repair or replacement part costs (including reduced wear and tear)",
         optionValue: "reducedWearAndTear",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -267,30 +256,21 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce cost from maintenance replacement/repair parts",
-        htmlLabel: "Reduce cost from maintenance replacement/repair parts",
-        optionValue: "reducedWearAndTear",
+        label: "Reduced indirect labor costs for maintenance and repair",
+        htmlLabel: "Reduced indirect labor costs for maintenance and repair",
+        optionValue: "reduceCostsForIndirectLabor",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
         selectedKPM: []
     },
     {
-        label: "Reduce costs for labor",
-        htmlLabel: "Reduce costs for labor",
-        optionValue: "reduceCostsForLabor",
+        label: "Reduced direct labor costs for maintenance and repair",
+        htmlLabel: "Reduced direct labor costs for maintenance and repair",
+        optionValue: "reduceCostsForDirectLabor",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "usefulEquipmentLifeExtended", "maintenanceCost", "laborCosts", "serviceParts"],
-        selectedKPM: []
-    },
-    {
-        label: "Reduce labor costs for problem solving and repair",
-        htmlLabel: "Reduce labor costs for problem solving and repair",
-        optionValue: "reducedLaborCostsForProblemSolvingAndRepair",
-        isQualitative: true,
-        howToCalculate: "N/A",
-        KPM: ["maintenanceCost", "engineeringSupport", "laborCosts"],
         selectedKPM: []
     },
     {
@@ -312,8 +292,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce product waste",
-        htmlLabel: "Reduce product waste",
+        label: "Reduce product waste (defective or nonconforming materials)",
+        htmlLabel: "Reduce product waste (defective or nonconforming materials)",
         optionValue: "reduceProductWaste",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -375,8 +355,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce likeliness of accidents or occupational disease",
-        htmlLabel: "Reduce likeliness of accidents or occupational disease",
+        label: "Reduce reported near misses and close calls (potential accidents)",
+        htmlLabel: "Reduce reported near misses and close calls (potential accidents)",
         optionValue: "reduceLikelinessOfOccupationalDangers",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -597,17 +577,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         "customer loyalty", "customer retention", "positive reviews", "customer trust", "customer engagement",
         "customer appreciation", "customer service quality", "enhance customer relationships", "customer-centric approach"
     ],
-    reduceCustomerLossThroughBetterPerformance: [
-        // Keywords from the NEB label
-        "improve customer retention", "customer retention", "reduce customer loss", "improve performance",
-        "retain customers", "customer loyalty", "better performance", "customer retention improvement",
-    
-        // Synonyms and related terms
-        "customer retention strategy", "reduce churn", "customer retention rate", "minimize customer loss",
-        "customer loyalty improvement", "retain existing customers", "reduce customer turnover",
-        "enhance customer experience", "improve customer satisfaction", "customer retention enhancement"
-    ],
-    increasedCustomerLoyalty: [
+    increasedCustomerRetentionLoyalty: [
         // Keywords from the NEB label
         "increase customer loyalty", "customer loyalty", "loyal customers", "repeat customers", "customer retention",
     
@@ -755,16 +725,6 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         "minimize equipment wear", "reduce maintenance needs", "reduce part replacements", "reduce repair frequency",
         "extend equipment lifespan", "improve equipment durability", "reduce component wear", "enhance equipment reliability",
         "reduce maintenance costs", "optimize equipment usage",
-        "savings"
-    ],
-    reducedLaborCostsForProblemSolvingAndRepair: [
-        // Keywords from the NEB label
-        "reduce labor costs for problem solving and repair", "labor costs", "problem solving costs", "repair costs",
-
-        // Synonyms and related terms
-        "minimize labor expenses", "reduce troubleshooting costs", "reduce repair labor costs", "optimize maintenance labor",
-        "lower problem resolution costs", "reduce maintenance workforce costs", "reduce repair workforce expenses",
-        "improve labor efficiency", "reduce operational labor costs",
         "savings"
     ],
     reduceHazardousWaste: [
@@ -1011,13 +971,33 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         "reduce regulatory burdens", "reduce legal compliance costs", "minimize regulatory obligations", "reduce administrative costs",
         "savings"
     ],
-    reduceCostsForLabor: [
+    reduceCostsForIndirectLabor: [
         // Keywords from the NEB label
         "reduce costs for labor", "labor cost reduction", "minimize labor expenses", "reduce workforce costs",
-    
-        // Synonyms and related terms
-        "lower labor costs", "reduce employee expenses", "optimize labor spending", "minimize workforce expenses",
-        "reduce payroll costs", "enhance labor efficiency", "improve workforce cost-effectiveness", "reduce labor overhead",
+        "reduce costs for indirect labor", "indirect labor cost reduction", "minimize indirect labor expenses", 
+        "reduce engineering staff costs", "reduce technical support costs",
+
+        // Synonyms and related terms - Indirect labor: engineering and technical staff supporting maintenance
+        "reduce engineering overhead", "lower technical staff wages", "minimize engineering support costs",
+        "reduce technical consulting fees", "optimize engineering resources", "reduce supervisory labor costs",
+        "minimize management overhead", "reduce professional services costs", "lower technical expertise costs",
+        "reduce planning and design costs", "optimize engineering staff utilization", "reduce administrative labor",
+        "minimize technical support overhead", "reduce engineering consulting expenses", "lower specialist wages",
+        "efficiency", "savings"
+    ],
+    reduceCostsForDirectLabor: [
+        // Keywords from the NEB label
+        "reduce costs for labor", "labor cost reduction", "minimize labor expenses", "reduce workforce costs",
+        "reduce costs for direct labor", "direct labor cost reduction", "minimize direct labor expenses", 
+        "reduce technician costs", "reduce hands-on maintenance costs",
+
+        // Synonyms and related terms - Direct labor: technicians performing hands-on maintenance and repair
+        "reduce technician wages", "lower maintenance worker costs", "minimize repair technician expenses",
+        "reduce hands-on labor costs", "optimize maintenance staff costs", "reduce field technician wages",
+        "minimize repair crew expenses", "reduce maintenance technician costs", "lower service technician wages",
+        "reduce operational labor costs", "minimize frontline worker expenses", "reduce skilled trades costs",
+        "optimize maintenance workforce", "reduce craftsman wages", "lower repair staff costs",
+        "reduce production worker expenses", "minimize maintenance crew costs", "reduce shop floor labor",
         "efficiency", "savings"
     ],
     improvedWaterQuality: [
