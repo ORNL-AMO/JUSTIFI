@@ -154,10 +154,6 @@ export class ProtocolQuestionsModalComponent {
     this.protocolQuestionsExcelWriterService.displayProtocolQuestionsModal.next(false);
   }
 
-  toggleExcelExport() {
-    this.sharedDataService.exportToExcel.next(true);
-  }
-
   exportToExcel() {
     this.protocolQuestionsExcelWriterService.exportProtocolQuestionsToExcel(this.facility, this.energyEquipments, this.processEquipments, this.isFacilitySelected, this.selectedChildrenIndustrialSys, this.selectedChildrenEndUse);
     this.sharedDataService.exportToExcel.next(false);
