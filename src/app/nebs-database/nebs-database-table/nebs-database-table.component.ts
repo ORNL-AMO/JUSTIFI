@@ -44,12 +44,13 @@ export class NebsDatabaseTableComponent {
   nebSearchStr: string = '';
   kpiValue: KeyPerformanceIndicatorValue;
   kpmValue: KeyPerformanceMetricValue;
+  kpmCompositeValue: string;
   allKpmOptions: Array<KeyPerformanceMetricOption> = KeyPerformanceMetricOptions;
   keyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = KeyPerformanceIndicatorOptions;
   keyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [];
 
   facilityTrackedKpis: Array<KeyPerformanceIndicatorValue> = [];
-  facilityTrackedKpms: Array<KeyPerformanceMetricValue> = [];
+  facilityTrackedKpms: Array<string> = [];
 
   constructor(private cd: ChangeDetectorRef, private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private companyIdbService: CompanyIdbService,
@@ -91,14 +92,14 @@ export class NebsDatabaseTableComponent {
         return this.facilityTrackedKpis.includes(option.optionValue)
       }, 'desc');
       this.keyPerformanceMetricOptions = _.orderBy(this.keyPerformanceMetricOptions, (option: KeyPerformanceMetricOption) => {
-        return this.facilityTrackedKpms.includes(option.value)
+        return this.facilityTrackedKpms.includes(option.value + option.kpiValue)
       }, 'desc');
     }
     let selectedIndex: number = this.keyPerformanceMetricOptions.findIndex(option => {
-      return option.value == this.kpmValue;
+      return (option.value + option.kpiValue) == this.kpmCompositeValue;
     })
     if (selectedIndex == -1) {
-      this.kpmValue = undefined;
+      this.kpmCompositeValue = undefined;
     }
     this.cd.detectChanges();
   }
@@ -179,7 +180,7 @@ export class NebsDatabaseTableComponent {
     let facilityKpis: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorIdbService.getByFacilityGuid(facility.guid);
     let facilityKpms: Array<KeyPerformanceMetric> = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(facility.guid);
     this.facilityTrackedKpis = facilityKpis.map(kpi => { return kpi.optionValue });
-    this.facilityTrackedKpms = facilityKpms.map(kpm => { return kpm.value });
+    this.facilityTrackedKpms = facilityKpms.map(kpm => { return kpm.value + kpm.kpiValue });
   }
 
   selectNeb(neb: NebOption) {
@@ -190,14 +191,26 @@ export class NebsDatabaseTableComponent {
     this.emitSelectedNebs.emit(selectedNebs);
   }
 
-  setChecked(neb: NebOption, metric: KeyPerformanceMetricValue) {
-    if (neb.selectedKPM.includes(metric)) {
+  setChecked(neb: NebOption, kpmValue: KeyPerformanceMetricValue, kpiValue: KeyPerformanceIndicatorValue) {
+    const compositeKey = kpmValue + kpiValue;
+    if (neb.selectedKPM.includes(compositeKey)) {
       neb.selectedKPM = neb.selectedKPM.filter(kpm => {
-        return kpm != metric;
+        return kpm != compositeKey;
       })
     } else {
-      neb.selectedKPM.push(metric);
+      neb.selectedKPM.push(compositeKey);
     }
+  }
+
+  setKpmValue() {
+    if (!this.kpmCompositeValue) {
+      this.kpmValue = undefined;
+      return;
+    }
+    const selectedKpmOption = KeyPerformanceMetricOptions.find(option => {
+      return (option.value + option.kpiValue) == this.kpmCompositeValue;
+    });
+    this.kpmValue = selectedKpmOption?.value;
   }
 
 }

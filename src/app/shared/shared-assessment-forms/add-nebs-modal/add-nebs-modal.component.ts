@@ -65,8 +65,10 @@ export class AddNebsModalComponent {
       } else {
         newIdbNonEnergyBenefit = getNewIdbNonEnergyBenefit(this.assessment.userId, this.assessment.companyId, this.assessment.facilityId, this.assessment.guid, undefined, nebOption, false);
       }
-      for (let kpm of nebOption.selectedKPM) {
-        let performanceMetricToAdd: KeyPerformanceMetricOption = KeyPerformanceMetricOptions.find(kpmOption => { return kpmOption.value == kpm })
+      for (let kpmComposite of nebOption.selectedKPM) {
+        let performanceMetricToAdd: KeyPerformanceMetricOption = KeyPerformanceMetricOptions.find(kpmOption => { 
+          return (kpmOption.value + kpmOption.kpiValue) === kpmComposite;
+        });
         let keyPerformanceMetric: KeyPerformanceMetric = convertOptionTypeToMetricType(performanceMetricToAdd)
         let addedMetric: KeyPerformanceMetric = await this.keyPerformanceIndicatorIdbService.addKpmToKpi(newIdbNonEnergyBenefit.companyId, keyPerformanceMetric, newIdbNonEnergyBenefit.userId, newIdbNonEnergyBenefit.facilityId);
         let keyPerformanceIndicator: IdbKeyPerformanceIndicator = this.keyPerformanceIndicatorIdbService.getKpiFromKpm(newIdbNonEnergyBenefit.facilityId, performanceMetricToAdd.kpiValue);
