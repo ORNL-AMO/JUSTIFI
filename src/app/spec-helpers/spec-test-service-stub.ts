@@ -145,7 +145,7 @@ let processEquipmentIdbService: Partial<ProcessEquipmentIdbService> = {
     getFacilityProcessEquipment: () => { return [stubProcessEquipment] }
 }
 
-let stubKpiImpact: IdbKeyPerformanceMetricImpact = getNewIdbKeyPerformanceMetricImpact('123', '123', '123', '123', '123', 'TRIR', '123', '123', '123');
+let stubKpiImpact: IdbKeyPerformanceMetricImpact = getNewIdbKeyPerformanceMetricImpact('123', '123', '123', '123', '123', 'TRIR', '123', '123', '123', 'costPerUnit');
 stubKpiImpact.guid = '123';
 let keyPerformanceMetricImpactIdbService: Partial<KeyPerformanceMetricImpactsIdbService> = {
     keyPerformanceMetricImpacts: new BehaviorSubject<Array<IdbKeyPerformanceMetricImpact>>([stubKpiImpact])

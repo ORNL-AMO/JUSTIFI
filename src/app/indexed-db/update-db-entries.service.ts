@@ -63,6 +63,7 @@ export class UpdateDbEntriesService {
     }
     this.localeService.setCurrencyCode(user.locale);
 
+    await this.updateMetricImpactCalculationMethods();
     await this.updateProcessEquipment();
     await this.updateEnergyEquipment();
     await this.updateCompanies();
@@ -359,5 +360,27 @@ export class UpdateDbEntriesService {
         needUpdate = false;
       }
     }
+  }
+
+  async updateMetricImpactCalculationMethods() {
+    let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = await firstValueFrom(this.keyPerformanceMetricImpactsIdbService.getAll());
+    let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = await firstValueFrom(this.keyPerformanceIndicatorsIdbService.getAll());
+    let keyPerformanceMetrics: Array<KeyPerformanceMetric> = keyPerformanceIndicators.flatMap(kpi => { return kpi.performanceMetrics });
+    let needUpdate = false;
+    for (let i = 0; i < keyPerformanceMetricImpacts.length; i++) {
+      let impact: IdbKeyPerformanceMetricImpact = keyPerformanceMetricImpacts[i];
+      if (impact.calculationMethod == undefined) {
+        let kpm: KeyPerformanceMetric = keyPerformanceMetrics.find(metric => { return metric.guid == impact.kpmGuid });
+        if (kpm) {
+          impact.calculationMethod = kpm.calculationMethod;
+          needUpdate = true;
+        }
+      }
+      if (needUpdate) {
+        await firstValueFrom(this.keyPerformanceMetricImpactsIdbService.updateWithObservable(impact));
+        needUpdate = false;
+      }
+    }
+
   }
 }

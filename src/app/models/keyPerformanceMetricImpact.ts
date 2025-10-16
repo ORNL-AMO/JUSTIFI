@@ -1,4 +1,4 @@
-import { KeyPerformanceMetricValue } from "../shared/constants/keyPerformanceMetrics";
+import { KeyPerformanceMetricValue, KpmCalculationMethod } from "../shared/constants/keyPerformanceMetrics";
 import { IdbEntry, getNewIdbEntry } from "./idbEntry";
 
 export interface IdbKeyPerformanceMetricImpact extends IdbEntry {
@@ -14,11 +14,12 @@ export interface IdbKeyPerformanceMetricImpact extends IdbEntry {
     modificationValue: number,
     costAdjustment: number,
     percentSavings?: number,
-    modifiedCost?: number
+    modifiedCost?: number,
+    calculationMethod: KpmCalculationMethod
 }
 
 
-export function getNewIdbKeyPerformanceMetricImpact(userId: string, companyId: string, facilityId: string, energyOpportunityId: string, nebId: string, kpmValue: KeyPerformanceMetricValue, assessmentId: string, kpiGuid: string, kpmGuid: string): IdbKeyPerformanceMetricImpact {
+export function getNewIdbKeyPerformanceMetricImpact(userId: string, companyId: string, facilityId: string, energyOpportunityId: string, nebId: string, kpmValue: KeyPerformanceMetricValue, assessmentId: string, kpiGuid: string, kpmGuid: string, calculationMethod: KpmCalculationMethod): IdbKeyPerformanceMetricImpact {
     let idbEntry: IdbEntry = getNewIdbEntry();
     return {
         ...idbEntry,
@@ -34,6 +35,7 @@ export function getNewIdbKeyPerformanceMetricImpact(userId: string, companyId: s
         percentSavings: undefined,
         modifiedCost: undefined,
         kpmValue: kpmValue,
-        kpmGuid: kpmGuid
+        kpmGuid: kpmGuid,
+        calculationMethod: calculationMethod
     }
 }

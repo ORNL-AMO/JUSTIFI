@@ -85,11 +85,11 @@ export class KeyPerformanceMetricImpactsIdbService {
     let facilityMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.getByKpmGuid(keyPerformanceMetric.guid);
     for (let i = 0; i < facilityMetricImpacts.length; i++) {
       let metricImpact: IdbKeyPerformanceMetricImpact = facilityMetricImpacts[i];
-      if (keyPerformanceMetric.calculationMethod == 'costPerUnit') {
+      if (metricImpact.calculationMethod == 'costPerUnit') {
         metricImpact.costAdjustment = (metricImpact.modificationValue * keyPerformanceMetric.costPerValue);
-      } else if (keyPerformanceMetric.calculationMethod == 'percentTotal') {
+      } else if (metricImpact.calculationMethod == 'percentTotal') {
         metricImpact.costAdjustment = keyPerformanceMetric.baselineCost * (metricImpact.modificationValue / 100);
-      } else if(keyPerformanceMetric.calculationMethod == 'directCost'){
+      } else if(metricImpact.calculationMethod == 'directCost'){
         metricImpact.costAdjustment = metricImpact.modificationValue;
       }
       await firstValueFrom(this.updateWithObservable(metricImpact));
