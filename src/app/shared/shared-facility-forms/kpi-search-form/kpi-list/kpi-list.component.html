@@ -5,12 +5,6 @@
             Selected {{facility.generalInformation.name}} KPIs
         </h5>
     </div>
-    <!-- <div class="col-12">
-        <button class="btn btn-outline-success btn-sm w-100" (click)="openAddCustomModal()">
-            <fa-icon [icon]="faPlus"></fa-icon>
-            Add Custom KPI
-        </button>
-    </div> -->
 </div>
 
 @let facilityKpis = (facility.guid | facilityKpiList:keyPerformanceIndicators);
@@ -31,9 +25,6 @@
                 </div>
             </div>
             <div>
-                <!-- <a class="p-1">
-                    <fa-icon class="small" [icon]="faCircleQuestion"></fa-icon>
-                </a> -->
                 <a class="p-1 click-link-danger" (click)="openDeleteModal(kpi)">
                     <fa-icon class="small" [icon]="faTrash"></fa-icon>
                 </a>
