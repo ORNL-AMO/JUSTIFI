@@ -15,16 +15,6 @@ import { BehaviorSubject } from 'rxjs';
 export class ProtocolQuestionsExcelWriterService {
 
   displayProtocolQuestionsModal: BehaviorSubject<boolean>;
-
-  FacilityProtocolHelp = FacilityProtocolHelp;
-  EnergyEquipmentTakeStockHelp = EnergyEquipmentTakeStockHelp;
-  EnergyEquipmentOperationsHelp = EnergyEquipmentOperationsHelp;
-  EnergyEquipmentSustainabilityHelp = EnergyEquipmentSustainabilityHelp;
-  EnergyEquipmentEmployeeEngagementHelp = EnergyEquipmentEmployeeEngagementHelp;
-  ProcessEquipmentTakeStockHelp = ProcessEquipmentTakeStockHelp;
-  ProcessEquipmentOperationsHelp = ProcessEquipmentOperationsHelp;
-  ProcessEquipmentSustainabilityHelp = ProcessEquipmentSustainabilityHelp;
-  ProcessEquipmentEmployeeEngagementHelp = ProcessEquipmentEmployeeEngagementHelp;
   takeStockDataRows: Array<{ question: string, help: string, responseField: string }> = [];
   operationsDataRows: Array<{ question: string, help: string, responseField: string }> = [];
   sustainabilityDataRows: Array<{ question: string, help: string, responseField: string }> = [];
