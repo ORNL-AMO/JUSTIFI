@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faFileExcel, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
@@ -10,12 +10,14 @@ import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbContact } from 'src/app/models/contact';
 import { getNewIdbEnergyEquipment, IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { IdbFacility } from 'src/app/models/facility';
+import { ProtocolQuestionsExcelWriterService } from 'src/app/shared/shared-services/protocol-questions-excel-writer.service';
+import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
-    selector: 'app-industrial-system-inventory-home',
-    templateUrl: './industrial-system-inventory-home.component.html',
-    styleUrl: './industrial-system-inventory-home.component.css',
-    standalone: false
+  selector: 'app-industrial-system-inventory-home',
+  templateUrl: './industrial-system-inventory-home.component.html',
+  styleUrl: './industrial-system-inventory-home.component.css',
+  standalone: false
 })
 export class IndustrialSystemInventoryHomeComponent {
 
@@ -31,11 +33,15 @@ export class IndustrialSystemInventoryHomeComponent {
 
   contacts: Array<IdbContact>;
   contactsSub: Subscription;
+  selectedModule = 'industrialSystem';
+
+  faFileExcel: IconDefinition = faFileExcel;
   constructor(private facilityIdbService: FacilityIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private companyIdbService: CompanyIdbService,
     private contactIdbService: ContactIdbService,
     private toastNotificationService: ToastNotificationsService,
+    private protocolQuestionsExcelWriterService: ProtocolQuestionsExcelWriterService,
     private router: Router
   ) { }
 
@@ -78,4 +84,7 @@ export class IndustrialSystemInventoryHomeComponent {
     this.router.navigateByUrl('/portfolio/facility/' + newEnergyEquipment.facilityId + '/system-inventory/' + newEnergyEquipment.guid);
   }
 
+  openExportModal() {
+    this.protocolQuestionsExcelWriterService.displayProtocolQuestionsModal.next(true);
+  }
 }
