@@ -5,12 +5,6 @@
             Selected {{facility.generalInformation.name}} KPIs
         </h5>
     </div>
-    <div class="col-12">
-        <button class="btn btn-outline-success btn-sm w-100" (click)="openAddCustomModal()">
-            <fa-icon [icon]="faPlus"></fa-icon>
-            Add Custom KPI
-        </button>
-    </div>
 </div>
 
 @let facilityKpis = (facility.guid | facilityKpiList:keyPerformanceIndicators);
@@ -31,9 +25,6 @@
                 </div>
             </div>
             <div>
-                <!-- <a class="p-1">
-                    <fa-icon class="small" [icon]="faCircleQuestion"></fa-icon>
-                </a> -->
                 <a class="p-1 click-link-danger" (click)="openDeleteModal(kpi)">
                     <fa-icon class="small" [icon]="faTrash"></fa-icon>
                 </a>
@@ -49,43 +40,6 @@
         No KPI's selected for this facility. Add KPI's from the list provided.
     </div>
 </ng-template>
-
-
-<!--custom KPI modal-->
-<div [ngClass]="{'window-overlay': displayCustomKPIModal}"></div>
-<div class="popup" [ngClass]="{'open': displayCustomKPIModal }">
-    <div class="popup-header">Create Custom KPI?
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeCustomKPIModal()"></button>
-    </div>
-    <div class="popup-body">
-        <form>
-            <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="customKPIName">Custom KPI Name</label>
-                <div class="col-sm-7">
-                    <input name="customKPIName" type="text" class="form-control" [(ngModel)]="customKPIName"
-                        id="customKPIName">
-                    <div class="alert alert-danger small mt-1 p-1" *ngIf="!customKPIName">
-                        Name Required
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="kpiCategory">KPI Category</label>
-                <div class="col-sm-7">
-                    <select class="form-select" name="kpiCategory" id="kpiCategory" [(ngModel)]="kpiCategory">
-                        <option *ngFor="let primaryKPI of primaryKPIs" [ngValue]="primaryKPI">{{primaryKPI}}</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-        <hr>
-    </div>
-    <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary btn-sm me-2" (click)="closeCustomKPIModal()">Cancel</button>
-        <button class="btn btn-success btn-sm" [disabled]="!customKPIName" (click)="confirmCreate()">Create Custom
-            KPI</button>
-    </div>
-</div>
 
 <!--delete KPI modal-->
 <div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
