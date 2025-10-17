@@ -11,6 +11,9 @@ export const LabelTooltips = {
     "calculationMethod": {
         "tooltip": "The method used to calculate impacts on the metric."
     },
+    "calculationMethodBaseline": {
+        "tooltip": "The method used to calculate the baseline metric value."
+    },
     "associatedEEM": {
         "tooltip": "Is this NEB realized because of the implementation of a specific energy efficiency measure?"
     },

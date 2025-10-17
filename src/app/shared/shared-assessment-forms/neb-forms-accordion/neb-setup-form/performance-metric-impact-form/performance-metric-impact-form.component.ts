@@ -14,10 +14,10 @@ import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMet
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 
 @Component({
-    selector: 'app-performance-metric-impact-form',
-    templateUrl: './performance-metric-impact-form.component.html',
-    styleUrl: './performance-metric-impact-form.component.css',
-    standalone: false
+  selector: 'app-performance-metric-impact-form',
+  templateUrl: './performance-metric-impact-form.component.html',
+  styleUrl: './performance-metric-impact-form.component.css',
+  standalone: false
 })
 export class PerformanceMetricImpactFormComponent {
   @Input({ required: true })
@@ -96,23 +96,37 @@ export class PerformanceMetricImpactFormComponent {
     await this.keyPerformanceMetricImpactIdbService.asyncUpdate(this.keyPerformanceMetricImpact);
   }
 
-  calculateCostFromKPM(kpmChanges: {modifiedMethod: boolean, updateBaseline: boolean}){
-    if(kpmChanges.modifiedMethod){
-      this.keyPerformanceMetricImpact.modificationValue = undefined;
+  async calculateBaselineCost(modifiedMethod: boolean) {
+    if (this.keyPerformanceMetric.calculationMethod == 'costPerUnit') {
+      this.keyPerformanceMetric.baselineCost = (this.keyPerformanceMetric.costPerValue * this.keyPerformanceMetric.baselineValue);
+      if (isNaN(this.keyPerformanceMetric.baselineCost)) {
+        this.keyPerformanceMetric.baselineCost = 0;
+      }
     }
-    this.calculateCost();
+    await this.savePerformanceMetric()
+    await this.calculateCostFromKPM({ modifiedMethod: modifiedMethod, updateBaseline: true });
+  }
+
+  async calculateCostFromKPM(kpmChanges: { modifiedMethod: boolean, updateBaseline: boolean }) {
+    if (kpmChanges.modifiedMethod) {
+      this.keyPerformanceMetricImpact.modificationValue = undefined;
+      if(this.keyPerformanceMetricImpact.calculationMethod == 'costPerUnit' && this.keyPerformanceMetric.calculationMethod != 'costPerUnit'){
+        this.keyPerformanceMetricImpact.calculationMethod = 'directCost';
+      }
+    }
+    await this.calculateCost();
   }
 
 
-  calculateCost() {
-    if (this.keyPerformanceMetric.calculationMethod == 'costPerUnit') {
+  async calculateCost() {
+    if (this.keyPerformanceMetricImpact.calculationMethod == 'costPerUnit') {
       this.keyPerformanceMetricImpact.costAdjustment = (this.keyPerformanceMetricImpact.modificationValue * this.keyPerformanceMetric.costPerValue);
-    } else if (this.keyPerformanceMetric.calculationMethod == 'percentTotal') {
+    } else if (this.keyPerformanceMetricImpact.calculationMethod == 'percentTotal') {
       this.keyPerformanceMetricImpact.costAdjustment = this.keyPerformanceMetric.baselineCost * (this.keyPerformanceMetricImpact.modificationValue / 100);
-    } else if(this.keyPerformanceMetric.calculationMethod == 'directCost'){
+    } else if (this.keyPerformanceMetricImpact.calculationMethod == 'directCost') {
       this.keyPerformanceMetricImpact.costAdjustment = this.keyPerformanceMetricImpact.modificationValue;
     }
-    this.saveChanges();
+    await this.saveChanges();
   }
 
   goToMetric() {
