@@ -18,3 +18,7 @@ hr{
         display: none;
     }
 }
+
+.italic{
+    font-style: italic;
+}

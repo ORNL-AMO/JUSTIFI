@@ -146,7 +146,7 @@ let processEquipmentIdbService: Partial<ProcessEquipmentIdbService> = {
     getFacilityProcessEquipment: () => { return [stubProcessEquipment] }
 }
 
-let stubKpiImpact: IdbKeyPerformanceMetricImpact = getNewIdbKeyPerformanceMetricImpact('123', '123', '123', '123', '123', 'TRIR', '123', '123', '123');
+let stubKpiImpact: IdbKeyPerformanceMetricImpact = getNewIdbKeyPerformanceMetricImpact('123', '123', '123', '123', '123', 'TRIR', '123', '123', '123', 'costPerUnit');
 stubKpiImpact.guid = '123';
 let keyPerformanceMetricImpactIdbService: Partial<KeyPerformanceMetricImpactsIdbService> = {
     keyPerformanceMetricImpacts: new BehaviorSubject<Array<IdbKeyPerformanceMetricImpact>>([stubKpiImpact])
@@ -160,6 +160,7 @@ let sharedDataService: Partial<SharedDataService> = {
     dataInitialized: new BehaviorSubject<boolean>(false),
     createPowerPoint: new BehaviorSubject<boolean>(false),
     showSlideShow: new BehaviorSubject<boolean>(false),
+    exportToExcel: new BehaviorSubject<boolean>(false),
 }
 
 let companyContactsFormService: Partial<CompanyContactsFormService> = {

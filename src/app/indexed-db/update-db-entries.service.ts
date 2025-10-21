@@ -27,6 +27,7 @@ import { AssessmentOptions } from '../shared/constants/assessmentTypes';
 import { UtilityEnergyUse } from '../models/utilityEnergyUses';
 import { NonEnergyBenefitsIdbService } from './non-energy-benefits-idb.service';
 import { IdbNonEnergyBenefit } from '../models/nonEnergyBenefit';
+import { NebOptions } from '../shared/constants/nonEnergyBenefitOptions';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,7 @@ export class UpdateDbEntriesService {
     }
     this.localeService.setCurrencyCode(user.locale);
 
+    await this.updateMetricImpactCalculationMethods();
     await this.updateProcessEquipment();
     await this.updateEnergyEquipment();
     await this.updateCompanies();
@@ -338,12 +340,47 @@ export class UpdateDbEntriesService {
   async updateNonEnergyBenefits() {
     let nonEnergyBenefits: Array<IdbNonEnergyBenefit> = await firstValueFrom(this.nonEnergyBenefitsIdbService.getAll());
     // back-compatibility for financial impact type
+    let needUpdate = false;
     for (let i = 0; i < nonEnergyBenefits.length; i++) {
       let nonEnergyBenefit: IdbNonEnergyBenefit = nonEnergyBenefits[i];
       if (nonEnergyBenefit.costImpactType == undefined) {
         nonEnergyBenefit.costImpactType = 'annual';
+        needUpdate = true;
+      }
+      if (nonEnergyBenefit.nebOptionValue) {
+        let isValidOption: boolean = NebOptions.some(option => option.optionValue === nonEnergyBenefit.nebOptionValue);
+        if (!isValidOption) { // Old nebOptionValue mark as custom NEB
+          nonEnergyBenefit.nebOptionValue = undefined;
+          nonEnergyBenefit.isCustom = true;
+        }
+        needUpdate = true;
+      }
+      if (needUpdate) {
         await firstValueFrom(this.nonEnergyBenefitsIdbService.updateWithObservable(nonEnergyBenefit));
+        needUpdate = false;
       }
     }
+  }
+
+  async updateMetricImpactCalculationMethods() {
+    let keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = await firstValueFrom(this.keyPerformanceMetricImpactsIdbService.getAll());
+    let keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = await firstValueFrom(this.keyPerformanceIndicatorsIdbService.getAll());
+    let keyPerformanceMetrics: Array<KeyPerformanceMetric> = keyPerformanceIndicators.flatMap(kpi => { return kpi.performanceMetrics });
+    let needUpdate = false;
+    for (let i = 0; i < keyPerformanceMetricImpacts.length; i++) {
+      let impact: IdbKeyPerformanceMetricImpact = keyPerformanceMetricImpacts[i];
+      if (impact.calculationMethod == undefined) {
+        let kpm: KeyPerformanceMetric = keyPerformanceMetrics.find(metric => { return metric.guid == impact.kpmGuid });
+        if (kpm) {
+          impact.calculationMethod = kpm.calculationMethod;
+          needUpdate = true;
+        }
+      }
+      if (needUpdate) {
+        await firstValueFrom(this.keyPerformanceMetricImpactsIdbService.updateWithObservable(impact));
+        needUpdate = false;
+      }
+    }
+
   }
 }

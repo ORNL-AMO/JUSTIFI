@@ -2,10 +2,16 @@
     <div class="col-sm-12 col-md-10">
         <div class="card portfolio">
             <div class="card-body">
-                <h5>
-                    <fa-icon [icon]="faClipboardQuestion" class="me-2"></fa-icon>
-                    Facility Questions
-                </h5>
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h5>
+                        <fa-icon [icon]="faClipboardQuestion" class="me-2"></fa-icon>
+                        Facility Questions
+                    </h5>
+                    <button class="btn action-btn btn-sm me-2" (click)="openExportModal()">
+                        <fa-icon class="me-1" [icon]="faFileExcel"></fa-icon>
+                        Export Questions to Excel
+                    </button>
+                </div>
                 <hr>
                 <p class="fw-light small">
                     {{FacilityProtocolHelp.sectionHelp}}
@@ -21,3 +27,6 @@
         </div>
     </div>
 </div>
+
+<app-protocol-questions-modal [selectedModule]="selectedModule"></app-protocol-questions-modal>
+

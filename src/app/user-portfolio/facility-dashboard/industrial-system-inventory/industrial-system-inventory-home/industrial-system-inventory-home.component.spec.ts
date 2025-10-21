@@ -6,6 +6,8 @@ import { TableEntriesModule } from 'src/app/shared/table-entries/table-entries.m
 import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { FormsModule } from '@angular/forms';
+import { ProtocolQuestionsModalComponent } from '../../protocol-questions-modal/protocol-questions-modal.component';
 
 describe('IndustrialSystemInventoryHomeComponent', () => {
   let component: IndustrialSystemInventoryHomeComponent;
@@ -13,8 +15,8 @@ describe('IndustrialSystemInventoryHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedCompanyFormsModule, FontAwesomeModule, HelperPipesModule, TableEntriesModule],
-      declarations: [IndustrialSystemInventoryHomeComponent],
+      imports: [SharedCompanyFormsModule, FontAwesomeModule, HelperPipesModule, TableEntriesModule, FormsModule],
+      declarations: [IndustrialSystemInventoryHomeComponent, ProtocolQuestionsModalComponent],
       providers: stubServiceProviders
     })
     .compileComponents();

@@ -47,11 +47,12 @@
 <div class="row">
     <label class="col-sm-5" for="kpmValue">Key Performance Metric (KPM)</label>
     <div class="col-7">
-        <select id="kpmValue" name="kpmValue" class="form-select" [(ngModel)]="kpmValue">
+        <select id="kpmValue" name="kpmValue" class="form-select" [(ngModel)]="kpmCompositeValue"
+            (change)="setKpmValue()">
             <option [ngValue]="undefined">All KPM</option>
-            <option *ngFor="let kpm of keyPerformanceMetricOptions" [ngValue]="kpm.value">
+            <option *ngFor="let kpm of keyPerformanceMetricOptions" [ngValue]="(kpm.value + kpm.kpiValue)">
                 <div class="d-flex">
-                    <ng-template [ngIf]="facilityTrackedKpms.includes(kpm.value)">
+                    <ng-template [ngIf]="facilityTrackedKpms.includes(kpm.value + kpm.kpiValue)">
                         <div class="p-1">
                             &ast;
                         </div>
@@ -116,21 +117,22 @@ nebSearchStr;
                             <ng-template [ngIf]="inAddModal" [ngIfElse]="nonModalBlock">
                                 Select KPMs impacted by this NEB.
                                 <div class="d-flex ps-2 flex-column">
-                                    <ng-container *ngFor="let metric of neb.KPM">
+                                    <ng-container *ngFor="let composite of neb.KPM | kpmComposite">
+                                        @let compositeKey = composite.kpmValue + composite.kpiValue;
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value=""
-                                                id="{{'check_'+metric+neb.optionValue}}"
-                                                (change)="setChecked(neb, metric)"
-                                                [checked]="neb.selectedKPM.includes(metric)">
-                                            <label class="form-check-label" for="{{'check_'+metric+neb.optionValue}}">
+                                                id="{{'check_'+compositeKey+neb.optionValue}}"
+                                                (change)="setChecked(neb, composite.kpmValue, composite.kpiValue)"
+                                                [checked]="neb.selectedKPM.includes(compositeKey)">
+                                            <label class="form-check-label" for="{{'check_'+compositeKey+neb.optionValue}}">
                                                 <div class="d-flex">
-                                                    <ng-template [ngIf]="facilityTrackedKpms.includes(metric)">
+                                                    <ng-template [ngIf]="facilityTrackedKpms.includes(compositeKey)">
                                                         <div class="pe-1">
                                                             &ast;
                                                         </div>
                                                     </ng-template>
                                                     <span
-                                                        [innerHTML]="metric | kpmLabel: allKpmOptions: 'metricValue'"></span>
+                                                        [innerHTML]="composite.htmlLabel"></span>
                                                 </div>
                                             </label>
                                         </div>
@@ -142,9 +144,9 @@ nebSearchStr;
                                     KPMs impacted by this NEB
                                     <ng-container>
                                         <ul class="mb-0">
-                                            <li *ngFor="let metric of neb.KPM">
+                                            <li *ngFor="let composite of neb.KPM | kpmComposite">
                                                 <span
-                                                    [innerHTML]="metric | kpmLabel: allKpmOptions: 'metricValue'"></span>
+                                                    [innerHTML]="composite.htmlLabel"></span>
                                             </li>
                                         </ul>
                                     </ng-container>

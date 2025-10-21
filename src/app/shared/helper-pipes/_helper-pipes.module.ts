@@ -35,6 +35,7 @@ import { UtilityHhvDisplayPipe } from './utility-hhv-display.pipe';
 import { ContactInvalidPipe } from './contact-invalid.pipe';
 import { AssociatedPerformanceMetricImpactsPipe } from './associated-performance-metric-impacts.pipe';
 import { KpmLabelPipe } from './kpm-label.pipe';
+import { KpmCompositePipe } from './kpm-composite.pipe';
 import { NebTotalSavingsPipe } from './neb-total-savings.pipe';
 import { FacilityKpiListPipe } from './facility-kpi-list.pipe';
 import { ProcessEquipmentListPipe } from './process-equipment-list.pipe';
@@ -91,6 +92,7 @@ import { DisplayRoundedValuesPipe } from './display-rounded-values.pipe';
     ContactInvalidPipe,
     AssociatedPerformanceMetricImpactsPipe,
     KpmLabelPipe,
+    KpmCompositePipe,
     NebTotalSavingsPipe,
     FacilityKpiListPipe,
     ProcessEquipmentListPipe,
@@ -152,6 +154,7 @@ import { DisplayRoundedValuesPipe } from './display-rounded-values.pipe';
     ContactInvalidPipe,
     AssociatedPerformanceMetricImpactsPipe,
     KpmLabelPipe,
+    KpmCompositePipe,
     NebTotalSavingsPipe,
     FacilityKpiListPipe,
     ProcessEquipmentListPipe,
