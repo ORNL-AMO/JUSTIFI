@@ -1,0 +1,16 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - 'develop'
+      - 'master'
+  workflow_dispatch:
+
+jobs:
+  web:
+    uses: ./.github/workflows/release_web.yml
+
+  desktop:
+    uses: ./.github/workflows/release_desktop.yml
+    secrets: inherit
