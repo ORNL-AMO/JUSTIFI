@@ -5,14 +5,19 @@
     </p>
 </ng-container>
 <hr>
-<div class="d-flex justify-content-between mb-1">
+<div class="d-flex justify-content-between mb-1 align-items-center">
     <div>
-        <h6>
+        <h6 class="mb-0">
             {{company.generalInformation.name}} Facilities
         </h6>
     </div>
-    <div *ngIf="inCompanyDashboard">
-        <button class="btn btn-outline-success btn-sm" (click)="openAddFacilityModal()">
+    <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary btn-sm" (click)="toggleArchivedFacilities()" 
+                title="{{showArchivedFacilities ? 'Hide' : 'Show'}} archived facilities">
+            {{showArchivedFacilities ? 'Hide Archived' : 'Show Archived'}}
+        </button>
+        <button *ngIf="inCompanyDashboard"
+            class="btn btn-outline-success btn-sm" (click)="openAddFacilityModal()">
             <fa-icon [icon]="faPlus"></fa-icon>
             Add Facility
         </button>
@@ -32,6 +37,7 @@
                         [ngClass]="{'collapsed': accordionGuid != facility.guid}">
                         <fa-icon class="pe-2" [icon]="faIndustry"></fa-icon>
                         {{facility.generalInformation.name}}
+                        <span *ngIf="facility.isArchived" class="badge bg-secondary ms-2">Archived</span>
                     </button>
                 </div>
             </h2>

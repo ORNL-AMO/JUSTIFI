@@ -29,6 +29,7 @@ export class CompanyListItemComponent {
   facilitiesSub: Subscription;
   accordionGuid: string;
   displayAddFacilityModal: boolean = false;
+  showArchivedFacilities: boolean = false;
   constructor(private facilityIdbService: FacilityIdbService,
     private bootstrapService: BootstrapService,
     private router: Router,
@@ -40,7 +41,11 @@ export class CompanyListItemComponent {
 
   ngOnInit() {
     this.facilitiesSub = this.facilityIdbService.facilities.subscribe(facilities => {
-      this.facilities = facilities.filter(facility => { return facility.companyId == this.company.guid });
+      this.facilities = facilities.filter(facility => { 
+        const matchesCompany = facility.companyId == this.company.guid;
+        const matchesArchivedFilter = this.showArchivedFacilities || !facility.isArchived;
+        return matchesCompany && matchesArchivedFilter;
+      });
     });
   }
 
@@ -76,5 +81,16 @@ export class CompanyListItemComponent {
     let newFacility: IdbFacility = this.facilityIdbService.getByGUID(newFacilityGuid)
     this.router.navigateByUrl('/portfolio/facility/' + newFacility.guid + '/manage');
     this.toastNotificationService.showToast('New Facility Added!', undefined, 'bg-success', true, false);
+  }
+
+  toggleArchivedFacilities() {
+    this.showArchivedFacilities = !this.showArchivedFacilities;
+    // Manually trigger the filter update
+    const allFacilities = this.facilityIdbService.facilities.getValue();
+    this.facilities = allFacilities.filter(facility => {
+      const matchesCompany = facility.companyId == this.company.guid;
+      const matchesArchivedFilter = this.showArchivedFacilities || !facility.isArchived;
+      return matchesCompany && matchesArchivedFilter;
+    });
   }
 }
