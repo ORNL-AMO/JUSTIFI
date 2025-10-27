@@ -177,7 +177,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     });
     this.reportsSub = this.reportIdbService.reports.subscribe(reports => {
       this.reports = reports;
-    })
+    });
   }
 
   ngOnDestroy() {

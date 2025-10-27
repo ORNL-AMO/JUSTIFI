@@ -16,7 +16,8 @@ export interface IdbContact extends IdbEntry {
     energyEquipmentIds: Array<string>,
     kpiIds: Array<string>,
     userId: string,
-    notes: string
+    notes: string,
+    archivedFacilityId?: string
 }
 
 export function getNewIdbContact(userId: string, companyId: string): IdbContact {

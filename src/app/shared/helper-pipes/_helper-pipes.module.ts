@@ -56,6 +56,7 @@ import { KeywordHighlightPipe } from './keyword-highlight.pipe';
 import { DisplayRoundedValuesPipe } from './display-rounded-values.pipe';
 import { FacilityArchivedPipe } from './facility-archived.pipe';
 import { FilterArchivedVisitsPipe } from './filter-archived-visits.pipe';
+import { FilterArchivedContactsPipe } from './filter-archived-contacts.pipe';
 
 @NgModule({
   declarations: [
@@ -114,6 +115,7 @@ import { FilterArchivedVisitsPipe } from './filter-archived-visits.pipe';
     DisplayRoundedValuesPipe,
     FacilityArchivedPipe,
     FilterArchivedVisitsPipe,
+    FilterArchivedContactsPipe,
   ],
   imports: [
     CommonModule
@@ -177,7 +179,8 @@ import { FilterArchivedVisitsPipe } from './filter-archived-visits.pipe';
     KeywordHighlightPipe,
     DisplayRoundedValuesPipe,
     FacilityArchivedPipe,
-    FilterArchivedVisitsPipe
+    FilterArchivedVisitsPipe,
+    FilterArchivedContactsPipe
   ]
 })
 export class HelperPipesModule { }

@@ -696,7 +696,8 @@ export class BackupDataService {
         processEquipmentIds: contact.processEquipmentIds.map(id => getNewId(id, processEquipmentGuidMap)),
         kpiIds: contact.kpiIds.map(id => getNewId(id, kpiGuidMap)),
         nonEnergyBenefitIds: contact.nonEnergyBenefitIds.map(id => getNewId(id, nebGuidMap)),
-        notes: updatedNotes
+        notes: updatedNotes,
+        archivedFacilityId: newFacilityGuid
       };
       delete newContact.id;
       await firstValueFrom(this.contactIdbService.addWithObservable(newContact));
