@@ -663,6 +663,13 @@ export class BackupDataService {
       .filter(c => c.facilityIds.includes(facilityGuid));
     
     for (const contact of contacts) {
+      // Add archive note to preserve historical context
+      const archiveNote = `[Archived from facility: ${facility.generalInformation.name} on ${timestamp}]`;
+      const existingNotes = contact.notes ? contact.notes.trim() : '';
+      const updatedNotes = existingNotes 
+        ? `${archiveNote}\n\n${existingNotes}`
+        : archiveNote;
+
       const newContact: IdbContact = {
         ...contact,
         guid: getGUID(),
@@ -672,7 +679,8 @@ export class BackupDataService {
         energyEquipmentIds: contact.energyEquipmentIds.map(id => getNewId(id, energyEquipmentGuidMap)),
         processEquipmentIds: contact.processEquipmentIds.map(id => getNewId(id, processEquipmentGuidMap)),
         kpiIds: contact.kpiIds.map(id => getNewId(id, kpiGuidMap)),
-        nonEnergyBenefitIds: contact.nonEnergyBenefitIds.map(id => getNewId(id, nebGuidMap))
+        nonEnergyBenefitIds: contact.nonEnergyBenefitIds.map(id => getNewId(id, nebGuidMap)),
+        notes: updatedNotes
       };
       await firstValueFrom(this.contactIdbService.addWithObservable(newContact));
     }
