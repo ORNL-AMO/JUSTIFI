@@ -469,7 +469,6 @@ export class BackupDataService {
     this.loadingService.setLoadingStatus(true);
 
     const facility: IdbFacility = this.facilityIdbService.getByGUID(facilityGuid);
-
     const userGuid = this.userIdbService.user.getValue().guid;
     const companyGuid = facility.companyId;
     
@@ -481,7 +480,6 @@ export class BackupDataService {
     const newFacility: IdbFacility = {
       ...facility,
       guid: getGUID(),
-      id: undefined,
       generalInformation: {
         ...facility.generalInformation,
         name: newName
@@ -490,6 +488,8 @@ export class BackupDataService {
       archivedDate: archiveDate,
       originalFacilityId: facilityGuid
     };
+
+    delete newFacility.id;
     await firstValueFrom(this.facilityIdbService.addWithObservable(newFacility));
     const newFacilityGuid = newFacility.guid;
 
@@ -507,7 +507,6 @@ export class BackupDataService {
       const newKpi: IdbKeyPerformanceIndicator = {
         ...kpi,
         guid: newKpiGuid,
-        id: undefined,
         facilityId: newFacilityGuid,
         performanceMetrics: kpi.performanceMetrics.map(kpm => {
           const newKpmGuid = getGUID();
@@ -519,6 +518,7 @@ export class BackupDataService {
           };
         })
       };
+      delete newKpi.id;
       await firstValueFrom(this.keyPerformanceIndicatorsIdbService.addWithObservable(newKpi));
     }
 
@@ -535,9 +535,9 @@ export class BackupDataService {
       const newEquipment: IdbEnergyEquipment = {
         ...equipment,
         guid: newEquipmentGuid,
-        id: undefined,
         facilityId: newFacilityGuid
       };
+      delete newEquipment.id;
       await firstValueFrom(this.energyEquipmentIdbService.addWithObservable(newEquipment));
     }
 
@@ -554,9 +554,9 @@ export class BackupDataService {
       const newEquipment: IdbProcessEquipment = {
         ...equipment,
         guid: newEquipmentGuid,
-        id: undefined,
         facilityId: newFacilityGuid
       };
+      delete newEquipment.id;
       await firstValueFrom(this.processEquipmentIdbService.addWithObservable(newEquipment));
     }
 
@@ -573,10 +573,10 @@ export class BackupDataService {
       const newAssessment: IdbAssessment = {
         ...assessment,
         guid: newAssessmentGuid,
-        id: undefined,
         facilityId: newFacilityGuid,
         equipmentId: getNewId(assessment.equipmentId, energyEquipmentGuidMap)
       };
+      delete newAssessment.id;
       await firstValueFrom(this.assessmentIdbService.addWithObservable(newAssessment));
     }
 
@@ -593,10 +593,10 @@ export class BackupDataService {
       const newOpportunity: IdbEnergyOpportunity = {
         ...opportunity,
         guid: newOpportunityGuid,
-        id: undefined,
         facilityId: newFacilityGuid,
         assessmentId: getNewId(opportunity.assessmentId, assessmentGuidMap)
       };
+      delete newOpportunity.id;
       await firstValueFrom(this.energyOpportunityIdbService.addWithObservable(newOpportunity));
     }
 
@@ -613,11 +613,11 @@ export class BackupDataService {
       const newNeb: IdbNonEnergyBenefit = {
         ...neb,
         guid: newNebGuid,
-        id: undefined,
         facilityId: newFacilityGuid,
         assessmentId: getNewId(neb.assessmentId, assessmentGuidMap),
         energyOpportunityId: getNewId(neb.energyOpportunityId, energyOpportunityGuidMap)
       };
+      delete newNeb.id;
       await firstValueFrom(this.nonEnergyBenefitsIdbService.addWithObservable(newNeb));
     }
 
@@ -630,7 +630,6 @@ export class BackupDataService {
       const newImpact: IdbKeyPerformanceMetricImpact = {
         ...impact,
         guid: getGUID(),
-        id: undefined,
         facilityId: newFacilityGuid,
         kpiGuid: getNewId(impact.kpiGuid, kpiGuidMap),
         kpmGuid: getNewId(impact.kpmGuid, kpmGuidMap),
@@ -638,6 +637,7 @@ export class BackupDataService {
         nebId: getNewId(impact.nebId, nebGuidMap),
         energyOpportunityId: getNewId(impact.energyOpportunityId, energyOpportunityGuidMap)
       };
+      delete newImpact.id;
       await firstValueFrom(this.keyPerformanceMetricImpactIdbService.addWithObservable(newImpact));
     }
 
@@ -650,10 +650,10 @@ export class BackupDataService {
       const newVisit: IdbOnSiteVisit = {
         ...visit,
         guid: getGUID(),
-        id: undefined,
         facilityId: newFacilityGuid,
         assessmentIds: visit.assessmentIds.map(id => getNewId(id, assessmentGuidMap))
       };
+      delete newVisit.id;
       await firstValueFrom(this.onSiteVisitIdbService.addWithObservable(newVisit));
     }
 
@@ -673,7 +673,6 @@ export class BackupDataService {
       const newContact: IdbContact = {
         ...contact,
         guid: getGUID(),
-        id: undefined,
         facilityIds: contact.facilityIds.map(id => id === facilityGuid ? newFacilityGuid : id),
         assessmentIds: contact.assessmentIds.map(id => getNewId(id, assessmentGuidMap)),
         energyEquipmentIds: contact.energyEquipmentIds.map(id => getNewId(id, energyEquipmentGuidMap)),
@@ -682,6 +681,7 @@ export class BackupDataService {
         nonEnergyBenefitIds: contact.nonEnergyBenefitIds.map(id => getNewId(id, nebGuidMap)),
         notes: updatedNotes
       };
+      delete newContact.id;
       await firstValueFrom(this.contactIdbService.addWithObservable(newContact));
     }
 

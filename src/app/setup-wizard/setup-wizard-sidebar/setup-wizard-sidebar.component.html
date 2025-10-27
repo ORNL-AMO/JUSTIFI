@@ -354,6 +354,17 @@
             <div class="w-100">
                 <hr class="spacer">
             </div>
+
+            <div class="nav-item">
+                <a class="nav-link bold" (click)="openArchiveFacilityModal()">
+                    <fa-icon [icon]="faBoxArchive"></fa-icon>
+                    Archive Facility
+                </a>
+            </div>
+
+            <div class="w-100">
+                <hr class="spacer">
+            </div>
             <div class="nav-item">
                 <a class="nav-link bold" (click)="openPortfolioModal()">
                     <fa-icon [icon]="faFolderOpen"></fa-icon>
@@ -382,5 +393,30 @@
         <button class="btn btn-secondary btn-sm me-2" (click)="closePortfolioModal()">Cancel</button>
         <button class="btn nav-btn btn-sm" (click)="goToPortfolio()"><fa-icon [icon]="faFolderOpen"></fa-icon>
             Go to Portfolio</button>
+    </div>
+</div>
+
+<div [ngClass]="{'window-overlay': displayArchiveModal}"></div>
+<div class="popup" [ngClass]="{'open': displayArchiveModal }">
+    <div class="popup-header">Archive Facility
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeArchiveModal()"></button>
+    </div>
+    <div class="popup-body">
+        <div class="alert alert-warning p-2">
+            <strong>Create Historical Snapshot</strong><br>
+            This will create a complete copy of <strong>{{facility?.generalInformation?.name}}</strong> and all its associated data (KPIs, equipment, assessments, contacts, etc.) as a historical snapshot.
+        </div>
+        <div class="form-group mt-3">
+            <label for="archiveName" class="form-label"><strong>Archive Name:</strong></label>
+            <input type="text" class="form-control" id="archiveName" [(ngModel)]="archiveFacilityName"
+                [placeholder]="facility?.generalInformation?.name + ' (Archived ' + currentDate + ')'" />
+        <hr>
+    </div>
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary btn-sm me-2" (click)="closeArchiveModal()">Cancel</button>
+        <button class="btn btn-primary btn-sm" (click)="confirmArchive()">
+            <fa-icon [icon]="faBoxArchive"></fa-icon>
+            Create Archive
+        </button>
     </div>
 </div>
