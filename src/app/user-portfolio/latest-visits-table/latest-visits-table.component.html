@@ -19,7 +19,7 @@
             Below is a list of the on-site visits conducted in JUSTIFI so you can jump back in.
             Just click the "<fa-icon [icon]="faWandMagicSparkles"></fa-icon>" button.
         </p>
-        <ng-template [ngIf]="filteredVisits.length > 0" [ngIfElse]="noVisitsBlock">
+        <ng-template [ngIf]="(onSiteVisits | filterArchivedVisits: facilities: showArchivedFacilities).length > 0" [ngIfElse]="noVisitsBlock">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -44,7 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let visit of filteredVisits |  slice: ((currentPageNumber-1) * 5): currentPageNumber * 5">
+                    <tr *ngFor="let visit of onSiteVisits | filterArchivedVisits: facilities: showArchivedFacilities | slice: ((currentPageNumber-1) * 5): currentPageNumber * 5">
                         <td>
                             <a [routerLink]="'/portfolio/company/'+visit.companyId">
                                 {{visit.companyId | companyName: companies}}
@@ -88,7 +88,7 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-end pt-2">
-                <app-table-pagination [pageNumber]="currentPageNumber" [collectionSize]="filteredVisits.length"
+                <app-table-pagination [pageNumber]="currentPageNumber" [collectionSize]="(onSiteVisits | filterArchivedVisits: facilities: showArchivedFacilities).length"
                     [itemsPerPage]="5" (emitPageNumber)="setPageCurrentPageNumber($event)"></app-table-pagination>
             </div>
         </ng-template>

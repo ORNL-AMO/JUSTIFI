@@ -55,6 +55,7 @@ import { IsUtilityTrackedPipe } from './is-utility-tracked.pipe';
 import { KeywordHighlightPipe } from './keyword-highlight.pipe';
 import { DisplayRoundedValuesPipe } from './display-rounded-values.pipe';
 import { FacilityArchivedPipe } from './facility-archived.pipe';
+import { FilterArchivedVisitsPipe } from './filter-archived-visits.pipe';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { FacilityArchivedPipe } from './facility-archived.pipe';
     KeywordHighlightPipe,
     DisplayRoundedValuesPipe,
     FacilityArchivedPipe,
+    FilterArchivedVisitsPipe,
   ],
   imports: [
     CommonModule
@@ -174,7 +176,8 @@ import { FacilityArchivedPipe } from './facility-archived.pipe';
     IsUtilityTrackedPipe,
     KeywordHighlightPipe,
     DisplayRoundedValuesPipe,
-    FacilityArchivedPipe
+    FacilityArchivedPipe,
+    FilterArchivedVisitsPipe
   ]
 })
 export class HelperPipesModule { }
