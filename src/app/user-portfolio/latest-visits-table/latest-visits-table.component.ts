@@ -24,6 +24,7 @@ export class LatestVisitsTableComponent {
   faStopwatch: IconDefinition = faStopwatch;
 
   onSiteVisits: Array<IdbOnSiteVisit>;
+  filteredVisits: Array<IdbOnSiteVisit>;
   onSiteVisitSub: Subscription;
 
   facilities: Array<IdbFacility>;
@@ -36,6 +37,7 @@ export class LatestVisitsTableComponent {
   assessmentSub: Subscription;
 
   currentPageNumber: number = 1;
+  showArchivedFacilities: boolean = false;
   constructor(
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private facilityIdbService: FacilityIdbService,
@@ -49,13 +51,13 @@ export class LatestVisitsTableComponent {
 
   ngOnInit() {
     this.onSiteVisitSub = this.onSiteVisitIdbService.onSiteVisits.subscribe(visits => {
-      this.onSiteVisits = _.orderBy(visits, (visit: IdbOnSiteVisit) => {
-        return new Date(visit.modifiedDate).getTime()
-      }, 'desc');
+      this.onSiteVisits = visits;
+      this.filterVisits();
     });
 
     this.facilitiesSub = this.facilityIdbService.facilities.subscribe(facilities => {
       this.facilities = facilities;
+      this.filterVisits();
     });
 
     this.companiesSub = this.companyIdbService.companies.subscribe(companies => {
@@ -87,5 +89,22 @@ export class LatestVisitsTableComponent {
 
   setPageCurrentPageNumber(pageNumber: number) {
     this.currentPageNumber = pageNumber;
+  }
+
+  toggleArchivedFacilities() {
+    this.showArchivedFacilities = !this.showArchivedFacilities;
+    this.filterVisits();
+  }
+
+  filterVisits() {
+    const filteredVisits = this.showArchivedFacilities 
+      ? this.onSiteVisits 
+      : this.onSiteVisits.filter(visit => {
+          const facility = this.facilities?.find(f => f.guid === visit.facilityId);
+          return !facility?.isArchived;
+        });
+    this.filteredVisits = _.orderBy(filteredVisits, (visit: IdbOnSiteVisit) => {
+      return new Date(visit.modifiedDate).getTime()
+    }, 'desc');
   }
 }
