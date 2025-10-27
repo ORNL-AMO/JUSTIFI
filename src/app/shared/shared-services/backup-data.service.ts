@@ -657,11 +657,28 @@ export class BackupDataService {
       await firstValueFrom(this.onSiteVisitIdbService.addWithObservable(newVisit));
     }
 
-    // Copy Contacts (only those associated with this facility)
+    // Copy Contacts
     this.loadingService.setLoadingMessage('Copying contacts...');
-    const contacts = this.contactIdbService.contacts.getValue()
-      .filter(c => c.facilityIds.includes(facilityGuid));
+    const allContacts = this.contactIdbService.contacts.getValue()
+      .filter(c => c.companyId === companyGuid);
     
+    // Find associated contacts
+    const facilityEntityIds = new Set([
+      ...assessmentGuidMap.map(m => m.oldId),
+      ...energyEquipmentGuidMap.map(m => m.oldId),
+      ...processEquipmentGuidMap.map(m => m.oldId),
+      ...kpiGuidMap.map(m => m.oldId),
+      ...nebGuidMap.map(m => m.oldId)
+    ]);
+    
+    const contacts = allContacts.filter(contact => {
+      return contact.assessmentIds.some(id => facilityEntityIds.has(id)) ||
+             contact.energyEquipmentIds.some(id => facilityEntityIds.has(id)) ||
+             contact.processEquipmentIds.some(id => facilityEntityIds.has(id)) ||
+             contact.kpiIds.some(id => facilityEntityIds.has(id)) ||
+             contact.nonEnergyBenefitIds.some(id => facilityEntityIds.has(id));
+    });
+
     for (const contact of contacts) {
       // Add archive note to preserve historical context
       const archiveNote = `[Archived from facility: ${facility.generalInformation.name} on ${timestamp}]`;
@@ -673,7 +690,7 @@ export class BackupDataService {
       const newContact: IdbContact = {
         ...contact,
         guid: getGUID(),
-        facilityIds: contact.facilityIds.map(id => id === facilityGuid ? newFacilityGuid : id),
+        facilityIds: [],
         assessmentIds: contact.assessmentIds.map(id => getNewId(id, assessmentGuidMap)),
         energyEquipmentIds: contact.energyEquipmentIds.map(id => getNewId(id, energyEquipmentGuidMap)),
         processEquipmentIds: contact.processEquipmentIds.map(id => getNewId(id, processEquipmentGuidMap)),
