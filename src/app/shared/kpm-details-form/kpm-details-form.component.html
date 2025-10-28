@@ -35,9 +35,9 @@
             Calculation Method
         </label> -->
         <div class="col-sm-6 col-form-label">
-            <app-label-with-tooltip [field]="'calculationMethod'"
+            <app-label-with-tooltip [field]="'calculationMethodBaseline'"
                 [labelId]="'calculationMethod_'+keyPerformanceMetric.value"
-                [label]="'Impact Calculation Method'"></app-label-with-tooltip>
+                [label]="'Baseline Calculation Method'"></app-label-with-tooltip>
         </div>
         <div class="col-6">
             <select id="{{'calculationMethod_'+keyPerformanceMetric.value}}"
@@ -46,7 +46,6 @@
                 [disabled]="disableForm">
                 <option [ngValue]="'costPerUnit'">Per Unit</option>
                 <option [ngValue]="'directCost'">Direct Impact</option>
-                <option [ngValue]="'percentTotal'">Percent Total</option>
             </select>
         </div>
     </div>

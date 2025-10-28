@@ -53,11 +53,31 @@
                     [(ngModel)]="keyPerformanceIndicator.description" (input)="saveChanges()"></textarea>
             </div>
         </div>
+        <div class="row pt-2">
+            <label class="col-sm-6 col-form-label" for="{{'kpiNotes_'+keyPerformanceIndicator.guid}}">
+                Notes
+            </label>
+            <div class="col-6">
+                <textarea class="form-control" name="{{'kpiNotes_'+keyPerformanceIndicator.guid}}"
+                    id="{{'kpiNotes_'+keyPerformanceIndicator.guid}}" [(ngModel)]="keyPerformanceIndicator.notes"
+                    (input)="saveChanges()"></textarea>
+            </div>
+        </div>
     </ng-template>
     <ng-template #nonCustomKpiBlock>
         <p class="fw-light small">
             <span [innerHTML]="keyPerformanceIndicator.optionValue | kpiDescription"></span>
         </p>
+        <div class="row">
+            <div class="col-12">
+                <label for="{{'kpiNotes_'+keyPerformanceIndicator.guid}}">
+                    Notes
+                </label>
+                <textarea class="form-control" name="{{'kpiNotes_'+keyPerformanceIndicator.guid}}"
+                    id="{{'kpiNotes_'+keyPerformanceIndicator.guid}}" [(ngModel)]="keyPerformanceIndicator.notes"
+                    (input)="saveChanges()"></textarea>
+            </div>
+        </div>
     </ng-template>
 
     <div class="row pt-2">
@@ -176,7 +196,8 @@
     <ng-template #noKpmsBlock>
         <ng-template [ngIf]="keyPerformanceMetricOptions.length > 0" [ngIfElse]="noOptionsBlock">
             <div class="alert alert-info text-center p-1 small">
-                No performance metrics are connected to this KPI. JUSTIFI has a preset list of related KPMs provided below. Select the
+                No performance metrics are connected to this KPI. JUSTIFI has a preset list of related KPMs provided
+                below. Select the
                 metrics you would like to track for this KPI. Click "<fa-icon [icon]="faPlus"></fa-icon>" to select the
                 metrics and then use the "Add Metrics" button to add the metrics to this KPI. Use the dropdown above to
                 add custom metrics if none of the items listed below meet your needs.

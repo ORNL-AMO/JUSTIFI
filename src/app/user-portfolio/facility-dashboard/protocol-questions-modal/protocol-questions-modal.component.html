@@ -1,0 +1,70 @@
+<div [ngClass]="{'window-overlay': displayProtocolQuestionsModal}"></div>
+<div class="popup" [ngClass]="{'open': displayProtocolQuestionsModal }">
+    <div class="popup-header">Export Questions to Excel
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeExportModal()"></button>
+    </div>
+    <div class="popup-body">
+        <div class="alert alert-info p-2">
+            Select the Protocol Questions you want to export to Excel.
+        </div>
+
+        <div class="mb-3">
+            <!-- Facility -->
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="isFacilitySelected"
+                        (change)="toggleParent('facility')">
+                    Facility Protocol Questions
+                </label>
+            </div>
+
+            <!-- Industrial System Inventory -->
+            <div class="mt-2">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="isIndustrialSystemSelected"
+                            (change)="toggleParent('industrialSystem')">
+                        Industrial System Inventory
+                    </label>
+                </div>
+                <div class="ms-3">
+                    <div class="form-check" *ngFor="let equipment of energyEquipments">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox"
+                                [checked]="selectedChildrenIndustrialSys.includes(equipment.guid)"
+                                (change)="toggleChild('industrialSystem', equipment.guid, $event)">
+                            {{ equipment.equipmentName }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End Use Inventory -->
+            <div class="mt-2">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="isEndUseSelected"
+                            (change)="toggleParent('endUse')">
+                        End Use Inventory
+                    </label>
+                </div>
+                <div class="ms-3">
+                    <div class="form-check" *ngFor="let equipment of processEquipments">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox"
+                                [checked]="selectedChildrenEndUse.includes(equipment.guid)"
+                                (change)="toggleChild('endUse', equipment.guid, $event)">
+                            {{ equipment.equipmentName }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-footer d-flex justify-content-end">
+        <button class="btn btn-secondary me-2 btn-sm" (click)="closeExportModal()">Cancel</button>
+        <button class="btn action-btn btn-sm" (click)="exportToExcel()" [disabled]="getButtonState()"><fa-icon [icon]="faFileExcel"></fa-icon> Export
+            to Excel</button>
+    </div>
+</div>

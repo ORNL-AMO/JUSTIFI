@@ -31,6 +31,10 @@ export class AddKpiSearchComponent {
   keyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = KeyPerformanceIndicatorOptions;
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   keyPerformanceIndicatorSub: Subscription;
+
+  displayCustomKPIModal: boolean = false;
+  customKPIName: string = '';
+  kpiCategory: PrimaryKPI = 'Other';
   constructor(private facilityIdbService: FacilityIdbService, private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService
   ) {
   }
@@ -53,5 +57,26 @@ export class AddKpiSearchComponent {
     let newKPI: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator(this.facility.userId, this.facility.companyId, option, (option.optionValue == 'other'), this.facility.guid);
     await firstValueFrom(this.keyPerformanceIndicatorIdbService.addWithObservable(newKPI));
     await this.keyPerformanceIndicatorIdbService.setKeyPerformanceIndicators();
+  }
+
+  openAddCustomModal() {
+    this.displayCustomKPIModal = true;
+  }
+
+  closeCustomKPIModal() {
+    this.displayCustomKPIModal = false;
+  }
+
+  async confirmCreate() {
+    let option: KeyPerformanceIndicatorOption = {
+      primaryKPI: this.kpiCategory,
+      label: this.customKPIName,
+      htmlLabel: this.customKPIName,
+      optionValue: 'other',
+    };
+    let newKPI: IdbKeyPerformanceIndicator = getNewKeyPerformanceIndicator(this.facility.userId, this.facility.companyId, option, true, this.facility.guid);
+    await firstValueFrom(this.keyPerformanceIndicatorIdbService.addWithObservable(newKPI));
+    await this.keyPerformanceIndicatorIdbService.setKeyPerformanceIndicators();
+    this.closeCustomKPIModal();
   }
 }

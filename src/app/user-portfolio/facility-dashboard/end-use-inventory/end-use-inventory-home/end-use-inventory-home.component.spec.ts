@@ -6,6 +6,8 @@ import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.mod
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedCompanyFormsModule } from 'src/app/shared/shared-company-forms/shared-company-forms.module';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { ProtocolQuestionsModalComponent } from '../../protocol-questions-modal/protocol-questions-modal.component';
+import { FormsModule } from '@angular/forms';
 
 describe('EndUseInventoryHomeComponent', () => {
   let component: EndUseInventoryHomeComponent;
@@ -13,8 +15,8 @@ describe('EndUseInventoryHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedCompanyFormsModule, FontAwesomeModule, HelperPipesModule, TableEntriesModule],
-      declarations: [EndUseInventoryHomeComponent],
+      imports: [SharedCompanyFormsModule, FontAwesomeModule, HelperPipesModule, TableEntriesModule, FormsModule],
+      declarations: [EndUseInventoryHomeComponent, ProtocolQuestionsModalComponent],
       providers: stubServiceProviders
     })
     .compileComponents();
