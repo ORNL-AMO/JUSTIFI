@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faChevronLeft, faChevronRight, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faPlus, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom, Observable, of, Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbCompany } from 'src/app/models/company';
-import { IdbContact } from 'src/app/models/contact';
+import { getNewIdbContact, IdbContact } from 'src/app/models/contact';
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { CompanyContactsFormService } from 'src/app/shared/shared-company-forms/company-contacts-form/company-contacts-form.service';
@@ -24,6 +24,7 @@ export class CompanyContactDetailsFormComponent {
   faUser: IconDefinition = faUser;
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
+  faPlus: IconDefinition = faPlus;
 
   contactGuid: string;
   contact: IdbContact;
@@ -79,6 +80,14 @@ export class CompanyContactDetailsFormComponent {
         this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-contacts')
       }
     }
+  }
+
+  async addContact() {
+    let newContact: IdbContact = getNewIdbContact(this.company.userId, this.company.guid);
+    await firstValueFrom(this.contactIdbService.addWithObservable(newContact))
+    await this.contactIdbService.setContacts();
+    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/company-contacts/' + newContact.guid)
   }
 
   async next() {

@@ -17,12 +17,18 @@
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             <ng-template [ngIf]="contactIndex != 0" [ngIfElse]="listLabelBlock">
-                Next Stakeholder
+                Previous Stakeholder
             </ng-template>
             <ng-template #listLabelBlock>
                 Stakeholder List
             </ng-template>
         </button>
+        <ng-template [ngIf]="contactIndex == (companyContacts.length-1)" #addStakeholderBlock>
+            <button class="btn nav-btn btn-sm" (click)="addContact()">
+                <fa-icon [icon]="faPlus"></fa-icon>
+                Add Stakeholder
+            </button>
+        </ng-template>
         <button class="btn nav-btn btn-sm" (click)="next()">
             <ng-template [ngIf]="contactIndex < (companyContacts.length-1)" [ngIfElse]="facilityDetailsBlock">
                 Next Stakeholder
