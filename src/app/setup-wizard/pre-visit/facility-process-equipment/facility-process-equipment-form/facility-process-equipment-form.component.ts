@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faBox, faChevronLeft, faChevronRight, faSplotch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { Observable, of, Subscription } from 'rxjs';
+import { faBox, faChevronLeft, faChevronRight, faPlus, faSplotch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { firstValueFrom, Observable, of, Subscription } from 'rxjs';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
-import { IdbProcessEquipment } from 'src/app/models/processEquipment';
+import { getNewIdbProcessEquipment, IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Component({
     selector: 'app-facility-process-equipment-form',
@@ -20,6 +20,7 @@ export class FacilityProcessEquipmentFormComponent {
   faChevronLeft: IconDefinition = faChevronLeft;
   faChevronRight: IconDefinition = faChevronRight;
   faSplotch: IconDefinition = faSplotch;
+  faPlus: IconDefinition = faPlus;
 
   equipmentGuid: string;
   processEquipments: Array<IdbProcessEquipment>;
@@ -68,6 +69,14 @@ export class FacilityProcessEquipmentFormComponent {
         this.equipment = this.processEquipments[this.equipmentIndex];
       }
     }
+  }
+
+  async addProcessEquipment() {
+    let newEquipment: IdbProcessEquipment = getNewIdbProcessEquipment(this.facility.userId, this.facility.companyId, this.facility.guid);
+    await firstValueFrom(this.processEquipmentIdbService.addWithObservable(newEquipment));
+    await this.processEquipmentIdbService.setProcessEquipments();
+    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-end-uses/' + newEquipment.guid);
   }
 
   async goToNext() {

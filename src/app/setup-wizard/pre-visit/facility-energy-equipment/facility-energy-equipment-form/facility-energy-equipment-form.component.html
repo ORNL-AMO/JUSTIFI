@@ -19,6 +19,10 @@
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             Go Back
         </button>
+        <button class="btn nav-btn btn-sm" (click)="addEnergyEquipment()">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            Add Equipment
+        </button>
         <button class="btn nav-btn btn-sm" (click)="goToNext()">
             <ng-template [ngIf]="(equipmentIndex != energyEquipments.length -1)" [ngIfElse]="endUseBlock">
                 Next Equipment Details

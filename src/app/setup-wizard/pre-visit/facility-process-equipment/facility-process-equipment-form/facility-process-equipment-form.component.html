@@ -18,6 +18,10 @@
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             Go Back
         </button>
+        <button class="btn nav-btn btn-sm" (click)="addProcessEquipment()">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            Add End Use
+        </button>
         <button class="btn nav-btn btn-sm" (click)="goToNext()">
             <ng-template [ngIf]="equipmentIndex != (processEquipments.length - 1)" [ngIfElse]="preAssessmentBlock">
                 Next End Use Details
