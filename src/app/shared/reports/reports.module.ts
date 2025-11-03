@@ -27,6 +27,7 @@ import { ExecutiveSummaryKpiImpactsComponent } from './executive-summary-report/
 import { AdditionalSavingsMessageComponent } from './additional-savings-message/additional-savings-message.component';
 import { PerformanceMetricsImpactsTableComponent } from './performance-metrics-impacts-table/performance-metrics-impacts-table.component';
 import { OrderPerformanceMetricsImpactsTablePipe } from './performance-metrics-impacts-table/order-performance-metrics-impacts-table.pipe';
+import { StakeholderReportComponent } from './stakeholder-report/stakeholder-report.component';
 
 
 
@@ -54,7 +55,8 @@ import { OrderPerformanceMetricsImpactsTablePipe } from './performance-metrics-i
     ExecutiveSummaryKpiImpactsComponent,
     AdditionalSavingsMessageComponent,
     PerformanceMetricsImpactsTableComponent,
-    OrderPerformanceMetricsImpactsTablePipe
+    OrderPerformanceMetricsImpactsTablePipe,
+    StakeholderReportComponent
   ],
   imports: [
     CommonModule,
