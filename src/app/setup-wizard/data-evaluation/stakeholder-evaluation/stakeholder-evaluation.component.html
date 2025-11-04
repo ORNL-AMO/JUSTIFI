@@ -1,0 +1,37 @@
+<div [ngClass]="{'setup-wizard-content': !print}">
+    <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
+        <div [ngClass]="{'col-10 pt-4 pb-4': !print}">
+            <div [ngClass]="{'form-paper shadow': !print}">
+                <h5>
+                    <fa-icon [icon]="faAddressBook"></fa-icon>
+                    Stakeholder Report
+                </h5>
+                <app-stakeholder-report [onSiteVisit]="onSiteVisit"></app-stakeholder-report>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="setup-wizard-footer navbar shadow" *ngIf="!print">
+    <div class="container-fluid justify-content-between">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+            Rollup Report
+        </button>
+         <div>
+            <button class="btn btn-success btn-sm me-1" (click)="togglePrint()">
+                <fa-icon [icon]="faFilePdf"></fa-icon>
+                Generate PDF
+            </button>
+            <button class="btn btn-success btn-sm ms-1" (click)="generatePowerPoint()">
+                <fa-icon [icon]="faFilePowerpoint"></fa-icon>
+                Generate PowerPoint
+            </button>
+
+        </div>
+
+        <button class="btn nav-btn btn-sm" (click)="goNext()">
+            Custom Reports
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
+    </div>
+</nav>

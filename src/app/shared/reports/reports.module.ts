@@ -70,7 +70,8 @@ import { StakeholderReportComponent } from './stakeholder-report/stakeholder-rep
     AssessmentSavingsTableComponent,
     AssessmentSavingsChartComponent,
     OnSiteVisitReportComponent,
-    ExecutiveSummaryReportComponent
+    ExecutiveSummaryReportComponent,
+    StakeholderReportComponent
   ]
 })
 export class ReportsModule { }

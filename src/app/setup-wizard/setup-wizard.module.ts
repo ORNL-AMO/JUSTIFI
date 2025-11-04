@@ -55,6 +55,7 @@ import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wiza
 import { DataEvaluationManageReportsComponent } from './data-evaluation/data-evaluation-manage-reports/data-evaluation-manage-reports.component';
 import { DataEvaluationCustomReportComponent } from './data-evaluation/data-evaluation-custom-report/data-evaluation-custom-report.component';
 import { ExecutiveSummaryEvaluationComponent } from './data-evaluation/executive-summary-evaluation/executive-summary-evaluation.component';
+import { StakeholderEvaluationComponent } from './data-evaluation/stakeholder-evaluation/stakeholder-evaluation.component';
 import { UploadTemplateComponent } from './upload-template/upload-template.component';
 
 @NgModule({
@@ -97,7 +98,8 @@ import { UploadTemplateComponent } from './upload-template/upload-template.compo
     DataEvaluationManageReportsComponent,
     DataEvaluationCustomReportComponent,
     ExecutiveSummaryEvaluationComponent,
-    UploadTemplateComponent
+    StakeholderEvaluationComponent,
+    UploadTemplateComponent,
   ],
   imports: [
     CommonModule,
