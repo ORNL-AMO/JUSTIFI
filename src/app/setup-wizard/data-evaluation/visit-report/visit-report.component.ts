@@ -58,7 +58,7 @@ export class VisitReportComponent {
   }
 
   goNext() {
-    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/custom-report');
+    this.router.navigateByUrl('/setup-wizard/data-evaluation/' + this.onSiteVisit.guid + '/stakeholder-report');
   }
 
   goBack() {
