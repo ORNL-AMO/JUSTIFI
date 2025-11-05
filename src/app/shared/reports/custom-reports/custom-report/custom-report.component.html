@@ -45,9 +45,21 @@
 <ng-container *ngIf="report.reportType == 'stakeholder'">
     <div class="print-break-before">
         <h4>
-            <fa-icon [icon]=""></fa-icon>
-            Stakeholder Report
+            <fa-icon [icon]="faAddressBook"></fa-icon>
+            Stakeholder Reports
         </h4>
     </div>
-    <app-stakeholder-report [report]="report" [onSiteVisit]="onSiteVisit"></app-stakeholder-report>
+    <!-- Show reports for all facility contacts using facilityContactList pipe -->
+    <ng-container *ngFor="let contact of contacts | facilityContactList
+        :onSiteVisit?.facilityId:assessments:energyEquipments:processEquipments:kpis:nonEnergyBenefits;">
+        <div class="report">
+            <div class="print-break-avoid">
+                <h5>
+                    <fa-icon [icon]="faAddressBook"></fa-icon>
+                    {{contact.firstName}} {{contact.lastName}} Report
+                </h5>
+                <app-stakeholder-report [contact]="contact" [report]="report" [inRollup]="false"></app-stakeholder-report>
+            </div>
+        </div>
+    </ng-container>
 </ng-container>
