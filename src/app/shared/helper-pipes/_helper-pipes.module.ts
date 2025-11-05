@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CompanyNamePipe } from './company-name.pipe';
+import { FacilityContactListPipe } from './facility-contact-list.pipe';
 import { FacilityNamePipe } from './facility-name.pipe';
 import { FacilityListPipe } from './facility-list.pipe';
 import { AddressDisplayPipe } from './address-display.pipe';
@@ -110,6 +111,7 @@ import { DisplayRoundedValuesPipe } from './display-rounded-values.pipe';
     IsUtilityTrackedPipe,
     KeywordHighlightPipe,
     DisplayRoundedValuesPipe,
+    FacilityContactListPipe,
   ],
   imports: [
     CommonModule
@@ -171,7 +173,8 @@ import { DisplayRoundedValuesPipe } from './display-rounded-values.pipe';
     ReportTypeDisplayPipe,
     IsUtilityTrackedPipe,
     KeywordHighlightPipe,
-    DisplayRoundedValuesPipe
+    DisplayRoundedValuesPipe,
+    FacilityContactListPipe,
   ]
 })
 export class HelperPipesModule { }
