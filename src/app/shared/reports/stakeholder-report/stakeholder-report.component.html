@@ -1,1 +1,241 @@
-<p>stakeholder-report works!</p>
+<div class="d-flex flex-column report" [ngClass]="{'print': print}">
+    <ng-container *ngIf="stakeholderReport">
+        <div class="print-break-avoid">
+            <!-- Stakeholder Header -->
+            <div class="mb-3" *ngIf="!inRollup">
+                <h5 class="bold">
+                    Stakeholder: {{stakeholderReport.contact.firstName}} {{stakeholderReport.contact.lastName}}
+                </h5>
+                <div class="text-muted small">
+                    <div *ngIf="stakeholderReport.contact.role">Role: {{stakeholderReport.contact.role}}</div>
+                    <div *ngIf="stakeholderReport.contact.team">Team: {{stakeholderReport.contact.team}}</div>
+                    <div *ngIf="stakeholderReport.contact.email">Email: {{stakeholderReport.contact.email}}</div>
+                    <div *ngIf="stakeholderReport.contact.phone">Phone: {{stakeholderReport.contact.phone}}</div>
+                </div>
+            </div>
+
+            <!-- Executive Summary -->
+            <div class="card mb-3" *ngIf="!inRollup">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="mb-0">Executive Summary</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-2">
+                                <strong>{{stakeholderReport.contact.firstName}} {{stakeholderReport.contact.lastName}} is responsible for:</strong>
+                            </p>
+                            <ul class="list-unstyled ms-3">
+                                <li *ngIf="stakeholderReport.summary.totalAssessments > 0">
+                                    {{stakeholderReport.summary.totalAssessments}} Assessment<span *ngIf="stakeholderReport.summary.totalAssessments !== 1">s</span>
+                                </li>
+                                <li *ngIf="stakeholderReport.summary.totalEEMs > 0">
+                                    {{stakeholderReport.summary.totalEEMs}} Energy Efficiency Measure<span *ngIf="stakeholderReport.summary.totalEEMs !== 1">s</span>
+                                </li>
+                                <li *ngIf="stakeholderReport.summary.totalNEBs > 0">
+                                    {{stakeholderReport.summary.totalNEBs}} Non-Energy Benefit<span *ngIf="stakeholderReport.summary.totalNEBs !== 1">s</span>
+                                </li>
+                                <li *ngIf="stakeholderReport.summary.totalKPIs > 0">
+                                    {{stakeholderReport.summary.totalKPIs}} Key Performance Indicator<span *ngIf="stakeholderReport.summary.totalKPIs !== 1">s</span>
+                                </li>
+                                <li *ngIf="stakeholderReport.summary.totalEnergyEquipment > 0">
+                                    {{stakeholderReport.summary.totalEnergyEquipment}} Energy Equipment Item<span *ngIf="stakeholderReport.summary.totalEnergyEquipment !== 1">s</span>
+                                </li>
+                                <li *ngIf="stakeholderReport.summary.totalProcessEquipment > 0">
+                                    {{stakeholderReport.summary.totalProcessEquipment}} Process Equipment Item<span *ngIf="stakeholderReport.summary.totalProcessEquipment !== 1">s</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-2">
+                                <strong>Financial Impact:</strong>
+                            </p>
+                            <ul class="list-unstyled ms-3">
+                                <li *ngIf="stakeholderReport.summary.totalCostSavings > 0">
+                                    Total Cost Savings: {{stakeholderReport.summary.totalCostSavings | currency}}
+                                </li>
+                                <li *ngIf="stakeholderReport.summary.totalImplementationCost > 0">
+                                    Implementation Cost: {{stakeholderReport.summary.totalImplementationCost | currency}}
+                                </li>
+                                <li *ngIf="stakeholderReport.summary.simplePayback > 0">
+                                    Simple Payback: {{stakeholderReport.summary.simplePayback | number:'1.1-1'}} years
+                                </li>
+                                <li *ngIf="stakeholderReport.summary.totalEnergySavings > 0">
+                                    Energy Savings: {{stakeholderReport.summary.totalEnergySavings | number:'1.0-0'}} MMBtu
+                                </li>
+                                <li *ngIf="stakeholderReport.summary.totalWaterSavings > 0">
+                                    Water Savings: {{stakeholderReport.summary.totalWaterSavings | number:'1.0-0'}} gal
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary note for rollup -->
+            <div class="alert alert-info mb-3" *ngIf="inRollup && stakeholderReport.summary">
+                <h6 class="alert-heading">{{stakeholderReport.contact.firstName}} {{stakeholderReport.contact.lastName}}</h6>
+                <p class="mb-1" *ngIf="stakeholderReport.contact.role">
+                    <strong>Role:</strong> {{stakeholderReport.contact.role}}
+                    <span *ngIf="stakeholderReport.contact.team"> | <strong>Team:</strong> {{stakeholderReport.contact.team}}</span>
+                </p>
+                <p class="mb-0">
+                    Responsible for {{stakeholderReport.summary.totalAssessments}} assessment<span *ngIf="stakeholderReport.summary.totalAssessments !== 1">s</span>,
+                    {{stakeholderReport.summary.totalEEMs}} EEM<span *ngIf="stakeholderReport.summary.totalEEMs !== 1">s</span>, and
+                    {{stakeholderReport.summary.totalNEBs}} NEB<span *ngIf="stakeholderReport.summary.totalNEBs !== 1">s</span>
+                    <span *ngIf="stakeholderReport.summary.totalCostSavings > 0">
+                        with total cost savings of {{stakeholderReport.summary.totalCostSavings | currency}}
+                    </span>.
+                </p>
+            </div>
+
+            <!-- Assessments Table -->
+            <div *ngIf="stakeholderReport.assessments.length > 0" class="mb-3">
+                <h6 class="bold">Related Assessments</h6>
+                <table class="table table-bordered table-hover table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Assessment Name</th>
+                            <th>Type</th>
+                            <th>Visit Date</th>
+                            <th>Energy Savings</th>
+                            <th>Cost Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let assessment of stakeholderReport.assessments">
+                            <td>{{assessment.name}}</td>
+                            <td>{{assessment.assessmentType}}</td>
+                            <td>{{assessment.visitDate | date:'shortDate'}}</td>
+                            <td>{{assessment.energySavings | number:'1.0-0'}}</td>
+                            <td>{{assessment.costSavings | currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Energy Efficiency Measures Table -->
+            <div *ngIf="stakeholderReport.energyOpportunities.length > 0" class="mb-3">
+                <h6 class="bold">Connected Energy Efficiency Measures</h6>
+                <table class="table table-bordered table-hover table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Measure Name</th>
+                            <th>Energy Savings</th>
+                            <th>Water Savings</th>
+                            <th>Cost Savings</th>
+                            <th>Implementation Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let eem of stakeholderReport.energyOpportunities">
+                            <td>{{eem.name}}</td>
+                            <td>{{eem.energySavings | number:'1.0-0'}} {{eem.energyUnit}}</td>
+                            <td>{{eem.waterSavings | number:'1.0-0'}} gal</td>
+                            <td>{{eem.costSavings | currency}}</td>
+                            <td>{{eem.implementationCost | currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Non-Energy Benefits Table -->
+            <div *ngIf="stakeholderReport.nonEnergyBenefits.length > 0" class="mb-3">
+                <h6 class="bold">Associated Non-Energy Benefits</h6>
+                <table class="table table-bordered table-hover table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>NEB Name</th>
+                            <th>Category</th>
+                            <th>Cost Impact</th>
+                            <th>Impact Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let neb of stakeholderReport.nonEnergyBenefits">
+                            <td>{{neb.name}}</td>
+                            <td>{{neb.nebOptionValue}}</td>
+                            <td>{{neb.costImpact | currency}}</td>
+                            <td>{{neb.costImpactType}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Key Performance Indicators Table -->
+            <div *ngIf="stakeholderReport.keyPerformanceIndicators.length > 0" class="mb-3">
+                <h6 class="bold">Key Performance Indicators</h6>
+                <table class="table table-bordered table-hover table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>KPI Label</th>
+                            <th>Primary Category</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let kpi of stakeholderReport.keyPerformanceIndicators">
+                            <td>{{kpi.label}}</td>
+                            <td>{{kpi.primaryKPI}}</td>
+                            <td>{{kpi.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Energy Equipment Table -->
+            <div *ngIf="stakeholderReport.energyEquipment.length > 0" class="mb-3">
+                <h6 class="bold">Related Energy Equipment</h6>
+                <table class="table table-bordered table-hover table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Equipment Name</th>
+                            <th>Type</th>
+                            <th>Size</th>
+                            <th>Annual Energy Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let equipment of stakeholderReport.energyEquipment">
+                            <td>{{equipment.equipmentName}}</td>
+                            <td>{{equipment.equipmentType}}</td>
+                            <td>{{equipment.size}} {{equipment.sizeUnit}}</td>
+                            <td>{{equipment.annualEnergyUse | number:'1.0-0'}} {{equipment.fuelEnergyUnit}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Process Equipment Table -->
+            <div *ngIf="stakeholderReport.processEquipment.length > 0" class="mb-3">
+                <h6 class="bold">Related Process Equipment</h6>
+                <table class="table table-bordered table-hover table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Equipment Name</th>
+                            <th>Output</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let equipment of stakeholderReport.processEquipment">
+                            <td>{{equipment.equipmentName}}</td>
+                            <td>{{equipment.whatIsTheOutput}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Notes Section -->
+            <div *ngIf="stakeholderReport.contact.notes" class="mb-3">
+                <h6 class="bold">Notes</h6>
+                <p class="small">{{stakeholderReport.contact.notes}}</p>
+            </div>
+        </div>
+
+    </ng-container>
+
+    <!-- Message if no stakeholder report generated -->
+    <div *ngIf="!stakeholderReport" class="alert alert-info">
+        <p class="mb-0">No stakeholder information available.</p>
+    </div>
+</div>
