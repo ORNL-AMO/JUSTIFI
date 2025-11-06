@@ -42,7 +42,6 @@
                     <div class="print-break-avoid" *ngIf="selectedContactGuids.has(contact.guid)">
                         <app-stakeholder-report 
                             [contact]="contact" 
-                            [inRollup]="selectedContactGuids.size > 1" 
                             [report]="report">
                         </app-stakeholder-report>
                         <hr *ngIf="!isLast" class="my-4 print-break-before">
