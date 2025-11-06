@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { IconDefinition, faChevronDown, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube, faFileCircleCheck, faScrewdriverWrench, faFileLines, faWeightHanging, faChartPie, faPersonWalkingArrowLoopLeft, faChartColumn, faClipboardQuestion, faFilePen, faSackDollar, faUpload, faWandMagicSparkles, faBoxArchive } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronDown, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube, faFileCircleCheck, faScrewdriverWrench, faFileLines, faWeightHanging, faChartPie, faPersonWalkingArrowLoopLeft, faChartColumn, faClipboardQuestion, faFilePen, faSackDollar, faUpload, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from '../setup-wizard.service';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { IdbAssessment } from 'src/app/models/assessment';
@@ -23,8 +23,6 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { IdbReport } from 'src/app/models/report';
 import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
-import { BackupDataService } from 'src/app/shared/shared-services/backup-data.service';
-import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 
 @Component({
   selector: 'app-setup-wizard-sidebar',
@@ -63,12 +61,8 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   faSackDollar: IconDefinition = faSackDollar;
   faUpload: IconDefinition = faUpload;
   faWandMagicSparkles: IconDefinition = faWandMagicSparkles;
-  faBoxArchive: IconDefinition = faBoxArchive;
 
   displayPortfolioModal: boolean;
-  displayArchiveModal: boolean = false;
-  archiveFacilityName: string = '';
-  currentDate: string = new Date().toISOString().split('T')[0];
 
   assessmentsSub: Subscription;
   assessments: Array<IdbAssessment>;
@@ -120,9 +114,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
-    private reportIdbService: ReportIdbService,
-    private backupDataService: BackupDataService,
-    private toastNotificationsService: ToastNotificationsService
+    private reportIdbService: ReportIdbService
   ) {
 
   }
@@ -316,30 +308,5 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   async toggleReportsSidebarOpen() {
     this.onSiteVisit.sidebarReportsOpen = !this.onSiteVisit.sidebarReportsOpen;
     await this.onSiteVisitIdbService.asyncUpdate(this.onSiteVisit);
-  }
-
-  openArchiveFacilityModal() {
-    this.archiveFacilityName = ''; // Reset to use default naming
-    this.displayArchiveModal = true;
-  }
-
-  closeArchiveModal() {
-    this.displayArchiveModal = false;
-    this.archiveFacilityName = '';
-  }
-
-  async confirmArchive() {
-    try {
-      const archiveName = this.archiveFacilityName.trim() || undefined;
-      const archivedFacility = await this.backupDataService.createFacilityArchive(
-        this.facility.guid,
-        archiveName
-      );
-      this.toastNotificationsService.showToast('Facility Archived', undefined, 'bg-success', true, false);
-      this.closeArchiveModal();
-    } catch (error) {
-      console.error('Error archiving facility:', error);
-      this.toastNotificationsService.showToast('Archive Failed', undefined, 'bg-danger', true, false);
-    }
   }
 }
