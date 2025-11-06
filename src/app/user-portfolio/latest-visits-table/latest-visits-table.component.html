@@ -6,7 +6,9 @@
                 On-Site Visits
             </div>
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-secondary btn-sm" (click)="toggleArchivedFacilities()">
+                <button class="btn btn-outline-secondary btn-sm"
+                    [disabled]="!hasArchivedFacilities"
+                    (click)="toggleArchivedFacilities()">
                     {{showArchivedFacilities ? 'Hide Archived' : 'Show Archived'}}
                 </button>
                 <button class="btn btn-outline-success btn-sm" (click)="openWizardModal()">
@@ -19,7 +21,8 @@
             Below is a list of the on-site visits conducted in JUSTIFI so you can jump back in.
             Just click the "<fa-icon [icon]="faWandMagicSparkles"></fa-icon>" button.
         </p>
-        <ng-template [ngIf]="(onSiteVisits | filterArchivedVisits: facilities: showArchivedFacilities).length > 0" [ngIfElse]="noVisitsBlock">
+        @let filteredVisits = onSiteVisits | filterArchivedVisits: facilities: showArchivedFacilities;
+        <ng-template [ngIf]="filteredVisits.length > 0" [ngIfElse]="noVisitsBlock">
             <table class="table table-bordered">
                 <thead>
                     <tr>
