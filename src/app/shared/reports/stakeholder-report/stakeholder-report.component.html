@@ -59,9 +59,9 @@
                                 </span>
                             </li>
                             
-                            <li *ngIf="stakeholderReport.summary.totalDirectEnergyEquipment > 0">
-                                <strong>{{stakeholderReport.summary.totalDirectEnergyEquipment}}</strong> 
-                                related industrial system<span *ngIf="stakeholderReport.summary.totalDirectEnergyEquipment !== 1">s</span> 
+                            <li *ngIf="stakeholderReport.summary.totalEnergyEquipment > 0">
+                                <strong>{{stakeholderReport.summary.totalEnergyEquipment}}</strong> 
+                                related industrial system<span *ngIf="stakeholderReport.summary.totalEnergyEquipment !== 1">s</span> 
                                 (energy equipment) 
                                 <ng-container *ngIf="stakeholderReport.energyEquipmentDirect.length > 0">
                                     connected to 
@@ -72,9 +72,9 @@
                                 </ng-container>
                             </li>
                             
-                            <li *ngIf="stakeholderReport.summary.totalDirectProcessEquipment > 0">
-                                <strong>{{stakeholderReport.summary.totalDirectProcessEquipment}}</strong> 
-                                related end use<span *ngIf="stakeholderReport.summary.totalDirectProcessEquipment !== 1">s</span> 
+                            <li *ngIf="stakeholderReport.summary.totalProcessEquipment > 0">
+                                <strong>{{stakeholderReport.summary.totalProcessEquipment}}</strong> 
+                                related end use<span *ngIf="stakeholderReport.summary.totalProcessEquipment !== 1">s</span> 
                                 (process equipment) 
                                 <ng-container *ngIf="stakeholderReport.processEquipmentDirect.length > 0">
                                     connected to 
@@ -85,9 +85,9 @@
                                 </ng-container>
                             </li>
                             
-                            <li *ngIf="stakeholderReport.summary.totalDirectKPIs > 0 && stakeholderReport.summary.totalIndirectKpmImpacts > 0">
-                                <strong>{{stakeholderReport.summary.totalDirectKPIs}}</strong> 
-                                related KPI<span *ngIf="stakeholderReport.summary.totalDirectKPIs !== 1">s</span> 
+                            <li *ngIf="stakeholderReport.summary.totalKPIs > 0 && stakeholderReport.summary.totalIndirectKpmImpacts > 0">
+                                <strong>{{stakeholderReport.summary.totalKPIs}}</strong> 
+                                related KPI<span *ngIf="stakeholderReport.summary.totalKPIs !== 1">s</span> 
                                 impacted by <strong>{{stakeholderReport.summary.totalIndirectKpmImpacts}}</strong> 
                                 key performance metric<span *ngIf="stakeholderReport.summary.totalIndirectKpmImpacts !== 1">s</span> 
                                 through <strong>{{getUniqueNEBsFromKpmImpacts()}}</strong> 
@@ -95,9 +95,9 @@
                                 for the current visit
                             </li>
                             
-                            <li *ngIf="stakeholderReport.summary.totalDirectKPIs > 0 && stakeholderReport.summary.totalIndirectKpmImpacts === 0">
-                                <strong>{{stakeholderReport.summary.totalDirectKPIs}}</strong> 
-                                related KPI<span *ngIf="stakeholderReport.summary.totalDirectKPIs !== 1">s</span>
+                            <li *ngIf="stakeholderReport.summary.totalKPIs > 0 && stakeholderReport.summary.totalIndirectKpmImpacts === 0">
+                                <strong>{{stakeholderReport.summary.totalKPIs}}</strong> 
+                                related KPI<span *ngIf="stakeholderReport.summary.totalKPIs !== 1">s</span>
                             </li>
                         </ul>
                     </div>

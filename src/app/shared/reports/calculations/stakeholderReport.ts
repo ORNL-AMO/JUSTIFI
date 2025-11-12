@@ -5,7 +5,7 @@ import { IdbEnergyOpportunity } from "src/app/models/energyOpportunity";
 import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicator";
 import { IdbNonEnergyBenefit } from "src/app/models/nonEnergyBenefit";
 import { IdbProcessEquipment } from "src/app/models/processEquipment";
-import { IdbReport } from "src/app/models/report";
+import { IdbReport, ReportOption } from "src/app/models/report";
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
 import * as _ from 'lodash';
 
@@ -20,81 +20,71 @@ export function getStakeholderReport(
     allKpmImpacts: Array<IdbKeyPerformanceMetricImpact> = [],
     report?: IdbReport
 ): StakeholderReport {
-    // Direct assessments (champion, main contact)
-    let directAssessments: Array<IdbAssessment> = allAssessments.filter(a => contact.assessmentIds?.includes(a.guid));
-
-    // Apply report filtering if provided (only keep included assessments)
+    // Filter assessments, energy opportunities, and nebs based on report settings
+    let includedAssessments: Array<IdbAssessment> = allAssessments;
     if (report) {
         const includedAssessmentIds = report.assessmentOptions
             ?.filter(opt => opt.include)
             .map(opt => opt.assessmentId) || [];
-        directAssessments = directAssessments.filter(a => includedAssessmentIds.includes(a.guid));
+        includedAssessments = allAssessments.filter(a => includedAssessmentIds.includes(a.guid));
     }
+    let includedEnergyOpportunities: Array<IdbEnergyOpportunity> = filterEnergyOpps(allEnergyOpportunities, includedAssessments, report?.energyOpportunityOptions);
+    let includedNonEnergyBenefits: Array<IdbNonEnergyBenefit> = filterNebs(allNonEnergyBenefits, includedAssessments, report?.nonEnergyBenefitOptions);
+
+    // Direct assessments
+    let directAssessments: Array<IdbAssessment> = includedAssessments
+        .filter(assessment => contact.assessmentIds?.includes(assessment.guid));
 
     // NEBs directly associated with contact
-    let directNEBs: Array<IdbNonEnergyBenefit> = allNonEnergyBenefits.filter(neb => contact.nonEnergyBenefitIds?.includes(neb.guid));
-    if (report) {
-        const nebIdsIncluded = report.nonEnergyBenefitOptions?.filter(o => o.include).map(o => o.nonEnergyBenefitId) || [];
-        directNEBs = directNEBs.filter(n => nebIdsIncluded.includes(n.guid));
-    }
+    let directNEBs: Array<IdbNonEnergyBenefit> = includedNonEnergyBenefits.filter(neb => contact.nonEnergyBenefitIds?.includes(neb.guid));
 
-    // Energy & Process equipment directly associated with contact
+    // Energy & Process equipment, KPIs directly associated with contact
     let directEnergyEquipment: Array<IdbEnergyEquipment> = allEnergyEquipment.filter(eq => contact.energyEquipmentIds?.includes(eq.guid));
     let directProcessEquipment: Array<IdbProcessEquipment> = allProcessEquipment.filter(pe => contact.processEquipmentIds?.includes(pe.guid));
-
-    // KPIs directly linked
     let directKPIs: Array<IdbKeyPerformanceIndicator> = allKPIs.filter(kpi => contact.kpiIds?.includes(kpi.guid));
 
     // Indirect associations:
-    // 1. EEMs (Energy Opportunities) - ALL are indirect, linked via equipment/process equipment
-    const equipmentLinkedEemGuids = new Set<string>();
-    directEnergyEquipment.forEach(eq => eq.energyOpportunityIds?.forEach(id => equipmentLinkedEemGuids.add(id)));
-    directProcessEquipment.forEach(pe => pe.energyOpportunityIds?.forEach(id => equipmentLinkedEemGuids.add(id)));
-    let indirectEEMsViaEquipment: Array<IdbEnergyOpportunity> = allEnergyOpportunities.filter(e => equipmentLinkedEemGuids.has(e.guid));
-    if (report) {
-        const eemIdsIncluded = report.energyOpportunityOptions?.filter(o => o.include).map(o => o.energyOpportunityId) || [];
-        indirectEEMsViaEquipment = indirectEEMsViaEquipment.filter(e => eemIdsIncluded.includes(e.guid));
-    }
+    // 1. Indirect Energy Opportunities linked via equipment/process equipment
+    const contactEnergyOppoGuidsViaEquipment = new Set<string>();
+    directEnergyEquipment.forEach(eq => eq.energyOpportunityIds?.forEach(id => contactEnergyOppoGuidsViaEquipment.add(id)));
+    directProcessEquipment.forEach(pe => pe.energyOpportunityIds?.forEach(id => contactEnergyOppoGuidsViaEquipment.add(id)));
+    let indirectEnergyOpposViaEquipment: Array<IdbEnergyOpportunity> = includedEnergyOpportunities.filter(e => contactEnergyOppoGuidsViaEquipment.has(e.guid));
 
-    // 2. Indirect via KPI impacts (NEB -> KPM Impact -> KPI) where contact has KPI
+    // 2. Indirect NEBs via KPM impacts and KPIs (NEB -> KPM Impact -> KPI)
     const contactKpiSet = new Set(contact.kpiIds || []);
     let indirectKpmImpacts: Array<IdbKeyPerformanceMetricImpact> = allKpmImpacts.filter(impact => contactKpiSet.has(impact.kpiGuid));
-    let indirectNEBsViaKpmImpacts: Array<IdbNonEnergyBenefit> = indirectKpmImpacts
-        .map(imp => allNonEnergyBenefits.find(neb => neb.guid === imp.nebId))
-        .filter((neb): neb is IdbNonEnergyBenefit => !!neb && !directNEBs.some(dn => dn.guid === neb.guid));
-    let indirectAssessmentsViaKpmImpacts: Array<IdbAssessment> = indirectKpmImpacts
-        .map(imp => allAssessments.find(a => a.guid === imp.assessmentId))
-        .filter((a): a is IdbAssessment => !!a && !directAssessments.some(da => da.guid === a.guid));
+    let indirectNEBsViaKpmImpacts: Array<IdbNonEnergyBenefit> = includedNonEnergyBenefits
+        .filter(neb => indirectKpmImpacts.some(imp => imp.nebId === neb.guid));
 
-    // 3. Indirect via equipment link to assessments (equipment/process equipment referencing assessmentIds)
+    // 3. Indirect assessment via equipment
     const equipmentAssessmentIds = new Set<string>();
     directEnergyEquipment.forEach(eq => eq.assessmentIds?.forEach(id => equipmentAssessmentIds.add(id)));
     directProcessEquipment.forEach(pe => pe.assessmentIds?.forEach(id => equipmentAssessmentIds.add(id)));
-    let indirectAssessmentsViaEquipment: Array<IdbAssessment> = allAssessments.filter(a => equipmentAssessmentIds.has(a.guid) && !directAssessments.some(da => da.guid === a.guid));
+    let indirectAssessmentsViaEquipment: Array<IdbAssessment> = includedAssessments
+        .filter(a => equipmentAssessmentIds.has(a.guid));
 
-    // Consolidated assessment list (direct + indirect unique)
+    // Consolidated assessment list
     const allRelatedAssessments: Array<IdbAssessment> = _.uniqBy([
         ...directAssessments,
         ...indirectAssessmentsViaEquipment,
-        ...indirectAssessmentsViaKpmImpacts
     ], 'guid');
 
     // Involvement scoring (simple heuristic weights)
     const weights = {
         directAssessment: 5,
-        directSubEntity: 3,
-        indirectEem: 2,
-        indirectKpmImpact: 2,
-        indirectEquipmentAssessment: 1
+        directNeb: 3,
+        indirectEnergyOpp: 2,
+        indirectNeb: 2,
+        indirectAssessment: 1
     };
     let involvementScore = 0;
     involvementScore += directAssessments.length * weights.directAssessment;
-    involvementScore += (directNEBs.length + directEnergyEquipment.length + directProcessEquipment.length) * weights.directSubEntity;
-    involvementScore += indirectEEMsViaEquipment.length * weights.indirectEem;
-    involvementScore += indirectKpmImpacts.length * weights.indirectKpmImpact;
-    involvementScore += indirectAssessmentsViaEquipment.length * weights.indirectEquipmentAssessment;
+    involvementScore += directNEBs.length * weights.directNeb;
+    involvementScore += indirectEnergyOpposViaEquipment.length * weights.indirectEnergyOpp;
+    involvementScore += indirectNEBsViaKpmImpacts.length * weights.indirectNeb;
+    involvementScore += indirectAssessmentsViaEquipment.length * weights.indirectAssessment;
 
-    let engagementLevel: 'High' | 'Medium' | 'Low';
+    let engagementLevel: StakeholderEngagementLevel;
     if (involvementScore >= 25) {
         engagementLevel = 'High';
     } else if (involvementScore >= 12) {
@@ -104,7 +94,7 @@ export function getStakeholderReport(
     }
 
     // Calculate savings based on all indirect EEMs (via equipment)
-    const allEemsForSavings = [...indirectEEMsViaEquipment];
+    const allEemsForSavings = [...indirectEnergyOpposViaEquipment];
     let totalEnergySavings: number = _.sumBy(allEemsForSavings, eem => eem.energySavings || 0);
     let totalWaterSavings: number = _.sumBy(allEemsForSavings, eem => eem.waterSavings || 0);
     let totalCostSavings: number = _.sumBy(allEemsForSavings, eem => eem.costSavings || 0);
@@ -120,8 +110,8 @@ export function getStakeholderReport(
         contact: contact,
         directAssessments: directAssessments,
         indirectAssessmentsViaEquipment: indirectAssessmentsViaEquipment,
-        indirectAssessmentsViaKpmImpacts: indirectAssessmentsViaKpmImpacts,
-        energyOpportunitiesIndirectViaEquipment: indirectEEMsViaEquipment,
+        indirectAssessmentsViaKpmImpacts: indirectAssessmentsViaEquipment,
+        energyOpportunitiesIndirectViaEquipment: indirectEnergyOpposViaEquipment,
         nonEnergyBenefitsDirect: directNEBs,
         nonEnergyBenefitsIndirectViaKpmImpacts: indirectNEBsViaKpmImpacts,
         keyPerformanceIndicatorsDirect: directKPIs,
@@ -131,14 +121,14 @@ export function getStakeholderReport(
         allRelatedAssessments: allRelatedAssessments,
         summary: {
             totalDirectAssessments: directAssessments.length,
-            totalIndirectAssessments: indirectAssessmentsViaEquipment.length + indirectAssessmentsViaKpmImpacts.length,
-            totalIndirectEEMs: indirectEEMsViaEquipment.length,
+            totalIndirectAssessments: indirectAssessmentsViaEquipment.length + indirectAssessmentsViaEquipment.length,
+            totalIndirectEnergyOppos: indirectEnergyOpposViaEquipment.length,
             totalDirectNEBs: directNEBs.length,
             totalIndirectNEBs: indirectNEBsViaKpmImpacts.length,
-            totalDirectKPIs: directKPIs.length,
+            totalKPIs: directKPIs.length,
             totalIndirectKpmImpacts: indirectKpmImpacts.length,
-            totalDirectEnergyEquipment: directEnergyEquipment.length,
-            totalDirectProcessEquipment: directProcessEquipment.length,
+            totalEnergyEquipment: directEnergyEquipment.length,
+            totalProcessEquipment: directProcessEquipment.length,
             totalEnergySavings: totalEnergySavings,
             totalWaterSavings: totalWaterSavings,
             totalCostSavings: totalCostSavings,
@@ -169,13 +159,13 @@ export interface StakeholderReport {
 export interface StakeholderSummary {
     totalDirectAssessments: number;
     totalIndirectAssessments: number;
-    totalIndirectEEMs: number;
+    totalIndirectEnergyOppos: number;
     totalDirectNEBs: number;
     totalIndirectNEBs: number;
-    totalDirectKPIs: number;
+    totalKPIs: number;
     totalIndirectKpmImpacts: number;
-    totalDirectEnergyEquipment: number;
-    totalDirectProcessEquipment: number;
+    totalEnergyEquipment: number;
+    totalProcessEquipment: number;
     totalEnergySavings: number;
     totalWaterSavings: number;
     totalCostSavings: number;
@@ -183,4 +173,30 @@ export interface StakeholderSummary {
     simplePayback: number;
     involvementScore: number;
     engagementLevel: 'High' | 'Medium' | 'Low';
+}
+
+export type StakeholderEngagementLevel = 'High' | 'Medium' | 'Low';
+
+function filterEnergyOpps(energyOpportunities: Array<IdbEnergyOpportunity>, includedAssessments: Array<IdbAssessment>, energyOppReportOptions?: Array<ReportOption>): Array<IdbEnergyOpportunity> {
+    let includedAssessmentGuids = includedAssessments.map(a => a.guid);
+    let filteredEnergyOpportunities: Array<IdbEnergyOpportunity> = energyOpportunities.filter(energyOpportunity => {
+        return includedAssessmentGuids.includes(energyOpportunity.assessmentId);
+    });
+    if (energyOppReportOptions) {
+        const energyOppoIdsIncluded = energyOppReportOptions.filter(o => o.include).map(o => o.energyOpportunityId);
+        filteredEnergyOpportunities = filteredEnergyOpportunities.filter(e => energyOppoIdsIncluded.includes(e.guid));
+    }
+    return filteredEnergyOpportunities;
+}
+
+function filterNebs(nebs: Array<IdbNonEnergyBenefit>, includedAssessments: Array<IdbAssessment>, nebReportOptions?: Array<ReportOption>): Array<IdbNonEnergyBenefit> {
+    let includedAssessmentGuids = includedAssessments.map(a => a.guid);
+    let filteredNefs: Array<IdbNonEnergyBenefit> = nebs.filter(neb => {
+        return includedAssessmentGuids.includes(neb.assessmentId);
+    });
+    if (nebReportOptions) {
+        const nebIdsIncluded = nebReportOptions.filter(o => o.include).map(o => o.nonEnergyBenefitId);
+        filteredNefs = filteredNefs.filter(n => nebIdsIncluded.includes(n.guid));
+    }
+    return filteredNefs;
 }

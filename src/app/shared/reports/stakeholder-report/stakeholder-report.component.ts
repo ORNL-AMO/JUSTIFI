@@ -50,17 +50,6 @@ export class StakeholderReportComponent {
   ) { }
 
   ngOnInit() {
-    this.printSub = this.sharedDataService.print.subscribe(_print => {
-      this.print = _print;
-    });
-  }
-
-  ngOnDestroy() {
-    this.printSub.unsubscribe();
-  }
-
-  ngOnChanges() {
-    // Get all data arrays once
     let allAssessments: Array<IdbAssessment> = this.assessmentIdbService.assessments.getValue();
     let allEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue();
     let allNonEnergyBenefits: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefitIdbService.nonEnergyBenefits.getValue();
@@ -81,6 +70,14 @@ export class StakeholderReportComponent {
       allKpmImpacts,
       this.report
     );
+
+    this.printSub = this.sharedDataService.print.subscribe(_print => {
+      this.print = _print;
+    });
+  }
+
+  ngOnDestroy() {
+    this.printSub.unsubscribe();
   }
 
   // Helper getters for backward compatibility with template
@@ -89,7 +86,7 @@ export class StakeholderReportComponent {
   }
 
   get totalEEMs(): number {
-    return this.stakeholderReport?.summary.totalIndirectEEMs || 0;
+    return this.stakeholderReport?.summary.totalIndirectEnergyOppos || 0;
   }
 
   get totalNEBs(): number {
@@ -97,15 +94,15 @@ export class StakeholderReportComponent {
   }
 
   get totalKPIs(): number {
-    return this.stakeholderReport?.summary.totalDirectKPIs || 0;
+    return this.stakeholderReport?.summary.totalKPIs || 0;
   }
 
   get totalEnergyEquipment(): number {
-    return this.stakeholderReport?.summary.totalDirectEnergyEquipment || 0;
+    return this.stakeholderReport?.summary.totalEnergyEquipment || 0;
   }
 
   get totalProcessEquipment(): number {
-    return this.stakeholderReport?.summary.totalDirectProcessEquipment || 0;
+    return this.stakeholderReport?.summary.totalProcessEquipment || 0;
   }
 
   // Helper methods for summary verbiage
