@@ -43,61 +43,60 @@
                             <strong>{{stakeholderReport.contact.firstName}} {{stakeholderReport.contact.lastName}}'s Responsibilities and Connections:</strong>
                         </p>
                         <ul class="mb-0">
-                            <li *ngIf="stakeholderReport.summary.totalDirectAssessments > 0">
-                                Directly responsible for <strong>{{stakeholderReport.summary.totalDirectAssessments}}</strong> 
-                                assessment<span *ngIf="stakeholderReport.summary.totalDirectAssessments !== 1">s</span>
-                                <span *ngIf="stakeholderReport.summary.totalIndirectAssessments > 0" class="text-muted">
-                                    (plus {{stakeholderReport.summary.totalIndirectAssessments}} indirectly connected via equipment and KPI impacts)
-                                </span>
-                            </li>
-                            
-                            <li *ngIf="stakeholderReport.summary.totalDirectNEBs > 0">
-                                Directly responsible for <strong>{{stakeholderReport.summary.totalDirectNEBs}}</strong> 
-                                non-energy benefit<span *ngIf="stakeholderReport.summary.totalDirectNEBs !== 1">s</span>
-                                <span *ngIf="stakeholderReport.summary.totalIndirectNEBs > 0" class="text-muted">
-                                    (plus {{stakeholderReport.summary.totalIndirectNEBs}} connected through KPI impacts)
-                                </span>
-                            </li>
-                            
-                            <li *ngIf="stakeholderReport.summary.totalEnergyEquipment > 0">
-                                <strong>{{stakeholderReport.summary.totalEnergyEquipment}}</strong> 
-                                related industrial system<span *ngIf="stakeholderReport.summary.totalEnergyEquipment !== 1">s</span> 
-                                (energy equipment) 
-                                <ng-container *ngIf="stakeholderReport.energyEquipmentDirect.length > 0">
-                                    connected to 
-                                    <strong>{{getUniqueAssessmentCount(stakeholderReport.energyEquipmentDirect)}}</strong> 
-                                    assessment<span *ngIf="getUniqueAssessmentCount(stakeholderReport.energyEquipmentDirect) !== 1">s</span> and 
-                                    <strong>{{getUniqueEEMCount(stakeholderReport.energyEquipmentDirect)}}</strong> 
-                                    EEM<span *ngIf="getUniqueEEMCount(stakeholderReport.energyEquipmentDirect) !== 1">s</span>
+                            <!-- Assessment Involvement -->
+                            <li *ngIf="stakeholderReport.allConnectedAssessments.length > 0">
+                                <ng-container *ngIf="stakeholderReport.overlapAssessments.length > 0">
+                                    Connected to <strong>{{stakeholderReport.allConnectedAssessments.length}}</strong> assessment<span *ngIf="stakeholderReport.allConnectedAssessments.length !== 1">s</span>:
+                                    <strong>{{stakeholderReport.directAssessments.length}}</strong> directly responsible
+                                    and <strong>{{stakeholderReport.indirectAssessmentsViaEquipment.length}}</strong> indirectly via equipment
+                                    <span class="text-secondary">
+                                        (<strong>{{stakeholderReport.overlapAssessments.length}}</strong> with both connections)
+                                    </span>
+                                </ng-container>
+                                <ng-container *ngIf="stakeholderReport.directAssessments.length > 0 && stakeholderReport.indirectAssessmentsViaEquipment.length === 0">
+                                    Directly responsible for <strong>{{stakeholderReport.directAssessments.length}}</strong> assessment<span *ngIf="stakeholderReport.directAssessments.length !== 1">s</span>
+                                </ng-container>
+                                <ng-container *ngIf="stakeholderReport.directAssessments.length === 0 && stakeholderReport.indirectAssessmentsViaEquipment.length > 0">
+                                    Indirectly connected to <strong>{{stakeholderReport.indirectAssessmentsViaEquipment.length}}</strong> assessment<span *ngIf="stakeholderReport.indirectAssessmentsViaEquipment.length !== 1">s</span> via tracked equipment
                                 </ng-container>
                             </li>
                             
-                            <li *ngIf="stakeholderReport.summary.totalProcessEquipment > 0">
-                                <strong>{{stakeholderReport.summary.totalProcessEquipment}}</strong> 
-                                related end use<span *ngIf="stakeholderReport.summary.totalProcessEquipment !== 1">s</span> 
-                                (process equipment) 
-                                <ng-container *ngIf="stakeholderReport.processEquipmentDirect.length > 0">
-                                    connected to 
-                                    <strong>{{getUniqueAssessmentCount(stakeholderReport.processEquipmentDirect)}}</strong> 
-                                    assessment<span *ngIf="getUniqueAssessmentCount(stakeholderReport.processEquipmentDirect) !== 1">s</span> and 
-                                    <strong>{{getUniqueEEMCount(stakeholderReport.processEquipmentDirect)}}</strong> 
-                                    EEM<span *ngIf="getUniqueEEMCount(stakeholderReport.processEquipmentDirect) !== 1">s</span>
+                            <!-- Non-Energy Benefits -->
+                            <li *ngIf="stakeholderReport.allConnectedNEBs.length > 0">
+                                <ng-container *ngIf="stakeholderReport.overlapNEBs.length > 0">
+                                    Tracking <strong>{{stakeholderReport.allConnectedNEBs.length}}</strong> non-energy benefit<span *ngIf="stakeholderReport.allConnectedNEBs.length > 1">s</span>:
+                                    <strong>{{stakeholderReport.directNEBs.length}}</strong> direct<span *ngIf="stakeholderReport.directNEBs.length > 1">ly</span> responsible
+                                    and monitoring <strong>{{stakeholderReport.indirectNEBsViaKpmImpacts.length}}</strong> through 
+                                    <strong>{{stakeholderReport.indirectKpmImpacts.length}}</strong> KPM metric impact<span *ngIf="stakeholderReport.indirectKpmImpacts.length > 1">s</span>
+                                    <span class="text-secondary">
+                                        (<strong>{{stakeholderReport.overlapNEBs.length}}</strong> with both connections)
+                                    </span>
+                                </ng-container>
+                                <ng-container *ngIf="stakeholderReport.directNEBs.length > 0 && stakeholderReport.indirectNEBsViaKpmImpacts.length === 0">
+                                    Directly responsible for <strong>{{stakeholderReport.directNEBs.length}}</strong> non-energy benefit<span *ngIf="stakeholderReport.directNEBs.length > 1">s</span>
+                                </ng-container>
+                                <ng-container *ngIf="stakeholderReport.directNEBs.length === 0 && stakeholderReport.indirectNEBsViaKpmImpacts.length > 0">
+                                    Monitoring <strong>{{stakeholderReport.indirectNEBsViaKpmImpacts.length}}</strong> non-energy benefit<span *ngIf="stakeholderReport.indirectNEBsViaKpmImpacts.length > 1">s</span> through KPM impacts
                                 </ng-container>
                             </li>
                             
-                            <li *ngIf="stakeholderReport.summary.totalKPIs > 0 && stakeholderReport.summary.totalIndirectKpmImpacts > 0">
-                                <strong>{{stakeholderReport.summary.totalKPIs}}</strong> 
-                                related KPI<span *ngIf="stakeholderReport.summary.totalKPIs !== 1">s</span> 
-                                impacted by <strong>{{stakeholderReport.summary.totalIndirectKpmImpacts}}</strong> 
-                                key performance metric<span *ngIf="stakeholderReport.summary.totalIndirectKpmImpacts !== 1">s</span> 
-                                through <strong>{{getUniqueNEBsFromKpmImpacts()}}</strong> 
-                                NEB<span *ngIf="getUniqueNEBsFromKpmImpacts() !== 1">s</span> 
-                                for the current visit
+                            <!-- Equipment Portfolio & EEMs -->
+                            <li *ngIf="stakeholderReport.summary.totalEquipment > 0">
+                                Manages <strong>{{stakeholderReport.summary.totalEquipment}}</strong> piece<span *ngIf="stakeholderReport.summary.totalEquipment !== 1">s</span> of equipment
+                                (<strong>{{stakeholderReport.summary.totalEnergyEquipment}}</strong> industrial system<span *ngIf="stakeholderReport.summary.totalEnergyEquipment > 1">s</span>, 
+                                <strong>{{stakeholderReport.summary.totalProcessEquipment}}</strong> end use<span *ngIf="stakeholderReport.summary.totalProcessEquipment > 1">s</span>)
+                                <span *ngIf="stakeholderReport.indirectEnergyOpposViaEquipment.length > 0">
+                                    connecting to <strong>{{stakeholderReport.indirectEnergyOpposViaEquipment.length}}</strong> energy efficiency measure<span *ngIf="stakeholderReport.indirectEnergyOpposViaEquipment.length !== 1">s</span>
+                                </span>
                             </li>
                             
-                            <li *ngIf="stakeholderReport.summary.totalKPIs > 0 && stakeholderReport.summary.totalIndirectKpmImpacts === 0">
-                                <strong>{{stakeholderReport.summary.totalKPIs}}</strong> 
-                                related KPI<span *ngIf="stakeholderReport.summary.totalKPIs !== 1">s</span>
+                            <!-- KPIs -->
+                            <li *ngIf="stakeholderReport.directKPIs.length > 0">
+                                Tracks <strong>{{stakeholderReport.directKPIs.length}}</strong> key performance indicator<span *ngIf="stakeholderReport.directKPIs.length > 1">s</span>
+                                <span *ngIf="stakeholderReport.indirectKpmImpacts.length > 0">
+                                    with <strong>{{stakeholderReport.indirectKpmImpacts.length}}</strong> metric impact<span *ngIf="stakeholderReport.indirectKpmImpacts.length > 1">s</span> 
+                                    from this visit
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -135,7 +134,7 @@
             </div>
 
             <!-- Assessment Involvement Section -->
-            <div *ngIf="stakeholderReport.allRelatedAssessments.length > 0" class="mb-3">
+            <div *ngIf="stakeholderReport.allConnectedAssessments.length > 0" class="mb-3">
                 <h6 class="bold">Assessment Involvement</h6>
                 <table class="table table-bordered table-hover table-sm">
                     <thead class="table-light">
@@ -167,21 +166,12 @@
                             <td>{{assessment.energySavings | number:'1.0-0'}}</td>
                             <td>{{assessment.costSavings | currency}}</td>
                         </tr>
-                        <!-- Indirect via KPI Impacts -->
-                        <tr *ngFor="let assessment of stakeholderReport.indirectAssessmentsViaKpmImpacts">
-                            <td>{{assessment.name}}</td>
-                            <td><span class="badge bg-warning">Indirect (KPI Impacts)</span></td>
-                            <td>{{assessment.assessmentType}}</td>
-                            <td>{{assessment.visitDate | date:'shortDate'}}</td>
-                            <td>{{assessment.energySavings | number:'1.0-0'}}</td>
-                            <td>{{assessment.costSavings | currency}}</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- Energy Efficiency Measures Table (All Indirect) -->
-            <div *ngIf="stakeholderReport.energyOpportunitiesIndirectViaEquipment.length > 0" class="mb-3">
+            <div *ngIf="stakeholderReport.indirectEnergyOpposViaEquipment.length > 0" class="mb-3">
                 <h6 class="bold">Energy Efficiency Measures (Indirect via Equipment)</h6>
                 <table class="table table-bordered table-hover table-sm">
                     <thead class="table-light">
@@ -194,7 +184,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let eem of stakeholderReport.energyOpportunitiesIndirectViaEquipment">
+                        <tr *ngFor="let eem of stakeholderReport.indirectEnergyOpposViaEquipment">
                             <td>{{eem.name}}</td>
                             <td>{{eem.energySavings | number:'1.0-0'}} {{eem.energyUnit}}</td>
                             <td>{{eem.waterSavings | number:'1.0-0'}} gal</td>
@@ -206,7 +196,7 @@
             </div>
 
             <!-- Non-Energy Benefits Table -->
-            <div *ngIf="(stakeholderReport.nonEnergyBenefitsDirect.length + stakeholderReport.nonEnergyBenefitsIndirectViaKpmImpacts.length) > 0" class="mb-3">
+            <div *ngIf="(stakeholderReport.directNEBs.length + stakeholderReport.indirectNEBsViaKpmImpacts.length) > 0" class="mb-3">
                 <h6 class="bold">Non-Energy Benefits</h6>
                 <table class="table table-bordered table-hover table-sm">
                     <thead class="table-light">
@@ -220,7 +210,7 @@
                     </thead>
                     <tbody>
                         <!-- Direct NEBs -->
-                        <tr *ngFor="let neb of stakeholderReport.nonEnergyBenefitsDirect">
+                        <tr *ngFor="let neb of stakeholderReport.directNEBs">
                             <td>{{neb.name}}</td>
                             <td><span class="badge bg-primary">Direct</span></td>
                             <td>{{neb.nebOptionValue}}</td>
@@ -228,7 +218,7 @@
                             <td>{{neb.costImpactType}}</td>
                         </tr>
                         <!-- Indirect via KPI Impacts -->
-                        <tr *ngFor="let neb of stakeholderReport.nonEnergyBenefitsIndirectViaKpmImpacts">
+                        <tr *ngFor="let neb of stakeholderReport.indirectNEBsViaKpmImpacts">
                             <td>{{neb.name}}</td>
                             <td><span class="badge bg-warning">Indirect (KPI Impacts)</span></td>
                             <td>{{neb.nebOptionValue}}</td>
@@ -240,7 +230,7 @@
             </div>
 
             <!-- KPI Influence Section -->
-            <div *ngIf="stakeholderReport.keyPerformanceIndicatorsDirect.length > 0" class="mb-3">
+            <div *ngIf="stakeholderReport.directKPIs.length > 0" class="mb-3">
                 <h6 class="bold">Key Performance Indicators</h6>
                 <table class="table table-bordered table-hover table-sm">
                     <thead class="table-light">
@@ -251,7 +241,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let kpi of stakeholderReport.keyPerformanceIndicatorsDirect">
+                        <tr *ngFor="let kpi of stakeholderReport.directKPIs">
                             <td>{{kpi.label}}</td>
                             <td>{{kpi.primaryKPI}}</td>
                             <td>{{kpi.description}}</td>
@@ -261,7 +251,7 @@
             </div>
 
             <!-- KPI Impact Details -->
-            <div *ngIf="stakeholderReport.kpmImpactsIndirect.length > 0" class="mb-3">
+            <div *ngIf="stakeholderReport.indirectKpmImpacts.length > 0" class="mb-3">
                 <h6 class="bold">KPI Metric Impacts (Indirect Associations)</h6>
                 <p class="text-muted small">These show how NEBs from assessments affect KPIs this stakeholder tracks.</p>
                 <table class="table table-bordered table-hover table-sm">
@@ -274,7 +264,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let impact of stakeholderReport.kpmImpactsIndirect">
+                        <tr *ngFor="let impact of stakeholderReport.indirectKpmImpacts">
                             <td>{{impact.kpmValue}}</td>
                             <td>{{impact.modificationValue | number:'1.0-2'}}</td>
                             <td>{{impact.costAdjustment | currency}}</td>
@@ -285,7 +275,7 @@
             </div>
 
             <!-- Energy Equipment Table -->
-            <div *ngIf="stakeholderReport.energyEquipmentDirect.length > 0" class="mb-3">
+            <div *ngIf="stakeholderReport.directEnergyEquipment.length > 0" class="mb-3">
                 <h6 class="bold">Energy Equipment</h6>
                 <table class="table table-bordered table-hover table-sm">
                     <thead class="table-light">
@@ -297,7 +287,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let equipment of stakeholderReport.energyEquipmentDirect">
+                        <tr *ngFor="let equipment of stakeholderReport.directEnergyEquipment">
                             <td>{{equipment.equipmentName}}</td>
                             <td>{{equipment.equipmentType}}</td>
                             <td>{{equipment.size}} {{equipment.sizeUnit}}</td>
@@ -308,7 +298,7 @@
             </div>
 
             <!-- Process Equipment Table -->
-            <div *ngIf="stakeholderReport.processEquipmentDirect.length > 0" class="mb-3">
+            <div *ngIf="stakeholderReport.directProcessEquipment.length > 0" class="mb-3">
                 <h6 class="bold">Process Equipment / End Uses</h6>
                 <table class="table table-bordered table-hover table-sm">
                     <thead class="table-light">
@@ -318,7 +308,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let equipment of stakeholderReport.processEquipmentDirect">
+                        <tr *ngFor="let equipment of stakeholderReport.directProcessEquipment">
                             <td>{{equipment.equipmentName}}</td>
                             <td>{{equipment.whatIsTheOutput}}</td>
                         </tr>

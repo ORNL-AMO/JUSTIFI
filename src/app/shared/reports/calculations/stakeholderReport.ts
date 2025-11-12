@@ -64,10 +64,22 @@ export function getStakeholderReport(
         .filter(a => equipmentAssessmentIds.has(a.guid));
 
     // Consolidated assessment list
-    const allRelatedAssessments: Array<IdbAssessment> = _.uniqBy([
+    const allConnectedAssessments: Array<IdbAssessment> = _.uniqBy([
         ...directAssessments,
         ...indirectAssessmentsViaEquipment,
     ], 'guid');
+    const overlapAssessments: Array<IdbAssessment> = directAssessments.filter(da =>
+        indirectAssessmentsViaEquipment.some(ia => ia.guid === da.guid)
+    );
+
+    // Consolidated NEB list
+    const allConnectedNEBs: Array<IdbNonEnergyBenefit> = _.uniqBy([
+        ...directNEBs,
+        ...indirectNEBsViaKpmImpacts
+    ], 'guid');
+    const overlapNEBs: Array<IdbNonEnergyBenefit> = directNEBs.filter(dneb =>
+        indirectNEBsViaKpmImpacts.some(ineb => ineb.guid === dneb.guid)
+    );
 
     // Involvement scoring (simple heuristic weights)
     const weights = {
@@ -110,18 +122,20 @@ export function getStakeholderReport(
         contact: contact,
         directAssessments: directAssessments,
         indirectAssessmentsViaEquipment: indirectAssessmentsViaEquipment,
-        indirectAssessmentsViaKpmImpacts: indirectAssessmentsViaEquipment,
-        energyOpportunitiesIndirectViaEquipment: indirectEnergyOpposViaEquipment,
-        nonEnergyBenefitsDirect: directNEBs,
-        nonEnergyBenefitsIndirectViaKpmImpacts: indirectNEBsViaKpmImpacts,
-        keyPerformanceIndicatorsDirect: directKPIs,
-        energyEquipmentDirect: directEnergyEquipment,
-        processEquipmentDirect: directProcessEquipment,
-        kpmImpactsIndirect: indirectKpmImpacts,
-        allRelatedAssessments: allRelatedAssessments,
+        overlapAssessments: overlapAssessments,
+        allConnectedAssessments: allConnectedAssessments,
+        indirectEnergyOpposViaEquipment: indirectEnergyOpposViaEquipment,
+        directNEBs: directNEBs,
+        indirectNEBsViaKpmImpacts: indirectNEBsViaKpmImpacts,
+        allConnectedNEBs: allConnectedNEBs,
+        overlapNEBs: overlapNEBs,
+        directKPIs: directKPIs,
+        directEnergyEquipment: directEnergyEquipment,
+        directProcessEquipment: directProcessEquipment,
+        indirectKpmImpacts: indirectKpmImpacts,
         summary: {
             totalDirectAssessments: directAssessments.length,
-            totalIndirectAssessments: indirectAssessmentsViaEquipment.length + indirectAssessmentsViaEquipment.length,
+            totalIndirectAssessments: indirectAssessmentsViaEquipment.length,
             totalIndirectEnergyOppos: indirectEnergyOpposViaEquipment.length,
             totalDirectNEBs: directNEBs.length,
             totalIndirectNEBs: indirectNEBsViaKpmImpacts.length,
@@ -129,6 +143,7 @@ export function getStakeholderReport(
             totalIndirectKpmImpacts: indirectKpmImpacts.length,
             totalEnergyEquipment: directEnergyEquipment.length,
             totalProcessEquipment: directProcessEquipment.length,
+            totalEquipment: directEnergyEquipment.length + directProcessEquipment.length,
             totalEnergySavings: totalEnergySavings,
             totalWaterSavings: totalWaterSavings,
             totalCostSavings: totalCostSavings,
@@ -144,15 +159,17 @@ export interface StakeholderReport {
     contact: IdbContact;
     directAssessments: Array<IdbAssessment>;
     indirectAssessmentsViaEquipment: Array<IdbAssessment>;
-    indirectAssessmentsViaKpmImpacts: Array<IdbAssessment>;
-    allRelatedAssessments: Array<IdbAssessment>;
-    energyOpportunitiesIndirectViaEquipment: Array<IdbEnergyOpportunity>;
-    nonEnergyBenefitsDirect: Array<IdbNonEnergyBenefit>;
-    nonEnergyBenefitsIndirectViaKpmImpacts: Array<IdbNonEnergyBenefit>;
-    keyPerformanceIndicatorsDirect: Array<IdbKeyPerformanceIndicator>;
-    energyEquipmentDirect: Array<IdbEnergyEquipment>;
-    processEquipmentDirect: Array<IdbProcessEquipment>;
-    kpmImpactsIndirect: Array<IdbKeyPerformanceMetricImpact>;
+    overlapAssessments: Array<IdbAssessment>;
+    allConnectedAssessments: Array<IdbAssessment>;
+    indirectEnergyOpposViaEquipment: Array<IdbEnergyOpportunity>;
+    directNEBs: Array<IdbNonEnergyBenefit>;
+    indirectNEBsViaKpmImpacts: Array<IdbNonEnergyBenefit>;
+    allConnectedNEBs: Array<IdbNonEnergyBenefit>;
+    overlapNEBs: Array<IdbNonEnergyBenefit>;
+    directKPIs: Array<IdbKeyPerformanceIndicator>;
+    directEnergyEquipment: Array<IdbEnergyEquipment>;
+    directProcessEquipment: Array<IdbProcessEquipment>;
+    indirectKpmImpacts: Array<IdbKeyPerformanceMetricImpact>;
     summary: StakeholderSummary;
 }
 
@@ -166,6 +183,7 @@ export interface StakeholderSummary {
     totalIndirectKpmImpacts: number;
     totalEnergyEquipment: number;
     totalProcessEquipment: number;
+    totalEquipment: number;
     totalEnergySavings: number;
     totalWaterSavings: number;
     totalCostSavings: number;
