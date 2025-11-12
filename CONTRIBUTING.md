@@ -1,19 +1,29 @@
-# NEB Tool Contributing Guidelines
+# JUSTIFI Contributing Guidelines
+#
+## Code of Conduct
+
+This project and everyone participating in it is expected to adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md). Please read it to understand the standards of behavior for participation.
 
 ## Getting Started
 
 These contributing guidelines should be read by software developers wishing to contribute code or
-documentation changes into NEB Tool, or to push changes upstream to the main NREL/NEB-Tool repository.
+documentation changes into JUSTIFI, or to push changes upstream to the main ORNL-AMO/JUSTIFI repository.
+
+Public contributions to this project are very much welcomed. However, this project is actively maintained by a group of core developers. Project work by the core development team will take priority to outside contributors. For those looking to contribute externally on existing issues, please check the status of the issues on the project board below and reach out to the team via comment on the issue to ensure the work is ready to be executed and not in the scope of one of the core developers.
+
+### 📋 Project Board
+
+Track our progress and planned work on the [JUSTIFI GitHub Project Board](https://github.com/orgs/ORNL-AMO/projects/9/views/17).
 
 ## Issue Tracking
 
 New feature requests, changes, enhancements, and bug reports can be filed
-as new issues in the [Github.com issue tracker](https://github.com/NREL/NEB-Tool/issues).
+as new issues in the [Github.com issue tracker](https://github.com/ORNL-AMO/JUSTIFI/issues).
 Please be sure to fully describe the issue.
 
 ### Issue Submission Checklist
 
-1. Search the [issue tracker](https://github.com/NREL/NEB-Tool/issues) to see if your issue already exists. If so, please make a comment there or add a reaction to the issue.
+1. Search the [issue tracker](https://github.com/ORNL-AMO/JUSTIFI/issues) to see if your issue already exists. If so, please make a comment there or add a reaction to the issue.
 
 2. Is this an individual bug report or feature request?
 3. Can the bug or new feature be easily reproduced?
@@ -22,17 +32,18 @@ Please be sure to fully describe the issue.
 
 ## Repository Layout
 
-The NEB-Tool repository is hosted on Github, and located here: http://github.com/NREL/NEB-Tool
+The JUSTIFI repository is hosted on Github, and located here: http://github.com/ORNL-AMO/JUSTIFI
 
 This repository is organized using a modified git-flow system. Branches are organized as follows:
 
 - main: Stable release version. Must have good test coverage and may not have all the newest features.
-- develop: Development branch which contains the newest features. Tests must pass, but code may be unstable.
+- develop: Development branch which contains the newest features and issues will be tracked in the latest release milestone. Tests must pass, but code may be unstable as issues work through the QA phase.
 - issue-xxx[-description]: Feature or bug fix branch from develop, should reference a github issue number. You may provide an optional short description in the branch name.
-- fix-xxx[-description]: Bug fix branch from main, should reference a github issue number. You may provide an optional short description in the branch name.
+- fix-xxx[-description]: Bug fix branch from develop, should reference a github issue number. You may provide an optional short description in the branch name.
+- epic-xxx[-description]: In some cases, a large feature will be broken down into a subset of issues. Will the large feature is developed, the small issues can't be added to develop without the totality of the epic being finished. Use an epic branch to create incremental pull requests of smaller issues into the larger epic feature.
 
-For external developers, please create a fork of NEB-Tool in your own account.
-Internal developers may choose to work on issue and fix branches directly in the NREL/NEB-Tool repo.
+For external developers, please create a fork of JUSTIFI in your own account.
+Internal developers may choose to work on issue and fix branches directly in the ORNL-AMO/JUSTIFI repo.
 Be sure to periodically synchronize the upstream develop branch into your feature branch to avoid conflicts in the pull request.
 
 ## Pull Requests
@@ -44,16 +55,18 @@ make pull requests to the main branch.
 All pull requests, regardless of the base branch, must include updated documentation and pass all
 tests. In addition, code coverage should not be negatively affected.
 
-When your branch is ready, make a pull request to the develop branch of NREL/NEB-Tool through the
-[GitHub web interface](https://github.com/NREL/OpenOA/pulls). Pull requests must reference an issue number. If an issue does not yet exist, please create one.
+When your branch is ready, make a pull request to the develop branch of ORNL-AMO/JUSTIFI through the
+[GitHub web interface](https://github.com/ORNL-AMO/JUSTIFI/pulls). Pull requests must reference an issue number. If an issue does not yet exist, please create one.
 
+<!--TODO: Setup CLA
 When submitting a pull request, you
 will need to accept the Contributor License Agreement(CLA) (This is TBD - See [Issue #8](https://github.com/NREL/NEB-Tool/issues/8)).
+-->
 
 ### Scope
 
-Encapsulate the changes of one issue, or multiple if they are highly related. Three small pull
-requests is greatly preferred over one large pull request. Not only will the review process be
+Encapsulate the changes of one issue, or multiple if they are highly related. **Three small pull
+requests is greatly preferred over one large pull request.** Not only will the review process be
 shorter, but the review will be more focused and of higher quality, benefitting the author and code
 base. Be sure to write a complete description of these changes in the pull request body.
 
@@ -67,15 +80,15 @@ All code changes should be paired with a corresponding unit or integration test.
 
 ### Test Automation
 
-TBD
+All pull requests are automatically tested using GitHub Actions. The CI workflow unit tests, and build checks on every PR and push to main or develop. You can view the status of these checks in the PR interface. Please ensure your code passes all automated checks before requesting a review.
 
 ### Test Coverage
 
-TBD
+At this time, our primary requirement is that all existing and new tests pass when a pull request is opened. While we encourage writing tests for new code, we do not currently enforce a specific code coverage threshold.
 
 ## Documentation
 
-TBD
+All new features, changes, and bug fixes should be accompanied by relevant documentation updates. This includes updating code comments, the README, and any relevant files in the docs/ directory. Well-documented code and features help other contributors and users understand and use the project effectively.
 
 ### Changelog
 
@@ -83,15 +96,15 @@ All changes must be documented appropriately in the pull request body on Github.
 
 ## Coding Style
 
-TBD
+Please follow the coding standards outlined in [CODING_STYLE.md](./CODING_STYLE.md) for all contributions. This ensures consistency and readability across the codebase.
 
 ## Release Process
 
-TBD
+Releases are managed by the core development team. An "Epic" issue and a Milestone are used to track the issues going into the next release of JUSTIFI. Our QA team will test issues via the project board. When QA has been completed on the full set of "Epic" issues develop is merged into main and a release will be drafted by the CI system. Release notes are compiled from the changelog entries in PRs. Version numbers follow semantic versioning. Only core maintainers should publish releases.
 
 ### Versioning
 
-NEB-Tool uses [semantic verisoning 2.0.0](https://semver.org/spec/v2.0.0.html). An example version specification for NEB-Tool looks like `0.0.1-alpha`
+JUSTIFI uses [semantic verisoning 2.0.0](https://semver.org/spec/v2.0.0.html). An example version specification for JUSTIFI looks like `0.0.1-alpha`. Core developers will be responsible for version numbers and releases.
 
 The following is reproduced from semver.org:
 ```

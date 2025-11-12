@@ -26,7 +26,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/neb-tool'),
+      dir: require('path').join(__dirname, './coverage/justifi'),
       subdir: '.',
       reporters: [
         { type: 'html' },
