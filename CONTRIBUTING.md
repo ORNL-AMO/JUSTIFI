@@ -1,5 +1,5 @@
 # JUSTIFI Contributing Guidelines
-#
+
 ## Code of Conduct
 
 This project and everyone participating in it is expected to adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md). Please read it to understand the standards of behavior for participation.
