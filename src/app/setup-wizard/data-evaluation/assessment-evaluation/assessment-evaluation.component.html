@@ -18,15 +18,18 @@
             <span *ngIf="!isFirstAssessment"> Assessment Report&nbsp;</span>
         </button>
         <div>
-            <button class="btn btn-success btn-sm me-1" (click)="togglePrint()">
+            <button class="btn btn-success btn-sm" (click)="togglePrint()">
                 <fa-icon [icon]="faFilePdf"></fa-icon>
                 Generate PDF
             </button>
-            <button class="btn btn-success btn-sm ms-1" (click)="generatePowerPoint()">
+            <button class="btn btn-success btn-sm ms-2" (click)="generatePowerPoint()">
                 <fa-icon [icon]="faFilePowerpoint"></fa-icon>
                 Generate PowerPoint
             </button>
-
+            <button class="btn btn-success btn-sm ms-2" (click)="exportToExcel()">
+                <fa-icon [icon]="faFileExcel"></fa-icon>
+                Export to Excel
+            </button>
         </div>
         <button class="btn nav-btn btn-sm" (click)="goToNext()">
             <span *ngIf="isLastAssessment">Rollup Report&nbsp;</span>

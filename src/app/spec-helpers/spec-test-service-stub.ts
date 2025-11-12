@@ -160,6 +160,7 @@ let sharedDataService: Partial<SharedDataService> = {
     createPowerPoint: new BehaviorSubject<boolean>(false),
     showSlideShow: new BehaviorSubject<boolean>(false),
     exportToExcel: new BehaviorSubject<boolean>(false),
+    exportReportToExcel: new BehaviorSubject<string>(undefined)
 }
 
 let companyContactsFormService: Partial<CompanyContactsFormService> = {
