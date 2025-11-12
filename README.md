@@ -1,7 +1,6 @@
 # JUSTIFI
 <!-- Badges -->
 [![Build Status](https://github.com/ORNL-AMO/JUSTIFI/actions/workflows/main.yml/badge.svg)](https://github.com/ORNL-AMO/JUSTIFI/actions)
-[![License: MIT](https://img.shields.io/github/license/ORNL-AMO/JUSTIFI)](./LICENSE)
 [![Latest Release](https://img.shields.io/github/v/release/ORNL-AMO/JUSTIFI)](https://github.com/ORNL-AMO/JUSTIFI/releases)
 [![Issues](https://img.shields.io/github/issues/ORNL-AMO/JUSTIFI)](https://github.com/ORNL-AMO/JUSTIFI/issues)
 [![Pull Requests](https://img.shields.io/github/issues-pr/ORNL-AMO/JUSTIFI)](https://github.com/ORNL-AMO/JUSTIFI/pulls)
