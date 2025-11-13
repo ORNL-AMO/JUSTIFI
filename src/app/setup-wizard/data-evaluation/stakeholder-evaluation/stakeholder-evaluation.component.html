@@ -41,7 +41,8 @@
                 <ng-container *ngFor="let contact of facilityContacts; let isLast = last">
                     <div class="print-break-avoid" *ngIf="selectedContactGuids.has(contact.guid)">
                         <app-stakeholder-report 
-                            [contact]="contact" 
+                            [contact]="contact"
+                            [onsiteVisit]="onSiteVisit"
                             [report]="report">
                         </app-stakeholder-report>
                         <hr *ngIf="!isLast" class="my-4 print-break-before">

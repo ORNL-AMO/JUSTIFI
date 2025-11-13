@@ -20,6 +20,8 @@ import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 import { IdbReport } from 'src/app/models/report';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 import { getStakeholderReport, StakeholderReport } from '../calculations/stakeholderReport';
+import { LocaleCurrencyOption } from '../../constants/localeCurrency';
+import { LocaleService } from '../../shared-services/locale.service';
 
 @Component({
   selector: 'app-stakeholder-report',
@@ -31,10 +33,14 @@ import { getStakeholderReport, StakeholderReport } from '../calculations/stakeho
 export class StakeholderReportComponent {
   @Input({ required: true })
   contact: IdbContact;
+  @Input({ required: true })
+  onsiteVisit: IdbOnSiteVisit;
   @Input()
   report: IdbReport;
 
   stakeholderReport: StakeholderReport;
+  currencyCode: string;
+  currencySub: Subscription;
   print: boolean;
   printSub: Subscription;
 
@@ -46,7 +52,8 @@ export class StakeholderReportComponent {
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private localeService: LocaleService
   ) { }
 
   ngOnInit() {
@@ -58,12 +65,17 @@ export class StakeholderReportComponent {
     let allProcessEquipment: Array<IdbProcessEquipment> = this.processEquipmentIdbService.processEquipments.getValue();
     let allKpmImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
 
+    // Get facility performance metrics for assessment report calculations
+    let facilityPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.onsiteVisit.facilityId);
+
     // Generate report for this specific contact
     this.stakeholderReport = getStakeholderReport(
       this.contact,
+      this.onsiteVisit.assessmentIds,
       allAssessments,
       allEnergyOpportunities,
       allNonEnergyBenefits,
+      facilityPerformanceMetrics,
       allKPIs,
       allEnergyEquipment,
       allProcessEquipment,
@@ -74,6 +86,9 @@ export class StakeholderReportComponent {
     this.printSub = this.sharedDataService.print.subscribe(_print => {
       this.print = _print;
     });
+    this.currencySub = this.localeService.currencyCode.subscribe(
+      currencyCode => this.currencyCode = currencyCode
+    );
   }
 
   ngOnDestroy() {

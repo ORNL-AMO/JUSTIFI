@@ -8,7 +8,7 @@
                         <h5 class="bold mb-1">
                             Stakeholder: {{stakeholderReport.contact.firstName}} {{stakeholderReport.contact.lastName}}
                         </h5>
-                        <div class="text-muted small">
+                        <div class="text-secondary small">
                             <div *ngIf="stakeholderReport.contact.role">Role: {{stakeholderReport.contact.role}}</div>
                             <div *ngIf="stakeholderReport.contact.team">Team: {{stakeholderReport.contact.team}}</div>
                             <div *ngIf="stakeholderReport.contact.email">Email: {{stakeholderReport.contact.email}}</div>
@@ -18,15 +18,15 @@
                     <div class="text-end">
                         <span class="badge" 
                               [ngClass]="{
-                                'bg-success': stakeholderReport.summary.engagementLevel === 'High',
-                                'bg-warning': stakeholderReport.summary.engagementLevel === 'Medium',
-                                'bg-secondary': stakeholderReport.summary.engagementLevel === 'Low'
+                                'bg-success': stakeholderReport.engagementLevel === 'High',
+                                'bg-warning': stakeholderReport.engagementLevel === 'Medium',
+                                'bg-secondary': stakeholderReport.engagementLevel === 'Low'
                               }"
                               style="font-size: 0.9rem; padding: 0.5rem 0.75rem;">
-                            {{stakeholderReport.summary.engagementLevel}} Engagement
+                            {{stakeholderReport.engagementLevel}} Engagement
                         </span>
-                        <div class="text-muted small mt-1">
-                            Involvement Score: {{stakeholderReport.summary.involvementScore}}
+                        <div class="text-secondary small mt-1">
+                            Involvement Score: {{stakeholderReport.involvementScore}}
                         </div>
                     </div>
                 </div>
@@ -81,10 +81,10 @@
                             </li>
                             
                             <!-- Equipment Portfolio & EEMs -->
-                            <li *ngIf="stakeholderReport.summary.totalEquipment > 0">
-                                Manages <strong>{{stakeholderReport.summary.totalEquipment}}</strong> piece<span *ngIf="stakeholderReport.summary.totalEquipment !== 1">s</span> of equipment
-                                (<strong>{{stakeholderReport.summary.totalEnergyEquipment}}</strong> industrial system<span *ngIf="stakeholderReport.summary.totalEnergyEquipment > 1">s</span>, 
-                                <strong>{{stakeholderReport.summary.totalProcessEquipment}}</strong> end use<span *ngIf="stakeholderReport.summary.totalProcessEquipment > 1">s</span>)
+                            <li *ngIf="stakeholderReport.totalEquipment > 0">
+                                Manages <strong>{{stakeholderReport.totalEquipment}}</strong> piece<span *ngIf="stakeholderReport.totalEquipment !== 1">s</span> of equipment
+                                (<strong>{{stakeholderReport.totalEnergyEquipment}}</strong> industrial system<span *ngIf="stakeholderReport.totalEnergyEquipment > 1">s</span>, 
+                                <strong>{{stakeholderReport.totalProcessEquipment}}</strong> end use<span *ngIf="stakeholderReport.totalProcessEquipment > 1">s</span>)
                                 <span *ngIf="stakeholderReport.indirectEnergyOpposViaEquipment.length > 0">
                                     connecting to <strong>{{stakeholderReport.indirectEnergyOpposViaEquipment.length}}</strong> energy efficiency measure<span *ngIf="stakeholderReport.indirectEnergyOpposViaEquipment.length !== 1">s</span>
                                 </span>
@@ -107,25 +107,27 @@
                                 <strong>Potential Financial Impact:</strong>
                             </p>
                             <ul class="list-unstyled ms-3 mb-0">
-                                <li *ngIf="stakeholderReport.summary.totalCostSavings > 0">
+                                <li *ngIf="stakeholderReport.totalFinancialImpact > 0">
                                     <i class="fas fa-dollar-sign text-success me-2"></i>
-                                    Total Cost Savings: <strong>{{stakeholderReport.summary.totalCostSavings | currency}}/year</strong>
+                                    Total Financial Impact: <strong>{{stakeholderReport.totalFinancialImpact | currency:currencyCode:'symbol':'1.0-2'}}/year</strong>
+                                    <small class="text-secondary d-block ms-2">
+                                        ({{stakeholderReport.directFinancialImpact | currency:currencyCode:'symbol':'1.0-2'}} direct, 
+                                         {{stakeholderReport.indirectFinancialImpact | currency:currencyCode:'symbol':'1.0-2'}} indirect)
+                                    </small>
                                 </li>
-                                <li *ngIf="stakeholderReport.summary.totalImplementationCost > 0">
+                                <li *ngIf="stakeholderReport.totalImplementationCost > 0">
                                     <i class="fas fa-tools text-warning me-2"></i>
-                                    Implementation Cost: <strong>{{stakeholderReport.summary.totalImplementationCost | currency}}</strong>
+                                    Implementation Cost: <strong>{{stakeholderReport.totalImplementationCost | currency:currencyCode:'symbol':'1.0-2'}}</strong>
+                                    <small class="text-secondary d-block ms-2" *ngIf="stakeholderReport.totalRebates > 0">
+                                        (Net: {{stakeholderReport.finalImplementationCost | currency:currencyCode:'symbol':'1.0-2'}} after {{stakeholderReport.totalRebates | currency:currencyCode:'symbol':'1.0-2'}} rebates)
+                                    </small>
                                 </li>
-                                <li *ngIf="stakeholderReport.summary.simplePayback > 0">
+                                <li *ngIf="stakeholderReport.totalPaybackWithNebs > 0">
                                     <i class="fas fa-clock text-info me-2"></i>
-                                    Simple Payback: <strong>{{stakeholderReport.summary.simplePayback | number:'1.1-1'}} years</strong>
-                                </li>
-                                <li *ngIf="stakeholderReport.summary.totalEnergySavings > 0">
-                                    <i class="fas fa-bolt text-primary me-2"></i>
-                                    Energy Savings: <strong>{{stakeholderReport.summary.totalEnergySavings | number:'1.0-0'}} MMBtu/year</strong>
-                                </li>
-                                <li *ngIf="stakeholderReport.summary.totalWaterSavings > 0">
-                                    <i class="fas fa-tint text-primary me-2"></i>
-                                    Water Savings: <strong>{{stakeholderReport.summary.totalWaterSavings | number:'1.0-0'}} gallons/year</strong>
+                                    Simple Payback: <strong>{{stakeholderReport.totalPaybackWithNebs | number:'1.1-1'}} years</strong>
+                                    <small class="text-secondary d-block ms-2" *ngIf="stakeholderReport.totalPaybackWithoutNebs !== stakeholderReport.totalPaybackWithNebs">
+                                        ({{stakeholderReport.totalPaybackWithoutNebs | number:'1.1-1'}} years without non-energy benefits)
+                                    </small>
                                 </li>
                             </ul>
                         </div>
@@ -253,7 +255,7 @@
             <!-- KPI Impact Details -->
             <div *ngIf="stakeholderReport.indirectKpmImpacts.length > 0" class="mb-3">
                 <h6 class="bold">KPI Metric Impacts (Indirect Associations)</h6>
-                <p class="text-muted small">These show how NEBs from assessments affect KPIs this stakeholder tracks.</p>
+                <p class="text-secondary small">These show how NEBs from assessments affect KPIs this stakeholder tracks.</p>
                 <table class="table table-bordered table-hover table-sm">
                     <thead class="table-light">
                         <tr>
@@ -320,22 +322,22 @@
             <div class="card mb-3">
                 <div class="card-header" 
                      [ngClass]="{
-                       'bg-success text-white': stakeholderReport.summary.engagementLevel === 'High',
-                       'bg-warning': stakeholderReport.summary.engagementLevel === 'Medium',
-                       'bg-secondary text-white': stakeholderReport.summary.engagementLevel === 'Low'
+                       'bg-success text-white': stakeholderReport.engagementLevel === 'High',
+                       'bg-warning': stakeholderReport.engagementLevel === 'Medium',
+                       'bg-secondary text-white': stakeholderReport.engagementLevel === 'Low'
                      }">
                     <h6 class="mb-0">Recommended Engagement Strategy</h6>
                 </div>
                 <div class="card-body">
-                    <p class="mb-0" *ngIf="stakeholderReport.summary.engagementLevel === 'High'">
+                    <p class="mb-0" *ngIf="stakeholderReport.engagementLevel === 'High'">
                         <strong>Key Strategic Stakeholder:</strong> This stakeholder has high involvement across multiple assessments, equipment, and KPIs. 
                         Include them in capital planning decisions, validation meetings, and implementation planning. Their buy-in is critical for project success.
                     </p>
-                    <p class="mb-0" *ngIf="stakeholderReport.summary.engagementLevel === 'Medium'">
+                    <p class="mb-0" *ngIf="stakeholderReport.engagementLevel === 'Medium'">
                         <strong>Important Contributor:</strong> This stakeholder has moderate involvement in the facility's improvement initiatives. 
                         Engage them for validation of findings related to their areas and consider deeper involvement in implementation of relevant measures.
                     </p>
-                    <p class="mb-0" *ngIf="stakeholderReport.summary.engagementLevel === 'Low'">
+                    <p class="mb-0" *ngIf="stakeholderReport.engagementLevel === 'Low'">
                         <strong>Introduce & Inform:</strong> This stakeholder has limited direct involvement currently. 
                         Introduce them to the initiative scope and explore opportunities to align their processes or KPIs with identified improvement opportunities.
                     </p>
