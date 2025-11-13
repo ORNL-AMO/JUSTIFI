@@ -112,7 +112,7 @@ export function getStakeholderReport(
     }
 
     // Assessment Financial Impact
-    const assessmentReports: Array<AssessmentReport> = allConnectedAssessments.map(assessment => 
+    const connectedAssessmentReports: Array<AssessmentReport> = allConnectedAssessments.map(assessment => 
         getAssessmentReport(
             assessment,
             includedEnergyOpportunities,
@@ -125,18 +125,17 @@ export function getStakeholderReport(
     );
     const connectedAssessmentGuids = new Set(allConnectedAssessments.map(a => a.guid));
     const directAssessmentGuids = new Set(directAssessments.map(a => a.guid));
-    const directAssessmentReports = assessmentReports.filter(r => directAssessmentGuids.has(r.assessment.guid));
+    const directAssessmentReports = connectedAssessmentReports.filter(r => directAssessmentGuids.has(r.assessment.guid));
     const indirectAssessmentGuids = new Set(indirectAssessmentsViaEquipment.map(a => a.guid));
-    const indirectAssessmentReports = assessmentReports.filter(r => indirectAssessmentGuids.has(r.assessment.guid));
+    const indirectAssessmentReports = connectedAssessmentReports.filter(r => indirectAssessmentGuids.has(r.assessment.guid));
     const overlapAssessmentsGuids = new Set(overlapAssessments.map(a => a.guid));
-    const overlapAssessmentReports = assessmentReports.filter(r => overlapAssessmentsGuids.has(r.assessment.guid));
-
-    let assessmentLevelFinancialImpact = _.sumBy(assessmentReports, r => r.totalFinancialImpact);
-    let assessmentLevelImplementationCost = _.sumBy(assessmentReports, r => r.totalImplementationCost);
-    let assessmentLevelEnergySavings = _.sumBy(assessmentReports, r => r.totalEnergySavings);
-    let assessmentLevelNonNebCostSavings = _.sumBy(assessmentReports, r => r.totalNonNebCostSavings);
-    let assessmentLevelNebFinancialImpact = _.sumBy(assessmentReports, r => r.totalNebFinancialImpact);
-    let assessmentLevelRebates = _.sumBy(assessmentReports, r => r.totalRebates);
+    const overlapAssessmentReports = connectedAssessmentReports.filter(r => overlapAssessmentsGuids.has(r.assessment.guid));
+    let assessmentLevelFinancialImpact = _.sumBy(connectedAssessmentReports, r => r.totalFinancialImpact);
+    let assessmentLevelImplementationCost = _.sumBy(connectedAssessmentReports, r => r.totalImplementationCost);
+    let assessmentLevelEnergySavings = _.sumBy(connectedAssessmentReports, r => r.totalEnergySavings);
+    let assessmentLevelNonNebCostSavings = _.sumBy(connectedAssessmentReports, r => r.totalNonNebCostSavings);
+    let assessmentLevelNebFinancialImpact = _.sumBy(connectedAssessmentReports, r => r.totalNebFinancialImpact);
+    let assessmentLevelRebates = _.sumBy(connectedAssessmentReports, r => r.totalRebates);
     
     // EEM-level Financial Impact
     const connectedEnergyOppoGuids = new Set(indirectEnergyOpposViaEquipment.map(e => e.guid));
@@ -250,6 +249,10 @@ export function getStakeholderReport(
         directEnergyEquipment: directEnergyEquipment,
         directProcessEquipment: directProcessEquipment,
         indirectKpmImpacts: indirectKpmImpacts,
+        // Report arrays for table rendering
+        connectedAssessmentReports: connectedAssessmentReports,
+        connectedEnergyOppoReports: connectedEnergyOppoReports,
+        connectedNebReports: connectedNebReports,
         // Summary counts
         totalDirectAssessments: directAssessments.length,
         totalIndirectAssessments: indirectAssessmentsViaEquipment.length,
@@ -315,6 +318,11 @@ export interface StakeholderReport {
     directEnergyEquipment: Array<IdbEnergyEquipment>;
     directProcessEquipment: Array<IdbProcessEquipment>;
     indirectKpmImpacts: Array<IdbKeyPerformanceMetricImpact>;
+    
+    // Report arrays for rendering
+    connectedAssessmentReports: Array<AssessmentReport>;
+    connectedEnergyOppoReports: Array<EnergyOpportunityReport>;
+    connectedNebReports: Array<NebReport>;
     
     // Summary counts
     totalDirectAssessments: number;

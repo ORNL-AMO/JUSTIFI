@@ -135,110 +135,161 @@
                 </div>
             </div>
 
-            <!-- Assessment Involvement Section -->
-            <div *ngIf="stakeholderReport.allConnectedAssessments.length > 0" class="mb-3">
-                <h6 class="bold">Assessment Involvement</h6>
-                <table class="table table-bordered table-hover table-sm">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Assessment Name</th>
-                            <th>Association Type</th>
-                            <th>Type</th>
-                            <th>Visit Date</th>
-                            <th>Energy Savings</th>
-                            <th>Cost Savings</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Direct Assessments -->
-                        <tr *ngFor="let assessment of stakeholderReport.directAssessments">
-                            <td>{{assessment.name}}</td>
-                            <td><span class="badge bg-primary">Direct</span></td>
-                            <td>{{assessment.assessmentType}}</td>
-                            <td>{{assessment.visitDate | date:'shortDate'}}</td>
-                            <td>{{assessment.energySavings | number:'1.0-0'}}</td>
-                            <td>{{assessment.costSavings | currency}}</td>
-                        </tr>
-                        <!-- Indirect via Equipment -->
-                        <tr *ngFor="let assessment of stakeholderReport.indirectAssessmentsViaEquipment">
-                            <td>{{assessment.name}}</td>
-                            <td><span class="badge bg-info">Indirect (Equipment)</span></td>
-                            <td>{{assessment.assessmentType}}</td>
-                            <td>{{assessment.visitDate | date:'shortDate'}}</td>
-                            <td>{{assessment.energySavings | number:'1.0-0'}}</td>
-                            <td>{{assessment.costSavings | currency}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Energy Efficiency Measures Table (All Indirect) -->
-            <div *ngIf="stakeholderReport.indirectEnergyOpposViaEquipment.length > 0" class="mb-3">
-                <h6 class="bold">Energy Efficiency Measures (Indirect via Equipment)</h6>
-                <table class="table table-bordered table-hover table-sm">
+      <!-- Table 1: Connected Assessments -->
+      <div class="mb-3 print-break-avoid">
+        <h6 class="bold">Connected Assessments</h6>
+        <p class="text-secondary small mb-2">Connected to stakeholder directly or via tracked equipment</p>
+        <table class="table table-bordered savings-table table-hover table-sm">
+          <thead class="table-light">
+            <tr>
+              <th>Assessment Name</th>
+              <th>Connection</th>
+              <th class="text-right">Financial Impact</th>
+              <th class="text-right">Implementation Cost</th>
+              <th class="text-right">Simple Payback (years)</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (assessment of stakeholderReport.directAssessments; track assessment.guid) {
+              @if (!isAssessmentInOverlap(assessment.guid)) {
+                @let assessmentReport = getAssessmentReport(assessment.guid);
+                <tr>
+                  <td>{{ assessment.name }}</td>
+                  <td><span class="badge bg-primary">Direct</span></td>
+                  <td class="text-right">
+                    <app-single-cell-item [numValue]="assessmentReport?.totalNebFinancialImpact || 0" [isCurrency]="true"></app-single-cell-item>
+                  </td>
+                  <td class="text-right">
+                    <app-single-cell-item [numValue]="assessmentReport?.totalImplementationCost || 0" [isCurrency]="true"></app-single-cell-item>
+                  </td>
+                  <td class="text-right">
+                    <app-single-cell-item [numValue]="assessmentReport?.totalPaybackWithNebs" [units]="assessmentReport?.totalPaybackWithNebs != undefined ? 'yrs' : ''"></app-single-cell-item>
+                  </td>
+                </tr>
+              }
+            }
+            @for (assessment of stakeholderReport.indirectAssessmentsViaEquipment; track assessment.guid) {
+              @if (!isAssessmentInOverlap(assessment.guid)) {
+                @let assessmentReport = getAssessmentReport(assessment.guid);
+                <tr>
+                  <td>{{ assessment.name }}</td>
+                  <td><span class="badge bg-warning">Indirect</span></td>
+                  <td class="text-right">
+                    <app-single-cell-item [numValue]="assessmentReport?.totalNebFinancialImpact || 0" [isCurrency]="true"></app-single-cell-item>
+                  </td>
+                  <td class="text-right">
+                    <app-single-cell-item [numValue]="assessmentReport?.totalImplementationCost || 0" [isCurrency]="true"></app-single-cell-item>
+                  </td>
+                  <td class="text-right">
+                    <app-single-cell-item [numValue]="assessmentReport?.totalPaybackWithNebs" [units]="assessmentReport?.totalPaybackWithNebs != undefined ? 'yrs' : ''"></app-single-cell-item>
+                  </td>
+                </tr>
+              }
+            }
+            @for (assessment of stakeholderReport.overlapAssessments; track assessment.guid) {
+              @let assessmentReport = getAssessmentReport(assessment.guid);
+              <tr>
+                <td>{{ assessment.name }}</td>
+                <td>
+                  <span class="badge bg-primary">Direct</span>
+                  <span class="badge bg-warning">Indirect</span>
+                </td>
+                <td class="text-right">
+                  <app-single-cell-item [numValue]="assessmentReport?.totalNebFinancialImpact || 0" [isCurrency]="true"></app-single-cell-item>
+                </td>
+                <td class="text-right">
+                  <app-single-cell-item [numValue]="assessmentReport?.totalImplementationCost || 0" [isCurrency]="true"></app-single-cell-item>
+                </td>
+                <td class="text-right">
+                  <app-single-cell-item [numValue]="assessmentReport?.totalPaybackWithNebs" [units]="assessmentReport?.totalPaybackWithNebs != undefined ? 'yrs' : ''"></app-single-cell-item>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>            <!-- Table 2: Energy Efficiency Measures -->
+            <div *ngIf="stakeholderReport.connectedEnergyOppoReports.length > 0" class="mb-3 print-break-avoid">
+                <h6 class="bold">Energy Efficiency Measures</h6>
+                <p class="text-secondary small mb-2">Connected to stakeholder via tracked equipment</p>
+                <table class="table table-bordered savings-table table-hover table-sm">
                     <thead class="table-light">
                         <tr>
                             <th>Measure Name</th>
-                            <th>Energy Savings</th>
-                            <th>Water Savings</th>
-                            <th>Cost Savings</th>
-                            <th>Implementation Cost</th>
+                            <th>Assessment</th>
+                            <th class="text-right">Financial Impact</th>
+                            <th class="text-right">Implementation Cost</th>
+                            <th class="text-right">Payback</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let eem of stakeholderReport.indirectEnergyOpposViaEquipment">
-                            <td>{{eem.name}}</td>
-                            <td>{{eem.energySavings | number:'1.0-0'}} {{eem.energyUnit}}</td>
-                            <td>{{eem.waterSavings | number:'1.0-0'}} gal</td>
-                            <td>{{eem.costSavings | currency}}</td>
-                            <td>{{eem.implementationCost | currency}}</td>
+                        <tr *ngFor="let eemReport of stakeholderReport.connectedEnergyOppoReports">
+                            <td>{{eemReport.energyOpportunity.name}}</td>
+                            <td class="small">
+                                <ng-container *ngFor="let assessment of stakeholderReport.allConnectedAssessments">
+                                    <span *ngIf="assessment.guid === eemReport.energyOpportunity.assessmentId">{{assessment.name}}</span>
+                                </ng-container>
+                            </td>
+                            <td class="text-right">
+                                <app-single-cell-item [numValue]="eemReport.totalFinancialImpact" [isCurrency]="true"></app-single-cell-item>
+                            </td>
+                            <td class="text-right">
+                                <app-single-cell-item [numValue]="eemReport.totalImplementationCost" [isCurrency]="true"></app-single-cell-item>
+                            </td>
+                            <td class="text-right">
+                                <app-single-cell-item [numValue]="eemReport.totalPaybackWithNebs" [units]="eemReport.totalPaybackWithNebs > 0 ? 'yrs' : ''"></app-single-cell-item>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Non-Energy Benefits Table -->
-            <div *ngIf="(stakeholderReport.directNEBs.length + stakeholderReport.indirectNEBsViaKpmImpacts.length) > 0" class="mb-3">
+            <!-- Table 3: Non-Energy Benefits -->
+            <div *ngIf="stakeholderReport.connectedNebReports.length > 0" class="mb-3 print-break-avoid">
                 <h6 class="bold">Non-Energy Benefits</h6>
-                <table class="table table-bordered table-hover table-sm">
+                <p class="text-secondary small mb-2">Connected to stakeholder directly or via tracked KPIs and KPMs</p>
+                <table class="table table-bordered savings-table table-hover table-sm">
                     <thead class="table-light">
                         <tr>
                             <th>NEB Name</th>
-                            <th>Association Type</th>
-                            <th>Category</th>
-                            <th>Cost Impact</th>
-                            <th>Impact Type</th>
+                            <th>Connection</th>
+                            <th>Assessment</th>
+                            <th>Impacted KPM</th>
+                            <th>Impacted KPI</th>
+                            <th class="text-right">Financial Impact</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Direct NEBs -->
-                        <tr *ngFor="let neb of stakeholderReport.directNEBs">
-                            <td>{{neb.name}}</td>
-                            <td><span class="badge bg-primary">Direct</span></td>
-                            <td>{{neb.nebOptionValue}}</td>
-                            <td>{{neb.costImpact | currency}}</td>
-                            <td>{{neb.costImpactType}}</td>
-                        </tr>
-                        <!-- Indirect via KPI Impacts -->
-                        <tr *ngFor="let neb of stakeholderReport.indirectNEBsViaKpmImpacts">
-                            <td>{{neb.name}}</td>
-                            <td><span class="badge bg-warning">Indirect (KPI Impacts)</span></td>
-                            <td>{{neb.nebOptionValue}}</td>
-                            <td>{{neb.costImpact | currency}}</td>
-                            <td>{{neb.costImpactType}}</td>
+                        <tr *ngFor="let row of getNebExpandedRows()">
+                            <td>{{row.neb.name}}</td>
+                            <td>
+                                <span *ngIf="row.isDirect && row.isIndirect">
+                                    <span class="badge bg-primary">Direct</span>
+                                    <span class="badge bg-warning">Indirect</span>
+                                </span>
+                                <span *ngIf="row.isDirect && !row.isIndirect" class="badge bg-primary">Direct</span>
+                                <span *ngIf="!row.isDirect && row.isIndirect" class="badge bg-warning">Indirect</span>
+                            </td>
+                            <td class="small">{{getAssessmentName(row.neb.assessmentId)}}</td>
+                            <td class="small">{{row.kpmName || 'N/A'}}</td>
+                            <td class="small">{{row.kpi?.label || 'N/A'}}</td>
+                            <td class="text-right">
+                                <app-single-cell-item [numValue]="row.nebReport.totalFinancialImpact" [isCurrency]="true"></app-single-cell-item>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- KPI Influence Section -->
-            <div *ngIf="stakeholderReport.directKPIs.length > 0" class="mb-3">
+            <!-- Table 5: Key Performance Indicators -->
+            <div *ngIf="stakeholderReport.directKPIs.length > 0" class="mb-3 print-break-avoid">
                 <h6 class="bold">Key Performance Indicators</h6>
-                <table class="table table-bordered table-hover table-sm">
+                <table class="table table-bordered savings-table table-hover table-sm">
                     <thead class="table-light">
                         <tr>
                             <th>KPI Label</th>
-                            <th>Primary Category</th>
+                            <th>Category</th>
+                            <th class="text-center">Related NEBs</th>
+                            <th class="text-right">Total Impact</th>
                             <th>Description</th>
                         </tr>
                     </thead>
@@ -246,73 +297,47 @@
                         <tr *ngFor="let kpi of stakeholderReport.directKPIs">
                             <td>{{kpi.label}}</td>
                             <td>{{kpi.primaryKPI}}</td>
-                            <td>{{kpi.description}}</td>
+                            <td class="text-center">
+                                @let nebCount = getKpiRelatedNebCount(kpi.guid);
+                                <span *ngIf="nebCount > 0" class="badge bg-secondary">{{nebCount}}</span>
+                                <span *ngIf="nebCount === 0" class="text-secondary">0</span>
+                            </td>
+                            <td class="text-right">
+                                @let totalImpact = getKpiTotalImpact(kpi.guid);
+                                <app-single-cell-item [numValue]="totalImpact" [isCurrency]="true"></app-single-cell-item>
+                            </td>
+                            <td class="small">{{kpi.description}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- KPI Impact Details -->
-            <div *ngIf="stakeholderReport.indirectKpmImpacts.length > 0" class="mb-3">
-                <h6 class="bold">KPI Metric Impacts (Indirect Associations)</h6>
-                <p class="text-secondary small">These show how NEBs from assessments affect KPIs this stakeholder tracks.</p>
-                <table class="table table-bordered table-hover table-sm">
-                    <thead class="table-light">
-                        <tr>
-                            <th>KPM Value</th>
-                            <th>Modification</th>
-                            <th>Cost Adjustment</th>
-                            <th>Calculation Method</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let impact of stakeholderReport.indirectKpmImpacts">
-                            <td>{{impact.kpmValue}}</td>
-                            <td>{{impact.modificationValue | number:'1.0-2'}}</td>
-                            <td>{{impact.costAdjustment | currency}}</td>
-                            <td>{{impact.calculationMethod}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Energy Equipment Table -->
-            <div *ngIf="stakeholderReport.directEnergyEquipment.length > 0" class="mb-3">
-                <h6 class="bold">Energy Equipment</h6>
-                <table class="table table-bordered table-hover table-sm">
+            <!-- Table 4: Equipment Portfolio -->
+            <div *ngIf="stakeholderReport.totalEquipment > 0" class="mb-3 print-break-avoid">
+                <h6 class="bold">Equipment Portfolio</h6>
+                <table class="table table-bordered savings-table table-hover table-sm">
                     <thead class="table-light">
                         <tr>
                             <th>Equipment Name</th>
                             <th>Type</th>
-                            <th>Size</th>
-                            <th>Annual Energy Use</th>
+                            <th>Connected EEMs</th>
+                            <th>Connected Assessments</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Energy Equipment (Industrial Systems) -->
                         <tr *ngFor="let equipment of stakeholderReport.directEnergyEquipment">
                             <td>{{equipment.equipmentName}}</td>
-                            <td>{{equipment.equipmentType}}</td>
-                            <td>{{equipment.size}} {{equipment.sizeUnit}}</td>
-                            <td>{{equipment.annualEnergyUse | number:'1.0-0'}} {{equipment.fuelEnergyUnit}}</td>
+                            <td><span class="badge bg-info">Industrial System</span></td>
+                            <td class="small">{{getConnectedEemNames(equipment.energyOpportunityIds)}}</td>
+                            <td class="small">{{getConnectedAssessmentNames(equipment.assessmentIds)}}</td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Process Equipment Table -->
-            <div *ngIf="stakeholderReport.directProcessEquipment.length > 0" class="mb-3">
-                <h6 class="bold">Process Equipment / End Uses</h6>
-                <table class="table table-bordered table-hover table-sm">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Equipment Name</th>
-                            <th>Output</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                        <!-- Process Equipment (End Uses) -->
                         <tr *ngFor="let equipment of stakeholderReport.directProcessEquipment">
                             <td>{{equipment.equipmentName}}</td>
-                            <td>{{equipment.whatIsTheOutput}}</td>
+                            <td><span class="badge bg-warning">End Use</span></td>
+                            <td class="small">{{getConnectedEemNames(equipment.energyOpportunityIds)}}</td>
+                            <td class="small">{{getConnectedAssessmentNames(equipment.assessmentIds)}}</td>
                         </tr>
                     </tbody>
                 </table>

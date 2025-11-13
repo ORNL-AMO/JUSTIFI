@@ -39,6 +39,7 @@ export class StakeholderReportComponent {
   report: IdbReport;
 
   stakeholderReport: StakeholderReport;
+  facilityPerformanceMetrics: any[];
   currencyCode: string;
   currencySub: Subscription;
   print: boolean;
@@ -66,7 +67,7 @@ export class StakeholderReportComponent {
     let allKpmImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactsIdbService.keyPerformanceMetricImpacts.getValue();
 
     // Get facility performance metrics for assessment report calculations
-    let facilityPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.onsiteVisit.facilityId);
+    this.facilityPerformanceMetrics = this.keyPerformanceIndicatorIdbService.getFacilityKeyPerformanceMetrics(this.onsiteVisit.facilityId);
 
     // Generate report for this specific contact
     this.stakeholderReport = getStakeholderReport(
@@ -75,7 +76,7 @@ export class StakeholderReportComponent {
       allAssessments,
       allEnergyOpportunities,
       allNonEnergyBenefits,
-      facilityPerformanceMetrics,
+      this.facilityPerformanceMetrics,
       allKPIs,
       allEnergyEquipment,
       allProcessEquipment,
@@ -93,5 +94,135 @@ export class StakeholderReportComponent {
 
   ngOnDestroy() {
     this.printSub.unsubscribe();
+  }
+
+  // Helper methods for template
+  isNebInOverlap(nebGuid: string): boolean {
+    return this.stakeholderReport.overlapNEBs.some(n => n.guid === nebGuid);
+  }
+
+  isNebDirect(nebGuid: string): boolean {
+    return this.stakeholderReport.directNEBs.some(n => n.guid === nebGuid);
+  }
+
+  isNebIndirect(nebGuid: string): boolean {
+    return this.stakeholderReport.indirectNEBsViaKpmImpacts.some(n => n.guid === nebGuid);
+  }
+
+  isAssessmentInOverlap(assessmentGuid: string): boolean {
+    return this.stakeholderReport.overlapAssessments.some(a => a.guid === assessmentGuid);
+  }
+
+  isAssessmentDirect(assessmentGuid: string): boolean {
+    return this.stakeholderReport.directAssessments.some(a => a.guid === assessmentGuid);
+  }
+
+  isAssessmentIndirect(assessmentGuid: string): boolean {
+    return this.stakeholderReport.indirectAssessmentsViaEquipment.some(a => a.guid === assessmentGuid);
+  }
+
+  getKpiRelatedNebCount(kpiGuid: string): number {
+    const relatedImpacts = this.stakeholderReport.indirectKpmImpacts.filter(impact => impact.kpiGuid === kpiGuid);
+    const nebGuids = new Set(relatedImpacts.map(impact => impact.nebId));
+    return nebGuids.size;
+  }
+
+  getKpiTotalImpact(kpiGuid: string): number {
+    return this.stakeholderReport.indirectKpmImpacts
+      .filter(impact => impact.kpiGuid === kpiGuid)
+      .reduce((sum, impact) => sum + (impact.costAdjustment || 0), 0);
+  }
+
+  getAssessmentReport(assessmentGuid: string): any {
+    return this.stakeholderReport.connectedAssessmentReports.find(r => r.assessment.guid === assessmentGuid);
+  }
+
+  // Expand NEBs into rows based on their KPM impacts
+  getNebExpandedRows(): Array<{
+    neb: IdbNonEnergyBenefit,
+    nebReport: any,
+    isDirect: boolean,
+    isIndirect: boolean,
+    kpmImpact?: IdbKeyPerformanceMetricImpact,
+    kpi?: IdbKeyPerformanceIndicator,
+    kpmName?: string
+  }> {
+    const rows: Array<any> = [];
+
+    this.stakeholderReport.connectedNebReports.forEach(nebReport => {
+      const neb = nebReport.nonEnergyBenefit;
+      const isDirect = this.isNebDirect(neb.guid);
+      const isIndirect = this.isNebIndirect(neb.guid);
+
+      // Find all KPM impacts for this NEB connected to stakeholder KPIs
+      const relatedKpmImpacts = this.stakeholderReport.indirectKpmImpacts.filter(
+        impact => impact.nebId === neb.guid
+      );
+
+      if (relatedKpmImpacts.length > 0) {
+        // Create one row per KPM impact
+        relatedKpmImpacts.forEach(kpmImpact => {
+          const kpi = this.stakeholderReport.directKPIs.find(k => k.guid === kpmImpact.kpiGuid);
+          // Find KPM - for custom KPMs use guid, for standard KPMs use value
+          const kpm = this.facilityPerformanceMetrics.find(m => {
+            if (m.isCustom === false) {
+              return m.value === kpmImpact.kpmValue;
+            } else {
+              return m.guid === kpmImpact.kpmGuid;
+            }
+          });
+          rows.push({
+            neb,
+            nebReport,
+            isDirect,
+            isIndirect,
+            kpmImpact,
+            kpi,
+            kpmName: kpm?.label
+          });
+        });
+      } else {
+        // No KPM impacts, create single row
+        rows.push({
+          neb,
+          nebReport,
+          isDirect,
+          isIndirect
+        });
+      }
+    });
+
+    return rows;
+  }
+
+  getAssessmentName(assessmentGuid: string): string {
+    const assessment = this.stakeholderReport.allConnectedAssessments.find(a => a.guid === assessmentGuid);
+    return assessment ? assessment.name : '';
+  }
+
+  getConnectedEemNames(equipmentEemIds: string[]): string {
+    if (!equipmentEemIds || equipmentEemIds.length === 0) return 'None';
+    
+    const eemNames = equipmentEemIds
+      .map(eemId => {
+        const eem = this.stakeholderReport.indirectEnergyOpposViaEquipment.find(e => e.guid === eemId);
+        return eem ? eem.name : null;
+      })
+      .filter(name => name !== null);
+    
+    return eemNames.length > 0 ? eemNames.join(', ') : 'None';
+  }
+
+  getConnectedAssessmentNames(equipmentAssessmentIds: string[]): string {
+    if (!equipmentAssessmentIds || equipmentAssessmentIds.length === 0) return 'None';
+    
+    const assessmentNames = equipmentAssessmentIds
+      .map(assessmentId => {
+        const assessment = this.stakeholderReport.allConnectedAssessments.find(a => a.guid === assessmentId);
+        return assessment ? assessment.name : null;
+      })
+      .filter(name => name !== null);
+    
+    return assessmentNames.length > 0 ? assessmentNames.join(', ') : 'None';
   }
 }
