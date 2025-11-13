@@ -10,7 +10,7 @@
 
 JUSTIFI is a tool that is a member of **Oak Ridge National Laboratory's Industrial Resources** suite of applications. The application was developed in collaboration with the **National Renewable Energy Laboratory (NREL)** around the study of **Non-Energy Benefits (NEBs)**. JUSTIFI allows users to identify the Key Performance Metrics (KPM) for a manufacturing facility and quantify the impacts of NEBs from implementation of energy efficiency opportunities.
 
-JUSTIFI, like it's sister applications [MEASUR](https://github.com/ORNL-AMO/MEASUR) and [VERIFI](https://github.com/ORNL-AMO/VERIFI), is developed as a web application but is also packaged and distributed as an installable desktop application.
+JUSTIFI, like it's sibling applications [MEASUR](https://github.com/ORNL-AMO/MEASUR) and [VERIFI](https://github.com/ORNL-AMO/VERIFI), is developed as a web application but is also packaged and distributed as an installable desktop application.
  
 The latest web version of the application can be found at [https://justifi.ornl.gov](https://justifi.ornl.gov)
 
