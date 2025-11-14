@@ -29,49 +29,99 @@ NREL lead the research effort around the study and quantification of NEBs. For m
 
 
 # Details For Developers
-This tool is written in the Angular framework (TypeScript) and uses Electron for cross-platform desktop builds.
 
-If you plan to contribute code changes to this repository, please review the [contributing guidelines](CONTRIBUTING.md) first.
+This project is built with the **Angular** framework (TypeScript) and uses **Electron** for cross-platform desktop builds.
 
-## Getting Started
+> **Thinking of contributing?** Please review our [Contributing Guidelines](CONTRIBUTING.md) first!
 
-- We are using NodeJS [nodejs.org](https://nodejs.org/en/download). See [`package.json`](./package.json) for currently supported version.
-- This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.8. and is typically updated to latest versions of angular as often as is reasonable.
-- To install all required packages: `npm install`
-- To install the Angular CLI which is required for tests: `npm install -g @angular/cli`
-    - Note: If you don't want to install Angular CLI globally, you can install it locally using `npm install @angular/cli` and then run it using `npm run-script ng`
-- When developing for web, run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+---
 
+## 🚀 Getting Started
 
-### Electron Development
-- It is recommended to develop using the web version of the application unless you want to add an Electron specific feature.
-- When developing in the Electron window, use `npm run build-watch` and a re-build will trigger on save of changes.
-- After the app is built using the command above, you will have to start the Electron app in a second terminal window. To start the Electron app use `npm run electron`. You will have to kill and restart the Electron app after changes are made.
+- **Node.js:** See [`package.json`](./package.json) for the supported version. Download from [nodejs.org](https://nodejs.org/en/download).
+- **Angular CLI:** Project generated with [Angular CLI](https://github.com/angular/angular-cli) v16.2.8 (regularly updated).
 
+### Install & Run
 
-## Build
+1. Install dependencies:
+    ```bash
+    npm install
+    ```
+2. Install Angular CLI (for tests):
+    ```bash
+    npm install -g @angular/cli
+    ```
+    - Or install locally: `npm install @angular/cli` and run with `npm run-script ng`
+3. Start the web dev server:
+    ```bash
+    npm run start
+    ```
+    - Visit [http://localhost:4200/](http://localhost:4200/) (auto-reloads on changes)
 
-- Built artifacts will be stored in the `/dist` directory.
-- General build for Electron: `npm run build`
-- Production Web Build: `npm run build-prod`
-- Production Electron Build: `npm run build-prod-electron`
+---
 
-## Native Installers
+### 🖥️ Electron Development
 
-- `npm run dist` will create Electron installers for your operating system.
-- Installer will be created in an `./output/` directory.
+- Prefer web development unless adding Electron-specific features.
+- For live Electron builds:
+    ```bash
+    npm run build-watch
+    ```
+- In a second terminal, start Electron:
+    ```bash
+    npm run electron
+    ```
+    - Kill and restart Electron after changes.
 
+---
 
-## Running unit tests
+## 🏗️ Build
 
-- Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Build artifacts: `/dist` directory
+- Electron build:
+    ```bash
+    npm run build
+    ```
+- Production web build:
+    ```bash
+    npm run build-prod
+    ```
+- Production Electron build:
+    ```bash
+    npm run build-prod-electron
+    ```
 
-Karma unit tests use Google Chrome as a default browser. This will need to be installed on your machine for the tests to run using `ng test` or `npm run test`.
+---
 
-Otherwise, you can run the tests with a headless version of chrome using `ng test --browsers=ChromeHeadless` or `npm run test-ci`.
+## 📦 Native Installers
 
-Check the [Karma Config](https://karma-runner.github.io/6.4/config/configuration-file.html) documentation on how to target other browsers using a config file.
+- Create Electron installers:
+    ```bash
+    npm run dist
+    ```
+- Installers are output to `./output/`
 
-## License
+---
+
+## 🧪 Running Unit Tests
+
+- To run unit tests (requires Chrome):
+    ```bash
+    ng test
+    # or
+    npm run test
+    ```
+
+- For headless testing (no browser UI):
+    ```bash
+    ng test --browsers=ChromeHeadless
+    # or
+    npm run test-ci
+    ```
+- See [Karma Config](https://karma-runner.github.io/6.4/config/configuration-file.html) for browser targeting.
+
+---
+
+## 📄 License
 
 This project is licensed under the MIT License. See [LICENSE](./LICENSE) for details.
