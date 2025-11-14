@@ -19,6 +19,7 @@ export class SharedDataService {
   createPowerPoint: BehaviorSubject<boolean>;
   showSlideShow: BehaviorSubject<boolean>;
   exportToExcel: BehaviorSubject<boolean>;
+  exportReportToExcel: BehaviorSubject<string>;
   constructor() {
     this.createAssessmentModalOpen = new BehaviorSubject<boolean>(false);
     this.sidebarOpen = new BehaviorSubject<boolean>(false);
@@ -28,5 +29,6 @@ export class SharedDataService {
     this.createPowerPoint = new BehaviorSubject<boolean>(false);
     this.showSlideShow = new BehaviorSubject<boolean>(false);
     this.exportToExcel = new BehaviorSubject<boolean>(false);
+    this.exportReportToExcel = new BehaviorSubject<string>(undefined);
   }
 }
