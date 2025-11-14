@@ -22,6 +22,7 @@ import { SharedDataService } from '../../shared-services/shared-data.service';
 import { getStakeholderReport, StakeholderReport } from '../calculations/stakeholderReport';
 import { LocaleCurrencyOption } from '../../constants/localeCurrency';
 import { LocaleService } from '../../shared-services/locale.service';
+import { KeyPerformanceMetric } from '../../constants/keyPerformanceMetrics';
 
 @Component({
   selector: 'app-stakeholder-report',
@@ -39,7 +40,7 @@ export class StakeholderReportComponent {
   report: IdbReport;
 
   stakeholderReport: StakeholderReport;
-  facilityPerformanceMetrics: any[];
+  facilityPerformanceMetrics: Array<KeyPerformanceMetric>;
   currencyCode: string;
   currencySub: Subscription;
   print: boolean;
