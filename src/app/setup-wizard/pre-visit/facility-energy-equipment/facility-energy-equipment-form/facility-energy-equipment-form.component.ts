@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faBox, faChevronLeft, faChevronRight, faCube, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { Observable, of, Subscription } from 'rxjs';
+import { faBox, faChevronLeft, faChevronRight, faCube, faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { firstValueFrom, Observable, of, Subscription } from 'rxjs';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
-import { IdbEnergyEquipment } from 'src/app/models/energyEquipment';
+import { getNewIdbEnergyEquipment, IdbEnergyEquipment } from 'src/app/models/energyEquipment';
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 
@@ -20,6 +20,7 @@ export class FacilityEnergyEquipmentFormComponent {
   faCube: IconDefinition = faCube;
   faChevronLeft: IconDefinition = faChevronLeft;
   faChevronRight: IconDefinition = faChevronRight;
+  faPlus: IconDefinition = faPlus;
 
   equipmentGuid: string;
   energyEquipments: Array<IdbEnergyEquipment>;
@@ -68,6 +69,14 @@ export class FacilityEnergyEquipmentFormComponent {
         this.equipment = this.energyEquipments[this.equipmentIndex];
       }
     }
+  }
+
+  async addEnergyEquipment() {
+    let newEquipment: IdbEnergyEquipment = getNewIdbEnergyEquipment(this.facility.userId, this.facility.companyId, this.facility.guid, this.facility.unitSettings);
+    await firstValueFrom(this.energyEquipmentIdbService.addWithObservable(newEquipment));
+    await this.energyEquipmentIdbService.setEnergyEquipments();
+    let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
+    this.router.navigateByUrl('setup-wizard/pre-visit/' + onSiteVisit.guid + '/facility-energy-equipment/' + newEquipment.guid);
   }
 
   async goToNext() {

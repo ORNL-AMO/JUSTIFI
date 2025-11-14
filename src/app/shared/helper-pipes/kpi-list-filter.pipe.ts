@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { KeyPerformanceIndicatorOption, PrimaryKPI } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
+import { KeyPerformanceMetricOptions, KpmKeywords } from 'src/app/shared/constants/keyPerformanceMetrics';
 import * as _ from 'lodash';
 
 @Pipe({
@@ -16,9 +17,25 @@ export class KpiListFilterPipe implements PipeTransform {
       });
     }
     if (searchStr) {
-      filteredOptions = filteredOptions.filter(option => {
-        return option.label.toLowerCase().includes(searchStr.toLowerCase());
+      const search = searchStr.toLowerCase().trim();
+      // Search by KPI label
+      let labelOptions = filteredOptions.filter(option => {
+        return option.label.toLowerCase().includes(search);
       });
+      
+      // Search by KPM keywords - find KPIs associated with matching KPMs
+      let keywordOptions = filteredOptions.filter(option => {
+        // Find KPMs associated with this KPI
+        const associatedKpms = KeyPerformanceMetricOptions.filter(kpm => kpm.kpiValue === option.optionValue);
+        // Check if any of the associated KPMs have matching keywords
+        return associatedKpms.some(kpm => {
+          const keywords = KpmKeywords[kpm.value] || [];
+          return keywords.includes(search);
+        });
+      });
+      
+      // Combine results and remove duplicates
+      filteredOptions = _.union(labelOptions, keywordOptions);
     }
 
 

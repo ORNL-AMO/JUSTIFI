@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IconDefinition, faChartColumn, faChevronLeft, faChevronRight, faFilePdf, faFilePowerpoint, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChartColumn, faChevronLeft, faChevronRight, faFileExcel, faFilePdf, faFilePowerpoint, faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
+import { DataEvaluationExcelWriterService } from 'src/app/shared/shared-services/data-evaluation-excel-writer.service';
 import { PowerpointReportGeneratorService } from 'src/app/shared/shared-services/powerpoint-report-generator.service';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
@@ -22,6 +23,7 @@ export class VisitReportComponent {
   faScrewdriverWrench: IconDefinition = faScrewdriverWrench;
   faFilePdf: IconDefinition = faFilePdf;
   faFilePowerpoint: IconDefinition = faFilePowerpoint;
+  faFileExcel: IconDefinition = faFileExcel;
 
   faChartColumn: IconDefinition = faChartColumn;
 
@@ -33,7 +35,8 @@ export class VisitReportComponent {
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private sharedDataService: SharedDataService,
-    private powerpointReportGeneratorService: PowerpointReportGeneratorService
+    private powerpointReportGeneratorService: PowerpointReportGeneratorService,
+    private dataEvaluationExcelWriterService: DataEvaluationExcelWriterService
   ) {
 
   }
@@ -84,6 +87,12 @@ export class VisitReportComponent {
   }
 
   generatePowerPoint() {
-    this.powerpointReportGeneratorService.createRollupPPT(this.onSiteVisit);   
+    this.powerpointReportGeneratorService.createRollupPPT(this.onSiteVisit);
+  }
+
+  exportToExcel() {
+    this.sharedDataService.exportReportToExcel.next('on_site_visit');
+    this.dataEvaluationExcelWriterService.exportSiteVisitToExcel(this.onSiteVisit);
+    this.sharedDataService.exportReportToExcel.next(undefined);
   }
 }

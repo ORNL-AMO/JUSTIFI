@@ -36,10 +36,16 @@
             <span *ngIf="isFirstReport"> Manage Custom Reports</span>
             <span *ngIf="!isFirstReport"> Previous Report</span>
         </button>
-        <button class="btn btn-success btn-sm" (click)="togglePrint()">
-            <fa-icon [icon]="faFilePdf"></fa-icon>
-            Generate PDF
-        </button>
+        <div>
+            <button class="btn btn-success btn-sm me-2" (click)="togglePrint()">
+                <fa-icon [icon]="faFilePdf"></fa-icon>
+                Generate PDF
+            </button>
+            <button class="btn btn-success btn-sm" (click)="exportToExcel()">
+                <fa-icon [icon]="faFileExcel"></fa-icon>
+                Export to Excel
+            </button>
+        </div>
         <ng-template [ngIf]="!isLastReport" [ngIfElse]="goToPortfolioBlock">
             <button class="btn nav-btn btn-sm" (click)="goToNext()">
                 Next Report

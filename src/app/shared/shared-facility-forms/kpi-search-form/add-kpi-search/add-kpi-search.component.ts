@@ -6,6 +6,8 @@ import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-perfo
 import { IdbFacility } from 'src/app/models/facility';
 import { IdbKeyPerformanceIndicator, getNewKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, PrimaryKPI, PrimaryKPIs } from 'src/app/shared/constants/keyPerformanceIndicatorOptions';
+import { KpmKeywordList } from 'src/app/shared/constants/keyPerformanceMetrics';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-add-kpi-search',
@@ -27,6 +29,9 @@ export class AddKpiSearchComponent {
 
   kpiCategorySearch: PrimaryKPI | undefined = undefined;
   kpiSearchStr: string = '';
+  
+  kpmKeywordList: Array<string> = KpmKeywordList;
+  filteredKpmKeywordList: Array<string> = [];
 
   keyPerformanceIndicatorOptions: Array<KeyPerformanceIndicatorOption> = KeyPerformanceIndicatorOptions;
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
@@ -51,6 +56,34 @@ export class AddKpiSearchComponent {
   ngOnDestroy() {
     this.facilitySub.unsubscribe();
     this.keyPerformanceIndicatorSub.unsubscribe();
+  }
+
+  filterKpmKeywordList() {
+    const searchStr = this.kpiSearchStr.toLowerCase().trim();
+    if (!searchStr) {
+      this.filteredKpmKeywordList = [];
+      return;
+    }
+    const keywordWithIndex = this.kpmKeywordList
+      .map(keyword => {
+        const words = keyword.toLowerCase().split(/\s+/);
+        const index = words.findIndex(word => word.startsWith(searchStr));
+        return { keyword, index };
+      })
+      .filter(item => item.index !== -1);
+
+    keywordWithIndex.sort((a, b) => a.index - b.index);
+    const keywordMatched = _.uniq(keywordWithIndex.map(item => item.keyword));
+
+    this.filteredKpmKeywordList = keywordMatched.slice(0, 10);
+    if (keywordMatched.length > 10) {
+      this.filteredKpmKeywordList.push('...');
+    }
+  }
+
+  selectKpmKeyword(keyword: string) {
+    this.kpiSearchStr = keyword;
+    this.filteredKpmKeywordList = [];
   }
 
   async addKPI(option: KeyPerformanceIndicatorOption) {

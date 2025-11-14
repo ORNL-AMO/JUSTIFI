@@ -21,7 +21,6 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
 import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
 import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
 import { AboutComponent } from './core-components/about/about.component';
-import { HelpComponent } from './core-components/help/help.component';
 import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
 import { localeCurrency } from './shared/constants/localeCurrency';
@@ -45,7 +44,6 @@ import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-upda
     FeedbackPageComponent,
     AcknowledgmentsComponent,
     AboutComponent,
-    HelpComponent,
     ToastNotificationsComponent,
     ExportBackupModalComponent,
     ExportBackupTreeComponent,
