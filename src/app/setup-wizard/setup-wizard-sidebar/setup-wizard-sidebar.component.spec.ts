@@ -6,6 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.module';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { NavItemActivePipe } from './nav-item-active.pipe';
+import { FormsModule } from '@angular/forms';
 
 describe('SetupWizardSidebarComponent', () => {
   let component: SetupWizardSidebarComponent;
@@ -13,7 +14,7 @@ describe('SetupWizardSidebarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FontAwesomeModule, HelperPipesModule],
+      imports: [RouterTestingModule, FontAwesomeModule, HelperPipesModule, FormsModule],
       declarations: [SetupWizardSidebarComponent, NavItemActivePipe],
       providers: stubServiceProviders
     })

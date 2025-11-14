@@ -14,7 +14,7 @@
                         </button>
                     </div>
                 </div>
-                <ng-template [ngIf]="companyContacts.length > 0" [ngIfElse]="noContactsBlock">
+                <ng-template [ngIf]="selectedFacility && (companyContacts | filterArchivedContacts: selectedFacility).length > 0" [ngIfElse]="noContactsBlock">
                     <table class="table table-bordered table-hover table-sm">
                         <thead>
                             <tr>
@@ -33,7 +33,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let contact of companyContacts">
+                            <tr *ngFor="let contact of companyContacts | filterArchivedContacts: selectedFacility">
                                 <td>
                                     <a class="click-link" (click)="goToContact(contact)">
                                         {{contact | contactNameDisplay}}

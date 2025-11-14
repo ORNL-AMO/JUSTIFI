@@ -36,6 +36,8 @@ export class LatestVisitsTableComponent {
   assessmentSub: Subscription;
 
   currentPageNumber: number = 1;
+  showArchivedFacilities: boolean = false;
+  hasArchivedFacilities: boolean = false;
   constructor(
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private facilityIdbService: FacilityIdbService,
@@ -52,10 +54,12 @@ export class LatestVisitsTableComponent {
       this.onSiteVisits = _.orderBy(visits, (visit: IdbOnSiteVisit) => {
         return new Date(visit.modifiedDate).getTime()
       }, 'desc');
+      this.updateHasArchivedFacilities();
     });
 
     this.facilitiesSub = this.facilityIdbService.facilities.subscribe(facilities => {
       this.facilities = facilities;
+      this.updateHasArchivedFacilities();
     });
 
     this.companiesSub = this.companyIdbService.companies.subscribe(companies => {
@@ -87,5 +91,21 @@ export class LatestVisitsTableComponent {
 
   setPageCurrentPageNumber(pageNumber: number) {
     this.currentPageNumber = pageNumber;
+  }
+
+  toggleArchivedFacilities() {
+    this.showArchivedFacilities = !this.showArchivedFacilities;
+  }
+
+  updateHasArchivedFacilities() {
+    if (!this.onSiteVisits || !this.facilities) {
+      this.hasArchivedFacilities = false;
+      return;
+    }
+    
+    this.hasArchivedFacilities = this.onSiteVisits.some(visit => {
+      const facility = this.facilities.find(f => f.guid === visit.facilityId);
+      return facility && facility.isArchived;
+    });
   }
 }

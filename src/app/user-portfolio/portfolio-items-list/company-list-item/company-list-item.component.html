@@ -5,14 +5,20 @@
     </p>
 </ng-container>
 <hr>
-<div class="d-flex justify-content-between mb-1">
+<div class="d-flex justify-content-between mb-1 align-items-center">
     <div>
-        <h6>
+        <h6 class="mb-0">
             {{company.generalInformation.name}} Facilities
         </h6>
     </div>
-    <div *ngIf="inCompanyDashboard">
-        <button class="btn btn-outline-success btn-sm" (click)="openAddFacilityModal()">
+    <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary btn-sm" (click)="toggleArchivedFacilities()" 
+                title="{{showArchivedFacilities ? 'Hide' : 'Show'}} archived facilities"
+                [disabled]="!hasArchivedFacilities">
+            {{showArchivedFacilities ? 'Hide Archived' : 'Show Archived'}}
+        </button>
+        <button *ngIf="inCompanyDashboard"
+            class="btn btn-outline-success btn-sm" (click)="openAddFacilityModal()">
             <fa-icon [icon]="faPlus"></fa-icon>
             Add Facility
         </button>
@@ -20,28 +26,31 @@
 </div>
 <ng-template [ngIf]="facilities.length > 0" [ngIfElse]="noFacilitiesBlock">
     <div class="accordion" [id]="'facilityAccordion_' + company.guid">
-        <div class="accordion-item facility-item"
-            *ngFor="let facility of facilities; let index = index; let last = last;">
-            <h2 class="accordion-header">
-                <div class="d-flex">
-                    <button class="btn btn-outline-primary btn-sm" (click)="goToFacilityDashboard(facility)">
-                        <fa-icon [icon]="faArrowRight"></fa-icon>
-                    </button>
-                    <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+facility.guid"
-                        aria-expanded="true" [attr.aria-controls]="facility.guid" (click)="toggleBS(facility.guid)"
-                        [ngClass]="{'collapsed': accordionGuid != facility.guid}">
-                        <fa-icon class="pe-2" [icon]="faIndustry"></fa-icon>
-                        {{facility.generalInformation.name}}
-                    </button>
-                </div>
-            </h2>
-            <div [id]="'#'+facility.guid" class="accordion-collapse collapse"
-                [attr.data-bs-parent]="'#facilityAccordion_' + company.guid">
-                <div class="accordion-body">
-                    <app-facility-list-item [facility]="facility"></app-facility-list-item>
+        <ng-container *ngFor="let facility of facilities; let index = index; let last = last;">
+            <div class="accordion-item facility-item"
+                *ngIf="facility.isArchived && showArchivedFacilities || !facility.isArchived">
+                <h2 class="accordion-header">
+                    <div class="d-flex">
+                        <button class="btn btn-outline-primary btn-sm" (click)="goToFacilityDashboard(facility)">
+                            <fa-icon [icon]="faArrowRight"></fa-icon>
+                        </button>
+                        <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+facility.guid"
+                            aria-expanded="true" [attr.aria-controls]="facility.guid" (click)="toggleBS(facility.guid)"
+                            [ngClass]="{'collapsed': accordionGuid != facility.guid}">
+                            <fa-icon class="pe-2" [icon]="faIndustry"></fa-icon>
+                            {{facility.generalInformation.name}}
+                            <span *ngIf="facility.isArchived" class="badge bg-secondary ms-2">Archived</span>
+                        </button>
+                    </div>
+                </h2>
+                <div [id]="'#'+facility.guid" class="accordion-collapse collapse"
+                    [attr.data-bs-parent]="'#facilityAccordion_' + company.guid">
+                    <div class="accordion-body">
+                        <app-facility-list-item [facility]="facility"></app-facility-list-item>
+                    </div>
                 </div>
             </div>
-        </div>
+        </ng-container>
     </div>
 </ng-template>
 
