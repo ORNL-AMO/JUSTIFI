@@ -38,9 +38,6 @@ export function getKeyPerformanceIndicatorReport(nebReports: Array<NebReport>): 
                         kpmReportItems[itemExistIndex].performanceMetricImpact.percentSavings = (kpmReportItems[itemExistIndex].performanceMetricImpact.modificationValue / kpmReportItems[itemExistIndex].keyPerformanceMetric.baselineValue) * 100;
                     }
                 } else {
-                    if (reportKPM.keyPerformanceMetric.isCustom) {
-
-                    }
                     let percentSavings: number = 0;
 
                     if (reportKPM.keyPerformanceMetric.baselineCost) {
@@ -55,6 +52,14 @@ export function getKeyPerformanceIndicatorReport(nebReports: Array<NebReport>): 
                     } else {
                         modifiedCost = reportKPM.keyPerformanceMetric.baselineCost - reportKPM.performanceMetricImpact.costAdjustment
                     }
+                    let modifiedValue: number;
+                    if (!reportKPM.keyPerformanceMetric.isQuantitative){
+                        if (reportKPM.keyPerformanceMetric.goalToIncrease) {
+                            modifiedValue = reportKPM.keyPerformanceMetric.baselineValue + reportKPM.performanceMetricImpact.modificationValue
+                        } else {
+                            modifiedValue = reportKPM.keyPerformanceMetric.baselineValue - reportKPM.performanceMetricImpact.modificationValue
+                        }
+                    }
 
 
                     kpmReportItems.push({
@@ -62,7 +67,8 @@ export function getKeyPerformanceIndicatorReport(nebReports: Array<NebReport>): 
                         performanceMetricImpact: {
                             ...reportKPM.performanceMetricImpact,
                             percentSavings: percentSavings,
-                            modifiedCost: modifiedCost
+                            modifiedCost: modifiedCost,
+                            modifiedValue: modifiedValue
                         },
                         keyPerformanceIndicator: reportKPM.keyPerformanceIndicator,
                         // nebsImpacts: [{

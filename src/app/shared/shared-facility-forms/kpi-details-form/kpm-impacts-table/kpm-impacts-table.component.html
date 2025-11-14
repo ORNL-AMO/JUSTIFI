@@ -45,11 +45,17 @@
                 </ng-template>
             </td>
             <td>
-                <ng-template [ngIf]="kpmImpact.modificationValue" [ngIfElse]="noChangeBlock">
+                <ng-template [ngIf]="kpmImpact.costAdjustment" [ngIfElse]="noChangeBlock">
                     {{kpmImpact.costAdjustment | currency:currencyCode}}/yr
                 </ng-template>
                 <ng-template #noChangeBlock>
-                    &mdash;
+                    <ng-template [ngIf]="kpmImpact.modificationValue" [ngIfElse]="noImpactBlock">
+                        <app-single-cell-item [numValue]="kpmImpact.modificationValue" [isCurrency]="false"
+                            [units]="keyPerformanceMetric?.totalUnit" [per]="'yr'"></app-single-cell-item>
+                    </ng-template>
+                    <ng-template #noImpactBlock>
+                        &mdash;
+                    </ng-template>
                 </ng-template>
             </td>
         </tr>
