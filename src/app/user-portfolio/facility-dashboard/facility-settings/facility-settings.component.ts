@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faCopy, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faBoxArchive, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Observable, of, Subscription } from 'rxjs';
 import { LoadingService } from 'src/app/core-components/loading/loading.service';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
+import { BackupDataService } from 'src/app/shared/shared-services/backup-data.service';
 
 @Component({
     selector: 'app-facility-settings',
@@ -19,10 +20,12 @@ export class FacilitySettingsComponent {
 
 
   faTrash: IconDefinition = faTrash;
-  faCopy: IconDefinition = faCopy;
+  faBoxArchive: IconDefinition = faBoxArchive;
 
   showDeleteFacilityModal: boolean = false;
-  showCreateCopyModal: boolean = false;
+  showArchiveModal: boolean = false;
+  archiveFacilityName: string = '';
+  currentDate: string = new Date().toISOString().split('T')[0];
 
 
   name: FormControl;
@@ -35,7 +38,8 @@ export class FacilitySettingsComponent {
     private loadingService: LoadingService,
     private toastNotificationService: ToastNotificationsService,
     private dbChangesService: DbChangesService,
-    private router: Router
+    private router: Router,
+    private backupDataService: BackupDataService
   ) {
 
   }
@@ -80,16 +84,29 @@ export class FacilitySettingsComponent {
     this.showDeleteFacilityModal = false;
   }
 
-  openCreateCopyModal() {
-    this.showCreateCopyModal = true;
+  openArchiveModal() {
+    this.archiveFacilityName = ''; // Reset to use default naming
+    this.showArchiveModal = true;
   }
 
-  closeCreateCopyModal() {
-    this.showCreateCopyModal = false;
+  closeArchiveModal() {
+    this.showArchiveModal = false;
+    this.archiveFacilityName = '';
   }
 
-  confirmCreateCopy() {
-    //TODO...
+  async confirmArchive() {
+    try {
+      this.closeArchiveModal();
+      const archiveName = this.archiveFacilityName.trim() || undefined;
+      const archivedFacility = await this.backupDataService.createFacilityArchive(
+        this.facility.guid,
+        archiveName
+      );
+      this.toastNotificationService.showToast('Facility Archived', undefined, 'bg-success', true, false);
+    } catch (error) {
+      console.error('Error archiving facility:', error);
+      this.toastNotificationService.showToast('Archive Failed', undefined, 'bg-danger', true, false);
+    }
   }
 
   async confirmDelete() {

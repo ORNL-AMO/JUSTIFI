@@ -4,6 +4,7 @@ import { FacilitySettingsComponent } from './facility-settings.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedFacilityFormsModule } from 'src/app/shared/shared-facility-forms/shared-facility-forms.module';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
+import { FormsModule } from '@angular/forms';
 
 describe('FacilitySettingsComponent', () => {
   let component: FacilitySettingsComponent;
@@ -11,7 +12,7 @@ describe('FacilitySettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FontAwesomeModule, SharedFacilityFormsModule],
+      imports: [FontAwesomeModule, SharedFacilityFormsModule, FormsModule],
       declarations: [FacilitySettingsComponent],
       providers: stubServiceProviders
     })
