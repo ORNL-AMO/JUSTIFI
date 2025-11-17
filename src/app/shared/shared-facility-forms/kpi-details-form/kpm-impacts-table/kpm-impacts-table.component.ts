@@ -4,12 +4,14 @@ import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
+import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
 import { LocaleService } from 'src/app/shared/shared-services/locale.service';
 
 @Component({
@@ -47,13 +49,15 @@ export class KpmImpactsTableComponent {
   currencySub: Subscription;
 
   facilitySub: Subscription;
+  keyPerformanceMetric: KeyPerformanceMetric;
   constructor(
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
     private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private localeService: LocaleService,
-    private facilityIdbService: FacilityIdbService
+    private facilityIdbService: FacilityIdbService,
+    private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService
   ) {
 
   }
@@ -83,6 +87,7 @@ export class KpmImpactsTableComponent {
       if (facility && facility.isExample) {
         this.displayTable = false;
       }
+      this.keyPerformanceMetric = this.keyPerformanceIndicatorIdbService.getKeyPerformanceMetric( facility.guid, this.kpmGuid)
     });
   }
 

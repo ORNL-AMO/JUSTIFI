@@ -15,7 +15,8 @@ export interface IdbKeyPerformanceMetricImpact extends IdbEntry {
     costAdjustment: number,
     percentSavings?: number,
     modifiedCost?: number,
-    calculationMethod: KpmCalculationMethod
+    calculationMethod: KpmCalculationMethod,
+    modifiedValue?: number
 }
 
 
