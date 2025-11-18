@@ -29,6 +29,8 @@ export class CompanyListItemComponent {
   facilitiesSub: Subscription;
   accordionGuid: string;
   displayAddFacilityModal: boolean = false;
+  showArchivedFacilities: boolean = false;
+  hasArchivedFacilities: boolean = false;
   constructor(private facilityIdbService: FacilityIdbService,
     private bootstrapService: BootstrapService,
     private router: Router,
@@ -40,7 +42,8 @@ export class CompanyListItemComponent {
 
   ngOnInit() {
     this.facilitiesSub = this.facilityIdbService.facilities.subscribe(facilities => {
-      this.facilities = facilities.filter(facility => { return facility.companyId == this.company.guid });
+      this.facilities = facilities.filter(facility => facility.companyId == this.company.guid);
+      this.hasArchivedFacilities = this.facilities.some(facility => facility.isArchived);
     });
   }
 
@@ -76,5 +79,9 @@ export class CompanyListItemComponent {
     let newFacility: IdbFacility = this.facilityIdbService.getByGUID(newFacilityGuid)
     this.router.navigateByUrl('/portfolio/facility/' + newFacility.guid + '/manage');
     this.toastNotificationService.showToast('New Facility Added!', undefined, 'bg-success', true, false);
+  }
+
+  toggleArchivedFacilities() {
+    this.showArchivedFacilities = !this.showArchivedFacilities;
   }
 }

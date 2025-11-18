@@ -12,6 +12,8 @@ import * as _ from 'lodash';
 
 import { FormGroup } from '@angular/forms';
 import { CompanyContactsFormService } from 'src/app/shared/shared-company-forms/company-contacts-form/company-contacts-form.service';
+import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
+import { IdbFacility } from 'src/app/models/facility';
 
 @Component({
     selector: 'app-manage-company-contacts',
@@ -27,6 +29,9 @@ export class ManageCompanyContactsComponent {
   selectedCompany: IdbCompany;
   selectedCompanySub: Subscription;
 
+  selectedFacility: IdbFacility;
+  selectedFacilitySub: Subscription;
+
   faChevronRight: IconDefinition = faChevronRight;
   faChevronLeft: IconDefinition = faChevronLeft;
   faAddressBook: IconDefinition = faAddressBook;
@@ -36,10 +41,12 @@ export class ManageCompanyContactsComponent {
 
   onSiteVisit: IdbOnSiteVisit;
   onSiteVisitSub: Subscription;
+  
   constructor(private router: Router,
     private companyIdbService: CompanyIdbService,
     private contactIdbService: ContactIdbService,
-    private onSiteVisitIdbService: OnSiteVisitIdbService
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private facilityIdbService: FacilityIdbService
   ) {
   }
 
@@ -48,17 +55,25 @@ export class ManageCompanyContactsComponent {
       this.selectedCompany = _company;
     });
 
+    this.selectedFacilitySub = this.facilityIdbService.selectedFacility.subscribe(facility => {
+      this.selectedFacility = facility;
+    });
+
     this.contactsSub = this.contactIdbService.contacts.subscribe(_contacts => {
       this.companyContacts = _contacts.filter(c => { return c.companyId == this.selectedCompany.guid });
     });
+    
     this.onSiteVisitSub = this.onSiteVisitIdbService.selectedVisit.subscribe(visit => {
       this.onSiteVisit = visit;
-    })
+    });
   }
 
   ngOnDestroy() {
     if (this.selectedCompanySub) {
       this.selectedCompanySub.unsubscribe();
+    }
+    if (this.selectedFacilitySub) {
+      this.selectedFacilitySub.unsubscribe();
     }
     if (this.contactsSub) {
       this.contactsSub.unsubscribe();

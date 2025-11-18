@@ -1,5 +1,6 @@
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { AppRoutingModule } from './routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,7 +21,6 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
 import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
 import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
 import { AboutComponent } from './core-components/about/about.component';
-import { HelpComponent } from './core-components/help/help.component';
 import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
 import { localeCurrency } from './shared/constants/localeCurrency';
@@ -44,7 +44,6 @@ import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-upda
     FeedbackPageComponent,
     AcknowledgmentsComponent,
     AboutComponent,
-    HelpComponent,
     ToastNotificationsComponent,
     ExportBackupModalComponent,
     ExportBackupTreeComponent,
@@ -62,7 +61,7 @@ import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-upda
     UserPortfolioModule,
     PlotlyViaWindowModule,
     PlotlyViaWindowModule,
-    NebsDatabaseModule
+    NebsDatabaseModule,
   ],
   providers: [
     { 
@@ -76,7 +75,8 @@ import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-upda
         return currencyOption ? currencyOption.currencyCode : 'USD';
       },
     },
-    [DatePipe, PerformanceMetricsTablePipe, CurrencyPipe]
+    [DatePipe, PerformanceMetricsTablePipe, CurrencyPipe],
+    provideHttpClient(withInterceptorsFromDi()),
   ],
   bootstrap: [AppComponent]
 })

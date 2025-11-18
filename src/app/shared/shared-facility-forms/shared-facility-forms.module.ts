@@ -33,6 +33,7 @@ import { ProcessEquipmentOperationsComponent } from './discovery-process-equipme
 import { ProcessEquipmentEmployeeEngagementComponent } from './discovery-process-equipment-questions/process-equipment-employee-engagement/process-equipment-employee-engagement.component';
 import { ProcessEquipmentSustainabilityComponent } from './discovery-process-equipment-questions/process-equipment-sustainability/process-equipment-sustainability.component';
 import { LabelWithTooltipModule } from "../label-with-tooltip/label-with-tooltip.module";
+import { TableEntriesModule } from '../table-entries/table-entries.module';
 
 @NgModule({
   declarations: [
@@ -73,8 +74,9 @@ import { LabelWithTooltipModule } from "../label-with-tooltip/label-with-tooltip
     AssociatedContactsModule,
     AssociatedProcessEquipmentModule,
     AssociatedEnergyEquipmentModule,
-    LabelWithTooltipModule
-],
+    LabelWithTooltipModule,
+    TableEntriesModule    
+  ],
   exports: [
     FacilitySetupFormComponent,
     EnergyEquipmentFormComponent,

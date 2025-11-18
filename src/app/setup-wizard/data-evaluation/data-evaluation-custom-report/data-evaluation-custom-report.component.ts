@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faChevronLeft, faChevronRight, faFilePdf, faFilePen, faFolderOpen, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faFileExcel, faFilePdf, faFilePen, faFolderOpen, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
+import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { IdbReport } from 'src/app/models/report';
+import { DataEvaluationExcelWriterService } from 'src/app/shared/shared-services/data-evaluation-excel-writer.service';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
@@ -22,6 +25,7 @@ export class DataEvaluationCustomReportComponent {
   faFilePen: IconDefinition = faFilePen;
   faFilePdf: IconDefinition = faFilePdf;
   faFolderOpen: IconDefinition = faFolderOpen;
+  faFileExcel: IconDefinition = faFileExcel;
 
   onSiteVisit: IdbOnSiteVisit;
   onSiteVisitSub: Subscription;
@@ -34,10 +38,14 @@ export class DataEvaluationCustomReportComponent {
 
   isLastReport: boolean;
   isFirstReport: boolean;
+
+  assessments: Array<IdbAssessment>;
   constructor(private router: Router, private reportIdbService: ReportIdbService,
     private activatedRoute: ActivatedRoute,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private dataEvaluationExcelWriterService: DataEvaluationExcelWriterService,
+    private assessmentIdbService: AssessmentIdbService
   ) { }
 
   ngOnInit() {
@@ -70,6 +78,8 @@ export class DataEvaluationCustomReportComponent {
         this.printReport();
       }
     });
+
+    this.assessments = this.assessmentIdbService.assessments.getValue();
   }
 
   ngOnDestroy() {
@@ -117,5 +127,11 @@ export class DataEvaluationCustomReportComponent {
 
   goToPortfolio() {
     this.router.navigateByUrl('/portfolio/facility/' + this.onSiteVisit.facilityId);
+  }
+
+  exportToExcel() {
+    this.sharedDataService.exportReportToExcel.next('custom_report');
+    this.dataEvaluationExcelWriterService.exportCustomReportToExcel(this.report, this.onSiteVisit, this.assessments);
+    this.sharedDataService.exportReportToExcel.next(undefined);
   }
 }

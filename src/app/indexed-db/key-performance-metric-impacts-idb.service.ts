@@ -4,6 +4,7 @@ import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { IdbKeyPerformanceIndicator } from '../models/keyPerformanceIndicator';
 import { KeyPerformanceMetric } from '../shared/constants/keyPerformanceMetrics';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ import { KeyPerformanceMetric } from '../shared/constants/keyPerformanceMetrics'
 export class KeyPerformanceMetricImpactsIdbService {
 
   keyPerformanceMetricImpacts: BehaviorSubject<Array<IdbKeyPerformanceMetricImpact>>;
-  constructor(private dbService: NgxIndexedDBService) {
+  constructor(private dbService: NgxIndexedDBService,
+    private analyticsService: AnalyticsService
+  ) {
     this.keyPerformanceMetricImpacts = new BehaviorSubject<Array<IdbKeyPerformanceMetricImpact>>([]);
   }
 
@@ -29,6 +32,7 @@ export class KeyPerformanceMetricImpactsIdbService {
   }
 
   addWithObservable(keyPerformanceMetricImpact: IdbKeyPerformanceMetricImpact): Observable<IdbKeyPerformanceMetricImpact> {
+    this.analyticsService.sendEvent('add_kpm_impact', { kpm_impact_name: keyPerformanceMetricImpact.kpmValue });
     return this.dbService.add('keyPerformanceMetricImpact', keyPerformanceMetricImpact);
   }
 
@@ -91,6 +95,13 @@ export class KeyPerformanceMetricImpactsIdbService {
         metricImpact.costAdjustment = keyPerformanceMetric.baselineCost * (metricImpact.modificationValue / 100);
       } else if(metricImpact.calculationMethod == 'directCost'){
         metricImpact.costAdjustment = metricImpact.modificationValue;
+      }
+      if(keyPerformanceMetric.isQuantitative == false){
+        if(keyPerformanceMetric.goalToIncrease){
+          metricImpact.modifiedValue = keyPerformanceMetric.baselineValue + metricImpact.modificationValue;
+        }else{
+          metricImpact.modifiedValue = keyPerformanceMetric.baselineValue - metricImpact.modificationValue;
+        }
       }
       await firstValueFrom(this.updateWithObservable(metricImpact));
     }

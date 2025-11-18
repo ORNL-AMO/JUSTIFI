@@ -66,7 +66,7 @@
                             Below is a list of the latest visits conducted in JUSTIFI so you can jump back in.
                             Just click the "<fa-icon [icon]="faWandMagicSparkles"></fa-icon>" button.
                         </p>
-                        <ng-template [ngIf]="onSiteVisits.length > 0" [ngIfElse]="noVisitsBlock">
+                        <ng-template [ngIf]="(onSiteVisits | filterArchivedVisits: facilities)?.length > 0" [ngIfElse]="noVisitsBlock">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -85,7 +85,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let visit of onSiteVisits">
+                                    <tr *ngFor="let visit of onSiteVisits | filterArchivedVisits: facilities">
                                         <td>
                                             <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
                                                 {{visit.facilityId | facilityName: facilities}}
@@ -172,6 +172,19 @@
                             <hr>
                         </div>
                         <div>
+                            <a [href]="'https://industrialresources.ornl.gov/'" target="_blank">
+                                <fa-icon [icon]="faExternalLink"></fa-icon>
+                                ORNL Industrial Resources
+                            </a>
+                            <p class="card-text fw-light">
+                                For additional tools, documentation and resources for industrial energy efficiency, visit the
+                                ORNL Industrial Resources website. Find information on related applications like MEASUR and VERIFI.
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        <div>
                             <fa-icon [icon]="faDatabase"></fa-icon>
                             <a [routerLink]="'/nebs-database'">
                                 NEBs Database
@@ -213,20 +226,6 @@
                                 functionality has been added to MEASUR to export your
                                 assessment data to the template for easy upload into JUSTIFI! Just look for the "Export
                                 To JUSTIFI" buttons!
-                            </p>
-                        </div>
-                        <div class="col-12">
-                            <hr>
-                        </div>
-                        <div>
-                            <a>
-                                <fa-icon [icon]="faQuestionCircle"></fa-icon>
-                                JUSTIFI Help Content
-                            </a>
-                            <p class="card-text fw-light">
-                                <span class="badge bg-warning">Coming Soon</span> View help documents and
-                                tutorials to learn more about using the JUSTIFI
-                                application.
                             </p>
                         </div>
                     </div>

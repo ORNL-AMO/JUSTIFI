@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { SharedDataService } from '../../shared-services/shared-data.service';
 import { IdbReport } from 'src/app/models/report';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
+import { DataEvaluationExcelWriterService } from '../../shared-services/data-evaluation-excel-writer.service';
 
 @Component({
     selector: 'app-on-site-visit-report',
@@ -29,6 +30,7 @@ export class OnSiteVisitReportComponent {
   report: IdbReport;
 
   onSiteVisitReport: OnSiteVisitReport;
+  exportReportToExcelSub: Subscription;
 
   print: boolean;
   printSub: Subscription;
@@ -37,7 +39,8 @@ export class OnSiteVisitReportComponent {
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
     private keyPerformanceIndicatorIdbService: KeyPerformanceIndicatorsIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
-    private sharedDataService: SharedDataService
+    private sharedDataService: SharedDataService,
+    private dataEvaluationExcelWriterService: DataEvaluationExcelWriterService
   ) {
 
   }
@@ -52,10 +55,18 @@ export class OnSiteVisitReportComponent {
     this.onSiteVisitReport = getOnSiteVisitReport(this.onSiteVisit.assessmentIds, allAssessments, allEnergyOpportunities, allNonEnergyBenefits, facilityPerformanceMetrics, facilityPerformanceIndicators, keyPerformanceMetricImpacts, this.report);
     this.printSub = this.sharedDataService.print.subscribe(_print => {
       this.print = _print;
-    })
+    });
+
+    this.exportReportToExcelSub = this.sharedDataService.exportReportToExcel.subscribe(reportType => {
+      if (reportType === 'on_site_visit') {
+        this.dataEvaluationExcelWriterService.setSiteVisitReport(this.onSiteVisitReport);
+      }
+    });
   }
 
   ngOnDestroy() {
     this.printSub.unsubscribe();
+    this.exportReportToExcelSub.unsubscribe();
   }
+
 }

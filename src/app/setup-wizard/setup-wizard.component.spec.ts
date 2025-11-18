@@ -9,6 +9,7 @@ import { HelperPipesModule } from '../shared/helper-pipes/_helper-pipes.module';
 import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
 import { AssociatedContactsModule } from '../shared/associated-contacts/associated-contacts.module';
 import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wizard-side-panel.module';
+import { FormsModule } from '@angular/forms';
 
 describe('SetupWizardComponent', () => {
   let component: SetupWizardComponent;
@@ -17,7 +18,7 @@ describe('SetupWizardComponent', () => {
 
 
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, AssociatedContactsModule, FontAwesomeModule, HelperPipesModule, SetupWizardSidePanelModule],
+      imports: [RouterTestingModule, AssociatedContactsModule, FontAwesomeModule, HelperPipesModule, SetupWizardSidePanelModule, FormsModule],
       declarations: [SetupWizardComponent, SetupWizardSidebarComponent, NavItemActivePipe],
       providers: stubServiceProviders
     })

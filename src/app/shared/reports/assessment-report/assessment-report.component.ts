@@ -20,6 +20,7 @@ import { SharedDataService } from '../../shared-services/shared-data.service';
 import { IdbReport } from 'src/app/models/report';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { PowerpointReportGeneratorService } from '../../shared-services/powerpoint-report-generator.service';
+import { DataEvaluationExcelWriterService } from '../../shared-services/data-evaluation-excel-writer.service';
 
 @Component({
   selector: 'app-assessment-report',
@@ -42,6 +43,7 @@ export class AssessmentReportComponent {
   printSub: Subscription;
   print: boolean;
   createPowerPointSub: Subscription;
+  exportToExcelSub: Subscription;
   constructor(private facilityIdbService: FacilityIdbService, private companyIdbService: CompanyIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitIdbService: NonEnergyBenefitsIdbService,
@@ -49,7 +51,8 @@ export class AssessmentReportComponent {
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
     private sharedDataService: SharedDataService,
-    private powerpointReportGeneratorService: PowerpointReportGeneratorService
+    private powerpointReportGeneratorService: PowerpointReportGeneratorService,
+    private dataEvaluationExcelWriterService: DataEvaluationExcelWriterService
   ) {
   }
 
@@ -65,11 +68,18 @@ export class AssessmentReportComponent {
         this.generatePowerPoint();
       }
     });
+
+    this.exportToExcelSub = this.sharedDataService.exportReportToExcel.subscribe(_exportToExcel => {
+      if (_exportToExcel === 'assessment_report') {
+        this.dataEvaluationExcelWriterService.setAssessmentReport(this.assessmentReport);
+      }
+    });
   }
 
   ngOnDestroy() {
     this.printSub.unsubscribe();
     this.createPowerPointSub.unsubscribe();
+    this.exportToExcelSub.unsubscribe();
   }
 
   ngOnChanges() {

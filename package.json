@@ -4,7 +4,7 @@
   "main": "main.js",
   "author": "National Renewable Energy Laboratory & Oak Ridge National Laboratory",
   "description": "A tool to identify, estimate potential and report on non-energy benefits (NEBs) that can be found while conducting energy assessments",
-  "repository": "https://github.com/NREL/NEB-Tool.git",
+  "repository": "https://github.com/ORNL-AMO/JUSTIFI.git",
   "engines": {
     "node": "20.11.1",
     "npm": "10.2.4"
@@ -23,11 +23,11 @@
   },
   "private": true,
   "build": {
-    "appId": "gov.nrel.justifi",
-    "copyright": "Copyright 2023 NREL. All rights reserved.",
+    "appId": "gov.ornl.justifi",
+    "copyright": "Copyright 2025 ORNL. All rights reserved.",
     "productName": "JUSTIFI",
     "directories": {
-      "output": "./output/justifi/"
+      "output": "./output/"
     },
     "win": {
       "target": "nsis",
@@ -46,7 +46,7 @@
       ],
       "icon": "src/assets/icons/",
       "executableName": "JUSTIFI",
-      "maintainer": "National Renewable Energy Laboratory",
+      "maintainer": "Oak Ridge National Laboratory",
       "artifactName": "${productName}-${version}.${ext}",
       "category": "Science"
     },
@@ -56,8 +56,12 @@
         "zip"
       ],
       "icon": "src/assets/icons/justifi-icon-512x512.png",
-      "hardenedRuntime": false,
-      "gatekeeperAssess": false
+      "artifactName": "${productName}-${version}-${arch}.${ext}",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "provisioningProfile": "./embedded.provisionprofile",
+      "entitlements": "entitlements.mac.inherit.plist",
+      "entitlementsInherit": "entitlements.mac.inherit.plist"
     }
   },
   "dependencies": {
@@ -77,6 +81,7 @@
     "electron-log": "5.4.0",
     "electron-updater": "6.6.2",
     "exceljs": "^4.4.0",
+    "jszip": "^3.10.1",
     "libphonenumber-js": "^1.11.3",
     "ngx-indexed-db": "19.3.2",
     "ngx-webstorage": "19.0.1",

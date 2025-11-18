@@ -7,17 +7,16 @@
                 <div class="row">
                     <div class="col-6">
                         <h6>
-                            Create Facility Copy
+                            Archive Facility
                         </h6>
                         <p class="fw-light">
-                            Use the button below to create a copy of this facility. A copy of this facility will be
-                            added to
-                            your
-                            JUSTIFI portfolio.
+                            Create historical snapshot of this facility,
+                            which can be viewed on company dashboard page by 
+                            enabling the "Show Archived" toggle. 
                         </p>
-                        <button class="btn btn-secondary btn-sm" (click)="openCreateCopyModal()">
-                            <fa-icon [icon]="faCopy"></fa-icon>
-                            Copy Facility
+                        <button class="btn btn-secondary btn-sm" (click)="openArchiveModal()">
+                            <fa-icon [icon]="faBoxArchive"></fa-icon>
+                            Archive Facility
                         </button>
                     </div>
                     <div class="col-6">
@@ -43,7 +42,7 @@
 
 
 
-<div [ngClass]="{'window-overlay': routeGuardWarningModal ||  showDeleteFacilityModal || showCreateCopyModal}"></div>
+<div [ngClass]="{'window-overlay': routeGuardWarningModal ||  showDeleteFacilityModal || showArchiveModal}"></div>
 <div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
     <div class="popup-body">
         <div class="alert alert-danger">
@@ -77,21 +76,27 @@
     </div>
 </div>
 
-<div class="popup" [ngClass]="{'open': showCreateCopyModal }">
-    <div class="popup-header">Create Copy of {{facility.generalInformation.name}}
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeCreateCopyModal()"></button>
+<div class="popup" [ngClass]="{'open': showArchiveModal }">
+    <div class="popup-header">Archive Facility
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeArchiveModal()"></button>
     </div>
     <div class="popup-body">
         <div class="alert alert-warning p-2">
-            This feature is coming soon!
+            <strong>Create Historical Snapshot</strong><br>
+            This will create a complete copy of <strong>{{facility?.generalInformation?.name}}</strong> and all its associated data (KPIs, equipment, assessments, contacts, etc.) as a historical snapshot.
+        </div>
+        <div class="form-group mt-3">
+            <label for="archiveName" class="form-label"><strong>Archive Name:</strong></label>
+            <input type="text" class="form-control" id="archiveName" [(ngModel)]="archiveFacilityName"
+                [placeholder]="facility?.generalInformation?.name + ' (Archived ' + currentDate + ')'" />
         </div>
         <hr>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2 btn-sm" (click)="closeCreateCopyModal()">Cancel</button>
-        <button class="btn btn-success btn-sm" (click)="confirmCreateCopy()" [disabled]="true">
-            <fa-icon [icon]="faCopy"></fa-icon>
-            Copy {{facility.generalInformation.name}}
+        <button class="btn btn-secondary btn-sm me-2" (click)="closeArchiveModal()">Cancel</button>
+        <button class="btn btn-success btn-sm" (click)="confirmArchive()">
+            <fa-icon [icon]="faBoxArchive"></fa-icon>
+            Create Archive
         </button>
     </div>
 </div>

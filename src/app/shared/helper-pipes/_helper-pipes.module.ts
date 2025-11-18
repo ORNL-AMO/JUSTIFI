@@ -55,6 +55,9 @@ import { ReportTypeDisplayPipe } from './report-type-display.pipe';
 import { IsUtilityTrackedPipe } from './is-utility-tracked.pipe';
 import { KeywordHighlightPipe } from './keyword-highlight.pipe';
 import { DisplayRoundedValuesPipe } from './display-rounded-values.pipe';
+import { FacilityArchivedPipe } from './facility-archived.pipe';
+import { FilterArchivedVisitsPipe } from './filter-archived-visits.pipe';
+import { FilterArchivedContactsPipe } from './filter-archived-contacts.pipe';
 
 @NgModule({
   declarations: [
@@ -112,6 +115,9 @@ import { DisplayRoundedValuesPipe } from './display-rounded-values.pipe';
     KeywordHighlightPipe,
     DisplayRoundedValuesPipe,
     FacilityContactListPipe,
+    FacilityArchivedPipe,
+    FilterArchivedVisitsPipe,
+    FilterArchivedContactsPipe,
   ],
   imports: [
     CommonModule
@@ -175,6 +181,9 @@ import { DisplayRoundedValuesPipe } from './display-rounded-values.pipe';
     KeywordHighlightPipe,
     DisplayRoundedValuesPipe,
     FacilityContactListPipe,
+    FacilityArchivedPipe,
+    FilterArchivedVisitsPipe,
+    FilterArchivedContactsPipe
   ]
 })
 export class HelperPipesModule { }

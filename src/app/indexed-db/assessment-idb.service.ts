@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IdbAssessment } from '../models/assessment';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { guidType } from '../shared/constants/guidTypes';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class AssessmentIdbService {
 
   assessments: BehaviorSubject<Array<IdbAssessment>>;
   selectedAssessment: BehaviorSubject<IdbAssessment>;
-  constructor(private dbService: NgxIndexedDBService) {
+  constructor(private dbService: NgxIndexedDBService,
+    private analyticsService: AnalyticsService
+  ) {
     this.assessments = new BehaviorSubject<Array<IdbAssessment>>([]);
     this.selectedAssessment = new BehaviorSubject<IdbAssessment>(undefined);
   }
@@ -30,6 +33,7 @@ export class AssessmentIdbService {
   }
 
   addWithObservable(assessment: IdbAssessment): Observable<IdbAssessment> {
+    this.analyticsService.sendEvent('add_assessment', undefined);
     return this.dbService.add('assessment', assessment);
   }
 
