@@ -156,58 +156,29 @@
             </tr>
           </thead>
           <tbody>
-            @for (assessment of stakeholderReport.directAssessments; track assessment.guid) {
-              @if (!isAssessmentInOverlap(assessment.guid)) {
-                @let assessmentReport = getAssessmentReport(assessment.guid);
-                <tr>
-                  <td>{{ assessment.name }}</td>
-                  <td><span class="badge bg-primary">Direct</span></td>
-                  <td class="text-right">
-                    <app-single-cell-item [numValue]="assessmentReport?.totalNebFinancialImpact || 0" [isCurrency]="true"></app-single-cell-item>
-                  </td>
-                  <td class="text-right">
-                    <app-single-cell-item [numValue]="assessmentReport?.totalImplementationCost || 0" [isCurrency]="true"></app-single-cell-item>
-                  </td>
-                  <td class="text-right">
-                    <app-single-cell-item [numValue]="assessmentReport?.totalPaybackWithNebs" [units]="assessmentReport?.totalPaybackWithNebs != undefined ? 'yrs' : ''"></app-single-cell-item>
-                  </td>
-                </tr>
-              }
-            }
-            @for (assessment of stakeholderReport.indirectAssessmentsViaEquipment; track assessment.guid) {
-              @if (!isAssessmentInOverlap(assessment.guid)) {
-                @let assessmentReport = getAssessmentReport(assessment.guid);
-                <tr>
-                  <td>{{ assessment.name }}</td>
-                  <td><span class="badge bg-warning">Indirect</span></td>
-                  <td class="text-right">
-                    <app-single-cell-item [numValue]="assessmentReport?.totalNebFinancialImpact || 0" [isCurrency]="true"></app-single-cell-item>
-                  </td>
-                  <td class="text-right">
-                    <app-single-cell-item [numValue]="assessmentReport?.totalImplementationCost || 0" [isCurrency]="true"></app-single-cell-item>
-                  </td>
-                  <td class="text-right">
-                    <app-single-cell-item [numValue]="assessmentReport?.totalPaybackWithNebs" [units]="assessmentReport?.totalPaybackWithNebs != undefined ? 'yrs' : ''"></app-single-cell-item>
-                  </td>
-                </tr>
-              }
-            }
-            @for (assessment of stakeholderReport.overlapAssessments; track assessment.guid) {
-              @let assessmentReport = getAssessmentReport(assessment.guid);
+            @for (assessmentReport of stakeholderReport.connectedAssessmentReports; track assessmentReport.assessment.guid) {
+              @let isOverlap = overlapAssessmentGuids.has(assessmentReport.assessment.guid);
+              @let isDirect = directAssessmentGuids.has(assessmentReport.assessment.guid);
               <tr>
-                <td>{{ assessment.name }}</td>
+                <td>{{ assessmentReport.assessment.name }}</td>
                 <td>
-                  <span class="badge bg-primary">Direct</span>
-                  <span class="badge bg-warning">Indirect</span>
+                  @if (isOverlap) {
+                    <span class="badge bg-primary">Direct</span>
+                    <span class="badge bg-warning ms-1">Indirect</span>
+                  } @else if (isDirect) {
+                    <span class="badge bg-primary">Direct</span>
+                  } @else {
+                    <span class="badge bg-warning">Indirect</span>
+                  }
                 </td>
                 <td class="text-right">
-                  <app-single-cell-item [numValue]="assessmentReport?.totalNebFinancialImpact || 0" [isCurrency]="true"></app-single-cell-item>
+                  <app-single-cell-item [numValue]="assessmentReport.totalNebFinancialImpact || 0" [isCurrency]="true"></app-single-cell-item>
                 </td>
                 <td class="text-right">
-                  <app-single-cell-item [numValue]="assessmentReport?.totalImplementationCost || 0" [isCurrency]="true"></app-single-cell-item>
+                  <app-single-cell-item [numValue]="assessmentReport.totalImplementationCost || 0" [isCurrency]="true"></app-single-cell-item>
                 </td>
                 <td class="text-right">
-                  <app-single-cell-item [numValue]="assessmentReport?.totalPaybackWithNebs" [units]="assessmentReport?.totalPaybackWithNebs != undefined ? 'yrs' : ''"></app-single-cell-item>
+                  <app-single-cell-item [numValue]="assessmentReport.totalPaybackWithNebs" [units]="assessmentReport.totalPaybackWithNebs != undefined ? 'yrs' : ''"></app-single-cell-item>
                 </td>
               </tr>
             }
@@ -230,11 +201,7 @@
                     <tbody>
                         <tr *ngFor="let eemReport of stakeholderReport.connectedEnergyOppoReports">
                             <td>{{eemReport.energyOpportunity.name}}</td>
-                            <td class="small">
-                                <ng-container *ngFor="let assessment of stakeholderReport.allConnectedAssessments">
-                                    <span *ngIf="assessment.guid === eemReport.energyOpportunity.assessmentId">{{assessment.name}}</span>
-                                </ng-container>
-                            </td>
+                            <td class="small">{{eemReport.energyOpportunity.assessmentId | assessmentNameDisplay:stakeholderReport.allConnectedAssessments}}</td>
                             <td class="text-right">
                                 <app-single-cell-item [numValue]="eemReport.totalFinancialImpact" [isCurrency]="true"></app-single-cell-item>
                             </td>
@@ -270,12 +237,12 @@
                             <td>
                                 <span *ngIf="row.isDirect && row.isIndirect">
                                     <span class="badge bg-primary">Direct</span>
-                                    <span class="badge bg-warning">Indirect</span>
+                                    <span class="badge bg-warning ms-1">Indirect</span>
                                 </span>
                                 <span *ngIf="row.isDirect && !row.isIndirect" class="badge bg-primary">Direct</span>
                                 <span *ngIf="!row.isDirect && row.isIndirect" class="badge bg-warning">Indirect</span>
                             </td>
-                            <td class="small">{{getAssessmentName(row.neb.assessmentId)}}</td>
+                            <td class="small">{{row.neb.assessmentId | assessmentNameDisplay:stakeholderReport.allConnectedAssessments}}</td>
                             <td class="small">{{row.kpmName || 'N/A'}}</td>
                             <td class="small">{{row.kpi?.label || 'N/A'}}</td>
                             <td class="text-right">
@@ -301,15 +268,16 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let kpi of stakeholderReport.directKPIs">
+                            @let kpiImpacts = getKpiImpacts(kpi.guid);
                             <td>{{kpi.label}}</td>
                             <td>{{kpi.primaryKPI}}</td>
                             <td class="text-center">
-                                @let nebCount = getKpiRelatedNebCount(kpi.guid);
+                                @let nebCount = getNebCountFromImpacts(kpiImpacts);
                                 <span *ngIf="nebCount > 0" class="badge bg-secondary">{{nebCount}}</span>
                                 <span *ngIf="nebCount === 0" class="text-secondary">0</span>
                             </td>
                             <td class="text-right">
-                                @let totalImpact = getKpiTotalImpact(kpi.guid);
+                                @let totalImpact = getTotalImpactFromImpacts(kpiImpacts);
                                 <app-single-cell-item [numValue]="totalImpact" [isCurrency]="true"></app-single-cell-item>
                             </td>
                             <td class="small">{{kpi.description}}</td>
@@ -335,15 +303,43 @@
                         <tr *ngFor="let equipment of stakeholderReport.directEnergyEquipment">
                             <td>{{equipment.equipmentName}}</td>
                             <td><span class="badge bg-info">Industrial System</span></td>
-                            <td class="small">{{getConnectedEemNames(equipment.energyOpportunityIds)}}</td>
-                            <td class="small">{{getConnectedAssessmentNames(equipment.assessmentIds)}}</td>
+                            <td class="small">
+                                <ng-container *ngIf="equipment.energyOpportunityIds?.length > 0; else noEems">
+                                    <ng-container *ngFor="let eemId of equipment.energyOpportunityIds; let isLast = last">
+                                        {{eemId | energyOpportunityDisplay:stakeholderReport.indirectEnergyOpposViaEquipment}}<ng-container *ngIf="!isLast">, </ng-container>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-template #noEems>None</ng-template>
+                            </td>
+                            <td class="small">
+                                <ng-container *ngIf="equipment.assessmentIds?.length > 0; else noAssessments">
+                                    <ng-container *ngFor="let assessmentId of equipment.assessmentIds; let isLast = last">
+                                        {{assessmentId | assessmentNameDisplay:stakeholderReport.allConnectedAssessments}}<ng-container *ngIf="!isLast">, </ng-container>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-template #noAssessments>None</ng-template>
+                            </td>
                         </tr>
                         <!-- Process Equipment (End Uses) -->
                         <tr *ngFor="let equipment of stakeholderReport.directProcessEquipment">
                             <td>{{equipment.equipmentName}}</td>
                             <td><span class="badge bg-warning">End Use</span></td>
-                            <td class="small">{{getConnectedEemNames(equipment.energyOpportunityIds)}}</td>
-                            <td class="small">{{getConnectedAssessmentNames(equipment.assessmentIds)}}</td>
+                            <td class="small">
+                                <ng-container *ngIf="equipment.energyOpportunityIds?.length > 0; else noEems">
+                                    <ng-container *ngFor="let eemId of equipment.energyOpportunityIds; let isLast = last">
+                                        {{eemId | energyOpportunityDisplay:stakeholderReport.indirectEnergyOpposViaEquipment}}<ng-container *ngIf="!isLast">, </ng-container>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-template #noEems>None</ng-template>
+                            </td>
+                            <td class="small">
+                                <ng-container *ngIf="equipment.assessmentIds?.length > 0; else noAssessments">
+                                    <ng-container *ngFor="let assessmentId of equipment.assessmentIds; let isLast = last">
+                                        {{assessmentId | assessmentNameDisplay:stakeholderReport.allConnectedAssessments}}<ng-container *ngIf="!isLast">, </ng-container>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-template #noAssessments>None</ng-template>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
