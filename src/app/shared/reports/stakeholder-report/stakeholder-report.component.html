@@ -1,6 +1,12 @@
 <div class="d-flex flex-column report" [ngClass]="{'print': print}">
     <ng-container *ngIf="stakeholderReport">
         <div class="print-break-avoid">
+            <!-- Page Header -->
+            <h5 class="mb-3">
+                <fa-icon [icon]="faAddressBook"></fa-icon>
+                Stakeholder Reports
+            </h5>
+            
             <!-- Stakeholder Header with Engagement Badge -->
             <div class="mb-3">
                 <div class="d-flex justify-content-between align-items-start">

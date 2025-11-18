@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { faAddressBook, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -39,11 +40,12 @@ export class StakeholderReportComponent {
   @Input()
   report: IdbReport;
 
+  faAddressBook: IconDefinition = faAddressBook;
+  print: boolean = false;
   stakeholderReport: StakeholderReport;
   facilityPerformanceMetrics: Array<KeyPerformanceMetric>;
   currencyCode: string;
   currencySub: Subscription;
-  print: boolean;
   printSub: Subscription;
 
   constructor(

@@ -2,7 +2,7 @@
     <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
         <div [ngClass]="{'col-10 pt-4 pb-4': !print}">
             <div [ngClass]="{'form-paper shadow': !print}">
-                <h5>
+                <h5 *ngIf="!print">
                     <fa-icon [icon]="faAddressBook"></fa-icon>
                     Stakeholder Reports
                 </h5>
@@ -38,14 +38,14 @@
                 </div>
 
                 <!-- Reports for each selected contact -->
-                <ng-container *ngFor="let contact of facilityContacts; let isLast = last">
-                    <div class="print-break-avoid" *ngIf="selectedContactGuids.has(contact.guid)">
+                <ng-container *ngFor="let contact of facilityContacts; let isLast = last; let isFirst = first">
+                    <div [ngClass]="{'print-break-before': print && !isFirst}" *ngIf="selectedContactGuids.has(contact.guid)">
                         <app-stakeholder-report 
                             [contact]="contact"
                             [onsiteVisit]="onSiteVisit"
                             [report]="report">
                         </app-stakeholder-report>
-                        <hr *ngIf="!isLast" class="my-4 print-break-before">
+                        <hr *ngIf="!isLast && !print" class="my-4">
                     </div>
                 </ng-container>
 
