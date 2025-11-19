@@ -4,6 +4,7 @@ import { StakeholderReportComponent } from './stakeholder-report.component';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { getNewIdbContact } from 'src/app/models/contact';
 import { getNewIdbOnSiteVisit } from 'src/app/models/onSiteVisit';
+import { HelperPipesModule } from '../../helper-pipes/_helper-pipes.module';
 
 describe('StakeholderReportComponent', () => {
   let component: StakeholderReportComponent;
@@ -11,6 +12,7 @@ describe('StakeholderReportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HelperPipesModule],
       declarations: [StakeholderReportComponent],
       providers: [
         ...stubServiceProviders,
