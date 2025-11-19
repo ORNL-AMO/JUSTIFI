@@ -123,12 +123,16 @@ export function getStakeholderReport(
     involvementScore += indirectAssessmentsViaEquipment.length * weights.indirectAssessment;
 
     let engagementLevel: StakeholderEngagementLevel;
+    let engagementStrategy: string;
     if (involvementScore >= 25) {
         engagementLevel = 'High';
+        engagementStrategy = '<strong>Key Strategic Stakeholder:</strong> This stakeholder has high involvement across multiple assessments, equipment, and KPIs with significant financial impact. Prioritize their engagement in capital planning decisions, project validation meetings, and implementation planning. Their buy-in and active participation are critical for project success and achieving favorable payback periods.';
     } else if (involvementScore >= 12) {
         engagementLevel = 'Medium';
+        engagementStrategy = '<strong>Important Contributor:</strong> This stakeholder has moderate involvement in facility improvement initiatives. Schedule dedicated meetings to validate findings in their areas of responsibility, share projected impacts, and explore opportunities for expanded involvement in measure implementation and performance tracking.';
     } else {
         engagementLevel = 'Low';
+        engagementStrategy = '<strong>Introduce & Inform:</strong> This stakeholder has limited current involvement but may have valuable insights or responsibilities that could benefit from these initiatives. Share relevant findings, explore alignment opportunities between their operations and identified improvements, and consider how their KPIs might be enhanced through the recommended measures.';
     }
 
     // Assessment Financial Impact
@@ -325,6 +329,7 @@ export function getStakeholderReport(
         // Involvement score and engagement level
         involvementScore: involvementScore,
         engagementLevel: engagementLevel,
+        engagementStrategy: engagementStrategy,
     };
 }
 
@@ -402,6 +407,7 @@ export interface StakeholderReport {
     
     involvementScore: number;
     engagementLevel: 'High' | 'Medium' | 'Low';
+    engagementStrategy: string;
     
     // KPI-level data for table rendering
     indirectKpiReport: KeyPerformanceIndicatorReport;

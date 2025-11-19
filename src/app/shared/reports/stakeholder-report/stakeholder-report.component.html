@@ -365,18 +365,7 @@
                     <h6 class="mb-0">Recommended Engagement Strategy</h6>
                 </div>
                 <div class="card-body">
-                    <p class="mb-0" *ngIf="stakeholderReport.engagementLevel === 'High'">
-                        <strong>Key Strategic Stakeholder:</strong> This stakeholder has high involvement across multiple assessments, equipment, and KPIs. 
-                        Include them in capital planning decisions, validation meetings, and implementation planning. Their buy-in is critical for project success.
-                    </p>
-                    <p class="mb-0" *ngIf="stakeholderReport.engagementLevel === 'Medium'">
-                        <strong>Important Contributor:</strong> This stakeholder has moderate involvement in the facility's improvement initiatives. 
-                        Engage them for validation of findings related to their areas and consider deeper involvement in implementation of relevant measures.
-                    </p>
-                    <p class="mb-0" *ngIf="stakeholderReport.engagementLevel === 'Low'">
-                        <strong>Introduce & Inform:</strong> This stakeholder has limited direct involvement currently. 
-                        Introduce them to the initiative scope and explore opportunities to align their processes or KPIs with identified improvement opportunities.
-                    </p>
+                    <p class="mb-0" [innerHTML]="stakeholderReport.engagementStrategy"></p>
                 </div>
             </div>
 
