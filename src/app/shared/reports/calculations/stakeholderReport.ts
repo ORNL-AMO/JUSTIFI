@@ -29,13 +29,15 @@ export function getStakeholderReport(
 ): StakeholderReport {
     // Filter assessments, energy opportunities, and nebs based on report settings
     let includedAssessments: Array<IdbAssessment> = allAssessments.filter(a => assessmentIds.includes(a.guid));
+    let includedAssessmentGuids = includedAssessments.map(a => a.guid);
     if (report) {
-        const includedAssessmentIds = report.assessmentOptions
+        includedAssessmentGuids = report.assessmentOptions
             ?.filter(opt => opt.include)
             .map(opt => opt.assessmentId) || [];
-        includedAssessments = includedAssessments.filter(a => includedAssessmentIds.includes(a.guid));
+        includedAssessments = includedAssessments.filter(a => includedAssessmentGuids.includes(a.guid));
     }
     let includedEnergyOpportunities: Array<IdbEnergyOpportunity> = filterEnergyOpps(allEnergyOpportunities, includedAssessments, report?.energyOpportunityOptions);
+    let includedEnergyOpportunityGuids = includedEnergyOpportunities.map(e => e.guid);
     let includedNonEnergyBenefits: Array<IdbNonEnergyBenefit> = filterNebs(allNonEnergyBenefits, includedAssessments, report?.nonEnergyBenefitOptions);
 
     // Direct assessments
@@ -46,8 +48,25 @@ export function getStakeholderReport(
     let directNEBs: Array<IdbNonEnergyBenefit> = includedNonEnergyBenefits.filter(neb => contact.nonEnergyBenefitIds?.includes(neb.guid));
 
     // Energy & Process equipment, KPIs directly associated with contact
-    let directEnergyEquipment: Array<IdbEnergyEquipment> = allEnergyEquipment.filter(eq => contact.energyEquipmentIds?.includes(eq.guid));
-    let directProcessEquipment: Array<IdbProcessEquipment> = allProcessEquipment.filter(pe => contact.processEquipmentIds?.includes(pe.guid));
+    // filter out the assessment and energy opportunity ids outside the report
+    let directEnergyEquipment: Array<IdbEnergyEquipment> = allEnergyEquipment
+        .filter(eq => contact.energyEquipmentIds?.includes(eq.guid))
+        .map(eq => {
+            return {
+                ...eq,
+                energyOpportunityIds: eq.energyOpportunityIds?.filter(id => includedEnergyOpportunityGuids.includes(id)),
+                assessmentIds: eq.assessmentIds?.filter(id => includedAssessmentGuids.includes(id))
+            };
+        });
+    let directProcessEquipment: Array<IdbProcessEquipment> = allProcessEquipment
+        .filter(pe => contact.processEquipmentIds?.includes(pe.guid))
+        .map(pe => {
+            return {
+                ...pe,
+                energyOpportunityIds: pe.energyOpportunityIds?.filter(id => includedEnergyOpportunityGuids.includes(id)),
+                assessmentIds: pe.assessmentIds?.filter(id => includedAssessmentGuids.includes(id))
+            };
+        });
     let directKPIs: Array<IdbKeyPerformanceIndicator> = allKPIs.filter(kpi => contact.kpiIds?.includes(kpi.guid));
 
     // Indirect associations:
