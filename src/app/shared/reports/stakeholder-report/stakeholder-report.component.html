@@ -184,7 +184,9 @@
             }
           </tbody>
         </table>
-      </div>            <!-- Table 2: Energy Efficiency Measures -->
+      </div>
+
+            <!-- Table 2: Energy Efficiency Measures -->
             <div *ngIf="stakeholderReport.connectedEnergyOppoReports.length > 0" class="mb-3 print-break-avoid">
                 <h6 class="bold">Energy Efficiency Measures</h6>
                 <p class="text-secondary small mb-2">Connected to stakeholder via tracked equipment</p>
@@ -195,7 +197,7 @@
                             <th>Assessment</th>
                             <th class="text-right">Financial Impact ({{ currencyCode | currencySymbol }}/yr)</th>
                             <th class="text-right">Implementation Cost ({{ currencyCode | currencySymbol }})</th>
-                            <th class="text-right">Payback (years)</th>
+                            <th class="text-right">Simple Payback (years)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -254,7 +256,7 @@
                 </table>
             </div>
 
-            <!-- Table 5: Key Performance Indicators -->
+            <!-- Table 4: Key Performance Indicators -->
             <div *ngIf="stakeholderReport.indirectKpiReport.kpiReportItems.length > 0" class="mb-3 print-break-avoid">
                 <h6 class="bold">Key Performance Indicators</h6>
                 <table class="table table-bordered savings-table table-hover">
@@ -286,7 +288,7 @@
                                     <span class="text-secondary small">None</span>
                                 </ng-template>
                             </td>
-                            <td>
+                            <td class="text-right">
                                 <app-single-cell-item [numValue]="kpiItem.financialImpact" [isCurrency]="true"></app-single-cell-item>
                             </td>
                             <td>{{kpiItem.keyPerformanceIndicator.notes||'N/A'}}</td>
@@ -295,7 +297,7 @@
                 </table>
             </div>
 
-            <!-- Table 4: Equipment Portfolio -->
+            <!-- Table 5: Equipment Portfolio -->
             <div *ngIf="stakeholderReport.totalEquipment > 0" class="mb-3 print-break-avoid">
                 <h6 class="bold">Equipment Portfolio</h6>
                 <table class="table table-bordered savings-table table-hover">
@@ -334,20 +336,24 @@
                             <td>{{equipment.equipmentName}}</td>
                             <td><span class="badge bg-warning">End Use</span></td>
                             <td class="small">
-                                <ng-container *ngIf="equipment.energyOpportunityIds?.length > 0; else noEems">
+                                <ng-container *ngIf="equipment.energyOpportunityIds?.length > 0">
                                     <ng-container *ngFor="let eemId of equipment.energyOpportunityIds; let isLast = last">
                                         {{eemId | energyOpportunityDisplay:stakeholderReport.indirectEnergyOpposViaEquipment}}<ng-container *ngIf="!isLast">, </ng-container>
                                     </ng-container>
                                 </ng-container>
-                                <ng-template #noEems>None</ng-template>
+                                <ng-container *ngIf="!equipment.energyOpportunityIds || equipment.energyOpportunityIds.length === 0">
+                                    None
+                                </ng-container>
                             </td>
                             <td class="small">
-                                <ng-container *ngIf="equipment.assessmentIds?.length > 0; else noAssessments">
+                                <ng-container *ngIf="equipment.assessmentIds?.length > 0">
                                     <ng-container *ngFor="let assessmentId of equipment.assessmentIds; let isLast = last">
                                         {{assessmentId | assessmentNameDisplay:stakeholderReport.allConnectedAssessments}}<ng-container *ngIf="!isLast">, </ng-container>
                                     </ng-container>
                                 </ng-container>
-                                <ng-template #noAssessments>None</ng-template>
+                                <ng-container *ngIf="!equipment.assessmentIds || equipment.assessmentIds.length === 0">
+                                    None
+                                </ng-container>
                             </td>
                         </tr>
                     </tbody>
