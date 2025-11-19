@@ -2,7 +2,7 @@
     <ng-container *ngIf="stakeholderReport">
         <div class="print-break-avoid">
             <!-- Page Header -->
-            <h5 class="mb-3">
+            <h5 class="mb-3" *ngIf="print">
                 <fa-icon [icon]="faAddressBook"></fa-icon>
                 Stakeholder Reports
             </h5>

@@ -43,7 +43,7 @@
 </ng-container>
 
 <ng-container *ngIf="report.reportType == 'stakeholder'">
-    <div class="print-break-before">
+    <div *ngIf="!print">
         <h4>
             <fa-icon [icon]="faAddressBook"></fa-icon>
             Stakeholder Reports
@@ -54,11 +54,8 @@
         :onSiteVisit?.facilityId:assessments:energyEquipments:processEquipments:kpis:nonEnergyBenefits;">
         <div class="report">
             <div class="print-break-avoid">
-                <h5>
-                    <fa-icon [icon]="faAddressBook"></fa-icon>
-                    {{contact.firstName}} {{contact.lastName}} Report
-                </h5>
                 <app-stakeholder-report [contact]="contact" [onsiteVisit]="onSiteVisit" [report]="report"></app-stakeholder-report>
+                <hr>
             </div>
         </div>
     </ng-container>
