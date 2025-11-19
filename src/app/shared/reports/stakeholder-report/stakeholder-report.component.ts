@@ -49,6 +49,9 @@ export class StakeholderReportComponent {
   overlapAssessmentGuids: Set<string>;
   directAssessmentGuids: Set<string>;
 
+  overlapNebGuids: Set<string>;
+  directNebGuids: Set<string>;
+
   constructor(
     private assessmentIdbService: AssessmentIdbService,
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
@@ -89,6 +92,9 @@ export class StakeholderReportComponent {
     this.overlapAssessmentGuids = new Set(this.stakeholderReport.overlapAssessments.map(a => a.guid));
     this.directAssessmentGuids = new Set(this.stakeholderReport.directAssessments.map(a => a.guid));
 
+    this.overlapNebGuids = new Set(this.stakeholderReport.overlapNEBs.map(n => n.guid));
+    this.directNebGuids = new Set(this.stakeholderReport.directNEBs.map(n => n.guid));
+
     this.printSub = this.sharedDataService.print.subscribe(_print => {
       this.print = _print;
     });
@@ -100,65 +106,5 @@ export class StakeholderReportComponent {
   ngOnDestroy() {
     this.printSub.unsubscribe();
     this.currencySub.unsubscribe();
-  }
-
-  // Simple helper methods for template data lookups
-  getKpiImpacts(kpiGuid: string): Array<IdbKeyPerformanceMetricImpact> {
-    return this.stakeholderReport.indirectKpmImpacts.filter(impact => impact.kpiGuid === kpiGuid);
-  }
-
-  getNebCountFromImpacts(impacts: Array<IdbKeyPerformanceMetricImpact>): number {
-    return new Set(impacts.map(impact => impact.nebId)).size;
-  }
-
-  getTotalImpactFromImpacts(impacts: Array<IdbKeyPerformanceMetricImpact>): number {
-    return impacts.reduce((sum, impact) => sum + (impact.costAdjustment || 0), 0);
-  }
-
-  // Expand NEBs into rows based on their KPM impacts
-  getNebExpandedRows(): Array<{
-    neb: IdbNonEnergyBenefit,
-    nebReport: any,
-    isDirect: boolean,
-    isIndirect: boolean,
-    kpmImpact?: IdbKeyPerformanceMetricImpact,
-    kpi?: IdbKeyPerformanceIndicator,
-    kpmName?: string
-  }> {
-    const rows: Array<any> = [];
-    const directNebGuids = new Set(this.stakeholderReport.directNEBs.map(n => n.guid));
-    const indirectNebGuids = new Set(this.stakeholderReport.indirectNEBsViaKpmImpacts.map(n => n.guid));
-
-    this.stakeholderReport.connectedNebReports.forEach(nebReport => {
-      const neb = nebReport.nonEnergyBenefit;
-      const isDirect = directNebGuids.has(neb.guid);
-      const isIndirect = indirectNebGuids.has(neb.guid);
-
-      const relatedKpmImpacts = this.stakeholderReport.indirectKpmImpacts.filter(
-        impact => impact.nebId === neb.guid
-      );
-
-      if (relatedKpmImpacts.length > 0) {
-        relatedKpmImpacts.forEach(kpmImpact => {
-          const kpi = this.stakeholderReport.directKPIs.find(k => k.guid === kpmImpact.kpiGuid);
-          const kpm = this.facilityPerformanceMetrics.find(m => 
-            m.isCustom ? m.guid === kpmImpact.kpmGuid : m.value === kpmImpact.kpmValue
-          );
-          rows.push({
-            neb,
-            nebReport,
-            isDirect,
-            isIndirect,
-            kpmImpact,
-            kpi,
-            kpmName: kpm?.label
-          });
-        });
-      } else {
-        rows.push({ neb, nebReport, isDirect, isIndirect });
-      }
-    });
-
-    return rows;
   }
 }

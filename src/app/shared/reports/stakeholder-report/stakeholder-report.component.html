@@ -226,27 +226,28 @@
                             <th>NEB Name</th>
                             <th>Connection</th>
                             <th>Assessment</th>
-                            <th>Impacted KPM</th>
-                            <th>Impacted KPI</th>
                             <th class="text-right">Financial Impact</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let row of getNebExpandedRows()">
-                            <td>{{row.neb.name}}</td>
+                        <tr *ngFor="let nebReport of stakeholderReport.connectedNebReports">
+                            @let nebGuid = nebReport.nonEnergyBenefit.guid;
+                            @let isDirect = directNebGuids.has(nebGuid);
+                            @let isOverlap = overlapNebGuids.has(nebGuid);
+                            <td>{{nebReport.nonEnergyBenefit.name}}</td>
                             <td>
-                                <span *ngIf="row.isDirect && row.isIndirect">
+                                @if (isOverlap) {
                                     <span class="badge bg-primary">Direct</span>
                                     <span class="badge bg-warning ms-1">Indirect</span>
-                                </span>
-                                <span *ngIf="row.isDirect && !row.isIndirect" class="badge bg-primary">Direct</span>
-                                <span *ngIf="!row.isDirect && row.isIndirect" class="badge bg-warning">Indirect</span>
+                                } @else if (isDirect) {
+                                    <span class="badge bg-primary">Direct</span>
+                                } @else {
+                                    <span class="badge bg-warning">Indirect</span>
+                                }
                             </td>
-                            <td class="small">{{row.neb.assessmentId | assessmentNameDisplay:stakeholderReport.allConnectedAssessments}}</td>
-                            <td class="small">{{row.kpmName || 'N/A'}}</td>
-                            <td class="small">{{row.kpi?.label || 'N/A'}}</td>
+                            <td class="small">{{nebReport.nonEnergyBenefit.assessmentId | assessmentNameDisplay:stakeholderReport.allConnectedAssessments}}</td>
                             <td class="text-right">
-                                <app-single-cell-item [numValue]="row.nebReport.totalFinancialImpact" [isCurrency]="true"></app-single-cell-item>
+                                <app-single-cell-item [numValue]="nebReport.totalFinancialImpact" [isCurrency]="true"></app-single-cell-item>
                             </td>
                         </tr>
                     </tbody>
@@ -254,33 +255,41 @@
             </div>
 
             <!-- Table 5: Key Performance Indicators -->
-            <div *ngIf="stakeholderReport.directKPIs.length > 0" class="mb-3 print-break-avoid">
+            <div *ngIf="stakeholderReport.indirectKpiReport.kpiReportItems.length > 0" class="mb-3 print-break-avoid">
                 <h6 class="bold">Key Performance Indicators</h6>
                 <table class="table table-bordered savings-table table-hover table-sm">
                     <thead class="table-light">
                         <tr>
                             <th>KPI Label</th>
-                            <th>Category</th>
-                            <th class="text-center">Related NEBs</th>
-                            <th class="text-right">Total Impact</th>
-                            <th>Description</th>
+                            <th>Related KPMs and NEBs</th>
+                            <th>Financial Impact</th>
+                            <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let kpi of stakeholderReport.directKPIs">
-                            @let kpiImpacts = getKpiImpacts(kpi.guid);
-                            <td>{{kpi.label}}</td>
-                            <td>{{kpi.primaryKPI}}</td>
-                            <td class="text-center">
-                                @let nebCount = getNebCountFromImpacts(kpiImpacts);
-                                <span *ngIf="nebCount > 0" class="badge bg-secondary">{{nebCount}}</span>
-                                <span *ngIf="nebCount === 0" class="text-secondary">0</span>
+                        <tr *ngFor="let kpiItem of stakeholderReport.indirectKpiReport.kpiReportItems">
+                            @let kpmImpacts = stakeholderReport.indirectKpmImpacts | keyPerformanceMetricImpactsList:kpiItem.keyPerformanceIndicator.guid:true;
+                            <td>{{kpiItem.keyPerformanceIndicator.label}}</td>
+                            <td>
+                                <ng-container *ngIf="kpmImpacts.length > 0; else noKpmNebs">
+                                    <ul class="mb-0 ps-3">
+                                        <li *ngFor="let impact of kpmImpacts" class="small">
+                                            @let neb = impact.nebId | nebItem:stakeholderReport.allConnectedNEBs;
+                                            <strong>{{impact.kpmGuid | kpmLabel:facilityPerformanceMetrics:'guid'}}:</strong>
+                                            <ng-container *ngIf="neb">
+                                                {{neb.name}}
+                                            </ng-container>
+                                        </li>
+                                    </ul>
+                                </ng-container>
+                                <ng-template #noKpmNebs>
+                                    <span class="text-secondary small">None</span>
+                                </ng-template>
                             </td>
-                            <td class="text-right">
-                                @let totalImpact = getTotalImpactFromImpacts(kpiImpacts);
-                                <app-single-cell-item [numValue]="totalImpact" [isCurrency]="true"></app-single-cell-item>
+                            <td>
+                                <app-single-cell-item [numValue]="kpiItem.financialImpact" [isCurrency]="true"></app-single-cell-item>
                             </td>
-                            <td class="small">{{kpi.description}}</td>
+                            <td>{{kpiItem.keyPerformanceIndicator.notes||'N/A'}}</td>
                         </tr>
                     </tbody>
                 </table>

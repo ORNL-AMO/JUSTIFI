@@ -9,6 +9,7 @@ import { IdbReport, ReportOption } from "src/app/models/report";
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
 import * as _ from 'lodash';
 import { AssessmentReport, getAssessmentReport } from "./assessmentReport";
+import { KeyPerformanceIndicatorReport, getKeyPerformanceIndicatorReport } from "./keyPerformanceIndicatorReport";
 import { KeyPerformanceMetric } from "../../constants/keyPerformanceMetrics";
 import { EnergyOpportunityReport, getEnergyOpportunityReport } from "./energyOpportunityReport";
 import { NebReport, getNebReport } from "./nebReport";
@@ -234,6 +235,9 @@ export function getStakeholderReport(
     let totalPaybackWithNebs = totalFinancialImpact > 0 ? finalImplementationCost / totalFinancialImpact : 0;
     let totalPaybackWithoutNebs = totalNonNebCostSavings > 0 ? totalImplementationCost / totalNonNebCostSavings : 0;
     
+    // Build KPI report from indirect NEBs via KPM impacts
+    const indirectKpiReport = getKeyPerformanceIndicatorReport(indirectNEBsReports);
+    
     return {
         contact: contact,
         directAssessments: directAssessments,
@@ -298,8 +302,10 @@ export function getStakeholderReport(
         indirectFinancialImpact: indirectFinancialImpact,
         indirectImplementationCost: indirectImplementationCost,
         indirectEnergySavings: indirectEnergySavings,
+        indirectKpiReport: indirectKpiReport,
+        // Involvement score and engagement level
         involvementScore: involvementScore,
-        engagementLevel: engagementLevel
+        engagementLevel: engagementLevel,
     };
 }
 
@@ -377,6 +383,9 @@ export interface StakeholderReport {
     
     involvementScore: number;
     engagementLevel: 'High' | 'Medium' | 'Low';
+    
+    // KPI-level data for table rendering
+    indirectKpiReport: KeyPerformanceIndicatorReport;
 }
 
 export type StakeholderEngagementLevel = 'High' | 'Medium' | 'Low';
