@@ -145,13 +145,13 @@
       <div class="mb-3 print-break-avoid">
         <h6 class="bold">Connected Assessments</h6>
         <p class="text-secondary small mb-2">Connected to stakeholder directly or via tracked equipment</p>
-        <table class="table table-bordered savings-table table-hover table-sm">
-          <thead class="table-light">
+        <table class="table table-bordered savings-table table-hover">
+          <thead>
             <tr>
               <th>Assessment Name</th>
               <th>Connection</th>
-              <th class="text-right">Financial Impact</th>
-              <th class="text-right">Implementation Cost</th>
+              <th class="text-right">Financial Impact ({{ currencyCode | currencySymbol }}/yr)</th>
+              <th class="text-right">Implementation Cost ({{ currencyCode | currencySymbol }})</th>
               <th class="text-right">Simple Payback (years)</th>
             </tr>
           </thead>
@@ -163,8 +163,8 @@
                 <td>{{ assessmentReport.assessment.name }}</td>
                 <td>
                   @if (isOverlap) {
-                    <span class="badge bg-primary">Direct</span>
-                    <span class="badge bg-warning ms-1">Indirect</span>
+                    <span class="badge bg-primary">Direct</span><br>
+                    <span class="badge bg-warning">Indirect</span>
                   } @else if (isDirect) {
                     <span class="badge bg-primary">Direct</span>
                   } @else {
@@ -188,14 +188,14 @@
             <div *ngIf="stakeholderReport.connectedEnergyOppoReports.length > 0" class="mb-3 print-break-avoid">
                 <h6 class="bold">Energy Efficiency Measures</h6>
                 <p class="text-secondary small mb-2">Connected to stakeholder via tracked equipment</p>
-                <table class="table table-bordered savings-table table-hover table-sm">
-                    <thead class="table-light">
+                <table class="table table-bordered savings-table table-hover">
+                    <thead>
                         <tr>
                             <th>Measure Name</th>
                             <th>Assessment</th>
-                            <th class="text-right">Financial Impact</th>
-                            <th class="text-right">Implementation Cost</th>
-                            <th class="text-right">Payback</th>
+                            <th class="text-right">Financial Impact ({{ currencyCode | currencySymbol }}/yr)</th>
+                            <th class="text-right">Implementation Cost ({{ currencyCode | currencySymbol }})</th>
+                            <th class="text-right">Payback (years)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -220,13 +220,13 @@
             <div *ngIf="stakeholderReport.connectedNebReports.length > 0" class="mb-3 print-break-avoid">
                 <h6 class="bold">Non-Energy Benefits</h6>
                 <p class="text-secondary small mb-2">Connected to stakeholder directly or via tracked KPIs and KPMs</p>
-                <table class="table table-bordered savings-table table-hover table-sm">
-                    <thead class="table-light">
+                <table class="table table-bordered savings-table table-hover">
+                    <thead>
                         <tr>
                             <th>NEB Name</th>
                             <th>Connection</th>
                             <th>Assessment</th>
-                            <th class="text-right">Financial Impact</th>
+                            <th class="text-right">Financial Impact ({{ currencyCode | currencySymbol }}/yr)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -237,8 +237,8 @@
                             <td>{{nebReport.nonEnergyBenefit.name}}</td>
                             <td>
                                 @if (isOverlap) {
-                                    <span class="badge bg-primary">Direct</span>
-                                    <span class="badge bg-warning ms-1">Indirect</span>
+                                    <span class="badge bg-primary">Direct</span><br>
+                                    <span class="badge bg-warning">Indirect</span>
                                 } @else if (isDirect) {
                                     <span class="badge bg-primary">Direct</span>
                                 } @else {
@@ -257,12 +257,12 @@
             <!-- Table 5: Key Performance Indicators -->
             <div *ngIf="stakeholderReport.indirectKpiReport.kpiReportItems.length > 0" class="mb-3 print-break-avoid">
                 <h6 class="bold">Key Performance Indicators</h6>
-                <table class="table table-bordered savings-table table-hover table-sm">
-                    <thead class="table-light">
+                <table class="table table-bordered savings-table table-hover">
+                    <thead>
                         <tr>
-                            <th>KPI Label</th>
-                            <th>Related KPMs and NEBs</th>
-                            <th>Financial Impact</th>
+                            <th>KPI</th>
+                            <th>Connected KPMs and NEBs</th>
+                            <th class="text-right">Financial Impact ({{ currencyCode | currencySymbol }}/yr)</th>
                             <th>Notes</th>
                         </tr>
                     </thead>
@@ -298,8 +298,8 @@
             <!-- Table 4: Equipment Portfolio -->
             <div *ngIf="stakeholderReport.totalEquipment > 0" class="mb-3 print-break-avoid">
                 <h6 class="bold">Equipment Portfolio</h6>
-                <table class="table table-bordered savings-table table-hover table-sm">
-                    <thead class="table-light">
+                <table class="table table-bordered savings-table table-hover">
+                    <thead>
                         <tr>
                             <th>Equipment Name</th>
                             <th>Type</th>
