@@ -71,6 +71,9 @@
                                 <thead>
                                     <tr>
                                         <th>
+                                            Company
+                                        </th>
+                                        <th>
                                             Facility
                                         </th>
                                         <th>
@@ -86,6 +89,11 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let visit of onSiteVisits | filterArchivedVisits: facilities">
+                                        <td>
+                                            <a [routerLink]="'/portfolio/company/'+visit.companyId">
+                                                {{visit.companyId | companyName: companies}}
+                                            </a>
+                                        </td>
                                         <td>
                                             <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
                                                 {{visit.facilityId | facilityName: facilities}}
