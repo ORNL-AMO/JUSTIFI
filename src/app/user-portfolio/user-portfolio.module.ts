@@ -106,6 +106,9 @@ import { ProtocolQuestionsModalComponent } from './facility-dashboard/protocol-q
     AssociatedContactsModule,
     FormsModule,
     ReactiveFormsModule
+],
+exports: [
+  ProtocolQuestionsModalComponent
 ]
 })
 export class UserPortfolioModule { }

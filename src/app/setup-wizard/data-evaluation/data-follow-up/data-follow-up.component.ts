@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IconDefinition, faChevronLeft, faChevronRight, faExclamationCircle, faPersonWalkingArrowLoopLeft } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronLeft, faChevronRight, faExclamationCircle, faFileExcel, faPersonWalkingArrowLoopLeft } from '@fortawesome/free-solid-svg-icons';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
@@ -13,6 +13,7 @@ import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
 import { UtilityOptions } from 'src/app/shared/constants/utilityTypes';
 import { LocalStorageDataService } from 'src/app/shared/shared-services/local-storage-data.service';
+import { ProtocolQuestionsExcelWriterService } from 'src/app/shared/shared-services/protocol-questions-excel-writer.service';
 
 @Component({
   selector: 'app-data-follow-up',
@@ -26,6 +27,7 @@ export class DataFollowUpComponent {
   faChevronRight: IconDefinition = faChevronRight;
   faPersonWalkingArrowLoopLeft: IconDefinition = faPersonWalkingArrowLoopLeft;
   faExclamationCircle: IconDefinition = faExclamationCircle;
+  faFileExcel: IconDefinition = faFileExcel;
 
   onSiteVisit: IdbOnSiteVisit;
 
@@ -35,12 +37,13 @@ export class DataFollowUpComponent {
   numEnergyOpportunities: number = 0;
   numNonEnergyBenefits: number = 0;
 
-
   followUpItems: Array<{
     label: string,
     linkUrl: string,
     energyOppGuid?: string
   }>;
+
+  selectedModule = 'all';
 
   constructor(private router: Router,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
@@ -48,7 +51,8 @@ export class DataFollowUpComponent {
     private energyOpportunityIdbService: EnergyOpportunityIdbService,
     private nonEnergyBenefitsIdbService: NonEnergyBenefitsIdbService,
     private assessmentIdbService: AssessmentIdbService,
-    private localStorageDataService: LocalStorageDataService
+    private localStorageDataService: LocalStorageDataService,
+    private protocolQuestionsExcelWriterService: ProtocolQuestionsExcelWriterService
   ) {
 
   }
@@ -163,5 +167,13 @@ export class DataFollowUpComponent {
       this.localStorageDataService.setEnergyOppAccordionGuid(item.energyOppGuid);
     }
     this.router.navigateByUrl(item.linkUrl);
+  }
+
+  navigateToQuestions() {
+    this.router.navigateByUrl('/portfolio/facility/'+ this.facility.guid + '/questions');
+  }
+
+  openExportModal() {
+    this.protocolQuestionsExcelWriterService.displayProtocolQuestionsModal.next(true);
   }
 }
