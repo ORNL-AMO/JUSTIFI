@@ -6,7 +6,7 @@
                 <app-setup-wizard-sidebar
                     (emitToggleCollapse)="toggleCollapseSidebar($event)"></app-setup-wizard-sidebar>
             </div>
-            <div class="resize-handle pe-1 ps-1" (mousedown)="startResizingSidebarMouse($event)"
+            <div class="resize-handle" (mousedown)="startResizingSidebarMouse($event)"
                 (touchstart)="startResizingSidebarTouch($event)">
                 <div class="h-100 d-flex align-items-center">
                     <div>
@@ -21,7 +21,7 @@
     </div>
     <ng-container *ngIf="!print">
         <div class="d-flex" [ngStyle]="{'width.px': helpWidth}">
-            <div class="resize-handle ps-1 pe-1" (mousedown)="startResizingHelpMouse($event)"
+            <div class="resize-handle" (mousedown)="startResizingHelpMouse($event)"
                 (touchstart)="startResizingHelpTouch($event)">
                 <div class="h-100 d-flex align-items-center">
                     <div>

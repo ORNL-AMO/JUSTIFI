@@ -85,22 +85,22 @@ export class SetupWizardComponent {
 
   drag(clientX: number) {
     if (this.isDraggingSidebar) {
-      if (clientX > 50) {
+      if (clientX > 60) {
         this.sidebarWidth = clientX;
         this.setupWizardService.sidebarOpen.next(true);
       } else {
-        this.sidebarWidth = 50;
+        this.sidebarWidth = 60;
         this.setupWizardService.sidebarOpen.next(false);
       }
       this.setContentWidth();
     }
     if (this.isDraggingHelp) {
       let helpWidth: number = (window.innerWidth - clientX)
-      if (helpWidth > 50) {
+      if (helpWidth > 60) {
         this.helpWidth = helpWidth;
         this.setupWizardService.helpPanelOpen.next(true);
       } else {
-        this.helpWidth = 50;
+        this.helpWidth = 60;
         this.setupWizardService.helpPanelOpen.next(false);
       }
       this.setContentWidth();
@@ -113,7 +113,7 @@ export class SetupWizardComponent {
     if (sidebarOpen) {
       this.sidebarWidth = 200;
     } else {
-      this.sidebarWidth = 50;
+      this.sidebarWidth = 60;
     }
     this.setupWizardService.setSidebarWidth(this.sidebarWidth);
     this.setContentWidth();
@@ -124,7 +124,7 @@ export class SetupWizardComponent {
     if (helpPanelOpen) {
       this.helpWidth = 200;
     } else {
-      this.helpWidth = 50;
+      this.helpWidth = 60;
     }
     this.setupWizardService.setHelpWidth(this.helpWidth);
     this.setContentWidth();
