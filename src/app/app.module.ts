@@ -1,4 +1,4 @@
-import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
@@ -17,7 +17,7 @@ import { HelperPipesModule } from './shared/helper-pipes/_helper-pipes.module';
 import { SetupWizardModalComponent } from './core-components/setup-wizard-modal/setup-wizard-modal.component';
 import { ImportBackupModalComponent } from './core-components/backup-modal/import-backup-modal/import-backup-modal.component';
 import { UserPortfolioModule } from './user-portfolio/user-portfolio.module';
-import { PlotlyViaWindowModule } from 'angular-plotly.js';
+import { PlotlyModule } from 'angular-plotly.js';
 import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
 import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
 import { AboutComponent } from './core-components/about/about.component';
@@ -30,6 +30,7 @@ import { WelcomeSlideshowComponent } from './core-components/welcome-slideshow/w
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { PerformanceMetricsTablePipe } from './shared/reports/performance-metrics-table/performance-metrics-table.pipe';
 import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-update-toast.component';
+import * as PlotlyJS from 'plotly.js-dist-min';
 
 @NgModule({
   declarations: [
@@ -59,8 +60,7 @@ import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-upda
     SetupWizardModule,
     HelperPipesModule,
     UserPortfolioModule,
-    PlotlyViaWindowModule,
-    PlotlyViaWindowModule,
+    PlotlyModule.forRoot(PlotlyJS),
     NebsDatabaseModule,
   ],
   providers: [

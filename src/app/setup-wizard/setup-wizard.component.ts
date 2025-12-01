@@ -139,7 +139,7 @@ export class SetupWizardComponent {
     }
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onResize() {
     this.setContentWidth();
   }
