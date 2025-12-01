@@ -93,6 +93,13 @@ export class ProtocolQuestionsModalComponent {
         this.isEndUseSelected = true;
         this.selectedChildrenEndUse = [...this.processEquipmentIds];
         break;
+      case 'all':
+        this.isFacilitySelected = true;
+        this.isIndustrialSystemSelected = true;
+        this.isEndUseSelected = true;
+        this.selectedChildrenIndustrialSys = [...this.energyEquipmentIds];
+        this.selectedChildrenEndUse = [...this.processEquipmentIds];
+        break;
     }
   }
 

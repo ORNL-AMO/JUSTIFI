@@ -56,6 +56,7 @@ import { DataEvaluationManageReportsComponent } from './data-evaluation/data-eva
 import { DataEvaluationCustomReportComponent } from './data-evaluation/data-evaluation-custom-report/data-evaluation-custom-report.component';
 import { ExecutiveSummaryEvaluationComponent } from './data-evaluation/executive-summary-evaluation/executive-summary-evaluation.component';
 import { UploadTemplateComponent } from './upload-template/upload-template.component';
+import { UserPortfolioModule } from '../user-portfolio/user-portfolio.module';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { UploadTemplateComponent } from './upload-template/upload-template.compo
     SharedFacilityFormsModule,
     AssociatedContactsModule,
     AssociatedEnergyEquipmentModule,
-    AssociatedProcessEquipmentModule
+    AssociatedProcessEquipmentModule,
+    UserPortfolioModule
 ]
 })
 export class SetupWizardModule { }
