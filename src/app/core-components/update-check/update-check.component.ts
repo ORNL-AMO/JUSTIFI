@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UpdateCheckService } from './update-check.service';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-update-check',
@@ -10,16 +11,27 @@ import { UpdateCheckService } from './update-check.service';
 })
 export class UpdateCheckComponent {
 
+  @ViewChild('updateCheckItem', { static: false }) updateCheckItem: ElementRef;
+  toast: any;
+
   updateAvailableSub: Subscription;
-  updateAvailable: boolean = false;
   forcedClose: boolean = false;
   constructor(private updateCheckService: UpdateCheckService) {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    //Bootstrap toast initialization
+    if (bootstrap) {
+      this.toast = new bootstrap.Toast(this.updateCheckItem.nativeElement);
+    }
     this.updateAvailableSub = this.updateCheckService.updateAvailable.subscribe(isAvailable => {
       if (!this.forcedClose) {
-        this.updateAvailable = isAvailable;
+        if (isAvailable) {
+          this.showToast();
+        }
       }
     });
   }
@@ -28,14 +40,21 @@ export class UpdateCheckComponent {
     if (this.updateAvailableSub) {
       this.updateAvailableSub.unsubscribe();
     }
+    if (this.toast) {
+      this.toast.dispose();
+    }
   }
 
-  closeToast(){
+  closeToast() {
+    this.toast.hide();
     this.forcedClose = true;
-    this.updateAvailable = false;
   }
 
-  reloadPage(){
+  reloadPage() {
     window.location.reload();
+  }
+
+  showToast() {
+    this.toast.show();
   }
 }

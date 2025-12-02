@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UpdateCheckService {
 
-  updateAvailable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  updateAvailable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private swUpdate: SwUpdate, private electronService: ElectronService) {
     if (environment.production && !this.electronService.isElectron && this.swUpdate.isEnabled) {
