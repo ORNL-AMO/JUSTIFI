@@ -41,3 +41,22 @@
     </div>
     <app-executive-summary-report [report]="report" [onSiteVisit]="onSiteVisit"></app-executive-summary-report>
 </ng-container>
+
+<ng-container *ngIf="report.reportType == 'stakeholder'">
+    <div *ngIf="!print">
+        <h4>
+            <fa-icon [icon]="faAddressBook"></fa-icon>
+            Stakeholder Reports
+        </h4>
+    </div>
+    <!-- Show reports for all facility contacts using facilityContactList pipe -->
+    <ng-container *ngFor="let contact of contacts | facilityContactList
+        :onSiteVisit?.facilityId:assessments:energyEquipments:processEquipments:kpis:nonEnergyBenefits;">
+        <div class="report">
+            <div class="print-break-avoid">
+                <app-stakeholder-report [contact]="contact" [onsiteVisit]="onSiteVisit" [report]="report"></app-stakeholder-report>
+                <hr>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

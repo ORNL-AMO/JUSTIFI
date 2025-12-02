@@ -1,0 +1,89 @@
+<div [ngClass]="{'setup-wizard-content': !print}">
+    <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
+        <div [ngClass]="{'col-10 pt-4 pb-4': !print}">
+            <div [ngClass]="{'form-paper shadow': !print}">
+                <h5 *ngIf="!print">
+                    <fa-icon [icon]="faAddressBook"></fa-icon>
+                    Stakeholder Reports
+                </h5>
+
+                @let facilityContacts = allContacts | facilityContactList:onSiteVisit?.facilityId:assessments:energyEquipments:processEquipments:kpis:nebs;
+                <!-- Filter section (hidden in print) -->
+                <div class="mb-4" *ngIf="!print && facilityContacts.length > 0">
+                    <h6>Stakeholder Selection</h6>
+                    <p class="text-secondary small">Select stakeholders to include in the report:</p>
+                    <div class="row">
+                        <div class="col-12 col-md-6" *ngFor="let contact of facilityContacts">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" 
+                                       [id]="'contact-' + contact.guid"
+                                       [checked]="selectedContactGuids.has(contact.guid)"
+                                       (change)="toggleContactGuid(contact.guid)">
+                                <label class="form-check-label" [for]="'contact-' + contact.guid">
+                                    {{contact.firstName}} {{contact.lastName}}
+                                    <span *ngIf="contact.role" class="text-secondary"> - {{contact.role}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-primary" (click)="selectAllSelections(facilityContacts)">
+                            Select All
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary ms-2" (click)="clearAllSelections()">
+                            Clear All
+                        </button>
+                    </div>
+                    <hr>
+                </div>
+
+                <!-- Reports for each selected contact -->
+                <ng-container *ngFor="let contact of facilityContacts; let isLast = last; let isFirst = first">
+                    <div [ngClass]="{'print-break-before': print && !isFirst}" *ngIf="selectedContactGuids.has(contact.guid)">
+                        <app-stakeholder-report 
+                            [contact]="contact"
+                            [onsiteVisit]="onSiteVisit"
+                            [report]="report">
+                        </app-stakeholder-report>
+                        <hr *ngIf="!isLast && !print" class="my-4">
+                    </div>
+                </ng-container>
+
+                <!-- No stakeholders message -->
+                <div *ngIf="selectedContactGuids.size === 0" class="alert alert-info">
+                    <h6 class="alert-heading">No Stakeholders Selected</h6>
+                    <p class="mb-0" *ngIf="facilityContacts.length > 0">
+                        Please select one or more stakeholders above to view their reports.
+                    </p>
+                    <p class="mb-0" *ngIf="facilityContacts.length === 0">
+                        No stakeholders found for this facility. Stakeholders are contacts associated with assessments, equipment, KPIs, or NEBs for this facility.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="setup-wizard-footer navbar shadow" *ngIf="!print">
+    <div class="container-fluid justify-content-between">
+        <button class="btn nav-btn btn-sm" (click)="goBack()">
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
+            Rollup Report
+        </button>
+         <div>
+            <button class="btn btn-success btn-sm me-1" (click)="togglePrint()">
+                <fa-icon [icon]="faFilePdf"></fa-icon>
+                Generate PDF
+            </button>
+            <!-- TODO: Export to PPT -->
+            <!-- <button class="btn btn-success btn-sm ms-1" (click)="generatePowerPoint()">
+                <fa-icon [icon]="faFilePowerpoint"></fa-icon>
+                Generate PowerPoint
+            </button> -->
+        </div>
+
+        <button class="btn nav-btn btn-sm" (click)="goNext()">
+            Custom Reports
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
+    </div>
+</nav>

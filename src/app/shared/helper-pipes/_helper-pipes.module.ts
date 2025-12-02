@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CompanyNamePipe } from './company-name.pipe';
+import { FacilityContactListPipe } from './facility-contact-list.pipe';
 import { FacilityNamePipe } from './facility-name.pipe';
 import { FacilityListPipe } from './facility-list.pipe';
 import { AddressDisplayPipe } from './address-display.pipe';
@@ -113,6 +114,7 @@ import { FilterArchivedContactsPipe } from './filter-archived-contacts.pipe';
     IsUtilityTrackedPipe,
     KeywordHighlightPipe,
     DisplayRoundedValuesPipe,
+    FacilityContactListPipe,
     FacilityArchivedPipe,
     FilterArchivedVisitsPipe,
     FilterArchivedContactsPipe,
@@ -178,6 +180,7 @@ import { FilterArchivedContactsPipe } from './filter-archived-contacts.pipe';
     IsUtilityTrackedPipe,
     KeywordHighlightPipe,
     DisplayRoundedValuesPipe,
+    FacilityContactListPipe,
     FacilityArchivedPipe,
     FilterArchivedVisitsPipe,
     FilterArchivedContactsPipe
