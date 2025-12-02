@@ -1,5 +1,5 @@
-<div class="h-100 navbar d-flex flex-column align-items-start justify-content-start shadow sidebar-container"
-    [ngClass]="{'collapsed': !sidebarOpen}">
+<div class="h-100 navbar d-flex flex-column align-items-start justify-content-start sidebar-container"
+    [ngClass]="{'collapsed': !sidebarOpen, 'shadow': !inSmallScreen}">
 
     <div class="ps-1 pe-1 w-100 pb-2">
         <div class="toggle-collapse d-flex">

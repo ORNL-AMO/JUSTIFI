@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faBullseye, faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faBullseye, faChevronLeft, faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-performance-indicators-idb.service';
@@ -16,7 +16,8 @@ export class FacilityPerformanceIndicatorsComponent {
 
   faBullseye: IconDefinition = faBullseye;
   faChevronRight: IconDefinition = faChevronRight;
-
+  faChevronLeft: IconDefinition = faChevronLeft;
+  
   keyPerformanceIndicators: Array<IdbKeyPerformanceIndicator>;
   keyPerformanceIndicatorsSub: Subscription;
 

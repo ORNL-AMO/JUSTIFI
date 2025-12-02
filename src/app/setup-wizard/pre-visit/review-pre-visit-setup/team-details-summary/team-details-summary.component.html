@@ -1,40 +1,42 @@
 <div class="print-break-avoid">
     <h5 class="bold w-100 text-center"><fa-icon [icon]="faAddressBook" class="me-2"></fa-icon>Stakeholders Details</h5>
     <ng-template [ngIf]="contacts.length > 0" [ngIfElse]="noContactsBlock">
-        <table class="table table-bordered table-hover table-sm">
-            <thead>
-                <tr>
-                    <th class="w-25">
-                        Name
-                    </th>
-                    <th class="w-25">
-                        Title
-                    </th>
-                    <th class="w-25">
-                        Team
-                    </th>
-                    <th class="w-25">
-                        Notes
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let contact of contacts">
-                    <td>
-                        {{contact | contactNameDisplay}}
-                    </td>
-                    <td>
-                        <app-single-cell-item [strValue]="contact.role"></app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item [strValue]="contact.team"></app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item [strValue]="contact.notes"></app-single-cell-item>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="w-100 overflow-scroll-x">
+            <table class="table table-bordered table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th class="w-25">
+                            Name
+                        </th>
+                        <th class="w-25">
+                            Title
+                        </th>
+                        <th class="w-25">
+                            Team
+                        </th>
+                        <th class="w-25">
+                            Notes
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let contact of contacts">
+                        <td>
+                            {{contact | contactNameDisplay}}
+                        </td>
+                        <td>
+                            <app-single-cell-item [strValue]="contact.role"></app-single-cell-item>
+                        </td>
+                        <td>
+                            <app-single-cell-item [strValue]="contact.team"></app-single-cell-item>
+                        </td>
+                        <td>
+                            <app-single-cell-item [strValue]="contact.notes"></app-single-cell-item>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </ng-template>
 
     <ng-template #noContactsBlock>

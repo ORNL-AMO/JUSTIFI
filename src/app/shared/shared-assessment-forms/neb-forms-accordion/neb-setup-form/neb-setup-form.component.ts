@@ -12,7 +12,6 @@ import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetr
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { KeyPerformanceMetric } from 'src/app/shared/constants/keyPerformanceMetrics';
 import * as _ from 'lodash';
-import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 import { ToastNotificationsService } from 'src/app/core-components/toast-notifications/toast-notifications.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
 import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';

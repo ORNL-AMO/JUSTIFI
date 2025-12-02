@@ -1,6 +1,6 @@
 <div class="row pb-2">
-    <label class="col-sm-5" for="kpiValue">Search NEBs</label>
-    <div class="col-7">
+    <label class="col-12 col-md-5" for="kpiValue">Search NEBs</label>
+    <div class="col-12 col-md-7">
         <div class="input-group" role="search">
             <span class="input-group-text">
                 <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
@@ -25,8 +25,8 @@
 </div>
 
 <div class="row pb-2">
-    <label class="col-sm-5" for="kpiValue">Key Performance Indicator (KPI)</label>
-    <div class="col-7">
+    <label class="col-12 col-md-5" for="kpiValue">Key Performance Indicator (KPI)</label>
+    <div class="col-12 col-md-7">
         <select id="kpiValue" name="kpiValue" class="form-select" [(ngModel)]="kpiValue" (change)="setKpmOptions()">
             <option [ngValue]="undefined">All KPI</option>
             <option *ngFor="let kpi of keyPerformanceIndicatorOptions" [ngValue]="kpi.optionValue">
@@ -45,8 +45,8 @@
     </div>
 </div>
 <div class="row">
-    <label class="col-sm-5" for="kpmValue">Key Performance Metric (KPM)</label>
-    <div class="col-7">
+    <label class="col-12 col-md-5" for="kpmValue">Key Performance Metric (KPM)</label>
+    <div class="col-12 col-md-7">
         <select id="kpmValue" name="kpmValue" class="form-select" [(ngModel)]="kpmCompositeValue"
             (change)="setKpmValue()">
             <option [ngValue]="undefined">All KPM</option>

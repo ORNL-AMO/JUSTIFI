@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
@@ -20,7 +20,8 @@ export class FacilityReportsComponent {
     facility: IdbFacility;
     facilitySub: Subscription;
     faChevronRight: IconDefinition = faChevronRight;
-
+    faChevronLeft: IconDefinition = faChevronLeft;
+    
     printSub: Subscription;
     print: boolean;
     constructor(private reportIdbService: ReportIdbService,

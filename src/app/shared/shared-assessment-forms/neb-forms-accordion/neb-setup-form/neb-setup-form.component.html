@@ -33,11 +33,11 @@
     </ng-template>
 
     <div class="row">
-        <div class="col-sm-5 col-form-label">
+        <div class="col-12 col-md-5 col-form-label">
             <app-label-with-tooltip [field]="'associatedEEM'" [labelId]="'associatedEEM'+nonEnergyBenefit.guid"
                 [label]="'Connected EEM'"></app-label-with-tooltip>
         </div>
-        <div class="col-sm-7">
+        <div class="col-12 col-md-7">
             <div class="input-group">
                 <div class="input-group-text p-0" *ngIf="nonEnergyBenefit.energyOpportunityId">
                     <button class="btn btn-sm btn-primary p-1"
@@ -60,7 +60,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-5 col-form-label">
+        <div class="col-12 col-md-5 col-form-label">
             <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'annual'" [ngIfElse]="rebateLabelBlock">
                 <app-label-with-tooltip [field]="'costImpact'" [label]="'Additional Financial Benefit'"
                     [labelId]="'costImpact'+nonEnergyBenefit.guid"></app-label-with-tooltip>
@@ -69,7 +69,7 @@
                 Incentive Amount
             </ng-template>
         </div>
-        <div class="col-sm-7">
+        <div class="col-12 col-md-7">
             <div class="input-group">
                 <input type="number" class="form-control" [(ngModel)]="nonEnergyBenefit.costImpact"
                     name="{{'costImpact'+nonEnergyBenefit.guid}}" id="{{'costImpact'+nonEnergyBenefit.guid}}"
@@ -115,7 +115,7 @@
         </div>
 
         <h6>
-            <div class="d-flex w-100 justify-content-between">
+            <div class="d-flex w-100 justify-content-between flex-column flex-md-row">
                 <div class="mt-auto bold">
                     Key Performance Metric Impacts
                 </div>

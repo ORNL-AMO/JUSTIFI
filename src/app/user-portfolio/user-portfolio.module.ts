@@ -17,7 +17,6 @@ import { AssessmentDashboardComponent } from './assessment-dashboard/assessment-
 import { CompanyDashboardNavComponent } from './company-dashboard/company-dashboard-nav/company-dashboard-nav.component';
 import { CompanyDashboardHomeComponent } from './company-dashboard/company-dashboard-home/company-dashboard-home.component';
 import { CompanyStakeholdersComponent } from './company-dashboard/company-stakeholders/company-stakeholders.component';
-import { CompanyReportsComponent } from './company-dashboard/company-reports/company-reports.component';
 import { CompanySettingsComponent } from './company-dashboard/company-settings/company-settings.component';
 import { FacilityDashboardNavComponent } from './facility-dashboard/facility-dashboard-nav/facility-dashboard-nav.component';
 import { FacilityDashboardHomeComponent } from './facility-dashboard/facility-dashboard-home/facility-dashboard-home.component';
@@ -65,7 +64,6 @@ import { ProtocolQuestionsModalComponent } from './facility-dashboard/protocol-q
     CompanyDashboardNavComponent,
     CompanyDashboardHomeComponent,
     CompanyStakeholdersComponent,
-    CompanyReportsComponent,
     CompanySettingsComponent,
     FacilityDashboardNavComponent,
     FacilityDashboardHomeComponent,

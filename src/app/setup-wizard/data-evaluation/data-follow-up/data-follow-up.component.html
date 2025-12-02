@@ -1,6 +1,6 @@
 <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
+        <div class="col-11 col-md-10 pt-4 pb-4">
             <div class="form-paper shadow">
                 <h5>
                     <fa-icon [icon]="faPersonWalkingArrowLoopLeft"></fa-icon>
@@ -69,7 +69,8 @@
                             Facility Protocol Questions
                         </h5>
                         <div class="mb-4 fst-italic">
-                            Click the link to view or edit protocol questions for this facility and click the button to export the questions to Excel.
+                            Click the link to view or edit protocol questions for this facility and click the button to
+                            export the questions to Excel.
                         </div>
                         <div class="d-flex">
                             <div class="mb-2 me-3">
@@ -98,13 +99,17 @@
         <div class="col-3">
             <button class="btn nav-btn btn-sm" (click)="goBack()">
                 <fa-icon [icon]="faChevronLeft"></fa-icon>
-                Back
+                <span class="d-none d-md-inline">
+                    Back
+                </span>
             </button>
         </div>
         <div class="col-3">
             <div class="d-flex  justify-content-end">
                 <button class="btn nav-btn btn-sm" (click)="goNext()">
-                    Executive Summary
+                    <span class="d-none d-md-inline">
+                        Executive Summary
+                    </span>
                     <fa-icon [icon]="faChevronRight"></fa-icon>
                 </button>
             </div>

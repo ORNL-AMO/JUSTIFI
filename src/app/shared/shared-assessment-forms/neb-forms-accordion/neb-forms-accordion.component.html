@@ -6,14 +6,14 @@
                 <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+nebGuid" aria-expanded="true"
                     [attr.aria-controls]="nebGuid" (click)="toggleBS(nebGuid)"
                     [ngClass]="{'collapsed': accordionGuid != nebGuid}">
-                    <div class="d-flex justify-content-between w-100">
+                    <div class="d-flex justify-content-between w-100 flex-column flex-md-row">
                         <div>
                             <fa-icon *ngIf="neb.costImpactType == 'annual'" class="pe-2" [icon]="faWeightHanging"></fa-icon>
                             <fa-icon *ngIf="neb.costImpactType == 'oneTime'" class="pe-2" [icon]="faMoneyBillWave"></fa-icon>
                             {{neb.name}}
                         </div>
                         <div class="pe-2">
-                            <span *ngIf="neb.energyOpportunityId" class="badge bg-secondary fw-light float-end small">
+                            <span *ngIf="neb.energyOpportunityId" class="badge bg-secondary fw-light float-md-end small">
                                 {{neb.energyOpportunityId | energyOpportunityDisplay: energyOpportunities}}
                             </span>
                         </div>

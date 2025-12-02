@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { EnergyOpportunityIdbService } from 'src/app/indexed-db/energy-opportunity-idb.service';
@@ -15,7 +15,7 @@ import { IdbEnergyOpportunity } from 'src/app/models/energyOpportunity';
 export class AssessmentEnergyOpportunitiesComponent {
 
   faChevronRight: IconDefinition = faChevronRight;
-
+  faChevronLeft: IconDefinition = faChevronLeft;
   assessment: IdbAssessment;
   assessmentSub: Subscription;
 

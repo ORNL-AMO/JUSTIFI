@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Observable, of, Subscription } from 'rxjs';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -16,6 +16,7 @@ import { CompanyContactsFormService } from 'src/app/shared/shared-company-forms/
 })
 export class CompanyStakeholdersComponent {
   faChevronRight: IconDefinition = faChevronRight;
+  faChevronLeft: IconDefinition = faChevronLeft;
 
   companyContacts: Array<IdbContact>;
   contactsSub: Subscription;

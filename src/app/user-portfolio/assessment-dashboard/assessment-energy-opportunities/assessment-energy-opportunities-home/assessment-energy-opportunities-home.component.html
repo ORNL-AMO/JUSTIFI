@@ -9,51 +9,57 @@
 <hr class="my-2">
 
 <ng-template [ngIf]="energyOpportunities.length > 0" [ngIfElse]="noOpportunitiesBlock">
-    <table class="table table-bordered table-hover table-sm">
-        <thead>
-            <tr>
-                <th class="w-25">
-                    Measure Name
-                </th>
-                <th class="w-25">
-                    NEBs
-                </th>
-                <th class="w-25">
-                    Implementation Cost
-                </th>
-                <th class="w-25">
-                    Savings
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let energyOpportunity of energyOpportunities">
-                <td>
-                    {{energyOpportunity.name}}
-                </td>
-                <td>
-                    @let associatedNebs = energyOpportunity.guid | nebList:'energyOpportunity': nonEnergyBenefits;
-                    <ng-template [ngIf]="associatedNebs.length > 0" [ngIfElse]="noNebsBlock">
-                        <span *ngFor="let neb of associatedNebs">
-                            <fa-icon [icon]="faWeightHanging"></fa-icon>
-                            {{neb.name}} <br>
-                        </span>
-                    </ng-template>
-                    <ng-template #noNebsBlock>
-                        &mdash;
-                    </ng-template>
-                </td>
-                <td>
-                    <app-single-cell-item [numValue]="energyOpportunity.implementationCost"
-                        [isCurrency]="true"></app-single-cell-item>
-                </td>
-                <td>
-                    <app-single-cell-item [numValue]="energyOpportunity.costSavings"
-                        [isCurrency]="true"></app-single-cell-item><br>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="w-100 overflow-scroll-x">
+        <table class="table table-bordered table-hover table-sm">
+            <thead>
+                <tr>
+                    <th class="w-25">
+                        Measure Name
+                    </th>
+                    <th class="w-25">
+                        NEBs
+                    </th>
+                    <th class="w-25">
+                        Implementation Cost
+                    </th>
+                    <th class="w-25">
+                        Savings
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let energyOpportunity of energyOpportunities">
+                    <td>
+                        <a class="click-link"
+                            [routerLink]="'/portfolio/assessment/'+energyOpportunity.assessmentId + '/energy-opportunities/'+energyOpportunity.guid"
+                            [routerLinkActive]="'active'">
+                            {{energyOpportunity.name}}
+                        </a>
+                    </td>
+                    <td>
+                        @let associatedNebs = energyOpportunity.guid | nebList:'energyOpportunity': nonEnergyBenefits;
+                        <ng-template [ngIf]="associatedNebs.length > 0" [ngIfElse]="noNebsBlock">
+                            <span *ngFor="let neb of associatedNebs">
+                                <fa-icon [icon]="faWeightHanging"></fa-icon>
+                                {{neb.name}} <br>
+                            </span>
+                        </ng-template>
+                        <ng-template #noNebsBlock>
+                            &mdash;
+                        </ng-template>
+                    </td>
+                    <td>
+                        <app-single-cell-item [numValue]="energyOpportunity.implementationCost"
+                            [isCurrency]="true"></app-single-cell-item>
+                    </td>
+                    <td>
+                        <app-single-cell-item [numValue]="energyOpportunity.costSavings"
+                            [isCurrency]="true"></app-single-cell-item><br>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </ng-template>
 
 <ng-template #noOpportunitiesBlock>

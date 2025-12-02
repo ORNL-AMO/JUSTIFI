@@ -73,3 +73,11 @@
 .toast .toast-body {
     background-color: white;
 }
+
+
+@media (max-width: 576px) {
+    .popup {
+        width: 98vw;
+        left: 1vw;
+    }
+}

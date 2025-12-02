@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faChartPie, faChevronCircleLeft, faChevronCircleRight, faCircleQuestion, faDiagramProject, faDollarSign, faLink, faWeightHanging, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { SetupWizardService } from '../setup-wizard.service';
@@ -13,6 +13,8 @@ import { SetupWizardService } from '../setup-wizard.service';
 export class SetupWizardSidePanelComponent {
   @Output('emitToggleCollapse')
   emitToggleCollapse: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+  @Input()
+  inSmallScreen: boolean;
 
   faCircleQuestion: IconDefinition = faCircleQuestion;
   faDollarSign: IconDefinition = faDollarSign;

@@ -1,6 +1,6 @@
 <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
+        <div class="col-11 col-md-10 pt-4 pb-4">
             <div class="form-paper shadow">
                 <h5>
                     <fa-icon [icon]="faCircleExclamation" class="pe-1 fa-error"
@@ -18,7 +18,9 @@
 <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-end">
         <button class="btn nav-btn btn-sm" (click)="goToContacts()" [disabled]="name?.invalid">
-            Enter Stakeholder Contacts
+            <span class="d-none d-md-inline">
+                Enter Stakeholder Contacts
+            </span>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

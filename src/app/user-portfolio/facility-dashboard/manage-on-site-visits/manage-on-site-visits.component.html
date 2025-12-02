@@ -8,52 +8,54 @@
             </p>
             @let facilityVisits = facility.guid | onSiteVisitList: onSiteVisits;
             <ng-template [ngIf]="facilityVisits.length > 0" [ngIfElse]="noVisitsBlock">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>
-                                Visit Date
-                            </th>
-                            <th>
-                                Assessments
-                            </th>
-                            <th>
-                                Last Modified
-                            </th>
-                            <th>
+                <div class="w-100 overflow-scroll-x">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Visit Date
+                                </th>
+                                <th>
+                                    Assessments
+                                </th>
+                                <th>
+                                    Last Modified
+                                </th>
+                                <th>
 
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let visit of facilityVisits">
-                            <td>
-                                <!-- {{visit.visitDate | date}} -->
-                                <input name="{{'visitDate'+visit.guid}}" id="{{'visitDate'+visit.guid}}" type="date"
-                                    class="form-control" [(ngModel)]="visit.visitDate" name="{{'visitDate'+visit.guid}}"
-                                    (change)="setVisitDate(visit)">
-                            </td>
-                            <td>
-                                <ng-container *ngIf="visit.assessmentIds.length > 0; else noAssessments">
-                                    <div *ngFor="let assessmentId of visit.assessmentIds">
-                                        {{assessmentId | assessmentNameDisplay: assessments}}<br>
-                                    </div>
-                                </ng-container>
-                                <ng-template #noAssessments>
-                                    No assessments found for this visit.
-                                </ng-template>
-                            </td>
-                            <td>
-                                {{visit.modifiedDate | date}}
-                            </td>
-                            <td class="actions">
-                                <button class="btn btn-outline-danger btn-sm" (click)="openDeleteVisitModal(visit)">
-                                    <fa-icon [icon]="faTrash"></fa-icon>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let visit of facilityVisits">
+                                <td>
+                                    <!-- {{visit.visitDate | date}} -->
+                                    <input name="{{'visitDate'+visit.guid}}" id="{{'visitDate'+visit.guid}}" type="date"
+                                        class="form-control" [(ngModel)]="visit.visitDate"
+                                        name="{{'visitDate'+visit.guid}}" (change)="setVisitDate(visit)">
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="visit.assessmentIds.length > 0; else noAssessments">
+                                        <div *ngFor="let assessmentId of visit.assessmentIds">
+                                            {{assessmentId | assessmentNameDisplay: assessments}}<br>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #noAssessments>
+                                        No assessments found for this visit.
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    {{visit.modifiedDate | date}}
+                                </td>
+                                <td class="actions">
+                                    <button class="btn btn-outline-danger btn-sm" (click)="openDeleteVisitModal(visit)">
+                                        <fa-icon [icon]="faTrash"></fa-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </ng-template>
             <ng-template #noVisitsBlock>
                 <div class="alert alert-info p-1">

@@ -3,18 +3,21 @@ import { SharedDataService } from '../shared/shared-services/shared-data.service
 import { Subscription } from 'rxjs';
 import { ContactContext, IdbContact } from '../models/contact';
 import { SetupWizardService } from './setup-wizard.service';
-import { faGripLinesVertical, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronCircleLeft, faChevronCircleRight, faGripLinesVertical, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
-    selector: 'app-setup-wizard',
-    templateUrl: './setup-wizard.component.html',
-    styleUrl: './setup-wizard.component.css',
-    standalone: false
+  selector: 'app-setup-wizard',
+  templateUrl: './setup-wizard.component.html',
+  styleUrl: './setup-wizard.component.css',
+  standalone: false
 })
 export class SetupWizardComponent {
 
   @ViewChild('pageContent', { static: false }) pageContent: ElementRef;
 
+  faChevronCircleRight: IconDefinition = faChevronCircleRight;
+  faChevronCircleLeft: IconDefinition = faChevronCircleLeft;
   faGripVertical: IconDefinition = faGripLinesVertical;
 
   sidebarWidth: number = 200;
@@ -27,10 +30,18 @@ export class SetupWizardComponent {
 
   print: boolean;
   printSub: Subscription
+  isSmallScreen: boolean = false;
+  sidebarCanvasOpen: boolean = false;
+  helpPanelCanvasOpen: boolean = false;
   constructor(private sharedDataService: SharedDataService,
-    private setupWizardService: SetupWizardService
+    private setupWizardService: SetupWizardService,
+    private breakpointObserver: BreakpointObserver
   ) {
-
+    this.breakpointObserver.observe([Breakpoints.Handset])
+      .subscribe(result => {
+        this.isSmallScreen = result.matches;
+        console.log('isSmallScreen:', this.isSmallScreen);
+      });
   }
 
   ngOnInit() {
@@ -142,5 +153,13 @@ export class SetupWizardComponent {
   @HostListener('window:resize')
   onResize() {
     this.setContentWidth();
+  }
+
+  toggleCollapseSidebarCanvas(sidebarOpen?: boolean) {
+    this.sidebarCanvasOpen = !this.sidebarCanvasOpen;
+  }
+
+  toggleCollapseHelpPanelCanvas(helpPanelOpen?: boolean) {
+    this.helpPanelCanvasOpen = !this.helpPanelCanvasOpen;
   }
 }

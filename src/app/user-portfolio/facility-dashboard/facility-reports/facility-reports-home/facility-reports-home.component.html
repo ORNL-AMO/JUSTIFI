@@ -26,7 +26,11 @@
         <tbody>
             <tr *ngFor="let report of facilityReports">
                 <td>
-                    {{report.name}}
+                    <a class="click-link"
+                        [routerLink]="'/portfolio/facility/'+report.facilityId + '/reports/'+report.guid"
+                        [routerLinkActive]="'active'">
+                        {{report.name}}
+                    </a>
                 </td>
                 <td>
                     {{report.reportType | reportTypeDisplay}}
@@ -72,14 +76,15 @@
                     <ng-container *ngFor="let visit of onSiteVisits">
                         <tr>
                             <td>
-                                <input type="radio" class="form-check" [(ngModel)]="selectedOnSiteVisitId" [value]="visit.guid" name="selectedOnSiteVisitId">
+                                <input type="radio" class="form-check" [(ngModel)]="selectedOnSiteVisitId"
+                                    [value]="visit.guid" name="selectedOnSiteVisitId">
                             </td>
                             <td>
                                 {{visit.visitDate | date}}
                             </td>
                             <td>
                                 <ng-container *ngFor="let assessmentGuid of visit.assessmentIds">
-                                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon> 
+                                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
                                     {{assessmentGuid | assessmentNameDisplay: assessments}}<br>
                                 </ng-container>
                             </td>
@@ -98,7 +103,8 @@
     </div>
     <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-secondary btn-sm me-2" (click)="closeAddReportModal()">Cancel</button>
-        <button class="btn btn-success btn-sm" (click)="addReport()" [disabled]="!selectedOnSiteVisitId"><fa-icon [icon]="faPlus"></fa-icon> Add
+        <button class="btn btn-success btn-sm" (click)="addReport()" [disabled]="!selectedOnSiteVisitId"><fa-icon
+                [icon]="faPlus"></fa-icon> Add
             Report</button>
     </div>
 </div>

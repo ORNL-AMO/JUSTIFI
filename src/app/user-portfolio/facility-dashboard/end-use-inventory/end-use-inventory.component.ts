@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { ProcessEquipmentIdbService } from 'src/app/indexed-db/process-equipment-idb.service';
@@ -7,15 +7,16 @@ import { IdbFacility } from 'src/app/models/facility';
 import { IdbProcessEquipment } from 'src/app/models/processEquipment';
 
 @Component({
-    selector: 'app-end-use-inventory',
-    templateUrl: './end-use-inventory.component.html',
-    styleUrl: './end-use-inventory.component.css',
-    standalone: false
+  selector: 'app-end-use-inventory',
+  templateUrl: './end-use-inventory.component.html',
+  styleUrl: './end-use-inventory.component.css',
+  standalone: false
 })
 export class EndUseInventoryComponent {
 
   faChevronRight: IconDefinition = faChevronRight;
-
+  faChevronLeft: IconDefinition = faChevronLeft;
+  
   facility: IdbFacility;
   facilitySub: Subscription;
   processEquipmentSub: Subscription
