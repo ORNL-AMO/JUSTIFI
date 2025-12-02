@@ -22,6 +22,11 @@
                 </div>
                 <div class="badge-display">
                     <app-primary-kpi-badge [kpiOption]="kpi"></app-primary-kpi-badge>
+                    @if(kpi.isCustom){
+                    <span class="badge bg-secondary ms-1">
+                        Custom
+                    </span>
+                    }
                 </div>
             </div>
             <div>
