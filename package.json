@@ -6,8 +6,8 @@
   "description": "A tool to identify, estimate potential and report on non-energy benefits (NEBs) that can be found while conducting energy assessments",
   "repository": "https://github.com/ORNL-AMO/JUSTIFI.git",
   "engines": {
-    "node": "20.11.1",
-    "npm": "10.2.4"
+    "node": "24.5.0",
+    "npm": "11.5.1"
   },
   "scripts": {
     "ng": "ng",
