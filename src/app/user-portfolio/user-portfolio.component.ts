@@ -154,6 +154,10 @@ export class UserPortfolioComponent {
     } else {
       this.displayVisitButton = false;
     }
+    //hide button and don't show again
+    if (!this.displayVisitButton && this.onSiteVisit) {
+      this.onSiteVisitIdbService.selectedVisit.next(undefined);
+    }
   }
 
   returnToVisit() {
