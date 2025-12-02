@@ -1,9 +1,10 @@
 <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
+        <div class="col-11 col-md-10 pt-4 pb-4">
             <div class="form-paper shadow">
                 <h5>
-                    <fa-icon [icon]="faCircleExclamation" class="pe-1 fa-error" *ngIf="name?.touched && name.invalid"></fa-icon>
+                    <fa-icon [icon]="faCircleExclamation" class="pe-1 fa-error"
+                        *ngIf="name?.touched && name.invalid"></fa-icon>
                     <fa-icon [icon]="faIndustry" class="me-2"></fa-icon>Facility Details
                 </h5>
                 <hr>
@@ -16,10 +17,14 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            Go Back
+            <span class="d-none d-md-inline">
+                Go Back
+            </span>
         </button>
         <button class="btn nav-btn btn-sm" (click)="goToQuestions()" [disabled]="name?.invalid">
-            Facility Questions
+            <span class="d-none d-md-inline">
+                Facility Questions
+            </span>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

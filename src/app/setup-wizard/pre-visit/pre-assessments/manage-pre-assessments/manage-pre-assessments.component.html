@@ -1,17 +1,17 @@
 <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
+        <div class="col-11 col-md-10 pt-4 pb-4">
             <div class="form-paper shadow">
                 <h5>
                     <fa-icon [icon]="faList"></fa-icon> Pre-Assessments
                 </h5>
                 <hr>
                 <ng-container *ngIf="onSiteVisit">
-                    <div class="d-flex w-100 justify-content-between pb-2">
+                    <div class="d-flex w-100 justify-content-between pb-2 flex-column flex-md-row">
                         <div class="p-0">
                             <div class="row">
                                 <label class="col-sm-6 col-form-label bold" for="visitDate">Assessment Date</label>
-                                <div class="col-sm-6">
+                                <div class="col-12 col-md-6">
                                     <input name="visitDate" id="visitDate" type="date" class="form-control"
                                         [(ngModel)]="onSiteVisit.visitDate" name="visitDate" (change)="setVisitDate()">
                                 </div>
@@ -92,15 +92,19 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            Go Back
+            <span class="d-none d-md-inline">
+                Go Back
+            </span>
         </button>
         <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            <ng-template [ngIf]="onSiteVisit.assessmentIds.length != 0" [ngIfElse]="reviewVisitBlock">
-                Pre-Assessment Details
-            </ng-template>
-            <ng-template #reviewVisitBlock>
-                Review Pre-Visit
-            </ng-template>
+            <span class="d-none d-md-inline">
+                <ng-template [ngIf]="onSiteVisit.assessmentIds.length != 0" [ngIfElse]="reviewVisitBlock">
+                    Pre-Assessment Details
+                </ng-template>
+                <ng-template #reviewVisitBlock>
+                    Review Pre-Visit
+                </ng-template>
+            </span>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

@@ -1,6 +1,6 @@
 <div>
 
-  <div class="d-flex justify-content-between hide-print">
+  <div class="d-flex justify-content-between hide-print flex-column flex-md-row">
     <div>
       <h5 class="mt-2">Annual Key Performance Indicator Impacts</h5>
     </div>
@@ -19,11 +19,13 @@
   <ng-template [ngIf]="executiveSummaryReport.keyPerformanceIndicatorReport" [ngIfElse]="noKpisTemplate">
     <div class="alert alert-success p-1 text-center" *ngIf="topKpis.length > 0">
       These projects that will result in
-      <b>{{executiveSummaryReport.totalCostSavings | displayRoundedValues : true | currency: currencyCode: 'symbol': '1.0-2'}}</b>
+      <b>{{executiveSummaryReport.totalCostSavings | displayRoundedValues : true | currency: currencyCode: 'symbol':
+        '1.0-2'}}</b>
       cost savings
       <span *ngIf="executiveSummaryReport.totalRevenues > 0">
         and
-        <b>{{executiveSummaryReport.totalRevenues | displayRoundedValues : true | currency: currencyCode: 'symbol': '1.0-2'}}</b>
+        <b>{{executiveSummaryReport.totalRevenues | displayRoundedValues : true | currency: currencyCode: 'symbol':
+          '1.0-2'}}</b>
         additional revenues
       </span>
       per year that support our goals:
@@ -35,99 +37,101 @@
         </div>
       </div>
     </div>
-    <table class="table table-bordered ordered savings-table table-sm table-hover">
-      <thead>
-        <tr>
-          <th class="bg-with-nebs"></th>
-          <th class="text-right bg-with-nebs" (click)="setOrderByField('financialImpact')"
-            [ngClass]="{'ordered-th': orderByField == 'financialImpact'}">
-            <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
-            Potential Change ({{ currencyCode | currencySymbol}}/yr)
-          </th>
-          <th class="text-right bg-with-nebs" (click)="setOrderByField('percentSavings')"
-            [ngClass]="{'ordered-th': orderByField == 'percentSavings'}">
-            <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
-            % Change
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- cost savings -->
-        <tr>
-          <td class="bold  bg-with-nebs">
-            Provided Costs
-          </td>
-          <td class="text-right bold bg-with-nebs">
-            <app-single-cell-item [numValue]="executiveSummaryReport.totalCostSavings" [isCurrency]="true">
-            </app-single-cell-item>
-          </td>
-          <td class="bg-with-nebs"></td>
-        </tr>
-        <tr *ngFor="let item of reducedKpiReportCostItems">
-          <td class="ps-2 bg-neutral">
-            <span [innerHTML]="item.keyPerformanceIndicator.htmlLabel"></span>
-          </td>
-          <td class="text-right bg-with-nebs-light">
-            <app-single-cell-item [isCurrency]="true" [numValue]="item.financialImpact">
-            </app-single-cell-item>
-          </td>
-          <td class="text-right bg-with-nebs-light">
-            <app-single-cell-item [numValue]="item.percentSavings" [units]="'%'">
-            </app-single-cell-item>
-          </td>
-        </tr>
-        <tr *ngIf="additionalKpiReportCostItem.financialImpact > 0">
-          <td class="ps-2 bg-neutral">
-            Additional KPI(s)
-          </td>
-          <td class="text-right bg-with-nebs-light">
-            <app-single-cell-item [isCurrency]="true" [numValue]="additionalKpiReportCostItem.financialImpact">
-            </app-single-cell-item>
-          </td>
-          <td class="text-right bg-with-nebs-light">
-            <app-single-cell-item [numValue]="0" [units]="'%'">
-            </app-single-cell-item>
-          </td>
-        </tr>
-        <!-- Revenue -->
-        <tr>
-          <td class="bold  bg-with-nebs">
-            Provided Revenues
-          </td>
-          <td class="text-right bold bg-with-nebs">
-            <app-single-cell-item [numValue]="executiveSummaryReport.totalRevenues" [isCurrency]="true">
-            </app-single-cell-item>
-          </td>
-          <td class="bg-with-nebs"></td>
-        </tr>
-        <tr *ngFor="let item of reducedKpiReportRevenueItems">
-          <td class="ps-2 bg-neutral">
-            <span [innerHTML]="item.keyPerformanceIndicator.htmlLabel"></span>
-          </td>
-          <td class="text-right bg-with-nebs-light">
-            <app-single-cell-item [isCurrency]="true" [numValue]="item.financialImpact">
-            </app-single-cell-item>
-          </td>
-          <td class="text-right bg-with-nebs-light">
-            <app-single-cell-item [numValue]="item.percentSavings" [units]="'%'">
-            </app-single-cell-item>
-          </td>
-        </tr>
-        <tr *ngIf="additionalKpiReportRevenueItem.financialImpact > 0">
-          <td class="ps-2 bg-neutral">
-            Additional KPI(s)
-          </td>
-          <td class="text-right bg-with-nebs-light">
-            <app-single-cell-item [isCurrency]="true" [numValue]="additionalKpiReportRevenueItem.financialImpact">
-            </app-single-cell-item>
-          </td>
-          <td class="text-right bg-with-nebs-light">
-            <app-single-cell-item [numValue]="0" [units]="'%'">
-            </app-single-cell-item>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="w-100 overflow-scroll-x">
+      <table class="table table-bordered ordered savings-table table-sm table-hover">
+        <thead>
+          <tr>
+            <th class="bg-with-nebs"></th>
+            <th class="text-right bg-with-nebs" (click)="setOrderByField('financialImpact')"
+              [ngClass]="{'ordered-th': orderByField == 'financialImpact'}">
+              <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
+              Potential Change ({{ currencyCode | currencySymbol}}/yr)
+            </th>
+            <th class="text-right bg-with-nebs" (click)="setOrderByField('percentSavings')"
+              [ngClass]="{'ordered-th': orderByField == 'percentSavings'}">
+              <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
+              % Change
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- cost savings -->
+          <tr>
+            <td class="bold  bg-with-nebs">
+              Provided Costs
+            </td>
+            <td class="text-right bold bg-with-nebs">
+              <app-single-cell-item [numValue]="executiveSummaryReport.totalCostSavings" [isCurrency]="true">
+              </app-single-cell-item>
+            </td>
+            <td class="bg-with-nebs"></td>
+          </tr>
+          <tr *ngFor="let item of reducedKpiReportCostItems">
+            <td class="ps-2 bg-neutral">
+              <span [innerHTML]="item.keyPerformanceIndicator.htmlLabel"></span>
+            </td>
+            <td class="text-right bg-with-nebs-light">
+              <app-single-cell-item [isCurrency]="true" [numValue]="item.financialImpact">
+              </app-single-cell-item>
+            </td>
+            <td class="text-right bg-with-nebs-light">
+              <app-single-cell-item [numValue]="item.percentSavings" [units]="'%'">
+              </app-single-cell-item>
+            </td>
+          </tr>
+          <tr *ngIf="additionalKpiReportCostItem.financialImpact > 0">
+            <td class="ps-2 bg-neutral">
+              Additional KPI(s)
+            </td>
+            <td class="text-right bg-with-nebs-light">
+              <app-single-cell-item [isCurrency]="true" [numValue]="additionalKpiReportCostItem.financialImpact">
+              </app-single-cell-item>
+            </td>
+            <td class="text-right bg-with-nebs-light">
+              <app-single-cell-item [numValue]="0" [units]="'%'">
+              </app-single-cell-item>
+            </td>
+          </tr>
+          <!-- Revenue -->
+          <tr>
+            <td class="bold  bg-with-nebs">
+              Provided Revenues
+            </td>
+            <td class="text-right bold bg-with-nebs">
+              <app-single-cell-item [numValue]="executiveSummaryReport.totalRevenues" [isCurrency]="true">
+              </app-single-cell-item>
+            </td>
+            <td class="bg-with-nebs"></td>
+          </tr>
+          <tr *ngFor="let item of reducedKpiReportRevenueItems">
+            <td class="ps-2 bg-neutral">
+              <span [innerHTML]="item.keyPerformanceIndicator.htmlLabel"></span>
+            </td>
+            <td class="text-right bg-with-nebs-light">
+              <app-single-cell-item [isCurrency]="true" [numValue]="item.financialImpact">
+              </app-single-cell-item>
+            </td>
+            <td class="text-right bg-with-nebs-light">
+              <app-single-cell-item [numValue]="item.percentSavings" [units]="'%'">
+              </app-single-cell-item>
+            </td>
+          </tr>
+          <tr *ngIf="additionalKpiReportRevenueItem.financialImpact > 0">
+            <td class="ps-2 bg-neutral">
+              Additional KPI(s)
+            </td>
+            <td class="text-right bg-with-nebs-light">
+              <app-single-cell-item [isCurrency]="true" [numValue]="additionalKpiReportRevenueItem.financialImpact">
+              </app-single-cell-item>
+            </td>
+            <td class="text-right bg-with-nebs-light">
+              <app-single-cell-item [numValue]="0" [units]="'%'">
+              </app-single-cell-item>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </ng-template>
   <ng-template #noKpisTemplate>
     <p class="alert alert-info">No KPM impacts were found for this report.</p>

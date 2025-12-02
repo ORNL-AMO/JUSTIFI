@@ -2,7 +2,7 @@
     <label class="col-sm-6 col-form-label" for="{{'isQuantitative_'+keyPerformanceMetric.value}}">
         Metric Type
     </label>
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <select id="{{'isQuantitative_'+keyPerformanceMetric.value}}"
             name="{{'isQuantitative_'+keyPerformanceMetric.value}}" class="form-select"
             [(ngModel)]="keyPerformanceMetric.isQuantitative" (change)="saveChanges()" [disabled]="disableForm">
@@ -17,7 +17,7 @@
             <app-label-with-tooltip [field]="'goalToIncrease'" [labelId]="'goalToIncrease_'+keyPerformanceMetric.value"
                 [label]="'Expected Impact'"></app-label-with-tooltip>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <select id="{{'goalToIncrease_'+keyPerformanceMetric.value}}"
                 name="{{'goalToIncrease_'+keyPerformanceMetric.value}}" class="form-select"
                 [(ngModel)]="keyPerformanceMetric.goalToIncrease" (change)="saveChanges()" [disabled]="disableForm">
@@ -32,7 +32,7 @@
                 [labelId]="'calculationMethod_'+keyPerformanceMetric.value"
                 [label]="'Baseline Calculation Method'"></app-label-with-tooltip>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <select id="{{'calculationMethod_'+keyPerformanceMetric.value}}"
                 name="{{'calculationMethod_'+keyPerformanceMetric.value}}" class="form-select"
                 [(ngModel)]="keyPerformanceMetric.calculationMethod" (change)="calculateCost(true)"
@@ -49,7 +49,7 @@
             <label class="col-sm-6 col-form-label" for="{{'totalUnit_'+keyPerformanceMetric.value}}">
                 Unit
             </label>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <div class="input-group">
                     <input type="text" class="form-control" [(ngModel)]="keyPerformanceMetric.totalUnit"
                         name="{{'totalUnit_'+keyPerformanceMetric.value}}" [disabled]="disableForm">
@@ -60,7 +60,7 @@
             <label class="col-sm-6 col-form-label" for="{{'baselineValue_'+keyPerformanceMetric.value}}">
                 Baseline Amount
             </label>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <div class="input-group">
                     <input type="number" class="form-control" [(ngModel)]="keyPerformanceMetric.baselineValue"
                         name="{{'baselineValue_'+keyPerformanceMetric.value}}" (input)="calculateCost(false)"
@@ -79,7 +79,7 @@
             <label class="col-sm-6 col-form-label" for="{{'costPerValue_'+keyPerformanceMetric.value}}">
                 Per Unit
             </label>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <div class="input-group">
                     <input type="number" class="form-control" [(ngModel)]="keyPerformanceMetric.costPerValue"
                         name="{{'costPerValue_'+keyPerformanceMetric.value}}" (input)="calculateCost(false)"
@@ -99,7 +99,7 @@
             <label class="col-sm-6 col-form-label" for="{{'baselineCost_'+keyPerformanceMetric.value}}">
                 {{ keyPerformanceMetric.goalToIncrease ? 'Baseline Revenue' : 'Baseline Cost' }}
             </label>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <ng-template [ngIf]="keyPerformanceMetric.baselineCost" [ngIfElse]="noCostBlock">
                     {{keyPerformanceMetric.baselineCost | currency:currencyCode}}/yr
                 </ng-template>
@@ -115,7 +115,7 @@
             <label class="col-sm-6 col-form-label" for="{{'baselineCost_'+keyPerformanceMetric.value}}">
                 {{ keyPerformanceMetric.goalToIncrease ? 'Baseline Revenue' : 'Baseline Cost' }}
             </label>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <div class="input-group">
                     <input type="number" class="form-control" [(ngModel)]="keyPerformanceMetric.baselineCost"
                         name="{{'baselineCost_'+keyPerformanceMetric.value}}" (input)="calculateCost(false)"
@@ -138,7 +138,7 @@
         <div class="col-sm-6 col-form-label">
             Expected Impact
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <select id="{{'goalToIncrease_'+keyPerformanceMetric.value}}"
                 name="{{'goalToIncrease_'+keyPerformanceMetric.value}}" class="form-select"
                 [(ngModel)]="keyPerformanceMetric.goalToIncrease" (change)="saveChanges()" [disabled]="disableForm">
@@ -152,7 +152,7 @@
         <label class="col-sm-6 col-form-label" for="{{'totalUnit_'+keyPerformanceMetric.value}}">
             Unit
         </label>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <div class="input-group">
                 <input type="text" class="form-control" [(ngModel)]="keyPerformanceMetric.totalUnit"
                     name="{{'totalUnit_'+keyPerformanceMetric.value}}" [disabled]="disableForm">
@@ -163,7 +163,7 @@
         <label class="col-sm-6 col-form-label" for="{{'baselineValue_'+keyPerformanceMetric.value}}">
             Baseline Amount
         </label>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <div class="input-group">
                 <input type="number" class="form-control" [(ngModel)]="keyPerformanceMetric.baselineValue"
                     name="{{'baselineValue_'+keyPerformanceMetric.value}}" (input)="calculateCost(false)"

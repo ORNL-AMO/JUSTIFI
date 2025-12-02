@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-between hide-print">
+<div class="d-flex justify-content-between hide-print flex-column flex-md-row">
   <div>
     <h5 class="mt-2">Project Summary</h5>
   </div>
@@ -17,170 +17,174 @@
   visit,
   we found
   <b>{{numberOfProjects}}</b>
-  projects that will result in a <b>{{executiveSummaryReport.totalFinancialImpact | displayRoundedValues : true | currency: currencyCode: 'symbol':
+  projects that will result in a <b>{{executiveSummaryReport.totalFinancialImpact | displayRoundedValues : true |
+    currency: currencyCode: 'symbol':
     '1.0-2'}}</b> annual financial impact.
 </div>
 <div class="alert alert-success p-1 text-center" *ngIf="executiveSummaryReport.totalRebates">
   <fa-icon [icon]="faMoneyBillWave"></fa-icon>
-  This visit also includes <b>{{executiveSummaryReport.totalRebates | displayRoundedValues : true | currency: currencyCode:
+  This visit also includes <b>{{executiveSummaryReport.totalRebates | displayRoundedValues : true | currency:
+    currencyCode:
     'symbol': '1.0-2'}}</b> in additional one-time incentives that will help reduce implementation costs!
 </div>
 
 
-<table class="table table-bordered savings-table table-hover">
-  @let nebColumns = executiveSummaryReport.totalRebates ? 3 : 2;
-  @let startColumns = executiveSummaryReport.totalRebates ? 1 : 2;
-  <thead>
-    <tr>
-      <th class="bg-neutral w-20" [attr.colspan]="startColumns">
+<div class="w-100 overflow-scroll-x">
+  <table class="table table-bordered savings-table table-hover">
+    @let nebColumns = executiveSummaryReport.totalRebates ? 3 : 2;
+    @let startColumns = executiveSummaryReport.totalRebates ? 1 : 2;
+    <thead>
+      <tr>
+        <th class="bg-neutral w-20" [attr.colspan]="startColumns">
 
-      </th>
-      <th class="text-center bg-without-nebs" [attr.colspan]="nebColumns">
-        Without NEBs
-      </th>
-      <th class="text-center bg-with-nebs" [attr.colspan]="nebColumns">
-        With NEBs
-      </th>
-    </tr>
-    <tr>
-      <th class="bg-neutral">
+        </th>
+        <th class="text-center bg-without-nebs" [attr.colspan]="nebColumns">
+          Without NEBs
+        </th>
+        <th class="text-center bg-with-nebs" [attr.colspan]="nebColumns">
+          With NEBs
+        </th>
+      </tr>
+      <tr>
+        <th class="bg-neutral">
 
-      </th>
-      <th
-        [ngClass]="{'bg-without-nebs-light': executiveSummaryReport.totalRebates, 'bg-neutral': !executiveSummaryReport.totalRebates, 'ordered-th': orderByField == 'totalImplementationCost'}"
-        (click)="setOrderByField('totalImplementationCost')">
-        <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
-        Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
-      </th>
-      <th class="bg-without-nebs-light" (click)="setOrderByField('totalNonNebCostSavings')"
-        [ngClass]="{'ordered-th': orderByField == 'totalNonNebCostSavings'}">
-        <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
-        Financial Impact<br> ({{ currencyCode | currencySymbol }}/yr)
-      </th>
-      <th class="bg-without-nebs-light" (click)="setOrderByField('totalPaybackWithoutNebs')"
-        [ngClass]="{'ordered-th': orderByField == 'totalPaybackWithoutNebs'}">
-        <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
-        Simple Payback<br> (yrs)
-      </th>
-      <th class="bg-with-nebs-light" *ngIf="executiveSummaryReport.totalRebates"
-        (click)="setOrderByField('finalImplementationCost')"
-        [ngClass]="{'ordered-th': orderByField == 'finalImplementationCost'}">
-        <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
-        Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
-      </th>
-      <th class="bg-with-nebs-light" (click)="setOrderByField('totalFinancialImpact')"
-        [ngClass]="{'ordered-th': orderByField == 'totalFinancialImpact'}">
-        <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
-        Financial Impact<br> ({{ currencyCode | currencySymbol }}/yr)
-      </th>
-      <th class="bg-with-nebs-light" (click)="setOrderByField('totalPaybackWithNebs')"
-        [ngClass]="{'ordered-th': orderByField == 'totalPaybackWithNebs'}">
-        <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
-        Simple Payback<br> (yrs)
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let reportItem of topReports; let index = index;">
-      <td class="bg-neutral">
-        {{index + 1}}.
-        {{reportItem.report.name}}
-      </td>
-      <!--without nebs-->
-      <td
-        [ngClass]="{'bg-without-nebs-light': executiveSummaryReport.totalRebates, 'bg-neutral': !executiveSummaryReport.totalRebates}">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="reportItem.report.totalImplementationCost"></app-single-cell-item>
-      </td>
-      <td class="bg-without-nebs-light">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="reportItem.report.totalNonNebCostSavings"></app-single-cell-item>
-      </td>
-      <td class="bg-without-nebs-light">
-        <app-single-cell-item [isCurrency]="false"
-          [numValue]="reportItem.report.totalPaybackWithoutNebs"></app-single-cell-item>
-      </td>
-      <!--with nebs-->
-      <td class="bg-with-nebs-light" *ngIf="executiveSummaryReport.totalRebates">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="reportItem.report.finalImplementationCost"></app-single-cell-item>
-      </td>
-      <td class="bg-with-nebs-light">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="reportItem.report.totalFinancialImpact"></app-single-cell-item>
-      </td>
-      <td class="bg-with-nebs-light">
-        <app-single-cell-item [isCurrency]="false"
-          [numValue]="reportItem.report.totalPaybackWithNebs"></app-single-cell-item>
-      </td>
-    </tr>
+        </th>
+        <th
+          [ngClass]="{'bg-without-nebs-light': executiveSummaryReport.totalRebates, 'bg-neutral': !executiveSummaryReport.totalRebates, 'ordered-th': orderByField == 'totalImplementationCost'}"
+          (click)="setOrderByField('totalImplementationCost')">
+          <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
+          Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
+        </th>
+        <th class="bg-without-nebs-light" (click)="setOrderByField('totalNonNebCostSavings')"
+          [ngClass]="{'ordered-th': orderByField == 'totalNonNebCostSavings'}">
+          <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
+          Financial Impact<br> ({{ currencyCode | currencySymbol }}/yr)
+        </th>
+        <th class="bg-without-nebs-light" (click)="setOrderByField('totalPaybackWithoutNebs')"
+          [ngClass]="{'ordered-th': orderByField == 'totalPaybackWithoutNebs'}">
+          <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
+          Simple Payback<br> (yrs)
+        </th>
+        <th class="bg-with-nebs-light" *ngIf="executiveSummaryReport.totalRebates"
+          (click)="setOrderByField('finalImplementationCost')"
+          [ngClass]="{'ordered-th': orderByField == 'finalImplementationCost'}">
+          <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
+          Implementation<br> Cost<br> ({{ currencyCode | currencySymbol }})
+        </th>
+        <th class="bg-with-nebs-light" (click)="setOrderByField('totalFinancialImpact')"
+          [ngClass]="{'ordered-th': orderByField == 'totalFinancialImpact'}">
+          <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
+          Financial Impact<br> ({{ currencyCode | currencySymbol }}/yr)
+        </th>
+        <th class="bg-with-nebs-light" (click)="setOrderByField('totalPaybackWithNebs')"
+          [ngClass]="{'ordered-th': orderByField == 'totalPaybackWithNebs'}">
+          <fa-icon [icon]="faSort" class="pe-1"></fa-icon>
+          Simple Payback<br> (yrs)
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reportItem of topReports; let index = index;">
+        <td class="bg-neutral">
+          {{index + 1}}.
+          {{reportItem.report.name}}
+        </td>
+        <!--without nebs-->
+        <td
+          [ngClass]="{'bg-without-nebs-light': executiveSummaryReport.totalRebates, 'bg-neutral': !executiveSummaryReport.totalRebates}">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="reportItem.report.totalImplementationCost"></app-single-cell-item>
+        </td>
+        <td class="bg-without-nebs-light">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="reportItem.report.totalNonNebCostSavings"></app-single-cell-item>
+        </td>
+        <td class="bg-without-nebs-light">
+          <app-single-cell-item [isCurrency]="false"
+            [numValue]="reportItem.report.totalPaybackWithoutNebs"></app-single-cell-item>
+        </td>
+        <!--with nebs-->
+        <td class="bg-with-nebs-light" *ngIf="executiveSummaryReport.totalRebates">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="reportItem.report.finalImplementationCost"></app-single-cell-item>
+        </td>
+        <td class="bg-with-nebs-light">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="reportItem.report.totalFinancialImpact"></app-single-cell-item>
+        </td>
+        <td class="bg-with-nebs-light">
+          <app-single-cell-item [isCurrency]="false"
+            [numValue]="reportItem.report.totalPaybackWithNebs"></app-single-cell-item>
+        </td>
+      </tr>
 
 
-    <tr *ngIf="additionalReports.totalFinancialImpact">
-      <td class="bg-neutral">
-        {{ additionalReports.name }}
-      </td>
-      <!--without nebs-->
-      <td
-        [ngClass]="{'bg-without-nebs-light': executiveSummaryReport.totalRebates, 'bg-neutral': !executiveSummaryReport.totalRebates}">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="additionalReports.implementationCost"></app-single-cell-item>
-      </td>
-      <td class="bg-without-nebs-light">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="additionalReports.totalNonNebCostSavings"></app-single-cell-item>
-      </td>
-      <td class="bg-without-nebs-light">
-        <app-single-cell-item [isCurrency]="false"
-          [numValue]="additionalReports.totalPaybackWithoutNebs"></app-single-cell-item>
-      </td>
-      <!--with nebs-->
-      <td class="bg-with-nebs-light" *ngIf="executiveSummaryReport.totalRebates">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="additionalReports.finalImplementationCost"></app-single-cell-item>
-      </td>
-      <td class="bg-with-nebs-light">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="additionalReports.totalFinancialImpact"></app-single-cell-item>
-      </td>
-      <td class="bg-with-nebs-light">
-        <app-single-cell-item [isCurrency]="false"
-          [numValue]="additionalReports.totalPaybackWithNebs"></app-single-cell-item>
-      </td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <th class="bg-neutral">
-        Total
-      </th>
-      <!--without nebs-->
-      <th
-        [ngClass]="{'bg-without-nebs': executiveSummaryReport.totalRebates, 'bg-neutral': !executiveSummaryReport.totalRebates}">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="executiveSummaryReport.totalImplementationCost"></app-single-cell-item>
-      </th>
-      <th class="bg-without-nebs">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="executiveSummaryReport.totalNonNebCostSavings"></app-single-cell-item>
-      </th>
-      <th class="bg-without-nebs">
-        <app-single-cell-item [isCurrency]="false"
-          [numValue]="executiveSummaryReport.totalPaybackWithoutNebs"></app-single-cell-item>
-      </th>
-      <!--with nebs-->
-      <th class="bg-with-nebs" *ngIf="executiveSummaryReport.totalRebates">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="executiveSummaryReport.finalImplementationCost"></app-single-cell-item>
-      </th>
-      <th class="bg-with-nebs">
-        <app-single-cell-item [isCurrency]="true"
-          [numValue]="executiveSummaryReport.totalFinancialImpact"></app-single-cell-item>
-      </th>
-      <th class="bg-with-nebs">
-        <app-single-cell-item [isCurrency]="false"
-          [numValue]="executiveSummaryReport.totalPaybackWithNebs"></app-single-cell-item>
-      </th>
-    </tr>
-  </tfoot>
-</table>
+      <tr *ngIf="additionalReports.totalFinancialImpact">
+        <td class="bg-neutral">
+          {{ additionalReports.name }}
+        </td>
+        <!--without nebs-->
+        <td
+          [ngClass]="{'bg-without-nebs-light': executiveSummaryReport.totalRebates, 'bg-neutral': !executiveSummaryReport.totalRebates}">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="additionalReports.implementationCost"></app-single-cell-item>
+        </td>
+        <td class="bg-without-nebs-light">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="additionalReports.totalNonNebCostSavings"></app-single-cell-item>
+        </td>
+        <td class="bg-without-nebs-light">
+          <app-single-cell-item [isCurrency]="false"
+            [numValue]="additionalReports.totalPaybackWithoutNebs"></app-single-cell-item>
+        </td>
+        <!--with nebs-->
+        <td class="bg-with-nebs-light" *ngIf="executiveSummaryReport.totalRebates">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="additionalReports.finalImplementationCost"></app-single-cell-item>
+        </td>
+        <td class="bg-with-nebs-light">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="additionalReports.totalFinancialImpact"></app-single-cell-item>
+        </td>
+        <td class="bg-with-nebs-light">
+          <app-single-cell-item [isCurrency]="false"
+            [numValue]="additionalReports.totalPaybackWithNebs"></app-single-cell-item>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th class="bg-neutral">
+          Total
+        </th>
+        <!--without nebs-->
+        <th
+          [ngClass]="{'bg-without-nebs': executiveSummaryReport.totalRebates, 'bg-neutral': !executiveSummaryReport.totalRebates}">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="executiveSummaryReport.totalImplementationCost"></app-single-cell-item>
+        </th>
+        <th class="bg-without-nebs">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="executiveSummaryReport.totalNonNebCostSavings"></app-single-cell-item>
+        </th>
+        <th class="bg-without-nebs">
+          <app-single-cell-item [isCurrency]="false"
+            [numValue]="executiveSummaryReport.totalPaybackWithoutNebs"></app-single-cell-item>
+        </th>
+        <!--with nebs-->
+        <th class="bg-with-nebs" *ngIf="executiveSummaryReport.totalRebates">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="executiveSummaryReport.finalImplementationCost"></app-single-cell-item>
+        </th>
+        <th class="bg-with-nebs">
+          <app-single-cell-item [isCurrency]="true"
+            [numValue]="executiveSummaryReport.totalFinancialImpact"></app-single-cell-item>
+        </th>
+        <th class="bg-with-nebs">
+          <app-single-cell-item [isCurrency]="false"
+            [numValue]="executiveSummaryReport.totalPaybackWithNebs"></app-single-cell-item>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+</div>

@@ -1,7 +1,7 @@
 <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
-            <div class="form-paper shadow">
+        <div class="col-11 col-md-10 pt-4 pb-4">
+            <div class="form-paper shadow w-100">
                 <h5>
                     <fa-icon [icon]="faAddressBook" class="me-2"></fa-icon>Stakeholder Contacts
                 </h5>
@@ -14,43 +14,47 @@
                         </button>
                     </div>
                 </div>
-                <ng-template [ngIf]="selectedFacility && (companyContacts | filterArchivedContacts: selectedFacility).length > 0" [ngIfElse]="noContactsBlock">
-                    <table class="table table-bordered table-hover table-sm">
-                        <thead>
-                            <tr>
-                                <th class="w-25">
-                                    Name
-                                </th>
-                                <th class="w-25">
-                                    Title
-                                </th>
-                                <th class="w-25">
-                                    Team
-                                </th>
-                                <th class="w-25">
-                                    Notes
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let contact of companyContacts | filterArchivedContacts: selectedFacility">
-                                <td>
-                                    <a class="click-link" (click)="goToContact(contact)">
-                                        {{contact | contactNameDisplay}}
-                                    </a>
-                                </td>
-                                <td>
-                                    <app-single-cell-item [strValue]="contact.role"></app-single-cell-item>
-                                </td>
-                                <td>
-                                    <app-single-cell-item [strValue]="contact.team"></app-single-cell-item>
-                                </td>
-                                <td>
-                                    <app-single-cell-item [strValue]="contact.notes"></app-single-cell-item>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <ng-template
+                    [ngIf]="selectedFacility && (companyContacts | filterArchivedContacts: selectedFacility).length > 0"
+                    [ngIfElse]="noContactsBlock">
+                    <div class="overflow-scroll-x w-100">
+                        <table class="table table-bordered table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th class="w-25">
+                                        Name
+                                    </th>
+                                    <th class="w-25">
+                                        Title
+                                    </th>
+                                    <th class="w-25">
+                                        Team
+                                    </th>
+                                    <th class="w-25">
+                                        Notes
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let contact of companyContacts | filterArchivedContacts: selectedFacility">
+                                    <td>
+                                        <a class="click-link" (click)="goToContact(contact)">
+                                            {{contact | contactNameDisplay}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <app-single-cell-item [strValue]="contact.role"></app-single-cell-item>
+                                    </td>
+                                    <td>
+                                        <app-single-cell-item [strValue]="contact.team"></app-single-cell-item>
+                                    </td>
+                                    <td>
+                                        <app-single-cell-item [strValue]="contact.notes"></app-single-cell-item>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </ng-template>
                 <ng-template #noContactsBlock>
                     <div class="alert alert-warning">
@@ -67,16 +71,20 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            Go Back
+            <span class="d-none d-md-inline">
+                Go Back
+            </span>
         </button>
 
         <button class="btn nav-btn btn-sm" (click)="next()">
-            <ng-template [ngIf]="companyContacts.length != 0" [ngIfElse]="facilityDetailsBlock">
-                Stakeholder Details
-            </ng-template>
-            <ng-template #facilityDetailsBlock>
-                Facility Details
-            </ng-template>
+            <span class="d-none d-md-inline">
+                <ng-template [ngIf]="companyContacts.length != 0" [ngIfElse]="facilityDetailsBlock">
+                    Stakeholder Details
+                </ng-template>
+                <ng-template #facilityDetailsBlock>
+                    Facility Details
+                </ng-template>
+            </span>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

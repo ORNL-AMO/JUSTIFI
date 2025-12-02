@@ -1,6 +1,6 @@
 <div [ngClass]="{'setup-wizard-content': !print, 'report print': print}">
     <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
-        <div [ngClass]="{'col-10 pt-4 pb-4': !print}">
+        <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
             <div [ngClass]="{'form-paper shadow': !print}">
                 <h5>
                     <fa-icon [icon]="faCircleCheck"></fa-icon> Review Pre-Visit
@@ -29,13 +29,21 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            Go Back
+            <span class="d-none d-md-inline">
+                Go Back
+            </span>
         </button>
         <button class="btn btn-success btn-sm" (click)="togglePrint()">
             <fa-icon [icon]="faFilePdf"></fa-icon>
-            Generate PDF
+            <span class="d-none d-md-inline">
+                Generate PDF
+            </span>
         </button>
-        <button class="btn nav-btn btn-sm" (click)="continue()">Data Collection
-            <fa-icon [icon]="faChevronRight"></fa-icon></button>
+        <button class="btn nav-btn btn-sm" (click)="continue()">
+            <span class="d-none d-md-inline">
+                Data Collection
+            </span>
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+        </button>
     </div>
 </nav>

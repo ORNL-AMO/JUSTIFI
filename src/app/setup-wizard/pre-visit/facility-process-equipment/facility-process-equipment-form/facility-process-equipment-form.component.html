@@ -1,6 +1,6 @@
 <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
+        <div class="col-11 col-md-10 pt-4 pb-4">
             <div class="form-paper shadow">
                 <h5>
                     <fa-icon [icon]="faSplotch"></fa-icon>
@@ -16,19 +16,25 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            Go Back
+            <span class="d-none d-md-inline">
+                Go Back
+            </span>
         </button>
         <button class="btn nav-btn btn-sm" (click)="addProcessEquipment()">
             <fa-icon [icon]="faPlus"></fa-icon>
-            Add End Use
+            <span class="d-none d-md-inline">
+                Add End Use
+            </span>
         </button>
         <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            <ng-template [ngIf]="equipmentIndex != (processEquipments.length - 1)" [ngIfElse]="preAssessmentBlock">
-                Next End Use Details
-            </ng-template>
-            <ng-template #preAssessmentBlock>
-                Pre-Assessments
-            </ng-template>
+            <span class="d-none d-md-inline">
+                <ng-template [ngIf]="equipmentIndex != (processEquipments.length - 1)" [ngIfElse]="preAssessmentBlock">
+                    Next End Use Details
+                </ng-template>
+                <ng-template #preAssessmentBlock>
+                    Pre-Assessments
+                </ng-template>
+            </span>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>
