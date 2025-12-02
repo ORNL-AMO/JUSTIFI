@@ -29,7 +29,10 @@
         <tbody>
             <tr *ngFor="let contact of companyContacts">
                 <td>
-                    {{contact | contactNameDisplay}}
+                    <a class="click-link"
+                        [routerLink]="'/portfolio/company/'+company.guid + '/stakeholders/'+contact.guid">
+                        {{contact | contactNameDisplay}}
+                    </a>
                 </td>
                 <td>
                     <app-single-cell-item [strValue]="contact.role"></app-single-cell-item>

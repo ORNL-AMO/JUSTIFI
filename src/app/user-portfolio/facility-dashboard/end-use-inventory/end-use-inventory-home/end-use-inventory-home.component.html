@@ -30,7 +30,11 @@
         <tbody>
             <tr *ngFor="let processEquipment of processEquipments">
                 <td>
-                    {{processEquipment.equipmentName}}
+                    <a class="click-link"
+                        [routerLink]="'/portfolio/facility/'+processEquipment.facilityId + '/end-use-inventory/'+processEquipment.guid"
+                        [routerLinkActive]="'active'">
+                        {{processEquipment.equipmentName}}
+                    </a>
                 </td>
                 <td>
                     <app-single-cell-item [strValue]="processEquipment.notes"></app-single-cell-item>
