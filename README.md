@@ -8,7 +8,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/ORNL-AMO/JUSTIFI)](https://github.com/ORNL-AMO/JUSTIFI/commits/main)
 
 
-JUSTIFI is a tool that is a member of **Oak Ridge National Laboratory's Industrial Resources** suite of applications. The application was developed in collaboration with the **National Renewable Energy Laboratory (NREL)** around the study of **Non-Energy Benefits (NEBs)**. JUSTIFI allows users to identify the Key Performance Metrics (KPM) for a manufacturing facility and quantify the impacts of NEBs from implementation of energy efficiency opportunities.
+JUSTIFI is a tool that is a member of **Oak Ridge National Laboratory's Industrial Resources** suite of applications. The application was developed in collaboration with the **National Laboratory of the Rockies (NLR, formerly known as NREL)** around the study of **Non-Energy Benefits (NEBs)**. JUSTIFI allows users to identify the Key Performance Metrics (KPM) for a manufacturing facility and quantify the impacts of NEBs from implementation of energy efficiency opportunities.
 
 JUSTIFI, like it's sibling applications [MEASUR](https://github.com/ORNL-AMO/MEASUR) and [VERIFI](https://github.com/ORNL-AMO/VERIFI), is developed as a web application but is also packaged and distributed as an installable desktop application.
  
@@ -25,7 +25,7 @@ Track our progress and planned work on the [JUSTIFI GitHub Project Board](https:
 
 
 # Non-Energy Benefits Research
-NREL lead the research effort around the study and quantification of NEBs. For more information visit the [Non-energy Benefits Knowledge Library](https://www.nrel.gov/manufacturing/non-energy-benefits).
+NLR led the research effort around the study and quantification of NEBs. For more information visit the [Non-energy Benefits Knowledge Library](https://www.nrel.gov/manufacturing/non-energy-benefits).
 
 
 # Details For Developers
