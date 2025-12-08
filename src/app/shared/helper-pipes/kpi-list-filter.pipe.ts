@@ -30,7 +30,7 @@ export class KpiListFilterPipe implements PipeTransform {
         // Check if any of the associated KPMs have matching keywords
         return associatedKpms.some(kpm => {
           const keywords = KpmKeywords[kpm.value] || [];
-          return keywords.includes(search);
+          return keywords.some(keyword => keyword.toLowerCase().includes(search));
         });
       });
       
