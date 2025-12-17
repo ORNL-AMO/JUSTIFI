@@ -46,11 +46,11 @@ export function getEnergyOpportunityReport(
         return nebReport.totalRebates
     });
     let paybackWithNebs: number = ((energyOpportunity.implementationCost - totalRebates) / totalFinancialImpact);
-    if (paybackWithNebs == Infinity) {
+    if (paybackWithNebs == Infinity || isNaN(paybackWithNebs) || paybackWithNebs < 0) {
         paybackWithNebs = 0;
     }
     let paybackWithoutNebs: number = (energyOpportunity.implementationCost / totalNonNebCostSavings);
-    if (paybackWithoutNebs == Infinity) {
+    if (paybackWithoutNebs == Infinity || isNaN(paybackWithoutNebs) || paybackWithoutNebs < 0) {
         paybackWithoutNebs = 0;
     }
 
