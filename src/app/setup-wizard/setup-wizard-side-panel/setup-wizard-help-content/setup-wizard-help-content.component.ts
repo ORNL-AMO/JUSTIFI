@@ -90,7 +90,7 @@ export class SetupWizardHelpContentComponent {
       this.helpLabel = 'Energy Efficiency Measures Help';
     } else if (url.includes('assessment') && url.includes('nebs')) {
       this.helpContext = 'assessment-nebs';
-      this.helpLabel = 'Assessment NEBs Help';
+        this.helpLabel = 'Assessment Benefits Help';
     } else if (url.includes('assessment') && url.includes('results')) {
       this.helpContext = 'assessment-results';
       this.helpLabel = 'Assessment Results Help';
