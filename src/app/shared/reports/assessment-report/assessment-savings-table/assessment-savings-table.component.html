@@ -56,7 +56,7 @@
         </ng-container>
         <tr *ngIf="assessmentReport.assessmentNebReports.length > 0">
             <td colspan="3" class="ps-3">
-                Additional Operational Benefits
+                Additional Operational Improvements
             </td>
         </tr>
         <ng-container *ngFor="let nebReport of assessmentReport.assessmentNebReports">
@@ -147,7 +147,7 @@
         </tr>
         <tr>
             <td class="w-50 bold">
-                Total Additional Operational Benefits
+                Total Additional Operational Improvements
             </td>
             <td class="text-right bold w-25">
                 <app-single-cell-item [numValue]="assessmentReport.totalNebFinancialImpact"
@@ -156,7 +156,7 @@
         </tr>
         <tr>
             <td class="w-50 bold">
-                Total Financial Impact W/ NEBs
+                Total Financial Impact
             </td>
             <td class="text-right bold w-25">
                 <app-single-cell-item [numValue]="assessmentReport.totalFinancialImpact"
