@@ -136,7 +136,7 @@ export class PaybackWaterfallChartComponent {
       let layout = {
         waterfallgroupgap: .3,
         title: {
-          text: "Simple Payback",
+          text: "Simple Payback with<br>Energy Cost Savings Only",
           font: {
             weight: 'bold'
           }
@@ -151,12 +151,15 @@ export class PaybackWaterfallChartComponent {
         },
         autosize: true,
         showlegend: false,
+        font: {
+          family: 'Arial'
+        }
       };
 
       let layoutNebs = {
         waterfallgroupgap: .3,
         title: {
-          text: "Simple Payback W/ NEBs",
+          text: "Simple Payback with<br>Operational Cost Savings",
           font: {
             weight: 'bold'
           }

@@ -80,12 +80,12 @@ export class AssessmentSavingsChartComponent {
       };
 
       var trace2 = {
-        y: ['Non-Energy Benefits'],
+        y: ['Operational Cost Savings'],
         x: [this.assessmentReport.totalNebFinancialImpact],
         // width: [.5],
         text: [this.assessmentReport.totalNebFinancialImpact],
         texttemplate: this.currencyUnicode + "%{text:,.0f}",
-        name: 'Non-Energy Benefits',
+        name: 'Operational Cost Savings',
         type: 'bar',
         marker: {
           color: '#085646'

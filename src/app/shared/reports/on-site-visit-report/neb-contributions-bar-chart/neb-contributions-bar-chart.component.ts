@@ -116,10 +116,10 @@ export class NebContributionsBarChartComponent {
 
         data.push({
           x: [this.assessmentReport.totalNebFinancialImpact],
-          y: ['Total NEBs'],
+          y: ['Total Operational Cost Savings'],
           texttemplate: this.currencyUnicode + "%{value:,.2s}",
-          hovertemplate: 'Total NEBs',
-          name: 'Total NEBs',
+          hovertemplate: 'Total Operational Cost Savings',
+          name: 'Total Operational Cost Savings',
           orientation: 'h',
           marker: {
             color: '#085646',
@@ -134,7 +134,7 @@ export class NebContributionsBarChartComponent {
 
         var layout = {
           title: {
-            text: this.assessmentReport.assessment.name + ' <br>Non-energy Benefits',
+            text: this.assessmentReport.assessment.name + ' <br>Operational Cost Savings',
             font: {
               weight: 'bold'
             }
