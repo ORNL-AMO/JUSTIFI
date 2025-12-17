@@ -8,7 +8,9 @@
                         <a class="click-link ms-2" (click)="showSlidesShow()">Welcome to JUSTIFI! </a>
                     </div>
                     <p class="card-text fw-light">
-                        Use this tool to identify, estimate potential and report on non-energy benefits (NEBs) that can
+                        Use this tool to identify, estimate potential and report on 
+                        operational and strategic improvements (Multiple Benefits)
+                        that can
                         be
                         found while conducting energy assessments.
                     </p>
@@ -20,13 +22,13 @@
                 <div class="card-body">
                     <div class="card-title secondary">
                         <fa-icon [icon]="faSearchPlus"></fa-icon>
-                        Find Non-Energy Benefits
+                        Find Multiple Benefits
                     </div>
                     <p class="card-text fw-light">
-                        Use the setup wizard to work through the process of finding non-energy benefits. In the
+                        Use the setup wizard to work through the process of finding Multiple Benefits. In the
                         wizard you will create and provide details for a company and facility. Then you will add
-                        energy assessment details that will allow you to discover additional non-energy
-                        benefits.
+                        energy assessment details that will allow you to discover additional
+                        operational and strategic benefits.
                     </p>
                     <div class="d-flex justify-content-center">
                         <button class="btn btn-outline-success" (click)="openWizardModal()">
@@ -130,51 +132,55 @@
                 <div class="card-body">
                     <div class="card-title secondary">
                         <fa-icon [icon]="faBookOpen"></fa-icon>
-                        Non-Energy Benefits Resources
+                        Multiple Benefits Resources
                     </div>
                     <div class="d-flex flex-column">
-                        <div>
-                            <fa-icon [icon]="faFileCirclePlus"></fa-icon>
-                            <a class="click-link" (click)="openAddExampleModal();">
-                                Cocoa Co. Example Data
-                            </a>
-                            <p class="card-text fw-light">
-                                Click the above link to add an example company to your portfolio. This will
-                                allow
-                                you to view a completed example energy assessment visit to
-                                a fictional chocolate company's
-                                facilities.
-                            </p>
+                        <div class="col-12">
+                            <hr>
                         </div>
                         <div>
-                            <fa-icon [icon]="faFileCirclePlus"></fa-icon>
-                            <a class="click-link" (click)="openAddCanopyModal();">
-                                Canopy Training Example
-                            </a>
-                            <p class="card-text fw-light">
-                                Click the above link to add a training example of replacing an air compressor and fixing
-                                air leaks at a fictional company.
-                            </p>
+                            <div class="mb-2 resource-header">
+                                <fa-icon [icon]="faFileCirclePlus"></fa-icon>
+                                Example Case Studies
+                            </div>
+                            <div>
+                                <a class="click-link" (click)="openAddExampleModal();">
+                                    Cocoa Co. Example Data
+                                </a>
+                                <p class="card-text fw-light">
+                                    Click the above link to add an example company to your portfolio. This will
+                                    allow
+                                    you to view a completed example energy assessment visit to
+                                    a fictional chocolate company's
+                                    facilities.
+                                </p>
+                                
+                            </div>
+                            <div>
+                                <a class="click-link" (click)="openAddCanopyModal();">
+                                    Canopy Training Example
+                                </a>
+                                <p class="card-text fw-light">
+                                    Click the above link to add a training example of replacing an air compressor and fixing
+                                    air leaks at a fictional company.
+                                </p>
+                            </div>
                         </div>
+                        
                         <div class="col-12">
                             <hr>
                         </div>
                         <div>
                             <a [href]="'https://www.nrel.gov/manufacturing/non-energy-benefits'" target="_blank">
                                 <fa-icon [icon]="faExternalLink"></fa-icon>
-                                NEBs Knowledge Library
+                                Multiple Benefits Knowledge Library
                             </a>
                             <p class="card-text fw-light">
-                                The Non-energy Benefits Knowledge Library provides resources for
-                                industrial auditors,
-                                energy efficiency learners,
-                                and those seeking to maximize the benefits of energy efficiency projects.
-                                The NEBs Finding Process,
-                                supported by the JUSTIFI software and NEBs protocol,
-                                integrates non-energy benefits into assessments
-                                using the structured DMAIC methodology,
-                                identifying plant-specific NEBs
-                                and generating reports on cost savings and added value.
+                                The Multiple Benefits Knowledge Library provides resources for industrial practitioners 
+                                and decision makers seeking to capture the full value of energy productivity projects. 
+                                The library helps users identify and monetize operational improvements using structured 
+                                assessment protocols supported by the JUSTIFI software and continuous improvement 
+                                methodology (e.g. DMAIC).
                             </p>
                         </div>
                         <div class="col-12">
@@ -196,10 +202,12 @@
                         <div>
                             <fa-icon [icon]="faDatabase"></fa-icon>
                             <a [routerLink]="'/nebs-database'">
-                                NEBs Database
+                                Multiple Benefits Database
                             </a>
                             <p class="card-text fw-light">
-                                Explore a list of potential Non-energy Benefits existing in the tool.
+                                Explore a list of commonly found operational and strategic benefits
+                                organized by key performance indicators and metrics
+                                available in the built-in database.
                             </p>
                         </div>
                         <div class="col-12">
@@ -263,7 +271,8 @@
             rate, and the need to reduce costs.
         </p>
         <p>
-            In this example you can see how NEBs can be associated with energy projects and quantified to illustrate
+            In this example you can see how operational improvements can be 
+            associated with energy projects and quantified to illustrate
             increased cost reductions.
         </p>
         <hr>

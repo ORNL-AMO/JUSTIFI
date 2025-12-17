@@ -156,7 +156,7 @@ export class OnSiteAssessmentComponent {
       this.nextLabel = 'Energy Efficiency Measures';
     } else if (this.router.url.includes('energy-opportunities')) {
       //incoming changes will have + Incentives
-      this.nextLabel = 'NEBs + Incentives';
+      this.nextLabel = 'Benefits + Incentives';
     } else if (this.router.url.includes('nebs')) {
       if (this.assessmentIndex != this.onSiteVisit.assessmentIds.length - 1) {
         this.nextLabel = 'Next Assessment';

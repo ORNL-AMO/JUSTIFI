@@ -17,7 +17,7 @@
         <div class="row">
             <label class="col-sm-5 col-form-label" for="{{'nebName'+nonEnergyBenefit.guid}}">
                 <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
-                    NEB Name
+                    Benefit Name
                 </ng-container>
                 <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
                     Incentive Name
@@ -94,7 +94,7 @@
                     name="{{'includeNEBNote'+nonEnergyBenefit.guid}}" (input)="saveChanges()">
                 <label class="form-check-label" for="{{'includeNEBNote'+nonEnergyBenefit.guid}}">
                     <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
-                        Non-Energy Benefit
+                        Benefit
                     </ng-container>
                     <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
                         Incentive
@@ -128,10 +128,10 @@
         <p class="fw-light small">
             Fill out the impacts on company key performance metrics (<fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>)
             that
-            can be associated with this Non-energy Benefit. Click the "Search Key Performance Metrics" button and a
+            can be associated with this Benefit. Click the "Search Key Performance Metrics" button and a
             modal
             will
-            appear to find and add key performance metrics that are typically associated with this NEB.
+            appear to find and add key performance metrics that are typically associated with this Benefit.
         </p>
         <div class="row">
             <div class="col">
@@ -158,7 +158,7 @@
         </ng-template>
         <ng-template #noIncludedMetricsBlock>
             <div class="alert alert-info">
-                No performance metrics tracked for this NEB.
+                No performance metrics tracked for this Benefit.
             </div>
         </ng-template>
     </ng-template>
@@ -170,7 +170,7 @@
 <div class="popup" [ngClass]="{'open': displayDeleteModal }">
     <div class="popup-header">Discard this
         <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
-            NEB
+            Benefit
         </ng-container>
         <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
             Incentive
@@ -181,7 +181,7 @@
         <div class="alert alert-info">
             Are you sure you want to discard this
             <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
-                NEB
+                Benefit
             </ng-container>
             <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
                 Incentive
@@ -194,7 +194,7 @@
         <button class="btn btn-danger btn-sm" (click)="deleteNonEnergyBenefit()"><fa-icon [icon]="faTrash"
                 class="me-1"></fa-icon>Discard
             <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
-                NEB
+                Benefit
             </ng-container>
             <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
                 Incentive

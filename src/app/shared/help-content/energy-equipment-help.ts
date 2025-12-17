@@ -9,14 +9,14 @@ export const EnergyEquipmentTakeStockHelp = {
     equipmentFinancialStatusQs: `Assessors can ask: <br>
                     Has the system been fully expensed? <br>
                     Is the system at end of life or are their existing plans for an upgrade? <br>`,
-    financialMetricsUsed: `Understanding financial metrics for system can help quantify non-energy benefits related to the system (usually as cost per output: /tonsteam, /scm air, $/gpm).`,
+    financialMetricsUsed: `Understanding financial metrics for system can help quantify operational benefits related to the system (usually as cost per output: /tonsteam, /scm air, $/gpm).`,
     financialMetricsUsedQs: `Assessors can ask: <br>
                     Does the facility use financial metrics to gauge this system's operation? <br>`
 }
 
 export const EnergyEquipmentOperationsHelp = {
     sectionHelp: `The questions outlined in this section are to help you think about how this system, the assessment, and possible energy efficiency measures (EEMS) connect with the sites Key Performance Indicators and Metrics (KPIs and KPMs) related to operations (production, quality, operating costs). <u>Not all of these sections are relevant to every system and every site.</u> Only topics related to projects needing further justification and have benefits relating to site interests should be pursued further.`,
-    describeOutputOfSystem: `Understand how operators monitor and assess the output of this system (higher pressure fluid, steam, compressed air) and match to downstream needs is necessary for the energy and NEB assessment. Output of these systems is often measured in batch time, or for continuous processes units per hour, gpm, cfm, etc.`,
+    describeOutputOfSystem: `Understand how operators monitor and assess the output of this system (higher pressure fluid, steam, compressed air) and match to downstream needs is necessary for the energy and operational cost savings assessment. Output of these systems is often measured in batch time, or for continuous processes units per hour, gpm, cfm, etc.`,
     describeOutputOfSystemQs: `Assessors can ask:<br>
                     How is the output measured? <br>
                     Does the system output match the needs of the next stage or facility?<br>
@@ -37,7 +37,7 @@ export const EnergyEquipmentOperationsHelp = {
     describeLaborRequirementsQs: `Assessors can ask:<br>
                     How are labor costs determined?<br>
                     What is the cost of labor?`,
-    describeSystemMaterials: `Understanding what additional materials go into this system (water, filtration, treatment chemicals or materials), what impacts their use, their costs, and if there are any supply issues, can help quantify NEBs for the system.`,
+    describeSystemMaterials: `Understanding what additional materials go into this system (water, filtration, treatment chemicals or materials), what impacts their use, their costs, and if there are any supply issues, can help quantify operational benefits for the system.`,
     describeSystemMaterialsQs: `Assessors can ask:<br>
                     What raw materials, intermediate goods, treatment chemicals, or other materials are needed for this system?<br>
                     How much do they cost? <br>

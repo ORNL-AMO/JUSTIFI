@@ -56,7 +56,7 @@
         </ng-container>
         <tr *ngIf="assessmentReport.assessmentNebReports.length > 0">
             <td colspan="3" class="ps-3">
-                Additional Operational Benefits
+                Additional Operational Improvements
             </td>
         </tr>
         <ng-container *ngFor="let nebReport of assessmentReport.assessmentNebReports">
@@ -138,7 +138,7 @@
         </ng-container>
         <tr class="section-border">
             <td class="w-50 bold">
-                {{ assessmentReport.assessment.utilityCategory === 'energy' ? 'Total Energy Savings' : 'Total Utility Savings' }}
+                {{ assessmentReport.assessment.utilityCategory === 'energy' ? 'Total Energy Cost Savings' : 'Total Utility Cost Savings' }}
             </td>
             <td class="text-right bold w-25">
                 <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
@@ -156,7 +156,7 @@
         </tr>
         <tr>
             <td class="w-50 bold">
-                Total Financial Impact W/ NEBs
+                Total Financial Impact
             </td>
             <td class="text-right bold w-25">
                 <app-single-cell-item [numValue]="assessmentReport.totalFinancialImpact"

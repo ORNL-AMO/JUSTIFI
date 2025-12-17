@@ -78,12 +78,12 @@ export class OnSiteVisitSavingsChartComponent {
       };
 
       var trace2 = {
-        y: ['Non-energy Benefits'],
+        y: ['Operational Cost Savings'],
         x: [this.onSiteVisitReport.totalNebFinancialImpact],
         // width: [.5],
         text: [this.onSiteVisitReport.totalNebFinancialImpact],
         texttemplate: this.currencyUnicode + "%{text:,.0f}",
-        name: 'Non-energy Benefits',
+        name: 'Operational Cost Savings',
         type: 'bar',
         marker: {
           color: '#085646'

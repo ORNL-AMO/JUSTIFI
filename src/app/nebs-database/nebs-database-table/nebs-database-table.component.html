@@ -1,5 +1,5 @@
 <div class="row pb-2">
-    <label class="col-12 col-md-5" for="kpiValue">Search NEBs</label>
+    <label class="col-12 col-md-5" for="kpiValue">Search Benefits</label>
     <div class="col-12 col-md-7">
         <div class="input-group" role="search">
             <span class="input-group-text">
@@ -89,7 +89,7 @@ nebSearchStr;
             <th (click)="toggleOrderBy()">
                 <fa-icon [icon]="faChevronDown" *ngIf="orderByDir == 'asc'"></fa-icon>
                 <fa-icon [icon]="faChevronUp" *ngIf="orderByDir == 'desc'"></fa-icon>
-                Non-Energy Benefits ({{tableList.length}})
+                Multiple Benefits ({{tableList.length}})
             </th>
         </tr>
     </thead>
@@ -115,7 +115,7 @@ nebSearchStr;
                     <ng-container *ngIf="neb.selected" class="no-hover">
                         <div class="metric-column">
                             <ng-template [ngIf]="inAddModal" [ngIfElse]="nonModalBlock">
-                                Select KPMs impacted by this NEB.
+                                Select KPMs impacted by this Benefit.
                                 <div class="d-flex ps-2 flex-column">
                                     <ng-container *ngFor="let composite of neb.KPM | kpmComposite">
                                         @let compositeKey = composite.kpmValue + composite.kpiValue;
@@ -141,7 +141,7 @@ nebSearchStr;
                             </ng-template>
                             <ng-template #nonModalBlock>
                                 <div class="fw-light">
-                                    KPMs impacted by this NEB
+                                    KPMs impacted by this Benefit:
                                     <ng-container>
                                         <ul class="mb-0">
                                             <li *ngFor="let composite of neb.KPM | kpmComposite">
@@ -162,6 +162,6 @@ nebSearchStr;
 
 <ng-template [ngIf]="tableList.length == 0">
     <div class="alert alert-info p-2">
-        No NEBs found matching search criteria. You may need to create a custom NEB.
+        No Benefits found matching search criteria. You may need to create a custom Benefits.
     </div>
 </ng-template>

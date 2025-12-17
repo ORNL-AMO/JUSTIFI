@@ -135,7 +135,7 @@ export class ExecutiveSummaryProjectSummaryComponent {
       paybackWithoutNebs = 0;
     }
     this.additionalReports = {
-      name: 'Additional Projects/NEBs',
+      name: 'Additional Projects/Impacts',
       implementationCost: totalImplementationCost,
       totalEnergyCostSavings: totalEnergyCostSavings,
       totalWaterCostSavings: totalWaterCostSavings,

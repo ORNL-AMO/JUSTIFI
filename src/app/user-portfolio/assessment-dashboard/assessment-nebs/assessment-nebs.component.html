@@ -36,11 +36,13 @@
     </div>
     <div class="card portfolio w-100">
         <div class="card-body">
-            <a class="click-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/nebs'"
-                [routerLinkActive]="'d-none'" [routerLinkActiveOptions]="{exact: true}">
-                <fa-icon [icon]="faChevronLeft"></fa-icon>
-                All NEBs
-            </a>
+            <div class="mb-2">
+                <a class="click-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/nebs'"
+                    [routerLinkActive]="'d-none'" [routerLinkActiveOptions]="{exact: true}">
+                    <fa-icon [icon]="faChevronLeft"></fa-icon>
+                    All Benefits
+                </a>
+            </div>
             <router-outlet></router-outlet>
         </div>
     </div>

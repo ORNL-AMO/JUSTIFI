@@ -7,10 +7,10 @@
                 <tr>
                     <th class="w-33 bg-neutral"></th>
                     <th class="bg-without-nebs text-center">
-                        Without NEBs
+                        Without Operational Impacts
                     </th>
                     <th class="bg-with-nebs text-center">
-                        With NEBs
+                        With Operational Impacts
                     </th>
                 </tr>
             </thead>
@@ -128,10 +128,10 @@
                     <tr>
                         <th class="w-25 bg-neutral"></th>
                         <th class="bg-without-nebs text-center">
-                            Without NEBs
+                            Energy Cost Savings
                         </th>
                         <th colspan="2" class="bg-with-nebs text-center">
-                            With NEBs
+                            With Operational Impacts
                         </th>
                     </tr>
                     <tr>
@@ -215,10 +215,10 @@
                 <tr>
                     <th class="w-25 bg-neutral"></th>
                     <th class="bg-without-nebs text-center">
-                        Without NEBs
+                        Without Operational Impacts
                     </th>
                     <th colspan="2" class="bg-with-nebs text-center">
-                        With NEBs
+                        With Operational Impacts
                     </th>
                 </tr>
                 <tr>
@@ -229,10 +229,10 @@
                         Energy <br>Cost Savings<br> ({{ currencyCode | currencySymbol }}/yr)
                     </th>
                     <th class="w-25 bg-with-nebs">
-                        NEBs Financial<br> Impact ({{ currencyCode | currencySymbol }}/yr)
+                        Operational Cost<br> Savings ({{ currencyCode | currencySymbol }}/yr)
                     </th>
                     <th class="w-25 bg-with-nebs">
-                        Total Financial<br> Impact ({{ currencyCode | currencySymbol }}/yr)
+                        Total Cost<br> Savings ({{ currencyCode | currencySymbol }}/yr)
                     </th>
                 </tr>
             </thead>
@@ -256,7 +256,7 @@
                 </tr>
                 <tr *ngIf="assessmentReport.totalAssessmentNebFinancialImpact">
                     <td class="bg-neutral-light">
-                        Additional NEBs
+                        Additional Operational Impacts
                     </td>
                     <td class="bg-without-nebs-light">
                         <app-single-cell-item [isCurrency]="true" [numValue]="0"></app-single-cell-item>
@@ -309,10 +309,10 @@
 
                     </th>
                     <th class="text-center bg-without-nebs" [attr.colspan]="nebColumns">
-                        Without NEBs
+                        Energy Cost Savings
                     </th>
                     <th class="text-center bg-with-nebs" [attr.colspan]="nebColumns">
-                        With NEBs
+                        With Operational Impacts
                     </th>
                 </tr>
                 <tr>
