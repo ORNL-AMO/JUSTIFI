@@ -1,6 +1,6 @@
 <div [ngClass]="{'window-overlay': displayModal}"></div>
 <div class="popup lg-popup" [ngClass]="{'open': displayModal }">
-    <div class="popup-header"><fa-icon [icon]="faWeightHanging"></fa-icon> Potential NEBs for
+    <div class="popup-header"><fa-icon [icon]="faWeightHanging"></fa-icon> Potential MBs for
         <ng-template [ngIf]="energyOpportunity" [ngIfElse]="assessmentBlock">
             {{energyOpportunity.name}}
         </ng-template>
@@ -23,7 +23,7 @@
                 <button class="btn btn-success btn-sm" (click)="addNebs()"
                     [disabled]="selectedNebs.length == 0"><fa-icon [icon]="faPlus"></fa-icon> Add
                     {{selectedNebs.length}}
-                    NEBs</button>
+                    MBs</button>
             </div>
         </div>
     </div>
