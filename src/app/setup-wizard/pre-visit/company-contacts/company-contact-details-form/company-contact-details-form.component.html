@@ -1,6 +1,6 @@
 <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
+        <div class="col-11 col-md-10 pt-4 pb-4">
             <div class="form-paper shadow">
                 <h5>
                     <fa-icon [icon]="faUser"></fa-icon>
@@ -16,20 +16,30 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <ng-template [ngIf]="contactIndex != 0" [ngIfElse]="listLabelBlock">
-                Next Stakeholder
-            </ng-template>
-            <ng-template #listLabelBlock>
-                Stakeholder List
-            </ng-template>
+            <span class="d-none d-md-inline">
+                <ng-template [ngIf]="contactIndex != 0" [ngIfElse]="listLabelBlock">
+                    Previous Stakeholder
+                </ng-template>
+                <ng-template #listLabelBlock>
+                    Stakeholder List
+                </ng-template>
+            </span>
+        </button>
+        <button class="btn nav-btn btn-sm" (click)="addContact()">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            <span class="d-none d-md-inline">
+                Add Stakeholder
+            </span>
         </button>
         <button class="btn nav-btn btn-sm" (click)="next()">
-            <ng-template [ngIf]="contactIndex < (companyContacts.length-1)" [ngIfElse]="facilityDetailsBlock">
-                Next Stakeholder
-            </ng-template>
-            <ng-template #facilityDetailsBlock>
-                Facility Details
-            </ng-template>
+            <span class="d-none d-md-inline">
+                <ng-template [ngIf]="contactIndex < (companyContacts.length-1)" [ngIfElse]="facilityDetailsBlock">
+                    Next Stakeholder
+                </ng-template>
+                <ng-template #facilityDetailsBlock>
+                    Facility Details
+                </ng-template>
+            </span>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

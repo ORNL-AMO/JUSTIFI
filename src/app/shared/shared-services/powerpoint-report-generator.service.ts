@@ -213,9 +213,9 @@ export class PowerpointReportGeneratorService {
   getProjectSummaryWithRebates(slide: pptxgen.Slide) {
     let rows = [];
     rows.push([
-      { options: { colspan: 3 } },
-      { text: "Without NEBs", options: { colspan: 2, bold: true, align: 'center' } },
-      { text: "With NEBs", options: { colspan: 3, bold: true, align: 'center' } }
+      { options: { colspan: 2 } },
+      { text: "Utility Cost Savings", options: { colspan: 3, bold: true, align: 'center' } },
+      { text: "With Operational Impacts", options: { colspan: 3, bold: true, align: 'center' } }
     ]);
 
     rows.push([
@@ -280,8 +280,8 @@ export class PowerpointReportGeneratorService {
     let rows = [];
     rows.push([
       { options: { colspan: 3 } },
-      { text: "Without NEBs", options: { colspan: 2, bold: true, align: 'center' } },
-      { text: "With NEBs", options: { colspan: 2, bold: true, align: 'center' } }
+      { text: "Utility Cost Savings", options: { colspan: 2, bold: true, align: 'center' } },
+      { text: "With Operational Impacts", options: { colspan: 2, bold: true, align: 'center' } }
     ]);
 
     rows.push([
@@ -415,8 +415,8 @@ export class PowerpointReportGeneratorService {
     let rows = [];
     rows.push([
       { options: { colspan: 1 } },
-      { text: "Without NEBs", options: { colspan: 1, bold: true, align: 'center' } },
-      { text: "With NEBs", options: { colspan: 1, bold: true, align: 'center' } }
+      { text: "Without Operational Impacts", options: { colspan: 1, bold: true, align: 'center' } },
+      { text: "With Operational Impacts", options: { colspan: 1, bold: true, align: 'center' } }
     ]);
 
     if (this.assessmentReport.totalRebates) {
@@ -453,7 +453,7 @@ export class PowerpointReportGeneratorService {
     ]);
 
     rows.push([
-      { text: "NEBs Financial Impact (" + this.currencyUnicode + "/yr)", options: { colspan: 1, align: 'left' } },
+      { text: "Operational Cost Savings (" + this.currencyUnicode + "/yr)", options: { colspan: 1, align: 'left' } },
       { text: this.formatCurrency(0), options: { colspan: 1, align: 'right' } },
       { text: this.formatCurrency(this.assessmentReport.totalNebFinancialImpact), options: { colspan: 1, align: 'right' } }
     ]);
@@ -478,9 +478,9 @@ export class PowerpointReportGeneratorService {
   getEEMSavingsPaybackTable(slide: pptxgen.Slide) {
     let rows = [];
     rows.push([
-      { options: { colspan: 2 } },
-      { text: "Without NEBs", options: { colspan: 1, bold: true, align: 'center' } },
-      { text: "With NEBs", options: { colspan: 1, bold: true, align: 'center' } }
+      { options: { colspan: 1 } },
+      { text: "Energy Cost Savings", options: { colspan: 1, bold: true, align: 'center' } },
+      { text: "With Operational Impacts", options: { colspan: 2, bold: true, align: 'center' } }
     ]);
 
     rows.push([
@@ -528,14 +528,14 @@ export class PowerpointReportGeneratorService {
   }
 
   addNebContributionStaticSlide(nebContributionStaticSlide: pptxgen.Slide) {
-    nebContributionStaticSlide.addText('NEBs Contribute to Strategic Business Goals', { placeholder: 'title' });
-    nebContributionStaticSlide.addImage({ path: "/assets/images/neb-business-goals.png", x: 1, y: 1.2, w: 8, h: 4 });
+    nebContributionStaticSlide.addText('Operational Improvements Contribute to Strategic Business Goals', { placeholder: 'title' });
+    nebContributionStaticSlide.addImage({ path: "/assets/images/multiple-benefits-business-goals.png", x: 1, y: 1.2, w: 8, h: 4 });
   }
 
   addNebStaticSlide(nebstaticSlide: pptxgen.Slide) {
-    nebstaticSlide.addText('What are NEBs?', { placeholder: 'title' });
+    nebstaticSlide.addText('What are Multiple Benefits?', { placeholder: 'title' });
     nebstaticSlide.addText(
-      "Non-energy benefits (NEBs) are the positive outcomes that result from energy efficiency efforts, beyond the direct savings in energy and demand.\nNEBs can be beneficial participants in energy efficiency program, the utility system, and society.\nAlso known commonly known as co-benefits, soft benefits, auxiliary benefits, ot non-energy impacts.",
+      "Multiple Benefits are the positive outcomes that result from energy efficiency efforts, beyond the direct savings in energy and demand.\nThey can be beneficial participants in energy efficiency program, the utility system, and society.\nAlso commonly known as non-energy benefits (NEBs), operational benefits, co-benefits, soft benefits, auxiliary benefits, or non-energy impacts.",
       { placeholder: 'body' }
     );
     nebstaticSlide.addImage({ path: "/assets/images/neb-static-slide.png", x: 0.5, y: 3.2, w: 8, h: 2 });
@@ -643,13 +643,13 @@ export class PowerpointReportGeneratorService {
     ]);
 
     rows.push([
-      { text: "Total Financial Impact W/ NEBs", options: { colspan: 2, bold: true } },
+      { text: "Total Financial Impact", options: { colspan: 2, bold: true } },
       { text: this.formatCurrency(this.assessmentReport.totalFinancialImpact), options: { colspan: 1, align: 'right', bold: true } },
     ]);
 
-    slide.addText("NEB Financial Impact Details", { placeholder: 'title' });
+    slide.addText("Annual Financial Impact Details", { placeholder: 'title' });
     slide.addTable(rows, { x: 0.5, y: 1.3, margin: 0.05, border: { color: "CFCFCF" }, autoPage: true, autoPageSlideStartY: 1.3, autoPageRepeatHeader: true, fontSize: 10, fontFace: 'Arial' });
-    slide.newAutoPagedSlides.forEach((slide) => slide.addText("NEB Financial Impact Details (cont.)", { placeholder: "title" }));
+    slide.newAutoPagedSlides.forEach((slide) => slide.addText("Annual Financial Impact Details (cont.)", { placeholder: "title" }));
   }
 
   getAssessmentCostTable(slide: pptxgen.Slide) {
@@ -705,7 +705,7 @@ export class PowerpointReportGeneratorService {
       }
       labels.push(nebName);
     });
-    labels.push('Total NEBs');
+    labels.push('Total Operational Cost Savings');
     values.push(this.assessmentReport.totalNebFinancialImpact);
 
     let arrDataValues = [
@@ -714,8 +714,8 @@ export class PowerpointReportGeneratorService {
         values: values
       }
     ];
-    let title: string = this.assessmentReport.assessment.name + '\nNon-energy Benefits';
-    slide.addText("NEBs Financial Impacts", { placeholder: 'title' });
+    let title: string = this.assessmentReport.assessment.name + '\nOperational Cost Savings';
+    slide.addText("Operational Financial Impacts", { placeholder: 'title' });
     slide.addChart(pptx.charts.BAR, arrDataValues, this.getNebContributionsBarChartProperties(title));
   }
 
@@ -753,9 +753,9 @@ export class PowerpointReportGeneratorService {
   getProjectPaybackTableWithRebates(slide: pptxgen.Slide) {
     let rows = [];
     rows.push([
-      { options: { colspan: 3 } },
-      { text: "Without NEBs", options: { colspan: 2, bold: true, align: 'center' } },
-      { text: "With NEBs", options: { colspan: 3, bold: true, align: 'center' } }
+      { options: { colspan: 2 } },
+      { text: "Energy Cost Savings", options: { colspan: 3, bold: true, align: 'center' } },
+      { text: "With Operational Impacts", options: { colspan: 3, bold: true, align: 'center' } }
     ]);
 
     rows.push([
@@ -787,7 +787,7 @@ export class PowerpointReportGeneratorService {
       rebate = 0
     if (this.assessmentReport.totalAssessmentNebFinancialImpact || this.assessmentReport.totalNonOpportunityRebates) {
       rows.push([
-        { text: "Additional NEBs/Incentives", options: { colspan: 2 } },
+        { text: "Additional Benefits/Incentives", options: { colspan: 2 } },
         { text: this.formatCurrency(0), options: { colspan: 1, align: 'right' } },
         { text: this.formatCurrency(0), options: { colspan: 1, align: 'right' } },
         { text: this.formatNumber(0), options: { colspan: 1, align: 'right' } },
@@ -817,8 +817,8 @@ export class PowerpointReportGeneratorService {
     let rows = [];
     rows.push([
       { options: { colspan: 3 } },
-      { text: "Without NEBs", options: { colspan: 2, bold: true, align: 'center' } },
-      { text: "With NEBs", options: { colspan: 2, bold: true, align: 'center' } }
+      { text: "Energy Cost Savings", options: { colspan: 2, bold: true, align: 'center' } },
+      { text: "With Operational Impacts", options: { colspan: 2, bold: true, align: 'center' } }
     ]);
 
     rows.push([
@@ -843,7 +843,7 @@ export class PowerpointReportGeneratorService {
 
     if (this.assessmentReport.totalAssessmentNebFinancialImpact || this.assessmentReport.totalNonOpportunityRebates) {
       rows.push([
-        { text: "Additional NEBs/Incentives", options: { colspan: 2 } },
+        { text: "Additional Benefits/Incentives", options: { colspan: 2 } },
         { text: this.formatCurrency(0), options: { colspan: 1, align: 'right' } },
         { text: this.formatCurrency(0), options: { colspan: 1, align: 'right' } },
         { text: this.formatNumber(0), options: { colspan: 1, align: 'right' } },
@@ -871,14 +871,14 @@ export class PowerpointReportGeneratorService {
     let rows = [];
     rows.push([
       { options: { colspan: 2 } },
-      { text: "Without NEBs", options: { colspan: 2, bold: true, align: 'center' } },
-      { text: "With NEBs", options: { colspan: 4, bold: true, align: 'center' } }
+      { text: "Without Operational Impacts", options: { colspan: 2, bold: true, align: 'center' } },
+      { text: "With Operational Impacts", options: { colspan: 4, bold: true, align: 'center' } }
     ]);
 
     rows.push([
       { options: { colspan: 2 } },
       { text: "Energy Cost Savings (" + this.currencyUnicode + "/yr)", options: { colspan: 2, bold: true, align: 'center' } },
-      { text: "NEBs Financial Impact (" + this.currencyUnicode + "/yr)", options: { colspan: 2, bold: true, align: 'center' } },
+      { text: "Operational Cost Savings (" + this.currencyUnicode + "/yr)", options: { colspan: 2, bold: true, align: 'center' } },
       { text: "Total Financial Impact (" + this.currencyUnicode + "/yr)", options: { colspan: 2, bold: true, align: 'center' } }
     ]);
 
@@ -893,7 +893,7 @@ export class PowerpointReportGeneratorService {
 
     if (this.assessmentReport.totalAssessmentNebFinancialImpact) {
       rows.push([
-        { text: "Additional NEBs", options: { colspan: 2 } },
+        { text: "Additional Operational Impacts", options: { colspan: 2 } },
         { text: this.formatCurrency(0), options: { colspan: 2, align: 'right' } },
         { text: this.formatCurrency(this.assessmentReport.totalAssessmentNebFinancialImpact), options: { colspan: 2, align: 'right' } },
         { text: this.formatCurrency(this.assessmentReport.totalAssessmentNebFinancialImpact), options: { colspan: 2, align: 'right' } }
@@ -1069,7 +1069,7 @@ export class PowerpointReportGeneratorService {
     let costSavingLabel: string = this.assessmentReport.utilityCategory === 'energy' ? 'Energy Cost Savings' : 'Utility Cost Savings';
     let arrDataValues = [
       {
-        labels: [costSavingLabel, "Non-Energy Benefits"],
+        labels: [costSavingLabel, "Operational Cost Savings"],
         values: [this.assessmentReport.totalNonNebCostSavings, this.assessmentReport.totalNebFinancialImpact]
       }
     ]
@@ -1077,7 +1077,7 @@ export class PowerpointReportGeneratorService {
     if (inRollup) {
       title = this.assessmentReport.assessment.name + ' Annual Savings ' + this.currencyUnicode + this.assessmentReport.totalFinancialImpact.toLocaleString() + ' (' + this.currencyUnicode + '/yr)';
     }
-    slide.addText("Annual Savings with NEBs", { placeholder: 'title' });
+    slide.addText("Annual Savings with Operational Impacts", { placeholder: 'title' });
     slide.addChart(pptx.charts.BAR, arrDataValues, this.getSavingsBarChartProperties(title));
   }
 
@@ -1194,9 +1194,9 @@ export class PowerpointReportGeneratorService {
   getSitePaybackWithRebates(slide: pptxgen.Slide) {
     let rows = [];
     rows.push([
-      { options: { colspan: 3 } },
-      { text: "Without NEBs", options: { colspan: 2, bold: true, align: 'center' } },
-      { text: "With NEBs", options: { colspan: 3, bold: true, align: 'center' } }
+      { options: { colspan: 2 } },
+      { text: "Energy Cost Savings", options: { colspan: 3, bold: true, align: 'center' } },
+      { text: "With Operational Cost Savings", options: { colspan: 3, bold: true, align: 'center' } }
     ]);
 
     rows.push([
@@ -1240,8 +1240,8 @@ export class PowerpointReportGeneratorService {
     let rows = [];
     rows.push([
       { options: { colspan: 3 } },
-      { text: "Without NEBs", options: { colspan: 2, bold: true, align: 'center' } },
-      { text: "With NEBs", options: { colspan: 2, bold: true, align: 'center' } }
+      { text: "Energy Cost Savings", options: { colspan: 2, bold: true, align: 'center' } },
+      { text: "With Operational Cost Savings", options: { colspan: 2, bold: true, align: 'center' } }
     ]);
 
     rows.push([
@@ -1282,12 +1282,12 @@ export class PowerpointReportGeneratorService {
     let costSavingLabel = this.onSiteVisitReport.utilityCategory === 'energy' ? 'Energy Cost Savings' : 'Utility Cost Savings';
     let arrDataValues = [
       {
-        labels: [costSavingLabel, 'Non-energy Benefits'],
+        labels: [costSavingLabel, 'Operational Cost Savings'],
         values: [this.onSiteVisitReport.totalNonNebCostSavings, this.onSiteVisitReport.totalNebFinancialImpact]
       }
     ]
     let title: string = 'Total Annual Financial Impact\n' + this.currencyUnicode + this.onSiteVisitReport.totalFinancialImpact.toLocaleString() + ' (' + this.currencyUnicode + '/yr)';
-    slide.addText("Annual Savings with NEBs", { placeholder: 'title' });
+    slide.addText("Annual Savings with Operational Impacts", { placeholder: 'title' });
     slide.addChart(pptx.charts.BAR, arrDataValues, this.getSavingsBarChartProperties(title));
 
     if (this.onSiteVisitReport.assessmentReports.length > 1) {

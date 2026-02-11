@@ -1,0 +1,15 @@
+.action-btn {
+    background-color: #873e23;
+    border-color: #873e23;
+    color: white;
+}
+
+.action-btn:disabled, .action-btn:disabled:hover {
+    background-color: #c3a296;
+    border-color: #c3a296;
+    color: white;
+}
+
+.card-style {
+    background-color: #eeeeee;
+}

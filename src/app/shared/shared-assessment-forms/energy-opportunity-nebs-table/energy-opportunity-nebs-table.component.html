@@ -1,71 +1,74 @@
-<table class="table table-bordered table-hover table-sm">
-    <thead>
-        <tr>
-            <th>
-                Non-Energy Benefit
-            </th>
-            <th>
-                Key Performance <br> Metric Impacts
-            </th>
-            <th *ngIf="inDashboard">
-                Stakeholders
-            </th>
-            <th>Energy Efficiency <br> Opportunity</th>
-            <th>
-                Total Savings<br>
-                <span class="fw-light">
-                    ({{ currencyCode | currencySymbol }}/yr)
-                </span>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let nonEnergyBenefit of nonEnergyBenefits">
-            <td>
-                <fa-icon [icon]="faWeightHanging"></fa-icon>
-                <a class="click-link" (click)="goToNeb(nonEnergyBenefit)">
-                    {{nonEnergyBenefit.name}}
-                </a>
-            </td>
-            <td>
-                @let kpmImpacts = nonEnergyBenefit.guid | associatedPerformanceMetricImpacts:
-                keyPerformanceMetricImpacts;
-                <ng-template [ngIf]="kpmImpacts.length > 0" [ngIfElse]="noNebsBlock">
-                    <span *ngFor="let kpmImpact of kpmImpacts">
-                        <span [innerHTML]="kpmImpact.kpmGuid | kpmLabel: keyPerformanceMetrics: 'guid'"></span>
-                        <br>
+<div class="w-100 overflow-scroll-x">
+    <table class="table table-bordered table-hover table-sm">
+        <thead>
+            <tr>
+                <th>
+                    Benefit
+                </th>
+                <th>
+                    Key Performance <br> Metric Impacts
+                </th>
+                <th *ngIf="inDashboard">
+                    Stakeholders
+                </th>
+                <th>Energy Efficiency <br> Measures</th>
+                <th>
+                    Total Savings<br>
+                    <span class="fw-light">
+                        ({{ currencyCode | currencySymbol }}/yr)
                     </span>
-                </ng-template>
-                <ng-template #noNebsBlock>
-                    &mdash;
-                </ng-template>
-            </td>
-            <td *ngIf="inDashboard">
-                @let associatedContacts = nonEnergyBenefit.guid | associatedContacts:'nonEnergyBenefit':
-                contacts;
-                <ng-template [ngIf]="associatedContacts.length > 0" [ngIfElse]="noContactsBlock">
-                    <span *ngFor="let contact of associatedContacts">
-                        {{contact | contactNameDisplay}} <br>
-                    </span>
-                </ng-template>
-                <ng-template #noContactsBlock>
-                    &mdash;
-                </ng-template>
-            </td>
-            <td>
-                <ng-template [ngIf]="nonEnergyBenefit.energyOpportunityId" [ngIfElse]="noOppBlock">
-                    <a class="click-link" (click)="goToEnergyOpportunity(nonEnergyBenefit)">
-                        {{nonEnergyBenefit.energyOpportunityId | energyOpportunityDisplay: energyOpportunities}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let nonEnergyBenefit of nonEnergyBenefits">
+                <td>
+                    <fa-icon [icon]="faWeightHanging"></fa-icon>
+                    <a class="click-link" (click)="goToNeb(nonEnergyBenefit)">
+                        {{nonEnergyBenefit.name}}
                     </a>
-                </ng-template>
-                <ng-template #noOppBlock>
-                    &mdash;
-                </ng-template>
-            </td>
-            <td>
-                <app-single-cell-item [numValue]="nonEnergyBenefit.guid | nebTotalSavings: keyPerformanceMetricImpacts"
-                    [isCurrency]="true"></app-single-cell-item>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                </td>
+                <td>
+                    @let kpmImpacts = nonEnergyBenefit.guid | associatedPerformanceMetricImpacts:
+                    keyPerformanceMetricImpacts;
+                    <ng-template [ngIf]="kpmImpacts.length > 0" [ngIfElse]="noNebsBlock">
+                        <span *ngFor="let kpmImpact of kpmImpacts">
+                            <span [innerHTML]="kpmImpact.kpmGuid | kpmLabel: keyPerformanceMetrics: 'guid'"></span>
+                            <br>
+                        </span>
+                    </ng-template>
+                    <ng-template #noNebsBlock>
+                        &mdash;
+                    </ng-template>
+                </td>
+                <td *ngIf="inDashboard">
+                    @let associatedContacts = nonEnergyBenefit.guid | associatedContacts:'nonEnergyBenefit':
+                    contacts;
+                    <ng-template [ngIf]="associatedContacts.length > 0" [ngIfElse]="noContactsBlock">
+                        <span *ngFor="let contact of associatedContacts">
+                            {{contact | contactNameDisplay}} <br>
+                        </span>
+                    </ng-template>
+                    <ng-template #noContactsBlock>
+                        &mdash;
+                    </ng-template>
+                </td>
+                <td>
+                    <ng-template [ngIf]="nonEnergyBenefit.energyOpportunityId" [ngIfElse]="noOppBlock">
+                        <a class="click-link" (click)="goToEnergyOpportunity(nonEnergyBenefit)">
+                            {{nonEnergyBenefit.energyOpportunityId | energyOpportunityDisplay: energyOpportunities}}
+                        </a>
+                    </ng-template>
+                    <ng-template #noOppBlock>
+                        &mdash;
+                    </ng-template>
+                </td>
+                <td>
+                    <app-single-cell-item
+                        [numValue]="nonEnergyBenefit.guid | nebTotalSavings: keyPerformanceMetricImpacts"
+                        [isCurrency]="true"></app-single-cell-item>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -55,6 +55,12 @@ ul {
     padding-right: 1rem;
 }
 
+@media (max-width: 576px) {
+    .metric-block {
+        padding-left: .25rem;
+        padding-right: .25rem;
+    }
+}
 
 .metric-border{
    border-left: dashed 5px var(--metric-color);

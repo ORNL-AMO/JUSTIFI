@@ -32,3 +32,23 @@
   .main-content{
     overflow-y: auto;
   }
+
+  .sidebar-btn-container{
+    position: fixed;
+    left: 2.5px;
+    font-size: x-large;
+    opacity: .7;
+  }
+
+  .help-panel-btn-container{
+    position: fixed;
+    right: 10px;
+    font-size: x-large;
+    opacity: .7;
+  }
+
+  .help-panel-btn-container:hover,
+  .sidebar-btn-container:hover{
+    opacity: 1;
+    cursor: pointer;
+  }

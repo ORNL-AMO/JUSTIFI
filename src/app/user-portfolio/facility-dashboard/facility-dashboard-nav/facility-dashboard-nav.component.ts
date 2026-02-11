@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faBullseye, faCalendar, faClipboardQuestion, faDiagramProject, faFile, faGears, faList, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faBullseye, faCalendar, faChartPie, faClipboardQuestion, faCube, faDiagramProject, faFile, faGears, faIndustry, faList, faSplotch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { IdbFacility } from 'src/app/models/facility';
@@ -18,7 +18,11 @@ export class FacilityDashboardNavComponent {
   faBullseye: IconDefinition = faBullseye;
   faClipboardQuestion: IconDefinition = faClipboardQuestion;
   faCalendar: IconDefinition = faCalendar;
-  
+  faIndustry: IconDefinition = faIndustry;
+  faChartPie: IconDefinition = faChartPie;
+  faSplotch: IconDefinition = faSplotch;
+  faCube: IconDefinition = faCube;
+
   facility: IdbFacility;
   facilitySub: Subscription;
   constructor(private facilityIdbService: FacilityIdbService) {  }

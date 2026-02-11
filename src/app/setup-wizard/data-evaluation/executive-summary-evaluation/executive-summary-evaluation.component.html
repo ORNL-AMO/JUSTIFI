@@ -1,6 +1,6 @@
 <div [ngClass]="{'setup-wizard-content': !print}">
     <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
-        <div [ngClass]="{'col-10 pt-4 pb-4': !print}">
+        <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
             <div [ngClass]="{'form-paper shadow': !print}">
                 <h5>
                     <fa-icon [icon]="faSackDollar"></fa-icon>
@@ -15,22 +15,29 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            Review and Follow-up
+            <span class="d-none d-md-inline">
+                Review and Follow-up
+            </span>
         </button>
-         <div>
+        <div>
             <button class="btn btn-success btn-sm me-1" (click)="togglePrint()">
                 <fa-icon [icon]="faFilePdf"></fa-icon>
-                Generate PDF
+                <span class="d-none d-md-inline">
+                    Generate PDF
+                </span>
             </button>
             <button class="btn btn-success btn-sm ms-1" (click)="generatePowerPoint()">
                 <fa-icon [icon]="faFilePowerpoint"></fa-icon>
-                Generate PowerPoint
+                <span class="d-none d-md-inline">
+                    Generate PowerPoint
+                </span>
             </button>
-
         </div>
 
         <button class="btn nav-btn btn-sm" (click)="goNext()">
-            Assessment Report
+            <span class="d-none d-md-inline">
+                Assessment Report
+            </span>
             <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
     </div>

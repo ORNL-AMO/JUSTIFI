@@ -103,11 +103,11 @@ export function getExecutiveSummaryReport(visitDate: Date, assessmentIds: Array<
     });
 
     let totalPaybackWithoutNebs: number = (totalImplementationCost / totalNonNebCostSavings);
-    if (totalPaybackWithoutNebs == Infinity || isNaN(totalPaybackWithoutNebs)) {
+    if (totalPaybackWithoutNebs == Infinity || isNaN(totalPaybackWithoutNebs) || totalPaybackWithoutNebs < 0) {
         totalPaybackWithoutNebs = 0;
     }
     let totalPaybackWithNebs: number = ((totalImplementationCost - totalRebates) / totalFinancialImpact);
-    if (totalPaybackWithNebs == Infinity || isNaN(totalPaybackWithNebs)) {
+    if (totalPaybackWithNebs == Infinity || isNaN(totalPaybackWithNebs) || totalPaybackWithNebs < 0) {
         totalPaybackWithNebs = 0;
     }
 

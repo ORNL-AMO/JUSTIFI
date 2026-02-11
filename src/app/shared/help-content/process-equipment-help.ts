@@ -11,7 +11,7 @@ export const ProcessEquipmentTakeStockHelp = {
     financialStatusOfEquipmentQs: `Assessors can ask:<br>
                     Has the system been fully expensed?<br>
                     Is the system at end of life or are their existing plans for an upgrade?`,
-    financialMetricsUsed: `Understanding financial metrics for system can help quantify non-energy benefits related to the system (usually as cost per output: /unit, /ton, $/batch).`,
+    financialMetricsUsed: `Understanding financial metrics for system can help quantify operational benefits related to the system (usually as cost per output: /unit, /ton, $/batch).`,
     financialMetricsUsedQs: `Assessors can ask:<br>
                     What financial metrics are used to gauge the system's performance?<br>
                     Does the facility use financial metrics to gauge this system's operation?`
@@ -47,7 +47,7 @@ export const ProcessEquipmentOperationsHelp = {
     describeLaborRequirementsQs: `Assessors can ask:<br>
                     How are labor costs determined?<br>
                     What is the cost of labor?`,
-    describeRequiredMaterials: `Understanding what additional materials go into this system (water, filtration, treatment chemicals or materials), what impacts their use, their costs, and if there are any supply issues, can help quantify NEBs for the system.`,
+    describeRequiredMaterials: `Understanding what additional materials go into this system (water, filtration, treatment chemicals or materials), what impacts their use, their costs, and if there are any supply issues, can help quantify operational benefits for the system.`,
     describeRequiredMaterialsQs: `Assessors can ask:<br>
                     What raw materials, intermediate goods, treatment chemicals, or other materials are needed for this process?<br>
                     How much do they cost? <br>

@@ -17,7 +17,7 @@
             <label class="col-sm-6 col-form-label" for="{{'kpiName_'+keyPerformanceIndicator.guid}}">
                 Performance Indicator Name
             </label>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <div class="input-group">
                     <div class="input-group-text">
                         <fa-icon [icon]="faBullseye"></fa-icon>
@@ -33,7 +33,7 @@
             <label class="col-sm-6 col-form-label" for="{{'kpiCategory_'+keyPerformanceIndicator.guid}}">
                 KPI Category
             </label>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <select class="form-select" name="kpiCategory" id="{{'kpiCategory_'+keyPerformanceIndicator.guid}}"
                     [(ngModel)]="keyPerformanceIndicator.primaryKPI" (change)="saveChanges()">
                     <option *ngFor="let primaryKPI of primaryKPIs" [ngValue]="primaryKPI">
@@ -47,7 +47,7 @@
             <label class="col-sm-6 col-form-label" for="{{'kpiDescription_'+keyPerformanceIndicator.guid}}">
                 KPI Description
             </label>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <textarea class="form-control" name="{{'kpiDescription_'+keyPerformanceIndicator.guid}}"
                     id="{{'kpiDescription_'+keyPerformanceIndicator.guid}}"
                     [(ngModel)]="keyPerformanceIndicator.description" (input)="saveChanges()"></textarea>
@@ -57,7 +57,7 @@
             <label class="col-sm-6 col-form-label" for="{{'kpiNotes_'+keyPerformanceIndicator.guid}}">
                 Notes
             </label>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <textarea class="form-control" name="{{'kpiNotes_'+keyPerformanceIndicator.guid}}"
                     id="{{'kpiNotes_'+keyPerformanceIndicator.guid}}" [(ngModel)]="keyPerformanceIndicator.notes"
                     (input)="saveChanges()"></textarea>
@@ -94,7 +94,7 @@
 
 
     <h6>
-        <div class="d-flex w-100 justify-content-between">
+        <div class="d-flex w-100 justify-content-between flex-column flex-md-row">
             <div class="mt-auto bold">
                 Associated Key Performance Metrics
             </div>
@@ -130,7 +130,7 @@
     </h6>
     <p class="fw-light small">
         The below associated key performance metrics (<fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>)
-        will be used later on during an assessment to tie Non-Energy Benefits found back to facility Key
+        will be used later on during an assessment to tie Multiple Benefits found back to facility Key
         Performance Indicators. This information can be added to and modified at a later time if not all
         of the details are currently known.
     </p>
@@ -163,7 +163,7 @@
                         <label class="col-sm-6 col-form-label" for="{{'kpmName_'+keyPerformanceMetric.guid}}">
                             Performance Metric Name
                         </label>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <div class="input-group">
                                 <div class="input-group-text">
                                     <fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>
@@ -270,7 +270,7 @@
                     Are you sure you want to untrack the performance metric:
                     <span class="bold" [innerHTML]="kpmToDelete.htmlLabel"></span>? <br>{{(keyPerformanceMetricImpacts |
                     keyPerformanceMetricImpactsList:
-                    kpmToDelete.guid).length}} NEB(s) in your system currently impact this metric. Those impacts will be
+                    kpmToDelete.guid).length}} Benefit(s) in your system currently impact this metric. Those impacts will be
                     lost. This cannot be undone.
                 </div>
             </ng-template>

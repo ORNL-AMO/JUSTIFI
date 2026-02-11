@@ -163,11 +163,11 @@ export function getAssessmentReport(
     }) + totalNonOpportunityRebates;
 
     let totalPaybackWithNebs: number = ((implementationCost - totalRebates) / totalFinancialImpact);
-    if (totalPaybackWithNebs == Infinity) {
+    if (totalPaybackWithNebs == Infinity || isNaN(totalPaybackWithNebs) || totalPaybackWithNebs < 0) {
         totalPaybackWithNebs = 0;
     }
     let totalPaybackWithoutNebs: number = (implementationCost / totalNonNebCostSavings);
-    if (totalPaybackWithoutNebs == Infinity) {
+    if (totalPaybackWithoutNebs == Infinity || isNaN(totalPaybackWithoutNebs) || totalPaybackWithoutNebs < 0) {
         totalPaybackWithoutNebs = 0;
     }
 
@@ -178,11 +178,11 @@ export function getAssessmentReport(
     }
 
     let nonOpportunityPaybackWithoutNebs: number = (assessment.implementationCost / assessment.costSavings);
-    if (nonOpportunityPaybackWithoutNebs == Infinity) {
+    if (nonOpportunityPaybackWithoutNebs == Infinity || isNaN(nonOpportunityPaybackWithoutNebs) || nonOpportunityPaybackWithoutNebs < 0) {
         nonOpportunityPaybackWithoutNebs = 0;
     }
     let nonOpportunityPaybackWithNebs: number = ((assessment.implementationCost - totalNonOpportunityRebates) / totalNonOpportunityCostSavings);
-    if (nonOpportunityPaybackWithNebs == Infinity) {
+    if (nonOpportunityPaybackWithNebs == Infinity || isNaN(nonOpportunityPaybackWithNebs) || nonOpportunityPaybackWithNebs < 0) {
         nonOpportunityPaybackWithNebs = 0;
     }
 

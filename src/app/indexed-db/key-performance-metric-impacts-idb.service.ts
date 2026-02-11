@@ -96,6 +96,13 @@ export class KeyPerformanceMetricImpactsIdbService {
       } else if(metricImpact.calculationMethod == 'directCost'){
         metricImpact.costAdjustment = metricImpact.modificationValue;
       }
+      if(keyPerformanceMetric.isQuantitative == false){
+        if(keyPerformanceMetric.goalToIncrease){
+          metricImpact.modifiedValue = keyPerformanceMetric.baselineValue + metricImpact.modificationValue;
+        }else{
+          metricImpact.modifiedValue = keyPerformanceMetric.baselineValue - metricImpact.modificationValue;
+        }
+      }
       await firstValueFrom(this.updateWithObservable(metricImpact));
     }
     await this.setKeyPerformanceMetricImpacts();

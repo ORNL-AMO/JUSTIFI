@@ -20,7 +20,7 @@ export class NebsDatabaseComponent {
   }
 
   exportNebs() {
-    this.loadingService.setLoadingMessage('Exporting NEBs Data');
+    this.loadingService.setLoadingMessage('Exporting Multiple Benefits Data');
     this.loadingService.setLoadingStatus(true);
     let workbook = new ExcelJS.Workbook();
     this.writeToWorkbook(workbook);
@@ -29,7 +29,7 @@ export class NebsDatabaseComponent {
       let a = document.createElement("a");
       let url = window.URL.createObjectURL(blob);
       a.href = url;
-      a.download = 'JUSTIFI_NEB_Database';
+      a.download = 'JUSTIFI_Multiple_Benefits_Database';
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);

@@ -1,16 +1,16 @@
 <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
+        <div class="col-11 col-md-10 pt-4 pb-4">
             <div class="form-paper shadow">
                 <h5>
                     <fa-icon [icon]="faList"></fa-icon> Manage Assessments
                 </h5>
                 <hr>
-                <div class="d-flex w-100 justify-content-between pb-2">
+                <div class="d-flex w-100 justify-content-between pb-2 flex-column flex-md-row">
                     <div class="p-0">
                         <div class="row mb-1">
-                            <label class="col-sm-5 col-form-label bold" for="visitDate">Visit Date</label>
-                            <div class="col-sm-7">
+                            <label class="col-12 col-md-5 col-form-label bold" for="visitDate">Visit Date</label>
+                            <div class="col-12 col-md-7">
                                 <input type="date" class="form-control" [(ngModel)]="onSiteVisit.visitDate"
                                     name="visitDate" (change)="setVisitDate()">
                             </div>
@@ -64,14 +64,19 @@
         <div class="col-3">
             <button #prevBtn class="btn nav-btn btn-sm" (click)="goBack()">
                 <fa-icon [icon]="faChevronLeft"></fa-icon>
-                Pre-visit Review
+                <span class="d-none d-md-inline">
+                    Pre-visit Review
+                </span>
             </button>
         </div>
 
         <div class="col-3">
             <div class="d-flex  justify-content-end">
-                <button #nxtBtn class="btn nav-btn btn-sm" (click)="goToNext()" [disabled]="onSiteVisit.assessmentIds.length == 0">
-                    Go to Assessment
+                <button #nxtBtn class="btn nav-btn btn-sm" (click)="goToNext()"
+                    [disabled]="onSiteVisit.assessmentIds.length == 0">
+                    <span class="d-none d-md-inline">
+                        Go to Assessment
+                    </span>
                     <fa-icon [icon]="faChevronRight"></fa-icon>
                 </button>
             </div>

@@ -1,6 +1,6 @@
 <div class="row pb-2">
-    <label class="col-sm-5" for="kpiValue">Search NEBs</label>
-    <div class="col-7">
+    <label class="col-12 col-md-5" for="kpiValue">Search Benefits</label>
+    <div class="col-12 col-md-7">
         <div class="input-group" role="search">
             <span class="input-group-text">
                 <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
@@ -25,8 +25,8 @@
 </div>
 
 <div class="row pb-2">
-    <label class="col-sm-5" for="kpiValue">Key Performance Indicator (KPI)</label>
-    <div class="col-7">
+    <label class="col-12 col-md-5" for="kpiValue">Key Performance Indicator (KPI)</label>
+    <div class="col-12 col-md-7">
         <select id="kpiValue" name="kpiValue" class="form-select" [(ngModel)]="kpiValue" (change)="setKpmOptions()">
             <option [ngValue]="undefined">All KPI</option>
             <option *ngFor="let kpi of keyPerformanceIndicatorOptions" [ngValue]="kpi.optionValue">
@@ -45,8 +45,8 @@
     </div>
 </div>
 <div class="row">
-    <label class="col-sm-5" for="kpmValue">Key Performance Metric (KPM)</label>
-    <div class="col-7">
+    <label class="col-12 col-md-5" for="kpmValue">Key Performance Metric (KPM)</label>
+    <div class="col-12 col-md-7">
         <select id="kpmValue" name="kpmValue" class="form-select" [(ngModel)]="kpmCompositeValue"
             (change)="setKpmValue()">
             <option [ngValue]="undefined">All KPM</option>
@@ -89,7 +89,7 @@ nebSearchStr;
             <th (click)="toggleOrderBy()">
                 <fa-icon [icon]="faChevronDown" *ngIf="orderByDir == 'asc'"></fa-icon>
                 <fa-icon [icon]="faChevronUp" *ngIf="orderByDir == 'desc'"></fa-icon>
-                Non-Energy Benefits ({{tableList.length}})
+                Multiple Benefits ({{tableList.length}})
             </th>
         </tr>
     </thead>
@@ -115,7 +115,7 @@ nebSearchStr;
                     <ng-container *ngIf="neb.selected" class="no-hover">
                         <div class="metric-column">
                             <ng-template [ngIf]="inAddModal" [ngIfElse]="nonModalBlock">
-                                Select KPMs impacted by this NEB.
+                                Select KPMs impacted by this Benefit.
                                 <div class="d-flex ps-2 flex-column">
                                     <ng-container *ngFor="let composite of neb.KPM | kpmComposite">
                                         @let compositeKey = composite.kpmValue + composite.kpiValue;
@@ -141,7 +141,7 @@ nebSearchStr;
                             </ng-template>
                             <ng-template #nonModalBlock>
                                 <div class="fw-light">
-                                    KPMs impacted by this NEB
+                                    KPMs impacted by this Benefit:
                                     <ng-container>
                                         <ul class="mb-0">
                                             <li *ngFor="let composite of neb.KPM | kpmComposite">
@@ -162,6 +162,6 @@ nebSearchStr;
 
 <ng-template [ngIf]="tableList.length == 0">
     <div class="alert alert-info p-2">
-        No NEBs found matching search criteria. You may need to create a custom NEB.
+        No Benefits found matching search criteria. You may need to create a custom Benefits.
     </div>
 </ng-template>

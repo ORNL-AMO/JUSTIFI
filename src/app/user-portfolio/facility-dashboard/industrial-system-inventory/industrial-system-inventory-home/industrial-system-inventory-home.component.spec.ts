@@ -8,6 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { FormsModule } from '@angular/forms';
 import { ProtocolQuestionsModalComponent } from '../../protocol-questions-modal/protocol-questions-modal.component';
+import { RouterModule } from '@angular/router';
 
 describe('IndustrialSystemInventoryHomeComponent', () => {
   let component: IndustrialSystemInventoryHomeComponent;
@@ -15,7 +16,7 @@ describe('IndustrialSystemInventoryHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedCompanyFormsModule, FontAwesomeModule, HelperPipesModule, TableEntriesModule, FormsModule],
+      imports: [SharedCompanyFormsModule, FontAwesomeModule, HelperPipesModule, TableEntriesModule, FormsModule, RouterModule],
       declarations: [IndustrialSystemInventoryHomeComponent, ProtocolQuestionsModalComponent],
       providers: stubServiceProviders
     })

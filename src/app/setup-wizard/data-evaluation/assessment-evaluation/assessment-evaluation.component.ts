@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IconDefinition, faChevronLeft, faChevronRight, faChartPie, faFilePdf, faFilePowerpoint } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronLeft, faChevronRight, faChartPie, faFilePdf, faFilePowerpoint, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
-import { PowerpointReportGeneratorService } from 'src/app/shared/shared-services/powerpoint-report-generator.service';
+import { DataEvaluationExcelWriterService } from 'src/app/shared/shared-services/data-evaluation-excel-writer.service';
 import { SharedDataService } from 'src/app/shared/shared-services/shared-data.service';
 
 @Component({
@@ -22,6 +22,7 @@ export class AssessmentEvaluationComponent {
   faChartPie: IconDefinition = faChartPie;
 
   faFilePowerpoint: IconDefinition = faFilePowerpoint;
+  faFileExcel: IconDefinition = faFileExcel;
 
   assessmentIndex: number;
   onSiteVisit: IdbOnSiteVisit;
@@ -36,8 +37,7 @@ export class AssessmentEvaluationComponent {
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private router: Router,
     private sharedDataService: SharedDataService,
-    private powerpointReportGeneratorService: PowerpointReportGeneratorService
-  ) {
+    private dataEvaluationExcelWriterService: DataEvaluationExcelWriterService) {
 
   }
 
@@ -53,14 +53,14 @@ export class AssessmentEvaluationComponent {
     this.activatedRoute.params.subscribe(params => {
       let assessmentGUID: string = params['id'];
       this.assessmentIndex = this.onSiteVisit.assessmentIds.findIndex(_assessmentGuid => { return _assessmentGuid == assessmentGUID });
-      if (this.assessmentIndex == this.onSiteVisit.assessmentIds.length - 1) 
+      if (this.assessmentIndex == this.onSiteVisit.assessmentIds.length - 1)
         this.isLastAssessment = true;
       else
         this.isLastAssessment = false;
-      if(this.assessmentIndex == 0)
+      if (this.assessmentIndex == 0)
         this.isFirstAssessment = true;
       else
-      this.isFirstAssessment = false;
+        this.isFirstAssessment = false;
       if (this.assessmentIndex != -1) {
         this.assessmentIdbService.setSelectedFromGUID(this.onSiteVisit.assessmentIds[this.assessmentIndex]);
       } else if (this.assessmentIndex == -1 && this.onSiteVisit.assessmentIds.length > 0) {
@@ -129,5 +129,11 @@ export class AssessmentEvaluationComponent {
   generatePowerPoint() {
     this.sharedDataService.createPowerPoint.next(true);
     this.sharedDataService.createPowerPoint.next(false);
+  }
+
+  exportToExcel() {
+    this.sharedDataService.exportReportToExcel.next('assessment_report');
+    this.dataEvaluationExcelWriterService.exportAssessmentDataToExcel(this.assessment);
+    this.sharedDataService.exportReportToExcel.next(undefined);
   }
 }

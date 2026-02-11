@@ -1,0 +1,15 @@
+<div class="toast-container position-fixed top-0 end-0 p-3 hide-print">
+    <div #updateCheckItem role="alert" aria-live="assertive" aria-atomic="true" class="toast bg-info"
+        [attr.data-bs-autohide]="false">
+        <div class="toast-header">
+            <strong class="me-auto">Update Available!</strong>
+            <button type="button" class="btn-close" (click)="closeToast()" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            A new version of the application is available. Click below or refresh the page to update.
+        </div>
+        <div class="toast-footer p-2 text-end">
+            <button class="btn btn-sm btn-success" (click)="reloadPage()">Update Application</button>
+        </div>
+    </div>
+</div>

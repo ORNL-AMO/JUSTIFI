@@ -22,3 +22,7 @@ hr{
 .italic{
     font-style: italic;
 }
+.dropdown-menu.scrollable {
+    max-height: 200px;
+    overflow-y: auto;
+}

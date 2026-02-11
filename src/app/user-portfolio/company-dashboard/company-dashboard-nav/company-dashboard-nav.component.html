@@ -1,34 +1,28 @@
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid" [routerLinkActive]="'active'"
-            [routerLinkActiveOptions]="{exact: true}">Company
-            Dashboard</a>
+            [routerLinkActiveOptions]="{exact: true}">
+            <fa-icon [icon]="faBuilding"></fa-icon>
+            <span class="d-none d-md-inline">
+                Company Dashboard
+            </span>
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/manage'" [routerLinkActive]="'active'">
             <fa-icon [icon]="faGears"></fa-icon>
-            Details
+            <span class="d-none d-md-inline">
+                Details
+            </span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/stakeholders'"
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faAddressBook"></fa-icon>
-            Stakeholders
-        </a>
-    </li>
-    <!-- <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/performance-indicators'"
-            [routerLinkActive]="'active'">
-            <fa-icon [icon]="faBullseye"></fa-icon>
-            Key Performance Indicators
-        </a>
-    </li> -->
-    <li class="nav-item">
-        <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid + '/reports'"
-            [routerLinkActive]="'active'">
-            <fa-icon [icon]="faFile"></fa-icon>
-            Reports
+            <span class="d-none d-md-inline">
+                Stakeholders
+            </span>
         </a>
     </li>
 </ul>

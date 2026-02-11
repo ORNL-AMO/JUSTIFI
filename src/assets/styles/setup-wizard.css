@@ -1,34 +1,52 @@
-.setup-wizard-content{
+.setup-wizard-content {
     height: calc(100% - 3rem);
     /* background-color: red; */
     overflow-y: auto;
 }
 
-.form-paper{
+.form-paper {
     min-height: 100%;
     background-color: white;
     padding: 1rem;
 }
 
-.setup-wizard-footer.navbar{
+.setup-wizard-footer.navbar {
     height: 3rem;
     padding: .25rem;
-    background-color:  #5e6c75 !important;
+    background-color: #5e6c75 !important;
 }
 
-.setup-wizard-footer.navbar .nav-btn{
+.setup-wizard-footer.navbar .nav-btn {
     background-color: var(--portfolio-nav-color);
-    color: white;    
+    color: white;
 }
+
 .setup-wizard-footer.navbar .btn.nav-btn:hover {
     background-color: #8DABBE;
     color: black;
 }
 
-.add-neb-btn{
+.add-neb-btn {
     background-color: #186A3B;
 }
 
-.add-opportunity-btn{
+.add-opportunity-btn {
     background-color: var(--energy-opp-color);
+}
+
+
+.overflow-scroll-x {
+    overflow-x: auto;
+}
+
+@media (max-width: 576px) {
+
+    .setup-wizard-content td,
+    .setup-wizard-content th {
+        font-size: 12px;
+    }
+
+    .setup-wizard-content .accordion-body{
+        padding: .25rem
+    }
 }

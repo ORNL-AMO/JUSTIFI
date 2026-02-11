@@ -1,36 +1,47 @@
-
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid" [routerLinkActive]="'active'"
-            [routerLinkActiveOptions]="{exact: true}">Assessment
-            Dashboard</a>
+            [routerLinkActiveOptions]="{exact: true}">
+            <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+            <span class="d-none d-md-inline">
+                Assessment Dashboard
+            </span>
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid+'/details'"
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faGears"></fa-icon>
-            Details
+            <span class="d-none d-md-inline">
+                Details
+            </span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid+'/energy-opportunities'"
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faFileLines"></fa-icon>
-            EEMs
+            <span class="d-none d-md-inline">
+                EEMs
+            </span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid+'/nebs'"
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faWeightHanging"></fa-icon>
-            NEBs
+            <span class="d-none d-md-inline">
+                Benefits
+            </span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/reports'"
             [routerLinkActive]="'active'">
-            <fa-icon [icon]="faFile"></fa-icon>
-            Report
+            <fa-icon [icon]="faChartPie"></fa-icon>
+            <span class="d-none d-md-inline">
+                Report
+            </span>
         </a>
     </li>
 </ul>

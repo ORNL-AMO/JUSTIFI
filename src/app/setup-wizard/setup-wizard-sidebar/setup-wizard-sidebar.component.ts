@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { IconDefinition, faChevronDown, faFolderOpen, faCircleExclamation, faChevronCircleRight, faChevronCircleLeft, faGear, faChevronRight, faUser, faAddressBook, faMagnifyingGlassPlus, faBullseye, faList, faSplotch, faCube, faFileCircleCheck, faScrewdriverWrench, faFileLines, faWeightHanging, faChartPie, faPersonWalkingArrowLoopLeft, faChartColumn, faClipboardQuestion, faFilePen, faSackDollar, faUpload, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 import { SetupWizardService } from '../setup-wizard.service';
@@ -33,7 +33,9 @@ import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
 export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   @Output('emitToggleCollapse')
   emitToggleCollapse: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  @Input()
+  inSmallScreen: boolean;
+  
   faFolderOpen: IconDefinition = faFolderOpen;
   faCircleExclamation: IconDefinition = faCircleExclamation;
   faChevronDown: IconDefinition = faChevronDown;
@@ -169,7 +171,7 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
     });
     this.reportsSub = this.reportIdbService.reports.subscribe(reports => {
       this.reports = reports;
-    })
+    });
   }
 
   ngOnDestroy() {

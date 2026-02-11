@@ -109,8 +109,7 @@ export class PerformanceMetricImpactFormComponent {
 
   async calculateCostFromKPM(kpmChanges: { modifiedMethod: boolean, updateBaseline: boolean }) {
     if (kpmChanges.modifiedMethod) {
-      this.keyPerformanceMetricImpact.modificationValue = undefined;
-      if(this.keyPerformanceMetricImpact.calculationMethod == 'costPerUnit' && this.keyPerformanceMetric.calculationMethod != 'costPerUnit'){
+      if (this.keyPerformanceMetricImpact.calculationMethod == 'costPerUnit' && this.keyPerformanceMetric.calculationMethod != 'costPerUnit') {
         this.keyPerformanceMetricImpact.calculationMethod = 'directCost';
       }
     }
@@ -125,6 +124,13 @@ export class PerformanceMetricImpactFormComponent {
       this.keyPerformanceMetricImpact.costAdjustment = this.keyPerformanceMetric.baselineCost * (this.keyPerformanceMetricImpact.modificationValue / 100);
     } else if (this.keyPerformanceMetricImpact.calculationMethod == 'directCost') {
       this.keyPerformanceMetricImpact.costAdjustment = this.keyPerformanceMetricImpact.modificationValue;
+    }
+    if (this.keyPerformanceMetric.isQuantitative == false) {
+      if (this.keyPerformanceMetric.goalToIncrease) {
+        this.keyPerformanceMetricImpact.modifiedValue = this.keyPerformanceMetric.baselineValue + this.keyPerformanceMetricImpact.modificationValue;
+      } else {
+        this.keyPerformanceMetricImpact.modifiedValue = this.keyPerformanceMetric.baselineValue - this.keyPerformanceMetricImpact.modificationValue;
+      }
     }
     await this.saveChanges();
   }

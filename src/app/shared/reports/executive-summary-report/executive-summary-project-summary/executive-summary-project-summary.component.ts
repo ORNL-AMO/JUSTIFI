@@ -127,15 +127,15 @@ export class ExecutiveSummaryProjectSummaryComponent {
     })
 
     let paybackWithNebs: number = (totalFinalImplementationCost / totalFinancialImpact);
-    if (paybackWithNebs == Infinity) {
+    if (paybackWithNebs == Infinity || paybackWithNebs < 0 || isNaN(paybackWithNebs)) {
       paybackWithNebs = 0;
     }
     let paybackWithoutNebs: number = (totalImplementationCost / totalNonNebCostSavings);
-    if (paybackWithoutNebs == Infinity) {
+    if (paybackWithoutNebs == Infinity || paybackWithoutNebs < 0 || isNaN(paybackWithoutNebs)) {
       paybackWithoutNebs = 0;
     }
     this.additionalReports = {
-      name: 'Additional Projects/NEBs',
+      name: 'Additional Projects/Impacts',
       implementationCost: totalImplementationCost,
       totalEnergyCostSavings: totalEnergyCostSavings,
       totalWaterCostSavings: totalWaterCostSavings,

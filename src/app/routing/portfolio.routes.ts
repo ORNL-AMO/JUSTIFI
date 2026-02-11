@@ -6,7 +6,6 @@ import { CompanyDashboardHomeComponent } from "../user-portfolio/company-dashboa
 import { FacilityDashboardComponent } from "../user-portfolio/facility-dashboard/facility-dashboard.component";
 import { AssessmentDashboardComponent } from "../user-portfolio/assessment-dashboard/assessment-dashboard.component";
 import { CompanyStakeholdersComponent } from "../user-portfolio/company-dashboard/company-stakeholders/company-stakeholders.component";
-import { CompanyReportsComponent } from "../user-portfolio/company-dashboard/company-reports/company-reports.component";
 import { CompanySettingsComponent } from "../user-portfolio/company-dashboard/company-settings/company-settings.component";
 import { FacilityDashboardHomeComponent } from "../user-portfolio/facility-dashboard/facility-dashboard-home/facility-dashboard-home.component";
 import { IndustrialSystemInventoryComponent } from "../user-portfolio/facility-dashboard/industrial-system-inventory/industrial-system-inventory.component";
@@ -70,10 +69,6 @@ export const PortfolioRoutes: Route = {
                             canDeactivate: [CanDeactivateGuard]
                         }
                     ]
-                },
-                {
-                    path: 'reports',
-                    component: CompanyReportsComponent
                 },
                 {
                     path: 'manage',

@@ -1,24 +1,32 @@
-.form-block{
+.form-block {
     border-left: solid;
 }
 
-.alert-block, .form-block{
+.alert-block,
+.form-block {
     margin-left: 2rem;
     margin-right: 2rem;
 }
 
-.alert-info{
+.alert-info {
     padding: .25rem;
 }
 
-.metric-hr{
+.metric-hr {
     border-style: dashed;
     /* margin-top: 0; */
     border-width: 2px;
 }
 
 
-.metric-block{
+.metric-block {
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+@media (max-width: 576px) {
+    .metric-block {
+        padding-left: .25rem;
+        padding-right: .25rem;
+    }
 }

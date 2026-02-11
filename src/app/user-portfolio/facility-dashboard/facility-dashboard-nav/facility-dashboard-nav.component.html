@@ -2,56 +2,73 @@
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid" [routerLinkActive]="'active'"
             [routerLinkActiveOptions]="{exact: true}">
-            Facility
-            Dashboard
-        
+            <fa-icon [icon]="faIndustry"></fa-icon>
+            <span class="d-none d-md-inline">
+                Facility Dashboard
+            </span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/manage'"
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faGears"></fa-icon>
-            Details
+            <span class="d-none d-md-inline">
+                Details
+            </span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/performance-indicators'"
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faBullseye"></fa-icon>
-            Key Performance Indicators
+            <span class="d-none d-md-inline">
+                Key Performance Indicators
+            </span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/questions'"
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faClipboardQuestion"></fa-icon>
-            Facility Questions
+            <span class="d-none d-md-inline">
+                Facility Questions
+            </span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/system-inventory'"
             [routerLinkActive]="'active'">
-            <fa-icon [icon]="faList"></fa-icon>
-            Industrial System Inventory</a>
+            <fa-icon [icon]="faCube"></fa-icon>
+            <span class="d-none d-md-inline">
+                Industrial System Inventory
+            </span>
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/end-use-inventory'"
             [routerLinkActive]="'active'">
-            <fa-icon [icon]="faList"></fa-icon>
-            End Use Inventory</a>
+            <fa-icon [icon]="faSplotch"></fa-icon>
+            <span class="d-none d-md-inline">
+                End Use Inventory
+            </span>
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/reports'"
             [routerLinkActive]="'active'">
-            <fa-icon [icon]="faList"></fa-icon>
-            Reports
+            <fa-icon [icon]="faChartPie"></fa-icon>
+            <span class="d-none d-md-inline">
+                Reports
+            </span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/manage-visits'"
             [routerLinkActive]="'active'">
             <fa-icon [icon]="faCalendar"></fa-icon>
-            Manage Visits
+            <span class="d-none d-md-inline">
+                Manage Visits
+            </span>
         </a>
     </li>
 </ul>

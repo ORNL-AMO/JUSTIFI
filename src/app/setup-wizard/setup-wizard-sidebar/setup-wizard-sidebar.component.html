@@ -1,5 +1,5 @@
-<div class="h-100 navbar d-flex flex-column align-items-start justify-content-start shadow sidebar-container"
-    [ngClass]="{'collapsed': !sidebarOpen}">
+<div class="h-100 navbar d-flex flex-column align-items-start justify-content-start sidebar-container"
+    [ngClass]="{'collapsed': !sidebarOpen, 'shadow': !inSmallScreen}">
 
     <div class="ps-1 pe-1 w-100 pb-2">
         <div class="toggle-collapse d-flex">
@@ -257,9 +257,9 @@
                         <div class="nav-item">
                             <a class="nav-link"
                                 [routerLink]="'data-collection/'+onSiteVisit.guid+'/assessment/'+assessmentGuid+'/nebs'"
-                                [routerLinkActive]="['active']" title="Non-energy benefits">
+                                [routerLinkActive]="['active']" title="Multiple benefits">
                                 <fa-icon [icon]="faWeightHanging"></fa-icon>
-                                NEBs &plus; Incentives
+                                Benefits<span class="d-none d-md-inline"> &plus; Incentives</span>
                             </a>
                         </div>
                     </div>
@@ -337,7 +337,6 @@
                     </ng-container>
                 </div>
             </div>
-
 
             <div class="w-100">
                 <hr class="spacer">

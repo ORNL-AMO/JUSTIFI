@@ -33,7 +33,7 @@ export class ImportBackupModalComponent implements OnInit, OnDestroy {
   importForUser: boolean = true;
   currentUser: IdbUser;
   importName: string;
-  overwriteData: boolean = true;
+  overwriteData: boolean = false;
 
   importMethod: 'jsonFile' | 'template' = undefined;
   workbook: ExcelJS.Workbook;

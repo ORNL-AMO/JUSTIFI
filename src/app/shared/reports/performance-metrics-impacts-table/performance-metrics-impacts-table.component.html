@@ -1,57 +1,60 @@
 <h6 class="bold">Key Performance Metric Impacts</h6>
-<table class="table table-bordered savings-table table-hover ordered" *ngIf="keyPerformanceIndicatorReport">
-    <thead>
-        <tr>
-            <th class="bg-neutral" (click)="setOrderByField('label')"
-                [ngClass]="{'ordered-th': orderByField == 'label'}">
-                Performance Metric
-            </th>
-            <th class="text-right bg-without-nebs" (click)="setOrderByField('current')"
-                [ngClass]="{'ordered-th': orderByField == 'current'}">
-                Current
-            </th>
-            <th class="text-right bg-with-nebs" (click)="setOrderByField('impact')"
-                [ngClass]="{'ordered-th': orderByField == 'impact'}">
-                Impact
-            </th>
-            <th class="text-right bg-with-nebs" (click)="setOrderByField('potential')"
-                [ngClass]="{'ordered-th': orderByField == 'potential'}">
-                Potential
-            </th>
-            <th class="text-right bg-with-nebs" (click)="setOrderByField('percentChange')"
-                [ngClass]="{'ordered-th': orderByField == 'percentChange'}">
-                Change (%)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let kpmReportItem of kpmImpactsReports | orderPerformanceMetricsImpactsTable: orderByField : orderByDir">
-            <td class="ps-3 bg-neutral-light">
-                <span [innerHTML]="kpmReportItem.label"></span>
-            </td>
-            @let units = kpmReportItem.isCurrency ? undefined : kpmReportItem.units;
-            <td class="text-right bg-without-nebs-light">
-                <app-single-cell-item [numValue]="kpmReportItem.current" [isCurrency]="kpmReportItem.isCurrency"
-                    [units]="units"></app-single-cell-item>
-            </td>
-            <td class="text-right bg-with-nebs-light">
-                <ng-container *ngIf="kpmReportItem.goalToIncrease">
-                    &plus;
-                </ng-container>
-                <ng-container *ngIf="!kpmReportItem.goalToIncrease">
-                    &minus;
-                </ng-container>
-                <app-single-cell-item [numValue]="kpmReportItem.impact" [isCurrency]="kpmReportItem.isCurrency"
-                    [units]="units"></app-single-cell-item>
-            </td>
-            <td class="text-right bg-with-nebs-light">
-                <app-single-cell-item [numValue]="kpmReportItem.potential" [isCurrency]="kpmReportItem.isCurrency"
-                    [units]="units"></app-single-cell-item>
-            </td>
-            <td class="text-right bg-with-nebs-light">
-                <app-single-cell-item [numValue]="kpmReportItem.percentChange" [isCurrency]="false"
-                    [units]="'%'"></app-single-cell-item>
-            </td>
+<div class="w-100 overflow-scroll-x">
+    <table class="table table-bordered savings-table table-hover ordered" *ngIf="keyPerformanceIndicatorReport">
+        <thead>
+            <tr>
+                <th class="bg-neutral" (click)="setOrderByField('label')"
+                    [ngClass]="{'ordered-th': orderByField == 'label'}">
+                    Performance Metric
+                </th>
+                <th class="text-right bg-without-nebs" (click)="setOrderByField('current')"
+                    [ngClass]="{'ordered-th': orderByField == 'current'}">
+                    Current
+                </th>
+                <th class="text-right bg-with-nebs" (click)="setOrderByField('impact')"
+                    [ngClass]="{'ordered-th': orderByField == 'impact'}">
+                    Impact
+                </th>
+                <th class="text-right bg-with-nebs" (click)="setOrderByField('potential')"
+                    [ngClass]="{'ordered-th': orderByField == 'potential'}">
+                    Potential
+                </th>
+                <th class="text-right bg-with-nebs" (click)="setOrderByField('percentChange')"
+                    [ngClass]="{'ordered-th': orderByField == 'percentChange'}">
+                    Change (%)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="let kpmReportItem of kpmImpactsReports | orderPerformanceMetricsImpactsTable: orderByField : orderByDir">
+                <td class="ps-3 bg-neutral-light">
+                    <span [innerHTML]="kpmReportItem.label"></span>
+                </td>
+                @let units = kpmReportItem.isCurrency ? undefined : kpmReportItem.units;
+                <td class="text-right bg-without-nebs-light">
+                    <app-single-cell-item [numValue]="kpmReportItem.current" [isCurrency]="kpmReportItem.isCurrency"
+                        [units]="units"></app-single-cell-item>
+                </td>
+                <td class="text-right bg-with-nebs-light">
+                    <ng-container *ngIf="kpmReportItem.goalToIncrease">
+                        &plus;
+                    </ng-container>
+                    <ng-container *ngIf="!kpmReportItem.goalToIncrease">
+                        &minus;
+                    </ng-container>
+                    <app-single-cell-item [numValue]="kpmReportItem.impact" [isCurrency]="kpmReportItem.isCurrency"
+                        [units]="units"></app-single-cell-item>
+                </td>
+                <td class="text-right bg-with-nebs-light">
+                    <app-single-cell-item [numValue]="kpmReportItem.potential" [isCurrency]="kpmReportItem.isCurrency"
+                        [units]="units"></app-single-cell-item>
+                </td>
+                <td class="text-right bg-with-nebs-light">
+                    <app-single-cell-item [numValue]="kpmReportItem.percentChange" [isCurrency]="false"
+                        [units]="'%'"></app-single-cell-item>
+                </td>
 
-        </tr>
-</table>
+            </tr>
+    </table>
+</div>

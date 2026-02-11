@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
@@ -15,10 +15,10 @@ import { IdbFacility } from 'src/app/models/facility';
 export class IndustrialSystemInventoryComponent {
 
   faChevronRight: IconDefinition = faChevronRight;
+  faChevronLeft: IconDefinition = faChevronLeft;
 
   facility: IdbFacility;
   facilitySub: Subscription;
-
 
   energyEquipmentsSub: Subscription
   energyEquipments: Array<IdbEnergyEquipment>;

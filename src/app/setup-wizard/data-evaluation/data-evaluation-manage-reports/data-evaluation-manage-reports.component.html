@@ -1,7 +1,7 @@
 @let onSiteReports = (reports | onSiteReportsList: onSiteVisit.guid);
 <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
+        <div class="col-11 col-md-10 pt-4 pb-4">
             <div class="form-paper shadow">
                 <h5>
                     <fa-icon [icon]="faList"></fa-icon> Manage Custom Reports
@@ -49,19 +49,25 @@
     <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
-            Rollup Report
+            <span class="d-none d-md-inline">
+                Rollup Report
+            </span>
         </button>
 
         <ng-template [ngIf]="onSiteReports.length != 0" [ngIfElse]="noReportsFooterBlock">
             <button class="btn nav-btn btn-sm" (click)="goToReport(onSiteReports[0].guid)">
-                Report
+                <span class="d-none d-md-inline">
+                    Report
+                </span>
                 <fa-icon [icon]="faChevronRight"></fa-icon>
             </button>
         </ng-template>
         <ng-template #noReportsFooterBlock>
             <button class="btn nav-btn btn-sm" (click)="goToPortfolio()">
                 <fa-icon [icon]="faFolderOpen"></fa-icon>
-                Go To Portfolio
+                <span class="d-none d-md-inline">
+                    Go To Portfolio
+                </span>
             </button>
         </ng-template>
     </div>

@@ -1,88 +1,100 @@
 <div class="portfolio card">
     <div class="card-body">
-        <div class="card-title secondary d-flex justify-content-between">
+        <div class="card-title secondary d-flex justify-content-between align-items-center flex-column flex-md-row">
             <div>
                 <fa-icon [icon]="faStopwatch"></fa-icon>
                 On-Site Visits
             </div>
-            <div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary btn-sm" [disabled]="!hasArchivedFacilities"
+                    (click)="toggleArchivedFacilities()">
+                    {{showArchivedFacilities ? 'Hide Archived' : 'Show Archived'}}
+                </button>
                 <button class="btn btn-outline-success btn-sm" (click)="openWizardModal()">
                     <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
-                    Setup Wizard</button>
+                    Setup Wizard
+                </button>
             </div>
         </div>
         <p class="card-text fw-light">
             Below is a list of the on-site visits conducted in JUSTIFI so you can jump back in.
             Just click the "<fa-icon [icon]="faWandMagicSparkles"></fa-icon>" button.
         </p>
-        <ng-template [ngIf]="onSiteVisits.length > 0" [ngIfElse]="noVisitsBlock">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>
-                            Company
-                        </th>
-                        <th>
-                            Facility
-                        </th>
-                        <th>
-                            Assessments
-                        </th>
-                        <th>
-                            Visit Date
-                        </th>
-                        <th>
-                            Last Modified
-                        </th>
-                        <th class="actions">
+        @let filteredVisits = onSiteVisits | filterArchivedVisits: facilities: showArchivedFacilities;
+        <ng-template [ngIf]="filteredVisits.length > 0" [ngIfElse]="noVisitsBlock">
+            <div class="w-100 overflow-scroll-x">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Company
+                            </th>
+                            <th>
+                                Facility
+                            </th>
+                            <th>
+                                Assessments
+                            </th>
+                            <th>
+                                Visit Date
+                            </th>
+                            <th>
+                                Last Modified
+                            </th>
+                            <th class="actions">
 
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let visit of onSiteVisits |  slice: ((currentPageNumber-1) * 5): currentPageNumber * 5">
-                        <td>
-                            <a [routerLink]="'/portfolio/company/'+visit.companyId">
-                                {{visit.companyId | companyName: companies}}
-                            </a>
-                        </td>
-                        <td>
-                            <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
-                                {{visit.facilityId | facilityName: facilities}}
-                            </a>
-                        </td>
-                        <td>
-                            <!-- <span class="badge bg-dark">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let visit of onSiteVisits | filterArchivedVisits: facilities: showArchivedFacilities | slice: ((currentPageNumber-1) * 5): currentPageNumber * 5">
+                            <td>
+                                <a [routerLink]="'/portfolio/company/'+visit.companyId">
+                                    {{visit.companyId | companyName: companies}}
+                                </a>
+                            </td>
+                            <td>
+                                <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
+                                    {{visit.facilityId | facilityName: facilities}}
+                                </a>
+                                <span *ngIf="visit.facilityId | facilityArchived: facilities"
+                                    class="badge bg-secondary ms-1">Archived</span>
+                            </td>
+                            <td>
+                                <!-- <span class="badge bg-dark">
                                 {{visit.assessmentIds.length}}
                             </span> -->
-                            <ng-template [ngIf]="visit.assessmentIds.length > 0" [ngIfElse]="assessmentMdash">
-                                <span *ngFor="let assessmentId of visit.assessmentIds">
-                                    <a [routerLink]="'/portfolio/assessment/'+assessmentId">
-                                        {{assessmentId | assessmentNameDisplay: assessments}}
-                                    </a>
-                                    <br>
-                                </span>
-                            </ng-template>
-                            <ng-template #assessmentMdash>
-                                &mdash;
-                            </ng-template>
-                        </td>
-                        <td>
-                            {{visit.visitDate | date}}
-                        </td>
-                        <td>
-                            {{visit.modifiedDate | date}}
-                        </td>
-                        <th class="actions">
-                            <button class="btn btn-outline-success p-1 btn-sm" (click)="goToVisit(visit)">
-                                <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
-                            </button>
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
+                                <ng-template [ngIf]="visit.assessmentIds.length > 0" [ngIfElse]="assessmentMdash">
+                                    <span *ngFor="let assessmentId of visit.assessmentIds">
+                                        <a [routerLink]="'/portfolio/assessment/'+assessmentId">
+                                            {{assessmentId | assessmentNameDisplay: assessments}}
+                                        </a>
+                                        <br>
+                                    </span>
+                                </ng-template>
+                                <ng-template #assessmentMdash>
+                                    &mdash;
+                                </ng-template>
+                            </td>
+                            <td>
+                                {{visit.visitDate | date}}
+                            </td>
+                            <td>
+                                {{visit.modifiedDate | date}}
+                            </td>
+                            <th class="actions">
+                                <button class="btn btn-outline-success p-1 btn-sm" (click)="goToVisit(visit)">
+                                    <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+                                </button>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="d-flex justify-content-end pt-2">
-                <app-table-pagination [pageNumber]="currentPageNumber" [collectionSize]="onSiteVisits.length"
+                <app-table-pagination [pageNumber]="currentPageNumber"
+                    [collectionSize]="(onSiteVisits | filterArchivedVisits: facilities: showArchivedFacilities).length"
                     [itemsPerPage]="5" (emitPageNumber)="setPageCurrentPageNumber($event)"></app-table-pagination>
             </div>
         </ng-template>

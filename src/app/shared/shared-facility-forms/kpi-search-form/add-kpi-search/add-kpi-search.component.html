@@ -11,8 +11,15 @@
                 <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
             </span>
             <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="kpiSearchStr"
-                [(ngModel)]="kpiSearchStr">
+                [(ngModel)]="kpiSearchStr" (input)="filterKpmKeywordList()">
         </div>
+        <ul *ngIf="kpiSearchStr && filteredKpmKeywordList.length > 0"
+            class="dropdown-menu show scrollable">
+            <li *ngFor="let keyword of filteredKpmKeywordList" class="dropdown-item"
+                (click)="keyword != '...' && selectKpmKeyword(keyword)"
+                [innerHTML]="keyword | keywordHighlight: kpiSearchStr">
+            </li>
+        </ul>
     </div>
     <div class="col-12 mb-1">
         <select name="kpiCategorySearch" class="form-select" id="kpiCategorySearch" [(ngModel)]="kpiCategorySearch">

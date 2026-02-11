@@ -1,6 +1,6 @@
 <div class="setup-wizard-content" *ngIf="assessment">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-10 pt-4 pb-4">
+        <div class="col-11 col-md-10 pt-4 pb-4">
             <div class="form-paper shadow">
                 <div class="d-flex w-100 justify-content-between">
                     <div>
@@ -20,11 +20,13 @@
                             <a class="nav-link" [routerLink]="'details'" [routerLinkActive]="['active']">Details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" [routerLink]="'energy-opportunities'"
-                                [routerLinkActive]="['active']" title="Energy Efficiency Measures">EEMs</a>
+                            <a class="nav-link" [routerLink]="'energy-opportunities'" [routerLinkActive]="['active']"
+                                title="Energy Efficiency Measures">EEMs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" [routerLink]="'nebs'" [routerLinkActive]="['active']" title="Non-energy benefits">NEBs &plus; Incentives</a>
+                            <a class="nav-link" [routerLink]="'nebs'" [routerLinkActive]="['active']"
+                                title="Multiple Benefits">Benefits
+                                <span class="d-none d-md-inline"> &plus; Incentives</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -40,35 +42,17 @@
         <div class="col-3">
             <button #prevBtn class="btn nav-btn btn-sm" (click)="goBack(prevBtn)">
                 <fa-icon [icon]="faChevronLeft"></fa-icon>
-                {{ backLabel }}
+                <span class="d-none d-md-inline">
+                    {{ backLabel }}
+                </span>
             </button>
         </div>
-        <!-- <div class="col-6">
-            <div class="d-flex justify-content-center">
-                <div class="pe-1">
-                    <button class="btn btn-dark add-opportunity-btn btn-sm" [disabled]="true">
-                        <fa-icon [icon]="faPlus"></fa-icon>
-                        Add Opportunity
-                    </button>
-                </div>
-                <div class="pe-1">
-                    <button class="btn btn-dark add-neb-btn btn-sm" (click)="showSuggestedNebModal()">
-                        <fa-icon [icon]="faPlus"></fa-icon>
-                        Add NEB
-                    </button>
-                </div>
-                <div class="pe-1">
-                    <button class="btn btn-secondary btn-sm" [disabled]="true">
-                        <fa-icon [icon]="faPlus"></fa-icon>
-                        Add Contact
-                    </button>
-                </div>
-            </div>
-        </div> -->
         <div class="col-3">
             <div class="d-flex  justify-content-end">
                 <button #nxtBtn class="btn nav-btn btn-sm" (click)="goToNext(nxtBtn)">
-                    {{ nextLabel }}
+                    <span class="d-none d-md-inline">
+                        {{ nextLabel }}
+                    </span>
                     <fa-icon [icon]="faChevronRight"></fa-icon>
                 </button>
             </div>

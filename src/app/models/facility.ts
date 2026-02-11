@@ -26,7 +26,10 @@ export interface IdbFacility extends IdbEntry {
     financialMetricsUsed: string,
     efficiencyIncentives: string,
     dependentFunding: string,
-    isExample?: boolean
+    isExample?: boolean,
+    isArchived?: boolean,
+    archivedDate?: Date,
+    originalFacilityId?: string
 }
 
 export function getNewIdbFacility(userId: string, companyId: string): IdbFacility {

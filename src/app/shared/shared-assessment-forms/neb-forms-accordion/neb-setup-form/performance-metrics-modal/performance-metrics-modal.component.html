@@ -21,7 +21,7 @@
                         <label class="form-check-label" for="displayAllMetrics">Display untracked KPMs</label>
                     </div>
                 </div> -->
-                    <div class="col">
+                    <div class="col-12 col-md-9">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="filterAssociatedMetrics"
                                 [(ngModel)]="filterAssociatedMetrics" (change)="setMetricOptions()">
@@ -33,7 +33,7 @@
                             {{nonEnergyBenefit.name}}.
                         </p>
                     </div>
-                    <div class="col-3">
+                    <div class="col-12 col-md-3">
                         <div class="input-group" role="search">
                             <span class="input-group-text">
                                 <fa-icon [icon]="faMagnifyingGlass"></fa-icon>

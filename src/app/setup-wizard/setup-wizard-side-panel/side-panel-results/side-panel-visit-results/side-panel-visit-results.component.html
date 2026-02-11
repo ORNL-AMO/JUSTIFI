@@ -3,7 +3,7 @@
         Current Facility Utility Costs  <span class="float-right">{{facility.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
     </div>
     <div class="list-group-item">
-        Total Cost Savings W/O NEBs
+        Total Utility Cost Savings W/O MBs
         <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
         <div class="progress" role="progressbar" [ariaValueNow]="percentSavings" aria-valuemin="0"
             aria-valuemax="100">
@@ -28,7 +28,7 @@
             </div>
         </ng-container>
         <hr>
-        Total Financial Impacts W/ NEBs
+        Total Financial Impacts W/ MBs
         <div class="progress" role="progressbar" aria-label="Example with label"
             [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
@@ -56,7 +56,7 @@
             <thead>
                 <tr>
                     <th>
-                        Cost Savings
+                        Utility Cost Savings
                     </th>
                     <th class="text-right w-25">
                         ({{currencyCode | currencySymbol}} / yr)
@@ -91,7 +91,7 @@
             <thead>
                 <tr>
                     <th colspan="2">
-                        Additional Operation Benefits
+                        Additional Operational Benefits
                     </th>
                 </tr>
             </thead>
@@ -141,7 +141,7 @@
                 </tr>
                 <tr>
                     <th>
-                        Total Financial Impact W/ NEBs
+                        Total Financial Impact
                     </th>
                     <th class="text-right">
                         <app-single-cell-item [numValue]="onSiteVisitReport.totalFinancialImpact"

@@ -1,4 +1,4 @@
-import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
@@ -21,7 +21,6 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
 import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
 import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
 import { AboutComponent } from './core-components/about/about.component';
-import { HelpComponent } from './core-components/help/help.component';
 import { ToastNotificationsComponent } from './core-components/toast-notifications/toast-notifications.component';
 import { NebsDatabaseModule } from './nebs-database/nebs-database.module';
 import { localeCurrency } from './shared/constants/localeCurrency';
@@ -31,6 +30,8 @@ import { WelcomeSlideshowComponent } from './core-components/welcome-slideshow/w
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { PerformanceMetricsTablePipe } from './shared/reports/performance-metrics-table/performance-metrics-table.pipe';
 import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-update-toast.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { UpdateCheckComponent } from './core-components/update-check/update-check.component';
 
 @NgModule({
   declarations: [
@@ -45,12 +46,12 @@ import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-upda
     FeedbackPageComponent,
     AcknowledgmentsComponent,
     AboutComponent,
-    HelpComponent,
     ToastNotificationsComponent,
     ExportBackupModalComponent,
     ExportBackupTreeComponent,
     AutoUpdateToastComponent,
-    WelcomeSlideshowComponent
+    WelcomeSlideshowComponent,
+    UpdateCheckComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +65,12 @@ import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-upda
     PlotlyViaWindowModule,
     PlotlyViaWindowModule,
     NebsDatabaseModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     { 
