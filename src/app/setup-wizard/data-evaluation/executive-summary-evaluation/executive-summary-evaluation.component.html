@@ -1,44 +1,45 @@
 <div [ngClass]="{'setup-wizard-content': !print}">
-    <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
-        <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
-            <div [ngClass]="{'form-paper shadow': !print}">
-                <h5>
-                    <fa-icon [icon]="faSackDollar"></fa-icon>
-                    Executive Summary Report
-                </h5>
-                <app-executive-summary-report [onSiteVisit]="onSiteVisit"></app-executive-summary-report>
-            </div>
-        </div>
+  <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
+    <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
+      <div [ngClass]="{'form-paper shadow': !print}">
+        <h5>
+          <fa-icon [icon]="faSackDollar"></fa-icon>
+          Executive Summary Report
+        </h5>
+        <app-executive-summary-report [onSiteVisit]="onSiteVisit"></app-executive-summary-report>
+      </div>
     </div>
+  </div>
 </div>
-<nav class="setup-wizard-footer navbar shadow" *ngIf="!print">
+@if (!print) {
+  <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
-        <button class="btn nav-btn btn-sm" (click)="goBack()">
-            <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span class="d-none d-md-inline">
-                Review and Follow-up
-            </span>
+      <button class="btn nav-btn btn-sm" (click)="goBack()">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        <span class="d-none d-md-inline">
+          Review and Follow-up
+        </span>
+      </button>
+      <div>
+        <button class="btn btn-success btn-sm me-1" (click)="togglePrint()">
+          <fa-icon [icon]="faFilePdf"></fa-icon>
+          <span class="d-none d-md-inline">
+            Generate PDF
+          </span>
         </button>
-        <div>
-            <button class="btn btn-success btn-sm me-1" (click)="togglePrint()">
-                <fa-icon [icon]="faFilePdf"></fa-icon>
-                <span class="d-none d-md-inline">
-                    Generate PDF
-                </span>
-            </button>
-            <button class="btn btn-success btn-sm ms-1" (click)="generatePowerPoint()">
-                <fa-icon [icon]="faFilePowerpoint"></fa-icon>
-                <span class="d-none d-md-inline">
-                    Generate PowerPoint
-                </span>
-            </button>
-        </div>
-
-        <button class="btn nav-btn btn-sm" (click)="goNext()">
-            <span class="d-none d-md-inline">
-                Assessment Report
-            </span>
-            <fa-icon [icon]="faChevronRight"></fa-icon>
+        <button class="btn btn-success btn-sm ms-1" (click)="generatePowerPoint()">
+          <fa-icon [icon]="faFilePowerpoint"></fa-icon>
+          <span class="d-none d-md-inline">
+            Generate PowerPoint
+          </span>
         </button>
+      </div>
+      <button class="btn nav-btn btn-sm" (click)="goNext()">
+        <span class="d-none d-md-inline">
+          Assessment Report
+        </span>
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
     </div>
-</nav>
+  </nav>
+}

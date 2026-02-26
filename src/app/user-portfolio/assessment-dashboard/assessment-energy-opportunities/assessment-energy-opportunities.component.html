@@ -1,47 +1,50 @@
 <div class="d-flex">
-    <div class="d-none d-md-flex nav-flex pe-3" *ngIf="energyOpportunities.length > 0">
-        <nav class="nav navbar nav-tabs flex-column pt-0">
-
-            <div class="nav-item">
-                <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/energy-opportunities'"
-                    [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
-                    <div class="d-flex w-100 justify-content-between">
-                        <div class="d-block">
-                            Summary
-                        </div>
-                        <div>
-                            <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
-                        </div>
-                    </div>
-                </a>
+  @if (energyOpportunities.length > 0) {
+    <div class="d-none d-md-flex nav-flex pe-3">
+      <nav class="nav navbar nav-tabs flex-column pt-0">
+        <div class="nav-item">
+          <a class="nav-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/energy-opportunities'"
+            [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+            <div class="d-flex w-100 justify-content-between">
+              <div class="d-block">
+                Summary
+              </div>
+              <div>
+                <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
+              </div>
             </div>
-            <div class="w-100">
-                <hr class="my-2">
-            </div>
-            <div class="nav-item" *ngFor="let energyOpportunity of energyOpportunities">
-                <a class="nav-link"
-                    [routerLink]="'/portfolio/assessment/'+energyOpportunity.assessmentId + '/energy-opportunities/'+energyOpportunity.guid"
-                    [routerLinkActive]="'active'">
-                    <div class="d-flex w-100 justify-content-between">
-                        <div class="d-block">
-                            {{energyOpportunity.name}}
-                        </div>
-                        <div>
-                            <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </nav>
-    </div>
-    <div class="card portfolio w-100">
-        <div class="card-body">
-            <a class="click-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/energy-opportunities'"
-                [routerLinkActive]="'d-none'" [routerLinkActiveOptions]="{exact: true}">
-                <fa-icon [icon]="faChevronLeft"></fa-icon>
-                All EEMs
-            </a>
-            <router-outlet></router-outlet>
+          </a>
         </div>
+        <div class="w-100">
+          <hr class="my-2">
+        </div>
+        @for (energyOpportunity of energyOpportunities; track energyOpportunity) {
+          <div class="nav-item">
+            <a class="nav-link"
+              [routerLink]="'/portfolio/assessment/'+energyOpportunity.assessmentId + '/energy-opportunities/'+energyOpportunity.guid"
+              [routerLinkActive]="'active'">
+              <div class="d-flex w-100 justify-content-between">
+                <div class="d-block">
+                  {{energyOpportunity.name}}
+                </div>
+                <div>
+                  <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
+                </div>
+              </div>
+            </a>
+          </div>
+        }
+      </nav>
     </div>
+  }
+  <div class="card portfolio w-100">
+    <div class="card-body">
+      <a class="click-link" [routerLink]="'/portfolio/assessment/'+assessment.guid + '/energy-opportunities'"
+        [routerLinkActive]="'d-none'" [routerLinkActiveOptions]="{exact: true}">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        All EEMs
+      </a>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

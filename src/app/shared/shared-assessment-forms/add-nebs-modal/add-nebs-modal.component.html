@@ -1,30 +1,29 @@
 <div [ngClass]="{'window-overlay': displayModal}"></div>
 <div class="popup lg-popup" [ngClass]="{'open': displayModal }">
-    <div class="popup-header"><fa-icon [icon]="faWeightHanging"></fa-icon> Potential MBs for
-        <ng-template [ngIf]="energyOpportunity" [ngIfElse]="assessmentBlock">
-            {{energyOpportunity.name}}
-        </ng-template>
-        <ng-template #assessmentBlock>
-            {{assessment.name}}
-        </ng-template>
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeModal()"></button>
+  <div class="popup-header"><fa-icon [icon]="faWeightHanging"></fa-icon> Potential MBs for
+  @if (energyOpportunity) {
+    {{energyOpportunity.name}}
+  } @else {
+    {{assessment.name}}
+  }
+  <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeModal()"></button>
+</div>
+<div class="popup-body">
+  <app-nebs-database-table [inAddModal]="true"
+  (emitSelectedNebs)="setSelectedNebs($event)"></app-nebs-database-table>
+</div>
+<div class="popup-footer">
+  <div class="d-flex flex-column">
+    <div>
+      <hr>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-secondary me-2 btn-sm" (click)="closeModal()">Cancel</button>
+        <button class="btn btn-success btn-sm" (click)="addNebs()"
+          [disabled]="selectedNebs.length == 0"><fa-icon [icon]="faPlus"></fa-icon> Add
+          {{selectedNebs.length}}
+        MBs</button>
+      </div>
     </div>
-    <div class="popup-body">
-        <app-nebs-database-table [inAddModal]="true"
-            (emitSelectedNebs)="setSelectedNebs($event)"></app-nebs-database-table>
-    </div>
-    <div class="popup-footer">
-        <div class="d-flex flex-column">
-            <div>
-                <hr>
-            </div>
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-secondary me-2 btn-sm" (click)="closeModal()">Cancel</button>
-                <button class="btn btn-success btn-sm" (click)="addNebs()"
-                    [disabled]="selectedNebs.length == 0"><fa-icon [icon]="faPlus"></fa-icon> Add
-                    {{selectedNebs.length}}
-                    MBs</button>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>

@@ -1,57 +1,60 @@
 <div [ngClass]="{'window-overlay': displayModal}"></div>
 <div class="popup" [ngClass]="{'open': displayModal }">
-    <div class="popup-header">KPMs Typically Associated With
-        <span class="bold" [innerHTML]="keyPerformanceIndicator.htmlLabel"></span>
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeModal()"></button>
+  <div class="popup-header">KPMs Typically Associated With
+    <span class="bold" [innerHTML]="keyPerformanceIndicator.htmlLabel"></span>
+    <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="popup-body">
+    @if (keyPerformanceMetricOptions.length > 0) {
+      <table class="table table-bordered table-hover table-sm">
+        <tbody>
+          @for (performanceMetric of keyPerformanceMetricOptions; track performanceMetric) {
+            <tr class="clickable" (click)="toggleMetric(performanceMetric)"
+              >
+              <td class="add-td text-center">
+                <a class="click-link">
+                  @if (addMetricValues.includes(performanceMetric.value)) {
+                    <fa-icon [icon]="faCheck"></fa-icon>
+                  } @else {
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                  }
+                </a>
+              </td>
+              <td>
+                <span [innerHTML]="performanceMetric.htmlLabel"></span>
+              </td>
+            </tr>
+          }
+          @for (performanceMetric of usedPerformanceMetrics; track performanceMetric) {
+            <tr>
+              <td class="darkgrey text-center">
+                <fa-icon [icon]="faLinkSlash"></fa-icon>
+              </td>
+              <td class="darkgrey">
+                <span [innerHTML]="performanceMetric.htmlLabel"></span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (usedPerformanceMetrics.length > 0) {
+        <p class="fw-light small mb-0">
+          <fa-icon [icon]="faLinkSlash"></fa-icon> Indicates metric is in use by another KPI and cannot be
+          duplicated here.
+        </p>
+      }
+    } @else {
+      <div class="alert alert-info">
+        All metrics in our system that are associated with <span class="bold"
+      [innerHTML]="keyPerformanceIndicator.htmlLabel"></span> are being tracked.
     </div>
-    <div class="popup-body">
-        <ng-template [ngIf]="keyPerformanceMetricOptions.length > 0" [ngIfElse]="noOptionsBlock">
-            <table class="table table-bordered table-hover table-sm">
-                <tbody>
-                    <tr class="clickable" (click)="toggleMetric(performanceMetric)"
-                        *ngFor="let performanceMetric of keyPerformanceMetricOptions">
-                        <td class="add-td text-center">
-                            <a class="click-link">
-                                <ng-template [ngIf]="addMetricValues.includes(performanceMetric.value)"
-                                    [ngIfElse]="addMetricBlock">
-                                    <fa-icon [icon]="faCheck"></fa-icon>
-                                </ng-template>
-                                <ng-template #addMetricBlock>
-                                    <fa-icon [icon]="faPlus"></fa-icon>
-                                </ng-template>
-                            </a>
-                        </td>
-                        <td>
-                            <span [innerHTML]="performanceMetric.htmlLabel"></span>
-                        </td>
-                    </tr>
-                    <tr *ngFor="let performanceMetric of usedPerformanceMetrics">
-                        <td class="darkgrey text-center">
-                            <fa-icon [icon]="faLinkSlash"></fa-icon>
-                        </td>
-                        <td class="darkgrey">
-                            <span [innerHTML]="performanceMetric.htmlLabel"></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <p *ngIf="usedPerformanceMetrics.length > 0" class="fw-light small mb-0">
-                <fa-icon [icon]="faLinkSlash"></fa-icon> Indicates metric is in use by another KPI and cannot be
-                duplicated here.
-            </p>
-        </ng-template>
-        <ng-template #noOptionsBlock>
-            <div class="alert alert-info">
-                All metrics in our system that are associated with <span class="bold"
-                    [innerHTML]="keyPerformanceIndicator.htmlLabel"></span> are being tracked.
-            </div>
-        </ng-template>
-        <hr>
-    </div>
-    <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary btn-sm me-2" (click)="closeModal()">Cancel</button>
-        <button class="btn btn-sm btn-success" (click)="addMetrics()" [disabled]="addMetricValues.length == 0"><fa-icon
-                [icon]="faPlus"></fa-icon> Add {{addMetricValues.length}}
-            Metrics</button>
-    </div>
+  }
+  <hr>
+  </div>
+  <div class="popup-footer d-flex justify-content-end">
+    <button class="btn btn-secondary btn-sm me-2" (click)="closeModal()">Cancel</button>
+    <button class="btn btn-sm btn-success" (click)="addMetrics()" [disabled]="addMetricValues.length == 0"><fa-icon
+    [icon]="faPlus"></fa-icon> Add {{addMetricValues.length}}
+  Metrics</button>
+</div>
 </div>

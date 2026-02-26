@@ -1,43 +1,50 @@
-<ng-template [ngIf]="nebGuids.length > 0" [ngIfElse]="noNEBsBlock">
-    <div class="accordion" [id]="'nebFormsAccordion'">
-        <div class="accordion-item" *ngFor="let nebGuid of nebGuids; let index = index; let last = last;">
-            <h2 class="accordion-header">
-                @let neb = (nebGuid |nebItem:nonEnergyBenefits);
-                <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+nebGuid" aria-expanded="true"
-                    [attr.aria-controls]="nebGuid" (click)="toggleBS(nebGuid)"
-                    [ngClass]="{'collapsed': accordionGuid != nebGuid}">
-                    <div class="d-flex justify-content-between w-100 flex-column flex-md-row">
-                        <div>
-                            <fa-icon *ngIf="neb.costImpactType == 'annual'" class="pe-2" [icon]="faWeightHanging"></fa-icon>
-                            <fa-icon *ngIf="neb.costImpactType == 'oneTime'" class="pe-2" [icon]="faMoneyBillWave"></fa-icon>
-                            {{neb.name}}
-                        </div>
-                        <div class="pe-2">
-                            <span *ngIf="neb.energyOpportunityId" class="badge bg-secondary fw-light float-md-end small">
-                                {{neb.energyOpportunityId | energyOpportunityDisplay: energyOpportunities}}
-                            </span>
-                        </div>
-                    </div>
-                </button>
-            </h2>
-            <div [id]="'#'+nebGuid" class="accordion-collapse collapse" [attr.data-bs-parent]="'#nebFormsAccordion'">
-                <div class="accordion-body">
-                    <app-neb-setup-form [nebGuid]="nebGuid"
-                        (emitInitialized)="childFormInitialized(nebGuid, last)"></app-neb-setup-form>
-                </div>
+@if (nebGuids.length > 0) {
+  <div class="accordion" [id]="'nebFormsAccordion'">
+    @for (nebGuid of nebGuids; track nebGuid; let index = $index; let last = $last) {
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          @let neb = (nebGuid |nebItem:nonEnergyBenefits);
+          <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+nebGuid" aria-expanded="true"
+            [attr.aria-controls]="nebGuid" (click)="toggleBS(nebGuid)"
+            [ngClass]="{'collapsed': accordionGuid != nebGuid}">
+            <div class="d-flex justify-content-between w-100 flex-column flex-md-row">
+              <div>
+                @if (neb.costImpactType == 'annual') {
+                  <fa-icon class="pe-2" [icon]="faWeightHanging"></fa-icon>
+                }
+                @if (neb.costImpactType == 'oneTime') {
+                  <fa-icon class="pe-2" [icon]="faMoneyBillWave"></fa-icon>
+                }
+                {{neb.name}}
+              </div>
+              <div class="pe-2">
+                @if (neb.energyOpportunityId) {
+                  <span class="badge bg-secondary fw-light float-md-end small">
+                    {{neb.energyOpportunityId | energyOpportunityDisplay: energyOpportunities}}
+                  </span>
+                }
+              </div>
             </div>
+          </button>
+        </h2>
+        <div [id]="'#'+nebGuid" class="accordion-collapse collapse" [attr.data-bs-parent]="'#nebFormsAccordion'">
+          <div class="accordion-body">
+            <app-neb-setup-form [nebGuid]="nebGuid"
+            (emitInitialized)="childFormInitialized(nebGuid, last)"></app-neb-setup-form>
+          </div>
         </div>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="d-flex flex-column w-100 justify-content-center mt-3">
+    <div class="alert alert-info small text-center p-2">
+      No NEBs found for this
+      @if(assessment){
+        assessment.
+        }@else {
+        opportunity.
+      }
     </div>
-</ng-template>
-<ng-template #noNEBsBlock>
-    <div class="d-flex flex-column w-100 justify-content-center mt-3">
-        <div class="alert alert-info small text-center p-2">
-            No NEBs found for this
-            @if(assessment){
-            assessment.
-            }@else {
-            opportunity.
-            }
-        </div>
-    </div>
-</ng-template>
+  </div>
+}

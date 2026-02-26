@@ -1,58 +1,56 @@
 <div class="setup-wizard-content">
-    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-11 col-md-10 pt-4 pb-4">
-            <div class="form-paper shadow">
-                <h5>
-                    <fa-icon [icon]="faUser"></fa-icon>
-                    {{contact | contactNameDisplay}}
-                </h5>
-                <hr>
-                <app-company-contacts-form [contactGuid]="undefined"></app-company-contacts-form>
-            </div>
+  <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+    <div class="col-11 col-md-10 pt-4 pb-4">
+      <div class="form-paper shadow">
+        <h5>
+          <fa-icon [icon]="faUser"></fa-icon>
+          {{contact | contactNameDisplay}}
+        </h5>
+        <hr>
+          <app-company-contacts-form [contactGuid]="undefined"></app-company-contacts-form>
         </div>
+      </div>
     </div>
-</div>
-<nav class="setup-wizard-footer navbar shadow">
+  </div>
+  <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
-        <button class="btn nav-btn btn-sm" (click)="goBack()">
-            <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span class="d-none d-md-inline">
-                <ng-template [ngIf]="contactIndex != 0" [ngIfElse]="listLabelBlock">
-                    Previous Stakeholder
-                </ng-template>
-                <ng-template #listLabelBlock>
-                    Stakeholder List
-                </ng-template>
-            </span>
-        </button>
-        <button class="btn nav-btn btn-sm" (click)="addContact()">
-            <fa-icon [icon]="faPlus"></fa-icon>
-            <span class="d-none d-md-inline">
-                Add Stakeholder
-            </span>
-        </button>
-        <button class="btn nav-btn btn-sm" (click)="next()">
-            <span class="d-none d-md-inline">
-                <ng-template [ngIf]="contactIndex < (companyContacts.length-1)" [ngIfElse]="facilityDetailsBlock">
-                    Next Stakeholder
-                </ng-template>
-                <ng-template #facilityDetailsBlock>
-                    Facility Details
-                </ng-template>
-            </span>
-            <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
+      <button class="btn nav-btn btn-sm" (click)="goBack()">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        <span class="d-none d-md-inline">
+          @if (contactIndex != 0) {
+            Previous Stakeholder
+          } @else {
+            Stakeholder List
+          }
+        </span>
+      </button>
+      <button class="btn nav-btn btn-sm" (click)="addContact()">
+        <fa-icon [icon]="faPlus"></fa-icon>
+        <span class="d-none d-md-inline">
+          Add Stakeholder
+        </span>
+      </button>
+      <button class="btn nav-btn btn-sm" (click)="next()">
+        <span class="d-none d-md-inline">
+          @if (contactIndex < (companyContacts.length-1)) {
+            Next Stakeholder
+          } @else {
+            Facility Details
+          }
+        </span>
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
     </div>
-</nav>
+  </nav>
 
-<div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
-<div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
+  <div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
+  <div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
     <div class="popup-body">
-        <div class="alert alert-danger">
-            Please fill the required fields.
-        </div>
+      <div class="alert alert-danger">
+        Please fill the required fields.
+      </div>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
+      <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
     </div>
-</div>
+  </div>

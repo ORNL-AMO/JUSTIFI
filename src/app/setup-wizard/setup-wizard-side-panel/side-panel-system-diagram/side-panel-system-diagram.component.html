@@ -1,163 +1,172 @@
 <div class="list-group">
-    <div class="list-group-item fa-light small">
-        Use the "<fa-icon [icon]="faLink"></fa-icon>" buttons throughout the wizard to connect systems, equipment,
-        stakeholders and assessments. The current connections can be viewed below.
-    </div>
+  <div class="list-group-item fa-light small">
+    Use the "<fa-icon [icon]="faLink"></fa-icon>" buttons throughout the wizard to connect systems, equipment,
+    stakeholders and assessments. The current connections can be viewed below.
+  </div>
 </div>
 
 <div class="list-group mt-2">
-    <div class="list-group-item energy-equipment-label item-label">
-        Industrial System Inventory &amp; Connections
-    </div>
-    @let associatedEnergyEquipments = (facility.guid | energyEquipmentList:'facility': energyEquipments);
-    <ng-template [ngIf]="associatedEnergyEquipments.length > 0" [ngIfElse]="noEnergyEquipmentsBlock">
-        <div class="list-group-item" *ngFor="let equipment of associatedEnergyEquipments">
-            <div class="d-flex w-100 justify-content-between">
-                <div class="item-label">
-                    <fa-icon [icon]="faCube"></fa-icon>
-                    {{equipment.equipmentName}}
-                    <ng-template
-                        [ngIf]="inAssessment && (equipment | includedInAssessment: assessment.guid: energyOpportunities)">
-                        <fa-icon [icon]="faAsterisk"></fa-icon>
-                    </ng-template>
-                </div>
+  <div class="list-group-item energy-equipment-label item-label">
+    Industrial System Inventory &amp; Connections
+  </div>
+  @let associatedEnergyEquipments = (facility.guid | energyEquipmentList:'facility': energyEquipments);
+  @if (associatedEnergyEquipments.length > 0) {
+    @for (equipment of associatedEnergyEquipments; track equipment) {
+      <div class="list-group-item">
+        <div class="d-flex w-100 justify-content-between">
+          <div class="item-label">
+            <fa-icon [icon]="faCube"></fa-icon>
+            {{equipment.equipmentName}}
+            @if (inAssessment && (equipment | includedInAssessment: assessment.guid: energyOpportunities)) {
+              <fa-icon [icon]="faAsterisk"></fa-icon>
+            }
+          </div>
+        </div>
+        @let associatedEnergyEquipments = (equipment.guid | energyEquipmentList:'energyEquipment':
+        energyEquipments);
+        @if (associatedEnergyEquipments.length > 0) {
+          @for (associatedEquipment of associatedEnergyEquipments; track associatedEquipment) {
+            <div class="d-flex">
+              <div class="associated-item">
+              </div>
+              <div class="ps-1 item-label">
+                <fa-icon [icon]="faCube"></fa-icon>
+                {{associatedEquipment.equipmentName}}
+              </div>
             </div>
-            @let associatedEnergyEquipments = (equipment.guid | energyEquipmentList:'energyEquipment':
-            energyEquipments);
-            <ng-template [ngIf]="associatedEnergyEquipments.length > 0">
-                <div class="d-flex" *ngFor="let associatedEquipment of associatedEnergyEquipments">
-                    <div class="associated-item">
-
-                    </div>
-                    <div class="ps-1 item-label">
-                        <fa-icon [icon]="faCube"></fa-icon>
-                        {{associatedEquipment.equipmentName}}
-                    </div>
-                </div>
-            </ng-template>
-
-            @let associatedProcessEquipments = (equipment.guid | processEquipmentList:'energyEquipment':
-            processEquipments);
-
-            <ng-template [ngIf]="associatedProcessEquipments.length > 0">
-                <div class="d-flex" *ngFor="let associatedEquipment of associatedProcessEquipments">
-                    <div class="associated-item">
-
-                    </div>
-                    <div class="ps-1 item-label">
-                        <fa-icon [icon]="faSplotch"></fa-icon>
-                        {{associatedEquipment.equipmentName}}
-                    </div>
-                </div>
-            </ng-template>
-
-            @let linkedContacts = (equipment.guid | associatedContacts:'energyEquipment': contacts);
-            <ng-template [ngIf]="linkedContacts.length > 0">
-                <div class="d-flex" *ngFor="let contact of linkedContacts">
-                    <div class="associated-item">
-
-                    </div>
-                    <div class="ps-1 item-label">
-                        <fa-icon [icon]="faUser"></fa-icon>
-                        {{contact | contactNameDisplay}}
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template [ngIf]="equipment.assessmentIds">
-                <div class="d-flex" *ngFor="let assessmentId of equipment.assessmentIds">
-                    <div class="associated-item">
-
-                    </div>
-                    <div class="ps-1 item-label">
-                        <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
-                        {{assessmentId | assessmentNameDisplay: assessments}}
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template [ngIf]="equipment.energyOpportunityIds">
-                <div class="d-flex" *ngFor="let opportunityId of equipment.energyOpportunityIds">
-                    <div class="associated-item">
-
-                    </div>
-                    <div class="ps-1 item-label">
-                        <fa-icon [icon]="faFileLines"></fa-icon>
-                        {{opportunityId | energyOpportunityDisplay: energyOpportunities}}
-                    </div>
-                </div>
-            </ng-template>
-        </div>
-    </ng-template>
-    <ng-template #noEnergyEquipmentsBlock>
-        <div class="alert alert-warning p-1">
-            No equipment in the industrial system inventory for this facility.
-        </div>
-    </ng-template>
+          }
+        }
+        @let associatedProcessEquipments = (equipment.guid | processEquipmentList:'energyEquipment':
+        processEquipments);
+        @if (associatedProcessEquipments.length > 0) {
+          @for (associatedEquipment of associatedProcessEquipments; track associatedEquipment) {
+            <div class="d-flex">
+              <div class="associated-item">
+              </div>
+              <div class="ps-1 item-label">
+                <fa-icon [icon]="faSplotch"></fa-icon>
+                {{associatedEquipment.equipmentName}}
+              </div>
+            </div>
+          }
+        }
+        @let linkedContacts = (equipment.guid | associatedContacts:'energyEquipment': contacts);
+        @if (linkedContacts.length > 0) {
+          @for (contact of linkedContacts; track contact) {
+            <div class="d-flex">
+              <div class="associated-item">
+              </div>
+              <div class="ps-1 item-label">
+                <fa-icon [icon]="faUser"></fa-icon>
+                {{contact | contactNameDisplay}}
+              </div>
+            </div>
+          }
+        }
+        @if (equipment.assessmentIds) {
+          @for (assessmentId of equipment.assessmentIds; track assessmentId) {
+            <div class="d-flex">
+              <div class="associated-item">
+              </div>
+              <div class="ps-1 item-label">
+                <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                {{assessmentId | assessmentNameDisplay: assessments}}
+              </div>
+            </div>
+          }
+        }
+        @if (equipment.energyOpportunityIds) {
+          @for (opportunityId of equipment.energyOpportunityIds; track opportunityId) {
+            <div class="d-flex">
+              <div class="associated-item">
+              </div>
+              <div class="ps-1 item-label">
+                <fa-icon [icon]="faFileLines"></fa-icon>
+                {{opportunityId | energyOpportunityDisplay: energyOpportunities}}
+              </div>
+            </div>
+          }
+        }
+      </div>
+    }
+  } @else {
+    <div class="alert alert-warning p-1">
+      No equipment in the industrial system inventory for this facility.
+    </div>
+  }
 </div>
 
 <!--End use inventory-->
 <div class="list-group mt-2">
-    <div class="list-group-item end-use-label item-label">
-        End Uses Inventory &amp; Connections
-    </div>
-    @let associatedProcessEquipments = (facility.guid |
-    processEquipmentList:'facility':processEquipments:energyOpportunities);
-    <ng-template [ngIf]="associatedProcessEquipments.length != 0" [ngIfElse]="noProcessEquipmentBlock">
-        <div class="list-group-item" *ngFor="let equipment of associatedProcessEquipments">
-            <div class="d-flex w-100 justify-content-between">
-                <div class="item-label">
-                    <fa-icon [icon]="faSplotch"></fa-icon>
-                    {{equipment.equipmentName}}
-                    <ng-template
-                        [ngIf]="inAssessment && (equipment | includedInAssessment: assessment.guid: energyOpportunities)">
-                        <fa-icon [icon]="faAsterisk"></fa-icon>
-                    </ng-template>
-                </div>
+  <div class="list-group-item end-use-label item-label">
+    End Uses Inventory &amp; Connections
+  </div>
+  @let associatedProcessEquipments = (facility.guid |
+  processEquipmentList:'facility':processEquipments:energyOpportunities);
+  @if (associatedProcessEquipments.length != 0) {
+    @for (equipment of associatedProcessEquipments; track equipment) {
+      <div class="list-group-item">
+        <div class="d-flex w-100 justify-content-between">
+          <div class="item-label">
+            <fa-icon [icon]="faSplotch"></fa-icon>
+            {{equipment.equipmentName}}
+            @if (inAssessment && (equipment | includedInAssessment: assessment.guid: energyOpportunities)) {
+              <fa-icon [icon]="faAsterisk"></fa-icon>
+            }
+          </div>
+        </div>
+        @let linkedContacts = (equipment.guid | associatedContacts:'processEquipment': contacts);
+        @if (linkedContacts.length > 0) {
+          @for (contact of linkedContacts; track contact) {
+            <div class="d-flex">
+              <div class="associated-item">
+              </div>
+              <div class="ps-1 item-label">
+                <fa-icon [icon]="faUser"></fa-icon>
+                {{contact | contactNameDisplay}}
+              </div>
             </div>
-            @let linkedContacts = (equipment.guid | associatedContacts:'processEquipment': contacts);
-            <ng-template [ngIf]="linkedContacts.length > 0">
-                <div class="d-flex" *ngFor="let contact of linkedContacts">
-                    <div class="associated-item">
-
-                    </div>
-                    <div class="ps-1 item-label">
-                        <fa-icon [icon]="faUser"></fa-icon>
-                        {{contact | contactNameDisplay}}
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template [ngIf]="equipment.assessmentIds">
-                <div class="d-flex" *ngFor="let assessmentId of equipment.assessmentIds">
-                    <div class="associated-item">
-
-                    </div>
-                    <div class="ps-1 item-label">
-                        <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
-                        {{assessmentId | assessmentNameDisplay: assessments}}
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template [ngIf]="equipment.energyOpportunityIds">
-                <div class="d-flex" *ngFor="let opportunityId of equipment.energyOpportunityIds">
-                    <div class="associated-item">
-
-                    </div>
-                    <div class="ps-1 item-label">
-                        <fa-icon [icon]="faFileLines"></fa-icon>
-                        {{opportunityId | energyOpportunityDisplay: energyOpportunities}}
-                    </div>
-                </div>
-            </ng-template>
-        </div>
-    </ng-template>
-    <ng-template #noProcessEquipmentBlock>
-        <div class="alert alert-warning p-1">
-            No end uses added to this facility.
-        </div>
-    </ng-template>
+          }
+        }
+        @if (equipment.assessmentIds) {
+          @for (assessmentId of equipment.assessmentIds; track assessmentId) {
+            <div class="d-flex">
+              <div class="associated-item">
+              </div>
+              <div class="ps-1 item-label">
+                <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                {{assessmentId | assessmentNameDisplay: assessments}}
+              </div>
+            </div>
+          }
+        }
+        @if (equipment.energyOpportunityIds) {
+          @for (opportunityId of equipment.energyOpportunityIds; track opportunityId) {
+            <div class="d-flex">
+              <div class="associated-item">
+              </div>
+              <div class="ps-1 item-label">
+                <fa-icon [icon]="faFileLines"></fa-icon>
+                {{opportunityId | energyOpportunityDisplay: energyOpportunities}}
+              </div>
+            </div>
+          }
+        }
+      </div>
+    }
+  } @else {
+    <div class="alert alert-warning p-1">
+      No end uses added to this facility.
+    </div>
+  }
 </div>
-<hr class="my-1" *ngIf="inAssessment">
-<div class="alert alert-info p-1 small" *ngIf="inAssessment">
+@if (inAssessment) {
+  <hr class="my-1">
+}
+@if (inAssessment) {
+  <div class="alert alert-info p-1 small">
     <fa-icon [icon]="faAsterisk"></fa-icon> Indicates the industrial system or end use has been linked to
     <b>{{assessment.name}}</b>. Use the "Discovery" tab to discover questions that assessors should take into
     consideration for each connected system or end use.
-</div>
+  </div>
+}

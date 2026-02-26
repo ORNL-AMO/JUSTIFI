@@ -1,17 +1,19 @@
 <form>
-    <label class="bold" for="facilityName">Facility Name <span class="required-asterisk">*</span></label>
-    <input name="facilityName" type="text" class="form-control" [formControl]="name" (input)="saveChanges()"
-        id="facilityName">
-    <div class="form-error alert alert-danger" *ngIf="name.touched && name.errors?.['required']">
-        Facility name required.
+  <label class="bold" for="facilityName">Facility Name <span class="required-asterisk">*</span></label>
+  <input name="facilityName" type="text" class="form-control" [formControl]="name" (input)="saveChanges()"
+    id="facilityName">
+  @if (name.touched && name.errors?.['required']) {
+    <div class="form-error alert alert-danger">
+      Facility name required.
     </div>
+  }
 </form>
 <hr>
-<label class="bold">Location</label>
-<app-location-form [inCompany]="false"></app-location-form>
-<hr>
-<label class="bold">Tracked Utilities</label>
-<app-units-form></app-units-form>
-<hr>
-<label class="bold">Additional Details</label>
-<app-additional-details-form [inCompany]="false"></app-additional-details-form>
+  <label class="bold">Location</label>
+  <app-location-form [inCompany]="false"></app-location-form>
+  <hr>
+    <label class="bold">Tracked Utilities</label>
+    <app-units-form></app-units-form>
+    <hr>
+      <label class="bold">Additional Details</label>
+      <app-additional-details-form [inCompany]="false"></app-additional-details-form>

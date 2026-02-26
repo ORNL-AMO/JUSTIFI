@@ -1,83 +1,88 @@
 @let companyAddress = company.generalInformation | addressDisplay;
-<ng-container *ngIf="companyAddress">
-    <p class="fw-light mb-0">
-        {{companyAddress}}
-    </p>
-</ng-container>
+@if (companyAddress) {
+  <p class="fw-light mb-0">
+    {{companyAddress}}
+  </p>
+}
 <hr>
-<div class="d-flex justify-content-between mb-1 align-items-center flex-column flex-md-row">
+  <div class="d-flex justify-content-between mb-1 align-items-center flex-column flex-md-row">
     <div>
-        <h6 class="mb-0">
-            {{company.generalInformation.name}} Facilities
-        </h6>
+      <h6 class="mb-0">
+        {{company.generalInformation.name}} Facilities
+      </h6>
     </div>
     <div class="d-flex gap-2">
-        <button class="btn btn-outline-secondary btn-sm" (click)="toggleArchivedFacilities()" 
-                title="{{showArchivedFacilities ? 'Hide' : 'Show'}} archived facilities"
-                [disabled]="!hasArchivedFacilities">
-            {{showArchivedFacilities ? 'Hide Archived' : 'Show Archived'}}
+      <button class="btn btn-outline-secondary btn-sm" (click)="toggleArchivedFacilities()"
+        title="{{showArchivedFacilities ? 'Hide' : 'Show'}} archived facilities"
+        [disabled]="!hasArchivedFacilities">
+        {{showArchivedFacilities ? 'Hide Archived' : 'Show Archived'}}
+      </button>
+      @if (inCompanyDashboard) {
+        <button
+          class="btn btn-outline-success btn-sm" (click)="openAddFacilityModal()">
+          <fa-icon [icon]="faPlus"></fa-icon>
+          Add Facility
         </button>
-        <button *ngIf="inCompanyDashboard"
-            class="btn btn-outline-success btn-sm" (click)="openAddFacilityModal()">
-            <fa-icon [icon]="faPlus"></fa-icon>
-            Add Facility
-        </button>
+      }
     </div>
-</div>
-<ng-template [ngIf]="facilities.length > 0" [ngIfElse]="noFacilitiesBlock">
+  </div>
+  @if (facilities.length > 0) {
     <div class="accordion" [id]="'facilityAccordion_' + company.guid">
-        <ng-container *ngFor="let facility of facilities; let index = index; let last = last;">
-            <div class="accordion-item facility-item"
-                *ngIf="facility.isArchived && showArchivedFacilities || !facility.isArchived">
-                <h2 class="accordion-header">
-                    <div class="d-flex">
-                        <button class="btn btn-outline-primary btn-sm" (click)="goToFacilityDashboard(facility)">
-                            <fa-icon [icon]="faArrowRight"></fa-icon>
-                        </button>
-                        <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+facility.guid"
-                            aria-expanded="true" [attr.aria-controls]="facility.guid" (click)="toggleBS(facility.guid)"
-                            [ngClass]="{'collapsed': accordionGuid != facility.guid}">
-                            <fa-icon class="pe-2" [icon]="faIndustry"></fa-icon>
-                            {{facility.generalInformation.name}}
-                            <span *ngIf="facility.isArchived" class="badge bg-secondary ms-2">Archived</span>
-                        </button>
-                    </div>
-                </h2>
-                <div [id]="'#'+facility.guid" class="accordion-collapse collapse"
-                    [attr.data-bs-parent]="'#facilityAccordion_' + company.guid">
-                    <div class="accordion-body">
-                        <app-facility-list-item [facility]="facility"></app-facility-list-item>
-                    </div>
-                </div>
+      @for (facility of facilities; track facility; let index = $index; let last = $last) {
+        @if (facility.isArchived && showArchivedFacilities || !facility.isArchived) {
+          <div class="accordion-item facility-item"
+            >
+            <h2 class="accordion-header">
+              <div class="d-flex">
+                <button class="btn btn-outline-primary btn-sm" (click)="goToFacilityDashboard(facility)">
+                  <fa-icon [icon]="faArrowRight"></fa-icon>
+                </button>
+                <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+facility.guid"
+                  aria-expanded="true" [attr.aria-controls]="facility.guid" (click)="toggleBS(facility.guid)"
+                  [ngClass]="{'collapsed': accordionGuid != facility.guid}">
+                  <fa-icon class="pe-2" [icon]="faIndustry"></fa-icon>
+                  {{facility.generalInformation.name}}
+                  @if (facility.isArchived) {
+                    <span class="badge bg-secondary ms-2">Archived</span>
+                  }
+                </button>
+              </div>
+            </h2>
+            <div [id]="'#'+facility.guid" class="accordion-collapse collapse"
+              [attr.data-bs-parent]="'#facilityAccordion_' + company.guid">
+              <div class="accordion-body">
+                <app-facility-list-item [facility]="facility"></app-facility-list-item>
+              </div>
             </div>
-        </ng-container>
+          </div>
+        }
+      }
     </div>
-</ng-template>
-
-<ng-template #noFacilitiesBlock>
+  } @else {
     <div class="alert alert-info p-2">
-        No facilities found for this company. Use the "<fa-icon [icon]="faPlus"></fa-icon> Add Facility" button to add a
-        facility to this company.
+      No facilities found for this company. Use the "<fa-icon [icon]="faPlus"></fa-icon> Add Facility" button to add a
+      facility to this company.
     </div>
-</ng-template>
+  }
 
-<div [ngClass]="{'window-overlay': displayAddFacilityModal}"></div>
-<div class="popup" [ngClass]="{'open': displayAddFacilityModal }">
+
+  <div [ngClass]="{'window-overlay': displayAddFacilityModal}"></div>
+  <div class="popup" [ngClass]="{'open': displayAddFacilityModal }">
     <div class="popup-header">Add New Facility
-        <button type="button" class="btn-close float-end" aria-label="Close"
-            (click)="closeAddFacilityModal()"></button>
+      <button type="button" class="btn-close float-end" aria-label="Close"
+      (click)="closeAddFacilityModal()"></button>
     </div>
     <div class="popup-body">
-        <p class="fw-light">
-            Create a new facility that will be added to your portfolio.
-        </p>
-        <hr>
-    </div>
-    <div class="popup-footer d-flex justify-content-end">
+      <p class="fw-light">
+        Create a new facility that will be added to your portfolio.
+      </p>
+      <hr>
+      </div>
+      <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-secondary me-2 btn-sm" (click)="closeAddFacilityModal()">Cancel</button>
         <button class="btn btn-success btn-sm" (click)="confirmCreate()">
-            <fa-icon [icon]="faPlus"></fa-icon>
-            Create Facility
+          <fa-icon [icon]="faPlus"></fa-icon>
+          Create Facility
         </button>
+      </div>
     </div>
-</div>

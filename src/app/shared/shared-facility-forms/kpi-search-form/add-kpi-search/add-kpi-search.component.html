@@ -1,120 +1,131 @@
 <div class="row">
-    <div class="col-12">
-        <h5>
-            <fa-icon [icon]="faMagnifyingGlassPlus" class="me-2"></fa-icon>
-            Find Potential KPIs
-        </h5>
+  <div class="col-12">
+    <h5>
+      <fa-icon [icon]="faMagnifyingGlassPlus" class="me-2"></fa-icon>
+      Find Potential KPIs
+    </h5>
+  </div>
+  <div class="col-12 mb-1">
+    <div class="input-group" role="search">
+      <span class="input-group-text">
+        <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+      </span>
+      <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="kpiSearchStr"
+        [(ngModel)]="kpiSearchStr" (input)="filterKpmKeywordList()">
     </div>
-    <div class="col-12 mb-1">
-        <div class="input-group" role="search">
-            <span class="input-group-text">
-                <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-            </span>
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="kpiSearchStr"
-                [(ngModel)]="kpiSearchStr" (input)="filterKpmKeywordList()">
-        </div>
-        <ul *ngIf="kpiSearchStr && filteredKpmKeywordList.length > 0"
-            class="dropdown-menu show scrollable">
-            <li *ngFor="let keyword of filteredKpmKeywordList" class="dropdown-item"
-                (click)="keyword != '...' && selectKpmKeyword(keyword)"
-                [innerHTML]="keyword | keywordHighlight: kpiSearchStr">
-            </li>
-        </ul>
-    </div>
-    <div class="col-12 mb-1">
-        <select name="kpiCategorySearch" class="form-select" id="kpiCategorySearch" [(ngModel)]="kpiCategorySearch">
-            <option [ngValue]="undefined">All Categories</option>
-            <option *ngFor="let category of primaryKPIs" [ngValue]="category">
-                {{category}}
-            </option>
-        </select>
-    </div>
+    @if (kpiSearchStr && filteredKpmKeywordList.length > 0) {
+      <ul
+        class="dropdown-menu show scrollable">
+        @for (keyword of filteredKpmKeywordList; track keyword) {
+          <li class="dropdown-item"
+            (click)="keyword != '...' && selectKpmKeyword(keyword)"
+            [innerHTML]="keyword | keywordHighlight: kpiSearchStr">
+          </li>
+        }
+      </ul>
+    }
+  </div>
+  <div class="col-12 mb-1">
+    <select name="kpiCategorySearch" class="form-select" id="kpiCategorySearch" [(ngModel)]="kpiCategorySearch">
+      <option [ngValue]="undefined">All Categories</option>
+      @for (category of primaryKPIs; track category) {
+        <option [ngValue]="category">
+          {{category}}
+        </option>
+      }
+    </select>
+  </div>
 </div>
 
 <div class="p-0 w-100">
-    <hr>
-</div>
-<div class="d-flex flex-column indicator-container">
+  <hr>
+  </div>
+  <div class="d-flex flex-column indicator-container">
     <div class="d-flex w-100 justify-content-between list-item">
-        <div class="d-flex flex-column">
-            <div>
-                <span class="ps-1 italic">Create Custom KPI</span>
-            </div>
-            <div class="badge-display">
-                <span class="badge bg-secondary">
-                    Custom
-                </span>
-            </div>
-        </div>
+      <div class="d-flex flex-column">
         <div>
-            <a class="p-1 click-link" (click)="openAddCustomModal()">
-                <fa-icon class="small" [icon]="faPlus"></fa-icon>
-            </a>
+          <span class="ps-1 italic">Create Custom KPI</span>
         </div>
+        <div class="badge-display">
+          <span class="badge bg-secondary">
+            Custom
+          </span>
+        </div>
+      </div>
+      <div>
+        <a class="p-1 click-link" (click)="openAddCustomModal()">
+          <fa-icon class="small" [icon]="faPlus"></fa-icon>
+        </a>
+      </div>
     </div>
     <div class="p-0 w-100">
-        <hr>
+      <hr>
+      </div>
     </div>
-</div>
-<div class="d-flex flex-column indicator-container"
-    *ngFor="let option of keyPerformanceIndicatorOptions | kpiListFilter: kpiSearchStr: kpiCategorySearch"
-    [ngClass]="{'hidden': option.optionValue | selectedKpiOption: keyPerformanceIndicators: facility.guid }">
-    <div class="d-flex w-100 justify-content-between list-item">
-        <div class="d-flex flex-column">
+    @for (option of keyPerformanceIndicatorOptions | kpiListFilter: kpiSearchStr: kpiCategorySearch; track option) {
+      <div class="d-flex flex-column indicator-container"
+        [ngClass]="{'hidden': option.optionValue | selectedKpiOption: keyPerformanceIndicators: facility.guid }">
+        <div class="d-flex w-100 justify-content-between list-item">
+          <div class="d-flex flex-column">
             <div>
-                <span class="ps-1" [innerHTML]="option.label"></span>
+              <span class="ps-1" [innerHTML]="option.label"></span>
             </div>
             <div class="badge-display">
-                <app-primary-kpi-badge [kpiOption]="option"></app-primary-kpi-badge>
+              <app-primary-kpi-badge [kpiOption]="option"></app-primary-kpi-badge>
             </div>
-        </div>
-        <div>
+          </div>
+          <div>
             <a class="p-1 click-link" (click)="addKPI(option)">
-                <fa-icon class="small" [icon]="faPlus"></fa-icon>
+              <fa-icon class="small" [icon]="faPlus"></fa-icon>
             </a>
+          </div>
         </div>
-    </div>
-    <div class="p-0 w-100">
-        <hr>
-    </div>
-</div>
+        <div class="p-0 w-100">
+          <hr>
+          </div>
+        </div>
+      }
 
 
 
 
 
-<!--custom KPI modal-->
-<div [ngClass]="{'window-overlay': displayCustomKPIModal}"></div>
-<div class="popup" [ngClass]="{'open': displayCustomKPIModal }">
-    <div class="popup-header">Create Custom KPI?
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeCustomKPIModal()"></button>
-    </div>
-    <div class="popup-body">
-        <form>
+      <!--custom KPI modal-->
+      <div [ngClass]="{'window-overlay': displayCustomKPIModal}"></div>
+      <div class="popup" [ngClass]="{'open': displayCustomKPIModal }">
+        <div class="popup-header">Create Custom KPI?
+          <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeCustomKPIModal()"></button>
+        </div>
+        <div class="popup-body">
+          <form>
             <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="customKPIName">Custom KPI Name</label>
-                <div class="col-sm-7">
-                    <input name="customKPIName" type="text" class="form-control" [(ngModel)]="customKPIName"
-                        id="customKPIName">
-                    <div class="alert alert-danger small mt-1 p-1" *ngIf="!customKPIName">
-                        Name Required
-                    </div>
-                </div>
+              <label class="col-sm-5 col-form-label" for="customKPIName">Custom KPI Name</label>
+              <div class="col-sm-7">
+                <input name="customKPIName" type="text" class="form-control" [(ngModel)]="customKPIName"
+                  id="customKPIName">
+                @if (!customKPIName) {
+                  <div class="alert alert-danger small mt-1 p-1">
+                    Name Required
+                  </div>
+                }
+              </div>
             </div>
             <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="kpiCategory">KPI Category</label>
-                <div class="col-sm-7">
-                    <select class="form-select" name="kpiCategory" id="kpiCategory" [(ngModel)]="kpiCategory">
-                        <option *ngFor="let primaryKPI of primaryKPIs" [ngValue]="primaryKPI">{{primaryKPI}}</option>
-                    </select>
-                </div>
+              <label class="col-sm-5 col-form-label" for="kpiCategory">KPI Category</label>
+              <div class="col-sm-7">
+                <select class="form-select" name="kpiCategory" id="kpiCategory" [(ngModel)]="kpiCategory">
+                  @for (primaryKPI of primaryKPIs; track primaryKPI) {
+                    <option [ngValue]="primaryKPI">{{primaryKPI}}</option>
+                  }
+                </select>
+              </div>
             </div>
-        </form>
-        <hr>
-    </div>
-    <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary btn-sm me-2" (click)="closeCustomKPIModal()">Cancel</button>
-        <button class="btn btn-success btn-sm" [disabled]="!customKPIName" (click)="confirmCreate()">Create Custom
+          </form>
+          <hr>
+          </div>
+          <div class="popup-footer d-flex justify-content-end">
+            <button class="btn btn-secondary btn-sm me-2" (click)="closeCustomKPIModal()">Cancel</button>
+            <button class="btn btn-success btn-sm" [disabled]="!customKPIName" (click)="confirmCreate()">Create Custom
             KPI</button>
-    </div>
-</div>
+          </div>
+        </div>

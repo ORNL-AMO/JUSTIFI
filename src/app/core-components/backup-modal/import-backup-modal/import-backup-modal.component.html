@@ -1,111 +1,119 @@
 <div [ngClass]="{'window-overlay': showImportModal}"></div>
 <div class="popup" [ngClass]="{'open': showImportModal}">
-    <div class="popup-header">
-        <ng-container *ngIf="importMethod == 'jsonFile'">
-            Import Backup File
-        </ng-container>
-        <ng-container *ngIf="importMethod == 'template'">
-            Import Template File
-        </ng-container>
+  <div class="popup-header">
+    @if (importMethod == 'jsonFile') {
+      Import Backup File
+    }
+    @if (importMethod == 'template') {
+      Import Template File
+    }
 
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="cancelImportBackup()"></button>
-    </div>
-    <div class="popup-body">
-        <!--select import method-->
-        <ng-container *ngIf="!importMethod">
-            <p class="text-center">Select import method</p>
-            <div class="d-flex">
-                <div class="w-50 me-1">
-                    <button class="btn btn-outline-dark w-100" (click)="setImportType('jsonFile')">
-                        JUSTIFI <br> .json Backup
-                    </button>
-                    <p class="fw-light small text-center">
-                        If you have a .json file that has been exported from the JUSTIFI application.
-                    </p>
-                </div>
-                <div class="w-50 ms-1">
-                    <button class="btn btn-outline-dark w-100" (click)="setImportType('template')">
-                        JUSTIFI <br> .xlsx Template
-                    </button>
-                    <p class="fw-light small text-center">
-                        If you have a template file that has been filled out manually or from the MEASUR application.
-                    </p>
-                </div>
+    <button type="button" class="btn-close float-end" aria-label="Close" (click)="cancelImportBackup()"></button>
+  </div>
+  <div class="popup-body">
+    <!--select import method-->
+    @if (!importMethod) {
+      <p class="text-center">Select import method</p>
+      <div class="d-flex">
+        <div class="w-50 me-1">
+          <button class="btn btn-outline-dark w-100" (click)="setImportType('jsonFile')">
+            JUSTIFI <br> .json Backup
+          </button>
+          <p class="fw-light small text-center">
+            If you have a .json file that has been exported from the JUSTIFI application.
+          </p>
+        </div>
+        <div class="w-50 ms-1">
+          <button class="btn btn-outline-dark w-100" (click)="setImportType('template')">
+            JUSTIFI <br> .xlsx Template
+          </button>
+          <p class="fw-light small text-center">
+            If you have a template file that has been filled out manually or from the MEASUR application.
+          </p>
+        </div>
+      </div>
+    }
+
+    <!--import backup .json file-->
+    @if (importMethod === 'jsonFile') {
+      <p>Select backup .json file you previously exported from JUSTIFI application.</p>
+      <input type="file" #selectImportFile id="selectImportFile" (input)="setImportFile($event.target)"
+        accept=".json">
+      @if (importFileError) {
+        <p class="alert alert-danger">
+          {{importFileError}}
+        </p>
+      }
+      @if (importFile !== undefined && importFileError === undefined && importForUser) {
+        <div class="d-flex flex-column pt-3"
+          >
+          <div class="input-group">
+            <label class="w-50 ps-0 bold">
+              Import User ID:
+            </label>
+            <div class="w-50">
+              {{importName}}
             </div>
-        </ng-container>
-
-        <!--import backup .json file-->
-        <ng-container *ngIf="importMethod === 'jsonFile'">
-            <p>Select backup .json file you previously exported from JUSTIFI application.</p>
-            <input type="file" #selectImportFile id="selectImportFile" (input)="setImportFile($event.target)"
-                accept=".json">
-            <p class="alert alert-danger" *ngIf="importFileError">
-                {{importFileError}}
+          </div>
+        </div>
+      }
+      @if (importFile !== undefined && importFileError === undefined && importForUser) {
+        <div class="d-flex flex-column pt-3"
+          >
+          <div class="input-group">
+            <label class="w-50 ps-0 bold">
+              Overwrite Current User Data?
+            </label>
+            <select class="form-select w-50" [(ngModel)]="overwriteData" name="overwriteData">
+              <option [ngValue]="true">Overwrite current user</option>
+              <option [ngValue]="false">Add to current user</option>
+            </select>
+          </div>
+          @if (overwriteData) {
+            <p class="alert alert-warning mt-3">
+              Current user data will be overwritten. This cannot be undone.
             </p>
+          }
+        </div>
+      }
+    }
 
-            <div class="d-flex flex-column pt-3"
-                *ngIf="importFile !== undefined && importFileError === undefined && importForUser">
-                <div class="input-group">
-                    <label class="w-50 ps-0 bold">
-                        Import User ID:
-                    </label>
-                    <div class="w-50">
-                        {{importName}}
-                    </div>
-                </div>
-            </div>
-
-            <div class="d-flex flex-column pt-3"
-                *ngIf="importFile !== undefined && importFileError === undefined && importForUser">
-                <div class="input-group">
-                    <label class="w-50 ps-0 bold">
-                        Overwrite Current User Data?
-                    </label>
-                    <select class="form-select w-50" [(ngModel)]="overwriteData" name="overwriteData">
-                        <option [ngValue]="true">Overwrite current user</option>
-                        <option [ngValue]="false">Add to current user</option>
-                    </select>
-                </div>
-                <p class="alert alert-warning mt-3" *ngIf="overwriteData">
-                    Current user data will be overwritten. This cannot be undone.
-                </p>
-            </div>
-        </ng-container>
-
-        <!--import template file-->
-        <ng-container *ngIf="importMethod === 'template'">
-            <p>Select .xlsx template file filled out manually or from MEASUR application. <span class="bold"> A new
-                    company will be created
-                    with content from the file</span></p>
-            <input type="file" #selectImportFile id="selectImportFile" (input)="onFileSelected($event.target)"
-                accept=".xlsx">
-            <p class="alert alert-danger" *ngIf="fileUploadError">
-                {{fileUploadError}}
-            </p>
-        </ng-container>
-    </div>
-    <hr>
+    <!--import template file-->
+    @if (importMethod === 'template') {
+      <p>Select .xlsx template file filled out manually or from MEASUR application. <span class="bold"> A new
+        company will be created
+      with content from the file</span></p>
+      <input type="file" #selectImportFile id="selectImportFile" (input)="onFileSelected($event.target)"
+        accept=".xlsx">
+      @if (fileUploadError) {
+        <p class="alert alert-danger">
+          {{fileUploadError}}
+        </p>
+      }
+    }
+  </div>
+  <hr>
     <div class="popup-footer d-flex justify-content-between">
-        <div>
-            <a class="btn btn-outline-primary btn-sm" href="/assets/template-files/JUSTIFI_project_template.xlsx"
-                download="assessment-template.xlsx">
-                <fa-icon [icon]="faFileExcel"></fa-icon>
-                Download Template
-            </a>
-        </div>
-        <div>
-            <button class="btn btn-secondary me-2 btn-sm" (click)="cancelImportBackup()">Cancel</button>
+      <div>
+        <a class="btn btn-outline-primary btn-sm" href="/assets/template-files/JUSTIFI_project_template.xlsx"
+          download="assessment-template.xlsx">
+          <fa-icon [icon]="faFileExcel"></fa-icon>
+          Download Template
+        </a>
+      </div>
+      <div>
+        <button class="btn btn-secondary me-2 btn-sm" (click)="cancelImportBackup()">Cancel</button>
 
-            <ng-container *ngIf="importMethod === 'jsonFile'">
-                <button class="btn btn-primary btn-sm" (click)="importBackupFile()"
-                    [disabled]="importFile == undefined || importFileError != undefined">Import</button>
-            </ng-container>
+        @if (importMethod === 'jsonFile') {
+          <button class="btn btn-primary btn-sm" (click)="importBackupFile()"
+          [disabled]="importFile == undefined || importFileError != undefined">Import</button>
+        }
 
-            <ng-container *ngIf="importMethod === 'template'">
-                <button class="btn btn-primary btn-sm" (click)="parseWorkbook()"
-                    [disabled]="workbook == undefined || importFileError != undefined">Import</button>
-            </ng-container>
+        @if (importMethod === 'template') {
+          <button class="btn btn-primary btn-sm" (click)="parseWorkbook()"
+          [disabled]="workbook == undefined || importFileError != undefined">Import</button>
+        }
 
-        </div>
+      </div>
     </div>
-</div>
+  </div>

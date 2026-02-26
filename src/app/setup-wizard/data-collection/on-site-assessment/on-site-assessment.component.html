@@ -1,64 +1,70 @@
-<div class="setup-wizard-content" *ngIf="assessment">
+@if (assessment) {
+  <div class="setup-wizard-content">
     <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-11 col-md-10 pt-4 pb-4">
-            <div class="form-paper shadow">
-                <div class="d-flex w-100 justify-content-between">
-                    <div>
-                        <h5>
-                            <fa-icon [icon]="faScrewdriverWrench"></fa-icon> {{assessment.name}}
-                        </h5>
-                    </div>
-                    <div>
-                        <span class="badge bg-dark small"
-                            *ngIf="assessment.assessmentType">{{assessment.assessmentType}}</span>
-                    </div>
-                </div>
-                <hr class="my-1">
-                <nav class="navbar">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="'details'" [routerLinkActive]="['active']">Details</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="'energy-opportunities'" [routerLinkActive]="['active']"
-                                title="Energy Efficiency Measures">EEMs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="'nebs'" [routerLinkActive]="['active']"
-                                title="Multiple Benefits">Benefits
-                                <span class="d-none d-md-inline"> &plus; Incentives</span></a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="pt-2">
-                    <router-outlet></router-outlet>
-                </div>
+      <div class="col-11 col-md-10 pt-4 pb-4">
+        <div class="form-paper shadow">
+          <div class="d-flex w-100 justify-content-between">
+            <div>
+              <h5>
+                <fa-icon [icon]="faScrewdriverWrench"></fa-icon> {{assessment.name}}
+              </h5>
             </div>
+            <div>
+              @if (assessment.assessmentType) {
+                <span class="badge bg-dark small"
+                >{{assessment.assessmentType}}</span>
+              }
+            </div>
+          </div>
+          <hr class="my-1">
+          <nav class="navbar">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="'details'" [routerLinkActive]="['active']">Details</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="'energy-opportunities'" [routerLinkActive]="['active']"
+                title="Energy Efficiency Measures">EEMs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="'nebs'" [routerLinkActive]="['active']"
+                  title="Multiple Benefits">Benefits
+                  <span class="d-none d-md-inline"> &plus; Incentives</span></a>
+                </li>
+              </ul>
+            </nav>
+            <div class="pt-2">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<nav class="setup-wizard-footer navbar shadow">
+  }
+  <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
-        <div class="col-3">
-            <button #prevBtn class="btn nav-btn btn-sm" (click)="goBack(prevBtn)">
-                <fa-icon [icon]="faChevronLeft"></fa-icon>
-                <span class="d-none d-md-inline">
-                    {{ backLabel }}
-                </span>
-            </button>
+      <div class="col-3">
+        <button #prevBtn class="btn nav-btn btn-sm" (click)="goBack(prevBtn)">
+          <fa-icon [icon]="faChevronLeft"></fa-icon>
+          <span class="d-none d-md-inline">
+            {{ backLabel }}
+          </span>
+        </button>
+      </div>
+      <div class="col-3">
+        <div class="d-flex  justify-content-end">
+          <button #nxtBtn class="btn nav-btn btn-sm" (click)="goToNext(nxtBtn)">
+            <span class="d-none d-md-inline">
+              {{ nextLabel }}
+            </span>
+            <fa-icon [icon]="faChevronRight"></fa-icon>
+          </button>
         </div>
-        <div class="col-3">
-            <div class="d-flex  justify-content-end">
-                <button #nxtBtn class="btn nav-btn btn-sm" (click)="goToNext(nxtBtn)">
-                    <span class="d-none d-md-inline">
-                        {{ nextLabel }}
-                    </span>
-                    <fa-icon [icon]="faChevronRight"></fa-icon>
-                </button>
-            </div>
-        </div>
+      </div>
     </div>
-</nav>
+  </nav>
 
 
-<app-add-nebs-modal *ngIf="displayAddNebsModal"></app-add-nebs-modal>
+  @if (displayAddNebsModal) {
+    <app-add-nebs-modal></app-add-nebs-modal>
+  }

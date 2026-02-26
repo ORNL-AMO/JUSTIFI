@@ -1,42 +1,44 @@
 <div class="setup-wizard-content">
-    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-11 col-md-10 pt-4 pb-4">
-            <div class="form-paper shadow">
-                <h5>
-                    <fa-icon [icon]="faCircleExclamation" class="pe-1 fa-error"
-                        *ngIf="name?.touched && name.invalid"></fa-icon>
-                    <fa-icon [icon]="faIndustry" class="me-2"></fa-icon>Facility Details
-                </h5>
-                <hr>
-                <app-facility-setup-form></app-facility-setup-form>
-            </div>
+  <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+    <div class="col-11 col-md-10 pt-4 pb-4">
+      <div class="form-paper shadow">
+        <h5>
+          @if (name?.touched && name.invalid) {
+            <fa-icon [icon]="faCircleExclamation" class="pe-1 fa-error"
+            ></fa-icon>
+          }
+          <fa-icon [icon]="faIndustry" class="me-2"></fa-icon>Facility Details
+        </h5>
+        <hr>
+          <app-facility-setup-form></app-facility-setup-form>
         </div>
+      </div>
     </div>
-</div>
-<nav class="setup-wizard-footer navbar shadow">
+  </div>
+  <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
-        <button class="btn nav-btn btn-sm" (click)="goBack()">
-            <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span class="d-none d-md-inline">
-                Go Back
-            </span>
-        </button>
-        <button class="btn nav-btn btn-sm" (click)="goToQuestions()" [disabled]="name?.invalid">
-            <span class="d-none d-md-inline">
-                Facility Questions
-            </span>
-            <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
+      <button class="btn nav-btn btn-sm" (click)="goBack()">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        <span class="d-none d-md-inline">
+          Go Back
+        </span>
+      </button>
+      <button class="btn nav-btn btn-sm" (click)="goToQuestions()" [disabled]="name?.invalid">
+        <span class="d-none d-md-inline">
+          Facility Questions
+        </span>
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
     </div>
-</nav>
-<div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
-<div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
+  </nav>
+  <div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
+  <div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
     <div class="popup-body">
-        <div class="alert alert-danger">
-            Please fill the required fields.
-        </div>
+      <div class="alert alert-danger">
+        Please fill the required fields.
+      </div>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
+      <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
     </div>
-</div>
+  </div>

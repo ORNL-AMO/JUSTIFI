@@ -1,56 +1,58 @@
 <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.sectionHelp">
 </p>
-<p class="fw-light small mb-0" *ngIf="!inPortfolio">
+@if (!inPortfolio) {
+  <p class="fw-light small mb-0">
     Answering the questions is an <b><u>optional</u></b> exercise but a good practice. The help panel provides additional context for
     the individual questions when a user clicks on the corresponding input fields
-</p>
+  </p>
+}
 <hr class="my-2">
 <!--howSupportPlant-->
 <label>
-    How does this system support the plant?
+  How does this system support the plant?
 </label>
 
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlant">
-    </p>
-    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlantQs">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlant">
+  </p>
+  <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlantQs">
+  </p>
+}
 <textarea id="howSupportPlant" name="howSupportPlant" class="form-control" [(ngModel)]="howSupportPlant"
-    (input)="saveChanges()" (focus)="focusField('howSupportPlant')" rows="3"></textarea>
+(input)="saveChanges()" (focus)="focusField('howSupportPlant')" rows="3"></textarea>
 <hr class="my-1">
 <!--adverseEffects-->
 <label>
-    How would any recommendations to improve energy efficiency improve other areas within the facility?
+  How would any recommendations to improve energy efficiency improve other areas within the facility?
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.adverseEffects">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.adverseEffects">
+  </p>
+}
 <textarea id="adverseEffects" name="adverseEffects" class="form-control" [(ngModel)]="adverseEffects"
-    (input)="saveChanges()" (focus)="focusField('adverseEffects')" rows="3"></textarea>
+(input)="saveChanges()" (focus)="focusField('adverseEffects')" rows="3"></textarea>
 <hr class="my-1">
 <!--equipmentFinancialStatus-->
 <label>
-    Where is the equipment in its lifecycle? Are you considering replacement?
+  Where is the equipment in its lifecycle? Are you considering replacement?
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatus">
-    </p>
-    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatusQs">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatus">
+  </p>
+  <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatusQs">
+  </p>
+}
 <textarea id="equipmentFinancialStatus" name="equipmentFinancialStatus" class="form-control"
-    [(ngModel)]="equipmentFinancialStatus" (input)="saveChanges()" (focus)="focusField('equipmentFinancialStatus')"
-    rows="3"></textarea>
+  [(ngModel)]="equipmentFinancialStatus" (input)="saveChanges()" (focus)="focusField('equipmentFinancialStatus')"
+rows="3"></textarea>
 <!--financialMetricsUsed-->
 <label>
-    What financial metrics are used to understand the output of the system (/gpm, /scfm)?
+  What financial metrics are used to understand the output of the system (/gpm, /scfm)?
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.financialMetricsUsed">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.financialMetricsUsed">
+  </p>
+}
 <textarea id="financialMetricsUsed" name="financialMetricsUsed" class="form-control"
-    [(ngModel)]="financialMetricsUsed" (input)="saveChanges()" (focus)="focusField('financialMetricsUsed')"
-    rows="3"></textarea>
+  [(ngModel)]="financialMetricsUsed" (input)="saveChanges()" (focus)="focusField('financialMetricsUsed')"
+rows="3"></textarea>

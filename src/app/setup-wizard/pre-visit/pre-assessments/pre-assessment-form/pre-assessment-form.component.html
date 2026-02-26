@@ -1,76 +1,74 @@
 <div class="setup-wizard-content">
-    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-11 col-md-10 pt-4 pb-4">
-            <div class="form-paper shadow">
-                <h5>
-                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
-                    {{assessment?.name}}
-                </h5>
-                <hr>
-                <app-assessment-details-form [inPreAssessment]="true"></app-assessment-details-form>
-                <!-- <hr> -->
-                <div class="d-flex w-100 justify-content-end mt-2">
-                    <div>
-                        <button class="btn btn-danger btn-sm" (click)="openDeleteModal()">
-                            <fa-icon [icon]="faTrash"></fa-icon>
-                            Delete
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<nav class="setup-wizard-footer navbar shadow">
-    <div class="container-fluid justify-content-between">
-        <button class="btn nav-btn btn-sm" (click)="goBack()">
-            <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span class="d-none d-md-inline">
-                Go Back
-            </span>
-        </button>
-        <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            <span class="d-none d-md-inline">
-                <ng-template [ngIf]="assessmentIndex < (this.onSiteVisit.assessmentIds.length -1)"
-                    [ngIfElse]="reviewPrevisitBlock">
-                    Next Pre-Assessment
-                </ng-template>
-                <ng-template #reviewPrevisitBlock>
-                    Review Pre-visit
-                </ng-template>
-            </span>
-            <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
-    </div>
-</nav>
-<div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
-<div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
-    <div class="popup-body">
-        <div class="alert alert-danger">
-            Please fill the required fields.
-        </div>
-    </div>
-    <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
-    </div>
-</div>
-
-
-
-<div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
-<div class="popup" [ngClass]="{'open': displayDeleteModal }">
-    <div class="popup-header">Delete Pre-Assessment
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
-    </div>
-    <div class="popup-body">
-        <div class="alert alert-danger">
-            Are you sure you want to delete this pre-assessment? Changes will be lost.
-        </div>
+  <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+    <div class="col-11 col-md-10 pt-4 pb-4">
+      <div class="form-paper shadow">
+        <h5>
+          <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+          {{assessment?.name}}
+        </h5>
         <hr>
+          <app-assessment-details-form [inPreAssessment]="true"></app-assessment-details-form>
+          <!-- <hr> -->
+          <div class="d-flex w-100 justify-content-end mt-2">
+            <div>
+              <button class="btn btn-danger btn-sm" (click)="openDeleteModal()">
+                <fa-icon [icon]="faTrash"></fa-icon>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="setup-wizard-footer navbar shadow">
+    <div class="container-fluid justify-content-between">
+      <button class="btn nav-btn btn-sm" (click)="goBack()">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        <span class="d-none d-md-inline">
+          Go Back
+        </span>
+      </button>
+      <button class="btn nav-btn btn-sm" (click)="goToNext()">
+        <span class="d-none d-md-inline">
+          @if (assessmentIndex < (this.onSiteVisit.assessmentIds.length -1)) {
+            Next Pre-Assessment
+          } @else {
+            Review Pre-visit
+          }
+        </span>
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
+    </div>
+  </nav>
+  <div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
+  <div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
+    <div class="popup-body">
+      <div class="alert alert-danger">
+        Please fill the required fields.
+      </div>
     </div>
     <div class="popup-footer d-flex justify-content-end">
+      <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
+    </div>
+  </div>
+
+
+
+  <div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
+  <div class="popup" [ngClass]="{'open': displayDeleteModal }">
+    <div class="popup-header">Delete Pre-Assessment
+      <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
+    </div>
+    <div class="popup-body">
+      <div class="alert alert-danger">
+        Are you sure you want to delete this pre-assessment? Changes will be lost.
+      </div>
+      <hr>
+      </div>
+      <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteModal()">Cancel</button>
         <button class="btn btn-danger btn-sm" (click)="removeAssessment()"><fa-icon [icon]="faTrash"></fa-icon> Delete
-            Assessment</button>
+      Assessment</button>
     </div>
-</div>
+  </div>

@@ -1,34 +1,33 @@
 <div class="setup-wizard-content">
-    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-11 col-md-10 pt-4 pb-4">
-            <div class="form-paper shadow">
-                <h5>
-                    <fa-icon [icon]="faChartBar" class="me-2"></fa-icon> Facility Key Performance Indicators (KPIs)
-                </h5>
-                <hr>
-                <app-kpi-search-form></app-kpi-search-form>
-            </div>
+  <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+    <div class="col-11 col-md-10 pt-4 pb-4">
+      <div class="form-paper shadow">
+        <h5>
+          <fa-icon [icon]="faChartBar" class="me-2"></fa-icon> Facility Key Performance Indicators (KPIs)
+        </h5>
+        <hr>
+          <app-kpi-search-form></app-kpi-search-form>
         </div>
+      </div>
     </div>
-</div>
-<nav class="setup-wizard-footer navbar shadow">
+  </div>
+  <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
-        <button class="btn nav-btn btn-sm" (click)="goBack()">
-            <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span class="d-none d-md-inline">
-                Go Back
-            </span>
-        </button>
-        <button class="btn nav-btn btn-sm" (click)="goToKpiDetails()">
-            <span class="d-none d-md-inline">
-                <ng-template [ngIf]="facilityKpis.length > 0" [ngIfElse]="noKPIsBlock">
-                    Detail KPIs
-                </ng-template>
-                <ng-template #noKPIsBlock>
-                    Industrial System Inventory
-                </ng-template>
-            </span>
-            <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
+      <button class="btn nav-btn btn-sm" (click)="goBack()">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        <span class="d-none d-md-inline">
+          Go Back
+        </span>
+      </button>
+      <button class="btn nav-btn btn-sm" (click)="goToKpiDetails()">
+        <span class="d-none d-md-inline">
+          @if (facilityKpis.length > 0) {
+            Detail KPIs
+          } @else {
+            Industrial System Inventory
+          }
+        </span>
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
     </div>
-</nav>
+  </nav>
