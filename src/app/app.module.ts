@@ -17,7 +17,8 @@ import { HelperPipesModule } from './shared/helper-pipes/_helper-pipes.module';
 import { SetupWizardModalComponent } from './core-components/setup-wizard-modal/setup-wizard-modal.component';
 import { ImportBackupModalComponent } from './core-components/backup-modal/import-backup-modal/import-backup-modal.component';
 import { UserPortfolioModule } from './user-portfolio/user-portfolio.module';
-import { PlotlyViaWindowModule } from 'angular-plotly.js';
+import { PlotlyModule } from 'angular-plotly.js';
+import * as PlotlyJS from 'plotly.js-dist-min';
 import { FeedbackPageComponent } from './core-components/feedback-page/feedback-page.component';
 import { AcknowledgmentsComponent } from './core-components/acknowledgments/acknowledgments.component';
 import { AboutComponent } from './core-components/about/about.component';
@@ -62,8 +63,7 @@ import { UpdateCheckComponent } from './core-components/update-check/update-chec
     SetupWizardModule,
     HelperPipesModule,
     UserPortfolioModule,
-    PlotlyViaWindowModule,
-    PlotlyViaWindowModule,
+    PlotlyModule.forRoot(PlotlyJS),
     NebsDatabaseModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
@@ -73,12 +73,12 @@ import { UpdateCheckComponent } from './core-components/update-check/update-chec
     }),
   ],
   providers: [
-    { 
+    {
       // Set the initial currency code based on browser language
       provide: DEFAULT_CURRENCY_CODE,
       useFactory: () => {
         const browserLang = navigator.language;
-        const currencyOption = localeCurrency.find(option => 
+        const currencyOption = localeCurrency.find(option =>
           option.locale === browserLang
         );
         return currencyOption ? currencyOption.currencyCode : 'USD';
