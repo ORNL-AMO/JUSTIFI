@@ -19,6 +19,7 @@ log.info('App starting...');
 let win = null;
 
 app.on('ready', function () {
+    log.info('App is ready');
     // Initialize the window to our specified dimensions
     win = new BrowserWindow({
         width: 1000,
@@ -30,10 +31,12 @@ app.on('ready', function () {
         },
     });
     win.maximize();
-
+    log.info(__dirname)
+    let pathname = path.join(__dirname, 'dist/browser/index.html');
+    log.info(pathname)
     // Specify entry point
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'dist/browser/index.html'),
+        pathname: pathname,
         protocol: 'file',
         slashes: true
     }));
