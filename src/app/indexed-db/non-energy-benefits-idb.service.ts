@@ -31,7 +31,7 @@ export class NonEnergyBenefitsIdbService {
 
   addWithObservable(nonEnergyBenefit: IdbNonEnergyBenefit): Observable<IdbNonEnergyBenefit> {
     let nebName: string = nonEnergyBenefit.name;
-    if(nebName == 'New NEB'){
+    if(nebName == 'New MB'){
       nebName = 'Custom NEB';
     }
     this.analyticsService.sendEvent('add_neb', { neb_name: nebName });

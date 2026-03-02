@@ -6,12 +6,6 @@
 <p class="fw-light smaller" [innerHTML]="FacilityProtocolHelp.sectionHelp">
 </p>
 <hr>
-<ng-template [ngIf]="focusedHelp == 'doesFacilityTrackGHG'">
-    <label>Does the facility track their Greenhouse Gas Emissions (GHGs) related to energy intensity?</label>
-    <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.doesFacilityTrackGHG">
-    </p>
-    <hr>
-</ng-template>
 
 <ng-template [ngIf]="focusedHelp == 'equipmentAcquisition'">
     <label>What other considerations are used when making equipment acquisitions (lifecycle, performance, costs)?</label>
