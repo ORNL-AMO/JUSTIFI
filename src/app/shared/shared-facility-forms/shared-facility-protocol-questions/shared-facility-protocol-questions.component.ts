@@ -25,7 +25,6 @@ export class SharedFacilityProtocolQuestionsComponent {
   faCircleCheck: IconDefinition = faCircleCheck;
   faCircleXmark: IconDefinition = faCircleXmark
 
-  doesFacilityTrackGHG: string;
   equipmentAcquisition: string;
   financialCriteria: string;
   howCostsTracked: string;
@@ -40,7 +39,6 @@ export class SharedFacilityProtocolQuestionsComponent {
 
   ngOnInit() {
     let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
-    this.doesFacilityTrackGHG = facility.doesFacilityTrackGHG;
     this.equipmentAcquisition = facility.equipmentAcquisition;
     this.howCostsTracked = facility.howCostsTracked;
     this.financialCriteria = facility.financialCriteria;
@@ -52,7 +50,6 @@ export class SharedFacilityProtocolQuestionsComponent {
 
   async saveChanges() {
     let facility: IdbFacility = this.facilityIdbService.selectedFacility.getValue();
-    facility.doesFacilityTrackGHG = this.doesFacilityTrackGHG;
     facility.equipmentAcquisition = this.equipmentAcquisition;
     facility.howCostsTracked = this.howCostsTracked;
     facility.financialCriteria = this.financialCriteria;

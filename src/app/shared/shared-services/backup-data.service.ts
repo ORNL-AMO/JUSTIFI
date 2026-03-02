@@ -272,7 +272,7 @@ export class BackupDataService {
 
     // Adding NEBs
     // nonEnergyBenefits: Array<IdbNonEnergyBenefit>,
-    this.loadingService.setLoadingMessage('Adding NEBs...');
+    this.loadingService.setLoadingMessage('Adding MBs...');
     let nonEnergyBenefitGUIDs: Array<{ oldId: string, newId: string }> = new Array();
     for (let i = 0; i < backupFile.nonEnergyBenefits.length; i++) {
       let nonEnergyBenefit: IdbNonEnergyBenefit = backupFile.nonEnergyBenefits[i];
@@ -601,7 +601,7 @@ export class BackupDataService {
     }
 
     // Copy NEBs
-    this.loadingService.setLoadingMessage('Copying NEBs...');
+    this.loadingService.setLoadingMessage('Copying MBs...');
     const nebs = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.getValue()
       .filter(neb => neb.facilityId === facilityGuid);
     const nebGuidMap: Array<{ oldId: string, newId: string }> = [];

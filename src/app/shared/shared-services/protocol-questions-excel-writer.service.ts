@@ -357,7 +357,7 @@ export class ProtocolQuestionsExcelWriterService {
         responseField: 'describeWaterInputDischarge'
       },
       {
-        question: 'Describe any refrigerant, process, or dust emissions that may come from this system',
+        question: 'Describe any refrigerant, process, or dust outputs that may come from this system',
         help: this.stripHtml(EnergyEquipmentSustainabilityHelp.describeRefrigerantProcessDustEmissions),
         responseField: 'describeRefrigerantProcessDustEmissions'
       },
@@ -591,7 +591,7 @@ export class ProtocolQuestionsExcelWriterService {
 
     this.endUseSustainabilityDataRows = [
       {
-        question: 'Describe any refrigerant, process, or dust emissions that may come from this system',
+        question: 'Describe any refrigerant, process, or dust outputs that may come from this system',
         help: this.stripHtml(ProcessEquipmentSustainabilityHelp.describeRefrigerantProcessDustEmissions) + '\n' + this.stripHtml(ProcessEquipmentSustainabilityHelp.describeRefrigerantProcessDustEmissionsQs),
         responseField: 'describeRefrigerantProcessDustEmissions'
       },

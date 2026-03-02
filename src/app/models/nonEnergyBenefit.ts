@@ -18,7 +18,7 @@ export interface IdbNonEnergyBenefit extends IdbEntry {
 
 export function getNewIdbNonEnergyBenefit(userId: string, companyId: string, facilityId: string, assessmentId: string, energyOpportunityId: string, nebOption: NebOption, isCustom: boolean): IdbNonEnergyBenefit {
     let nebOptionValue: NebOptionValue;
-    let name: string = 'New NEB';
+    let name: string = 'New MB';
     if (nebOption) {
         nebOptionValue = nebOption.optionValue;
         name = nebOption.label;
