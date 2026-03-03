@@ -44,7 +44,6 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'improvedVisualComfort' |
     'increaseEmployeeEngagement' |
     'changeAddQualityJobs' |
-    'improveCommunityConditions' |
     'improvedStaffSatisfaction' |
     'increaseUsefulEquipmentLife' |
     'increaseAverageYearsEmployed' |
@@ -53,7 +52,6 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'reduceUnscheduledBreaks' |
     'reduceWorkplaceIncidentsRelatedToHeat' |
     'increaseWorkplaceSecurity' |
-    'increaseEnergyResiliency' |
     'reduceNeedOshaHearingProgram' |
     'reduceUnsafeOperatorActs' |
     'reduceLikelinessOfOccupationalDangers' |
@@ -452,24 +450,6 @@ export const NebOptions: Array<NebOption> = [
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "salesGrowth", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
-        selectedKPM: []
-    },
-    {
-        label: "Increase energy resiliency",
-        htmlLabel: "Increase energy resiliency",
-        optionValue: "increaseEnergyResiliency",
-        isQualitative: true,
-        howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "customerSatisfactionRatings", "supplierSatisfactionRatings", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
-        selectedKPM: []
-    },
-    {
-        label: "Improve social, economic, health conditions for surrounding community",
-        htmlLabel: "Improve social, economic, health conditions for surrounding community",
-        optionValue: "improveCommunityConditions",
-        isQualitative: true,
-        howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "customerSatisfactionRatings", "supplierSatisfactionRatings", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
         selectedKPM: []
     },
     {
@@ -872,14 +852,6 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         "boost workplace protection", "increase facility security", "improve employee safety", "enhance workplace protection",
         "reduce workplace vulnerabilities", "strengthen workplace safety measures", "improve workplace access control", "increase workplace surveillance"
     ],
-    increaseEnergyResiliency: [
-        // Keywords from the NEB label
-        "increase energy resiliency", "energy resiliency improvement", "enhance energy resilience", "improve energy security",
-    
-        // Synonyms and related terms
-        "boost energy reliability", "increase energy independence", "improve energy stability", "enhance energy sustainability",
-        "reduce energy vulnerabilities", "strengthen energy infrastructure", "improve energy supply security", "increase energy adaptability"
-    ],
     improvedVisualComfort: [
         // Keywords from the NEB label
         "improve workplace visual comfort", "workplace visual comfort", "better visual comfort", "enhance visual comfort",
@@ -903,15 +875,6 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         // Synonyms and related terms
         "increase employment opportunities", "improve job quality", "create new jobs", "enhance workforce opportunities",
         "expand employment", "job growth", "improve workforce conditions", "add quality jobs"
-    ],
-    improveCommunityConditions: [
-        // Keywords from the NEB label
-        "improve community conditions", "social conditions improvement",
-        "improve surrounding community conditions", "enhance community well-being",
-    
-        // Synonyms and related terms
-        "improve social conditions", "reduce community health burdens", "enhance economic opportunities", "improve public health",
-        "strengthen community support", "reduce local health risks", "enhance community quality of life", "improve neighborhood conditions"
     ],
     improvedStaffSatisfaction: [
         // Keywords from the NEB label
