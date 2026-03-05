@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "main.js",
   "author": "National Laboratory of the Rockies & Oak Ridge National Laboratory",
-  "description": "A tool to identify, estimate potential and report on non-energy benefits (NEBs) that can be found while conducting energy assessments",
+  "description": "A tool to identify, estimate potential and report on multiple benefits (MBs) that can be found while conducting energy assessments",
   "repository": "https://github.com/ORNL-AMO/JUSTIFI.git",
   "engines": {
     "node": "24.5.0",
@@ -24,7 +24,7 @@
   "private": true,
   "build": {
     "appId": "gov.ornl.justifi",
-    "copyright": "Copyright 2025 ORNL. All rights reserved.",
+    "copyright": "Copyright 2026 ORNL. All rights reserved.",
     "productName": "JUSTIFI",
     "directories": {
       "output": "./output/"

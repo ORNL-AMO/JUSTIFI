@@ -18,7 +18,7 @@ export const ProcessEquipmentTakeStockHelp = {
 }
 
 export const ProcessEquipmentOperationsHelp = {
-    sectionHelp: `The questions outlined in this section are to help you think about how this system, the assessment, and possible energy efficiency measures (EEMS) connect with the sites Key Performance Indicators and Metrics (KPIs and KPMs) related to operations (production, quality, operating costs). <u>Not all of these sections are relevant to every system and every site.</u> Only topics related to projects needing further justification and have benefits relating to site interests should be pursued further.`,
+    sectionHelp: `The questions outlined in this section are to help you think about how this system, the assessment, and possible energy efficiency measures (EEMs) connect with the sites Key Performance Indicators and Metrics (KPIs and KPMs) related to operations (production, quality, operating costs). <u>Not all of these sections are relevant to every system and every site.</u> Only topics related to projects needing further justification and have benefits relating to site interests should be pursued further.`,
     describeOutputRate: `Understanding how operators monitor and assess the output of this process and match to downstream needs is necessary. Output of processes are often measured in batch time or for continuous processes units per hour, gpm, cfm, etc.`,
     describeOutputRateQs: `Assessors can ask:<br>
                     How is the output measured?<br>
@@ -56,7 +56,7 @@ export const ProcessEquipmentOperationsHelp = {
 }
 
 export const ProcessEquipmentSustainabilityHelp = {
-    sectionHelp: `The questions outlined in this section are to help you think about how this system, the assessment, and possible energy efficiency measures (EEMS) connect with the sites Key Performance Indicators and Metrics (KPIs and KPMs) related to sustainability (waste, water, outputs). <u>Not all of these sections are relevant to every system and every site.</u> Only topics related to projects needing further justification and have benefits relating to site interests should be pursued further.`,
+    sectionHelp: `The questions outlined in this section are to help you think about how this system, the assessment, and possible energy efficiency measures (EEMS) connect with the sites Key Performance Indicators and Metrics (KPIs and KPMs) related to material efficiency (waste, water, outputs). <u>Not all of these sections are relevant to every system and every site.</u> Only topics related to projects needing further justification and have benefits relating to site interests should be pursued further.`,
     describeRefrigerantProcessDustEmissions: `EEMs or other opportunities found in an assessment could reduce outputs from the system.`,
     describeRefrigerantProcessDustEmissionsQs: `Assessors can ask:<br>
                     Are there any refrigerant loops in the system?<br>
@@ -77,7 +77,7 @@ export const ProcessEquipmentSustainabilityHelp = {
     describeWaterInputDischargeQs: `Assessors can ask:<br>
                     Are any water streams utilized in this system?<br>
                     How much does water use and sewage cost?<br>
-                    Are there any water pollution concerns in the plant and could those be alleviated?`,
+                    Are there any water management concerns in the plant and could those be alleviated?`,
     describeRegulations: `EEMs regarding the operations of an industrial energy system can impact systems being regulated (boiler and burner outputs - N2O, dust, water quality), impacting potential fees or monitoring expenses. This could be related to air, dust, water, or waste streams/outputs.`,
     describeRegulationsQs: `Assessors can ask:<br>
                     What environmental regulations are impacted by the equipment? <br>
@@ -86,7 +86,7 @@ export const ProcessEquipmentSustainabilityHelp = {
 }
 
 export const ProcessEquipmentEmployeeEngagementHelp = {
-    sectionHelp: `The questions outlined in this section are to help you think about how this system, the assessment, and possible energy efficiency measures (EEMS) connect with the sites Key Performance Indicators and Metrics (KPIs and KPMs) related to employee and workplace environment (safety, employee satisfaction). <u>Not all of these sections are relevant to every system and every site.</u> Only topics related to projects needing further justification and have benefits relating to site interests should be pursued further.`,
+    sectionHelp: `The questions outlined in this section are to help you think about how this system, the assessment, and possible energy efficiency measures (EEMs) connect with the sites Key Performance Indicators and Metrics (KPIs and KPMs) related to employee and workplace environment (safety, employee satisfaction). <u>Not all of these sections are relevant to every system and every site.</u> Only topics related to projects needing further justification and have benefits relating to site interests should be pursued further.`,
     describeSafetyConcerns: `Many common EEMs can improve safety around the system. Safety incidents can be measured or monitored via OSHA Total recordable incident rate (TRIR), OSHA recordable incidents, non-recordable incidents, near-misses, days away from work, lost time injury rate (LTIFR).`,
     describeSafetyConcernsQs: `Assessors can ask:<br>
                     Have there been any safety concerns or incidents related to the process?<br>

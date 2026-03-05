@@ -135,9 +135,9 @@ export class NebSetupFormComponent {
     await this.dbChangesService.deleteNonEnergyBenefit(this.nonEnergyBenefit);
     this.closeDeleteModal();
     if (this.nonEnergyBenefit.energyOpportunityId) {
-      this.toastNotificationService.showToast('NEB Deleted!', 'Non-energy Benefit has been removed from the energy efficiency measure.', 'bg-success', true, false)
+      this.toastNotificationService.showToast('MB Deleted!', 'Multiple Benefit has been removed from the energy efficiency measure.', 'bg-success', true, false)
     } else {
-      this.toastNotificationService.showToast('NEB Deleted!', 'Non-energy Benefit has been removed from the assessment.', 'bg-success', true, false)
+      this.toastNotificationService.showToast('MB Deleted!', 'Multiple Benefit has been removed from the assessment.', 'bg-success', true, false)
     }
     if (this.router.url.includes('portfolio') && !this.nonEnergyBenefit.energyOpportunityId) {
       this.router.navigateByUrl('/portfolio/assessment/' + this.nonEnergyBenefit.assessmentId + '/nebs');
