@@ -658,7 +658,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         "improve product quality", "product quality", "reducing debris contamination", "debris contamination reduction",
 
         // Synonyms and related terms
-        "quality improvement", "reduce contamination", "debris-free production", "clean manufacturing",
+        "quality improvement", "reduce contamination", "debris-free production",
         "reduce product defects", "enhance product quality", "contamination control", "improve cleanliness",
         "reduce debris defects", "cleaner production processes"
     ],
