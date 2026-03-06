@@ -1,50 +1,52 @@
 <div class="print-break-avoid">
-    <h5 class="bold w-100 text-center"><fa-icon [icon]="faDiagramProject" class="me-2"></fa-icon>End Use Inventory</h5>
-    <ng-template [ngIf]="processEquipments.length > 0" [ngIfElse]="noEquipmentBlock">
-        <div class="w-100 overflow-scroll-x">
-            <table class="table table-bordered table-hover table-sm">
-                <thead>
-                    <tr>
-                        <th class="w-25">
-                            Name
-                        </th>
-                        <th class="w-50">
-                            Notes
-                        </th>
-                        <th class="w-25">
-                            Stakeholders
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let processEquipment of processEquipments">
-                        <td>
-                            {{processEquipment.equipmentName}}
-                        </td>
-                        <td>
-                            <app-single-cell-item [strValue]="processEquipment.notes"></app-single-cell-item>
-                        </td>
-                        <td>
-                            @let associatedContacts = processEquipment.guid | associatedContacts:'processEquipment':
-                            contacts;
-                            <ng-template [ngIf]="associatedContacts.length > 0" [ngIfElse]="noContactsBlock">
-                                <span *ngFor="let contact of associatedContacts">
-                                    {{contact | contactNameDisplay}} <br>
-                                </span>
-                            </ng-template>
-                            <ng-template #noContactsBlock>
-                                &mdash;
-                            </ng-template>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </ng-template>
+  <h5 class="bold w-100 text-center"><fa-icon [icon]="faDiagramProject" class="me-2"></fa-icon>End Use Inventory</h5>
+  @if (processEquipments.length > 0) {
+    <div class="w-100 overflow-scroll-x">
+      <table class="table table-bordered table-hover table-sm">
+        <thead>
+          <tr>
+            <th class="w-25">
+              Name
+            </th>
+            <th class="w-50">
+              Notes
+            </th>
+            <th class="w-25">
+              Stakeholders
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (processEquipment of processEquipments; track processEquipment) {
+            <tr>
+              <td>
+                {{processEquipment.equipmentName}}
+              </td>
+              <td>
+                <app-single-cell-item [strValue]="processEquipment.notes"></app-single-cell-item>
+              </td>
+              <td>
+                @let associatedContacts = processEquipment.guid | associatedContacts:'processEquipment':
+                contacts;
+                @if (associatedContacts.length > 0) {
+                  @for (contact of associatedContacts; track contact) {
+                    <span>
+                      {{contact | contactNameDisplay}} <br>
+                    </span>
+                  }
+                } @else {
+                  &mdash;
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <div class="alert alert-info small p-2">
+      No end use inventory items added to this facility.
+    </div>
+  }
 
-    <ng-template #noEquipmentBlock>
-        <div class="alert alert-info small p-2">
-            No end use inventory items added to this facility.
-        </div>
-    </ng-template>
 </div>

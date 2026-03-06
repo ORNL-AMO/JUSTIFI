@@ -1,295 +1,290 @@
 <div class="d-flex justify-content-between align-items-center">
-    <div>
-        <h5>
-            <fa-icon [icon]="faBullseye"></fa-icon>
-            <span class="ps-1" [innerHTML]="keyPerformanceIndicator.htmlLabel"></span>
-        </h5>
-    </div>
-    <div>
-        <app-primary-kpi-badge class="w-100" [kpiOption]="keyPerformanceIndicator"
-            [fullWidth]="true"></app-primary-kpi-badge>
-    </div>
+  <div>
+    <h5>
+      <fa-icon [icon]="faBullseye"></fa-icon>
+      <span class="ps-1" [innerHTML]="keyPerformanceIndicator.htmlLabel"></span>
+    </h5>
+  </div>
+  <div>
+    <app-primary-kpi-badge class="w-100" [kpiOption]="keyPerformanceIndicator"
+    [fullWidth]="true"></app-primary-kpi-badge>
+  </div>
 </div>
 <hr class="my-1">
 <form>
-    <ng-template [ngIf]="keyPerformanceIndicator.isCustom" [ngIfElse]="nonCustomKpiBlock">
-        <div class="row">
-            <label class="col-sm-6 col-form-label" for="{{'kpiName_'+keyPerformanceIndicator.guid}}">
-                Performance Indicator Name
-            </label>
-            <div class="col-12 col-md-6">
-                <div class="input-group">
-                    <div class="input-group-text">
-                        <fa-icon [icon]="faBullseye"></fa-icon>
-                    </div>
-                    <input name="{{'kpiName_'+keyPerformanceIndicator.guid}}" type="text" class="form-control"
-                        [(ngModel)]="keyPerformanceIndicator.label" id="{{'kpiName_'+keyPerformanceIndicator.guid}}"
-                        (input)="saveChanges()">
-                </div>
-            </div>
+  @if (keyPerformanceIndicator.isCustom) {
+    <div class="row">
+      <label class="col-sm-6 col-form-label" for="{{'kpiName_'+keyPerformanceIndicator.guid}}">
+        Performance Indicator Name
+      </label>
+      <div class="col-12 col-md-6">
+        <div class="input-group">
+          <div class="input-group-text">
+            <fa-icon [icon]="faBullseye"></fa-icon>
+          </div>
+          <input name="{{'kpiName_'+keyPerformanceIndicator.guid}}" type="text" class="form-control"
+            [(ngModel)]="keyPerformanceIndicator.label" id="{{'kpiName_'+keyPerformanceIndicator.guid}}"
+            (input)="saveChanges()">
         </div>
-
-        <div class="row">
-            <label class="col-sm-6 col-form-label" for="{{'kpiCategory_'+keyPerformanceIndicator.guid}}">
-                KPI Category
-            </label>
-            <div class="col-12 col-md-6">
-                <select class="form-select" name="kpiCategory" id="{{'kpiCategory_'+keyPerformanceIndicator.guid}}"
-                    [(ngModel)]="keyPerformanceIndicator.primaryKPI" (change)="saveChanges()">
-                    <option *ngFor="let primaryKPI of primaryKPIs" [ngValue]="primaryKPI">
-                        {{primaryKPI}}
-                    </option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row">
-            <label class="col-sm-6 col-form-label" for="{{'kpiDescription_'+keyPerformanceIndicator.guid}}">
-                KPI Description
-            </label>
-            <div class="col-12 col-md-6">
-                <textarea class="form-control" name="{{'kpiDescription_'+keyPerformanceIndicator.guid}}"
-                    id="{{'kpiDescription_'+keyPerformanceIndicator.guid}}"
-                    [(ngModel)]="keyPerformanceIndicator.description" (input)="saveChanges()"></textarea>
-            </div>
-        </div>
-        <div class="row pt-2">
-            <label class="col-sm-6 col-form-label" for="{{'kpiNotes_'+keyPerformanceIndicator.guid}}">
-                Notes
-            </label>
-            <div class="col-12 col-md-6">
-                <textarea class="form-control" name="{{'kpiNotes_'+keyPerformanceIndicator.guid}}"
-                    id="{{'kpiNotes_'+keyPerformanceIndicator.guid}}" [(ngModel)]="keyPerformanceIndicator.notes"
-                    (input)="saveChanges()"></textarea>
-            </div>
-        </div>
-    </ng-template>
-    <ng-template #nonCustomKpiBlock>
-        <p class="fw-light small">
-            <span [innerHTML]="keyPerformanceIndicator.optionValue | kpiDescription"></span>
-        </p>
-        <div class="row">
-            <div class="col-12">
-                <label for="{{'kpiNotes_'+keyPerformanceIndicator.guid}}">
-                    Notes
-                </label>
-                <textarea class="form-control" name="{{'kpiNotes_'+keyPerformanceIndicator.guid}}"
-                    id="{{'kpiNotes_'+keyPerformanceIndicator.guid}}" [(ngModel)]="keyPerformanceIndicator.notes"
-                    (input)="saveChanges()"></textarea>
-            </div>
-        </div>
-    </ng-template>
-
-    <div class="row pt-2">
-        <div class="col">
-            <app-associated-contacts-buttons [companyGuid]="keyPerformanceIndicator.companyId" [contactContext]="'KPI'"
-                [contextGuid]="keyPerformanceIndicator.guid"></app-associated-contacts-buttons>
-        </div>
+      </div>
     </div>
     <div class="row">
-        <div class="col">
-            <hr>
-        </div>
+      <label class="col-sm-6 col-form-label" for="{{'kpiCategory_'+keyPerformanceIndicator.guid}}">
+        KPI Category
+      </label>
+      <div class="col-12 col-md-6">
+        <select class="form-select" name="kpiCategory" id="{{'kpiCategory_'+keyPerformanceIndicator.guid}}"
+          [(ngModel)]="keyPerformanceIndicator.primaryKPI" (change)="saveChanges()">
+          @for (primaryKPI of primaryKPIs; track primaryKPI) {
+            <option [ngValue]="primaryKPI">
+              {{primaryKPI}}
+            </option>
+          }
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-6 col-form-label" for="{{'kpiDescription_'+keyPerformanceIndicator.guid}}">
+        KPI Description
+      </label>
+      <div class="col-12 col-md-6">
+        <textarea class="form-control" name="{{'kpiDescription_'+keyPerformanceIndicator.guid}}"
+          id="{{'kpiDescription_'+keyPerformanceIndicator.guid}}"
+        [(ngModel)]="keyPerformanceIndicator.description" (input)="saveChanges()"></textarea>
+      </div>
+    </div>
+    <div class="row pt-2">
+      <label class="col-sm-6 col-form-label" for="{{'kpiNotes_'+keyPerformanceIndicator.guid}}">
+        Notes
+      </label>
+      <div class="col-12 col-md-6">
+        <textarea class="form-control" name="{{'kpiNotes_'+keyPerformanceIndicator.guid}}"
+          id="{{'kpiNotes_'+keyPerformanceIndicator.guid}}" [(ngModel)]="keyPerformanceIndicator.notes"
+        (input)="saveChanges()"></textarea>
+      </div>
+    </div>
+  } @else {
+    <p class="fw-light small">
+      <span [innerHTML]="keyPerformanceIndicator.optionValue | kpiDescription"></span>
+    </p>
+    <div class="row">
+      <div class="col-12">
+        <label for="{{'kpiNotes_'+keyPerformanceIndicator.guid}}">
+          Notes
+        </label>
+        <textarea class="form-control" name="{{'kpiNotes_'+keyPerformanceIndicator.guid}}"
+          id="{{'kpiNotes_'+keyPerformanceIndicator.guid}}" [(ngModel)]="keyPerformanceIndicator.notes"
+        (input)="saveChanges()"></textarea>
+      </div>
+    </div>
+  }
+
+  <div class="row pt-2">
+    <div class="col">
+      <app-associated-contacts-buttons [companyGuid]="keyPerformanceIndicator.companyId" [contactContext]="'KPI'"
+      [contextGuid]="keyPerformanceIndicator.guid"></app-associated-contacts-buttons>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <hr>
+      </div>
     </div>
 
 
     <h6>
-        <div class="d-flex w-100 justify-content-between flex-column flex-md-row">
-            <div class="mt-auto bold">
-                Associated Key Performance Metrics
-            </div>
-            <div>
-                <ng-template [ngIf]="keyPerformanceIndicator.optionValue != 'other'" [ngIfElse]="customAddBlock">
-                    <div class="dropdown">
-                        <button class="btn btn-outline-metric btn-sm dropdown-toggle" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false" (click)="toggleAddMetricDropdown()">
-                            <fa-icon [icon]="faPlus"></fa-icon> Add Performance Metric
-                        </button>
-                        <ul class="dropdown-menu" [ngClass]="{'show': showAddMetricDropdown}">
-                            <li>
-                                <a class="dropdown-item" (click)="addPerformanceMetric()">
-                                    <fa-icon [icon]="faPlus"></fa-icon> Add Custom Performance Metric
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" (click)="showSuggestedMetrics()">
-                                    <fa-icon [icon]="faSearchPlus"></fa-icon> Search Performance Metric
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </ng-template>
-                <ng-template #customAddBlock>
-                    <button class="btn btn-outline-metric btn-sm" (click)="addPerformanceMetric()">
-                        <fa-icon [icon]="faPlus"></fa-icon>
-                        Add Custom Performance Metric
-                    </button>
-                </ng-template>
-            </div>
+      <div class="d-flex w-100 justify-content-between flex-column flex-md-row">
+        <div class="mt-auto bold">
+          Associated Key Performance Metrics
         </div>
+        <div>
+          @if (keyPerformanceIndicator.optionValue != 'other') {
+            <div class="dropdown">
+              <button class="btn btn-outline-metric btn-sm dropdown-toggle" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false" (click)="toggleAddMetricDropdown()">
+                <fa-icon [icon]="faPlus"></fa-icon> Add Performance Metric
+              </button>
+              <ul class="dropdown-menu" [ngClass]="{'show': showAddMetricDropdown}">
+                <li>
+                  <a class="dropdown-item" (click)="addPerformanceMetric()">
+                    <fa-icon [icon]="faPlus"></fa-icon> Add Custom Performance Metric
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="showSuggestedMetrics()">
+                    <fa-icon [icon]="faSearchPlus"></fa-icon> Search Performance Metric
+                  </a>
+                </li>
+              </ul>
+            </div>
+          } @else {
+            <button class="btn btn-outline-metric btn-sm" (click)="addPerformanceMetric()">
+              <fa-icon [icon]="faPlus"></fa-icon>
+              Add Custom Performance Metric
+            </button>
+          }
+        </div>
+      </div>
     </h6>
     <p class="fw-light small">
-        The below associated key performance metrics (<fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>)
-        will be used later on during an assessment to tie Multiple Benefits found back to facility Key
-        Performance Indicators. This information can be added to and modified at a later time if not all
-        of the details are currently known.
+      The below associated key performance metrics (<fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>)
+      will be used later on during an assessment to tie Multiple Benefits found back to facility Key
+      Performance Indicators. This information can be added to and modified at a later time if not all
+      of the details are currently known.
     </p>
     <div class="row">
-        <div class="col">
-            <hr class="metric-hr mt-0">
-        </div>
+      <div class="col">
+        <hr class="metric-hr mt-0">
+      </div>
     </div>
-    <ng-template [ngIf]="keyPerformanceIndicator.performanceMetrics.length > 0" [ngIfElse]="noKpmsBlock">
-        <ng-container *ngFor="let keyPerformanceMetric of keyPerformanceIndicator.performanceMetrics">
-            <div class="metric-block">
-                <div class="dropdown">
-                    <button class="btn btn-outline-metric btn-sm dropdown-toggle" type="button"
-                        data-bs-toggle="dropdown" aria-expanded="false"
-                        (click)="setDropdownMenuGuid(keyPerformanceMetric.guid)">
-                        <fa-icon [icon]="faScaleUnbalancedFlip" class="me-2"></fa-icon>
-                        <span [innerHTML]="keyPerformanceMetric.htmlLabel"></span>
-                    </button>
-                    <ul class="dropdown-menu" [ngClass]="{'show': dropdownMenuGuid == keyPerformanceMetric.guid}">
-                        <li>
-                            <a class="dropdown-item" (click)="openDeleteMetricModal(keyPerformanceMetric)">
-                                <fa-icon [icon]="faTrash"></fa-icon>
-                                Remove Metric
-                            </a>
-                        </li>
-                    </ul>
+    @if (keyPerformanceIndicator.performanceMetrics.length > 0) {
+      @for (keyPerformanceMetric of keyPerformanceIndicator.performanceMetrics; track keyPerformanceMetric) {
+        <div class="metric-block">
+          <div class="dropdown">
+            <button class="btn btn-outline-metric btn-sm dropdown-toggle" type="button"
+              data-bs-toggle="dropdown" aria-expanded="false"
+              (click)="setDropdownMenuGuid(keyPerformanceMetric.guid)">
+              <fa-icon [icon]="faScaleUnbalancedFlip" class="me-2"></fa-icon>
+              <span [innerHTML]="keyPerformanceMetric.htmlLabel"></span>
+            </button>
+            <ul class="dropdown-menu" [ngClass]="{'show': dropdownMenuGuid == keyPerformanceMetric.guid}">
+              <li>
+                <a class="dropdown-item" (click)="openDeleteMetricModal(keyPerformanceMetric)">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                  Remove Metric
+                </a>
+              </li>
+            </ul>
+          </div>
+          @if (keyPerformanceMetric.isCustom) {
+            <div class="row">
+              <label class="col-sm-6 col-form-label" for="{{'kpmName_'+keyPerformanceMetric.guid}}">
+                Performance Metric Name
+              </label>
+              <div class="col-12 col-md-6">
+                <div class="input-group">
+                  <div class="input-group-text">
+                    <fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>
+                  </div>
+                  <input name="{{'kpmName_'+keyPerformanceMetric.guid}}" type="text" class="form-control"
+                    [(ngModel)]="keyPerformanceMetric.label"
+                    id="{{'kpmName_'+keyPerformanceMetric.guid}}" (input)="saveChanges()">
                 </div>
-                <ng-template [ngIf]="keyPerformanceMetric.isCustom">
-                    <div class="row">
-                        <label class="col-sm-6 col-form-label" for="{{'kpmName_'+keyPerformanceMetric.guid}}">
-                            Performance Metric Name
-                        </label>
-                        <div class="col-12 col-md-6">
-                            <div class="input-group">
-                                <div class="input-group-text">
-                                    <fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>
-                                </div>
-                                <input name="{{'kpmName_'+keyPerformanceMetric.guid}}" type="text" class="form-control"
-                                    [(ngModel)]="keyPerformanceMetric.label"
-                                    id="{{'kpmName_'+keyPerformanceMetric.guid}}" (input)="saveChanges()">
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-                <app-kpm-details-form [keyPerformanceMetric]="keyPerformanceMetric" (emitSave)="saveChanges()"
-                    (emitCalculate)="calculateCost(keyPerformanceMetric)" [context]="'preVisit'"
-                    [currencyCode]="currencyCode"></app-kpm-details-form>
-                <ng-template
-                    [ngIf]="(keyPerformanceMetricImpacts | keyPerformanceMetricImpactsList: keyPerformanceMetric.guid).length">
-                    <div class="mt-3">
-                        <app-kpm-impacts-table [kpmGuid]="keyPerformanceMetric.guid"></app-kpm-impacts-table>
-                    </div>
-                </ng-template>
-                <div class="row">
-                    <div class="col">
-                        <hr class="metric-hr">
-                    </div>
-                </div>
+              </div>
             </div>
-        </ng-container>
-    </ng-template>
-    <!--NO KPMS SELECTED FOR KPI-->
-    <ng-template #noKpmsBlock>
-        <ng-template [ngIf]="keyPerformanceMetricOptions.length > 0" [ngIfElse]="noOptionsBlock">
-            <div class="alert alert-info text-center p-1 small">
-                No performance metrics are connected to this KPI. JUSTIFI has a preset list of related KPMs provided
-                below. Select the
-                metrics you would like to track for this KPI. Click "<fa-icon [icon]="faPlus"></fa-icon>" to select the
-                metrics and then use the "Add Metrics" button to add the metrics to this KPI. Use the dropdown above to
-                add custom metrics if none of the items listed below meet your needs.
+          }
+          <app-kpm-details-form [keyPerformanceMetric]="keyPerformanceMetric" (emitSave)="saveChanges()"
+            (emitCalculate)="calculateCost(keyPerformanceMetric)" [context]="'preVisit'"
+          [currencyCode]="currencyCode"></app-kpm-details-form>
+          @if ((keyPerformanceMetricImpacts | keyPerformanceMetricImpactsList: keyPerformanceMetric.guid).length) {
+            <div class="mt-3">
+              <app-kpm-impacts-table [kpmGuid]="keyPerformanceMetric.guid"></app-kpm-impacts-table>
             </div>
-            <table class="table table-bordered table-hover table-sm">
-                <tbody>
-                    <tr class="clickable" (click)="toggleMetric(performanceMetric)"
-                        *ngFor="let performanceMetric of keyPerformanceMetricOptions">
-                        <td class="add-td text-center">
-                            <a class="click-link">
-                                <ng-template [ngIf]="addMetricValues.includes(performanceMetric.value)"
-                                    [ngIfElse]="addMetricBlock">
-                                    <fa-icon [icon]="faCheck"></fa-icon>
-                                </ng-template>
-                                <ng-template #addMetricBlock>
-                                    <fa-icon [icon]="faPlus"></fa-icon>
-                                </ng-template>
-                            </a>
-                        </td>
-                        <td>
-                            <span [innerHTML]="performanceMetric.htmlLabel"></span>
-                        </td>
-                    </tr>
-                    <tr *ngFor="let performanceMetric of usedPerformanceMetrics">
-                        <td class="darkgrey text-center">
-                            <fa-icon [icon]="faLinkSlash"></fa-icon>
-                        </td>
-                        <td class="darkgrey">
-                            <span [innerHTML]="performanceMetric.htmlLabel"></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <p *ngIf="usedPerformanceMetrics.length > 0" class="fw-light small mb-0">
-                <fa-icon [icon]="faLinkSlash"></fa-icon> Indicates metric is in use by another KPI and cannot be
-                duplicated here.
-            </p>
-            <div class="d-flex w-100 justify-content-end">
-                <div>
-                    <button class="btn btn-success btn-sm" [disabled]="addMetricValues.length == 0"
-                        (click)="addInitialMetrics()">Add Metrics</button>
-                </div>
+          }
+          <div class="row">
+            <div class="col">
+              <hr class="metric-hr">
             </div>
-        </ng-template>
-        <ng-template #noOptionsBlock>
-            <div class="alert alert-info text-center p-1">
-                No performance metrics connected to this KPI. Click "<fa-icon [icon]="faPlus"></fa-icon>" to select the
-                metrics and then use the "Add Metrics" button to add the metrics to this KPI.
-            </div>
-        </ng-template>
-
-
-
-    </ng-template>
-</form>
-
-<div [ngClass]="{'window-overlay': displayDeleteKpmModal}"></div>
-<div class="popup" [ngClass]="{'open': displayDeleteKpmModal }">
-    <ng-template [ngIf]="kpmToDelete">
-        <div class="popup-header">Delete
-            <span [innerHTML]="kpmToDelete.htmlLabel"></span>
-            <button type="button" class="btn-close float-end" aria-label="Close"
-                (click)="closeDeleteKpmModal()"></button>
+          </div>
         </div>
-        <div class="popup-body">
-            <ng-template
-                [ngIf]="(keyPerformanceMetricImpacts | keyPerformanceMetricImpactsList: kpmToDelete.guid).length"
-                [ngIfElse]="noImpactsDeleteBlock">
-                <div class="alert alert-danger">
-                    Are you sure you want to untrack the performance metric:
-                    <span class="bold" [innerHTML]="kpmToDelete.htmlLabel"></span>? <br>{{(keyPerformanceMetricImpacts |
-                    keyPerformanceMetricImpactsList:
-                    kpmToDelete.guid).length}} Benefit(s) in your system currently impact this metric. Those impacts will be
-                    lost. This cannot be undone.
-                </div>
-            </ng-template>
-            <ng-template #noImpactsDeleteBlock>
-                <div class="alert alert-warning">
-                    Are you sure you want to untrack this performance metric:
-                    <span class="bold" [innerHTML]="kpmToDelete.htmlLabel"></span>?
-                </div>
-            </ng-template>
-            <hr>
+      }
+    } @else {
+      @if (keyPerformanceMetricOptions.length > 0) {
+        <div class="alert alert-info text-center p-1 small">
+          No performance metrics are connected to this KPI. JUSTIFI has a preset list of related KPMs provided
+          below. Select the
+          metrics you would like to track for this KPI. Click "<fa-icon [icon]="faPlus"></fa-icon>" to select the
+          metrics and then use the "Add Metrics" button to add the metrics to this KPI. Use the dropdown above to
+          add custom metrics if none of the items listed below meet your needs.
+        </div>
+        <table class="table table-bordered table-hover table-sm">
+          <tbody>
+            @for (performanceMetric of keyPerformanceMetricOptions; track performanceMetric) {
+              <tr class="clickable" (click)="toggleMetric(performanceMetric)"
+                >
+                <td class="add-td text-center">
+                  <a class="click-link">
+                    @if (addMetricValues.includes(performanceMetric.value)) {
+                      <fa-icon [icon]="faCheck"></fa-icon>
+                    } @else {
+                      <fa-icon [icon]="faPlus"></fa-icon>
+                    }
+                  </a>
+                </td>
+                <td>
+                  <span [innerHTML]="performanceMetric.htmlLabel"></span>
+                </td>
+              </tr>
+            }
+            @for (performanceMetric of usedPerformanceMetrics; track performanceMetric) {
+              <tr>
+                <td class="darkgrey text-center">
+                  <fa-icon [icon]="faLinkSlash"></fa-icon>
+                </td>
+                <td class="darkgrey">
+                  <span [innerHTML]="performanceMetric.htmlLabel"></span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        @if (usedPerformanceMetrics.length > 0) {
+          <p class="fw-light small mb-0">
+            <fa-icon [icon]="faLinkSlash"></fa-icon> Indicates metric is in use by another KPI and cannot be
+            duplicated here.
+          </p>
+        }
+        <div class="d-flex w-100 justify-content-end">
+          <div>
+            <button class="btn btn-success btn-sm" [disabled]="addMetricValues.length == 0"
+            (click)="addInitialMetrics()">Add Metrics</button>
+          </div>
+        </div>
+      } @else {
+        <div class="alert alert-info text-center p-1">
+          No performance metrics connected to this KPI. Click "<fa-icon [icon]="faPlus"></fa-icon>" to select the
+          metrics and then use the "Add Metrics" button to add the metrics to this KPI.
+        </div>
+      }
+    }
+    <!--NO KPMS SELECTED FOR KPI-->
+  </form>
+
+  <div [ngClass]="{'window-overlay': displayDeleteKpmModal}"></div>
+  <div class="popup" [ngClass]="{'open': displayDeleteKpmModal }">
+    @if (kpmToDelete) {
+      <div class="popup-header">Delete
+        <span [innerHTML]="kpmToDelete.htmlLabel"></span>
+        <button type="button" class="btn-close float-end" aria-label="Close"
+        (click)="closeDeleteKpmModal()"></button>
+      </div>
+      <div class="popup-body">
+        @if ((keyPerformanceMetricImpacts | keyPerformanceMetricImpactsList: kpmToDelete.guid).length) {
+          <div class="alert alert-danger">
+            Are you sure you want to untrack the performance metric:
+            <span class="bold" [innerHTML]="kpmToDelete.htmlLabel"></span>? <br>{{(keyPerformanceMetricImpacts |
+            keyPerformanceMetricImpactsList:
+            kpmToDelete.guid).length}} Benefit(s) in your system currently impact this metric. Those impacts will be
+            lost. This cannot be undone.
+          </div>
+        } @else {
+          <div class="alert alert-warning">
+            Are you sure you want to untrack this performance metric:
+            <span class="bold" [innerHTML]="kpmToDelete.htmlLabel"></span>?
+          </div>
+        }
+        <hr>
         </div>
         <div class="popup-footer d-flex justify-content-end">
-            <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteKpmModal()">Cancel</button>
-            <button class="btn btn-danger btn-sm" (click)="untrackMetric()"><fa-icon [icon]="faTrash"></fa-icon> Untrack
-                KPM</button>
-        </div>
-    </ng-template>
-</div>
+          <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteKpmModal()">Cancel</button>
+          <button class="btn btn-danger btn-sm" (click)="untrackMetric()"><fa-icon [icon]="faTrash"></fa-icon> Untrack
+        KPM</button>
+      </div>
+    }
+  </div>
 
 
-<app-kpm-database-modal *ngIf="displayAddMetricModal" (emitClose)="closeSuggestedMetrics()"
+  @if (displayAddMetricModal) {
+    <app-kpm-database-modal (emitClose)="closeSuggestedMetrics()"
     [keyPerformanceIndicator]="keyPerformanceIndicator" (emitAddMetrics)="addMetrics($event)"></app-kpm-database-modal>
+  }

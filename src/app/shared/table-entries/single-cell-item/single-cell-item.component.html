@@ -1,42 +1,37 @@
-<ng-template [ngIf]="strValue || numValue" [ngIfElse]="mdash">
-    <ng-template [ngIf]="strValue" [ngIfElse]="numValueBlock">
-        {{strValue}}
-        <ng-template [ngIf]="units && !per">
-            <span [innerHTML]="units | unitsDisplay"></span>
-        </ng-template>
-        <ng-template [ngIf]="units && per">
-            <span [innerHTML]="units | unitsDisplay"></span>/<span [innerHTML]="per | unitsDisplay"></span>
-        </ng-template>
-    </ng-template>
+@if (strValue || numValue) {
+  @if (strValue) {
+    {{strValue}}
+    @if (units && !per) {
+      <span [innerHTML]="units | unitsDisplay"></span>
+    }
+    @if (units && per) {
+      <span [innerHTML]="units | unitsDisplay"></span>/<span [innerHTML]="per | unitsDisplay"></span>
+    }
+  } @else {
+    @if (!isCurrency) {
+      <span>
+        {{ negativeNumber ?
+        '(' + (numValue | displayRoundedValues : isCurrency | number:numValueDigits) + ')'
+        : numValue | displayRoundedValues : isCurrency | number:numValueDigits }}
+      </span>
+    } @else {
+      <span>
+        {{ negativeNumber ?
+        '(' + (numValue | displayRoundedValues : isCurrency | currency : currencyCode : 'symbol' : numValueDigits) + ')'
+        : numValue | displayRoundedValues : isCurrency | currency : currencyCode : 'symbol' : numValueDigits }}
+      </span>
+    }
+    @if (units && !per) {
+      <span [innerHTML]="units | unitsDisplay"></span>
+    }
+    @if (units && per) {
+      <span [innerHTML]="units | unitsDisplay"></span>/<span [innerHTML]="per | unitsDisplay"></span>
+    }
+    @if (isCurrency && per) {
+      /<span [innerHTML]="per | unitsDisplay"></span>
+    }
+  }
+} @else {
+  &mdash;
+}
 
-
-    <ng-template #numValueBlock>
-        <ng-template [ngIf]="!isCurrency" [ngIfElse]="currencyBlock">
-            <span>
-                {{ negativeNumber ?
-                '(' + (numValue | displayRoundedValues : isCurrency | number:numValueDigits) + ')'
-                : numValue | displayRoundedValues : isCurrency | number:numValueDigits }}
-            </span>
-        </ng-template>
-        <ng-template #currencyBlock>
-            <span>
-                {{ negativeNumber ?
-                '(' + (numValue | displayRoundedValues : isCurrency | currency : currencyCode : 'symbol' : numValueDigits) + ')'
-                : numValue | displayRoundedValues : isCurrency | currency : currencyCode : 'symbol' : numValueDigits }}
-            </span>
-        </ng-template>
-        <ng-template [ngIf]="units && !per">
-            <span [innerHTML]="units | unitsDisplay"></span>
-        </ng-template>
-        <ng-template [ngIf]="units && per">
-            <span [innerHTML]="units | unitsDisplay"></span>/<span [innerHTML]="per | unitsDisplay"></span>
-        </ng-template>
-        <ng-template [ngIf]="isCurrency && per">
-            /<span [innerHTML]="per | unitsDisplay"></span>
-        </ng-template>
-    </ng-template>
-</ng-template>
-
-<ng-template #mdash>
-    &mdash;
-</ng-template>

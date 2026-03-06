@@ -4,49 +4,49 @@
 <hr class="my-2">
 <!--describeWasteStreams-->
 <label>
-    Describe the waste streams that result from this system
+  Describe the waste streams that result from this system
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeWasteStreams">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeWasteStreams">
+  </p>
+}
 <textarea id="describeWasteStreams" name="describeWasteStreams" class="form-control" [(ngModel)]="describeWasteStreams"
-    (input)="saveChanges()" (focus)="focusField('describeWasteStreams')" rows="3"></textarea>
+(input)="saveChanges()" (focus)="focusField('describeWasteStreams')" rows="3"></textarea>
 <hr class="my-1">
 
 <!--describeWaterInputDischarge-->
 <label>
-    Describe water input or discharge streams that result from this system
+  Describe water input or discharge streams that result from this system
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeWaterInputDischarge">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeWaterInputDischarge">
+  </p>
+}
 <textarea id="describeWaterInputDischarge" name="describeWaterInputDischarge" class="form-control"
-    [(ngModel)]="describeWaterInputDischarge" (input)="saveChanges()"
-    (focus)="focusField('describeWaterInputDischarge')" rows="3"></textarea>
+  [(ngModel)]="describeWaterInputDischarge" (input)="saveChanges()"
+(focus)="focusField('describeWaterInputDischarge')" rows="3"></textarea>
 <hr class="my-1">
 
 <!--describeRefrigerantProcessDustEmissions-->
 <label>
-    Describe any refrigerant, process, or dust outputs that may come from this system
+  Describe any refrigerant, process, or dust outputs that may come from this system
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeRefrigerantProcessDustEmissions">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeRefrigerantProcessDustEmissions">
+  </p>
+}
 <textarea id="describeRefrigerantProcessDustEmissions" name="describeRefrigerantProcessDustEmissions"
-    class="form-control" [(ngModel)]="describeRefrigerantProcessDustEmissions" (input)="saveChanges()"
-    (focus)="focusField('describeRefrigerantProcessDustEmissions')" rows="3"></textarea>
+  class="form-control" [(ngModel)]="describeRefrigerantProcessDustEmissions" (input)="saveChanges()"
+(focus)="focusField('describeRefrigerantProcessDustEmissions')" rows="3"></textarea>
 <hr class="my-1">
 
 <!--describeRegulations-->
 <label>
-    Describe any environmental regulations or considerations impacting this system
+  Describe any environmental regulations or considerations impacting this system
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeRegulations">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="EnergyEquipmentSustainabilityHelp.describeRegulations">
+  </p>
+}
 <textarea id="describeRegulations" name="describeRegulations" class="form-control" [(ngModel)]="describeRegulations"
-    (input)="saveChanges()" (focus)="focusField('describeRegulations')" rows="3"></textarea>
+(input)="saveChanges()" (focus)="focusField('describeRegulations')" rows="3"></textarea>

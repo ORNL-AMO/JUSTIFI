@@ -1,30 +1,70 @@
 <div class="d-flex mt-2 ps-1 panel-label">
-    {{helpLabel}}
+  {{helpLabel}}
 </div>
 <div class="w-100 help-content">
-    <hr class="mt-0">
+  <hr class="mt-0">
 </div>
 <div class="w-100 help-content">
-    <app-company-setup-help *ngIf="helpContext == 'company-setup'"></app-company-setup-help>
-    <app-company-contacts-help *ngIf="helpContext == 'company-contacts'"></app-company-contacts-help>
-    <app-company-kpi-select-help *ngIf="helpContext == 'kpi-select'"></app-company-kpi-select-help>
-    <app-facility-setup-help *ngIf="helpContext == 'facility-setup'"></app-facility-setup-help>
-    <app-company-kpi-detail-help *ngIf="helpContext == 'kpi-detail'"></app-company-kpi-detail-help>
-    <app-energy-equipment-help *ngIf="helpContext == 'energy-equipment'"></app-energy-equipment-help>
-    <app-end-uses-help *ngIf="helpContext == 'end-uses'"></app-end-uses-help>
-    <app-pre-assessment-help *ngIf="helpContext == 'pre-assessment'"></app-pre-assessment-help>
-    <app-review-pre-visit-help *ngIf="helpContext == 'review-pre-visit'"></app-review-pre-visit-help>
-    <app-assessment-details-help *ngIf="helpContext == 'assessment-details'"></app-assessment-details-help>
-    <app-manage-assessments-help *ngIf="helpContext == 'manage-assessments'"></app-manage-assessments-help>
-    <app-energy-opportunities-help *ngIf="helpContext == 'energy-opportunities'"></app-energy-opportunities-help>
-    <app-assessment-nebs-help *ngIf="helpContext == 'assessment-nebs'"></app-assessment-nebs-help>
-    <app-assessment-results-help *ngIf="helpContext == 'assessment-results'"></app-assessment-results-help>
-    <app-assessment-report-help *ngIf="helpContext == 'assessment-report'"></app-assessment-report-help>
-    <app-data-follow-up-help *ngIf="helpContext == 'follow-up'"></app-data-follow-up-help>
-    <app-rollup-report-help *ngIf="helpContext == 'rollup-report'"></app-rollup-report-help>
+  @if (helpContext == 'company-setup') {
+    <app-company-setup-help></app-company-setup-help>
+  }
+  @if (helpContext == 'company-contacts') {
+    <app-company-contacts-help></app-company-contacts-help>
+  }
+  @if (helpContext == 'kpi-select') {
+    <app-company-kpi-select-help></app-company-kpi-select-help>
+  }
+  @if (helpContext == 'facility-setup') {
+    <app-facility-setup-help></app-facility-setup-help>
+  }
+  @if (helpContext == 'kpi-detail') {
+    <app-company-kpi-detail-help></app-company-kpi-detail-help>
+  }
+  @if (helpContext == 'energy-equipment') {
+    <app-energy-equipment-help></app-energy-equipment-help>
+  }
+  @if (helpContext == 'end-uses') {
+    <app-end-uses-help></app-end-uses-help>
+  }
+  @if (helpContext == 'pre-assessment') {
+    <app-pre-assessment-help></app-pre-assessment-help>
+  }
+  @if (helpContext == 'review-pre-visit') {
+    <app-review-pre-visit-help></app-review-pre-visit-help>
+  }
+  @if (helpContext == 'assessment-details') {
+    <app-assessment-details-help></app-assessment-details-help>
+  }
+  @if (helpContext == 'manage-assessments') {
+    <app-manage-assessments-help></app-manage-assessments-help>
+  }
+  @if (helpContext == 'energy-opportunities') {
+    <app-energy-opportunities-help></app-energy-opportunities-help>
+  }
+  @if (helpContext == 'assessment-nebs') {
+    <app-assessment-nebs-help></app-assessment-nebs-help>
+  }
+  @if (helpContext == 'assessment-results') {
+    <app-assessment-results-help></app-assessment-results-help>
+  }
+  @if (helpContext == 'assessment-report') {
+    <app-assessment-report-help></app-assessment-report-help>
+  }
+  @if (helpContext == 'follow-up') {
+    <app-data-follow-up-help></app-data-follow-up-help>
+  }
+  @if (helpContext == 'rollup-report') {
+    <app-rollup-report-help></app-rollup-report-help>
+  }
+  @if (helpContext == 'facility-questions') {
     <app-facility-protocol-questions-help
-        *ngIf="helpContext == 'facility-questions'"></app-facility-protocol-questions-help>
-    <app-custom-report-help *ngIf="helpContext == 'custom-report'"></app-custom-report-help>
+    ></app-facility-protocol-questions-help>
+  }
+  @if (helpContext == 'custom-report') {
+    <app-custom-report-help></app-custom-report-help>
+  }
+  @if (helpContext == 'executive-summary-report') {
     <app-exectuive-summary-report-help
-        *ngIf="helpContext == 'executive-summary-report'"></app-exectuive-summary-report-help>
+    ></app-exectuive-summary-report-help>
+  }
 </div>

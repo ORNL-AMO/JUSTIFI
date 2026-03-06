@@ -1,70 +1,70 @@
 <div class="card portfolio">
-    <div class="card-body">
-        <div class="card-title secondary d-flex justify-content-between mb-2 flex-column flex-md-row">
-            <div>
-                <fa-icon [icon]="faFolderTree"></fa-icon>
-                Companies, Facilities, and Assessments
-            </div>
-            <div>
-                <button class="btn btn-outline-success btn-sm" (click)="openAddCompanyModal()">
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                    Add Company
-                </button>
-            </div>
-        </div>
-        <ng-template [ngIf]="companies.length > 0" [ngIfElse]="noCompaniesBlock">
-            <div class="accordion" [id]="'companyAccordion'">
-                <div class="accordion-item company-item"
-                    *ngFor="let company of companies; let index = index; let last = last;">
-                    <h2 class="accordion-header">
-
-                        <div class="d-flex">
-                            <button class="btn btn-outline-primary btn-sm" (click)="goToCompanyDashboard(company)">
-                                <fa-icon [icon]="faArrowRight"></fa-icon>
-                            </button>
-                            <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+company.guid"
-                                aria-expanded="true" [attr.aria-controls]="company.guid"
-                                (click)="toggleBS(company.guid)"
-                                [ngClass]="{'collapsed': accordionGuid != company.guid}">
-                                <fa-icon class="pe-2" [icon]="faBuilding"></fa-icon>
-                                {{company.generalInformation.name}}
-                            </button>
-                        </div>
-                    </h2>
-                    <div [id]="'#'+company.guid" class="accordion-collapse collapse"
-                        [attr.data-bs-parent]="'#companyAccordion'">
-                        <div class="accordion-body">
-                            <app-company-list-item [company]="company"></app-company-list-item>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-        <ng-template #noCompaniesBlock>
-            <div class="alert alert-info p-2 text-center">
-                No companies found in your portfolio. Use the "<fa-icon [icon]="faPlus"></fa-icon>
-                Add Company" button to add your first company.
-            </div>
-        </ng-template>
+  <div class="card-body">
+    <div class="card-title secondary d-flex justify-content-between mb-2 flex-column flex-md-row">
+      <div>
+        <fa-icon [icon]="faFolderTree"></fa-icon>
+        Companies, Facilities, and Assessments
+      </div>
+      <div>
+        <button class="btn btn-outline-success btn-sm" (click)="openAddCompanyModal()">
+          <fa-icon [icon]="faPlus"></fa-icon>
+          Add Company
+        </button>
+      </div>
     </div>
+    @if (companies.length > 0) {
+      <div class="accordion" [id]="'companyAccordion'">
+        @for (company of companies; track company; let index = $index; let last = $last) {
+          <div class="accordion-item company-item"
+            >
+            <h2 class="accordion-header">
+              <div class="d-flex">
+                <button class="btn btn-outline-primary btn-sm" (click)="goToCompanyDashboard(company)">
+                  <fa-icon [icon]="faArrowRight"></fa-icon>
+                </button>
+                <button class="accordion-button" type="button" [attr.data-bs-target]="'#'+company.guid"
+                  aria-expanded="true" [attr.aria-controls]="company.guid"
+                  (click)="toggleBS(company.guid)"
+                  [ngClass]="{'collapsed': accordionGuid != company.guid}">
+                  <fa-icon class="pe-2" [icon]="faBuilding"></fa-icon>
+                  {{company.generalInformation.name}}
+                </button>
+              </div>
+            </h2>
+            <div [id]="'#'+company.guid" class="accordion-collapse collapse"
+              [attr.data-bs-parent]="'#companyAccordion'">
+              <div class="accordion-body">
+                <app-company-list-item [company]="company"></app-company-list-item>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="alert alert-info p-2 text-center">
+        No companies found in your portfolio. Use the "<fa-icon [icon]="faPlus"></fa-icon>
+        Add Company" button to add your first company.
+      </div>
+    }
+  </div>
 </div>
 
 <div [ngClass]="{'window-overlay': displayAddCompanyModal}"></div>
 <div class="popup" [ngClass]="{'open': displayAddCompanyModal }">
-    <div class="popup-header">Add New Company
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeAddCompanyModal()"></button>
-    </div>
-    <div class="popup-body">
-        <p class="fw-light">
-            Create a new company that will be added to your portfolio.
-        </p>
-        <hr>
+  <div class="popup-header">Add New Company
+    <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeAddCompanyModal()"></button>
+  </div>
+  <div class="popup-body">
+    <p class="fw-light">
+      Create a new company that will be added to your portfolio.
+    </p>
+    <hr>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2 btn-sm" (click)="closeAddCompanyModal()">Cancel</button>
-        <button class="btn btn-success btn-sm" (click)="confirmCreate()">
-            <fa-icon [icon]="faPlus"></fa-icon>
-            Create Company
-        </button>
+      <button class="btn btn-secondary me-2 btn-sm" (click)="closeAddCompanyModal()">Cancel</button>
+      <button class="btn btn-success btn-sm" (click)="confirmCreate()">
+        <fa-icon [icon]="faPlus"></fa-icon>
+        Create Company
+      </button>
     </div>
-</div>
+  </div>

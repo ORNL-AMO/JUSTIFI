@@ -1,7 +1,9 @@
 <label class="w-100" for={{labelId}} [ngClass]="{'bold': isBold, 'semibold': isSemiBold}">
-    {{label}}<span *ngIf="isRequired" class="required">*</span>
-    <span class="ps-1" [ngClass]="{'float-right': isFloatRight}" data-bs-toggle="tooltip" data-bs-placement="top"
-        title={{helpTooltip.tooltip}} data-bs-html="true">
-        <fa-icon [icon]="faQuestionCircle"></fa-icon>
-    </span>
+  {{label}}@if (isRequired) {
+  <span class="required">*</span>
+}
+<span class="ps-1" [ngClass]="{'float-right': isFloatRight}" data-bs-toggle="tooltip" data-bs-placement="top"
+  title={{helpTooltip.tooltip}} data-bs-html="true">
+  <fa-icon [icon]="faQuestionCircle"></fa-icon>
+</span>
 </label>

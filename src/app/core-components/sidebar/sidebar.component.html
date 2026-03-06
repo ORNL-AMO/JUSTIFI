@@ -1,77 +1,74 @@
 <div class="offcanvas offcanvas-start" tabindex="-1" [ngClass]="{'show': sidebarOpen}">
-    <div class="offcanvas-header">
-        <!-- <h5 class="offcanvas-title" id="offcanvasNavbarLabel">NEB Tool</h5> -->
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
-            (click)="hideSidebar()"></button>
-    </div>
-    <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <ng-container *ngIf="updateAvailable">
-                <button class="btn btn-outline-success" (click)="downloadUpdate()">
-                    <fa-icon [icon]="faExclamationCircle"></fa-icon>
-                    {{updateInfo?.releaseName}} is available! Click to download update!
-                </button>
-                <hr>
-            </ng-container>
+  <div class="offcanvas-header">
+    <!-- <h5 class="offcanvas-title" id="offcanvasNavbarLabel">NEB Tool</h5> -->
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+    (click)="hideSidebar()"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+      @if (updateAvailable) {
+        <button class="btn btn-outline-success" (click)="downloadUpdate()">
+          <fa-icon [icon]="faExclamationCircle"></fa-icon>
+          {{updateInfo?.releaseName}} is available! Click to download update!
+        </button>
+        <hr>
+        }
 
 
-            <button class="btn btn-outline-success" (click)="openSetupWizardModal()">
-                <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
-                Setup Wizard
-            </button>
-            <hr>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="'/portfolio'" [routerLinkActive]="['active']"
-                    [routerLinkActiveOptions]="{exact: true}">
-                    <fa-icon [icon]="faFolderOpen"></fa-icon>
-                    My Portfolio</a>
-            </li>
-            <hr>
-            <ng-container *ngFor="let company of companies">
+        <button class="btn btn-outline-success" (click)="openSetupWizardModal()">
+          <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+          Setup Wizard
+        </button>
+        <hr>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/portfolio'" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact: true}">
+              <fa-icon [icon]="faFolderOpen"></fa-icon>
+            My Portfolio</a>
+          </li>
+          <hr>
+            @for (company of companies; track company) {
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid"
+                  [routerLinkActive]="['active']">
+                  <fa-icon class="pe-1" [icon]="faBuilding"></fa-icon>
+                  {{company.generalInformation.name}}
+                </a>
+              </li>
+              @for (facility of company.guid | facilityList:facilities; track facility) {
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="'/portfolio/company/'+company.guid"
-                        [routerLinkActive]="['active']">
-                        <fa-icon class="pe-1" [icon]="faBuilding"></fa-icon>
-                        {{company.generalInformation.name}}
-                    </a>
+                  <a class="nav-link facility-link" [routerLink]="'/portfolio/facility/'+facility.guid"
+                    [routerLinkActive]="['active']">
+                    <fa-icon [icon]="faIndustry" class="pe-1"></fa-icon>
+                  {{facility.generalInformation.name}}</a>
                 </li>
-
-                <ng-container *ngFor="let facility of company.guid | facilityList:facilities">
-                    <li class="nav-item">
-                        <a class="nav-link facility-link" [routerLink]="'/portfolio/facility/'+facility.guid"
-                            [routerLinkActive]="['active']">
-                            <fa-icon [icon]="faIndustry" class="pe-1"></fa-icon>
-                            {{facility.generalInformation.name}}</a>
-                    </li>
-
-                    <ng-container *ngFor="let assessment of (facility.guid | assessmentsList:assessments)">
-                        <li class="nav-item">
-                            <a class="nav-link assessment-link" [routerLink]="'/portfolio/assessment/'+assessment.guid"
-                                [routerLinkActive]="['active']">
-                                <fa-icon [icon]="faScrewdriverWrench" class="pe-1"></fa-icon>
-                                {{assessment.name}}</a>
-                        </li>
-                    </ng-container>
-
-                </ng-container>
-                <hr>
-            </ng-container>
-            <li class="nav-item">
+                @for (assessment of (facility.guid | assessmentsList:assessments); track assessment) {
+                  <li class="nav-item">
+                    <a class="nav-link assessment-link" [routerLink]="'/portfolio/assessment/'+assessment.guid"
+                      [routerLinkActive]="['active']">
+                      <fa-icon [icon]="faScrewdriverWrench" class="pe-1"></fa-icon>
+                    {{assessment.name}}</a>
+                  </li>
+                }
+              }
+              <hr>
+              }
+              <li class="nav-item">
                 <a class="nav-link" [routerLink]="'/nebs-database'" [routerLinkActive]="['active']">
-                    <fa-icon [icon]="faDatabase" class="pe-1"></fa-icon>MBs Database</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="'/about'" [routerLinkActive]="['active']">
+                  <fa-icon [icon]="faDatabase" class="pe-1"></fa-icon>MBs Database</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [routerLink]="'/about'" [routerLinkActive]="['active']">
                     <fa-icon [icon]="faCircleInfo" class="pe-1"></fa-icon>About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="'/feedback'" [routerLinkActive]="['active']">
-                    <fa-icon [icon]="faInbox" class="pe-1"></fa-icon>Feedback & Support</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="'/acknowledgments'" [routerLinkActive]="['active']">
-                    <fa-icon [icon]="faTrophy" class="pe-1"></fa-icon>Acknowledgments</a>
-            </li>
-        </ul>
-    </div>
-</div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [routerLink]="'/feedback'" [routerLinkActive]="['active']">
+                      <fa-icon [icon]="faInbox" class="pe-1"></fa-icon>Feedback & Support</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" [routerLink]="'/acknowledgments'" [routerLinkActive]="['active']">
+                        <fa-icon [icon]="faTrophy" class="pe-1"></fa-icon>Acknowledgments</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>

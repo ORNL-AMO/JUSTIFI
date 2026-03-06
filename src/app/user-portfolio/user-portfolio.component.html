@@ -1,49 +1,53 @@
 <div class="container-fluid portfolio p-0">
-    <nav class="navbar primary-nav bg-white border-bottom sticky-top hide-print" style="--bs-breadcrumb-divider: '>';"
-        aria-label="breadcrumb">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-between w-100 flex-column flex-md-row">
-                <div>
-                    <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item" [ngClass]="{'active': context == 'home'}">
-                            <fa-icon class="pe-1" [icon]="faFolderOpen"></fa-icon>
-                            <a [routerLink]="'/portfolio'">JUSTIFI Portfolio</a>
-                        </li>
-                        <ng-container *ngIf="company">
-                            <li class="breadcrumb-item" [ngClass]="{'active': context == 'company'}">
-                                <fa-icon class="pe-1" [icon]="faBuilding"></fa-icon>
-                                <a [routerLink]="'/portfolio/company/'+company.guid">{{company.generalInformation.name}}
-                                </a>
-                            </li>
-                        </ng-container>
-                        <ng-container *ngIf="facility && context != 'company'">
-                            <li class="breadcrumb-item" [ngClass]="{'active': context == 'facility'}">
-                                <fa-icon class="pe-1" [icon]="faIndustry"></fa-icon>
-                                <a [routerLink]="'/portfolio/facility/'+facility.guid">{{facility.generalInformation.name}}
-                                </a>
-                            </li>
-                        </ng-container>
-                        <ng-container *ngIf="assessment && context != 'company' && context != 'facility'">
-                            <li class="breadcrumb-item" [ngClass]="{'active': context == 'assessment'}">
-                                <fa-icon class="pe-1" [icon]="faScrewdriverWrench"></fa-icon>
-                                <a [routerLink]="'/portfolio/assessment/'+assessment.guid">{{assessment.name}}
-                                </a>
-                            </li>
-                        </ng-container>
-                    </ol>
-                </div>
-                <div *ngIf="displayVisitButton">
-                    <button class="btn nav-btn btn-sm" (click)="returnToVisit()">
-                        <fa-icon class="pe-1" [icon]="faWandMagicSparkles"></fa-icon> Return to Wizard
-                    </button>
-                </div>
-            </div>
+  <nav class="navbar primary-nav bg-white border-bottom sticky-top hide-print" style="--bs-breadcrumb-divider: '>';"
+    aria-label="breadcrumb">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between w-100 flex-column flex-md-row">
+        <div>
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item" [ngClass]="{'active': context == 'home'}">
+              <fa-icon class="pe-1" [icon]="faFolderOpen"></fa-icon>
+              <a [routerLink]="'/portfolio'">JUSTIFI Portfolio</a>
+            </li>
+            @if (company) {
+              <li class="breadcrumb-item" [ngClass]="{'active': context == 'company'}">
+                <fa-icon class="pe-1" [icon]="faBuilding"></fa-icon>
+                <a [routerLink]="'/portfolio/company/'+company.guid">{{company.generalInformation.name}}
+                </a>
+              </li>
+            }
+            @if (facility && context != 'company') {
+              <li class="breadcrumb-item" [ngClass]="{'active': context == 'facility'}">
+                <fa-icon class="pe-1" [icon]="faIndustry"></fa-icon>
+                <a [routerLink]="'/portfolio/facility/'+facility.guid">{{facility.generalInformation.name}}
+                </a>
+              </li>
+            }
+            @if (assessment && context != 'company' && context != 'facility') {
+              <li class="breadcrumb-item" [ngClass]="{'active': context == 'assessment'}">
+                <fa-icon class="pe-1" [icon]="faScrewdriverWrench"></fa-icon>
+                <a [routerLink]="'/portfolio/assessment/'+assessment.guid">{{assessment.name}}
+                </a>
+              </li>
+            }
+          </ol>
         </div>
-    </nav>
-    <div [ngClass]="{'pe-2 ps-2': !print}">
-        <router-outlet></router-outlet>
+        @if (displayVisitButton) {
+          <div>
+            <button class="btn nav-btn btn-sm" (click)="returnToVisit()">
+              <fa-icon class="pe-1" [icon]="faWandMagicSparkles"></fa-icon> Return to Wizard
+            </button>
+          </div>
+        }
+      </div>
     </div>
+  </nav>
+  <div [ngClass]="{'pe-2 ps-2': !print}">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
 
-<app-add-nebs-modal *ngIf="displayAddNebsModal"></app-add-nebs-modal>
+@if (displayAddNebsModal) {
+  <app-add-nebs-modal></app-add-nebs-modal>
+}

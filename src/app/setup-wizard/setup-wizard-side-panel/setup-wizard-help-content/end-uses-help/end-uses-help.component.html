@@ -1,54 +1,54 @@
 <p>
-    Add end uses to the inventory for the selected facility.
+  Add end uses to the inventory for the selected facility.
 </p>
 <hr>
-<p>
+  <p>
     Name and make notes about end uses of outputs of the Industrial Systems.
-</p>
-<hr>
-<p>
-    Use the "<fa-icon [icon]="faLink"></fa-icon>" buttons to connect this end use to industrial systems and stakeholders
-    within the organization.
-</p>
-<hr>
-
-<!--TAKE STOCK-->
-<ng-template [ngIf]="isTakeStock">
-    <label>
-        <fa-icon [icon]="faClipboardQuestion"></fa-icon>
-        Take Stock
-    </label>
+  </p>
+  <hr>
+    <p>
+      Use the "<fa-icon [icon]="faLink"></fa-icon>" buttons to connect this end use to industrial systems and stakeholders
+      within the organization.
+    </p>
     <hr>
-    <ng-template [ngIf]="focusedHelp == 'whatIsTheOutput'">
-        <label>What is the output of this process? Is it an intermediate or final product of the facility?</label>
-        <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.whatIsTheOutput">
-        </p>
+
+      <!--TAKE STOCK-->
+      @if (isTakeStock) {
+        <label>
+          <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+          Take Stock
+        </label>
         <hr>
-    </ng-template>
-    <ng-template [ngIf]="focusedHelp == 'howDoesTheProcessWork'">
-        <label>How does the process or manufacturing technology work?</label>
-        <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.howDoesTheProcessWork">
-        </p>
-        <hr>
-    </ng-template>
-    <ng-template [ngIf]="focusedHelp == 'financialStatusOfEquipment'">
-        <label>Where is the process and its equipment in its lifecycle? Are you considering replacement?</label>
-        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipment">
-        </p>
-        <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipmentQs">
-        </p>
-        <hr>
-    </ng-template>
-    <ng-template [ngIf]="focusedHelp == 'financialMetricsUsed'">
-        <label>What financial metrics are used to understand the output of the system (/unit,/ton, $/batch)?</label>
-        <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentTakeStockHelp.financialMetricsUsed">
-        </p>
-        <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialMetricsUsedQs">
-        </p>
-        <hr>
-    </ng-template>
-</ng-template>
-<p class="fw-light help-disclaimer">
-    <fa-icon [icon]="faExclamationCircle"></fa-icon>
-    Help panel content is dynamic. Click on input fields to view field-by-field help.
-</p>
+          @if (focusedHelp == 'whatIsTheOutput') {
+            <label>What is the output of this process? Is it an intermediate or final product of the facility?</label>
+            <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.whatIsTheOutput">
+            </p>
+            <hr>
+            }
+            @if (focusedHelp == 'howDoesTheProcessWork') {
+              <label>How does the process or manufacturing technology work?</label>
+              <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.howDoesTheProcessWork">
+              </p>
+              <hr>
+              }
+              @if (focusedHelp == 'financialStatusOfEquipment') {
+                <label>Where is the process and its equipment in its lifecycle? Are you considering replacement?</label>
+                <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipment">
+                </p>
+                <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipmentQs">
+                </p>
+                <hr>
+                }
+                @if (focusedHelp == 'financialMetricsUsed') {
+                  <label>What financial metrics are used to understand the output of the system (/unit,/ton, $/batch)?</label>
+                  <p class="fw-light small mb-2" [innerHTML]="ProcessEquipmentTakeStockHelp.financialMetricsUsed">
+                  </p>
+                  <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialMetricsUsedQs">
+                  </p>
+                  <hr>
+                  }
+                }
+                <p class="fw-light help-disclaimer">
+                  <fa-icon [icon]="faExclamationCircle"></fa-icon>
+                  Help panel content is dynamic. Click on input fields to view field-by-field help.
+                </p>

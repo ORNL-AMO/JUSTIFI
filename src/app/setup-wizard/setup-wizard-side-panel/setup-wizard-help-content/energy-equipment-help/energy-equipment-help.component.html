@@ -1,149 +1,149 @@
 <p>
-    Add equipment to the "Industrial System Inventory" for the selected facility.</p>
+Add equipment to the "Industrial System Inventory" for the selected facility.</p>
 <hr>
-<p>
+  <p>
     This inventory focuses on equipment related to assessments that are being conducted: larger motor driven systems
     (pumps, fans, compressors), process heating equipment, steam equipment. Systems like lighting equipment, HVAC
     systems, and mobile equipment can also be tracked.<br><br>
     Additionally, this system likely supplies other systems or processes with their needs.
-</p>
-<hr>
-<p>
-    Use the "<fa-icon [icon]="faLink"></fa-icon>" buttons to connect this system to other equipment, systems and people
-    within the organization.
-</p>
-<hr>
-<ng-template [ngIf]="focusedHelp == 'equipmentType'">
+  </p>
+  <hr>
     <p>
-        Setting the <span class="bold">"Industrial System"</span> sets the energy-related fields in the system details form.
+      Use the "<fa-icon [icon]="faLink"></fa-icon>" buttons to connect this system to other equipment, systems and people
+      within the organization.
     </p>
     <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'utilityType'">
-    <p>
-        <span class="bold">Utility Type</span> sets the units available for <span class="bold">Total
-            Size</span>.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'size'">
-    <p>
-        Enter nameplate data for <span class="bold">Total Size</span> to begin estimating the energy used by the system.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'fuelConsumptionCompressedAir'">
-    <p>
-        <span class="bold">Consumption Rate</span> refers to the amount of compressed air used over one hour.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'fuelConsumptionOtherFuels'">
-    <p>
-        <span class="bold">Consumption Rate</span> refers to the amount of fuels consumed over one hour.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'fuelConsumptionSteam'">
-    <p>
-        <span class="bold">Consumption Rate</span> refers to the amount of steam used over one hour.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'heatingValueCompressedAir'">
-    <p>
-        <span class="bold">Specific Power</span> the approximate energy required to produce a given amount of compressed air. This depends on your compressor type and controls. Can be estimated in MEASUR.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'heatingValueSteam'">
-    <p>
-        <span class="bold">Enthalpy</span> the combination of the steam's internal energy and the work needed to make room for the material, compared to the standard state, in terms of mass. Can be estimated in MEASUR.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'heatingValueOtherFuels'">
-    <p>
-        <span class="bold">Higher Heating Value</span> refers to the amount of energy released when a fuel is combusted. This can be estimated in MEASUR.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'operatingHours'">
-    <p>
-        <span class="bold">Operating Hours</span> refers to the hours the equipment (not the entire facility) is
-        operating.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'loadFactor'">
-    <p>
-        <span class="bold">Load Factor</span> refers to the fraction of the nameplate size power that is being used.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'efficiency'">
-    <p>
-        <span class="bold">Efficiency</span> refers to the energy efficiency of the equipment.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'numberOfEquipment'">
-    <p>
-        <span class="bold">Number of Equipment</span> can be utilized if multiple equipment is about the same size.
-    </p>
-    <hr>
-</ng-template>
-<ng-template [ngIf]="focusedHelp == 'notes'">
-    <p>
-        <span class="bold">Notes</span> can be used to help start to take notes about the equipment and how it connects
-        to
-        end users and potential
-        operational benefits.
-    </p>
-    <hr>
-</ng-template>
+      @if (focusedHelp == 'equipmentType') {
+        <p>
+          Setting the <span class="bold">"Industrial System"</span> sets the energy-related fields in the system details form.
+        </p>
+        <hr>
+        }
+        @if (focusedHelp == 'utilityType') {
+          <p>
+            <span class="bold">Utility Type</span> sets the units available for <span class="bold">Total
+          Size</span>.
+        </p>
+        <hr>
+        }
+        @if (focusedHelp == 'size') {
+          <p>
+            Enter nameplate data for <span class="bold">Total Size</span> to begin estimating the energy used by the system.
+          </p>
+          <hr>
+          }
+          @if (focusedHelp == 'fuelConsumptionCompressedAir') {
+            <p>
+              <span class="bold">Consumption Rate</span> refers to the amount of compressed air used over one hour.
+            </p>
+            <hr>
+            }
+            @if (focusedHelp == 'fuelConsumptionOtherFuels') {
+              <p>
+                <span class="bold">Consumption Rate</span> refers to the amount of fuels consumed over one hour.
+              </p>
+              <hr>
+              }
+              @if (focusedHelp == 'fuelConsumptionSteam') {
+                <p>
+                  <span class="bold">Consumption Rate</span> refers to the amount of steam used over one hour.
+                </p>
+                <hr>
+                }
+                @if (focusedHelp == 'heatingValueCompressedAir') {
+                  <p>
+                    <span class="bold">Specific Power</span> the approximate energy required to produce a given amount of compressed air. This depends on your compressor type and controls. Can be estimated in MEASUR.
+                  </p>
+                  <hr>
+                  }
+                  @if (focusedHelp == 'heatingValueSteam') {
+                    <p>
+                      <span class="bold">Enthalpy</span> the combination of the steam's internal energy and the work needed to make room for the material, compared to the standard state, in terms of mass. Can be estimated in MEASUR.
+                    </p>
+                    <hr>
+                    }
+                    @if (focusedHelp == 'heatingValueOtherFuels') {
+                      <p>
+                        <span class="bold">Higher Heating Value</span> refers to the amount of energy released when a fuel is combusted. This can be estimated in MEASUR.
+                      </p>
+                      <hr>
+                      }
+                      @if (focusedHelp == 'operatingHours') {
+                        <p>
+                          <span class="bold">Operating Hours</span> refers to the hours the equipment (not the entire facility) is
+                          operating.
+                        </p>
+                        <hr>
+                        }
+                        @if (focusedHelp == 'loadFactor') {
+                          <p>
+                            <span class="bold">Load Factor</span> refers to the fraction of the nameplate size power that is being used.
+                          </p>
+                          <hr>
+                          }
+                          @if (focusedHelp == 'efficiency') {
+                            <p>
+                              <span class="bold">Efficiency</span> refers to the energy efficiency of the equipment.
+                            </p>
+                            <hr>
+                            }
+                            @if (focusedHelp == 'numberOfEquipment') {
+                              <p>
+                                <span class="bold">Number of Equipment</span> can be utilized if multiple equipment is about the same size.
+                              </p>
+                              <hr>
+                              }
+                              @if (focusedHelp == 'notes') {
+                                <p>
+                                  <span class="bold">Notes</span> can be used to help start to take notes about the equipment and how it connects
+                                  to
+                                  end users and potential
+                                  operational benefits.
+                                </p>
+                                <hr>
+                                }
 
-<!--TAKE STOCK-->
-<ng-template [ngIf]="isTakeStock">
-    <label>
-        <fa-icon [icon]="faClipboardQuestion"></fa-icon>
-        Take Stock
-    </label><br>
-    <!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.sectionHelp">
-    </p> -->
-    <!-- <hr> -->
-    <ng-template [ngIf]="focusedHelp == 'howSupportPlant'">
-        <label>How does this system support the plant?</label>
-        <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlant">
-        </p>
-        <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlantQs">
-        </p>
-        <hr>
-    </ng-template>
-    <ng-template [ngIf]="focusedHelp == 'adverseEffects'">
-        <label>How would any recommendations to improve energy efficiency improve other areas within the facility?</label>
-        <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.adverseEffects">
-        </p>
-        <hr>
-    </ng-template>
-    <ng-template [ngIf]="focusedHelp == 'equipmentFinancialStatus'">
-        <label>Where is the equipment in its lifecycle? Are you considering replacement?</label>
-        <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatus">
-        </p>
-        <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatusQs">
-        </p>
-        <hr>
-    </ng-template>
-    <ng-template [ngIf]="focusedHelp == 'financialMetricsUsed'">
-        <label>What financial metrics are used to understand the output of the system (/gpm, /scfm)?</label>
-        <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentTakeStockHelp.financialMetricsUsed">
-        </p>
-        <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.financialMetricsUsedQs">
-        </p>
-        <hr>
-    </ng-template>
-</ng-template>
-<p class="fw-light help-disclaimer">
-    <fa-icon [icon]="faExclamationCircle"></fa-icon>
-    Help panel content is dynamic. Click on input fields to view field-by-field help.
-</p>
+                                <!--TAKE STOCK-->
+                                @if (isTakeStock) {
+                                  <label>
+                                    <fa-icon [icon]="faClipboardQuestion"></fa-icon>
+                                    Take Stock
+                                  </label><br>
+                                  <!-- <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.sectionHelp">
+                                </p> -->
+                                <!-- <hr> -->
+                                @if (focusedHelp == 'howSupportPlant') {
+                                  <label>How does this system support the plant?</label>
+                                  <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlant">
+                                  </p>
+                                  <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.howSupportPlantQs">
+                                  </p>
+                                  <hr>
+                                  }
+                                  @if (focusedHelp == 'adverseEffects') {
+                                    <label>How would any recommendations to improve energy efficiency improve other areas within the facility?</label>
+                                    <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.adverseEffects">
+                                    </p>
+                                    <hr>
+                                    }
+                                    @if (focusedHelp == 'equipmentFinancialStatus') {
+                                      <label>Where is the equipment in its lifecycle? Are you considering replacement?</label>
+                                      <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatus">
+                                      </p>
+                                      <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.equipmentFinancialStatusQs">
+                                      </p>
+                                      <hr>
+                                      }
+                                      @if (focusedHelp == 'financialMetricsUsed') {
+                                        <label>What financial metrics are used to understand the output of the system (/gpm, /scfm)?</label>
+                                        <p class="fw-light small mb-2" [innerHTML]="EnergyEquipmentTakeStockHelp.financialMetricsUsed">
+                                        </p>
+                                        <p class="fw-light small" [innerHTML]="EnergyEquipmentTakeStockHelp.financialMetricsUsedQs">
+                                        </p>
+                                        <hr>
+                                        }
+                                      }
+                                      <p class="fw-light help-disclaimer">
+                                        <fa-icon [icon]="faExclamationCircle"></fa-icon>
+                                        Help panel content is dynamic. Click on input fields to view field-by-field help.
+                                      </p>
