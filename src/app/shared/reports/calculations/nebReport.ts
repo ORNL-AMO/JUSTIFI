@@ -1,11 +1,9 @@
-import { KeyPerformanceMetric, KeyPerformanceMetricOption } from "../../constants/keyPerformanceMetrics";
+import { KeyPerformanceMetric } from "../../constants/keyPerformanceMetrics";
 import { IdbNonEnergyBenefit } from "../../../models/nonEnergyBenefit";
 import * as _ from 'lodash';
 import { IdbKeyPerformanceMetricImpact } from "src/app/models/keyPerformanceMetricImpact";
 import { IdbReport, ReportOption } from "src/app/models/report";
-import { Key } from "ngx-indexed-db";
 import { IdbKeyPerformanceIndicator } from "src/app/models/keyPerformanceIndicator";
-import { KeyPerformanceIndicatorOption } from "../../constants/keyPerformanceIndicatorOptions";
 
 ///NEB REPORT
 export function getNebReport(nonEnergyBenefit: IdbNonEnergyBenefit, facilityPerformanceMetrics: Array<KeyPerformanceMetric>,
