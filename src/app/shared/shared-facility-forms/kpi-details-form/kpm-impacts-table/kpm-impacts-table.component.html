@@ -1,65 +1,63 @@
 <a class="h6 click-link mt-2" (click)="toggleDisplayTable()">
-    <fa-icon [icon]="displayTable ? faChevronDown : faChevronRight"></fa-icon>
-    Potential Impacts
+  <fa-icon [icon]="displayTable ? faChevronDown : faChevronRight"></fa-icon>
+  Potential Impacts
 </a>
 <div class="w-100 overflow-scroll-x">
-    <table class="table table-bordered table-sm" [ngClass]="{'collapse': !displayTable}">
-        <thead>
-            <tr class="table-dark">
-                <td class="w-25">
-                    <fa-icon [icon]="faScrewdriverWrench" class="me-1"></fa-icon>
-                    Assessment
-                </td>
-                <td class="w-25">
-                    <fa-icon [icon]="faFileLines" class="me-1"></fa-icon>
-                    EEM
-                </td>
-                <td class="w-25">
-                    <fa-icon [icon]="faWeightHanging" class="me-1"></fa-icon>
-                    MB
-                </td>
-                <td class="w-25">
-                    <fa-icon [icon]="faDollar" class="me-1"></fa-icon>
-                    Impact
-                </td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let kpmImpact of keyPerformanceMetricImpacts | keyPerformanceMetricImpactsList: kpmGuid">
-                <td>
-                    {{kpmImpact.assessmentId | assessmentNameDisplay: assessments}}
-                </td>
-                <td>
-                    <ng-template [ngIf]="kpmImpact.energyOpportunityId" [ngIfElse]="noOppBlock">
-                        {{kpmImpact.energyOpportunityId | energyOpportunityDisplay: energyOpportunities}}
-                    </ng-template>
-                    <ng-template #noOppBlock>
-                        &mdash;
-                    </ng-template>
-                </td>
-                <td>
-                    <ng-template [ngIf]="kpmImpact.nebId" [ngIfElse]="noNebBlock">
-                        {{(kpmImpact.nebId | nebItem: nonEnergyBenefits).name}}
-                    </ng-template>
-                    <ng-template #noNebBlock>
-                        &mdash;
-                    </ng-template>
-                </td>
-                <td>
-                    <ng-template [ngIf]="kpmImpact.costAdjustment" [ngIfElse]="noChangeBlock">
-                        {{kpmImpact.costAdjustment | currency:currencyCode}}/yr
-                    </ng-template>
-                    <ng-template #noChangeBlock>
-                        <ng-template [ngIf]="kpmImpact.modificationValue" [ngIfElse]="noImpactBlock">
-                            <app-single-cell-item [numValue]="kpmImpact.modificationValue" [isCurrency]="false"
-                                [units]="keyPerformanceMetric?.totalUnit" [per]="'yr'"></app-single-cell-item>
-                        </ng-template>
-                        <ng-template #noImpactBlock>
-                            &mdash;
-                        </ng-template>
-                    </ng-template>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="table table-bordered table-sm" [ngClass]="{'collapse': !displayTable}">
+    <thead>
+      <tr class="table-dark">
+        <td class="w-25">
+          <fa-icon [icon]="faScrewdriverWrench" class="me-1"></fa-icon>
+          Assessment
+        </td>
+        <td class="w-25">
+          <fa-icon [icon]="faFileLines" class="me-1"></fa-icon>
+          EEM
+        </td>
+        <td class="w-25">
+          <fa-icon [icon]="faWeightHanging" class="me-1"></fa-icon>
+          MB
+        </td>
+        <td class="w-25">
+          <fa-icon [icon]="faDollar" class="me-1"></fa-icon>
+          Impact
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      @for (kpmImpact of keyPerformanceMetricImpacts | keyPerformanceMetricImpactsList: kpmGuid; track kpmImpact) {
+        <tr>
+          <td>
+            {{kpmImpact.assessmentId | assessmentNameDisplay: assessments}}
+          </td>
+          <td>
+            @if (kpmImpact.energyOpportunityId) {
+              {{kpmImpact.energyOpportunityId | energyOpportunityDisplay: energyOpportunities}}
+            } @else {
+              &mdash;
+            }
+          </td>
+          <td>
+            @if (kpmImpact.nebId) {
+              {{(kpmImpact.nebId | nebItem: nonEnergyBenefits).name}}
+            } @else {
+              &mdash;
+            }
+          </td>
+          <td>
+            @if (kpmImpact.costAdjustment) {
+              {{kpmImpact.costAdjustment | currency:currencyCode}}/yr
+            } @else {
+              @if (kpmImpact.modificationValue) {
+                <app-single-cell-item [numValue]="kpmImpact.modificationValue" [isCurrency]="false"
+                [units]="keyPerformanceMetric?.totalUnit" [per]="'yr'"></app-single-cell-item>
+              } @else {
+                &mdash;
+              }
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
 </div>

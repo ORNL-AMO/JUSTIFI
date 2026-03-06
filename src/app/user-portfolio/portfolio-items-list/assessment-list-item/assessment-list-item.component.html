@@ -1,75 +1,75 @@
 <table class="table table-bordered">
-    <tbody>
-        <tr>
-            <th>
-                Assessment Type
-            </th>
-            <td>
-                {{assessment.assessmentType}}
-            </td>
-        </tr>
-        <tr>
-            <th>
-                Visit Date
-            </th>
-            <td>
-                {{assessment.visitDate | date}}
-            </td>
-        </tr>
-        <tr>
-            <th>
-                Utility Usage
-            </th>
-            <td>
-                <ng-container *ngFor="let utilityType of assessment.utilityEnergyUses">
-                    <ng-container *ngIf="utilityType.include">
-                        {{utilityType.utilityType}}: {{utilityType.energyUse | number}} <span
-                            [innerHTML]="utilityType.energyUnit | unitsDisplay"></span><br>
-                    </ng-container>
-                </ng-container>
-            </td>
-        </tr>
-        <tr>
-            <th>
-                Annual Costs
-            </th>
-            <td>
-                <ng-template [ngIf]="assessment.cost" [ngIfElse]="noCostMdash">
-                    {{assessment.cost | currency: currencyCode}}/yr
-                </ng-template>
-                <ng-template #noCostMdash>
-                    &mdash;
-                </ng-template>
-            </td>
-        </tr>
-        <tr>
-            <th>
-                Energy Efficiency Measures
-            </th>
-            <td>
-                <ng-template [ngIf]="energyOpportunities.length > 0" [ngIfElse]="noOppsMdash">
-                    <ng-container *ngFor="let opportunity of energyOpportunities">
-                        {{opportunity.name}}<br>
-                    </ng-container>
-                </ng-template>
-                <ng-template #noOppsMdash>
-                    &mdash;
-                </ng-template>
-            </td>
-        </tr>
-        <tr>
-            <th>
-                MBs
-            </th>
-            <td>
-                @let assessmentNebs = assessment.guid | nebList:'assessment': nonEnergyBenefits;
-                <ng-template [ngIf]="assessmentNebs.length > 0">
-                    <span *ngFor="let neb of assessmentNebs">
-                        <fa-icon [icon]="faWeightHanging"></fa-icon>
-                        {{neb.name}} <br>
-                    </span>
-                </ng-template>
-            </td>
-        </tr>
-    </tbody>
+  <tbody>
+    <tr>
+      <th>
+        Assessment Type
+      </th>
+      <td>
+        {{assessment.assessmentType}}
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Visit Date
+      </th>
+      <td>
+        {{assessment.visitDate | date}}
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Utility Usage
+      </th>
+      <td>
+        @for (utilityType of assessment.utilityEnergyUses; track utilityType) {
+          @if (utilityType.include) {
+            {{utilityType.utilityType}}: {{utilityType.energyUse | number}} <span
+          [innerHTML]="utilityType.energyUnit | unitsDisplay"></span><br>
+        }
+      }
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Annual Costs
+    </th>
+    <td>
+      @if (assessment.cost) {
+        {{assessment.cost | currency: currencyCode}}/yr
+      } @else {
+        &mdash;
+      }
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Energy Efficiency Measures
+    </th>
+    <td>
+      @if (energyOpportunities.length > 0) {
+        @for (opportunity of energyOpportunities; track opportunity) {
+          {{opportunity.name}}<br>
+        }
+      } @else {
+        &mdash;
+      }
+    </td>
+  </tr>
+  <tr>
+    <th>
+      MBs
+    </th>
+    <td>
+      @let assessmentNebs = assessment.guid | nebList:'assessment': nonEnergyBenefits;
+      @if (assessmentNebs.length > 0) {
+        @for (neb of assessmentNebs; track neb) {
+          <span>
+            <fa-icon [icon]="faWeightHanging"></fa-icon>
+            {{neb.name}} <br>
+          </span>
+        }
+      }
+    </td>
+  </tr>
+</tbody>
 </table>

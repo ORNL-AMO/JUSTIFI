@@ -1,167 +1,185 @@
 <div class="row pb-2">
-    <label class="col-12 col-md-5" for="kpiValue">Search Benefits</label>
-    <div class="col-12 col-md-7">
-        <div class="input-group" role="search">
-            <span class="input-group-text">
-                <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-            </span>
-            <input
-                class="form-control" type="search" placeholder="Search"
-                aria-label="Search" name="nebSearchStr"
-                [(ngModel)]="nebSearchStr"
-                (input)="filterKeywordList()"
-            />
-        </div>
-        <ul class="dropdown-menu show scrollable" *ngIf="nebSearchStr && filteredKeywordList.length > 0">
-            <li
-                *ngFor="let keyword of filteredKeywordList"
-                class="dropdown-item"
-                (click)="keyword != '...' && selectKeyword(keyword)"
-                [innerHTML]="keyword | keywordHighlight: nebSearchStr"
-            >
-            </li>
-        </ul>
+  <label class="col-12 col-md-5" for="kpiValue">Search Benefits</label>
+  <div class="col-12 col-md-7">
+    <div class="input-group" role="search">
+      <span class="input-group-text">
+        <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+      </span>
+      <input
+        class="form-control" type="search" placeholder="Search"
+        aria-label="Search" name="nebSearchStr"
+        [(ngModel)]="nebSearchStr"
+        (input)="filterKeywordList()"
+        />
     </div>
+    @if (nebSearchStr && filteredKeywordList.length > 0) {
+      <ul class="dropdown-menu show scrollable">
+        @for (keyword of filteredKeywordList; track keyword) {
+          <li
+            class="dropdown-item"
+            (click)="keyword != '...' && selectKeyword(keyword)"
+            [innerHTML]="keyword | keywordHighlight: nebSearchStr"
+            >
+          </li>
+        }
+      </ul>
+    }
+  </div>
 </div>
 
 <div class="row pb-2">
-    <label class="col-12 col-md-5" for="kpiValue">Key Performance Indicator (KPI)</label>
-    <div class="col-12 col-md-7">
-        <select id="kpiValue" name="kpiValue" class="form-select" [(ngModel)]="kpiValue" (change)="setKpmOptions()">
-            <option [ngValue]="undefined">All KPI</option>
-            <option *ngFor="let kpi of keyPerformanceIndicatorOptions" [ngValue]="kpi.optionValue">
-                <div class="d-flex">
-                    <ng-template [ngIf]="facilityTrackedKpis.includes(kpi.optionValue)">
-                        <div class="p-1">
-                            &ast;
-                        </div>
-                    </ng-template>
-                    <div class="p-0">
-                        <span [innerHTML]="kpi.label"></span>
-                    </div>
-                </div>
-            </option>
-        </select>
-    </div>
+  <label class="col-12 col-md-5" for="kpiValue">Key Performance Indicator (KPI)</label>
+  <div class="col-12 col-md-7">
+    <select id="kpiValue" name="kpiValue" class="form-select" [(ngModel)]="kpiValue" (change)="setKpmOptions()">
+      <option [ngValue]="undefined">All KPI</option>
+      @for (kpi of keyPerformanceIndicatorOptions; track kpi) {
+        <option [ngValue]="kpi.optionValue">
+          <div class="d-flex">
+            @if (facilityTrackedKpis.includes(kpi.optionValue)) {
+              <div class="p-1">
+                &ast;
+              </div>
+            }
+            <div class="p-0">
+              <span [innerHTML]="kpi.label"></span>
+            </div>
+          </div>
+        </option>
+      }
+    </select>
+  </div>
 </div>
 <div class="row">
-    <label class="col-12 col-md-5" for="kpmValue">Key Performance Metric (KPM)</label>
-    <div class="col-12 col-md-7">
-        <select id="kpmValue" name="kpmValue" class="form-select" [(ngModel)]="kpmCompositeValue"
-            (change)="setKpmValue()">
-            <option [ngValue]="undefined">All KPM</option>
-            <option *ngFor="let kpm of keyPerformanceMetricOptions" [ngValue]="(kpm.value + kpm.kpiValue)">
-                <div class="d-flex">
-                    <ng-template [ngIf]="facilityTrackedKpms.includes(kpm.value + kpm.kpiValue)">
-                        <div class="p-1">
-                            &ast;
-                        </div>
-                    </ng-template>
-                    <div class="p-0">
-                        <span class="inner-span" [innerHTML]="kpm.label"></span>
-                    </div>
-                </div>
-            </option>
-        </select>
-    </div>
+  <label class="col-12 col-md-5" for="kpmValue">Key Performance Metric (KPM)</label>
+  <div class="col-12 col-md-7">
+    <select id="kpmValue" name="kpmValue" class="form-select" [(ngModel)]="kpmCompositeValue"
+      (change)="setKpmValue()">
+      <option [ngValue]="undefined">All KPM</option>
+      @for (kpm of keyPerformanceMetricOptions; track kpm) {
+        <option [ngValue]="(kpm.value + kpm.kpiValue)">
+          <div class="d-flex">
+            @if (facilityTrackedKpms.includes(kpm.value + kpm.kpiValue)) {
+              <div class="p-1">
+                &ast;
+              </div>
+            }
+            <div class="p-0">
+              <span class="inner-span" [innerHTML]="kpm.label"></span>
+            </div>
+          </div>
+        </option>
+      }
+    </select>
+  </div>
 </div>
-<p class="text-right fw-light" *ngIf="inAddModal">
+@if (inAddModal) {
+  <p class="text-right fw-light">
     &ast; Indicates KPI/KPM currently tracked by this company.
-</p>
+  </p>
+}
 <hr>
-<div class="my-2">
-    <button
-        *ngFor="let keyword of topKeywords"
+  <div class="my-2">
+    @for (keyword of topKeywords; track keyword) {
+      <button
         class="btn btn-outline-primary btn-sm border-0"
         (click)="selectTopKeyword(keyword)"
-    >
+        >
         #{{ keyword }}
-    </button>
-</div>
-@let tableList = nebOptions | nebOptionsFilter: orderByDir: kpiValue: kpmValue: keyPerformanceMetricOptions:
-nebSearchStr;
-<table class="table table-bordered table-hover table-sm">
+      </button>
+    }
+  </div>
+  @let tableList = nebOptions | nebOptionsFilter: orderByDir: kpiValue: kpmValue: keyPerformanceMetricOptions:
+  nebSearchStr;
+  <table class="table table-bordered table-hover table-sm">
     <thead>
-        <tr class="clickable">
-            <th *ngIf="inAddModal">
-
-            </th>
-            <th (click)="toggleOrderBy()">
-                <fa-icon [icon]="faChevronDown" *ngIf="orderByDir == 'asc'"></fa-icon>
-                <fa-icon [icon]="faChevronUp" *ngIf="orderByDir == 'desc'"></fa-icon>
-                Multiple Benefits ({{tableList.length}})
-            </th>
-        </tr>
+      <tr class="clickable">
+        @if (inAddModal) {
+          <th>
+          </th>
+        }
+        <th (click)="toggleOrderBy()">
+          @if (orderByDir == 'asc') {
+            <fa-icon [icon]="faChevronDown"></fa-icon>
+          }
+          @if (orderByDir == 'desc') {
+            <fa-icon [icon]="faChevronUp"></fa-icon>
+          }
+          Multiple Benefits ({{tableList.length}})
+        </th>
+      </tr>
     </thead>
     <tbody>
-        <ng-container *ngFor="let neb of tableList">
-            <tr>
-                <td (click)="selectNeb(neb)" class="add-td text-center" *ngIf="inAddModal"
-                    [ngClass]="{'bg-success': neb.selected}">
-                    <a class="click-link">
-                        <ng-template [ngIf]="!neb.selected" [ngIfElse]="selectedNebBlock">
-                            <fa-icon [icon]="faPlus"></fa-icon>
-                        </ng-template>
-                        <ng-template #selectedNebBlock>
-                            <fa-icon [icon]="faCheck"></fa-icon>
-                        </ng-template>
-                    </a>
-                </td>
-                <td>
-                    <div class="w-100" (click)="selectNeb(neb)" [ngClass]="{'bold': neb.selected}">
-                        <span [innerHTML]="neb.htmlLabel"></span>
-                    </div>
-
-                    <ng-container *ngIf="neb.selected" class="no-hover">
-                        <div class="metric-column">
-                            <ng-template [ngIf]="inAddModal" [ngIfElse]="nonModalBlock">
-                                Select KPMs impacted by this Benefit.
-                                <div class="d-flex ps-2 flex-column">
-                                    <ng-container *ngFor="let composite of neb.KPM | kpmComposite">
-                                        @let compositeKey = composite.kpmValue + composite.kpiValue;
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="{{'check_'+compositeKey+neb.optionValue}}"
-                                                (change)="setChecked(neb, composite.kpmValue, composite.kpiValue)"
-                                                [checked]="neb.selectedKPM.includes(compositeKey)">
-                                            <label class="form-check-label" for="{{'check_'+compositeKey+neb.optionValue}}">
-                                                <div class="d-flex">
-                                                    <ng-template [ngIf]="facilityTrackedKpms.includes(compositeKey)">
-                                                        <div class="pe-1">
-                                                            &ast;
-                                                        </div>
-                                                    </ng-template>
-                                                    <span
-                                                        [innerHTML]="composite.htmlLabel"></span>
-                                                </div>
-                                            </label>
-                                        </div>
-                                    </ng-container>
+      @for (neb of tableList; track neb) {
+        <tr>
+          @if (inAddModal) {
+            <td (click)="selectNeb(neb)" class="add-td text-center"
+              [ngClass]="{'bg-success': neb.selected}">
+              <a class="click-link">
+                @if (!neb.selected) {
+                  <fa-icon [icon]="faPlus"></fa-icon>
+                } @else {
+                  <fa-icon [icon]="faCheck"></fa-icon>
+                }
+              </a>
+            </td>
+          }
+          <td>
+            <div class="w-100" (click)="selectNeb(neb)" [ngClass]="{'bold': neb.selected}">
+              <span [innerHTML]="neb.htmlLabel"></span>
+            </div>
+            @if (neb.selected) {
+              <ng-container class="no-hover">
+                <div class="metric-column">
+                  @if (inAddModal) {
+                    Select KPMs impacted by this Benefit.
+                    <div class="d-flex ps-2 flex-column">
+                      @for (composite of neb.KPM | kpmComposite; track composite) {
+                        @let compositeKey = composite.kpmValue + composite.kpiValue;
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value=""
+                            id="{{'check_'+compositeKey+neb.optionValue}}"
+                            (change)="setChecked(neb, composite.kpmValue, composite.kpiValue)"
+                            [checked]="neb.selectedKPM.includes(compositeKey)">
+                          <label class="form-check-label" for="{{'check_'+compositeKey+neb.optionValue}}">
+                            <div class="d-flex">
+                              @if (facilityTrackedKpms.includes(compositeKey)) {
+                                <div class="pe-1">
+                                  &ast;
                                 </div>
-                            </ng-template>
-                            <ng-template #nonModalBlock>
-                                <div class="fw-light">
-                                    KPMs impacted by this Benefit:
-                                    <ng-container>
-                                        <ul class="mb-0">
-                                            <li *ngFor="let composite of neb.KPM | kpmComposite">
-                                                <span
-                                                    [innerHTML]="composite.htmlLabel"></span>
-                                            </li>
-                                        </ul>
-                                    </ng-container>
-                                </div>
-                            </ng-template>
+                              }
+                              <span
+                              [innerHTML]="composite.htmlLabel"></span>
+                            </div>
+                          </label>
                         </div>
-                    </ng-container>
-                </td>
-            </tr>
-        </ng-container>
+                      }
+                    </div>
+                  } @else {
+                    <div class="fw-light">
+                      KPMs impacted by this Benefit:
+                      <ng-container>
+                        <ul class="mb-0">
+                          @for (composite of neb.KPM | kpmComposite; track composite) {
+                            <li>
+                              <span
+                              [innerHTML]="composite.htmlLabel"></span>
+                            </li>
+                          }
+                        </ul>
+                      </ng-container>
+                    </div>
+                  }
+                </div>
+              </ng-container>
+            }
+          </td>
+        </tr>
+      }
     </tbody>
-</table>
+  </table>
 
-<ng-template [ngIf]="tableList.length == 0">
+  @if (tableList.length == 0) {
     <div class="alert alert-info p-2">
-        No Benefits found matching search criteria. You may need to create a custom Benefits.
+      No Benefits found matching search criteria. You may need to create a custom Benefits.
     </div>
-</ng-template>
+  }

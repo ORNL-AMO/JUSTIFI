@@ -1,80 +1,80 @@
 <!-- medium screen+-->
 @if(!isSmallScreen){
-<div (mousemove)="dragMouse($event)" (mouseup)="stopResizing()" (touchmove)="dragTouch($event)"
+  <div (mousemove)="dragMouse($event)" (mouseup)="stopResizing()" (touchmove)="dragTouch($event)"
     (touchend)="stopResizing()" #pageContent (mouseleave)="stopResizing()" [ngClass]="{'d-flex w-100 h-100': !print}">
-    <ng-container *ngIf="!print">
-        <div class="d-flex" [ngStyle]="{'width.px': sidebarWidth}">
-            <div class="w-100">
-                <app-setup-wizard-sidebar
-                    (emitToggleCollapse)="toggleCollapseSidebar($event)"></app-setup-wizard-sidebar>
-            </div>
-            <div class="resize-handle" (mousedown)="startResizingSidebarMouse($event)"
-                (touchstart)="startResizingSidebarTouch($event)">
-                <div class="h-100 d-flex align-items-center">
-                    <div>
-                        <fa-icon [icon]="faGripVertical"></fa-icon>
-                    </div>
-                </div>
-            </div>
+    @if (!print) {
+      <div class="d-flex" [ngStyle]="{'width.px': sidebarWidth}">
+        <div class="w-100">
+          <app-setup-wizard-sidebar
+          (emitToggleCollapse)="toggleCollapseSidebar($event)"></app-setup-wizard-sidebar>
         </div>
-    </ng-container>
+        <div class="resize-handle" (mousedown)="startResizingSidebarMouse($event)"
+          (touchstart)="startResizingSidebarTouch($event)">
+          <div class="h-100 d-flex align-items-center">
+            <div>
+              <fa-icon [icon]="faGripVertical"></fa-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
     <div [ngClass]="{'main-content': !print}" [ngStyle]="{'width.px': (!print ? contentWidth : undefined )}">
-        <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
-    <ng-container *ngIf="!print">
-        <div class="d-flex" [ngStyle]="{'width.px': helpWidth}">
-            <div class="resize-handle" (mousedown)="startResizingHelpMouse($event)"
-                (touchstart)="startResizingHelpTouch($event)">
-                <div class="h-100 d-flex align-items-center">
-                    <div>
-                        <fa-icon class="mt-auto" [icon]="faGripVertical"></fa-icon>
-                    </div>
-                </div>
+    @if (!print) {
+      <div class="d-flex" [ngStyle]="{'width.px': helpWidth}">
+        <div class="resize-handle" (mousedown)="startResizingHelpMouse($event)"
+          (touchstart)="startResizingHelpTouch($event)">
+          <div class="h-100 d-flex align-items-center">
+            <div>
+              <fa-icon class="mt-auto" [icon]="faGripVertical"></fa-icon>
             </div>
-            <div class="w-100">
-                <app-setup-wizard-side-panel
-                    (emitToggleCollapse)="toggleCollapseHelp($event)"></app-setup-wizard-side-panel>
-            </div>
+          </div>
         </div>
-    </ng-container>
-</div>
+        <div class="w-100">
+          <app-setup-wizard-side-panel
+          (emitToggleCollapse)="toggleCollapseHelp($event)"></app-setup-wizard-side-panel>
+        </div>
+      </div>
+    }
+  </div>
 }
 @else if(isSmallScreen){
 <!-- small screen -->
 <div class="d-flex w-100 h-100">
-    <div class="offcanvas offcanvas-start" tabindex="-1" [ngClass]="{'show': sidebarCanvasOpen}">
-        <div class="offcanvas-header">
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
-                (click)="toggleCollapseSidebarCanvas()"></button>
-        </div>
-        <div class="offcanvas-body">
-            <app-setup-wizard-sidebar
-                (emitToggleCollapse)="toggleCollapseSidebarCanvas($event)" [inSmallScreen]="true"></app-setup-wizard-sidebar>
-        </div>
+  <div class="offcanvas offcanvas-start" tabindex="-1" [ngClass]="{'show': sidebarCanvasOpen}">
+    <div class="offcanvas-header">
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+      (click)="toggleCollapseSidebarCanvas()"></button>
     </div>
-    <div class="sidebar-btn-container">
-        <a class="click-link ms-auto" (click)="toggleCollapseSidebarCanvas()">
-            <fa-icon [icon]="faChevronCircleRight"></fa-icon>
-        </a>
+    <div class="offcanvas-body">
+      <app-setup-wizard-sidebar
+      (emitToggleCollapse)="toggleCollapseSidebarCanvas($event)" [inSmallScreen]="true"></app-setup-wizard-sidebar>
     </div>
-    <div class="w-100">
-        <router-outlet></router-outlet>
+  </div>
+  <div class="sidebar-btn-container">
+    <a class="click-link ms-auto" (click)="toggleCollapseSidebarCanvas()">
+      <fa-icon [icon]="faChevronCircleRight"></fa-icon>
+    </a>
+  </div>
+  <div class="w-100">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="help-panel-btn-container">
+    <a class="click-link ms-auto" (click)="toggleCollapseHelpPanelCanvas()">
+      <fa-icon [icon]="faChevronCircleLeft"></fa-icon>
+    </a>
+  </div>
+  <div class="offcanvas offcanvas-end" tabindex="-1" [ngClass]="{'show': helpPanelCanvasOpen}">
+    <div class="offcanvas-header">
+      <!-- <h5 class="offcanvas-title" id="offcanvasNavbarLabel">NEB Tool</h5> -->
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+      (click)="toggleCollapseHelpPanelCanvas()"></button>
     </div>
-    <div class="help-panel-btn-container">
-        <a class="click-link ms-auto" (click)="toggleCollapseHelpPanelCanvas()">
-            <fa-icon [icon]="faChevronCircleLeft"></fa-icon>
-        </a>
+    <div class="offcanvas-body">
+      <app-setup-wizard-side-panel
+      (emitToggleCollapse)="toggleCollapseHelpPanelCanvas($event)" [inSmallScreen]="true"></app-setup-wizard-side-panel>
     </div>
-    <div class="offcanvas offcanvas-end" tabindex="-1" [ngClass]="{'show': helpPanelCanvasOpen}">
-        <div class="offcanvas-header">
-            <!-- <h5 class="offcanvas-title" id="offcanvasNavbarLabel">NEB Tool</h5> -->
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
-                (click)="toggleCollapseHelpPanelCanvas()"></button>
-        </div>
-        <div class="offcanvas-body">
-            <app-setup-wizard-side-panel
-                (emitToggleCollapse)="toggleCollapseHelpPanelCanvas($event)" [inSmallScreen]="true"></app-setup-wizard-side-panel>
-        </div>
-    </div>
+  </div>
 </div>
 }

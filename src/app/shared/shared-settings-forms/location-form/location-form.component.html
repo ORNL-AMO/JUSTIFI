@@ -1,46 +1,51 @@
 <form [formGroup]="form">
-    <div class="row">
-        <div class="col-12">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" formControlName="address" (input)="saveChanges()" minlength="1"
-                maxlength="60" id="address" name="address" (focus)="focusField()">
-        </div>
-
-        <div class="col-12 col-sm-12 col-md-6">
-            <label for="country">Country</label>
-            <select class="form-select" formControlName="country" (change)="saveChanges()" id="country" name="country"
-                (focus)="focusField()">
-                <option value="">Select a country</option>
-                <option *ngFor="let country of countries" [ngValue]="country.code">{{country.name}}
-                </option>
-            </select>
-        </div>
-        <div class="col-12 col-sm-12 col-md-6">
-            <label for="state">State/Province</label>
-            <ng-container *ngIf="(inCompany && company?.generalInformation.country === 'US') || 
-                (!inCompany && facility?.generalInformation.country === 'US'); else province">
-                <select class="form-select" formControlName="state" (change)="saveChanges()" id="state" name="state"
-                    (focus)="focusField()">
-                    <option *ngFor="let state of states" [ngValue]="state.name">{{state.name}}</option>
-                </select>
-            </ng-container>
-            <ng-template #province>
-                <input type="text" class="form-control" formControlName="state" (input)="saveChanges()" id="state"
-                    name="state" (focus)="focusField()" />
-            </ng-template>
-        </div>
-        <div class="col-12 col-sm-12 col-md-6">
-            <label for="city">City</label>
-            <input type="text" class="form-control" formControlName="city" (input)="saveChanges()" minlength="1"
-                maxlength="85" id="city" name="city" (focus)="focusField()">
-        </div>
-        <div class="col-12 col-sm-12 col-md-6">
-            <label for="zip">Zip</label>
-            <input type="text" class="form-control" formControlName="zip" (input)="saveChanges()" minlength="1"
-                maxlength="12" id="zip" name="zip" (focus)="focusField()">
-            <div class="alert alert-warning form-error" *ngIf="form.controls['zip'].getError('invalidZipCode')">
-                Invalid zip code.
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-12">
+      <label for="address">Address</label>
+      <input type="text" class="form-control" formControlName="address" (input)="saveChanges()" minlength="1"
+        maxlength="60" id="address" name="address" (focus)="focusField()">
     </div>
+
+    <div class="col-12 col-sm-12 col-md-6">
+      <label for="country">Country</label>
+      <select class="form-select" formControlName="country" (change)="saveChanges()" id="country" name="country"
+        (focus)="focusField()">
+        <option value="">Select a country</option>
+        @for (country of countries; track country) {
+          <option [ngValue]="country.code">{{country.name}}
+          </option>
+        }
+      </select>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6">
+      <label for="state">State/Province</label>
+      @if ((inCompany && company?.generalInformation.country === 'US') ||
+        (!inCompany && facility?.generalInformation.country === 'US')) {
+        <select class="form-select" formControlName="state" (change)="saveChanges()" id="state" name="state"
+          (focus)="focusField()">
+          @for (state of states; track state) {
+            <option [ngValue]="state.name">{{state.name}}</option>
+          }
+        </select>
+      } @else {
+        <input type="text" class="form-control" formControlName="state" (input)="saveChanges()" id="state"
+          name="state" (focus)="focusField()" />
+      }
+    </div>
+    <div class="col-12 col-sm-12 col-md-6">
+      <label for="city">City</label>
+      <input type="text" class="form-control" formControlName="city" (input)="saveChanges()" minlength="1"
+        maxlength="85" id="city" name="city" (focus)="focusField()">
+    </div>
+    <div class="col-12 col-sm-12 col-md-6">
+      <label for="zip">Zip</label>
+      <input type="text" class="form-control" formControlName="zip" (input)="saveChanges()" minlength="1"
+        maxlength="12" id="zip" name="zip" (focus)="focusField()">
+      @if (form.controls['zip'].getError('invalidZipCode')) {
+        <div class="alert alert-warning form-error">
+          Invalid zip code.
+        </div>
+      }
+    </div>
+  </div>
 </form>

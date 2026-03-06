@@ -1,133 +1,148 @@
 <div [ngClass]="{'window-overlay': displayCreateNewModal}"></div>
 <div class="popup" [ngClass]="{'open': displayCreateNewModal }">
-    <div class="popup-header">How would you like to start?
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeCreateNewModal()"></button>
-    </div>
-    <div class="popup-body">
-        <ng-template [ngIf]="companies.length > 0" [ngIfElse]="noCompaniesBlock">
-            <div class="alert alert-info p-1">
-                Select a company, facility and visit to modify or create new items to add to your portfolio.
+  <div class="popup-header">How would you like to start?
+    <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeCreateNewModal()"></button>
+  </div>
+  <div class="popup-body">
+    @if (companies.length > 0) {
+      <div class="alert alert-info p-1">
+        Select a company, facility and visit to modify or create new items to add to your portfolio.
+      </div>
+      <hr>
+        <form>
+          <div class="row mb-1">
+            <label class="col-sm-5 col-form-label" for="setupMethod">Setup Method</label>
+            <div class="col-7">
+              <select id="setupMethod" name="setupMethod" class="form-select" [(ngModel)]="manualSetup">
+                <option [ngValue]="true">Manual Setup</option>
+                <option [ngValue]="false">Template Upload</option>
+              </select>
             </div>
-            <hr>
-            <form>
-                <div class="row mb-1">
-                    <label class="col-sm-5 col-form-label" for="setupMethod">Setup Method</label>
-                    <div class="col-7">
-                        <select id="setupMethod" name="setupMethod" class="form-select" [(ngModel)]="manualSetup">
-                            <option [ngValue]="true">Manual Setup</option>
-                            <option [ngValue]="false">Template Upload</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row mb-1">
-                    <label class="col-sm-5 col-form-label" for="selectedCompany">Select
-                        Company</label>
-                    <div class="col-7">
-                        <select id="selectedCompany" name="selectedCompany" class="form-select"
-                            [(ngModel)]="selectedCompanyGuid" (change)="setSelectedCompany()">
-                            <option [ngValue]="undefined">Setup New Company</option>
-                            <optgroup label="Existing Companies">
-                                <option *ngFor="let company of companies" [ngValue]="company.guid">
-                                    {{company.generalInformation.name}}</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                </div>
-                <ng-template [ngIf]="manualSetup" [ngIfElse]="templateUploadBlock">
-                    <div class="row mb-1" *ngIf="selectedCompanyGuid">
-                        <label class="col-sm-5" for="selectedFacility">Select Facility</label>
-                        <div class="col-7">
-                            <select id="selectedFacility" name="selectedFacility" class="form-select"
-                                [(ngModel)]="selectedFacilityGuid" (change)="setSelectedFacility()">
-                                <option [ngValue]="undefined">Setup New Facility</option>
-                                <optgroup label="Existing Facilities">
-                                    <option *ngFor="let facility of (selectedCompanyGuid | facilityList:facilities)"
-                                        [ngValue]="facility.guid">{{facility.generalInformation.name}}</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-1" *ngIf="selectedFacilityGuid && selectedCompanyGuid">
-                        <label class="col-sm-5" for="selectedVisit">Select Visit</label>
-                        <div class="col-7">
-                            <select id="selectedVisit" name="selectedVisit" class="form-select"
-                                [(ngModel)]="selectedOnSiteVisitGuid">
-                                <option [ngValue]="undefined">Setup New Visit</option>
-                                <optgroup label="Existing Visits">
-                                    <option
-                                        *ngFor="let onSiteVisit of (selectedFacilityGuid | onSiteVisitList:onSiteVisits)"
-                                        [ngValue]="onSiteVisit.guid">
-                                        {{onSiteVisit.visitDate| date}}</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-1"
-                        *ngIf="selectedFacilityGuid && selectedCompanyGuid && selectedOnSiteVisitGuid">
-                        <label class="col-sm-5" for="setupWizardSection">Select Wizard Step</label>
-                        <div class="col-7">
-                            <select id="setupWizardSection" name="setupWizardSection" class="form-select"
-                                [(ngModel)]="setupWizardSection">
-                                <option [ngValue]="'preVisit'">Pre-Visit</option>
-                                <option [ngValue]="'dataCollection'">Data Collection</option>
-                                <option [ngValue]="'dataEvaluation'">Data Evaluation</option>
-                            </select>
-                        </div>
-                    </div>
-                </ng-template>
-                <ng-template #templateUploadBlock>
-                    <div class="row mb-1">
-                        <label class="col-sm-5 col-form-label" for="templateUpload">Template Upload</label>
-                        <div class="col-7">
-                            <input type="file" id="templateUpload" name="templateUpload" class="form-control"
-                                (change)="onFileSelected($event.target)" accept=".xlsx" />
-                        </div>
-                    </div>
-                    <div class="alert alert-danger p-1" *ngIf="fileUploadError">
-                        {{fileUploadError}}
-                    </div>
-                    <div class="alert alert-secondary p-1" *ngIf="workbook">
-                        This template file will be parsed and the data will be imported into the system.
-                    </div>
-                </ng-template>
-            </form>
-        </ng-template>
-        <ng-template #noCompaniesBlock>
-            <div class="alert alert-info p-1">
-                No companies found in your system. Click confirm to create your first company!
+          </div>
+          <div class="row mb-1">
+            <label class="col-sm-5 col-form-label" for="selectedCompany">Select
+            Company</label>
+            <div class="col-7">
+              <select id="selectedCompany" name="selectedCompany" class="form-select"
+                [(ngModel)]="selectedCompanyGuid" (change)="setSelectedCompany()">
+                <option [ngValue]="undefined">Setup New Company</option>
+                <optgroup label="Existing Companies">
+                  @for (company of companies; track company) {
+                    <option [ngValue]="company.guid">
+                    {{company.generalInformation.name}}</option>
+                  }
+                </optgroup>
+              </select>
             </div>
-            <div class="row mb-1">
-                <label class="col-sm-5 col-form-label" for="setupMethod">Setup Method</label>
+          </div>
+          @if (manualSetup) {
+            @if (selectedCompanyGuid) {
+              <div class="row mb-1">
+                <label class="col-sm-5" for="selectedFacility">Select Facility</label>
                 <div class="col-7">
-                    <select id="setupMethod" name="setupMethod" class="form-select" [(ngModel)]="manualSetup">
-                        <option [ngValue]="true">Manual Setup</option>
-                        <option [ngValue]="false">Template Upload</option>
-                    </select>
+                  <select id="selectedFacility" name="selectedFacility" class="form-select"
+                    [(ngModel)]="selectedFacilityGuid" (change)="setSelectedFacility()">
+                    <option [ngValue]="undefined">Setup New Facility</option>
+                    <optgroup label="Existing Facilities">
+                      @for (facility of (selectedCompanyGuid | facilityList:facilities); track facility) {
+                        <option
+                        [ngValue]="facility.guid">{{facility.generalInformation.name}}</option>
+                      }
+                    </optgroup>
+                  </select>
                 </div>
+              </div>
+            }
+            @if (selectedFacilityGuid && selectedCompanyGuid) {
+              <div class="row mb-1">
+                <label class="col-sm-5" for="selectedVisit">Select Visit</label>
+                <div class="col-7">
+                  <select id="selectedVisit" name="selectedVisit" class="form-select"
+                    [(ngModel)]="selectedOnSiteVisitGuid">
+                    <option [ngValue]="undefined">Setup New Visit</option>
+                    <optgroup label="Existing Visits">
+                      @for (onSiteVisit of (selectedFacilityGuid | onSiteVisitList:onSiteVisits); track onSiteVisit) {
+                        <option
+                          [ngValue]="onSiteVisit.guid">
+                        {{onSiteVisit.visitDate| date}}</option>
+                      }
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+            }
+            @if (selectedFacilityGuid && selectedCompanyGuid && selectedOnSiteVisitGuid) {
+              <div class="row mb-1"
+                >
+                <label class="col-sm-5" for="setupWizardSection">Select Wizard Step</label>
+                <div class="col-7">
+                  <select id="setupWizardSection" name="setupWizardSection" class="form-select"
+                    [(ngModel)]="setupWizardSection">
+                    <option [ngValue]="'preVisit'">Pre-Visit</option>
+                    <option [ngValue]="'dataCollection'">Data Collection</option>
+                    <option [ngValue]="'dataEvaluation'">Data Evaluation</option>
+                  </select>
+                </div>
+              </div>
+            }
+          } @else {
+            <div class="row mb-1">
+              <label class="col-sm-5 col-form-label" for="templateUpload">Template Upload</label>
+              <div class="col-7">
+                <input type="file" id="templateUpload" name="templateUpload" class="form-control"
+                  (change)="onFileSelected($event.target)" accept=".xlsx" />
+              </div>
             </div>
-            <ng-container *ngIf="!manualSetup">
-                <div class="row mb-1">
-                    <label class="col-sm-5 col-form-label" for="templateUpload">Template Upload</label>
-                    <div class="col-7">
-                        <input type="file" id="templateUpload" name="templateUpload" class="form-control"
-                            (change)="onFileSelected($event.target)" accept=".xlsx" />
-                    </div>
-                </div>
-                <div class="alert alert-danger p-1" *ngIf="fileUploadError">
-                    {{fileUploadError}}
-                </div>
-                <div class="alert alert-secondary p-1" *ngIf="workbook">
-                    This template file will be parsed and the data will be imported into the system.
-                </div>
-            </ng-container>
-        </ng-template>
-        <hr>
-    </div>
-    <div class="popup-footer d-flex justify-content-end">
+            @if (fileUploadError) {
+              <div class="alert alert-danger p-1">
+                {{fileUploadError}}
+              </div>
+            }
+            @if (workbook) {
+              <div class="alert alert-secondary p-1">
+                This template file will be parsed and the data will be imported into the system.
+              </div>
+            }
+          }
+        </form>
+      } @else {
+        <div class="alert alert-info p-1">
+          No companies found in your system. Click confirm to create your first company!
+        </div>
+        <div class="row mb-1">
+          <label class="col-sm-5 col-form-label" for="setupMethod">Setup Method</label>
+          <div class="col-7">
+            <select id="setupMethod" name="setupMethod" class="form-select" [(ngModel)]="manualSetup">
+              <option [ngValue]="true">Manual Setup</option>
+              <option [ngValue]="false">Template Upload</option>
+            </select>
+          </div>
+        </div>
+        @if (!manualSetup) {
+          <div class="row mb-1">
+            <label class="col-sm-5 col-form-label" for="templateUpload">Template Upload</label>
+            <div class="col-7">
+              <input type="file" id="templateUpload" name="templateUpload" class="form-control"
+                (change)="onFileSelected($event.target)" accept=".xlsx" />
+            </div>
+          </div>
+          @if (fileUploadError) {
+            <div class="alert alert-danger p-1">
+              {{fileUploadError}}
+            </div>
+          }
+          @if (workbook) {
+            <div class="alert alert-secondary p-1">
+              This template file will be parsed and the data will be imported into the system.
+            </div>
+          }
+        }
+      }
+      <hr>
+      </div>
+      <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-secondary btn-sm me-2" (click)="closeCreateNewModal()">Cancel</button>
         <button class="btn btn-success btn-sm" (click)="confirmCreate()"
-            [disabled]="!manualSetup && !workbook">Confirm</button>
+        [disabled]="!manualSetup && !workbook">Confirm</button>
+      </div>
     </div>
-</div>

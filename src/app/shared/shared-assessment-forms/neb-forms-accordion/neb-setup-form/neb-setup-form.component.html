@@ -1,203 +1,203 @@
 <!--ACTIONS-->
 <div class="d-flex w-100 justify-content-between pb-3">
-    <div class="pe-2">
-        <app-associated-contacts-buttons [companyGuid]="nonEnergyBenefit.companyId"
-            [contactContext]="'nonEnergyBenefit'"
-            [contextGuid]="nonEnergyBenefit.guid"></app-associated-contacts-buttons>
-    </div>
-    <div class="d-flex">
-        <button class="btn btn-danger btn-sm" (click)="showDeleteModal()">
-            <fa-icon [icon]="faTrash"></fa-icon> Delete
-        </button>
-    </div>
+  <div class="pe-2">
+    <app-associated-contacts-buttons [companyGuid]="nonEnergyBenefit.companyId"
+      [contactContext]="'nonEnergyBenefit'"
+    [contextGuid]="nonEnergyBenefit.guid"></app-associated-contacts-buttons>
+  </div>
+  <div class="d-flex">
+    <button class="btn btn-danger btn-sm" (click)="showDeleteModal()">
+      <fa-icon [icon]="faTrash"></fa-icon> Delete
+    </button>
+  </div>
 </div>
 <!--FORM-->
 <form (keydown.enter)="$event.preventDefault()">
-    <ng-template [ngIf]="nonEnergyBenefit.isCustom">
-        <div class="row">
-            <label class="col-sm-5 col-form-label" for="{{'nebName'+nonEnergyBenefit.guid}}">
-                <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
-                    Benefit Name
-                </ng-container>
-                <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
-                    Incentive Name
-                </ng-container>
-
-            </label>
-            <div class="col-sm-7">
-                <input name="{{'nebName'+nonEnergyBenefit.guid}}" type="text" class="form-control"
-                    [(ngModel)]="nonEnergyBenefit.name" minlength="1" maxlength="42"
-                    id="{{'nebName'+nonEnergyBenefit.guid}}" (input)="saveChanges()">
-            </div>
-        </div>
-    </ng-template>
-
+  @if (nonEnergyBenefit.isCustom) {
     <div class="row">
-        <div class="col-12 col-md-5 col-form-label">
-            <app-label-with-tooltip [field]="'associatedEEM'" [labelId]="'associatedEEM'+nonEnergyBenefit.guid"
-                [label]="'Connected EEM'"></app-label-with-tooltip>
-        </div>
-        <div class="col-12 col-md-7">
-            <div class="input-group">
-                <div class="input-group-text p-0" *ngIf="nonEnergyBenefit.energyOpportunityId">
-                    <button class="btn btn-sm btn-primary p-1"
-                        (click)="goToEnergyOpportunity(nonEnergyBenefit.energyOpportunityId)">
-                        <fa-icon [icon]="faUpRightFromSquare"></fa-icon>
-                    </button>
-                </div>
-                <select class="form-select" name="{{'associatedEEM'+nonEnergyBenefit.guid}}"
-                    id="{{'associatedEEM'+nonEnergyBenefit.guid}}" [(ngModel)]="nonEnergyBenefit.energyOpportunityId"
-                    (change)="changeAssociatedEEM()">
-                    <option [ngValue]="undefined">
-                        No directly associated EEM
-                    </option>
-                    <option *ngFor="let opp of energyOpportunities" [value]="opp.guid">
-                        {{opp.name}}
-                    </option>
-                </select>
-            </div>
-        </div>
+      <label class="col-sm-5 col-form-label" for="{{'nebName'+nonEnergyBenefit.guid}}">
+        @if (nonEnergyBenefit.costImpactType == 'annual') {
+          Benefit Name
+        }
+        @if (nonEnergyBenefit.costImpactType == 'oneTime') {
+          Incentive Name
+        }
+      </label>
+      <div class="col-sm-7">
+        <input name="{{'nebName'+nonEnergyBenefit.guid}}" type="text" class="form-control"
+          [(ngModel)]="nonEnergyBenefit.name" minlength="1" maxlength="42"
+          id="{{'nebName'+nonEnergyBenefit.guid}}" (input)="saveChanges()">
+      </div>
     </div>
+  }
 
-    <div class="row">
-        <div class="col-12 col-md-5 col-form-label">
-            <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'annual'" [ngIfElse]="rebateLabelBlock">
-                <app-label-with-tooltip [field]="'costImpact'" [label]="'Additional Financial Benefit'"
-                    [labelId]="'costImpact'+nonEnergyBenefit.guid"></app-label-with-tooltip>
-            </ng-template>
-            <ng-template #rebateLabelBlock>
-                Incentive Amount
-            </ng-template>
-        </div>
-        <div class="col-12 col-md-7">
-            <div class="input-group">
-                <input type="number" class="form-control" [(ngModel)]="nonEnergyBenefit.costImpact"
-                    name="{{'costImpact'+nonEnergyBenefit.guid}}" id="{{'costImpact'+nonEnergyBenefit.guid}}"
-                    (input)="saveChanges()">
-                <span class="input-group-text">
-                    <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'oneTime'" [ngIfElse]="annualImpactBlock">
-                        {{ currencyCode | currencySymbol }}
-                    </ng-template>
-                    <ng-template #annualImpactBlock>
-                        {{ currencyCode | currencySymbol }}/yr
-                    </ng-template>
-                </span>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-12 col-md-5 col-form-label">
+      <app-label-with-tooltip [field]="'associatedEEM'" [labelId]="'associatedEEM'+nonEnergyBenefit.guid"
+      [label]="'Connected EEM'"></app-label-with-tooltip>
     </div>
-
-    <div class="row">
-        <div class="col-sm-12 col-form-label">
-            <div class="form-check form-switch">
-                <input class="form-check-input my-auto" type="checkbox" role="switch"
-                    id="{{'includeNEBNote'+nonEnergyBenefit.guid}}" [(ngModel)]="nonEnergyBenefit.includeNote"
-                    name="{{'includeNEBNote'+nonEnergyBenefit.guid}}" (input)="saveChanges()">
-                <label class="form-check-label" for="{{'includeNEBNote'+nonEnergyBenefit.guid}}">
-                    <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
-                        Benefit
-                    </ng-container>
-                    <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
-                        Incentive
-                    </ng-container>
-                    Notes</label>
-            </div>
-        </div>
-        <div class="col-sm-12" *ngIf="nonEnergyBenefit.includeNote">
-            <textarea name="nebNotes" type="number" class="form-control" [(ngModel)]="nonEnergyBenefit.notes"
-                id="nebNotes" (input)="saveChanges()"></textarea>
-        </div>
+    <div class="col-12 col-md-7">
+      <div class="input-group">
+        @if (nonEnergyBenefit.energyOpportunityId) {
+          <div class="input-group-text p-0">
+            <button class="btn btn-sm btn-primary p-1"
+              (click)="goToEnergyOpportunity(nonEnergyBenefit.energyOpportunityId)">
+              <fa-icon [icon]="faUpRightFromSquare"></fa-icon>
+            </button>
+          </div>
+        }
+        <select class="form-select" name="{{'associatedEEM'+nonEnergyBenefit.guid}}"
+          id="{{'associatedEEM'+nonEnergyBenefit.guid}}" [(ngModel)]="nonEnergyBenefit.energyOpportunityId"
+          (change)="changeAssociatedEEM()">
+          <option [ngValue]="undefined">
+            No directly associated EEM
+          </option>
+          @for (opp of energyOpportunities; track opp) {
+            <option [value]="opp.guid">
+              {{opp.name}}
+            </option>
+          }
+        </select>
+      </div>
     </div>
-    <ng-template [ngIf]="nonEnergyBenefit.costImpactType == 'annual'">
-        <div class="row">
-            <div class="col-12">
-                <hr>
-            </div>
-        </div>
+  </div>
 
-        <h6>
-            <div class="d-flex w-100 justify-content-between flex-column flex-md-row">
-                <div class="mt-auto bold">
-                    Key Performance Metric Impacts
-                </div>
-                <div>
-                    <app-performance-metrics-modal
-                        [nonEnergyBenefit]="nonEnergyBenefit"></app-performance-metrics-modal>
-                </div>
-            </div>
-        </h6>
-        <p class="fw-light small">
-            Fill out the impacts on company key performance metrics (<fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>)
-            that
-            can be associated with this Benefit. Click the "Search Key Performance Metrics" button and a
-            modal
-            will
-            appear to find and add key performance metrics that are typically associated with this Benefit.
-        </p>
-        <div class="row">
-            <div class="col">
-                <div class="metric-block">
-                    <hr class="metric-hr mt-0">
-                </div>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-12 col-md-5 col-form-label">
+      @if (nonEnergyBenefit.costImpactType == 'annual') {
+        <app-label-with-tooltip [field]="'costImpact'" [label]="'Additional Financial Benefit'"
+        [labelId]="'costImpact'+nonEnergyBenefit.guid"></app-label-with-tooltip>
+      } @else {
+        Incentive Amount
+      }
+    </div>
+    <div class="col-12 col-md-7">
+      <div class="input-group">
+        <input type="number" class="form-control" [(ngModel)]="nonEnergyBenefit.costImpact"
+          name="{{'costImpact'+nonEnergyBenefit.guid}}" id="{{'costImpact'+nonEnergyBenefit.guid}}"
+          (input)="saveChanges()">
+        <span class="input-group-text">
+          @if (nonEnergyBenefit.costImpactType == 'oneTime') {
+            {{ currencyCode | currencySymbol }}
+          } @else {
+            {{ currencyCode | currencySymbol }}/yr
+          }
+        </span>
+      </div>
+    </div>
+  </div>
 
-        <ng-template [ngIf]="performanceMetricImpactGuids.length > 0" [ngIfElse]="noIncludedMetricsBlock">
-            <div class="metric-block">
-                <ng-container *ngFor="let impactGuid of performanceMetricImpactGuids">
-                    <div class="metric-border">
-                        <app-performance-metric-impact-form [impactGuid]="impactGuid"
-                            [nonEnergyBenefit]="nonEnergyBenefit"></app-performance-metric-impact-form>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <hr class="metric-hr">
-                        </div>
-                    </div>
-                </ng-container>
-            </div>
-        </ng-template>
-        <ng-template #noIncludedMetricsBlock>
-            <div class="alert alert-info">
-                No performance metrics tracked for this Benefit.
-            </div>
-        </ng-template>
-    </ng-template>
-</form>
-<!--END FORM-->
-
-<!--DELETE MODAL-->
-<div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
-<div class="popup" [ngClass]="{'open': displayDeleteModal }">
-    <div class="popup-header">Discard this
-        <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
+  <div class="row">
+    <div class="col-sm-12 col-form-label">
+      <div class="form-check form-switch">
+        <input class="form-check-input my-auto" type="checkbox" role="switch"
+          id="{{'includeNEBNote'+nonEnergyBenefit.guid}}" [(ngModel)]="nonEnergyBenefit.includeNote"
+          name="{{'includeNEBNote'+nonEnergyBenefit.guid}}" (input)="saveChanges()">
+        <label class="form-check-label" for="{{'includeNEBNote'+nonEnergyBenefit.guid}}">
+          @if (nonEnergyBenefit.costImpactType == 'annual') {
             Benefit
-        </ng-container>
-        <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
+          }
+          @if (nonEnergyBenefit.costImpactType == 'oneTime') {
             Incentive
-        </ng-container>?
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
+          }
+        Notes</label>
+      </div>
     </div>
-    <div class="popup-body">
-        <div class="alert alert-info">
-            Are you sure you want to discard this
-            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
-                Benefit
-            </ng-container>
-            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
-                Incentive
-            </ng-container>?
-        </div>
+    @if (nonEnergyBenefit.includeNote) {
+      <div class="col-sm-12">
+        <textarea name="nebNotes" type="number" class="form-control" [(ngModel)]="nonEnergyBenefit.notes"
+        id="nebNotes" (input)="saveChanges()"></textarea>
+      </div>
+    }
+  </div>
+  @if (nonEnergyBenefit.costImpactType == 'annual') {
+    <div class="row">
+      <div class="col-12">
         <hr>
-    </div>
-    <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteModal()">Cancel</button>
-        <button class="btn btn-danger btn-sm" (click)="deleteNonEnergyBenefit()"><fa-icon [icon]="faTrash"
-                class="me-1"></fa-icon>Discard
-            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'annual'">
-                Benefit
-            </ng-container>
-            <ng-container *ngIf="nonEnergyBenefit.costImpactType == 'oneTime'">
-                Incentive
-            </ng-container></button>
-    </div>
-</div>
+        </div>
+      </div>
+      <h6>
+        <div class="d-flex w-100 justify-content-between flex-column flex-md-row">
+          <div class="mt-auto bold">
+            Key Performance Metric Impacts
+          </div>
+          <div>
+            <app-performance-metrics-modal
+            [nonEnergyBenefit]="nonEnergyBenefit"></app-performance-metrics-modal>
+          </div>
+        </div>
+      </h6>
+      <p class="fw-light small">
+        Fill out the impacts on company key performance metrics (<fa-icon [icon]="faScaleUnbalancedFlip"></fa-icon>)
+        that
+        can be associated with this Benefit. Click the "Search Key Performance Metrics" button and a
+        modal
+        will
+        appear to find and add key performance metrics that are typically associated with this Benefit.
+      </p>
+      <div class="row">
+        <div class="col">
+          <div class="metric-block">
+            <hr class="metric-hr mt-0">
+          </div>
+        </div>
+      </div>
+      @if (performanceMetricImpactGuids.length > 0) {
+        <div class="metric-block">
+          @for (impactGuid of performanceMetricImpactGuids; track impactGuid) {
+            <div class="metric-border">
+              <app-performance-metric-impact-form [impactGuid]="impactGuid"
+              [nonEnergyBenefit]="nonEnergyBenefit"></app-performance-metric-impact-form>
+            </div>
+            <div class="row">
+              <div class="col">
+                <hr class="metric-hr">
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="alert alert-info">
+          No performance metrics tracked for this Benefit.
+        </div>
+      }
+    }
+  </form>
+  <!--END FORM-->
+
+  <!--DELETE MODAL-->
+  <div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
+  <div class="popup" [ngClass]="{'open': displayDeleteModal }">
+    <div class="popup-header">Discard this
+      @if (nonEnergyBenefit.costImpactType == 'annual') {
+        Benefit
+      }
+      @if (nonEnergyBenefit.costImpactType == 'oneTime') {
+        Incentive
+        }?
+        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
+      </div>
+      <div class="popup-body">
+        <div class="alert alert-info">
+          Are you sure you want to discard this
+          @if (nonEnergyBenefit.costImpactType == 'annual') {
+            Benefit
+          }
+          @if (nonEnergyBenefit.costImpactType == 'oneTime') {
+            Incentive
+            }?
+          </div>
+          <hr>
+          </div>
+          <div class="popup-footer d-flex justify-content-end">
+            <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteModal()">Cancel</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteNonEnergyBenefit()"><fa-icon [icon]="faTrash"
+            class="me-1"></fa-icon>Discard
+            @if (nonEnergyBenefit.costImpactType == 'annual') {
+              Benefit
+            }
+            @if (nonEnergyBenefit.costImpactType == 'oneTime') {
+              Incentive
+            }</button>
+          </div>
+        </div>

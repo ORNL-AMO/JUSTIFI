@@ -1,154 +1,160 @@
-<div class="list-group list-group-flush mt-2" *ngIf="onSiteVisitReport">
+@if (onSiteVisitReport) {
+  <div class="list-group list-group-flush mt-2">
     <div class="list-group-item">
-        Current Facility Utility Costs  <span class="float-right">{{facility.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
+      Current Facility Utility Costs  <span class="float-right">{{facility.cost | currency : currencyCode : 'symbol' : '1.0-0'}} /yr</span>
     </div>
     <div class="list-group-item">
-        Total Utility Cost Savings W/O MBs
-        <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
-        <div class="progress" role="progressbar" [ariaValueNow]="percentSavings" aria-valuemin="0"
-            aria-valuemax="100">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" [ngStyle]="{'width.%': percentSavings}">
-                <app-single-cell-item [numValue]="onSiteVisitReport.totalNonNebCostSavings"
-                    [isCurrency]="true"></app-single-cell-item>
-            </div>
+      Total Utility Cost Savings W/O MBs
+      <span class="float-right small">({{percentSavings | number:'1.0-0'}} &percnt;)</span>
+      <div class="progress" role="progressbar" [ariaValueNow]="percentSavings" aria-valuemin="0"
+        aria-valuemax="100">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" [ngStyle]="{'width.%': percentSavings}">
+          <app-single-cell-item [numValue]="onSiteVisitReport.totalNonNebCostSavings"
+          [isCurrency]="true"></app-single-cell-item>
         </div>
-        <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-            @let assessmentPercentSavings = (assessmentReport.totalNonNebCostSavings / facility.cost)
-            * 100;
-            {{assessmentReport.assessment.name}}
-            <span class="float-right small">({{assessmentPercentSavings | number:'1.0-0'}} &percnt;)</span>
-            <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
-                aria-valuemax="100">
-                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
-                    <div class="progress-text">
-                        <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </div>
-                </div>
+      </div>
+      @for (assessmentReport of onSiteVisitReport.assessmentReports; track assessmentReport) {
+        @let assessmentPercentSavings = (assessmentReport.totalNonNebCostSavings / facility.cost)
+        * 100;
+        {{assessmentReport.assessment.name}}
+        <span class="float-right small">({{assessmentPercentSavings | number:'1.0-0'}} &percnt;)</span>
+        <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
+          aria-valuemax="100">
+          <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
+            <div class="progress-text">
+              <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
+              [isCurrency]="true"></app-single-cell-item>
             </div>
-        </ng-container>
-        <hr>
+          </div>
+        </div>
+      }
+      <hr>
         Total Financial Impacts W/ MBs
         <div class="progress" role="progressbar" aria-label="Example with label"
-            [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
-                <div>
-                    <app-single-cell-item [numValue]="onSiteVisitReport.totalFinancialImpact"
-                        [isCurrency]="true"></app-single-cell-item>
-                </div>
+          [ariaValueNow]="percentSavingsNebs" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': percentSavingsNebs}">
+            <div>
+              <app-single-cell-item [numValue]="onSiteVisitReport.totalFinancialImpact"
+              [isCurrency]="true"></app-single-cell-item>
             </div>
+          </div>
         </div>
-        <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-            @let assessmentPercentSavings = (assessmentReport.totalFinancialImpact / facility.cost) *
-            100;
-            {{assessmentReport.assessment.name}}
-            <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
-                aria-valuemax="100">
-                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
-                    <app-single-cell-item [numValue]="assessmentReport.totalFinancialImpact"
-                        [isCurrency]="true"></app-single-cell-item>
-                </div>
+        @for (assessmentReport of onSiteVisitReport.assessmentReports; track assessmentReport) {
+          @let assessmentPercentSavings = (assessmentReport.totalFinancialImpact / facility.cost) *
+          100;
+          {{assessmentReport.assessment.name}}
+          <div class="progress" role="progressbar" [ariaValueNow]="assessmentPercentSavings" aria-valuemin="0"
+            aria-valuemax="100">
+            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [ngStyle]="{'width.%': assessmentPercentSavings}">
+              <app-single-cell-item [numValue]="assessmentReport.totalFinancialImpact"
+              [isCurrency]="true"></app-single-cell-item>
             </div>
-        </ng-container>
+          </div>
+        }
+      </div>
+      <div class="list-group-item">
+        <table class="table table-bordered table-sm mt-3">
+          <thead>
+            <tr>
+              <th>
+                Utility Cost Savings
+              </th>
+              <th class="text-right w-25">
+                ({{currencyCode | currencySymbol}} / yr)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (assessmentReport of onSiteVisitReport.assessmentReports; track assessmentReport) {
+              <tr>
+                <td>
+                  <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+                  {{assessmentReport.assessment.name}}
+                </td>
+                <td class="text-right">
+                  <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
+                  [isCurrency]="true"></app-single-cell-item>
+                </td>
+              </tr>
+            }
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>
+                Total
+              </th>
+              <th class="text-right">
+                <app-single-cell-item [numValue]="onSiteVisitReport.totalNonNebCostSavings"
+                [isCurrency]="true"></app-single-cell-item>
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+        <table class="table table-bordered table-sm mt-3">
+          <thead>
+            <tr>
+              <th colspan="2">
+                Additional Operational Benefits
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (assessmentReport of onSiteVisitReport.assessmentReports; track assessmentReport) {
+              <tr>
+                <td>
+                  <fa-icon [icon]="faWeightHanging"></fa-icon>
+                  {{assessmentReport.assessment.name}}
+                </td>
+                <td class="text-right w-25">
+                  <app-single-cell-item [numValue]="assessmentReport.totalNebFinancialImpact"
+                  [isCurrency]="true"></app-single-cell-item>
+                </td>
+              </tr>
+            }
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>
+                Total
+              </th>
+              <th class="text-right">
+                <app-single-cell-item [numValue]="onSiteVisitReport.totalNebFinancialImpact"
+                [isCurrency]="true"></app-single-cell-item>
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+        <table class="table table-bordered table-sm mt-3">
+          <tbody>
+            <tr>
+              <th>
+                Total Utility Cost Savings
+              </th>
+              <th class="text-right w-25">
+                <app-single-cell-item [numValue]="onSiteVisitReport.totalNonNebCostSavings"
+                [isCurrency]="true"></app-single-cell-item>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                Total Additional Operational Benefits
+              </th>
+              <th class="text-right">
+                <app-single-cell-item [numValue]="onSiteVisitReport.totalNebFinancialImpact"
+                [isCurrency]="true"></app-single-cell-item>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                Total Financial Impact
+              </th>
+              <th class="text-right">
+                <app-single-cell-item [numValue]="onSiteVisitReport.totalFinancialImpact"
+                [isCurrency]="true"></app-single-cell-item>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="list-group-item">
-        <table class="table table-bordered table-sm mt-3">
-            <thead>
-                <tr>
-                    <th>
-                        Utility Cost Savings
-                    </th>
-                    <th class="text-right w-25">
-                        ({{currencyCode | currencySymbol}} / yr)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-                    <td>
-                        <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
-                        {{assessmentReport.assessment.name}}
-                    </td>
-                    <td class="text-right">
-                        <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>
-                        Total
-                    </th>
-                    <th class="text-right">
-                        <app-single-cell-item [numValue]="onSiteVisitReport.totalNonNebCostSavings"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </th>
-                </tr>
-            </tfoot>
-        </table>
-        <table class="table table-bordered table-sm mt-3">
-            <thead>
-                <tr>
-                    <th colspan="2">
-                        Additional Operational Benefits
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-                    <td>
-                        <fa-icon [icon]="faWeightHanging"></fa-icon>
-                        {{assessmentReport.assessment.name}}
-                    </td>
-                    <td class="text-right w-25">
-                        <app-single-cell-item [numValue]="assessmentReport.totalNebFinancialImpact"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>
-                        Total
-                    </th>
-                    <th class="text-right">
-                        <app-single-cell-item [numValue]="onSiteVisitReport.totalNebFinancialImpact"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </th>
-                </tr>
-            </tfoot>
-        </table>
-        <table class="table table-bordered table-sm mt-3">
-            <tbody>
-                <tr>
-                    <th>
-                        Total Utility Cost Savings
-                    </th>
-                    <th class="text-right w-25">
-                        <app-single-cell-item [numValue]="onSiteVisitReport.totalNonNebCostSavings"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        Total Additional Operational Benefits
-                    </th>
-                    <th class="text-right">
-                        <app-single-cell-item [numValue]="onSiteVisitReport.totalNebFinancialImpact"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        Total Financial Impact
-                    </th>
-                    <th class="text-right">
-                        <app-single-cell-item [numValue]="onSiteVisitReport.totalFinancialImpact"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </th>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+  }

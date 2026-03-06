@@ -1,48 +1,49 @@
 <h6 class="pb-2">
-    <div class="d-flex w-100 justify-content-between flex-column flex-md-row">
-        <div class="mt-auto bold">
-            Energy Efficiency Measures
-        </div>
-        <button class="btn btn-outline-energy-opp btn-sm" (click)="addEnergyOpportunity()"><fa-icon [icon]="faPlus"
-                class="me-1"></fa-icon>Add EEM</button>
+  <div class="d-flex w-100 justify-content-between flex-column flex-md-row">
+    <div class="mt-auto bold">
+      Energy Efficiency Measures
     </div>
+    <button class="btn btn-outline-energy-opp btn-sm" (click)="addEnergyOpportunity()"><fa-icon [icon]="faPlus"
+    class="me-1"></fa-icon>Add EEM</button>
+  </div>
 </h6>
 
 <p class="fw-light small">
-    Use the "<fa-icon [icon]="faPlus"></fa-icon> Add EEM" button to add Energy Efficiency Measures to this
-    assessment.
+  Use the "<fa-icon [icon]="faPlus"></fa-icon> Add EEM" button to add Energy Efficiency Measures to this
+  assessment.
 </p>
 
-<ng-template [ngIf]="assessmentEnergyOpportunityGuids.length > 0" [ngIfElse]="noOpportunitiesBlock">
-    <div class="accordion" id="energyOpportunityAccordion">
-        <div class="accordion-item"
-            *ngFor="let energyOpportunityGuid of assessmentEnergyOpportunityGuids; let index = index;">
-            <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                    [attr.data-bs-target]="'#'+energyOpportunityGuid" aria-expanded="true"
-                    [attr.aria-controls]="energyOpportunityGuid"
-                    [ngClass]="{'collapsed': accordionGuid != energyOpportunityGuid}"
-                    (click)="toggleBS(energyOpportunityGuid)">
-                    <fa-icon class="pe-2" [icon]="faFileLines"></fa-icon> {{energyOpportunityGuid |
-                    energyOpportunityDisplay:energyOpportunities}}
-                </button>
-            </h2>
-            <div [id]="'#'+energyOpportunityGuid" class="accordion-collapse collapse"
-                data-bs-parent="#energyOpportunityAccordion">
-                <div class="accordion-body">
-                    <app-energy-opportunity-setup-form [energyOpportunityGuid]="energyOpportunityGuid"
-                        (emitInitialized)="childFormInitialized(energyOpportunityGuid)"
-                        [inWizard]="true"></app-energy-opportunity-setup-form>
-                </div>
-            </div>
+@if (assessmentEnergyOpportunityGuids.length > 0) {
+  <div class="accordion" id="energyOpportunityAccordion">
+    @for (energyOpportunityGuid of assessmentEnergyOpportunityGuids; track energyOpportunityGuid; let index = $index) {
+      <div class="accordion-item"
+        >
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#'+energyOpportunityGuid" aria-expanded="true"
+            [attr.aria-controls]="energyOpportunityGuid"
+            [ngClass]="{'collapsed': accordionGuid != energyOpportunityGuid}"
+            (click)="toggleBS(energyOpportunityGuid)">
+            <fa-icon class="pe-2" [icon]="faFileLines"></fa-icon> {{energyOpportunityGuid |
+            energyOpportunityDisplay:energyOpportunities}}
+          </button>
+        </h2>
+        <div [id]="'#'+energyOpportunityGuid" class="accordion-collapse collapse"
+          data-bs-parent="#energyOpportunityAccordion">
+          <div class="accordion-body">
+            <app-energy-opportunity-setup-form [energyOpportunityGuid]="energyOpportunityGuid"
+              (emitInitialized)="childFormInitialized(energyOpportunityGuid)"
+            [inWizard]="true"></app-energy-opportunity-setup-form>
+          </div>
         </div>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="d-flex flex-column w-100 justify-content-center mt-3">
+    <div class="alert alert-info small text-center p-2">
+      No energy efficiency measures found for this assessment.
     </div>
-</ng-template>
+  </div>
+}
 
-<ng-template #noOpportunitiesBlock>
-    <div class="d-flex flex-column w-100 justify-content-center mt-3">
-        <div class="alert alert-info small text-center p-2">
-            No energy efficiency measures found for this assessment.
-        </div>
-    </div>
-</ng-template>

@@ -1,168 +1,169 @@
 <h6 class="bold">Annual Financial Impacts From Assessment</h6>
 <div class="w-100 overflow-scroll-x">
-<table class="table table-bordered savings-table table-hover" *ngIf="assessmentReport">
-    <thead>
+  @if (assessmentReport) {
+    <table class="table table-bordered savings-table table-hover">
+      <thead>
         <tr>
-            <th>
-
-            </th>
-            <th class="text-right">
-                Financial Impact ({{ currencyCode | currencySymbol }}/yr)
-            </th>
+          <th>
+          </th>
+          <th class="text-right">
+            Financial Impact ({{ currencyCode | currencySymbol }}/yr)
+          </th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
         <tr class="section-border">
-            <td class="bold ps-3" colspan="3">
-                <fa-icon class="pe-2" [icon]="faScrewdriverWrench"></fa-icon> {{assessmentReport.assessment.name}}
-            </td>
+          <td class="bold ps-3" colspan="3">
+            <fa-icon class="pe-2" [icon]="faScrewdriverWrench"></fa-icon> {{assessmentReport.assessment.name}}
+          </td>
         </tr>
-        <ng-container *ngIf="assessmentReport.assessment.utilitySavingsByAssessment">
+        @if (assessmentReport.assessment.utilitySavingsByAssessment) {
+          <tr>
+            <td class="w-50 ps-3">
+              {{ assessmentReport.utilityCategory === 'energy' ? 'Total Assessment Energy Cost' : 'Total Assessment Utility Cost' }}
+            </td>
+            <td class="text-right">
+              <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
+              [isCurrency]="true"></app-single-cell-item>
+            </td>
+          </tr>
+          @if (assessmentReport.assessment.energyCostSavings && assessmentReport.assessment.energyCostSavings != assessmentReport.assessment.costSavings) {
             <tr>
-                <td class="w-50 ps-3">
-                    {{ assessmentReport.utilityCategory === 'energy' ? 'Total Assessment Energy Cost' : 'Total Assessment Utility Cost' }}
-                </td>
-                <td class="text-right">
-                    <app-single-cell-item [numValue]="assessmentReport.assessment.costSavings"
-                        [isCurrency]="true"></app-single-cell-item>
-                </td>
+              <td class="ps-4">
+                <fa-icon class="pe-1" [icon]="faPlugCircleBolt"></fa-icon>
+                Assessment Energy Savings
+              </td>
+              <td class="text-right">
+                <app-single-cell-item [numValue]="assessmentReport.assessment.energyCostSavings"
+                [isCurrency]="true"></app-single-cell-item>
+              </td>
             </tr>
-            <ng-container
-                *ngIf="assessmentReport.assessment.energyCostSavings && assessmentReport.assessment.energyCostSavings != assessmentReport.assessment.costSavings">
-                <tr>
-                    <td class="ps-4">
-                        <fa-icon class="pe-1" [icon]="faPlugCircleBolt"></fa-icon>
-                        Assessment Energy Savings
-                    </td>
-                    <td class="text-right">
-                        <app-single-cell-item [numValue]="assessmentReport.assessment.energyCostSavings"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </td>
-                </tr>
-            </ng-container>
-        </ng-container>
-        <ng-container
-            *ngIf="assessmentReport.assessment.waterCostSavings && assessmentReport.assessment.waterCostSavings != assessmentReport.assessment.costSavings">
-            <tr>
-                <td class="ps-4">
-                    <fa-icon class="pe-1" [icon]="faWater"></fa-icon>
-                    Assessment Water Savings
-                </td>
-                <td class="text-right">
-                    <app-single-cell-item [numValue]="assessmentReport.assessment.waterCostSavings"
-                        [isCurrency]="true"></app-single-cell-item>
-                </td>
-            </tr>
-        </ng-container>
-        <tr *ngIf="assessmentReport.assessmentNebReports.length > 0">
+          }
+        }
+        @if (assessmentReport.assessment.waterCostSavings && assessmentReport.assessment.waterCostSavings != assessmentReport.assessment.costSavings) {
+          <tr>
+            <td class="ps-4">
+              <fa-icon class="pe-1" [icon]="faWater"></fa-icon>
+              Assessment Water Savings
+            </td>
+            <td class="text-right">
+              <app-single-cell-item [numValue]="assessmentReport.assessment.waterCostSavings"
+              [isCurrency]="true"></app-single-cell-item>
+            </td>
+          </tr>
+        }
+        @if (assessmentReport.assessmentNebReports.length > 0) {
+          <tr>
             <td colspan="3" class="ps-3">
-                Additional Operational Improvements
+              Additional Operational Improvements
             </td>
-        </tr>
-        <ng-container *ngFor="let nebReport of assessmentReport.assessmentNebReports">
-            <ng-container *ngIf="nebReport.nonEnergyBenefit.costImpactType != 'oneTime'">
-                <tr>
-                    <td class="ps-4">
-                        <fa-icon [icon]="faWeightHanging"></fa-icon>
-                        {{nebReport.nonEnergyBenefit.name}}
-                    </td>
-                    <td class="text-right">
-                        <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </td>
-                </tr>
-            </ng-container>
-        </ng-container>
-
+          </tr>
+        }
+        @for (nebReport of assessmentReport.assessmentNebReports; track nebReport) {
+          @if (nebReport.nonEnergyBenefit.costImpactType != 'oneTime') {
+            <tr>
+              <td class="ps-4">
+                <fa-icon [icon]="faWeightHanging"></fa-icon>
+                {{nebReport.nonEnergyBenefit.name}}
+              </td>
+              <td class="text-right">
+                <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
+                [isCurrency]="true"></app-single-cell-item>
+              </td>
+            </tr>
+          }
+        }
         <tr>
-            <td class="w-50 bold">
-                Total Assessment Level Impact
+          <td class="w-50 bold">
+            Total Assessment Level Impact
+          </td>
+          <td class="text-right bold">
+            <app-single-cell-item [numValue]="assessmentReport.totalNonOpportunityCostSavings"
+            [isCurrency]="true"></app-single-cell-item>
+          </td>
+        </tr>
+        @for (energyOpportunityReport of assessmentReport.energyOpportunityReports; track energyOpportunityReport) {
+          <tr class="section-border">
+            <td colspan="3" class="bold ps-3">
+              <fa-icon class="pe-2"
+              [icon]="faFileLines"></fa-icon>{{energyOpportunityReport.energyOpportunity.name}}
+            </td>
+          </tr>
+          @if (!assessmentReport.assessment.utilitySavingsByAssessment) {
+            <tr>
+              @let energyOpportunity = energyOpportunityReport.energyOpportunity;
+              @if (energyOpportunity.utilityCategory == 'energy') {
+                <td class="ps-4">
+                  {{ energyOpportunity.name }} Energy Savings
+                </td>
+                <td class="text-right">
+                  <app-single-cell-item [numValue]="energyOpportunity.costSavings"
+                  [isCurrency]="true"></app-single-cell-item>
+                </td>
+              } @else {
+                <td class="ps-4">
+                  {{ energyOpportunity.name }}
+                  Water Savings
+                </td>
+                <td class="text-right">
+                  <app-single-cell-item [numValue]="energyOpportunity.costSavings"
+                  [isCurrency]="true"></app-single-cell-item>
+                </td>
+              }
+            </tr>
+          }
+          @for (nebReport of energyOpportunityReport.nebReports; track nebReport) {
+            @if (nebReport.nonEnergyBenefit.costImpactType != 'oneTime') {
+              <tr>
+                <td class="ps-4">
+                  <fa-icon [icon]="faWeightHanging"></fa-icon>
+                  {{nebReport.nonEnergyBenefit.name}}
+                </td>
+                <td class="text-right">
+                  <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
+                  [isCurrency]="true"></app-single-cell-item>
+                </td>
+              </tr>
+            }
+          }
+          <tr>
+            <td class="ps-3 bold">
+              {{energyOpportunityReport.energyOpportunity.name}} Total Impact
             </td>
             <td class="text-right bold">
-                <app-single-cell-item [numValue]="assessmentReport.totalNonOpportunityCostSavings"
-                    [isCurrency]="true"></app-single-cell-item>
+              <app-single-cell-item [numValue]="energyOpportunityReport.totalFinancialImpact"
+              [isCurrency]="true"></app-single-cell-item>
             </td>
-        </tr>
-        <ng-container *ngFor="let energyOpportunityReport of assessmentReport.energyOpportunityReports">
-            <tr class="section-border">
-                <td colspan="3" class="bold ps-3">
-                    <fa-icon class="pe-2"
-                        [icon]="faFileLines"></fa-icon>{{energyOpportunityReport.energyOpportunity.name}}
-                </td>
-            </tr>
-            <tr *ngIf="!assessmentReport.assessment.utilitySavingsByAssessment">
-                @let energyOpportunity = energyOpportunityReport.energyOpportunity;
-                <ng-template ngIf="energyOpportunity.utilityCategory == 'energy'" [ngIfElse]="waterEEM">
-                    <td class="ps-4">
-                        {{ energyOpportunity.name }} Energy Savings
-                    </td>
-                    <td class="text-right">
-                        <app-single-cell-item [numValue]="energyOpportunity.costSavings"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </td>
-                </ng-template>
-                <ng-template #waterEEM>
-                    <td class="ps-4">
-                        {{ energyOpportunity.name }}
-                        Water Savings
-                    </td>
-                    <td class="text-right">
-                        <app-single-cell-item [numValue]="energyOpportunity.costSavings"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </td>
-                </ng-template>
-            </tr>
-            <ng-container *ngFor="let nebReport of energyOpportunityReport.nebReports">
-                <ng-container *ngIf="nebReport.nonEnergyBenefit.costImpactType != 'oneTime'">
-                    <tr>
-                        <td class="ps-4">
-                            <fa-icon [icon]="faWeightHanging"></fa-icon>
-                            {{nebReport.nonEnergyBenefit.name}}
-                        </td>
-                        <td class="text-right">
-                            <app-single-cell-item [numValue]="nebReport.totalFinancialImpact"
-                                [isCurrency]="true"></app-single-cell-item>
-                        </td>
-                    </tr>
-                </ng-container>
-            </ng-container>
-            <tr>
-                <td class="ps-3 bold">
-                    {{energyOpportunityReport.energyOpportunity.name}} Total Impact
-                </td>
-                <td class="text-right bold">
-                    <app-single-cell-item [numValue]="energyOpportunityReport.totalFinancialImpact"
-                        [isCurrency]="true"></app-single-cell-item>
-                </td>
-            </tr>
-        </ng-container>
+          </tr>
+        }
         <tr class="section-border">
-            <td class="w-50 bold">
-                {{ assessmentReport.assessment.utilityCategory === 'energy' ? 'Total Energy Cost Savings' : 'Total Utility Cost Savings' }}
-            </td>
-            <td class="text-right bold w-25">
-                <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
-                    [isCurrency]="true"></app-single-cell-item>
-            </td>
+          <td class="w-50 bold">
+            {{ assessmentReport.assessment.utilityCategory === 'energy' ? 'Total Energy Cost Savings' : 'Total Utility Cost Savings' }}
+          </td>
+          <td class="text-right bold w-25">
+            <app-single-cell-item [numValue]="assessmentReport.totalNonNebCostSavings"
+            [isCurrency]="true"></app-single-cell-item>
+          </td>
         </tr>
         <tr>
-            <td class="w-50 bold">
-                Total Additional Operational Benefits
-            </td>
-            <td class="text-right bold w-25">
-                <app-single-cell-item [numValue]="assessmentReport.totalNebFinancialImpact"
-                    [isCurrency]="true"></app-single-cell-item>
-            </td>
+          <td class="w-50 bold">
+            Total Additional Operational Benefits
+          </td>
+          <td class="text-right bold w-25">
+            <app-single-cell-item [numValue]="assessmentReport.totalNebFinancialImpact"
+            [isCurrency]="true"></app-single-cell-item>
+          </td>
         </tr>
         <tr>
-            <td class="w-50 bold">
-                Total Financial Impact
-            </td>
-            <td class="text-right bold w-25">
-                <app-single-cell-item [numValue]="assessmentReport.totalFinancialImpact"
-                    [isCurrency]="true"></app-single-cell-item>
-            </td>
+          <td class="w-50 bold">
+            Total Financial Impact
+          </td>
+          <td class="text-right bold w-25">
+            <app-single-cell-item [numValue]="assessmentReport.totalFinancialImpact"
+            [isCurrency]="true"></app-single-cell-item>
+          </td>
         </tr>
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  }
 </div>

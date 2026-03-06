@@ -1,40 +1,41 @@
 <h6 class="bold">Current Annual Assessment Costs</h6>
 <div class="w-100 overflow-scroll-x">
-    <table class="table table-bordered savings-table table-hover" *ngIf="assessmentReport">
-        <thead>
-            <tr>
-                <th>
-
-                </th>
-                <th class="text-right">
-                    Cost ({{ currencyCode | currencySymbol }}/yr)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="bold" colspan="3">
-                    Assessment Baseline
-                </td>
-            </tr>
-            <tr>
-                <td class="w-50 ps-3">
-                    Energy Related Uses
-                </td>
-                <td class="text-right w-25">
-                    <app-single-cell-item [numValue]="assessmentReport.assessment.energyCost"
-                        [isCurrency]="true"></app-single-cell-item>
-                </td>
-            </tr>
-            <tr>
-                <td class="w-50 bold">
-                    Total Assessment Utility Cost
-                </td>
-                <td class="text-right bold w-25">
-                    <app-single-cell-item [numValue]="assessmentReport.assessment.cost"
-                        [isCurrency]="true"></app-single-cell-item>
-                </td>
-            </tr>
-        </tbody>
+  @if (assessmentReport) {
+    <table class="table table-bordered savings-table table-hover">
+      <thead>
+        <tr>
+          <th>
+          </th>
+          <th class="text-right">
+            Cost ({{ currencyCode | currencySymbol }}/yr)
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="bold" colspan="3">
+            Assessment Baseline
+          </td>
+        </tr>
+        <tr>
+          <td class="w-50 ps-3">
+            Energy Related Uses
+          </td>
+          <td class="text-right w-25">
+            <app-single-cell-item [numValue]="assessmentReport.assessment.energyCost"
+            [isCurrency]="true"></app-single-cell-item>
+          </td>
+        </tr>
+        <tr>
+          <td class="w-50 bold">
+            Total Assessment Utility Cost
+          </td>
+          <td class="text-right bold w-25">
+            <app-single-cell-item [numValue]="assessmentReport.assessment.cost"
+            [isCurrency]="true"></app-single-cell-item>
+          </td>
+        </tr>
+      </tbody>
     </table>
+  }
 </div>

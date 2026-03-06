@@ -1,70 +1,72 @@
 <div class="print-break-avoid">
-    <h5 class="bold w-100 text-center"><fa-icon [icon]="faList" class="me-2"></fa-icon>Industrial System Inventory</h5>
-    <ng-template [ngIf]="energyEquipments.length > 0" [ngIfElse]="noEquipmentAddedBlock">
-        <div class="w-100 overflow-scroll-x">
-            <table class="table table-bordered table-hover table-sm">
-                <thead>
-                    <tr>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Industrial<br> System
-                        </th>
-                        <th>
-                            Utility<br> Type
-                        </th>
-                        <th>
-                            Energy Use<br>
-                            <span class="fw-light small">
-                                (<span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>/yr)
-                            </span>
-                        </th>
-                        <th>
-                            Stakeholders
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let energyEquipment of energyEquipments">
-                        <td>
-                            {{energyEquipment.equipmentName}}
-                        </td>
-                        <td>
-                            <app-single-cell-item [strValue]="energyEquipment.equipmentType"></app-single-cell-item>
-                        </td>
-                        <td>
-                            <app-single-cell-item [strValue]="energyEquipment.utilityType"></app-single-cell-item>
-                        </td>
-                        <td>
-                            <app-single-cell-item [numValue]="energyEquipment.annualEnergyUse"
-                                [numValueDigits]="'1.0-0'"></app-single-cell-item>
-                        </td>
-                        <td>
-                            @let associatedContacts = energyEquipment.guid | associatedContacts:'energyEquipment':
-                            contacts;
-                            <ng-template [ngIf]="associatedContacts.length > 0" [ngIfElse]="noContactsBlock">
-                                <span *ngFor="let contact of associatedContacts">
-                                    {{contact | contactNameDisplay}} <br>
-                                </span>
-                            </ng-template>
-                            <ng-template #noContactsBlock>
-                                &mdash;
-                            </ng-template>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="alert alert-info text-center">
-            <b>Total Energy Use = {{ totalEnergyUsed | number:numValueDigits }} {{ companyEnergyUnit |
-                unitsDisplay}}/yr</b>
-        </div>
-    </ng-template>
+  <h5 class="bold w-100 text-center"><fa-icon [icon]="faList" class="me-2"></fa-icon>Industrial System Inventory</h5>
+  @if (energyEquipments.length > 0) {
+    <div class="w-100 overflow-scroll-x">
+      <table class="table table-bordered table-hover table-sm">
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Industrial<br> System
+            </th>
+            <th>
+              Utility<br> Type
+            </th>
+            <th>
+              Energy Use<br>
+              <span class="fw-light small">
+                (<span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>/yr)
+              </span>
+            </th>
+            <th>
+              Stakeholders
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (energyEquipment of energyEquipments; track energyEquipment) {
+            <tr>
+              <td>
+                {{energyEquipment.equipmentName}}
+              </td>
+              <td>
+                <app-single-cell-item [strValue]="energyEquipment.equipmentType"></app-single-cell-item>
+              </td>
+              <td>
+                <app-single-cell-item [strValue]="energyEquipment.utilityType"></app-single-cell-item>
+              </td>
+              <td>
+                <app-single-cell-item [numValue]="energyEquipment.annualEnergyUse"
+                [numValueDigits]="'1.0-0'"></app-single-cell-item>
+              </td>
+              <td>
+                @let associatedContacts = energyEquipment.guid | associatedContacts:'energyEquipment':
+                contacts;
+                @if (associatedContacts.length > 0) {
+                  @for (contact of associatedContacts; track contact) {
+                    <span>
+                      {{contact | contactNameDisplay}} <br>
+                    </span>
+                  }
+                } @else {
+                  &mdash;
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="alert alert-info text-center">
+      <b>Total Energy Use = {{ totalEnergyUsed | number:numValueDigits }} {{ companyEnergyUnit |
+      unitsDisplay}}/yr</b>
+    </div>
+  } @else {
+    <div class="alert alert-info small p-2">
+      No system inventory equipment added to this facility.
+    </div>
+  }
 
-    <ng-template #noEquipmentAddedBlock>
-        <div class="alert alert-info small p-2">
-            No system inventory equipment added to this facility.
-        </div>
-    </ng-template>
 </div>

@@ -1,24 +1,25 @@
 <div class="d-flex flex-column" [ngClass]="{'neb-container': !print}">
-    <app-navbar class="hide-print"></app-navbar>
-    <ng-template [ngIf]="dataInitialized" [ngIfElse]="initializingDataBlock">
-        <div class="d-flex w-100">
-            <div class="d-flex">
-                <app-sidebar></app-sidebar>
-            </div>
-            <div class="w-100 main-content" (click)="collapseSidebar()">
-                <router-outlet></router-outlet>
-                <app-toast-notifications *ngIf="!print"></app-toast-notifications>
-            </div>
-        </div>
-    </ng-template>
-    <ng-template #initializingDataBlock>
-        Initializing data...
-    </ng-template>
-    <ng-container *ngIf="!print">
-        <app-loading></app-loading>
-        <app-setup-wizard-modal></app-setup-wizard-modal>
-        <app-auto-update-toast></app-auto-update-toast>
-        <app-welcome-slideshow></app-welcome-slideshow>
-        <app-update-check></app-update-check>
-    </ng-container>
+  <app-navbar class="hide-print"></app-navbar>
+  @if (dataInitialized) {
+    <div class="d-flex w-100">
+      <div class="d-flex">
+        <app-sidebar></app-sidebar>
+      </div>
+      <div class="w-100 main-content" (click)="collapseSidebar()">
+        <router-outlet></router-outlet>
+        @if (!print) {
+          <app-toast-notifications></app-toast-notifications>
+        }
+      </div>
+    </div>
+  } @else {
+    Initializing data...
+  }
+  @if (!print) {
+    <app-loading></app-loading>
+    <app-setup-wizard-modal></app-setup-wizard-modal>
+    <app-auto-update-toast></app-auto-update-toast>
+    <app-welcome-slideshow></app-welcome-slideshow>
+    <app-update-check></app-update-check>
+  }
 </div>

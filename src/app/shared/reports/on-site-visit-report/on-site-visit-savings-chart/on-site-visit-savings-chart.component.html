@@ -1,13 +1,15 @@
 <div class="row">
-    <div class="col-12">
-        <div #onSiteVisitSavingsChart id="onSiteVisitSavingsChart"></div>
-    </div>
+  <div class="col-12">
+    <div #onSiteVisitSavingsChart id="onSiteVisitSavingsChart"></div>
+  </div>
 </div>
-<ng-container *ngIf="onSiteVisitReport.assessmentReports.length > 1">
-    <div class="row" *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-        <div class="col-12">
-            <app-assessment-savings-chart [xMax]="xMax" [assessmentReport]="assessmentReport"
-                [inRollup]="true"></app-assessment-savings-chart>
-        </div>
+@if (onSiteVisitReport.assessmentReports.length > 1) {
+  @for (assessmentReport of onSiteVisitReport.assessmentReports; track assessmentReport) {
+    <div class="row">
+      <div class="col-12">
+        <app-assessment-savings-chart [xMax]="xMax" [assessmentReport]="assessmentReport"
+        [inRollup]="true"></app-assessment-savings-chart>
+      </div>
     </div>
-</ng-container>
+  }
+}

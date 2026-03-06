@@ -1,70 +1,72 @@
 <div class="d-flex w-100 justify-content-end">
-    <div>
-        <button class="btn btn-outline-success btn-sm" (click)="addEnergyOpportunity()">
-            <fa-icon [icon]="faPlus"></fa-icon>
-            Add EEM
-        </button>
-    </div>
+  <div>
+    <button class="btn btn-outline-success btn-sm" (click)="addEnergyOpportunity()">
+      <fa-icon [icon]="faPlus"></fa-icon>
+      Add EEM
+    </button>
+  </div>
 </div>
 <hr class="my-2">
 
-<ng-template [ngIf]="energyOpportunities.length > 0" [ngIfElse]="noOpportunitiesBlock">
-    <div class="w-100 overflow-scroll-x">
-        <table class="table table-bordered table-hover table-sm">
-            <thead>
-                <tr>
-                    <th class="w-25">
-                        Measure Name
-                    </th>
-                    <th class="w-25">
-                        Benefits
-                    </th>
-                    <th class="w-25">
-                        Implementation Cost
-                    </th>
-                    <th class="w-25">
-                        Savings
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let energyOpportunity of energyOpportunities">
-                    <td>
-                        <a class="click-link"
-                            [routerLink]="'/portfolio/assessment/'+energyOpportunity.assessmentId + '/energy-opportunities/'+energyOpportunity.guid"
-                            [routerLinkActive]="'active'">
-                            {{energyOpportunity.name}}
-                        </a>
-                    </td>
-                    <td>
-                        @let associatedNebs = energyOpportunity.guid | nebList:'energyOpportunity': nonEnergyBenefits;
-                        <ng-template [ngIf]="associatedNebs.length > 0" [ngIfElse]="noNebsBlock">
-                            <span *ngFor="let neb of associatedNebs">
-                                <fa-icon [icon]="faWeightHanging"></fa-icon>
-                                {{neb.name}} <br>
-                            </span>
-                        </ng-template>
-                        <ng-template #noNebsBlock>
-                            &mdash;
-                        </ng-template>
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="energyOpportunity.implementationCost"
-                            [isCurrency]="true"></app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="energyOpportunity.costSavings"
-                            [isCurrency]="true"></app-single-cell-item><br>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</ng-template>
+@if (energyOpportunities.length > 0) {
+  <div class="w-100 overflow-scroll-x">
+    <table class="table table-bordered table-hover table-sm">
+      <thead>
+        <tr>
+          <th class="w-25">
+            Measure Name
+          </th>
+          <th class="w-25">
+            Benefits
+          </th>
+          <th class="w-25">
+            Implementation Cost
+          </th>
+          <th class="w-25">
+            Savings
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (energyOpportunity of energyOpportunities; track energyOpportunity) {
+          <tr>
+            <td>
+              <a class="click-link"
+                [routerLink]="'/portfolio/assessment/'+energyOpportunity.assessmentId + '/energy-opportunities/'+energyOpportunity.guid"
+                [routerLinkActive]="'active'">
+                {{energyOpportunity.name}}
+              </a>
+            </td>
+            <td>
+              @let associatedNebs = energyOpportunity.guid | nebList:'energyOpportunity': nonEnergyBenefits;
+              @if (associatedNebs.length > 0) {
+                @for (neb of associatedNebs; track neb) {
+                  <span>
+                    <fa-icon [icon]="faWeightHanging"></fa-icon>
+                    {{neb.name}} <br>
+                  </span>
+                }
+              } @else {
+                &mdash;
+              }
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="energyOpportunity.implementationCost"
+              [isCurrency]="true"></app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="energyOpportunity.costSavings"
+              [isCurrency]="true"></app-single-cell-item><br>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+} @else {
+  <div class="alert alert-info p-2 text-center">
+    No energy efficiency measures found for this assessment. Use the "<fa-icon [icon]="faPlus"></fa-icon>
+    Add EEM" button to add a measure this assessment.
+  </div>
+}
 
-<ng-template #noOpportunitiesBlock>
-    <div class="alert alert-info p-2 text-center">
-        No energy efficiency measures found for this assessment. Use the "<fa-icon [icon]="faPlus"></fa-icon>
-        Add EEM" button to add a measure this assessment.
-    </div>
-</ng-template>

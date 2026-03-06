@@ -1,39 +1,41 @@
 <div [ngClass]="{'setup-wizard-content': !print}">
-    <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
-        <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
-            <div [ngClass]="{'form-paper shadow': !print}">
-                <h5>
-                    <fa-icon [icon]="faClipboardQuestion" class="me-2"></fa-icon>
-                    Facility Questions
-                </h5>
-                <hr>
-                <p class="fw-light small">
-                    {{FacilityProtocolHelp.sectionHelp}}
-                </p>
-                <p class="fw-light small">
-                    Answering the questions is an <b><u>optional</u></b> exercise but a good practice. The help panel
-                    provides additional context for the individual questions when a user clicks on the corresponding
-                    input fields.
-                </p>
-                <hr>
-                <app-shared-facility-protocol-questions></app-shared-facility-protocol-questions>
-            </div>
+  <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
+    <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
+      <div [ngClass]="{'form-paper shadow': !print}">
+        <h5>
+          <fa-icon [icon]="faClipboardQuestion" class="me-2"></fa-icon>
+          Facility Questions
+        </h5>
+        <hr>
+          <p class="fw-light small">
+            {{FacilityProtocolHelp.sectionHelp}}
+          </p>
+          <p class="fw-light small">
+            Answering the questions is an <b><u>optional</u></b> exercise but a good practice. The help panel
+            provides additional context for the individual questions when a user clicks on the corresponding
+            input fields.
+          </p>
+          <hr>
+            <app-shared-facility-protocol-questions></app-shared-facility-protocol-questions>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<nav class="setup-wizard-footer navbar shadow" *ngIf="!print">
-    <div class="container-fluid justify-content-between">
-        <button class="btn nav-btn btn-sm" (click)="goBack()">
+    @if (!print) {
+      <nav class="setup-wizard-footer navbar shadow">
+        <div class="container-fluid justify-content-between">
+          <button class="btn nav-btn btn-sm" (click)="goBack()">
             <fa-icon [icon]="faChevronLeft"></fa-icon>
             <span class="d-none d-md-inline">
-                Go Back
+              Go Back
             </span>
-        </button>
-        <button class="btn nav-btn btn-sm" (click)="goToKpis()">
+          </button>
+          <button class="btn nav-btn btn-sm" (click)="goToKpis()">
             <span class="d-none d-md-inline">
-                Select KPIs
+              Select KPIs
             </span>
             <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
-    </div>
-</nav>
+          </button>
+        </div>
+      </nav>
+    }

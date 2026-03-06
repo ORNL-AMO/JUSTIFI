@@ -1,62 +1,62 @@
 <!-- <label>
-    <fa-icon [icon]="faClipboardQuestion"></fa-icon>
-    Facility Questions
+<fa-icon [icon]="faClipboardQuestion"></fa-icon>
+Facility Questions
 </label> -->
 
 <p class="fw-light smaller" [innerHTML]="FacilityProtocolHelp.sectionHelp">
 </p>
 <hr>
 
-<ng-template [ngIf]="focusedHelp == 'equipmentAcquisition'">
+  @if (focusedHelp == 'equipmentAcquisition') {
     <label>What other considerations are used when making equipment acquisitions (lifecycle, performance, costs)?</label>
     <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.equipmentAcquisition">
     </p>
     <hr>
-</ng-template>
+    }
 
-<ng-template [ngIf]="focusedHelp == 'howCostsTracked'">
-    <label>What key performance metrics (KPMs) does the facility track?</label>
-    <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.howCostsTracked">
-    </p>
-    <hr>
-</ng-template>
+    @if (focusedHelp == 'howCostsTracked') {
+      <label>What key performance metrics (KPMs) does the facility track?</label>
+      <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.howCostsTracked">
+      </p>
+      <hr>
+      }
 
-<ng-template [ngIf]="focusedHelp == 'financialCriteria'">
-    <label>Are there rules or guidelines for decision making for energy-related projects, such as payback period?</label>
-    <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.financialCriteria">
-    </p>
-    <hr>
-</ng-template>
+      @if (focusedHelp == 'financialCriteria') {
+        <label>Are there rules or guidelines for decision making for energy-related projects, such as payback period?</label>
+        <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.financialCriteria">
+        </p>
+        <hr>
+        }
 
-<ng-template [ngIf]="focusedHelp == 'outsidePressures'">
-    <label>Are there any external pressures?</label>
-    <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.outsidePressures">
-    </p>
-    <hr>
-</ng-template>
+        @if (focusedHelp == 'outsidePressures') {
+          <label>Are there any external pressures?</label>
+          <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.outsidePressures">
+          </p>
+          <hr>
+          }
 
-<ng-template [ngIf]="focusedHelp == 'financialMetricsUsed'">
-    <label>What tools or resources does the facility utilize to track and understand its operational costs and other KPMs?</label>
-    <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.financialMetricsUsed">
-    </p>
-    <hr>
-</ng-template>
+          @if (focusedHelp == 'financialMetricsUsed') {
+            <label>What tools or resources does the facility utilize to track and understand its operational costs and other KPMs?</label>
+            <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.financialMetricsUsed">
+            </p>
+            <hr>
+            }
 
-<ng-template [ngIf]="focusedHelp == 'efficiencyIncentives'">
-    <label>What energy efficiency incentives is your facility eligible for?</label>
-    <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.efficiencyIncentives">
-    </p>
-    <hr>
-</ng-template>
+            @if (focusedHelp == 'efficiencyIncentives') {
+              <label>What energy efficiency incentives is your facility eligible for?</label>
+              <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.efficiencyIncentives">
+              </p>
+              <hr>
+              }
 
 
-<ng-template [ngIf]="focusedHelp == 'dependentFunding'">
-    <label>How does the facility fund energy-related projects - internal budgets (Operations or Capital), alternative external funding, a combination?</label>
-    <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.dependentFunding">
-    </p>
-    <hr>
-</ng-template>
-<p class="fw-light help-disclaimer">
-    <fa-icon [icon]="faExclamationCircle"></fa-icon>
-    Help panel content is dynamic. Click on input fields to view field-by-field help.
-</p>
+              @if (focusedHelp == 'dependentFunding') {
+                <label>How does the facility fund energy-related projects - internal budgets (Operations or Capital), alternative external funding, a combination?</label>
+                <p class="fw-light small" [innerHTML]="FacilityProtocolHelp.dependentFunding">
+                </p>
+                <hr>
+                }
+                <p class="fw-light help-disclaimer">
+                  <fa-icon [icon]="faExclamationCircle"></fa-icon>
+                  Help panel content is dynamic. Click on input fields to view field-by-field help.
+                </p>

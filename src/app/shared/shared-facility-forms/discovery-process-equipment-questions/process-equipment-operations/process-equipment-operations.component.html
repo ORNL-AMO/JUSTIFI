@@ -3,73 +3,73 @@
 <hr class="my-2">
 <!--describeOutputRate-->
 <label>
-    Describe the output rate of the process and how it aligns with plant needs
+  Describe the output rate of the process and how it aligns with plant needs
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputRate">
-    </p>
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputRateQs">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputRate">
+  </p>
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputRateQs">
+  </p>
+}
 <textarea id="describeOutputRate" name="describeOutputRate" class="form-control" [(ngModel)]="describeOutputRate"
-    (input)="saveChanges()" (focus)="focusField('describeOutputRate')" rows="3"></textarea>
+(input)="saveChanges()" (focus)="focusField('describeOutputRate')" rows="3"></textarea>
 <hr class="my-1">
 
 
 <!--describeOutputQualityMeasurement-->
 <label>
-    Describe the measurement of output quality and how it aligns with plant or company needs
+  Describe the measurement of output quality and how it aligns with plant or company needs
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputQualityMeasurement">
-    </p>
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputQualityMeasurementQs">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputQualityMeasurement">
+  </p>
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeOutputQualityMeasurementQs">
+  </p>
+}
 <textarea id="describeOutputQualityMeasurement" name="describeOutputQualityMeasurement" class="form-control"
-    [(ngModel)]="describeOutputQualityMeasurement" (input)="saveChanges()"
-    (focus)="focusField('describeOutputQualityMeasurement')" rows="3"></textarea>
+  [(ngModel)]="describeOutputQualityMeasurement" (input)="saveChanges()"
+(focus)="focusField('describeOutputQualityMeasurement')" rows="3"></textarea>
 <hr class="my-1">
 <!--describeMaintenanceNeeds-->
 <label>
-    Describe the maintenance and servicing needs of this process
+  Describe the maintenance and servicing needs of this process
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeMaintenanceNeeds">
-    </p>
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeMaintenanceNeedsQs">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeMaintenanceNeeds">
+  </p>
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeMaintenanceNeedsQs">
+  </p>
+}
 <textarea id="describeMaintenanceNeeds" name="describeMaintenanceNeeds" class="form-control"
-    [(ngModel)]="describeMaintenanceNeeds" (input)="saveChanges()" (focus)="focusField('describeMaintenanceNeeds')"
-    rows="3"></textarea>
+  [(ngModel)]="describeMaintenanceNeeds" (input)="saveChanges()" (focus)="focusField('describeMaintenanceNeeds')"
+rows="3"></textarea>
 <hr class="my-1">
 
 <!--describeLaborRequirements-->
 <label>
-    Describe the labor requirements of this process.
+  Describe the labor requirements of this process.
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeLaborRequirements">
-    </p>
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeLaborRequirementsQs">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeLaborRequirements">
+  </p>
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeLaborRequirementsQs">
+  </p>
+}
 <textarea id="describeLaborRequirements" name="describeLaborRequirements" class="form-control"
-    [(ngModel)]="describeLaborRequirements" (input)="saveChanges()" (focus)="focusField('describeLaborRequirements')"
-    rows="3"></textarea>
+  [(ngModel)]="describeLaborRequirements" (input)="saveChanges()" (focus)="focusField('describeLaborRequirements')"
+rows="3"></textarea>
 <hr class="my-1">
 
 <!--describeRequiredMaterials-->
 <label>
-    Describe the materials that are required by this process (raw materials, intermediate goods, treatment chemicals)?
+  Describe the materials that are required by this process (raw materials, intermediate goods, treatment chemicals)?
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeRequiredMaterials">
-    </p>
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeRequiredMaterialsQs">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeRequiredMaterials">
+  </p>
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentOperationsHelp.describeRequiredMaterialsQs">
+  </p>
+}
 <textarea id="describeRequiredMaterials" name="describeRequiredMaterials" class="form-control"
-    [(ngModel)]="describeRequiredMaterials" (input)="saveChanges()" (focus)="focusField('describeRequiredMaterials')"
-    rows="3"></textarea>
+  [(ngModel)]="describeRequiredMaterials" (input)="saveChanges()" (focus)="focusField('describeRequiredMaterials')"
+rows="3"></textarea>

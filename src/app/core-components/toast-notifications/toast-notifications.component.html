@@ -1,17 +1,21 @@
 <div class="toast-container position-fixed bottom-0 end-0 p-3 hide-print">
-    <div #toastItem role="alert" aria-live="assertive" aria-atomic="true" class="toast"
-        [attr.data-bs-autohide]="toastNotification?.autoHide" [ngClass]="toastNotification?.toastClass">
-        <ng-template [ngIf]="toastNotification">
-            <div class="toast-header">
-                <strong class="me-auto">{{toastNotification.title}}</strong>
-                <button type="button" class="btn-close" (click)="closeToast()" aria-label="Close"></button>
-            </div>
-            <div class="toast-body" *ngIf="toastNotification?.body">
-                <span [innerHTML]="toastNotification.body"></span>
-            </div>
-            <div class="toast-footer ps-2 pe-2 pb-2" *ngIf="toastNotification?.showDisable">
-                <button class="btn btn-sm btn-secondary" (click)="disableNotification()">Disable Notification</button>
-            </div>
-        </ng-template>
-    </div>
+  <div #toastItem role="alert" aria-live="assertive" aria-atomic="true" class="toast"
+    [attr.data-bs-autohide]="toastNotification?.autoHide" [ngClass]="toastNotification?.toastClass">
+    @if (toastNotification) {
+      <div class="toast-header">
+        <strong class="me-auto">{{toastNotification.title}}</strong>
+        <button type="button" class="btn-close" (click)="closeToast()" aria-label="Close"></button>
+      </div>
+      @if (toastNotification?.body) {
+        <div class="toast-body">
+          <span [innerHTML]="toastNotification.body"></span>
+        </div>
+      }
+      @if (toastNotification?.showDisable) {
+        <div class="toast-footer ps-2 pe-2 pb-2">
+          <button class="btn btn-sm btn-secondary" (click)="disableNotification()">Disable Notification</button>
+        </div>
+      }
+    }
+  </div>
 </div>

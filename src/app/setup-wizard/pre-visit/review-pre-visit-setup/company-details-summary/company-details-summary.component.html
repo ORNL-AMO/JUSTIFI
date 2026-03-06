@@ -1,46 +1,44 @@
 <div class="print-break-avoid">
-    <h5 class="bold w-100 text-center">
-        <fa-icon [icon]="faBuilding" class="me-2"></fa-icon> {{company.generalInformation.name}}
-    </h5>
+  <h5 class="bold w-100 text-center">
+    <fa-icon [icon]="faBuilding" class="me-2"></fa-icon> {{company.generalInformation.name}}
+  </h5>
 
-    <div class="w-100 overflow-scroll-x">
-        <table class="table table-bordered table-hover table-sm">
-            <tbody>
-                <tr>
-                    <td class="w-25">
-                        Address
-                    </td>
-                    <td>
-                        @let address = company.generalInformation | addressDisplay;
-                        <ng-template [ngIf]="address" [ngIfElse]="addressMdash">
-                            {{address}}
-                        </ng-template>
-                        <ng-template #addressMdash>
-                            &mdash;
-                        </ng-template>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        NAICs
-                    </td>
-                    <td>
-                        <ng-container *ngIf="!company.generalInformation.naics1">
-                            &mdash;
-                        </ng-container>
-                        <ng-container
-                            *ngIf="company.generalInformation.naics1 && !company.generalInformation.naics2 && !company.generalInformation.naics3">
-                            {{company.generalInformation.naics1}}
-                        </ng-container>
-                        <ng-container *ngIf="company.generalInformation.naics2 && !company.generalInformation.naics3">
-                            {{company.generalInformation.naics2}}
-                        </ng-container>
-                        <ng-container *ngIf="company.generalInformation.naics3">
-                            {{company.generalInformation.naics3}}
-                        </ng-container>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <div class="w-100 overflow-scroll-x">
+    <table class="table table-bordered table-hover table-sm">
+      <tbody>
+        <tr>
+          <td class="w-25">
+            Address
+          </td>
+          <td>
+            @let address = company.generalInformation | addressDisplay;
+            @if (address) {
+              {{address}}
+            } @else {
+              &mdash;
+            }
+          </td>
+        </tr>
+        <tr>
+          <td>
+            NAICs
+          </td>
+          <td>
+            @if (!company.generalInformation.naics1) {
+              &mdash;
+            }
+            @if (company.generalInformation.naics1 && !company.generalInformation.naics2 && !company.generalInformation.naics3) {
+              {{company.generalInformation.naics1}}
+            }
+            @if (company.generalInformation.naics2 && !company.generalInformation.naics3) {
+              {{company.generalInformation.naics2}}
+            }
+            @if (company.generalInformation.naics3) {
+              {{company.generalInformation.naics3}}
+            }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
