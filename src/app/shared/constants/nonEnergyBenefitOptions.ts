@@ -300,8 +300,8 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce water consumption",
-        htmlLabel: "Reduce water consumption",
+        label: "Increased water savings",
+        htmlLabel: "Increased water savings",
         optionValue: "reduceWaterConsumption",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -735,7 +735,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     reduceWaterConsumption: [
         // Keywords from the NEB label
         "reduce water consumption", "water consumption reduction", "minimize water usage", "water use reduction",
-    
+        "increased water savings",
         // Synonyms and related terms
         "reduce water use", "water efficiency", "optimize water usage", "conserve water", "water conservation",
         "lower water consumption", "reduce water waste", "improve water utilization",
