@@ -1,127 +1,133 @@
 <nav class="navbar">
-    <div class="container-fluid">
-        <div class="d-flex align-items-center">
-            <div>
-                <button class="navbar-toggler" type="button" aria-label="Toggle navigation" (click)="openSidebar()">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <fa-icon *ngIf="updateAvailable" [icon]="faExclamationCircle" class="update-available"></fa-icon>
-            </div>
+  <div class="container-fluid">
+    <div class="d-flex align-items-center">
+      <div>
+        <button class="navbar-toggler" type="button" aria-label="Toggle navigation" (click)="openSidebar()">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        @if (updateAvailable) {
+          <fa-icon [icon]="faExclamationCircle" class="update-available"></fa-icon>
+        }
+      </div>
 
-            <a [style]="{'color': 'white'}" class="navbar-brand ms-2" routerLink="/welcome">
-                JUSTIFI</a>
-            <div>
-                <span class="d-none d-sm-inline badge bg-secondary mb-2">v{{version}}</span>
-            </div>
-        </div>
-        <div>
-            <button class="btn btn-dark btn-sm me-2" (click)="openSettingsModal()">
-                <fa-icon [icon]="faCog"></fa-icon>
-                <span class="d-none d-sm-none d-md-none d-lg-inline">
-                    Settings
-                </span>
-            </button>
-            <button class="btn btn-dark btn-sm me-2" (click)="openFeedbackModal()">
-                <fa-icon [icon]="faInbox"></fa-icon>
-                <span class="d-none d-sm-none d-md-none d-lg-inline">
-                    Feedback & Support
-                </span>
-            </button>
-            <button class="btn btn-dark btn-sm me-2" (click)="openImportDataModal()">
-                <fa-icon [icon]="faUpload"></fa-icon>
-                <span class="d-none d-sm-none d-md-none d-lg-inline">
-                    Upload Data
-                </span>
-            </button>
-            <button class="btn btn-dark btn-sm me-2" (click)="openExportDataModal()">
-                <fa-icon [icon]="faDownload"></fa-icon>
-                <span class="d-none d-sm-none d-md-none d-lg-inline">
-                    Download Backup Data
-                </span>
-            </button>
-            <button *ngIf="!environment.production" class="btn btn-danger btn-sm" (click)="openResetDatabaseModal()">
-                Reset Database
-            </button>
-        </div>
+      <a [style]="{'color': 'white'}" class="navbar-brand ms-2" routerLink="/welcome">
+      JUSTIFI</a>
+      <div>
+        <span class="d-none d-sm-inline badge bg-secondary mb-2">v{{version}}</span>
+      </div>
     </div>
+    <div>
+      <button class="btn btn-dark btn-sm me-2" (click)="openSettingsModal()">
+        <fa-icon [icon]="faCog"></fa-icon>
+        <span class="d-none d-sm-none d-md-none d-lg-inline">
+          Settings
+        </span>
+      </button>
+      <button class="btn btn-dark btn-sm me-2" (click)="openFeedbackModal()">
+        <fa-icon [icon]="faInbox"></fa-icon>
+        <span class="d-none d-sm-none d-md-none d-lg-inline">
+          Feedback & Support
+        </span>
+      </button>
+      <button class="btn btn-dark btn-sm me-2" (click)="openImportDataModal()">
+        <fa-icon [icon]="faUpload"></fa-icon>
+        <span class="d-none d-sm-none d-md-none d-lg-inline">
+          Upload Data
+        </span>
+      </button>
+      <button class="btn btn-dark btn-sm me-2" (click)="openExportDataModal()">
+        <fa-icon [icon]="faDownload"></fa-icon>
+        <span class="d-none d-sm-none d-md-none d-lg-inline">
+          Download Backup Data
+        </span>
+      </button>
+      @if (!environment.production) {
+        <button class="btn btn-danger btn-sm" (click)="openResetDatabaseModal()">
+          Reset Database
+        </button>
+      }
+    </div>
+  </div>
 </nav>
 
 <div class="popup" [ngClass]="{'open': showSettingsModal}">
-    <div class="popup-header">Settings
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeSettingsModal()"></button>
+  <div class="popup-header">Settings
+    <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeSettingsModal()"></button>
+  </div>
+  <div class="popup-body">
+    <div class="alert alert-info p-1">
+      Adjust system settings.
     </div>
-    <div class="popup-body">
-        <div class="alert alert-info p-1">
-            Adjust system settings.
-        </div>
-        <div class="row">
-            <label class="col-sm-5 col-form-label" for="userLocale">Currency Settings:</label>
-            <div class="col-7">
-                <select class="form-select" name="userLocale" [(ngModel)]="userLocale" (change)="saveSettings()">
-                    <option *ngFor="let option of localeCurrency" [ngValue]="option.locale">
-                        {{option.locale}}: {{option.currencyCode}} ({{option.currencyCode | currencySymbol}})
-                    </option>
-                </select>
-            </div>
-            <div class="col-12">
-                <p class="fw-light small text-muted">
-                    Select your preferred currency format. This will affect how monetary values are displayed throughout
-                    the application. It will not convert existing values.
+    <div class="row">
+      <label class="col-sm-5 col-form-label" for="userLocale">Currency Settings:</label>
+      <div class="col-7">
+        <select class="form-select" name="userLocale" [(ngModel)]="userLocale" (change)="saveSettings()">
+          @for (option of localeCurrency; track option) {
+            <option [ngValue]="option.locale">
+              {{option.locale}}: {{option.currencyCode}} ({{option.currencyCode | currencySymbol}})
+            </option>
+          }
+        </select>
+      </div>
+      <div class="col-12">
+        <p class="fw-light small text-muted">
+          Select your preferred currency format. This will affect how monetary values are displayed throughout
+          the application. It will not convert existing values.
 
-                </p>
-            </div>
-        </div>
-        <hr class="my-1">
-        <div class="row">
-            <div class="col-12">
-                <button class="btn btn-danger btn-sm" (click)="openResetDatabaseModal()">Reset Database</button>
-            </div>
-            <div class="col-12">
-                <p class="fw-light small text-muted">
-                    If you are having issues with your application, you can reset your database. This will delete all
-                    data and reset the application to its initial state. Use this as a last resort.
-                </p>
-            </div>
-        </div>
-        <hr class="my-1">
+        </p>
+      </div>
     </div>
-    <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-sm btn-secondary me-2" (click)="closeSettingsModal()">Close</button>
+    <hr class="my-1">
+    <div class="row">
+      <div class="col-12">
+        <button class="btn btn-danger btn-sm" (click)="openResetDatabaseModal()">Reset Database</button>
+      </div>
+      <div class="col-12">
+        <p class="fw-light small text-muted">
+          If you are having issues with your application, you can reset your database. This will delete all
+          data and reset the application to its initial state. Use this as a last resort.
+        </p>
+      </div>
     </div>
+    <hr class="my-1">
+  </div>
+  <div class="popup-footer d-flex justify-content-end">
+    <button class="btn btn-sm btn-secondary me-2" (click)="closeSettingsModal()">Close</button>
+  </div>
 </div>
 
 
 <div [ngClass]="{'window-overlay': showResetModal || showFeedbackModal || showSettingsModal}">
 </div>
 <div class="popup" [ngClass]="{'open': showResetModal }">
-    <div class="popup-header">Reset Your Database
-        <button type="button" class="btn-close float-end" aria-label="Close"
-            (click)="closeResetDatabaseModal()"></button>
+  <div class="popup-header">Reset Your Database
+    <button type="button" class="btn-close float-end" aria-label="Close"
+    (click)="closeResetDatabaseModal()"></button>
+  </div>
+  <div class="popup-body">
+    <div class="alert alert-danger">
+      Are you sure you want to reset your data? This cannot be undone.
     </div>
-    <div class="popup-body">
-        <div class="alert alert-danger">
-            Are you sure you want to reset your data? This cannot be undone.
-        </div>
-        <hr>
+    <hr>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-sm btn-secondary me-2" (click)="closeResetDatabaseModal()">Cancel</button>
-        <button class="btn btn-sm btn-danger" (click)="resetDatabase()">Reset Database</button>
+      <button class="btn btn-sm btn-secondary me-2" (click)="closeResetDatabaseModal()">Cancel</button>
+      <button class="btn btn-sm btn-danger" (click)="resetDatabase()">Reset Database</button>
     </div>
-</div>
+  </div>
 
-<div class="popup popup-lg" [ngClass]="{'open': showFeedbackModal }">
+  <div class="popup popup-lg" [ngClass]="{'open': showFeedbackModal }">
     <div class="popup-header">
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeFeedbackModal()"></button>
+      <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeFeedbackModal()"></button>
     </div>
     <div class="popup-body">
-        <app-feedback-page [inModal]="true"></app-feedback-page>
-        <hr>
-    </div>
-    <div class="popup-footer d-flex justify-content-end">
+      <app-feedback-page [inModal]="true"></app-feedback-page>
+      <hr>
+      </div>
+      <div class="popup-footer d-flex justify-content-end">
         <button class="btn btn-sm btn-secondary me-2" (click)="closeFeedbackModal()">Close</button>
+      </div>
     </div>
-</div>
 
-<app-import-backup-modal></app-import-backup-modal>
-<app-export-backup-modal></app-export-backup-modal>
+    <app-import-backup-modal></app-import-backup-modal>
+    <app-export-backup-modal></app-export-backup-modal>

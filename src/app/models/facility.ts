@@ -18,7 +18,6 @@ export interface IdbFacility extends IdbEntry {
     sidebarEndUseInventoryOpen: boolean,
     sidebarPreAssessmentOpen: boolean,
     //protocol
-    doesFacilityTrackGHG: string,
     equipmentAcquisition: string,
     howCostsTracked: string,
     financialCriteria: string,
@@ -51,7 +50,6 @@ export function getNewIdbFacility(userId: string, companyId: string): IdbFacilit
         sidebarSystemInventoryOpen: false,
         sidebarEndUseInventoryOpen: false,
         sidebarPreAssessmentOpen: false,
-        doesFacilityTrackGHG: '',
         equipmentAcquisition: '',
         howCostsTracked: '',
         financialCriteria: '',

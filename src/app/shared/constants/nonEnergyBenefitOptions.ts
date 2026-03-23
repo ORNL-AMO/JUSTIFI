@@ -37,8 +37,6 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'reduceWaterConsumption' |
     'reduceSewageVolume' |
     'reduceDustEmissions' |
-    'reduceChemicalEmissions' |
-    'reduceRefrigerantGasEmissions' |
     'reduceOccupationalDangers' |
     'reducedNoiseExposure' |
     'improveAmbientAirQuality' |
@@ -46,7 +44,6 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'improvedVisualComfort' |
     'increaseEmployeeEngagement' |
     'changeAddQualityJobs' |
-    'improveCommunityConditions' |
     'improvedStaffSatisfaction' |
     'increaseUsefulEquipmentLife' |
     'increaseAverageYearsEmployed' |
@@ -55,7 +52,6 @@ export type NebOptionValue = 'improvedImageOrReputation' |
     'reduceUnscheduledBreaks' |
     'reduceWorkplaceIncidentsRelatedToHeat' |
     'increaseWorkplaceSecurity' |
-    'increaseEnergyResiliency' |
     'reduceNeedOshaHearingProgram' |
     'reduceUnsafeOperatorActs' |
     'reduceLikelinessOfOccupationalDangers' |
@@ -156,7 +152,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceIndustrialTrucksDowntime",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "maintenanceCost", "employeeEngagementSatisfaction", "laborCosts", "equipmentDowntime", "mobileFuelEmissions"],
+        KPM: ["equipmentDowntime", "percentCapacityUtilization", "overallEquipmentEffectiveness", "forkTruckBreakdownTime", "maintenanceCost", "employeeEngagementSatisfaction", "laborCosts", "equipmentDowntime"],
         selectedKPM: []
     },
     {
@@ -300,12 +296,12 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "reduceProductWaste",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "defectiveProductionDollar", "defectRatePPMorDPM", "percentShrinkage", "percentTotalOrCost", "processEmissions"],
+        KPM: ["contributeCompanyVision", "defectiveProductionDollar", "defectRatePPMorDPM", "percentShrinkage", "percentTotalOrCost"],
         selectedKPM: []
     },
     {
-        label: "Reduce water consumption",
-        htmlLabel: "Reduce water consumption",
+        label: "Increased water savings",
+        htmlLabel: "Increased water savings",
         optionValue: "reduceWaterConsumption",
         isQualitative: true,
         howToCalculate: "N/A",
@@ -322,21 +318,12 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce dust emission",
-        htmlLabel: "Reduce dust emissions",
+        label: "Reduce dust discharge",
+        htmlLabel: "Reduce dust discharge",
         optionValue: "reduceDustEmissions",
         isQualitative: true,
         howToCalculate: "N/A",
         KPM: ["contributeCompanyVision", "dustEmission", "particulateEmissions"],
-        selectedKPM: []
-    },
-    {
-        label: "Reduce refrigerant gas emissions",
-        htmlLabel: "Reduce refrigerant gas emissions",
-        optionValue: "reduceRefrigerantGasEmissions",
-        isQualitative: true,
-        howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "percentOrTotalRefrigerantEmissions"],
         selectedKPM: []
     },
     {
@@ -466,24 +453,6 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Increase energy resiliency",
-        htmlLabel: "Increase energy resiliency",
-        optionValue: "increaseEnergyResiliency",
-        isQualitative: true,
-        howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "customerSatisfactionRatings", "supplierSatisfactionRatings", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
-        selectedKPM: []
-    },
-    {
-        label: "Improve social, economic, health conditions for surrounding community",
-        htmlLabel: "Improve social, economic, health conditions for surrounding community",
-        optionValue: "improveCommunityConditions",
-        isQualitative: true,
-        howToCalculate: "N/A",
-        KPM: ["contributeCompanyVision", "customerSatisfactionRatings", "supplierSatisfactionRatings", "employeeEngagementSatisfaction", "employeeRetentionRate", "talentTurnoverRate"],
-        selectedKPM: []
-    },
-    {
         label: "Improve staff satisfaction",
         htmlLabel: "Improve staff satisfaction",
         optionValue: "improvedStaffSatisfaction",
@@ -511,21 +480,12 @@ export const NebOptions: Array<NebOption> = [
         selectedKPM: []
     },
     {
-        label: "Reduce GHG emissions",
-        htmlLabel: "Reduce GHG emissions",
-        optionValue: "reduceChemicalEmissions",
-        isQualitative: true,
-        howToCalculate: "N/A",
-        KPM: ["stationaryFuelEmissions", "purchasedEnergyEmissions", "valueChainEmissions", "mobileFuelEmissions", "processEmissions"],
-        selectedKPM: []
-    },
-    {
         label: "Reduce regulatory costs",
         htmlLabel: "Reduce regulatory costs",
         optionValue: "reduceRegulatoryCosts",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["stationaryFuelEmissions", "purchasedEnergyEmissions", "valueChainEmissions", "particulateEmissions", "noxSoxCoEmissions", "regulatoryCompliancePercentTests", "waterPollutantEmissions", "reduceRegulatoryFees"],
+        KPM: ["particulateEmissions", "noxSoxCoEmissions", "regulatoryCompliancePercentTests", "reduceRegulatoryFees"],
         selectedKPM: []
     },
     {
@@ -534,7 +494,7 @@ export const NebOptions: Array<NebOption> = [
         optionValue: "improvedWaterQuality",
         isQualitative: true,
         howToCalculate: "N/A",
-        KPM: ["waterPollutantEmissions"],
+        KPM: [],
         selectedKPM: []
     },
     {
@@ -698,7 +658,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         "improve product quality", "product quality", "reducing debris contamination", "debris contamination reduction",
 
         // Synonyms and related terms
-        "quality improvement", "reduce contamination", "debris-free production", "clean manufacturing",
+        "quality improvement", "reduce contamination", "debris-free production",
         "reduce product defects", "enhance product quality", "contamination control", "improve cleanliness",
         "reduce debris defects", "cleaner production processes"
     ],
@@ -754,7 +714,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     
         // Synonyms and related terms
         "reduce toxic waste", "hazardous material reduction", "minimize toxic materials", "reduce hazardous byproducts",
-        "hazardous waste management", "toxic waste disposal", "reduce hazardous emissions", "improve hazardous waste handling"
+        "hazardous waste management", "toxic waste disposal", "improve hazardous waste handling"
     ],
     reduceNonhazardousWaste: [
         // Keywords from the NEB label
@@ -762,7 +722,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     
         // Synonyms and related terms
         "reduce general waste", "nonhazardous material reduction", "minimize general waste", "reduce nonhazardous byproducts",
-        "nonhazardous waste management", "general waste disposal", "reduce nonhazardous emissions", "improve nonhazardous waste handling"
+        "nonhazardous waste management", "general waste disposal", "improve nonhazardous waste handling"
     ],
     reduceProductWaste: [
         // Keywords from the NEB label
@@ -775,7 +735,7 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     reduceWaterConsumption: [
         // Keywords from the NEB label
         "reduce water consumption", "water consumption reduction", "minimize water usage", "water use reduction",
-    
+        "increased water savings",
         // Synonyms and related terms
         "reduce water use", "water efficiency", "optimize water usage", "conserve water", "water conservation",
         "lower water consumption", "reduce water waste", "improve water utilization",
@@ -791,20 +751,11 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     ],
     reduceDustEmissions: [
         // Keywords from the NEB label
-        "reduce dust emissions", "dust emissions reduction", "minimize dust emissions", "dust control",
+        "reduce dust discharge", "dust discharge reduction", "minimize dust discharge", "dust control",
     
         // Synonyms and related terms
-        "reduce particulate emissions", "dust suppression", "airborne dust reduction", "dust mitigation",
+        "reduce particulate release", "dust suppression", "airborne dust reduction", "dust mitigation",
         "improve air quality", "reduce particulate matter", "dust pollution control", "dust abatement"
-    ],
-    reduceRefrigerantGasEmissions: [
-        // Keywords from the NEB label
-        "reduce refrigerant gas emissions", "refrigerant gas emissions reduction", "minimize refrigerant emissions",
-    
-        // Synonyms and related terms
-        "reduce refrigerant leaks", "refrigerant emissions control", "reduce greenhouse gas emissions",
-        "minimize refrigerant gas release", "reduce HVAC emissions", "reduce cooling system emissions",
-        "refrigerant management", "reduce fluorinated gas emissions", "reduce F-gas emissions"
     ],
     reduceOccupationalDangers: [
         // Keywords from the NEB label
@@ -856,8 +807,8 @@ export const NebKeywords: { [key: string]: Array<string>} = {
     
         // Synonyms and related terms
         "reduce air pollution", "reduce particulate matter", "reduce airborne contaminants", "cleaner air",
-        "reduce dust and emissions", "improve environmental air quality", "reduce atmospheric pollutants",
-        "enhance breathable air", "reduce harmful emissions", "improve ambient air conditions"
+        "reduce dust", "improve environmental air quality", "reduce atmospheric pollutants",
+        "enhance breathable air", "improve ambient air conditions"
     ],
     reducePPE: [
         // Keywords from the NEB label
@@ -901,14 +852,6 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         "boost workplace protection", "increase facility security", "improve employee safety", "enhance workplace protection",
         "reduce workplace vulnerabilities", "strengthen workplace safety measures", "improve workplace access control", "increase workplace surveillance"
     ],
-    increaseEnergyResiliency: [
-        // Keywords from the NEB label
-        "increase energy resiliency", "energy resiliency improvement", "enhance energy resilience", "improve energy security",
-    
-        // Synonyms and related terms
-        "boost energy reliability", "increase energy independence", "improve energy stability", "enhance energy sustainability",
-        "reduce energy vulnerabilities", "strengthen energy infrastructure", "improve energy supply security", "increase energy adaptability"
-    ],
     improvedVisualComfort: [
         // Keywords from the NEB label
         "improve workplace visual comfort", "workplace visual comfort", "better visual comfort", "enhance visual comfort",
@@ -932,15 +875,6 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         // Synonyms and related terms
         "increase employment opportunities", "improve job quality", "create new jobs", "enhance workforce opportunities",
         "expand employment", "job growth", "improve workforce conditions", "add quality jobs"
-    ],
-    improveCommunityConditions: [
-        // Keywords from the NEB label
-        "improve community conditions", "social conditions improvement",
-        "improve surrounding community conditions", "enhance community well-being",
-    
-        // Synonyms and related terms
-        "improve social conditions", "reduce community health burdens", "enhance economic opportunities", "improve public health",
-        "strengthen community support", "reduce local health risks", "enhance community quality of life", "improve neighborhood conditions"
     ],
     improvedStaffSatisfaction: [
         // Keywords from the NEB label
@@ -973,15 +907,6 @@ export const NebKeywords: { [key: string]: Array<string>} = {
         // Synonyms and related terms
         "improve employee retention", "reduce workforce attrition", "minimize employee churn", "enhance workforce stability",
         "reduce talent turnover", "improve employee loyalty", "increase workforce retention", "reduce employee attrition"
-    ],
-    reduceChemicalEmissions: [
-        // Keywords from the NEB label
-        "reduce GHG emissions", "GHG emissions reduction", "minimize greenhouse gas emissions", "reduce greenhouse gases",
-    
-        // Synonyms and related terms
-        "reduce carbon emissions", "reduce CO2 emissions", "lower carbon footprint", "reduce methane emissions",
-        "reduce nitrous oxide emissions", "reduce fluorinated gas emissions", "reduce climate pollutants",
-        "reduce atmospheric emissions", "reduce harmful emissions", "reduce industrial emissions"
     ],
     reduceRegulatoryCosts: [
         // Keywords from the NEB label

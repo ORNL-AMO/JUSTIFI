@@ -1,40 +1,52 @@
-<div [ngClass]="{'setup-wizard-content': !print}" *ngIf="assessment">
+@if (assessment) {
+  <div [ngClass]="{'setup-wizard-content': !print}">
     <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
-        <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
-            <div [ngClass]="{'form-paper shadow': !print}">
-                <h5>
-                    <fa-icon [icon]="faChartPie"></fa-icon> {{assessment.name}} Report
-                </h5>
-                <app-assessment-report [assessment]="assessment"></app-assessment-report>
-            </div>
+      <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
+        <div [ngClass]="{'form-paper shadow': !print}">
+          <h5>
+            <fa-icon [icon]="faChartPie"></fa-icon> {{assessment.name}} Report
+          </h5>
+          <app-assessment-report [assessment]="assessment"></app-assessment-report>
         </div>
+      </div>
     </div>
-</div>
-<nav class="setup-wizard-footer navbar shadow" *ngIf="!print">
+  </div>
+}
+@if (!print) {
+  <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
-        <button class="btn nav-btn btn-sm" (click)="goBack()">
-            <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span class="d-none d-md-inline" *ngIf="isFirstAssessment">Executive Summary</span>
-            <span class="d-none d-md-inline" *ngIf="!isFirstAssessment"> Assessment Report&nbsp;</span>
+      <button class="btn nav-btn btn-sm" (click)="goBack()">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        @if (isFirstAssessment) {
+          <span class="d-none d-md-inline">Executive Summary</span>
+        }
+        @if (!isFirstAssessment) {
+          <span class="d-none d-md-inline"> Assessment Report&nbsp;</span>
+        }
+      </button>
+      <div>
+        <button class="btn btn-success btn-sm" (click)="togglePrint()">
+          <fa-icon [icon]="faFilePdf"></fa-icon>
+          <span class="d-none d-md-inline">Generate PDF</span>
         </button>
-        <div>
-            <button class="btn btn-success btn-sm" (click)="togglePrint()">
-                <fa-icon [icon]="faFilePdf"></fa-icon>
-                <span class="d-none d-md-inline">Generate PDF</span>
-            </button>
-            <button class="btn btn-success btn-sm ms-2" (click)="generatePowerPoint()">
-                <fa-icon [icon]="faFilePowerpoint"></fa-icon>
-                <span class="d-none d-md-inline">Generate PowerPoint</span>
-            </button>
-            <button class="btn btn-success btn-sm ms-2" (click)="exportToExcel()">
-                <fa-icon [icon]="faFileExcel"></fa-icon>
-                <span class="d-none d-md-inline">Export to Excel</span>
-            </button>
-        </div>
-        <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            <span class="d-none d-md-inline" *ngIf="isLastAssessment">Rollup Report&nbsp;</span>
-            <span class="d-none d-md-inline" *ngIf="!isLastAssessment">Next Assessment Report&nbsp;</span>
-            <fa-icon [icon]="faChevronRight"></fa-icon>
+        <button class="btn btn-success btn-sm ms-2" (click)="generatePowerPoint()">
+          <fa-icon [icon]="faFilePowerpoint"></fa-icon>
+          <span class="d-none d-md-inline">Generate PowerPoint</span>
         </button>
+        <button class="btn btn-success btn-sm ms-2" (click)="exportToExcel()">
+          <fa-icon [icon]="faFileExcel"></fa-icon>
+          <span class="d-none d-md-inline">Export to Excel</span>
+        </button>
+      </div>
+      <button class="btn nav-btn btn-sm" (click)="goToNext()">
+        @if (isLastAssessment) {
+          <span class="d-none d-md-inline">Rollup Report&nbsp;</span>
+        }
+        @if (!isLastAssessment) {
+          <span class="d-none d-md-inline">Next Assessment Report&nbsp;</span>
+        }
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
     </div>
-</nav>
+  </nav>
+}

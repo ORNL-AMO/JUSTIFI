@@ -8,7 +8,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/ORNL-AMO/JUSTIFI)](https://github.com/ORNL-AMO/JUSTIFI/commits/main)
 
 
-JUSTIFI is a tool that is a member of **Oak Ridge National Laboratory's Industrial Resources** suite of applications. The application was developed in collaboration with the **National Laboratory of the Rockies (NLR, formerly known as NREL)** around the study of **Non-Energy Benefits (NEBs)**. JUSTIFI allows users to identify the Key Performance Metrics (KPM) for a manufacturing facility and quantify the impacts of NEBs from implementation of energy efficiency opportunities.
+JUSTIFI is a tool that is a member of **Oak Ridge National Laboratory's Industrial Resources** suite of applications. The application was developed in collaboration with the **National Laboratory of the Rockies (NLR, formerly known as NREL)** around the study of **Multiple Benefits (MBs)**. JUSTIFI allows users to identify the Key Performance Metrics (KPM) for a manufacturing facility and quantify the impacts of MBs from implementation of energy efficiency opportunities.
 
 JUSTIFI, like it's sibling applications [MEASUR](https://github.com/ORNL-AMO/MEASUR) and [VERIFI](https://github.com/ORNL-AMO/VERIFI), is developed as a web application but is also packaged and distributed as an installable desktop application.
  
@@ -24,8 +24,8 @@ Alternatively, downloads and additional information about ORNL's suite of tools 
 Track our progress and planned work on the [JUSTIFI GitHub Project Board](https://github.com/orgs/ORNL-AMO/projects/9/views/17).
 
 
-# Non-Energy Benefits Research
-NLR led the research effort around the study and quantification of NEBs. For more information visit the [Non-energy Benefits Knowledge Library](https://www.nrel.gov/manufacturing/non-energy-benefits).
+# Multiple Benefits Research
+NLR led the research effort around the study and quantification of MBs. For more information visit the [Multiple Benefits Knowledge Library](https://www.nlr.gov/manufacturing/multiple-benefits-of-manufacturing-energy-productivity).
 
 
 # Details For Developers

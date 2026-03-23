@@ -1,27 +1,31 @@
 <form>
-    <!-- <label class="bold" for="companyName">Company Name <span
-            class="required-asterisk">*</span></label> -->
-    <app-label-with-tooltip [field]="'companyName'" [label]="'Company Name'" [isRequired]="true"
-        [labelId]="'companyName'" [isFloatRight]="true"></app-label-with-tooltip>
-    <input name="companyName" type="text" class="form-control" [formControl]="name" (input)="saveChanges()"
-        minlength="1" maxlength="100" id="companyName">
-    <div class="alert alert-danger form-error" *ngIf="name.touched && name.getError('required')">
-        Company Name Required
-    </div>
-    <!-- Set Energy Unit Field -->
-    <app-label-with-tooltip [field]="'energyUnit'" [label]="'Energy Results Unit'" [isRequired]="false"
-        [labelId]="'energyUnit'" [isFloatRight]="true"></app-label-with-tooltip>
-    <select name="energyUnit" class="form-select" [formControl]="energyUnit" (change)="saveUnitChanges()">
-        <option value="kWh">kWh</option>
-        <option value="MMBtu">MMBtu</option>
-    </select>
-    <div class="alert alert-warning small p-1" *ngIf="hasAssessments && energyUnitChange">
-        Warning: The energy uses of all the assessments associated with this company are updated.
-    </div>
+  <!-- <label class="bold" for="companyName">Company Name <span
+class="required-asterisk">*</span></label> -->
+<app-label-with-tooltip [field]="'companyName'" [label]="'Company Name'" [isRequired]="true"
+[labelId]="'companyName'" [isFloatRight]="true"></app-label-with-tooltip>
+<input name="companyName" type="text" class="form-control" [formControl]="name" (input)="saveChanges()"
+  minlength="1" maxlength="100" id="companyName">
+@if (name.touched && name.getError('required')) {
+  <div class="alert alert-danger form-error">
+    Company Name Required
+  </div>
+}
+<!-- Set Energy Unit Field -->
+<app-label-with-tooltip [field]="'energyUnit'" [label]="'Energy Results Unit'" [isRequired]="false"
+[labelId]="'energyUnit'" [isFloatRight]="true"></app-label-with-tooltip>
+<select name="energyUnit" class="form-select" [formControl]="energyUnit" (change)="saveUnitChanges()">
+  <option value="kWh">kWh</option>
+  <option value="MMBtu">MMBtu</option>
+</select>
+@if (hasAssessments && energyUnitChange) {
+  <div class="alert alert-warning small p-1">
+    Warning: The energy uses of all the assessments associated with this company are updated.
+  </div>
+}
 </form>
 <hr>
-<label class="bold">Location</label>
-<app-location-form [inCompany]="true"></app-location-form>
-<hr>
-<label class="bold">Additional Details</label>
-<app-additional-details-form [inCompany]="true"></app-additional-details-form>
+  <label class="bold">Location</label>
+  <app-location-form [inCompany]="true"></app-location-form>
+  <hr>
+    <label class="bold">Additional Details</label>
+    <app-additional-details-form [inCompany]="true"></app-additional-details-form>

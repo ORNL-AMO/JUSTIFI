@@ -1,243 +1,261 @@
 <div class="print-break-avoid">
-    <h5 class="bold w-100 text-center">
-        <fa-icon [icon]="faIndustry" class="me-2"></fa-icon> {{facility.generalInformation.name}}
-    </h5>
-    <div class="w-100 overflow-scroll-x">
-        <table class="table table-bordered table-hover table-sm">
-            <tbody>
-                <tr>
-                    <td class="w-25">
-                        Address
-                    </td>
-                    <td>
-                        @let address = facility.generalInformation | addressDisplay;
-                        <ng-template [ngIf]="address" [ngIfElse]="addressMdash">
-                            {{address}}
-                        </ng-template>
-                        <ng-template #addressMdash>
-                            &mdash;
-                        </ng-template>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        NAICs
-                    </td>
-                    <td>
-                        <ng-container *ngIf="!facility.generalInformation.naics1">
-                            &mdash;
-                        </ng-container>
-                        <ng-container
-                            *ngIf="facility.generalInformation.naics1 && !facility.generalInformation.naics2 && !facility.generalInformation.naics3">
-                            {{facility.generalInformation.naics1}}
-                        </ng-container>
-                        <ng-container *ngIf="facility.generalInformation.naics2 && !facility.generalInformation.naics3">
-                            {{facility.generalInformation.naics2}}
-                        </ng-container>
-                        <ng-container *ngIf="facility.generalInformation.naics3">
-                            {{facility.generalInformation.naics3}}
-                        </ng-container>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <h6 class="bold">Tracked Utilities</h6>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th class="w-25">
-                        Utility
-                    </th>
-                    <th>
-                        Unit Price
-                    </th>
-                    <th>
-                        Annual Energy/Utility Usage
-                    </th>
-                    <th>
-                        Utility Cost
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngIf="facility.unitSettings.includeElectricity">
-                    <td>
-                        Electricity
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.electricityPrice" [isCurrency]="true"
-                            [per]="facility.unitSettings.electricityUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.electricityUse"></app-single-cell-item>
-                        <span [innerHTML]="facility.unitSettings.electricityUnit | unitsDisplay"></span>
-                    </td>
-                    <td>
-                        <app-single-cell-item
-                            [numValue]="facility.unitSettings.electricityPrice * facility.unitSettings.electricityUse"
-                            [isCurrency]="true">
-                        </app-single-cell-item>
-                    </td>
-                </tr>
-                <tr *ngIf="facility.unitSettings.includeNaturalGas">
-                    <td>
-                        Natural Gas
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.naturalGasPrice" [isCurrency]="true"
-                            [per]="facility.unitSettings.naturalGasUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.naturalGasUse"></app-single-cell-item>
-                        <span [innerHTML]="facility.unitSettings.naturalGasUnit | unitsDisplay"></span>
-                    </td>
-                    <td>
-                        <app-single-cell-item
-                            [numValue]="facility.unitSettings.naturalGasPrice * facility.unitSettings.naturalGasUse"
-                            [isCurrency]="true">
-                        </app-single-cell-item>
-                    </td>
-                </tr>
+  <h5 class="bold w-100 text-center">
+    <fa-icon [icon]="faIndustry" class="me-2"></fa-icon> {{facility.generalInformation.name}}
+  </h5>
+  <div class="w-100 overflow-scroll-x">
+    <table class="table table-bordered table-hover table-sm">
+      <tbody>
+        <tr>
+          <td class="w-25">
+            Address
+          </td>
+          <td>
+            @let address = facility.generalInformation | addressDisplay;
+            @if (address) {
+              {{address}}
+            } @else {
+              &mdash;
+            }
+          </td>
+        </tr>
+        <tr>
+          <td>
+            NAICs
+          </td>
+          <td>
+            @if (!facility.generalInformation.naics1) {
+              &mdash;
+            }
+            @if (facility.generalInformation.naics1 && !facility.generalInformation.naics2 && !facility.generalInformation.naics3) {
+              {{facility.generalInformation.naics1}}
+            }
+            @if (facility.generalInformation.naics2 && !facility.generalInformation.naics3) {
+              {{facility.generalInformation.naics2}}
+            }
+            @if (facility.generalInformation.naics3) {
+              {{facility.generalInformation.naics3}}
+            }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h6 class="bold">Tracked Utilities</h6>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th class="w-25">
+            Utility
+          </th>
+          <th>
+            Unit Price
+          </th>
+          <th>
+            Annual Energy/Utility Usage
+          </th>
+          <th>
+            Utility Cost
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (facility.unitSettings.includeElectricity) {
+          <tr>
+            <td>
+              Electricity
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.electricityPrice" [isCurrency]="true"
+                [per]="facility.unitSettings.electricityUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.electricityUse"></app-single-cell-item>
+              <span [innerHTML]="facility.unitSettings.electricityUnit | unitsDisplay"></span>
+            </td>
+            <td>
+              <app-single-cell-item
+                [numValue]="facility.unitSettings.electricityPrice * facility.unitSettings.electricityUse"
+                [isCurrency]="true">
+              </app-single-cell-item>
+            </td>
+          </tr>
+        }
+        @if (facility.unitSettings.includeNaturalGas) {
+          <tr>
+            <td>
+              Natural Gas
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.naturalGasPrice" [isCurrency]="true"
+                [per]="facility.unitSettings.naturalGasUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.naturalGasUse"></app-single-cell-item>
+              <span [innerHTML]="facility.unitSettings.naturalGasUnit | unitsDisplay"></span>
+            </td>
+            <td>
+              <app-single-cell-item
+                [numValue]="facility.unitSettings.naturalGasPrice * facility.unitSettings.naturalGasUse"
+                [isCurrency]="true">
+              </app-single-cell-item>
+            </td>
+          </tr>
+        }
 
-                <tr *ngIf="facility.unitSettings.includeOtherFuels">
-                    <td>
-                        Other Fuel
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.otherFuelsPrice" [isCurrency]="true"
-                            [per]="facility.unitSettings.otherFuelsUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.otherFuelsUse"
-                            [units]="facility.unitSettings.otherFuelsUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item
-                            [numValue]="facility.unitSettings.otherFuelsPrice * facility.unitSettings.otherFuelsUse"
-                            [isCurrency]="true">
-                        </app-single-cell-item>
-                    </td>
-                </tr>
+        @if (facility.unitSettings.includeOtherFuels) {
+          <tr>
+            <td>
+              Other Fuel
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.otherFuelsPrice" [isCurrency]="true"
+                [per]="facility.unitSettings.otherFuelsUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.otherFuelsUse"
+                [units]="facility.unitSettings.otherFuelsUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item
+                [numValue]="facility.unitSettings.otherFuelsPrice * facility.unitSettings.otherFuelsUse"
+                [isCurrency]="true">
+              </app-single-cell-item>
+            </td>
+          </tr>
+        }
 
-                <tr *ngIf="facility.unitSettings.includeWater">
-                    <td>
-                        Water
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.waterPrice" [isCurrency]="true"
-                            [per]="facility.unitSettings.waterUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.waterUse"
-                            [units]="facility.unitSettings.waterUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item
-                            [numValue]="facility.unitSettings.waterPrice * facility.unitSettings.waterUse"
-                            [isCurrency]="true">
-                        </app-single-cell-item>
-                    </td>
-                </tr>
+        @if (facility.unitSettings.includeWater) {
+          <tr>
+            <td>
+              Water
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.waterPrice" [isCurrency]="true"
+                [per]="facility.unitSettings.waterUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.waterUse"
+                [units]="facility.unitSettings.waterUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item
+                [numValue]="facility.unitSettings.waterPrice * facility.unitSettings.waterUse"
+                [isCurrency]="true">
+              </app-single-cell-item>
+            </td>
+          </tr>
+        }
 
-                <tr *ngIf="facility.unitSettings.includeWasteWater">
-                    <td>
-                        Waste Water
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.wasteWaterPrice" [isCurrency]="true"
-                            [per]="facility.unitSettings.wasteWaterUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.wasteWaterUse"
-                            [units]="facility.unitSettings.wasteWaterUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item
-                            [numValue]="facility.unitSettings.wasteWaterPrice * facility.unitSettings.wasteWaterUse"
-                            [isCurrency]="true">
-                        </app-single-cell-item>
-                    </td>
-                </tr>
+        @if (facility.unitSettings.includeWasteWater) {
+          <tr>
+            <td>
+              Waste Water
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.wasteWaterPrice" [isCurrency]="true"
+                [per]="facility.unitSettings.wasteWaterUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.wasteWaterUse"
+                [units]="facility.unitSettings.wasteWaterUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item
+                [numValue]="facility.unitSettings.wasteWaterPrice * facility.unitSettings.wasteWaterUse"
+                [isCurrency]="true">
+              </app-single-cell-item>
+            </td>
+          </tr>
+        }
 
-                <tr *ngIf="facility.unitSettings.includeSteam">
-                    <td>
-                        Steam (as Utility)
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.steamPrice" [isCurrency]="true"
-                            [per]="facility.unitSettings.steamUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.steamUse"
-                            [units]="facility.unitSettings.steamUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item
-                            [numValue]="facility.unitSettings.steamPrice * facility.unitSettings.steamUse"
-                            [isCurrency]="true">
-                        </app-single-cell-item>
-                    </td>
-                </tr>
+        @if (facility.unitSettings.includeSteam) {
+          <tr>
+            <td>
+              Steam (as Utility)
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.steamPrice" [isCurrency]="true"
+                [per]="facility.unitSettings.steamUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.steamUse"
+                [units]="facility.unitSettings.steamUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item
+                [numValue]="facility.unitSettings.steamPrice * facility.unitSettings.steamUse"
+                [isCurrency]="true">
+              </app-single-cell-item>
+            </td>
+          </tr>
+        }
 
-                <tr *ngIf="facility.unitSettings.includeCompressedAir">
-                    <td>
-                        Compressed Air (as Utility)
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.compressedAirPrice" [isCurrency]="true"
-                            [per]="facility.unitSettings.compressedAirUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item [numValue]="facility.unitSettings.compressedAirUse"
-                            [units]="facility.unitSettings.compressedAirUnit">
-                        </app-single-cell-item>
-                    </td>
-                    <td>
-                        <app-single-cell-item
-                            [numValue]="facility.unitSettings.compressedAirPrice * facility.unitSettings.compressedAirUse"
-                            [isCurrency]="true">
-                        </app-single-cell-item>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="d-flex flex-column">
-            <div *ngIf="'energy' | utilityTrackedFacility: facility.unitSettings">
-                <label class="bold">
-                    Total Energy Use:
-                </label>
-                {{ facility.energyUse | number: '1.0-2' }}
-                <span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>
-            </div>
-            <div *ngIf="'energy' | utilityTrackedFacility: facility.unitSettings">
-                <label class="bold">
-                    Total Energy Cost:
-                </label>
-                {{ facility.energyCost | currency: currencyCode:'symbol':'1.0-2' }}
-            </div>
-            <div *ngIf="'water' | utilityTrackedFacility: facility.unitSettings">
-                <label class="bold">
-                    Total Water Related Cost:
-                </label>
-                {{ facility.waterCost | currency: currencyCode:'symbol':'1.0-2' }}
-            </div>
-            <div>
-                <label class="bold">
-                    Annual Utility Cost:
-                </label>
-                {{ facility.cost | currency:currencyCode:'symbol':'1.0-2' }}
-            </div>
+        @if (facility.unitSettings.includeCompressedAir) {
+          <tr>
+            <td>
+              Compressed Air (as Utility)
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.compressedAirPrice" [isCurrency]="true"
+                [per]="facility.unitSettings.compressedAirUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item [numValue]="facility.unitSettings.compressedAirUse"
+                [units]="facility.unitSettings.compressedAirUnit">
+              </app-single-cell-item>
+            </td>
+            <td>
+              <app-single-cell-item
+                [numValue]="facility.unitSettings.compressedAirPrice * facility.unitSettings.compressedAirUse"
+                [isCurrency]="true">
+              </app-single-cell-item>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <div class="d-flex flex-column">
+      @if ('energy' | utilityTrackedFacility: facility.unitSettings) {
+        <div>
+          <label class="bold">
+            Total Energy Use:
+          </label>
+          {{ facility.energyUse | number: '1.0-2' }}
+          <span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>
         </div>
+      }
+      @if ('energy' | utilityTrackedFacility: facility.unitSettings) {
+        <div>
+          <label class="bold">
+            Total Energy Cost:
+          </label>
+          {{ facility.energyCost | currency: currencyCode:'symbol':'1.0-2' }}
+        </div>
+      }
+      @if ('water' | utilityTrackedFacility: facility.unitSettings) {
+        <div>
+          <label class="bold">
+            Total Water Related Cost:
+          </label>
+          {{ facility.waterCost | currency: currencyCode:'symbol':'1.0-2' }}
+        </div>
+      }
+      <div>
+        <label class="bold">
+          Annual Utility Cost:
+        </label>
+        {{ facility.cost | currency:currencyCode:'symbol':'1.0-2' }}
+      </div>
     </div>
+  </div>
 </div>

@@ -1,46 +1,51 @@
 <div class="d-flex">
-    <div class="d-none d-md-flex nav-flex pe-3 hide-print" *ngIf="facilityReports.length > 0">
-        <nav class="nav navbar nav-tabs flex-column pt-0">
-
-            <div class="nav-item">
-                <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/reports'"
-                    [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
-                    <div class="d-flex w-100 justify-content-between">
-                        <div class="d-block">
-                            Summary
-                        </div>
-                        <div>
-                            <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
-                        </div>
-                    </div>
-                </a>
+  @if (facilityReports.length > 0) {
+    <div class="d-none d-md-flex nav-flex pe-3 hide-print">
+      <nav class="nav navbar nav-tabs flex-column pt-0">
+        <div class="nav-item">
+          <a class="nav-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/reports'"
+            [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}">
+            <div class="d-flex w-100 justify-content-between">
+              <div class="d-block">
+                Summary
+              </div>
+              <div>
+                <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
+              </div>
             </div>
-            <div class="w-100">
-                <hr class="my-2">
-            </div>
-            <div class="nav-item" *ngFor="let report of facilityReports">
-                <a class="nav-link" [routerLink]="'/portfolio/facility/'+report.facilityId + '/reports/'+report.guid"
-                    [routerLinkActive]="'active'">
-                    <div class="d-flex w-100 justify-content-between">
-                        <div class="d-block">
-                            {{report.name}}
-                        </div>
-                        <div>
-                            <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </nav>
-    </div>
-    <div [ngClass]="{'card portfolio w-100': !print}">
-        <div [ngClass]="{'card-body': !print}">
-            <a *ngIf="!print" class="click-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/reports'"
-                [routerLinkActive]="'d-none'" [routerLinkActiveOptions]="{exact: true}">
-                <fa-icon [icon]="faChevronLeft"></fa-icon>
-                All Reports
-            </a>
-            <router-outlet></router-outlet>
+          </a>
         </div>
+        <div class="w-100">
+          <hr class="my-2">
+        </div>
+        @for (report of facilityReports; track report) {
+          <div class="nav-item">
+            <a class="nav-link" [routerLink]="'/portfolio/facility/'+report.facilityId + '/reports/'+report.guid"
+              [routerLinkActive]="'active'">
+              <div class="d-flex w-100 justify-content-between">
+                <div class="d-block">
+                  {{report.name}}
+                </div>
+                <div>
+                  <fa-icon class="chevron float-right" [icon]="faChevronRight"></fa-icon>
+                </div>
+              </div>
+            </a>
+          </div>
+        }
+      </nav>
     </div>
+  }
+  <div [ngClass]="{'card portfolio w-100': !print}">
+    <div [ngClass]="{'card-body': !print}">
+      @if (!print) {
+        <a class="click-link" [routerLink]="'/portfolio/facility/'+facility.guid + '/reports'"
+          [routerLinkActive]="'d-none'" [routerLinkActiveOptions]="{exact: true}">
+          <fa-icon [icon]="faChevronLeft"></fa-icon>
+          All Reports
+        </a>
+      }
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

@@ -1,61 +1,65 @@
 <div [ngClass]="{'setup-wizard-content': !print}">
-    <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
-        <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
-            <div [ngClass]="{'form-paper shadow': !print}">
-                <h5>
-                    <fa-icon [icon]="faChartColumn"></fa-icon>
-                    On Site Visit Report
-                </h5>
-                <app-on-site-visit-report [onSiteVisit]="onSiteVisit"></app-on-site-visit-report>
-            </div>
-        </div>
-        <div class="col-11 col-md-10 hide-print">
-            <hr>
-        </div>
-        <div class="print-break-avoid" *ngFor="let assessment of assessments"
-            [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
-            <div [ngClass]="{'form-paper shadow': !print}">
-                <h5>
-                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon> {{assessment.name}} Report
-                </h5>
-                <app-assessment-report [assessment]="assessment" [inRollup]="true"></app-assessment-report>
-            </div>
-        </div>
+  <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
+    <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
+      <div [ngClass]="{'form-paper shadow': !print}">
+        <h5>
+          <fa-icon [icon]="faChartColumn"></fa-icon>
+          On Site Visit Report
+        </h5>
+        <app-on-site-visit-report [onSiteVisit]="onSiteVisit"></app-on-site-visit-report>
+      </div>
     </div>
-</div>
-<nav class="setup-wizard-footer navbar shadow" *ngIf="!print">
-    <div class="container-fluid justify-content-between">
+    <div class="col-11 col-md-10 hide-print">
+      <hr>
+      </div>
+      @for (assessment of assessments; track assessment) {
+        <div class="print-break-avoid"
+          [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
+          <div [ngClass]="{'form-paper shadow': !print}">
+            <h5>
+              <fa-icon [icon]="faScrewdriverWrench"></fa-icon> {{assessment.name}} Report
+            </h5>
+            <app-assessment-report [assessment]="assessment" [inRollup]="true"></app-assessment-report>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  @if (!print) {
+    <nav class="setup-wizard-footer navbar shadow">
+      <div class="container-fluid justify-content-between">
         <button class="btn nav-btn btn-sm" (click)="goBack()">
-            <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span class="d-none d-md-inline">
-                Assessment Report
-            </span>
+          <fa-icon [icon]="faChevronLeft"></fa-icon>
+          <span class="d-none d-md-inline">
+            Assessment Report
+          </span>
         </button>
         <div>
-            <button class="btn btn-success btn-sm me-1" (click)="togglePrint()">
-                <fa-icon [icon]="faFilePdf"></fa-icon>
-                <span class="d-none d-md-inline">
-                    Generate PDF
-                </span>
-            </button>
-            <button class="btn btn-success btn-sm ms-1" (click)="generatePowerPoint()">
-                <fa-icon [icon]="faFilePowerpoint"></fa-icon>
-                <span class="d-none d-md-inline">
-                    Generate PowerPoint
-                </span>
-            </button>
-            <button class="btn btn-success btn-sm ms-2" (click)="exportToExcel()">
-                <fa-icon [icon]="faFileExcel"></fa-icon>
-                <span class="d-none d-md-inline">
-                    Export to Excel
-                </span>
-            </button>
+          <button class="btn btn-success btn-sm me-1" (click)="togglePrint()">
+            <fa-icon [icon]="faFilePdf"></fa-icon>
+            <span class="d-none d-md-inline">
+              Generate PDF
+            </span>
+          </button>
+          <button class="btn btn-success btn-sm ms-1" (click)="generatePowerPoint()">
+            <fa-icon [icon]="faFilePowerpoint"></fa-icon>
+            <span class="d-none d-md-inline">
+              Generate PowerPoint
+            </span>
+          </button>
+          <button class="btn btn-success btn-sm ms-2" (click)="exportToExcel()">
+            <fa-icon [icon]="faFileExcel"></fa-icon>
+            <span class="d-none d-md-inline">
+              Export to Excel
+            </span>
+          </button>
         </div>
         <button class="btn nav-btn btn-sm" (click)="goNext()">
-            <span class="d-none d-md-inline">
-                Custom Reports
-            </span>
-            <fa-icon [icon]="faChevronRight"></fa-icon>
+          <span class="d-none d-md-inline">
+            Custom Reports
+          </span>
+          <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
-    </div>
-</nav>
+      </div>
+    </nav>
+  }

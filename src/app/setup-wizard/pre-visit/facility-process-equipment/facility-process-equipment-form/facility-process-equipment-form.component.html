@@ -1,52 +1,51 @@
 <div class="setup-wizard-content">
-    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-11 col-md-10 pt-4 pb-4">
-            <div class="form-paper shadow">
-                <h5>
-                    <fa-icon [icon]="faSplotch"></fa-icon>
-                    {{equipment?.equipmentName}}
-                </h5>
-                <hr>
-                <app-process-equipment-form [processEquipmentGuid]="undefined"></app-process-equipment-form>
-            </div>
+  <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+    <div class="col-11 col-md-10 pt-4 pb-4">
+      <div class="form-paper shadow">
+        <h5>
+          <fa-icon [icon]="faSplotch"></fa-icon>
+          {{equipment?.equipmentName}}
+        </h5>
+        <hr>
+          <app-process-equipment-form [processEquipmentGuid]="undefined"></app-process-equipment-form>
         </div>
+      </div>
     </div>
-</div>
-<nav class="setup-wizard-footer navbar shadow">
+  </div>
+  <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
-        <button class="btn nav-btn btn-sm" (click)="goBack()">
-            <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span class="d-none d-md-inline">
-                Go Back
-            </span>
-        </button>
-        <button class="btn nav-btn btn-sm" (click)="addProcessEquipment()">
-            <fa-icon [icon]="faPlus"></fa-icon>
-            <span class="d-none d-md-inline">
-                Add End Use
-            </span>
-        </button>
-        <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            <span class="d-none d-md-inline">
-                <ng-template [ngIf]="equipmentIndex != (processEquipments.length - 1)" [ngIfElse]="preAssessmentBlock">
-                    Next End Use Details
-                </ng-template>
-                <ng-template #preAssessmentBlock>
-                    Pre-Assessments
-                </ng-template>
-            </span>
-            <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
+      <button class="btn nav-btn btn-sm" (click)="goBack()">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        <span class="d-none d-md-inline">
+          Go Back
+        </span>
+      </button>
+      <button class="btn nav-btn btn-sm" (click)="addProcessEquipment()">
+        <fa-icon [icon]="faPlus"></fa-icon>
+        <span class="d-none d-md-inline">
+          Add End Use
+        </span>
+      </button>
+      <button class="btn nav-btn btn-sm" (click)="goToNext()">
+        <span class="d-none d-md-inline">
+          @if (equipmentIndex != (processEquipments.length - 1)) {
+            Next End Use Details
+          } @else {
+            Pre-Assessments
+          }
+        </span>
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
     </div>
-</nav>
-<div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
-<div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
+  </nav>
+  <div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
+  <div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
     <div class="popup-body">
-        <div class="alert alert-danger">
-            Please fill the required fields.
-        </div>
+      <div class="alert alert-danger">
+        Please fill the required fields.
+      </div>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
+      <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
     </div>
-</div>
+  </div>

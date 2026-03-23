@@ -1,114 +1,114 @@
 <div class="setup-wizard-content">
-    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-11 col-md-10 pt-4 pb-4">
-            <div class="form-paper shadow">
-                <h5>
-                    <fa-icon [icon]="faList"></fa-icon>
-                    Industrial System Inventory
-                </h5>
-                <hr>
-                <div class="d-flex w-100 justify-content-end pb-2">
-                    <div class="p-0">
-                        <button class="btn btn-outline-dark btn-sm me-1" (click)="goToUploadTemplate()">
-                            <fa-icon [icon]="faUpload"></fa-icon>
-                            Upload Template
-                        </button>
-                        <button class="btn btn-outline-success btn-sm" (click)="addEquipment()">
-                            <fa-icon [icon]="faPlus" class="pe-1"></fa-icon>
-                            Add Equipment
-                        </button>
-                    </div>
-                </div>
-
-                <ng-template [ngIf]="energyEquipments.length != 0" [ngIfElse]="noEnergyEquipmentBlock">
-                    <div class="w-100 overflow-scroll-x">
-                        <table class="table table-bordered table-hover table-sm">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Industrial System
-                                    </th>
-                                    <th>
-                                        Utility Type
-                                    </th>
-                                    <th>
-                                        Energy Use<br>
-                                        <span class="fw-light small">
-                                            (<span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>/yr)
-                                        </span>
-                                    </th>
-                                    <th>
-                                        Stakeholders
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let energyEquipment of energyEquipments">
-                                    <td>
-                                        <a class="click-link" (click)="goToEnergyEquipment(energyEquipment)">
-                                            {{energyEquipment.equipmentName}}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <app-single-cell-item
-                                            [strValue]="energyEquipment.equipmentType"></app-single-cell-item>
-                                    </td>
-                                    <td>
-                                        <app-single-cell-item
-                                            [strValue]="energyEquipment.utilityType"></app-single-cell-item>
-                                    </td>
-                                    <td>
-                                        <app-single-cell-item [numValue]="energyEquipment.annualEnergyUse"
-                                            [numValueDigits]="'1.0-0'"></app-single-cell-item>
-                                    </td>
-                                    <td>
-                                        @let associatedContacts = energyEquipment.guid |
-                                        associatedContacts:'energyEquipment': contacts;
-                                        <ng-template [ngIf]="associatedContacts.length > 0"
-                                            [ngIfElse]="noContactsBlock">
-                                            <span *ngFor="let contact of associatedContacts">
-                                                {{contact | contactNameDisplay}} <br>
-                                            </span>
-                                        </ng-template>
-                                        <ng-template #noContactsBlock>
-                                            &mdash;
-                                        </ng-template>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </ng-template>
-                <ng-template #noEnergyEquipmentBlock>
-                    <div class="alert alert-info text-center p-2">
-                        Empty Inventory. Click "Add Equipment" to the industrial system inventory.
-                    </div>
-                </ng-template>
+  <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+    <div class="col-11 col-md-10 pt-4 pb-4">
+      <div class="form-paper shadow">
+        <h5>
+          <fa-icon [icon]="faList"></fa-icon>
+          Industrial System Inventory
+        </h5>
+        <hr>
+          <div class="d-flex w-100 justify-content-end pb-2">
+            <div class="p-0">
+              <button class="btn btn-outline-dark btn-sm me-1" (click)="goToUploadTemplate()">
+                <fa-icon [icon]="faUpload"></fa-icon>
+                Upload Template
+              </button>
+              <button class="btn btn-outline-success btn-sm" (click)="addEquipment()">
+                <fa-icon [icon]="faPlus" class="pe-1"></fa-icon>
+                Add Equipment
+              </button>
             </div>
+          </div>
+
+          @if (energyEquipments.length != 0) {
+            <div class="w-100 overflow-scroll-x">
+              <table class="table table-bordered table-hover table-sm">
+                <thead>
+                  <tr>
+                    <th>
+                      Name
+                    </th>
+                    <th>
+                      Industrial System
+                    </th>
+                    <th>
+                      Utility Type
+                    </th>
+                    <th>
+                      Energy Use<br>
+                      <span class="fw-light small">
+                        (<span [innerHTML]="companyEnergyUnit | unitsDisplay"></span>/yr)
+                      </span>
+                    </th>
+                    <th>
+                      Stakeholders
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (energyEquipment of energyEquipments; track energyEquipment) {
+                    <tr>
+                      <td>
+                        <a class="click-link" (click)="goToEnergyEquipment(energyEquipment)">
+                          {{energyEquipment.equipmentName}}
+                        </a>
+                      </td>
+                      <td>
+                        <app-single-cell-item
+                        [strValue]="energyEquipment.equipmentType"></app-single-cell-item>
+                      </td>
+                      <td>
+                        <app-single-cell-item
+                        [strValue]="energyEquipment.utilityType"></app-single-cell-item>
+                      </td>
+                      <td>
+                        <app-single-cell-item [numValue]="energyEquipment.annualEnergyUse"
+                        [numValueDigits]="'1.0-0'"></app-single-cell-item>
+                      </td>
+                      <td>
+                        @let associatedContacts = energyEquipment.guid |
+                        associatedContacts:'energyEquipment': contacts;
+                        @if (associatedContacts.length > 0) {
+                          @for (contact of associatedContacts; track contact) {
+                            <span>
+                              {{contact | contactNameDisplay}} <br>
+                            </span>
+                          }
+                        } @else {
+                          &mdash;
+                        }
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          } @else {
+            <div class="alert alert-info text-center p-2">
+              Empty Inventory. Click "Add Equipment" to the industrial system inventory.
+            </div>
+          }
         </div>
+      </div>
     </div>
-</div>
-<nav class="setup-wizard-footer navbar shadow">
+  </div>
+  <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
-        <button class="btn nav-btn btn-sm" (click)="goBack()">
-            <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span class="d-none d-md-inline">
-                Go Back
-            </span>
-        </button>
-        <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            <span class="d-none d-md-inline">
-                <ng-template [ngIf]="energyEquipments.length > 0" [ngIfElse]="endUseBlock">
-                    Equipment Details
-                </ng-template>
-                <ng-template #endUseBlock>
-                    End Use Inventory
-                </ng-template>
-            </span>
-            <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
+      <button class="btn nav-btn btn-sm" (click)="goBack()">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        <span class="d-none d-md-inline">
+          Go Back
+        </span>
+      </button>
+      <button class="btn nav-btn btn-sm" (click)="goToNext()">
+        <span class="d-none d-md-inline">
+          @if (energyEquipments.length > 0) {
+            Equipment Details
+          } @else {
+            End Use Inventory
+          }
+        </span>
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
     </div>
-</nav>
+  </nav>

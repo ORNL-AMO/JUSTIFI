@@ -102,13 +102,9 @@ export type KeyPerformanceMetricValue =
     'rawMaterials' |
     'intermediateGoods' |
     'custom' |
-    'stationaryFuelEmissions' |
-    'purchasedEnergyEmissions' |
-    'valueChainEmissions' |
     'regulatoryCompliancePercentTests' |
     'noxSoxCoEmissions' |
     'particulateEmissions' |
-    'waterPollutantEmissions' |
     'sewageCosts' | 
     'regulatoryFeesWater' | 
     'regulatoryFeesWaste' | 
@@ -116,8 +112,6 @@ export type KeyPerformanceMetricValue =
     'emergencyEquipmentDowntime' |
     'electricalDemandCosts' |
     'powerFactorCosts' |
-    'mobileFuelEmissions'|
-    'processEmissions' |
     'reduceRegulatoryFees' | 
     'utilityCosts';
 
@@ -551,8 +545,8 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
     {
-        label: "Dust Emissions",
-        htmlLabel: "Dust Emissions",
+        label: "Dust Discharge",
+        htmlLabel: "Dust Discharge",
         value: "dustEmission",
         kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
@@ -562,41 +556,8 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'percentTotal'
     },
     {
-        label: "Stationary Fuel Emissions",
-        htmlLabel: "Stationary Fuel Emissions",
-        value: "stationaryFuelEmissions",
-        kpiValue: "airEnvironmentalQuality",
-        isQuantitative: true,
-        goalToIncrease: false,
-        totalUnit: 'tonne CO2e',
-        timePeriod: 'yr',
-        calculationMethod: 'costPerUnit'
-    },
-    {
-        label: "Purchased Energy Emissions",
-        htmlLabel: "Purchased Energy Emissions",
-        value: "purchasedEnergyEmissions",
-        kpiValue: "airEnvironmentalQuality",
-        totalUnit: 'tonne CO2e',
-        isQuantitative: true,
-        goalToIncrease: false,
-        timePeriod: 'yr',
-        calculationMethod: 'costPerUnit'
-    },
-    {
-        label: "Value Chain Emissions",
-        htmlLabel: "Value Chain Emissions",
-        value: "valueChainEmissions",
-        kpiValue: "airEnvironmentalQuality",
-        totalUnit: 'tonne CO2e',
-        isQuantitative: true,
-        goalToIncrease: false,
-        timePeriod: 'yr',
-        calculationMethod: 'costPerUnit'
-    },
-    {
-        label: "Particulate Emissions",
-        htmlLabel: "Particulate Emissions",
+        label: "Particulate Release",
+        htmlLabel: "Particulate Release",
         value: "particulateEmissions",
         kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
@@ -605,8 +566,8 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'percentTotal'
     },
     {
-        label: "NOx, SOx, CO Emissions",
-        htmlLabel: "NOx, SOx, CO Emissions",
+        label: "NOx, SOx, CO Release",
+        htmlLabel: "NOx, SOx, CO Release",
         value: "noxSoxCoEmissions",
         kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
@@ -618,26 +579,6 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         label: "Regulatory Compliance (% tests)",
         htmlLabel: "Regulatory Compliance (&#37; tests)",
         value: "regulatoryCompliancePercentTests",
-        kpiValue: "airEnvironmentalQuality",
-        isQuantitative: true,
-        goalToIncrease: false,
-        timePeriod: 'yr',
-        calculationMethod: 'percentTotal'
-    },
-    {
-        label: "Water Pollutant Emissions",
-        htmlLabel: "Water Pollutant Emissions",
-        value: "waterPollutantEmissions",
-        kpiValue: "waterConsumption",
-        isQuantitative: true,
-        goalToIncrease: false,
-        timePeriod: 'yr',
-        calculationMethod: 'percentTotal'
-    },
-    {
-        label: "Refrigerant Emissions",
-        htmlLabel: "Refrigerant Emissions",
-        value: "percentOrTotalRefrigerantEmissions",
         kpiValue: "airEnvironmentalQuality",
         isQuantitative: true,
         goalToIncrease: false,
@@ -968,28 +909,6 @@ export const KeyPerformanceMetricOptions: Array<KeyPerformanceMetricOption> = [
         calculationMethod: 'directCost'
     },
     {
-        label: "Mobile Fuel Emissions",
-        htmlLabel: "Mobile Fuel Emissions",
-        value: "mobileFuelEmissions",
-        kpiValue: "airEnvironmentalQuality",
-        isQuantitative: true,
-        totalUnit: 'tonne CO2e',
-        goalToIncrease: false,
-        timePeriod: 'yr',
-        calculationMethod: 'costPerUnit'
-    },
-    {
-        label: "Process Emissions",
-        htmlLabel: "Process Emissions",
-        value: "processEmissions",
-        kpiValue: "airEnvironmentalQuality",
-        isQuantitative: true,
-        totalUnit: 'tonne CO2e',
-        goalToIncrease: false,
-        timePeriod: 'yr',
-        calculationMethod: 'costPerUnit'
-    },
-    {
         label: "Reduce Regulatory Fees",
         htmlLabel: "Reduce Regulatory Fees",
         value: "reduceRegulatoryFees",
@@ -1040,7 +959,6 @@ const KpmKeywords: { [key: string]: Array<string> } = {
     "percentTotalOrCost": ["total cost", "cost percentage", "overall cost", "cost analysis"],
     "consumptionCostWater": ["water consumption cost", "water usage cost", "water expense", "water bill"],
     "sewageVolume": ["sewage volume", "wastewater volume", "sewage management", "wastewater treatment"],
-    "percentOrTotalRefrigerantEmissions": ["refrigerant emissions", "refrigerant leakage", "refrigerant management", "cooling emissions"],
     "TRIR": ["TRIR", "total recordable incident rate", "safety incidents", "workplace safety"],
     "oshaRecordableIncidents": ["OSHA recordable incidents", "workplace incidents", "safety compliance", "incident reporting"],
     "oshaNonRecordables": ["OSHA non-recordables", "non-recordable incidents", "safety near misses", "incident prevention"],
@@ -1052,7 +970,7 @@ const KpmKeywords: { [key: string]: Array<string> } = {
     "employeeEngagementSatisfaction": ["employee engagement", "employee satisfaction", "workforce engagement", "employee morale"],
     "employeeRetentionRate": ["employee retention", "staff retention", "workforce stability", "talent retention"],
     "talentTurnoverRate": ["talent turnover", "employee turnover", "staff turnover", "workforce turnover"],
-    "dustEmission": ["dust emissions", "air quality", "particulate matter", "environmental impact"],
+    "dustEmission": ["dust discharge", "air quality", "particulate matter", "environmental impact"],
     "laborCosts": ["labor costs", "workforce costs", "employee costs", "staff expenses"],
     "thirdPartyLabor": ["third-party labor", "contract labor", "outsourced labor", "external workforce"],
     "serviceParts": ["service parts", "maintenance parts", "repair parts", "spare parts"],
@@ -1060,13 +978,9 @@ const KpmKeywords: { [key: string]: Array<string> } = {
     "rawMaterials": ["raw materials", "material costs", "supply chain", "material procurement"],
     "intermediateGoods": ["intermediate goods", "semi-finished products", "supply chain management", "goods in process"],
     "custom": ["custom metrics", "custom KPIs", "tailored metrics", "bespoke performance indicators"],
-    "stationaryFuelEmissions": ["stationary fuel emissions", "fuel consumption", "energy emissions", "stationary sources"],
-    "purchasedEnergyEmissions": ["purchased energy emissions", "energy procurement", "energy consumption", "external energy sources"],
-    "valueChainEmissions": ["value chain emissions", "supply chain emissions", "indirect emissions", "life cycle emissions"],
     "regulatoryCompliancePercentTests": ["regulatory compliance", "compliance testing", "environmental regulations", "regulatory standards"],
-    "noxSoxCoEmissions": ["NOx emissions", "SOx emissions", "CO emissions", "air pollutants"],
-    "particulateEmissions": ["particulate emissions", "air quality", "dust emissions", "particulate matter"],
-    "waterPollutantEmissions": ["water pollutant emissions", "water quality", "pollution control", "water management"],
+    "noxSoxCoEmissions": ["NOx release", "SOx release", "CO release", "air pollutants"],
+    "particulateEmissions": ["particulate discharge", "air quality", "dust discharge", "particulate matter"],
     'sewageCosts': ["sewage costs", "wastewater costs", "sewage management", "wastewater treatment"],
     'regulatoryFeesWater': ["regulatory fees water", "water compliance costs", "water regulatory fees", "water management costs"],
     'regulatoryFeesWaste': ["regulatory fees waste", "waste compliance costs", "waste regulatory fees", "waste management costs"],
@@ -1074,8 +988,6 @@ const KpmKeywords: { [key: string]: Array<string> } = {
     'emergencyEquipmentDowntime': ["emergency equipment downtime", "unplanned downtime", "equipment failure", "maintenance issues"],
     'electricalDemandCosts': ["electrical demand costs", "energy demand charges", "power demand costs", "electricity expenses"],
     'powerFactorCosts': ["power factor costs", "power factor penalties", "electricity efficiency", "power quality"],
-    'mobileFuelEmissions': ["mobile fuel emissions", "transport emissions", "vehicle emissions", "mobile sources"],
-    'processEmissions': ["process emissions", "industrial emissions", "manufacturing emissions", "production emissions", "process pollutants"],
     'reduceRegulatoryFees': ["reduce regulatory fees", "regulatory cost reduction", "compliance cost savings", "regulatory fee management"],
     'utilityCosts': ["utility costs", "energy expenses", "utility bills", "electricity costs"],
 }

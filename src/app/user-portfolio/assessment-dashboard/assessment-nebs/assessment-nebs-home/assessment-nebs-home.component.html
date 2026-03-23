@@ -1,46 +1,45 @@
 <div class="d-flex w-100 justify-content-between">
-    <div>
-        <h6 class="pt-2">Benefits</h6>
+  <div>
+    <h6 class="pt-2">Benefits</h6>
+  </div>
+  <div>
+    <div class="dropdown">
+      <button class="btn btn-outline-neb btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+        aria-expanded="false" (click)="toggleAddNebDropdown()">
+        <fa-icon [icon]="faPlus"></fa-icon> Add Benefit
+      </button>
+      <ul class="dropdown-menu" [ngClass]="{'show': showAddNebDropdown}">
+        <li>
+          <a class="dropdown-item" (click)="addNEB(false)">
+            <fa-icon [icon]="faPlus"></fa-icon> Add Custom Benefit
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" (click)="showSuggestedNEBs()">
+            <fa-icon [icon]="faSearchPlus"></fa-icon> Search Multiple Benefits Database
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" (click)="addNEB(true)">
+            <fa-icon [icon]="faMoneyBillWave"></fa-icon> Add One-time Incentive
+          </a>
+        </li>
+      </ul>
     </div>
-    <div>
-        <div class="dropdown">
-            <button class="btn btn-outline-neb btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false" (click)="toggleAddNebDropdown()">
-                <fa-icon [icon]="faPlus"></fa-icon> Add Benefit
-            </button>
-            <ul class="dropdown-menu" [ngClass]="{'show': showAddNebDropdown}">
-                <li>
-                    <a class="dropdown-item" (click)="addNEB(false)">
-                        <fa-icon [icon]="faPlus"></fa-icon> Add Custom Benefit
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" (click)="showSuggestedNEBs()">
-                        <fa-icon [icon]="faSearchPlus"></fa-icon> Search Multiple Benefits Database
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" (click)="addNEB(true)">
-                        <fa-icon [icon]="faMoneyBillWave"></fa-icon> Add One-time Incentive
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+  </div>
 </div>
 <hr class="my-2">
 
-<ng-template [ngIf]="nonEnergyBenefits.length > 0" [ngIfElse]="noNebsBlock">
-    <app-energy-opportunity-nebs-table [nonEnergyBenefits]="nonEnergyBenefits"
-        [inDashboard]="true"></app-energy-opportunity-nebs-table>
-</ng-template>
+@if (nonEnergyBenefits.length > 0) {
+  <app-energy-opportunity-nebs-table [nonEnergyBenefits]="nonEnergyBenefits"
+  [inDashboard]="true"></app-energy-opportunity-nebs-table>
+} @else {
+  <div class="alert alert-info p-2 text-center">
+    No Benefits found for this assessment. Use the "<fa-icon [icon]="faSearchPlus"></fa-icon>
+    Add Benefit" dropdown to either add a custom Benefit or
+    search our Multiple Benefits database for new Benefits to be added to this
+    assessment.
+  </div>
+}
 
 
-<ng-template #noNebsBlock>
-    <div class="alert alert-info p-2 text-center">
-        No Benefits found for this assessment. Use the "<fa-icon [icon]="faSearchPlus"></fa-icon>
-        Add Benefit" dropdown to either add a custom Benefit or
-        search our Multiple Benefits database for new Benefits to be added to this
-        assessment.
-    </div>
-</ng-template>

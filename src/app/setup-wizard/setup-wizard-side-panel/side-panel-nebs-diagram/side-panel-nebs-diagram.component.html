@@ -1,63 +1,61 @@
 <div class="list-group">
-    <div class="list-group-item nebs-label item-label">
-        Identified Benefits
-    </div>
+  <div class="list-group-item nebs-label item-label">
+    Identified Benefits
+  </div>
 </div>
-<ng-template [ngIf]="onSiteVisit.assessmentIds.length" [ngIfElse]="noAssessmentsBlock">
-    <div class="list-group mt-2" *ngFor="let assessmentId of onSiteVisit.assessmentIds">
-        <div class="list-group-item">
-            @let assessment = (assessmentId | assessmentItem: assessments);
-            <div class="item-label">
-                <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
-                {{assessment.name}}
-            </div>
-            @let nebs = (assessment.guid | nebList: 'assessment': nonEnergyBenefits:true);
-            <ng-template [ngIf]="nebs.length">
-                <ng-container *ngFor="let neb of nebs">
-                    <div class="d-flex">
-                        <div class="associated-item">
-
-                        </div>
-                        <div class="ps-1 item-label">
-                            <fa-icon [icon]="faWeightHanging"></fa-icon>
-                            {{neb.name}}
-                        </div>
-                    </div>
-                </ng-container>
-            </ng-template>
-            @let energyOppList = (assessmentId | energyOpportunityList: energyOpportunities: 'assessment' );
-            <ng-template [ngIf]="energyOppList.length">
-                <ng-container *ngFor="let energyOpp of energyOppList">
-                    <div class="d-flex">
-                        <div class="associated-item">
-
-                        </div>
-                        <div class="ps-1 item-label">
-                            <fa-icon [icon]="faFileLines"></fa-icon>
-                            {{energyOpp.name}}
-                        </div>
-                    </div>
-                    @let nebs = (energyOpp.guid | nebList: 'energyOpportunity': nonEnergyBenefits);
-                    <ng-template [ngIf]="nebs.length">
-                        <ng-container *ngFor="let neb of nebs">
-                            <div class="d-flex ms-4">
-                                <div class="associated-item">
-
-                                </div>
-                                <div class="ps-1 item-label">
-                                    <fa-icon [icon]="faWeightHanging"></fa-icon>
-                                    {{neb.name}}
-                                </div>
-                            </div>
-                        </ng-container>
-                    </ng-template>
-                </ng-container>
-            </ng-template>
+@if (onSiteVisit.assessmentIds.length) {
+  @for (assessmentId of onSiteVisit.assessmentIds; track assessmentId) {
+    <div class="list-group mt-2">
+      <div class="list-group-item">
+        @let assessment = (assessmentId | assessmentItem: assessments);
+        <div class="item-label">
+          <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+          {{assessment.name}}
         </div>
+        @let nebs = (assessment.guid | nebList: 'assessment': nonEnergyBenefits:true);
+        @if (nebs.length) {
+          @for (neb of nebs; track neb) {
+            <div class="d-flex">
+              <div class="associated-item">
+              </div>
+              <div class="ps-1 item-label">
+                <fa-icon [icon]="faWeightHanging"></fa-icon>
+                {{neb.name}}
+              </div>
+            </div>
+          }
+        }
+        @let energyOppList = (assessmentId | energyOpportunityList: energyOpportunities: 'assessment' );
+        @if (energyOppList.length) {
+          @for (energyOpp of energyOppList; track energyOpp) {
+            <div class="d-flex">
+              <div class="associated-item">
+              </div>
+              <div class="ps-1 item-label">
+                <fa-icon [icon]="faFileLines"></fa-icon>
+                {{energyOpp.name}}
+              </div>
+            </div>
+            @let nebs = (energyOpp.guid | nebList: 'energyOpportunity': nonEnergyBenefits);
+            @if (nebs.length) {
+              @for (neb of nebs; track neb) {
+                <div class="d-flex ms-4">
+                  <div class="associated-item">
+                  </div>
+                  <div class="ps-1 item-label">
+                    <fa-icon [icon]="faWeightHanging"></fa-icon>
+                    {{neb.name}}
+                  </div>
+                </div>
+              }
+            }
+          }
+        }
+      </div>
     </div>
-</ng-template>
-<ng-template #noAssessmentsBlock>
-    <div class="alert alert-info small p-2">
-        No assessments added to the visit. Once assessments are added the related Benefits will be found here.
-    </div>
-</ng-template>
+  }
+} @else {
+  <div class="alert alert-info small p-2">
+    No assessments added to the visit. Once assessments are added the related Benefits will be found here.
+  </div>
+}

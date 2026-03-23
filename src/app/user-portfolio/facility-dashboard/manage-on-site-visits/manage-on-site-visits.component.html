@@ -1,95 +1,95 @@
 <div class="d-flex">
-    <div class="card portfolio w-100">
-        <div class="card-body">
-            <h5 class="card-title">Manage On-Site Visits</h5>
-            <p class="card-text">
-                "On-site Visits" are used to group together assessments based on when they are being conducted. This
-                page allows you to manage on-site visits for the facility.
-            </p>
-            @let facilityVisits = facility.guid | onSiteVisitList: onSiteVisits;
-            <ng-template [ngIf]="facilityVisits.length > 0" [ngIfElse]="noVisitsBlock">
-                <div class="w-100 overflow-scroll-x">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Visit Date
-                                </th>
-                                <th>
-                                    Assessments
-                                </th>
-                                <th>
-                                    Last Modified
-                                </th>
-                                <th>
-
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let visit of facilityVisits">
-                                <td>
-                                    <!-- {{visit.visitDate | date}} -->
-                                    <input name="{{'visitDate'+visit.guid}}" id="{{'visitDate'+visit.guid}}" type="date"
-                                        class="form-control" [(ngModel)]="visit.visitDate"
-                                        name="{{'visitDate'+visit.guid}}" (change)="setVisitDate(visit)">
-                                </td>
-                                <td>
-                                    <ng-container *ngIf="visit.assessmentIds.length > 0; else noAssessments">
-                                        <div *ngFor="let assessmentId of visit.assessmentIds">
-                                            {{assessmentId | assessmentNameDisplay: assessments}}<br>
-                                        </div>
-                                    </ng-container>
-                                    <ng-template #noAssessments>
-                                        No assessments found for this visit.
-                                    </ng-template>
-                                </td>
-                                <td>
-                                    {{visit.modifiedDate | date}}
-                                </td>
-                                <td class="actions">
-                                    <button class="btn btn-outline-danger btn-sm" (click)="openDeleteVisitModal(visit)">
-                                        <fa-icon [icon]="faTrash"></fa-icon>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </ng-template>
-            <ng-template #noVisitsBlock>
-                <div class="alert alert-info p-1">
-                    No on-site visits found for this facility.
-                </div>
-            </ng-template>
+  <div class="card portfolio w-100">
+    <div class="card-body">
+      <h5 class="card-title">Manage On-Site Visits</h5>
+      <p class="card-text">
+        "On-site Visits" are used to group together assessments based on when they are being conducted. This
+        page allows you to manage on-site visits for the facility.
+      </p>
+      @let facilityVisits = facility.guid | onSiteVisitList: onSiteVisits;
+      @if (facilityVisits.length > 0) {
+        <div class="w-100 overflow-scroll-x">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>
+                  Visit Date
+                </th>
+                <th>
+                  Assessments
+                </th>
+                <th>
+                  Last Modified
+                </th>
+                <th>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (visit of facilityVisits; track visit) {
+                <tr>
+                  <td>
+                    <!-- {{visit.visitDate | date}} -->
+                    <input name="{{'visitDate'+visit.guid}}" id="{{'visitDate'+visit.guid}}" type="date"
+                      class="form-control" [(ngModel)]="visit.visitDate"
+                      name="{{'visitDate'+visit.guid}}" (change)="setVisitDate(visit)">
+                  </td>
+                  <td>
+                    @if (visit.assessmentIds.length > 0) {
+                      @for (assessmentId of visit.assessmentIds; track assessmentId) {
+                        <div>
+                          {{assessmentId | assessmentNameDisplay: assessments}}<br>
+                        </div>
+                      }
+                    } @else {
+                      No assessments found for this visit.
+                    }
+                  </td>
+                  <td>
+                    {{visit.modifiedDate | date}}
+                  </td>
+                  <td class="actions">
+                    <button class="btn btn-outline-danger btn-sm" (click)="openDeleteVisitModal(visit)">
+                      <fa-icon [icon]="faTrash"></fa-icon>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
         </div>
+      } @else {
+        <div class="alert alert-info p-1">
+          No on-site visits found for this facility.
+        </div>
+      }
     </div>
+  </div>
 </div>
 
 
 <div [ngClass]="{'window-overlay': displayDeleteModal}"></div>
 <div class="popup" [ngClass]="{'open': displayDeleteModal }">
-    <div class="popup-header">Delete On-site Visit {{visitToDelete?.visitDate | date}}
-        <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
-    </div>
-    <div class="popup-body">
-        <ng-template [ngIf]="visitToDelete?.assessmentIds.length > 0" [ngIfElse]="noAssessmentsBlock">
-            <div class="alert alert-danger">
-                This visit has assessments associated with it. Are you sure you want to delete this visit? All
-                assessments, energy efficiency measures and non-energy benefits will be deleted.
-            </div>
-        </ng-template>
-        <ng-template #noAssessmentsBlock>
-            <div class="alert alert-info">
-                Are you sure you want to delete this on-site visit?
-            </div>
-        </ng-template>
+  <div class="popup-header">Delete On-site Visit {{visitToDelete?.visitDate | date}}
+    <button type="button" class="btn-close float-end" aria-label="Close" (click)="closeDeleteModal()"></button>
+  </div>
+  <div class="popup-body">
+    @if (visitToDelete?.assessmentIds.length > 0) {
+      <div class="alert alert-danger">
+        This visit has assessments associated with it. Are you sure you want to delete this visit? All
+        assessments, energy efficiency measures and multiple benefits will be deleted.
+      </div>
+    } @else {
+      <div class="alert alert-info">
+        Are you sure you want to delete this on-site visit?
+      </div>
+    }
 
-        <hr>
+    <hr>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteModal()">Cancel</button>
-        <button class="btn btn-outline-danger btn-sm" (click)="deleteVisit()"><fa-icon [icon]="faTrash"></fa-icon>
-            Delete Visit</button>
-    </div>
+      <button class="btn btn-secondary btn-sm me-2" (click)="closeDeleteModal()">Cancel</button>
+      <button class="btn btn-outline-danger btn-sm" (click)="deleteVisit()"><fa-icon [icon]="faTrash"></fa-icon>
+    Delete Visit</button>
+  </div>
 </div>

@@ -535,7 +535,7 @@ export class PowerpointReportGeneratorService {
   addNebStaticSlide(nebstaticSlide: pptxgen.Slide) {
     nebstaticSlide.addText('What are Multiple Benefits?', { placeholder: 'title' });
     nebstaticSlide.addText(
-      "Multiple Benefits are the positive outcomes that result from energy efficiency efforts, beyond the direct savings in energy and demand.\nThey can be beneficial participants in energy efficiency program, the utility system, and society.\nAlso commonly known as non-energy benefits (NEBs), operational benefits, co-benefits, soft benefits, auxiliary benefits, or non-energy impacts.",
+      "Multiple Benefits are the positive outcomes that result from energy efficiency efforts, beyond the direct savings in energy and demand.\nThey can be beneficial participants in energy efficiency program, the utility system, and society.\nAlso commonly known as multiple benefits (MBs), operational benefits, co-benefits, soft benefits, auxiliary benefits, or non-energy impacts.",
       { placeholder: 'body' }
     );
     nebstaticSlide.addImage({ path: "/assets/images/neb-static-slide.png", x: 0.5, y: 3.2, w: 8, h: 2 });

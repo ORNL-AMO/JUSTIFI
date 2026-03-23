@@ -1,56 +1,58 @@
 <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.sectionHelp">
 </p>
-<p class="fw-light small mb-0" *ngIf="!inPortfolio">
+@if (!inPortfolio) {
+  <p class="fw-light small mb-0">
     Answering the questions is an <b><u>optional</u></b> exercise but a good practice. The help panel provides additional context for
     the individual questions when a user clicks on the corresponding input fields
-</p>
+  </p>
+}
 <hr class="my-2">
 <!--whatIsTheOutput-->
 <label>
-    What is the output of this process? Is it an intermediate or final product of the facility?
+  What is the output of this process? Is it an intermediate or final product of the facility?
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.whatIsTheOutput">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.whatIsTheOutput">
+  </p>
+}
 <textarea id="whatIsTheOutput" name="whatIsTheOutput" class="form-control" [(ngModel)]="whatIsTheOutput"
-    (input)="saveChanges()" (focus)="focusField('whatIsTheOutput')" rows="3"></textarea>
+(input)="saveChanges()" (focus)="focusField('whatIsTheOutput')" rows="3"></textarea>
 <hr class="my-1">
 
 <!--howDoesTheProcessWork-->
 <label>
-    How does the process or manufacturing technology work?
+  How does the process or manufacturing technology work?
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.howDoesTheProcessWork">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.howDoesTheProcessWork">
+  </p>
+}
 <textarea id="howDoesTheProcessWork" name="howDoesTheProcessWork" class="form-control" [(ngModel)]="howDoesTheProcessWork"
-    (input)="saveChanges()" (focus)="focusField('howDoesTheProcessWork')" rows="3"></textarea>
+(input)="saveChanges()" (focus)="focusField('howDoesTheProcessWork')" rows="3"></textarea>
 <hr class="my-1">
 
 <!--financialStatusOfEquipment-->
 <label>
-   Where is the process and its equipment in its lifecycle? Are you considering replacement?
+  Where is the process and its equipment in its lifecycle? Are you considering replacement?
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipment">
-    </p>
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipmentQs">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipment">
+  </p>
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialStatusOfEquipmentQs">
+  </p>
+}
 <textarea id="equipmentFinancialStatus" name="financialStatusOfEquipment" class="form-control"
-    [(ngModel)]="financialStatusOfEquipment" (input)="saveChanges()" (focus)="focusField('financialStatusOfEquipment')"
-    rows="3"></textarea>
+  [(ngModel)]="financialStatusOfEquipment" (input)="saveChanges()" (focus)="focusField('financialStatusOfEquipment')"
+rows="3"></textarea>
 
 <!--financialMetricsUsed-->
 <label>
-What financial metrics are used to understand the output of the process (/unit, /ton, $/batch)?
+  What financial metrics are used to understand the output of the process (/unit, /ton, $/batch)?
 </label>
-<ng-container *ngIf="inPortfolio">
-    <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialMetricsUsed">
-    </p>
-</ng-container>
+@if (inPortfolio) {
+  <p class="fw-light small" [innerHTML]="ProcessEquipmentTakeStockHelp.financialMetricsUsed">
+  </p>
+}
 <textarea id="financialMetricsUsed" name="financialMetricsUsed" class="form-control"
-    [(ngModel)]="financialMetricsUsed" (input)="saveChanges()" (focus)="focusField('financialMetricsUsed')"
-    rows="3"></textarea>
+  [(ngModel)]="financialMetricsUsed" (input)="saveChanges()" (focus)="focusField('financialMetricsUsed')"
+rows="3"></textarea>

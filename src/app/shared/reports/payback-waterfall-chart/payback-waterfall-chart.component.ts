@@ -116,7 +116,7 @@ export class PaybackWaterfallChartComponent {
       ]
       let dataNebs = [
         {
-          name: "Payback W/ NEBs",
+          name: "Payback W/ MBs",
           type: "waterfall",
           orientation: "v",
           x: xValNebs,

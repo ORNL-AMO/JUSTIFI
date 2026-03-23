@@ -1,53 +1,52 @@
 <div class="setup-wizard-content">
-    <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
-        <div class="col-11 col-md-10 pt-4 pb-4">
-            <div class="form-paper shadow">
-                <h5>
-                    <fa-icon [icon]="faCube"></fa-icon>
-                    {{equipment?.equipmentName}}
-                </h5>
-                <hr>
-                <app-energy-equipment-form [energyEquipmentGuid]="undefined"></app-energy-equipment-form>
+  <div class="row g-0 justify-content-center h-100 w-100 overflow-scroll">
+    <div class="col-11 col-md-10 pt-4 pb-4">
+      <div class="form-paper shadow">
+        <h5>
+          <fa-icon [icon]="faCube"></fa-icon>
+          {{equipment?.equipmentName}}
+        </h5>
+        <hr>
+          <app-energy-equipment-form [energyEquipmentGuid]="undefined"></app-energy-equipment-form>
 
-            </div>
         </div>
+      </div>
     </div>
-</div>
-<nav class="setup-wizard-footer navbar shadow">
+  </div>
+  <nav class="setup-wizard-footer navbar shadow">
     <div class="container-fluid justify-content-between">
-        <button class="btn nav-btn btn-sm" (click)="goBack()">
-            <fa-icon [icon]="faChevronLeft"></fa-icon>
-            <span class="d-none d-md-inline">
-                Go Back
-            </span>
-        </button>
-        <button class="btn nav-btn btn-sm" (click)="addEnergyEquipment()">
-            <fa-icon [icon]="faPlus"></fa-icon>
-            <span class="d-none d-md-inline">
-                Add Equipment
-            </span>
-        </button>
-        <button class="btn nav-btn btn-sm" (click)="goToNext()">
-            <span class="d-none d-md-inline">
-                <ng-template [ngIf]="(equipmentIndex != energyEquipments.length -1)" [ngIfElse]="endUseBlock">
-                    Next Equipment Details
-                </ng-template>
-                <ng-template #endUseBlock>
-                    End Use Inventory
-                </ng-template>
-            </span>
-            <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
+      <button class="btn nav-btn btn-sm" (click)="goBack()">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+        <span class="d-none d-md-inline">
+          Go Back
+        </span>
+      </button>
+      <button class="btn nav-btn btn-sm" (click)="addEnergyEquipment()">
+        <fa-icon [icon]="faPlus"></fa-icon>
+        <span class="d-none d-md-inline">
+          Add Equipment
+        </span>
+      </button>
+      <button class="btn nav-btn btn-sm" (click)="goToNext()">
+        <span class="d-none d-md-inline">
+          @if ((equipmentIndex != energyEquipments.length -1)) {
+            Next Equipment Details
+          } @else {
+            End Use Inventory
+          }
+        </span>
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
     </div>
-</nav>
-<div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
-<div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
+  </nav>
+  <div [ngClass]="{'window-overlay': routeGuardWarningModal}"></div>
+  <div class="popup" [ngClass]="{'open': routeGuardWarningModal }">
     <div class="popup-body">
-        <div class="alert alert-danger">
-            Please fill the required fields.
-        </div>
+      <div class="alert alert-danger">
+        Please fill the required fields.
+      </div>
     </div>
     <div class="popup-footer d-flex justify-content-end">
-        <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
+      <button class="btn btn-secondary me-2" (click)="closeWarningModal()">OK</button>
     </div>
-</div>
+  </div>

@@ -1,82 +1,81 @@
-<ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentTitle">
-   <h6 class="bold">On Site Details</h6>
-</ng-template>
-<ng-template #assessmentTitle>
-    <h6 class="bold">Assessment Details</h6>
-</ng-template>
+@if (onSiteVisit) {
+  <h6 class="bold">On Site Details</h6>
+} @else {
+  <h6 class="bold">Assessment Details</h6>
+}
 <table class="table table-bordered table-hover savings-table">
-    <tbody>
-        <tr>
-            <td class="w-50 bg-neutral-light">
-                Company
-            </td>
-            <td class="bg-neutral-light">
-                {{company.generalInformation.name}}
-            </td>
-        </tr>
-        <tr>
-            <td class="bg-neutral-light">
-                Facility
-            </td>
-            <td class="bg-neutral-light">
-                {{facility.generalInformation.name}}
-            </td>
-        </tr>
-        <tr>
-            <td class="bg-neutral-light">
-                Visit Date
-            </td>
-            <td class="bg-neutral-light">
-                <ng-template [ngIf]="onSiteVisit" [ngIfElse]="assessmentVisitDateBlock">
-                    {{onSiteVisit.visitDate | date}}
-                </ng-template>
-                <ng-template #assessmentVisitDateBlock>
-                    {{assessment.visitDate | date}}
-                </ng-template>
-            </td>
-        </tr>
-        <tr *ngIf="onSiteVisitReport">
-            <td class="bg-neutral-light">
-                Assessments
-            </td>
-            <td class="bg-neutral-light">
-                <ng-container *ngFor="let assessmentReport of onSiteVisitReport.assessmentReports">
-                    <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
-                    {{assessmentReport.assessment.name}}<br>
-                </ng-container>
-            </td>
-        </tr>
-        <!-- <tr>
-            <td>
-                Industrial Equipment
-            </td>
-            <td>
-                <app-single-cell-item
-                    [strValue]="assessment.equipmentId | energyEquipmentDisplay: energyEquipments"></app-single-cell-item>
-            </td>
-        </tr> -->
-        <ng-container *ngIf="assessment">
-            <tr>
-                <td class="bg-neutral-light">
-                    Assessment Type
-                </td>
-                <td class="bg-neutral-light">
-                    {{assessment.assessmentType}}
-                </td>
-            </tr>
-            <tr>
-                <td class="bg-neutral-light">
-                    Utility Types
-                </td>
-                <td class="bg-neutral-light">
-
-                    <ng-container *ngFor="let utilityType of assessment.utilityEnergyUses">
-                        <ng-container *ngIf="utilityType.include">
-                            {{utilityType.utilityType}}<br>
-                        </ng-container>
-                    </ng-container>
-                </td>
-            </tr>
-        </ng-container>
-    </tbody>
+  <tbody>
+    <tr>
+      <td class="w-50 bg-neutral-light">
+        Company
+      </td>
+      <td class="bg-neutral-light">
+        {{company.generalInformation.name}}
+      </td>
+    </tr>
+    <tr>
+      <td class="bg-neutral-light">
+        Facility
+      </td>
+      <td class="bg-neutral-light">
+        {{facility.generalInformation.name}}
+      </td>
+    </tr>
+    <tr>
+      <td class="bg-neutral-light">
+        Visit Date
+      </td>
+      <td class="bg-neutral-light">
+        @if (onSiteVisit) {
+          {{onSiteVisit.visitDate | date}}
+        } @else {
+          {{assessment.visitDate | date}}
+        }
+      </td>
+    </tr>
+    @if (onSiteVisitReport) {
+      <tr>
+        <td class="bg-neutral-light">
+          Assessments
+        </td>
+        <td class="bg-neutral-light">
+          @for (assessmentReport of onSiteVisitReport.assessmentReports; track assessmentReport) {
+            <fa-icon [icon]="faScrewdriverWrench"></fa-icon>
+            {{assessmentReport.assessment.name}}<br>
+          }
+        </td>
+      </tr>
+    }
+    <!-- <tr>
+    <td>
+      Industrial Equipment
+    </td>
+    <td>
+      <app-single-cell-item
+      [strValue]="assessment.equipmentId | energyEquipmentDisplay: energyEquipments"></app-single-cell-item>
+    </td>
+  </tr> -->
+  @if (assessment) {
+    <tr>
+      <td class="bg-neutral-light">
+        Assessment Type
+      </td>
+      <td class="bg-neutral-light">
+        {{assessment.assessmentType}}
+      </td>
+    </tr>
+    <tr>
+      <td class="bg-neutral-light">
+        Utility Types
+      </td>
+      <td class="bg-neutral-light">
+        @for (utilityType of assessment.utilityEnergyUses; track utilityType) {
+          @if (utilityType.include) {
+            {{utilityType.utilityType}}<br>
+          }
+        }
+      </td>
+    </tr>
+  }
+</tbody>
 </table>
