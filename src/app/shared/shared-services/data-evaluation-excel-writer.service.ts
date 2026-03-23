@@ -258,11 +258,11 @@ export class DataEvaluationExcelWriterService {
     this.setCellData(worksheet, 1, 1, '', true, this.COLOR_DARK);
     this.setCellData(worksheet, 2, 1, '', true, this.COLOR_DARK);
     if (this.onSiteVisitReport?.totalRebates) {
-      this.setCellData(worksheet, 1, 2, 'Without NEBs', true, this.COLOR_WITHOUT_NEBS_DARK);
+      this.setCellData(worksheet, 1, 2, 'Without MBs', true, this.COLOR_WITHOUT_NEBS_DARK);
       this.setCellData(worksheet, 1, 3, '', true, this.COLOR_WITHOUT_NEBS_DARK);
       this.setCellData(worksheet, 1, 4, '', true, this.COLOR_WITHOUT_NEBS_DARK);
       worksheet.mergeCells(1, 2, 1, 4);
-      this.setCellData(worksheet, 1, 5, 'With NEBs', true, this.COLOR_WITH_NEBS_DARK);
+      this.setCellData(worksheet, 1, 5, 'With MBs', true, this.COLOR_WITH_NEBS_DARK);
       this.setCellData(worksheet, 1, 6, '', true, this.COLOR_WITH_NEBS_DARK);
       this.setCellData(worksheet, 1, 7, '', true, this.COLOR_WITH_NEBS_DARK);
       worksheet.mergeCells(1, 5, 1, 7);
@@ -311,10 +311,10 @@ export class DataEvaluationExcelWriterService {
     else {
       this.setCellData(worksheet, 1, 2, '', true, this.COLOR_DARK);
       worksheet.mergeCells(1, 1, 1, 2);
-      this.setCellData(worksheet, 1, 3, 'Without NEBs', true, this.COLOR_WITHOUT_NEBS_DARK);
+      this.setCellData(worksheet, 1, 3, 'Without MBs', true, this.COLOR_WITHOUT_NEBS_DARK);
       this.setCellData(worksheet, 1, 4, '', true, this.COLOR_WITHOUT_NEBS_DARK);
       worksheet.mergeCells(1, 3, 1, 4);
-      this.setCellData(worksheet, 1, 5, 'With NEBs', true, this.COLOR_WITH_NEBS_DARK);
+      this.setCellData(worksheet, 1, 5, 'With MBs', true, this.COLOR_WITH_NEBS_DARK);
       this.setCellData(worksheet, 1, 6, '', true, this.COLOR_WITH_NEBS_DARK);
       worksheet.mergeCells(1, 5, 1, 6);
 
@@ -565,8 +565,8 @@ export class DataEvaluationExcelWriterService {
   setPaybackPeriodComparisonWorksheet(worksheet4: ExcelJS.Worksheet, assessmentReport: AssessmentReport) {
     let indexRow = 1;
     this.setCellData(worksheet4, 1, 1, '', true, this.COLOR_DARK);
-    this.setCellData(worksheet4, 1, 2, 'Without NEBs', true, this.COLOR_WITHOUT_NEBS_DARK);
-    this.setCellData(worksheet4, 1, 3, 'With NEBs', true, this.COLOR_WITH_NEBS_DARK);
+    this.setCellData(worksheet4, 1, 2, 'Without MBs', true, this.COLOR_WITHOUT_NEBS_DARK);
+    this.setCellData(worksheet4, 1, 3, 'With MBs', true, this.COLOR_WITH_NEBS_DARK);
 
     if (assessmentReport.totalRebates) {
       indexRow = indexRow + 1;
@@ -633,8 +633,8 @@ export class DataEvaluationExcelWriterService {
     let indexRow = 2;
     this.setCellData(worksheet5, 1, 1, '', true, this.COLOR_DARK);
     this.setCellData(worksheet5, 2, 1, '', true, this.COLOR_DARK);
-    this.setCellData(worksheet5, 1, 2, 'Without NEBs', true, this.COLOR_WITHOUT_NEBS_DARK);
-    this.setCellData(worksheet5, 1, 3, 'With NEBs', true, this.COLOR_WITH_NEBS_DARK);
+    this.setCellData(worksheet5, 1, 2, 'Without MBs', true, this.COLOR_WITHOUT_NEBS_DARK);
+    this.setCellData(worksheet5, 1, 3, 'With MBs', true, this.COLOR_WITH_NEBS_DARK);
     this.setCellData(worksheet5, 1, 4, '', true, this.COLOR_WITH_NEBS_DARK);
     worksheet5.mergeCells(1, 3, 1, 4);
 
@@ -680,14 +680,14 @@ export class DataEvaluationExcelWriterService {
   setImpactOnAnnualCostsWorksheet(worksheet6: ExcelJS.Worksheet, assessmentReport: AssessmentReport) {
     let indexRow = 2;
     this.setCellData(worksheet6, 1, 1, '', true, this.COLOR_DARK);
-    this.setCellData(worksheet6, 1, 2, 'Without NEBs', true, this.COLOR_WITHOUT_NEBS_DARK);
-    this.setCellData(worksheet6, 1, 3, 'With NEBs', true, this.COLOR_WITH_NEBS_DARK);
+    this.setCellData(worksheet6, 1, 2, 'Without MBs', true, this.COLOR_WITHOUT_NEBS_DARK);
+    this.setCellData(worksheet6, 1, 3, 'With MBs', true, this.COLOR_WITH_NEBS_DARK);
     this.setCellData(worksheet6, 1, 4, '', true, this.COLOR_WITH_NEBS_DARK);
     worksheet6.mergeCells(1, 3, 1, 4);
 
     this.setCellData(worksheet6, 2, 1, '', true, this.COLOR_DARK);
     this.setCellData(worksheet6, 2, 2, 'Energy Cost Savings (' + this.currencySymbol + '/yr)', true, this.COLOR_WITHOUT_NEBS_DARK);
-    this.setCellData(worksheet6, 2, 3, 'NEBs Financial Impact (' + this.currencySymbol + '/yr)', true, this.COLOR_WITH_NEBS_DARK);
+    this.setCellData(worksheet6, 2, 3, 'MBs Financial Impact (' + this.currencySymbol + '/yr)', true, this.COLOR_WITH_NEBS_DARK);
     this.setCellData(worksheet6, 2, 4, 'Total Financial Impact (' + this.currencySymbol + '/yr)', true, this.COLOR_WITH_NEBS_DARK);
 
     assessmentReport.energyOpportunityReports.forEach(opportunityReport => {
@@ -703,7 +703,7 @@ export class DataEvaluationExcelWriterService {
 
     if (assessmentReport.totalAssessmentNebFinancialImpact) {
       indexRow = indexRow + 1;
-      this.setCellData(worksheet6, indexRow, 1, 'Additional NEBs', false, this.COLOR_LIGHT);
+      this.setCellData(worksheet6, indexRow, 1, 'Additional MBs', false, this.COLOR_LIGHT);
       this.setCellData(worksheet6, indexRow, 2, '\u2014', false, this.COLOR_WITHOUT_NEBS);
       this.setCellData(worksheet6, indexRow, 3, assessmentReport.totalAssessmentNebFinancialImpact ? assessmentReport.totalAssessmentNebFinancialImpact : '\u2014', false, this.COLOR_WITH_NEBS);
       worksheet6.getCell(indexRow, 3).numFmt = `"${this.currencySymbol}"#,##0.00`;
@@ -732,11 +732,11 @@ export class DataEvaluationExcelWriterService {
     this.setCellData(worksheet7, 1, 1, '', true, this.COLOR_DARK);
     this.setCellData(worksheet7, 2, 1, '', true, this.COLOR_DARK);
     if (assessmentReport.totalRebates) {
-      this.setCellData(worksheet7, 1, 2, 'Without NEBs', true, this.COLOR_WITHOUT_NEBS_DARK);
+      this.setCellData(worksheet7, 1, 2, 'Without MBs', true, this.COLOR_WITHOUT_NEBS_DARK);
       this.setCellData(worksheet7, 1, 3, '', true, this.COLOR_WITHOUT_NEBS_DARK);
       this.setCellData(worksheet7, 1, 4, '', true, this.COLOR_WITHOUT_NEBS_DARK);
       worksheet7.mergeCells(1, 2, 1, 4);
-      this.setCellData(worksheet7, 1, 5, 'With NEBs', true, this.COLOR_WITH_NEBS_DARK);
+      this.setCellData(worksheet7, 1, 5, 'With MBs', true, this.COLOR_WITH_NEBS_DARK);
       this.setCellData(worksheet7, 1, 6, '', true, this.COLOR_WITH_NEBS_DARK);
       this.setCellData(worksheet7, 1, 7, '', true, this.COLOR_WITH_NEBS_DARK);
       worksheet7.mergeCells(1, 5, 1, 7);
@@ -767,7 +767,7 @@ export class DataEvaluationExcelWriterService {
 
       if (assessmentReport.totalAssessmentNebFinancialImpact || assessmentReport.totalNonOpportunityRebates) {
         index = index + 1;
-        this.setCellData(worksheet7, index, 1, 'Additional NEBs/Incentives', false, this.COLOR_LIGHT);
+        this.setCellData(worksheet7, index, 1, 'Additional MBs/Incentives', false, this.COLOR_LIGHT);
         this.setCellData(worksheet7, index, 2, '\u2014', false, this.COLOR_WITHOUT_NEBS);
         this.setCellData(worksheet7, index, 3, '\u2014', false, this.COLOR_WITHOUT_NEBS);
         this.setCellData(worksheet7, index, 4, '\u2014', false, this.COLOR_WITHOUT_NEBS);
@@ -804,10 +804,10 @@ export class DataEvaluationExcelWriterService {
     else {
       this.setCellData(worksheet7, 1, 2, '', true, this.COLOR_DARK);
       worksheet7.mergeCells(1, 1, 1, 2);
-      this.setCellData(worksheet7, 1, 3, 'Without NEBs', true, this.COLOR_WITHOUT_NEBS_DARK);
+      this.setCellData(worksheet7, 1, 3, 'Without MBs', true, this.COLOR_WITHOUT_NEBS_DARK);
       this.setCellData(worksheet7, 1, 4, '', true, this.COLOR_WITHOUT_NEBS_DARK);
       worksheet7.mergeCells(1, 3, 1, 4);
-      this.setCellData(worksheet7, 1, 5, 'With NEBs', true, this.COLOR_WITH_NEBS_DARK);
+      this.setCellData(worksheet7, 1, 5, 'With MBs', true, this.COLOR_WITH_NEBS_DARK);
       this.setCellData(worksheet7, 1, 6, '', true, this.COLOR_WITH_NEBS_DARK);
       worksheet7.mergeCells(1, 5, 1, 6);
 
@@ -834,7 +834,7 @@ export class DataEvaluationExcelWriterService {
 
       if (assessmentReport.totalAssessmentNebFinancialImpact || assessmentReport.totalNonOpportunityRebates) {
         index = index + 1;
-        this.setCellData(worksheet7, index, 1, 'Additional NEBs/Incentives', false, this.COLOR_LIGHT);
+        this.setCellData(worksheet7, index, 1, 'Additional MBs/Incentives', false, this.COLOR_LIGHT);
         this.setCellData(worksheet7, index, 2, '\u2014', false, this.COLOR_LIGHT);
         this.setCellData(worksheet7, index, 3, '\u2014', false, this.COLOR_WITHOUT_NEBS);
         this.setCellData(worksheet7, index, 4, '\u2014', false, this.COLOR_WITHOUT_NEBS);
@@ -985,7 +985,7 @@ export class DataEvaluationExcelWriterService {
     this.setBoldStyle(worksheet9, indexRow, 2);
 
     indexRow = indexRow + 1;
-    worksheet9.getCell(indexRow, 1).value = 'Total Financial Impact W/ NEBs';
+    worksheet9.getCell(indexRow, 1).value = 'Total Financial Impact W/ MBs';
     this.setBoldStyle(worksheet9, indexRow, 1);
     worksheet9.getCell(indexRow, 2).value = assessmentReport.totalFinancialImpact ? assessmentReport.totalFinancialImpact : '\u2014';
     worksheet9.getCell(indexRow, 2).numFmt = `"${this.currencySymbol}"#,##0.00`;

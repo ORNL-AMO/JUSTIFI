@@ -1,77 +1,85 @@
 @if (report) {
-  <div [ngClass]="{'setup-wizard-content': !print}">
-    <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
-      <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
-        <div [ngClass]="{'form-paper shadow': !print}">
-          @if (!print) {
-            <div class="d-flex w-100 justify-content-between">
-              <div>
-                <h5>
-                  <fa-icon [icon]="faFilePen"></fa-icon> {{report.name}}
-                </h5>
-              </div>
-            </div>
-            <hr class="my-1">
-            <nav class="navbar">
-              <ul class="nav nav-tabs">
-                <li class="nav-item">
-                  <a class="nav-link" [routerLink]="'options'" [routerLinkActive]="['active']">Options</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" [routerLink]="'results'" [routerLinkActive]="['active']">Report</a>
-                </li>
-              </ul>
-            </nav>
-          }
-          <div class="pt-2">
-            <router-outlet></router-outlet>
+<div [ngClass]="{'setup-wizard-content': !print}">
+  <div [ngClass]="{'row g-0 justify-content-center h-100 w-100 overflow-scroll': !print}">
+    <div [ngClass]="{'col-11 col-md-10 pt-4 pb-4': !print}">
+      <div [ngClass]="{'form-paper shadow': !print}">
+        @if (!print) {
+        <div class="d-flex w-100 justify-content-between">
+          <div>
+            <h5>
+              <fa-icon [icon]="faFilePen"></fa-icon> {{report.name}}
+            </h5>
           </div>
+        </div>
+        <hr class="my-1">
+        <nav class="navbar">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'options'" [routerLinkActive]="['active']">Options</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'results'" [routerLinkActive]="['active']">Report</a>
+            </li>
+          </ul>
+        </nav>
+        }
+        <div class="pt-2">
+          <router-outlet></router-outlet>
         </div>
       </div>
     </div>
   </div>
+</div>
 }
 @if (!print) {
-  <nav class="setup-wizard-footer navbar shadow">
-    <div class="container-fluid justify-content-between">
-      <button class="btn nav-btn btn-sm" (click)="goBack()">
-        <fa-icon [icon]="faChevronLeft"></fa-icon>
-        @if (isFirstReport) {
-          <span class="d-none d-md-inline"> Manage Custom Reports</span>
-        }
-        @if (!isFirstReport) {
-          <span class="d-none d-md-inline"> Previous Report</span>
-        }
+<nav class="setup-wizard-footer navbar shadow">
+  <div class="container-fluid justify-content-between">
+    <button class="btn nav-btn btn-sm" (click)="goBack()">
+      <fa-icon [icon]="faChevronLeft"></fa-icon>
+      @if (isFirstReport) {
+      <span class="d-none d-md-inline"> Manage Custom Reports</span>
+      }
+      @if (!isFirstReport) {
+      <span class="d-none d-md-inline"> Previous Report</span>
+      }
+    </button>
+    <div>
+      <button class="btn btn-success btn-sm" (click)="togglePrint()" [disabled]="disableButtons">
+        <fa-icon [icon]="faFilePdf"></fa-icon>
+        <span class="d-none d-md-inline">
+          Generate PDF
+        </span>
       </button>
-      <div>
-        <button class="btn btn-success btn-sm me-2" (click)="togglePrint()">
-          <fa-icon [icon]="faFilePdf"></fa-icon>
-          <span class="d-none d-md-inline">
-            Generate PDF
-          </span>
-        </button>
-        <button class="btn btn-success btn-sm" (click)="exportToExcel()">
-          <fa-icon [icon]="faFileExcel"></fa-icon>
-          <span class="d-none d-md-inline">
-            Export to Excel
-          </span>
-        </button>
-      </div>
-      @if (!isLastReport) {
-        <button class="btn nav-btn btn-sm" (click)="goToNext()">
-          <span class="d-none d-md-inline">
-            Next Report
-          </span>
-          <fa-icon [icon]="faChevronRight"></fa-icon>
-        </button>
-      } @else {
-        <button class="btn nav-btn btn-sm" (click)="goToPortfolio()">
-          <fa-icon [icon]="faFolderOpen"></fa-icon>
-          <span class="d-none d-md-inline">
-            Go To Portfolio
-          </span>
-        </button>
+      <button class="btn btn-success btn-sm ms-1 me-1" (click)="generatePowerPoint()" [disabled]="disableButtons">
+        <fa-icon [icon]="faFilePowerpoint"></fa-icon>
+        <span class="d-none d-md-inline">
+          Generate PowerPoint
+        </span>
+      </button>
+      @if(report.reportType == 'assessment'){
+      <button class="btn btn-success btn-sm" (click)="exportToExcel()" [disabled]="disableButtons">
+        <fa-icon [icon]="faFileExcel"></fa-icon>
+        <span class="d-none d-md-inline">
+          Export to Excel
+        </span>
+      </button>
       }
     </div>
-  </nav>
+    @if (!isLastReport) {
+    <button class="btn nav-btn btn-sm" (click)="goToNext()">
+      <span class="d-none d-md-inline">
+        Next Report
+      </span>
+      <fa-icon [icon]="faChevronRight"></fa-icon>
+    </button>
+    } @else {
+    <button class="btn nav-btn btn-sm" (click)="goToPortfolio()">
+      <fa-icon [icon]="faFolderOpen"></fa-icon>
+      <span class="d-none d-md-inline">
+        Go To Portfolio
+      </span>
+    </button>
+    }
+  </div>
+</nav>
 }

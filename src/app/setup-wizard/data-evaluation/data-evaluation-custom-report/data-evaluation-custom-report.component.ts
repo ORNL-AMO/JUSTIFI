@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { faChevronLeft, faChevronRight, faFileExcel, faFilePdf, faFilePen, faFolderOpen, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { faChevronLeft, faChevronRight, faFileExcel, faFilePdf, faFilePen, faFilePowerpoint, faFolderOpen, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
@@ -26,6 +26,7 @@ export class DataEvaluationCustomReportComponent {
   faFilePdf: IconDefinition = faFilePdf;
   faFolderOpen: IconDefinition = faFolderOpen;
   faFileExcel: IconDefinition = faFileExcel;
+  faFilePowerpoint: IconDefinition = faFilePowerpoint;
 
   onSiteVisit: IdbOnSiteVisit;
   onSiteVisitSub: Subscription;
@@ -40,6 +41,9 @@ export class DataEvaluationCustomReportComponent {
   isFirstReport: boolean;
 
   assessments: Array<IdbAssessment>;
+
+  disableButtons: boolean = true;
+  routerSub: Subscription;
   constructor(private router: Router, private reportIdbService: ReportIdbService,
     private activatedRoute: ActivatedRoute,
     private onSiteVisitIdbService: OnSiteVisitIdbService,
@@ -80,11 +84,19 @@ export class DataEvaluationCustomReportComponent {
     });
 
     this.assessments = this.assessmentIdbService.assessments.getValue();
+
+    this.routerSub = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.disableButtons = this.router.url.includes('options')
+      }
+    });
   }
 
   ngOnDestroy() {
     this.onSiteVisitSub.unsubscribe();
     this.reportSub.unsubscribe();
+    this.printSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   goBack() {
@@ -133,5 +145,10 @@ export class DataEvaluationCustomReportComponent {
     this.sharedDataService.exportReportToExcel.next('custom_report');
     this.dataEvaluationExcelWriterService.exportCustomReportToExcel(this.report, this.onSiteVisit, this.assessments);
     this.sharedDataService.exportReportToExcel.next(undefined);
+  }
+
+  generatePowerPoint(){
+    this.sharedDataService.createPowerPoint.next(true);
+    this.sharedDataService.createPowerPoint.next(false);
   }
 }
