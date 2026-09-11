@@ -24,12 +24,12 @@ JUSTIFI is an Angular 21 application packaged for both web and desktop use. The 
 
 Top-level routes include welcome, NEBs database, about, feedback, acknowledgments, setup wizard, and portfolio views.
 
-Setup wizard routes are grouped by visit ID:
+Setup wizard routes are grouped under the `setup-wizard` parent by visit ID:
 
-- `pre-visit/:id`
-- `data-collection/:id`
-- `data-evaluation/:id`
-- `upload-template/:id`
+- `setup-wizard/pre-visit/:id`
+- `setup-wizard/data-collection/:id`
+- `setup-wizard/data-evaluation/:id`
+- `setup-wizard/upload-template/:id`
 
 Portfolio routes are grouped by entity:
 

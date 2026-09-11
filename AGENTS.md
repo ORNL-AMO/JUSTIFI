@@ -13,6 +13,14 @@ JUSTIFI is an Angular/Electron application from ORNL-AMO for identifying, estima
 
 Start with [README.md](README.md) for setup and commands, [CONTRIBUTING.md](CONTRIBUTING.md) for branch/PR expectations, and [CODING_STYLE.md](CODING_STYLE.md) for coding conventions.
 
+Contributor workflow quick reference:
+
+- Branch from `develop` for ordinary issue work; use `issue-xxx[-description]`, `fix-xxx[-description]`, or `epic-xxx[-description]` naming from `CONTRIBUTING.md`.
+- Most PRs target `develop`; only core maintainers should target release branches.
+- Reference the GitHub issue in the branch or PR and keep the PR scoped to that issue.
+- Update docs when behavior, commands, data contracts, or durable guidance changes.
+- Prefer focused tests or checks while developing; rely on PR CI/CD for full-suite validation unless broad or high-risk changes justify local `npm run test-ci`.
+
 ## Architecture Map
 
 - Angular entry points: `src/main.ts`, `src/app/app.module.ts`, and `src/app/routing/`.

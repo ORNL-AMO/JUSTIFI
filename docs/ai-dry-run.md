@@ -1,8 +1,8 @@
 # AI Dry Run
 
-This dry run validates that the new agent guidance is usable without changing application behavior.
+This records a documentation-only dry run performed after adding the agent guidance. It validates that the new guidance is usable without changing application behavior.
 
-## Scenario
+## Task
 
 Prompt used:
 
@@ -10,25 +10,29 @@ Prompt used:
 Use the new JUSTIFI agent guidance to scope a small documentation-only maintenance task: verify where an agent should start before changing report/export behavior and identify the likely verification command.
 ```
 
-## Expected Agent Path
+## Steps Performed
 
-An agent should:
+The dry run followed the same path expected from a development agent:
 
-- start with `AGENTS.md`
-- read `docs/architecture.md`, `docs/data-model.md`, and `docs/testing.md`
-- identify `src/app/shared/reports/`, shared export services, backup/import components, and `src/assets/template-files/` as relevant report/export areas
-- avoid runtime edits because the task is documentation-only
-- choose docs/link review as required verification and reserve `npm run test-ci` for broad or high-risk code changes
+- Started with `AGENTS.md`.
+- Followed links to `docs/architecture.md`, `docs/data-model.md`, and `docs/testing.md`.
+- Checked report/export guidance against `src/app/shared/reports/`, shared export services, backup/import components, and `src/assets/template-files/`.
+- Confirmed the task was documentation-only and did not require runtime edits.
+- Selected docs/link review as the required verification path.
+- Reserved `npm run test-ci` for broad or high-risk code changes rather than this documentation-only task.
+- Ran documentation-oriented validations for this branch: `git diff --check`, frontmatter parsing for instruction and skill files, and YAML parsing for the agent-task issue template.
 
-## Result
+## Observed Output
 
-The new guidance provides enough context to:
+The guidance gave enough context to:
 
 - identify the report/export feature area
 - distinguish documentation-only work from runtime behavior changes
 - find relevant domain and persistence risks
 - select verification based on the actual change type
 - prepare PR notes covering scope, docs, tests, and residual risk
+
+The selected verification stayed focused: Markdown/YAML/frontmatter checks for docs and templates, with no Angular test run because no runtime code changed.
 
 ## Gaps Found
 

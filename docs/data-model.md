@@ -1,6 +1,6 @@
 # JUSTIFI Data Model
 
-JUSTIFI stores user data in IndexedDB using interfaces in `src/app/models/`. Most persisted records extend `IdbEntry`, which provides the common database ID, GUID, user ID, created date, and modified date fields.
+JUSTIFI stores user data in IndexedDB using interfaces in `src/app/models/`. Most persisted records extend `IdbEntry`, which provides the common database `id`, stable `guid`, `createdDate`, and `modifiedDate`. Many concrete models add `userId` themselves; inspect the specific interface before assuming ownership fields.
 
 ## Core Entities
 
@@ -25,7 +25,7 @@ JUSTIFI uses GUID fields for cross-entity relationships. Do not assume numeric I
 
 Common relationship anchors:
 
-- `userId` ties records to the active user.
+- Where present, `userId` ties records to the active user; it is declared on concrete models rather than `IdbEntry`.
 - `companyId` ties most records to a company GUID.
 - `facilityId` ties facility-scoped records to a facility GUID.
 - `assessmentId` ties opportunity, NEB, KPM impact, and report options to an assessment GUID.
@@ -54,7 +54,7 @@ Important option areas include:
 
 ## Report Options
 
-`IdbReport` stores selected report sections through `ReportOption` records. The `ReportOptionType` union currently covers assessment, energy opportunity, non-energy benefit, and KPM impact options.
+`IdbReport` stores selected report sections in inline arrays of `ReportOption` objects. The `ReportOptionType` union currently covers assessment, energy opportunity, non-energy benefit, and KPM impact options. These options are part of the persisted `report` store record, not separate IndexedDB stores or services.
 
 When changing reports, preserve the relationship between saved report options and the entities they reference.
 
