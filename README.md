@@ -39,7 +39,7 @@ This project is built with the **Angular** framework (TypeScript) and uses **Ele
 ## 🚀 Getting Started
 
 - **Node.js:** See [`package.json`](./package.json) for the supported version. Download from [nodejs.org](https://nodejs.org/en/download).
-- **Angular CLI:** Project generated with [Angular CLI](https://github.com/angular/angular-cli) v16.2.8 (regularly updated).
+- **Angular CLI:** See [`package.json`](./package.json) for the supported version. This branch currently uses Angular CLI 21.2.1.
 
 ### Install & Run
 

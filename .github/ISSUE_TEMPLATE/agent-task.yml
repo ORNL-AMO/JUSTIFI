@@ -1,0 +1,67 @@
+name: Agent-ready task
+description: Scope a task so AI agents and maintainers can implement and review it safely.
+title: "[Agent Task]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for tasks expected to be implemented or reviewed with AI agent assistance.
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What user-visible or maintainer-visible outcome should this task produce?
+      placeholder: Describe the expected behavior or documentation outcome.
+    validations:
+      required: true
+  - type: textarea
+    id: affected-workflows
+    attributes:
+      label: Affected workflows
+      description: Which JUSTIFI workflows or areas are affected?
+      placeholder: Setup wizard, portfolio dashboard, reports, backup/import, release packaging, docs, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What should be included, and what should stay out of scope?
+      placeholder: Include expected files, routes, services, docs, or explicit exclusions.
+    validations:
+      required: true
+  - type: dropdown
+    id: data-impact
+    attributes:
+      label: Data or persistence impact
+      options:
+        - None expected
+        - Reads existing data only
+        - Changes persisted model shape
+        - Changes IndexedDB schema or migration
+        - Changes backup/import/export behavior
+        - Unsure
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification plan
+      description: What should the implementer test or review?
+      placeholder: npm run test-ci, focused spec, manual UI workflow, docs link review, package build, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks and review notes
+      description: Call out migration, report, release, accessibility, or user-data risks.
+      placeholder: Note any high-risk areas or suggested personas from docs/ai-personas.md.
+  - type: textarea
+    id: agent-prompt
+    attributes:
+      label: Suggested agent prompt
+      description: Optional prompt to hand to an AI agent. See docs/agent-task-prompts.md for examples.
+      placeholder: Paste or adapt a prompt here.
