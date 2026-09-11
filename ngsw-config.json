@@ -11,6 +11,8 @@
           "/index.csr.html",
           "/index.html",
           "/manifest.webmanifest",
+          "/robots.txt",
+          "/sitemap.xml",
           "/*.css",
           "/*.js"
         ]

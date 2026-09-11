@@ -6,7 +6,7 @@ JUSTIFI is an Angular 21 application packaged for both web and desktop use. The 
 
 - `src/main.ts` bootstraps Angular.
 - `src/app/app.module.ts` wires the root NgModule, shared feature modules, IndexedDB, Plotly, service worker registration, and app-level providers.
-- `src/app/routing/app-routing.module.ts` defines top-level routes with hash routing and view transitions.
+- `src/app/routing/app-routing.module.ts` defines top-level routes with clean web URLs, file-protocol hash routing for Electron compatibility, view transitions, and route-level SEO metadata.
 - `main.js` creates the Electron `BrowserWindow`, loads `dist/browser/index.html`, wires update events, and handles external links. For ordinary Angular feature work, treat this as packaging infrastructure unless Electron-specific behavior is explicitly in scope.
 - `preload.js` is the Electron preload boundary.
 
@@ -22,7 +22,7 @@ JUSTIFI is an Angular 21 application packaged for both web and desktop use. The 
 
 ## Routing Shape
 
-Top-level routes include welcome, NEBs database, about, feedback, acknowledgments, setup wizard, and portfolio views.
+Top-level routes include home, NEBs database, about, feedback, acknowledgments, setup wizard, and portfolio views.
 
 Setup wizard routes are grouped under the `setup-wizard` parent by visit ID:
 
@@ -79,6 +79,8 @@ The same Angular app is built for web and Electron:
 - `npm run build-prod` builds a web production app with `/` as base href.
 - `npm run build-prod-electron` builds a production app for Electron with relative base href.
 - `npm run dist` packages native installers through `electron-builder`.
+
+The hosted web app uses clean Angular URLs and requires server fallback routing to `index.html`. Electron/file-protocol execution keeps hash routing so local packaged builds can navigate without a web server. See [SEO And Google Search Console](seo-and-search-console.md) for sitemap, crawler metadata, and hosting requirements.
 
 Electron-specific update behavior is in `main.js` and `src/app/electron/`. Web service worker behavior is configured through `ServiceWorkerModule.register()` and `ngsw-config.json`.
 

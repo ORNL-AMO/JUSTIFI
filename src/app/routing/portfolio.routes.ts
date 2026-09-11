@@ -37,11 +37,15 @@ import { FacilityReportComponent } from "../user-portfolio/facility-dashboard/fa
 import { CustomReportOptionsComponent } from "../shared/reports/custom-reports/custom-report-options/custom-report-options.component";
 import { CustomReportComponent } from "../shared/reports/custom-reports/custom-report/custom-report.component";
 import { ManageOnSiteVisitsComponent } from "../user-portfolio/facility-dashboard/manage-on-site-visits/manage-on-site-visits.component";
+import { NO_INDEX_SEO_ROUTE_DATA } from "../shared/constants/seoRouteData";
 
 
 export const PortfolioRoutes: Route = {
     path: 'portfolio',
     component: UserPortfolioComponent,
+    data: {
+        seo: NO_INDEX_SEO_ROUTE_DATA
+    },
     children: [
         {
             path: '',
