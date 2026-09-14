@@ -7,7 +7,8 @@ JUSTIFI ships as a web app and as native Electron installers. The Electron layer
 Key scripts from `package.json`:
 
 - `npm run start`: local Angular dev server with no HMR.
-- `npm run build`: Angular build with `--base-href .`.
+- `npm run build`: Angular web build with `--base-href /`.
+- `npm run build-electron`: Angular Electron development build with `--base-href .`.
 - `npm run build-prod`: production web build with `--base-href /`.
 - `npm run build-prod-electron`: production Angular build with `--base-href .`.
 - `npm run build-watch`: watch build for Electron development.
@@ -40,6 +41,10 @@ Workflow files live under `.github/workflows/`.
 - `release_web.yml` builds and deploys the web app for `develop` and `master`.
 - `release_desktop.yml` builds desktop release artifacts on `master`.
 - Utility workflows handle project and mirror automation.
+
+The web release workflow uses root base href builds so clean Angular URLs can load assets correctly after a direct
+navigation or refresh. Develop web deployments replace the production `robots.txt` with `src/robots.dev.txt` to block
+crawlers from indexing the staging deployment.
 
 Note: `CONTRIBUTING.md` describes `main` and `develop`, while current workflows use `develop` and `master`. This document records current repository behavior; it does not change branch policy.
 

@@ -75,7 +75,8 @@ Export/import related assets and services include:
 
 The same Angular app is built for web and Electron:
 
-- `npm run build` builds with `--base-href .` for Electron-compatible relative paths.
+- `npm run build` builds a web app with `/` as base href.
+- `npm run build-electron` builds with `--base-href .` for Electron-compatible relative paths.
 - `npm run build-prod` builds a web production app with `/` as base href.
 - `npm run build-prod-electron` builds a production app for Electron with relative base href.
 - `npm run dist` packages native installers through `electron-builder`.

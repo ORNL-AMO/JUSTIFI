@@ -42,6 +42,9 @@ JUSTIFI already loads Google Analytics from `src/index.html` with the `gtag.js` 
 
 If Google Analytics verification fails, add the exact Search Console verification file or meta tag provided by Google.
 
+The production deployment serves `src/robots.txt`, which references the production sitemap. The develop deployment
+replaces it with `src/robots.dev.txt` during the web release workflow so staging routes are not crawled or indexed.
+
 After deployment, submit:
 
 ```text
@@ -70,4 +73,3 @@ These URLs should return static content, not the Angular app shell:
 
 - `https://justifi.ornl.gov/sitemap.xml`
 - `https://justifi.ornl.gov/robots.txt`
-

@@ -78,7 +78,7 @@ This project is built with the **Angular** framework (TypeScript) and uses **Ele
 ## 🏗️ Build
 
 - Build artifacts: `/dist` directory
-- Electron build:
+- Web build:
     ```bash
     npm run build
     ```
@@ -89,6 +89,10 @@ This project is built with the **Angular** framework (TypeScript) and uses **Ele
 - Production Electron build:
     ```bash
     npm run build-prod-electron
+    ```
+- Electron development build:
+    ```bash
+    npm run build-electron
     ```
 
 ---

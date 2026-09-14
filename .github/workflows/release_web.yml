@@ -35,7 +35,10 @@ jobs:
         run: npm install
       - name: Build [DEV]
         if: github.ref_name == 'develop'
-        run: npm run build
+        run: npm run build-prod
+      - name: Block Crawlers [DEV]
+        if: github.ref_name == 'develop'
+        run: cp src/robots.dev.txt dist/browser/robots.txt
       - name: Build [PROD]
         if: github.ref_name == 'master'
         run: npm run build-prod

@@ -12,7 +12,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --no-hmr",
-    "build": "ng build --base-href .",
+    "build": "ng build --base-href /",
+    "build-electron": "ng build --base-href .",
     "build-prod": "ng build --configuration production --base-href /",
     "build-prod-electron": "ng build --configuration production --base-href .",
     "build-watch": "ng build --base-href . --watch",
