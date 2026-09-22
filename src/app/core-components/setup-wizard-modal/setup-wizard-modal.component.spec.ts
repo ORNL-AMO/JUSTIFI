@@ -58,7 +58,7 @@ describe('SetupWizardModalComponent', () => {
     const visit = getVisit('woodruff-visit', ['boiler-assessment']);
     const onSiteVisitIdbService = TestBed.inject(OnSiteVisitIdbService);
     const router = TestBed.inject(Router);
-    onSiteVisitIdbService.getByGuid = jasmine.createSpy('getByGuid').and.returnValue(visit);
+    const getByGuidSpy = spyOn(onSiteVisitIdbService, 'getByGuid').and.returnValue(visit);
     const navigateSpy = spyOn(router, 'navigateByUrl').and.resolveTo(true);
     component.selectedCompanyGuid = '123';
     component.selectedFacilityGuid = '123';
@@ -67,7 +67,7 @@ describe('SetupWizardModalComponent', () => {
 
     await component.confirmCreate();
 
-    expect(onSiteVisitIdbService.getByGuid).toHaveBeenCalledOnceWith('woodruff-visit');
+    expect(getByGuidSpy).toHaveBeenCalledOnceWith('woodruff-visit');
     expect(navigateSpy).toHaveBeenCalledOnceWith(
       '/setup-wizard/data-collection/woodruff-visit/assessment/boiler-assessment'
     );
