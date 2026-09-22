@@ -6,7 +6,8 @@ JUSTIFI uses Jasmine/Karma through Angular CLI.
 
 - `npm run test`: runs Angular tests in watch mode.
 - `npm run test-ci`: runs tests once with `ChromeHeadless`.
-- `npm run build`: web/Electron-compatible build with relative base href.
+- `npm run build`: web build with root base href.
+- `npm run build-electron`: Electron development build with relative base href.
 - `npm run build-prod`: production web build.
 - `npm run build-prod-electron`: production Electron-targeted Angular build.
 
