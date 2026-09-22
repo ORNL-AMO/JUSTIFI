@@ -69,53 +69,59 @@
                     Just click the "<fa-icon [icon]="faWandMagicSparkles"></fa-icon>" button.
                   </p>
                   @if ((onSiteVisits | filterArchivedVisits: facilities)?.length > 0) {
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>
-                            Company
-                          </th>
-                          <th>
-                            Facility
-                          </th>
-                          <th>
-                            Visit Date
-                          </th>
-                          <th>
-                            Last Modified
-                          </th>
-                          <th class="actions">
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @for (visit of onSiteVisits | filterArchivedVisits: facilities; track visit) {
+                    <div class="w-100 overflow-scroll-x">
+                      <table class="table table-bordered">
+                        <thead>
                           <tr>
-                            <td>
-                              <a [routerLink]="'/portfolio/company/'+visit.companyId">
-                                {{visit.companyId | companyName: companies}}
-                              </a>
-                            </td>
-                            <td>
-                              <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
-                                {{visit.facilityId | facilityName: facilities}}
-                              </a>
-                            </td>
-                            <td>
-                              {{visit.visitDate | date}}
-                            </td>
-                            <td>
-                              {{visit.modifiedDate | date}}
-                            </td>
-                            <th class="actions">
-                              <button class="btn btn-outline-success p-1" (click)="goToVisit(visit)">
-                                <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
-                              </button>
-                            </th>
+                            <th>Company</th>
+                            <th>Facility</th>
+                            <th>Assessments</th>
+                            <th>Visit Date</th>
+                            <th>Last Modified</th>
+                            <th class="actions"></th>
                           </tr>
-                        }
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          @for (visit of onSiteVisits | filterArchivedVisits: facilities; track visit) {
+                            @let visitAssessments = visit.assessmentIds | assessmentListOnSite: assessments;
+                            <tr>
+                              <td>
+                                <a [routerLink]="'/portfolio/company/'+visit.companyId">
+                                  {{visit.companyId | companyName: companies}}
+                                </a>
+                              </td>
+                              <td>
+                                <a [routerLink]="'/portfolio/facility/'+visit.facilityId">
+                                  {{visit.facilityId | facilityName: facilities}}
+                                </a>
+                              </td>
+                              <td class="visit-assessments">
+                                @if (visitAssessments.length > 0) {
+                                  @for (assessment of visitAssessments; track assessment.guid) {
+                                    <div>{{assessment.name}}</div>
+                                  }
+                                } @else {
+                                  <span class="text-muted">No assessments found</span>
+                                }
+                              </td>
+                              <td>
+                                {{visit.visitDate | date}}
+                              </td>
+                              <td>
+                                {{visit.modifiedDate | date}}
+                              </td>
+                              <td class="actions">
+                                <button class="btn btn-outline-success p-1" (click)="goToVisit(visit)"
+                                  aria-label="Open visit in setup wizard"
+                                  title="Open visit in setup wizard">
+                                  <fa-icon [icon]="faWandMagicSparkles"></fa-icon>
+                                </button>
+                              </td>
+                            </tr>
+                          }
+                        </tbody>
+                      </table>
+                    </div>
                   } @else {
                     <div class="alert alert-warning p-2">
                       No visits found. Use the setup wizard to add your first on site visit.
