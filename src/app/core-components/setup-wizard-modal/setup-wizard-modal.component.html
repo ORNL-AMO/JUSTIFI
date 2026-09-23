@@ -62,9 +62,18 @@
                     <option [ngValue]="undefined">Setup New Visit</option>
                     <optgroup label="Existing Visits">
                       @for (onSiteVisit of (selectedFacilityGuid | onSiteVisitList:onSiteVisits); track onSiteVisit) {
+                        @let visitAssessments = onSiteVisit.assessmentIds | assessmentListOnSite: assessments;
                         <option
                           [ngValue]="onSiteVisit.guid">
-                        {{onSiteVisit.visitDate| date}}</option>
+                          {{onSiteVisit.visitDate | date}} &mdash;
+                          @if (visitAssessments.length > 0) {
+                            @for (assessment of visitAssessments; track assessment.guid; let last = $last) {
+                              {{assessment.name}}{{last ? '' : ', '}}
+                            }
+                          } @else {
+                            No assessments found
+                          }
+                        </option>
                       }
                     </optgroup>
                   </select>

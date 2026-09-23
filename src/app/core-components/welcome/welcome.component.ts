@@ -17,6 +17,8 @@ import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import { Router } from '@angular/router';
 import { ToastNotificationsService } from '../toast-notifications/toast-notifications.service';
 import { UpdateDbEntriesService } from 'src/app/indexed-db/update-db-entries.service';
+import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
+import { IdbAssessment } from 'src/app/models/assessment';
 
 @Component({
   selector: 'app-welcome',
@@ -53,6 +55,9 @@ export class WelcomeComponent {
   companies: Array<IdbCompany>;
   companiesSub: Subscription;
 
+  assessments: Array<IdbAssessment>;
+  assessmentsSub: Subscription;
+
   showAddExampleModal: boolean = false;
   showAddCanopyModal: boolean = false;
   constructor(private userIdbService: UserIdbService,
@@ -65,7 +70,8 @@ export class WelcomeComponent {
     private dbChangesService: DbChangesService,
     private toastNotificationService: ToastNotificationsService,
     private router: Router,
-    private updateDbEntriesService: UpdateDbEntriesService
+    private updateDbEntriesService: UpdateDbEntriesService,
+    private assessmentIdbService: AssessmentIdbService
   ) {
 
   }
@@ -86,13 +92,18 @@ export class WelcomeComponent {
 
     this.companiesSub = this.companyIdbService.companies.subscribe(companies => {
       this.companies = companies;
-    })
+    });
+
+    this.assessmentsSub = this.assessmentIdbService.assessments.subscribe(assessments => {
+      this.assessments = assessments;
+    });
   }
 
   ngOnDestroy() {
     this.onSiteVisitSub.unsubscribe();
     this.facilitiesSub.unsubscribe();
     this.companiesSub.unsubscribe();
+    this.assessmentsSub.unsubscribe();
     this.userSub.unsubscribe();
   }
 

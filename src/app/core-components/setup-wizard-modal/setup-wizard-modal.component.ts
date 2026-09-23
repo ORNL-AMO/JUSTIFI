@@ -13,6 +13,8 @@ import { IdbUser } from 'src/app/models/user';
 // import * as XLSX from 'xlsx';
 import { ParseExcelTemplateService } from 'src/app/shared/shared-services/parse-excel-template.service';
 import * as ExcelJS from 'exceljs';
+import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
+import { IdbAssessment } from 'src/app/models/assessment';
 
 @Component({
   selector: 'app-setup-wizard-modal',
@@ -35,6 +37,9 @@ export class SetupWizardModalComponent {
   onSiteVisits: Array<IdbOnSiteVisit>;
   onSiteVisitSub: Subscription;
 
+  assessments: Array<IdbAssessment>;
+  assessmentsSub: Subscription;
+
   selectedOnSiteVisitGuid: string;
   selectedOnSiteVisitSub: Subscription;
 
@@ -54,7 +59,8 @@ export class SetupWizardModalComponent {
     private onSiteVisitIdbService: OnSiteVisitIdbService,
     private sharedDataService: SharedDataService,
     private userIdbService: UserIdbService,
-    private parseExcelTemplateService: ParseExcelTemplateService) {
+    private parseExcelTemplateService: ParseExcelTemplateService,
+    private assessmentIdbService: AssessmentIdbService) {
   }
 
   ngOnInit() {
@@ -93,6 +99,10 @@ export class SetupWizardModalComponent {
       this.onSiteVisits = _onSiteVisits;
     });
 
+    this.assessmentsSub = this.assessmentIdbService.assessments.subscribe(_assessments => {
+      this.assessments = _assessments;
+    });
+
     this.selectedOnSiteVisitSub = this.onSiteVisitIdbService.selectedVisit.subscribe(_onSiteVisit => {
       if (_onSiteVisit) {
         this.selectedOnSiteVisitGuid = _onSiteVisit.guid;
@@ -100,6 +110,17 @@ export class SetupWizardModalComponent {
         this.selectedOnSiteVisitGuid = undefined;
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.createAssessmentSub.unsubscribe();
+    this.companiesSub.unsubscribe();
+    this.selectedCompanySub.unsubscribe();
+    this.facilitiesSub.unsubscribe();
+    this.selectedFacilitySub.unsubscribe();
+    this.onSiteVisitSub.unsubscribe();
+    this.assessmentsSub.unsubscribe();
+    this.selectedOnSiteVisitSub.unsubscribe();
   }
 
   closeCreateNewModal() {
