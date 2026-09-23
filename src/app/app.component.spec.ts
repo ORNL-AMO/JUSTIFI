@@ -11,14 +11,42 @@ import { FeedbackPageComponent } from './core-components/feedback-page/feedback-
 import { stubServiceProviders } from './spec-helpers/spec-test-service-stub';
 import { ExportBackupModalComponent } from './core-components/backup-modal/export-backup-modal/export-backup-modal.component';
 import { ExportBackupTreeComponent } from './core-components/backup-modal/export-backup-modal/export-backup-tree/export-backup-tree.component';
+import { FormsModule } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { EmailListSubscribeComponent } from './core-components/email-list-subscribe/email-list-subscribe.component';
+import {
+  EmailListSubscribeService,
+  EmailSubscriptionStatus
+} from './core-components/email-list-subscribe/email-list-subscribe.service';
 
 describe('AppComponent', () => {
 
   beforeEach(() => {
+    const submittedStatus = new BehaviorSubject<EmailSubscriptionStatus>(undefined);
+    const emailListSubscribeService = jasmine.createSpyObj<EmailListSubscribeService>(
+      'EmailListSubscribeService',
+      ['checkEmailValid', 'submitSubscriberEmail'],
+      { submittedStatus }
+    );
+
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FontAwesomeModule],
-      declarations: [AppComponent, NavbarComponent, WelcomeComponent, LoadingComponent, SetupWizardModalComponent, ImportBackupModalComponent, FeedbackPageComponent, ExportBackupModalComponent, ExportBackupTreeComponent],
-      providers: stubServiceProviders
+      imports: [RouterTestingModule, FontAwesomeModule, FormsModule],
+      declarations: [
+        AppComponent,
+        NavbarComponent,
+        WelcomeComponent,
+        LoadingComponent,
+        SetupWizardModalComponent,
+        ImportBackupModalComponent,
+        FeedbackPageComponent,
+        ExportBackupModalComponent,
+        ExportBackupTreeComponent,
+        EmailListSubscribeComponent
+      ],
+      providers: [
+        ...stubServiceProviders,
+        { provide: EmailListSubscribeService, useValue: emailListSubscribeService }
+      ]
     })
   });
 

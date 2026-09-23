@@ -206,5 +206,21 @@ export interface EventParameters {
   kpm_impact_name?: string
 }
 
-export type AnalyticsEventString = 'page_view' | 'justifi_app_open' | 'add_kpi' | 'add_neb' | 'add_kpm' | 'add_assessment' | 'add_contact' | 'add_energy_equipment' | 'add_process_equipment' | 'add_energy_opportunity' | 'add_on_site_visit' | 'add_report' | 'add_company' | 'add_facility' | 'add_kpm_impact';
+export type AnalyticsEventString =
+  'page_view'
+  | 'justifi_app_open'
+  | 'add_kpi'
+  | 'add_neb'
+  | 'add_kpm'
+  | 'add_assessment'
+  | 'add_contact'
+  | 'add_energy_equipment'
+  | 'add_process_equipment'
+  | 'add_energy_opportunity'
+  | 'add_on_site_visit'
+  | 'add_report'
+  | 'add_company'
+  | 'add_facility'
+  | 'add_kpm_impact'
+  | 'email-list-subscribe';
 export type JustifiPlatformString = 'justifi-desktop' | 'justifi-web';
