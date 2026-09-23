@@ -12,16 +12,32 @@ import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { FacilityIdbService } from 'src/app/indexed-db/facility-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { EmailListSubscribeComponent } from '../email-list-subscribe/email-list-subscribe.component';
+import {
+  EmailListSubscribeService,
+  EmailSubscriptionStatus
+} from '../email-list-subscribe/email-list-subscribe.service';
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
   let fixture: ComponentFixture<WelcomeComponent>;
 
   beforeEach(() => {
+    const submittedStatus = new BehaviorSubject<EmailSubscriptionStatus>(undefined);
+    const emailListSubscribeService = jasmine.createSpyObj<EmailListSubscribeService>(
+      'EmailListSubscribeService',
+      ['checkEmailValid', 'submitSubscriberEmail'],
+      { submittedStatus }
+    );
+
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, FontAwesomeModule, FormsModule, HelperPipesModule],
-      declarations: [WelcomeComponent],
-      providers: stubServiceProviders
+      declarations: [WelcomeComponent, EmailListSubscribeComponent],
+      providers: [
+        ...stubServiceProviders,
+        { provide: EmailListSubscribeService, useValue: emailListSubscribeService }
+      ]
     });
     fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
@@ -30,6 +46,12 @@ describe('WelcomeComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display the email list signup in the resources column', () => {
+    const resourcesColumn = fixture.nativeElement.querySelector('.welcome-resources');
+
+    expect(resourcesColumn.querySelector('app-email-list-subscribe')).not.toBeNull();
   });
 
   it('should display the assessments associated with each visit', () => {
