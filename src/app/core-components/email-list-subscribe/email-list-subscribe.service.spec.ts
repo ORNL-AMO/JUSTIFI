@@ -35,7 +35,7 @@ describe('EmailListSubscribeService', () => {
     expect(service.checkEmailValid(' person@example.com ')).toBeUndefined();
   });
 
-  [200, 201].forEach(status => {
+  [200, 201, 204, 299].forEach(status => {
     it(`should submit an email and set success for HTTP ${status}`, () => {
       let completed = false;
 
@@ -55,7 +55,7 @@ describe('EmailListSubscribeService', () => {
 
       expect(completed).toBeTrue();
       expect(service.submittedStatus.value).toBe('success');
-      expect(analyticsService.sendEvent).toHaveBeenCalledOnceWith('email-list-subscribe');
+      expect(analyticsService.sendEvent).toHaveBeenCalledOnceWith('email_list_subscribe');
     });
   });
 

@@ -51,8 +51,8 @@ export class EmailListSubscribeService {
       { ...this.httpOptions, observe: 'response' as const }
     ).pipe(
       tap((response: HttpResponse<SubscriberResponse>) => {
-        if (response.status === 200 || response.status === 201) {
-          this.analyticsService.sendEvent('email-list-subscribe');
+        if (response.status >= 200 && response.status < 300) {
+          this.analyticsService.sendEvent('email_list_subscribe');
           this.submittedStatus.next('success');
         } else {
           this.submittedStatus.next('error');

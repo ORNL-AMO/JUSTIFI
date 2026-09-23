@@ -38,6 +38,18 @@ describe('EmailListSubscribeComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should reset stale submission status for a new component instance', () => {
+    submittedStatus.next('success');
+    fixture.destroy();
+
+    const newFixture = TestBed.createComponent(EmailListSubscribeComponent);
+    newFixture.detectChanges();
+
+    expect(submittedStatus.value).toBeUndefined();
+    expect(newFixture.nativeElement.querySelector('form')).not.toBeNull();
+    newFixture.destroy();
+  });
+
   it('should block blank and invalid email addresses', () => {
     component.subscriberEmail = 'not-an-email';
     component.submitSubscriber();

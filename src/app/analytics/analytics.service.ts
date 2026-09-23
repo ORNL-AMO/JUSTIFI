@@ -222,5 +222,5 @@ export type AnalyticsEventString =
   | 'add_company'
   | 'add_facility'
   | 'add_kpm_impact'
-  | 'email-list-subscribe';
+  | 'email_list_subscribe';
 export type JustifiPlatformString = 'justifi-desktop' | 'justifi-web';

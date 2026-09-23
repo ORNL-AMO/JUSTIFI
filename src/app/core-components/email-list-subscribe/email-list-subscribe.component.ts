@@ -15,6 +15,10 @@ export class EmailListSubscribeComponent {
   subscriberEmail = '';
   invalidEmailMessage = '';
 
+  ngOnInit(): void {
+    this.emailListSubscribeService.submittedStatus.next(undefined);
+  }
+
   checkValid(): void {
     this.invalidEmailMessage = this.emailListSubscribeService.checkEmailValid(
       this.subscriberEmail.trim()
