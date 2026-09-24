@@ -68,21 +68,54 @@
                     Below is a list of the latest visits conducted in JUSTIFI so you can jump back in.
                     Just click the "<fa-icon [icon]="faWandMagicSparkles"></fa-icon>" button.
                   </p>
-                  @if ((onSiteVisits | filterArchivedVisits: facilities)?.length > 0) {
+                  @let filteredVisits = onSiteVisits | filterArchivedVisits: facilities;
+                  @if (filteredVisits.length > 0) {
                     <div class="w-100 overflow-scroll-x">
                       <table class="table table-bordered">
                         <thead>
                           <tr>
-                            <th>Company</th>
-                            <th>Facility</th>
-                            <th>Assessments</th>
-                            <th>Visit Date</th>
-                            <th>Last Modified</th>
+                            <th [attr.aria-sort]="getAriaSort('company')">
+                              <button type="button" class="sort-button" data-sort-column="company"
+                                [attr.aria-label]="getSortButtonLabel('Company', 'company')"
+                                (click)="setSortColumn('company')">
+                                <span>Company</span>
+                              </button>
+                            </th>
+                            <th [attr.aria-sort]="getAriaSort('facility')">
+                              <button type="button" class="sort-button" data-sort-column="facility"
+                                [attr.aria-label]="getSortButtonLabel('Facility', 'facility')"
+                                (click)="setSortColumn('facility')">
+                                <span>Facility</span>
+                              </button>
+                            </th>
+                            <th [attr.aria-sort]="getAriaSort('assessments')">
+                              <button type="button" class="sort-button" data-sort-column="assessments"
+                                [attr.aria-label]="getSortButtonLabel('Assessments', 'assessments')"
+                                (click)="setSortColumn('assessments')">
+                                <span>Assessments</span>
+                              </button>
+                            </th>
+                            <th [attr.aria-sort]="getAriaSort('visitDate')">
+                              <button type="button" class="sort-button" data-sort-column="visitDate"
+                                [attr.aria-label]="getSortButtonLabel('Visit Date', 'visitDate')"
+                                (click)="setSortColumn('visitDate')">
+                                <span>Visit Date</span>
+                              </button>
+                            </th>
+                            <th [attr.aria-sort]="getAriaSort('modifiedDate')">
+                              <button type="button" class="sort-button" data-sort-column="modifiedDate"
+                                [attr.aria-label]="getSortButtonLabel('Last Modified', 'modifiedDate')"
+                                (click)="setSortColumn('modifiedDate')">
+                                <span>Last Modified</span>
+                              </button>
+                            </th>
                             <th class="actions"></th>
                           </tr>
                         </thead>
                         <tbody>
-                          @for (visit of onSiteVisits | filterArchivedVisits: facilities; track visit) {
+                          @for (visit of filteredVisits
+                            | slice: ((currentPageNumber - 1) * itemsPerPage): currentPageNumber * itemsPerPage;
+                            track visit.guid) {
                             @let visitAssessments = visit.assessmentIds | assessmentListOnSite: assessments;
                             <tr>
                               <td>
@@ -121,6 +154,12 @@
                           }
                         </tbody>
                       </table>
+                    </div>
+                    <div class="d-flex justify-content-end pt-2">
+                      <app-table-pagination [pageNumber]="currentPageNumber"
+                        [collectionSize]="filteredVisits.length" [itemsPerPage]="itemsPerPage"
+                        (emitPageNumber)="setCurrentPageNumber($event)">
+                      </app-table-pagination>
                     </div>
                   } @else {
                     <div class="alert alert-warning p-2">
