@@ -4,6 +4,7 @@ import { IdbAssessment } from '../models/assessment';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { guidType } from '../shared/constants/guidTypes';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class AssessmentIdbService {
   assessments: BehaviorSubject<Array<IdbAssessment>>;
   selectedAssessment: BehaviorSubject<IdbAssessment>;
   constructor(private dbService: NgxIndexedDBService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.assessments = new BehaviorSubject<Array<IdbAssessment>>([]);
     this.selectedAssessment = new BehaviorSubject<IdbAssessment>(undefined);
@@ -34,16 +36,16 @@ export class AssessmentIdbService {
 
   addWithObservable(assessment: IdbAssessment): Observable<IdbAssessment> {
     this.analyticsService.sendEvent('add_assessment', undefined);
-    return this.dbService.add('assessment', assessment);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.add('assessment', assessment));
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    return this.dbService.delete('assessment', id);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.delete('assessment', id));
   }
 
   updateWithObservable(assessment: IdbAssessment): Observable<IdbAssessment> {
     assessment.modifiedDate = new Date();
-    return this.dbService.update('assessment', assessment);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.update('assessment', assessment));
   }
 
   setSelectedFromGUID(guid: string): boolean {

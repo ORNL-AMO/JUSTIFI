@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IdbCompany, getNewIdbCompany } from '../models/company';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class CompanyIdbService {
   companies: BehaviorSubject<Array<IdbCompany>>;
   selectedCompany: BehaviorSubject<IdbCompany>;
   constructor(private dbService: NgxIndexedDBService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.companies = new BehaviorSubject<Array<IdbCompany>>([]);
     this.selectedCompany = new BehaviorSubject<IdbCompany>(undefined);
@@ -33,16 +35,16 @@ export class CompanyIdbService {
 
   addWithObservable(company: IdbCompany): Observable<IdbCompany> {
     this.analyticsService.sendEvent('add_company', undefined);
-    return this.dbService.add('company', company);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.add('company', company));
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    return this.dbService.delete('company', id);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.delete('company', id));
   }
 
   updateWithObservable(company: IdbCompany): Observable<IdbCompany> {
     company.modifiedDate = new Date();
-    return this.dbService.update('company', company);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.update('company', company));
   }
 
   setSelectedFromGUID(guid: string): boolean {

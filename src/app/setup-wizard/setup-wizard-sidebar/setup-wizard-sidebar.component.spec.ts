@@ -7,6 +7,7 @@ import { HelperPipesModule } from 'src/app/shared/helper-pipes/_helper-pipes.mod
 import { stubServiceProviders } from 'src/app/spec-helpers/spec-test-service-stub';
 import { NavItemActivePipe } from './nav-item-active.pipe';
 import { FormsModule } from '@angular/forms';
+import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 
 describe('SetupWizardSidebarComponent', () => {
   let component: SetupWizardSidebarComponent;
@@ -27,5 +28,18 @@ describe('SetupWizardSidebarComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should toggle the reports sidebar without performing a normal visit update', async () => {
+    const onSiteVisitIdbService = TestBed.inject(OnSiteVisitIdbService);
+    onSiteVisitIdbService.updateSidebarReportsOpen = jasmine.createSpy().and.resolveTo();
+    const expectedSidebarState = !component.onSiteVisit.sidebarReportsOpen;
+
+    await component.toggleReportsSidebarOpen();
+
+    expect(onSiteVisitIdbService.updateSidebarReportsOpen).toHaveBeenCalledOnceWith(
+      component.onSiteVisit.guid,
+      expectedSidebarState
+    );
   });
 });
