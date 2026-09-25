@@ -59,4 +59,16 @@ describe('OnSiteVisitActivityService', () => {
 
     expect(onSiteVisitIdbService.touchModifiedDate).not.toHaveBeenCalled();
   });
+
+  it('should preserve a successful operation result when touching the visit fails', async () => {
+    service.setActiveVisit('visit-1');
+    onSiteVisitIdbService.touchModifiedDate.and.rejectWith(new Error('touch failed'));
+    const consoleErrorSpy = spyOn(console, 'error');
+
+    const result = await firstValueFrom(service.trackActivity(of('saved')));
+
+    expect(result).toBe('saved');
+    expect(onSiteVisitIdbService.touchModifiedDate).toHaveBeenCalledOnceWith('visit-1');
+    expect(consoleErrorSpy).toHaveBeenCalled();
+  });
 });

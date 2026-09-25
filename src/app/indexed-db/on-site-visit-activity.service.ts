@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, concatMap, from, map } from 'rxjs';
+import { Observable, catchError, concatMap, from, map, of } from 'rxjs';
 import { OnSiteVisitIdbService } from './on-site-visit-idb.service';
 
 @Injectable({
@@ -28,7 +28,11 @@ export class OnSiteVisitActivityService {
     return operation.pipe(
       concatMap(result => {
         return from(this.onSiteVisitIdbService.touchModifiedDate(visitGuid)).pipe(
-          map(() => result)
+          map(() => result),
+          catchError(error => {
+            console.error(`Unable to update activity timestamp for visit ${visitGuid}.`, error);
+            return of(result);
+          })
         );
       })
     );
