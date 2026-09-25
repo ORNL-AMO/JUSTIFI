@@ -1,6 +1,10 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faAsterisk, faCube, faFileExcel, faFileLines, faRefresh, faSave, faScrewdriverWrench, faSplotch, faUpload, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAsterisk, faChevronLeft, faCube, faFileExcel, faFileLines, faRefresh, faSave, faScrewdriverWrench,
+  faSplotch, faUpload, IconDefinition
+} from '@fortawesome/free-solid-svg-icons';
 import { DbChangesService } from 'src/app/indexed-db/db-changes.service';
 import * as ExcelJS from 'exceljs';
 import { ParseExcelTemplateService } from 'src/app/shared/shared-services/parse-excel-template.service';
@@ -29,6 +33,7 @@ export class UploadTemplateComponent {
   faCube: IconDefinition = faCube;
   faSplotch: IconDefinition = faSplotch;
   faRefresh: IconDefinition = faRefresh;
+  faChevronLeft: IconDefinition = faChevronLeft;
 
   workbook: ExcelJS.Workbook;
   fileUploadError: string = '';
@@ -46,7 +51,8 @@ export class UploadTemplateComponent {
     private dbChangesService: DbChangesService,
     private router: Router,
     private parseExcelTemplateService: ParseExcelTemplateService,
-    private onSiteVisitIdbService: OnSiteVisitIdbService
+    private onSiteVisitIdbService: OnSiteVisitIdbService,
+    private location: Location
   ) {
   }
 
@@ -140,6 +146,10 @@ export class UploadTemplateComponent {
     this.mappedAssessments = [];
     this.assessments = [];
     this.energyEfficiencyMeasures = [];
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }
