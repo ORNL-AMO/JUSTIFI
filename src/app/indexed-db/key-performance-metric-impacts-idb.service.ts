@@ -5,6 +5,7 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { IdbKeyPerformanceIndicator } from '../models/keyPerformanceIndicator';
 import { KeyPerformanceMetric } from '../shared/constants/keyPerformanceMetrics';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class KeyPerformanceMetricImpactsIdbService {
 
   keyPerformanceMetricImpacts: BehaviorSubject<Array<IdbKeyPerformanceMetricImpact>>;
   constructor(private dbService: NgxIndexedDBService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.keyPerformanceMetricImpacts = new BehaviorSubject<Array<IdbKeyPerformanceMetricImpact>>([]);
   }
@@ -33,16 +35,20 @@ export class KeyPerformanceMetricImpactsIdbService {
 
   addWithObservable(keyPerformanceMetricImpact: IdbKeyPerformanceMetricImpact): Observable<IdbKeyPerformanceMetricImpact> {
     this.analyticsService.sendEvent('add_kpm_impact', { kpm_impact_name: keyPerformanceMetricImpact.kpmValue });
-    return this.dbService.add('keyPerformanceMetricImpact', keyPerformanceMetricImpact);
+    return this.onSiteVisitActivityService.trackActivity(
+      this.dbService.add('keyPerformanceMetricImpact', keyPerformanceMetricImpact)
+    );
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    return this.dbService.delete('keyPerformanceMetricImpact', id);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.delete('keyPerformanceMetricImpact', id));
   }
 
   updateWithObservable(keyPerformanceMetricImpact: IdbKeyPerformanceMetricImpact): Observable<IdbKeyPerformanceMetricImpact> {
     keyPerformanceMetricImpact.modifiedDate = new Date();
-    return this.dbService.update('keyPerformanceMetricImpact', keyPerformanceMetricImpact);
+    return this.onSiteVisitActivityService.trackActivity(
+      this.dbService.update('keyPerformanceMetricImpact', keyPerformanceMetricImpact)
+    );
   }
 
   async asyncUpdate(keyPerformanceMetricImpact: IdbKeyPerformanceMetricImpact) {

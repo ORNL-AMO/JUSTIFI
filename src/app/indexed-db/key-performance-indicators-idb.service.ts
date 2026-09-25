@@ -5,6 +5,7 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { getPerformanceMetrics, KeyPerformanceMetric, KeyPerformanceMetricOption } from '../shared/constants/keyPerformanceMetrics';
 import { KeyPerformanceIndicatorOption, KeyPerformanceIndicatorOptions, KeyPerformanceIndicatorValue } from '../shared/constants/keyPerformanceIndicatorOptions';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class KeyPerformanceIndicatorsIdbService {
 
   keyPerformanceIndicators: BehaviorSubject<Array<IdbKeyPerformanceIndicator>>;
   constructor(private dbService: NgxIndexedDBService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.keyPerformanceIndicators = new BehaviorSubject<Array<IdbKeyPerformanceIndicator>>([]);
   }
@@ -33,16 +35,20 @@ export class KeyPerformanceIndicatorsIdbService {
 
   addWithObservable(keyPerformanceIndicator: IdbKeyPerformanceIndicator): Observable<IdbKeyPerformanceIndicator> {
     this.analyticsService.sendEvent('add_kpi', { kpi_name: keyPerformanceIndicator.label });
-    return this.dbService.add('keyPerformanceIndicator', keyPerformanceIndicator);
+    return this.onSiteVisitActivityService.trackActivity(
+      this.dbService.add('keyPerformanceIndicator', keyPerformanceIndicator)
+    );
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    return this.dbService.delete('keyPerformanceIndicator', id);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.delete('keyPerformanceIndicator', id));
   }
 
   updateWithObservable(keyPerformanceIndicator: IdbKeyPerformanceIndicator): Observable<IdbKeyPerformanceIndicator> {
     keyPerformanceIndicator.modifiedDate = new Date();
-    return this.dbService.update('keyPerformanceIndicator', keyPerformanceIndicator);
+    return this.onSiteVisitActivityService.trackActivity(
+      this.dbService.update('keyPerformanceIndicator', keyPerformanceIndicator)
+    );
   }
 
   async asyncUpdate(keyPerformanceIndicator: IdbKeyPerformanceIndicator) {

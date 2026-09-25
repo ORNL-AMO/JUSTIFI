@@ -4,6 +4,7 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { guidType } from '../shared/constants/guidTypes';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class EnergyOpportunityIdbService {
   energyOpportunities: BehaviorSubject<Array<IdbEnergyOpportunity>>;
   selectedEnergyOpportunity: BehaviorSubject<IdbEnergyOpportunity>;
   constructor(private dbService: NgxIndexedDBService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.energyOpportunities = new BehaviorSubject<Array<IdbEnergyOpportunity>>([]);
     this.selectedEnergyOpportunity = new BehaviorSubject<IdbEnergyOpportunity>(undefined);
@@ -34,16 +36,16 @@ export class EnergyOpportunityIdbService {
 
   addWithObservable(energyOpportunity: IdbEnergyOpportunity): Observable<IdbEnergyOpportunity> {
     this.analyticsService.sendEvent('add_energy_opportunity', undefined);
-    return this.dbService.add('energyOpportunity', energyOpportunity);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.add('energyOpportunity', energyOpportunity));
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    return this.dbService.delete('energyOpportunity', id);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.delete('energyOpportunity', id));
   }
 
   updateWithObservable(energyOpportunity: IdbEnergyOpportunity): Observable<IdbEnergyOpportunity> {
     energyOpportunity.modifiedDate = new Date();
-    return this.dbService.update('energyOpportunity', energyOpportunity);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.update('energyOpportunity', energyOpportunity));
   }
 
   setSelectedFromGUID(guid: string): boolean {
