@@ -1,0 +1,14 @@
+name: Clear NPM Cache
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clear-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete all caches
+        run: |
+          gh actions-cache delete --confirm --all
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
