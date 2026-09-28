@@ -23,8 +23,8 @@ jobs:
       - name: Attach SHA to build
         if: github.ref_name == 'develop'
         run: |
-          BUILD_VERSION=$(grep -o -P -m 1 '(?<=version":\s").*(?=")' package.json)
-          sed -i "s/$BUILD_VERSION/$BUILD_VERSION-${GITHUB_SHA::7}/g" package.json
+          BUILD_VERSION=$(node -p "require('./package.json').version")
+          npm version "${BUILD_VERSION}-${GITHUB_SHA::7}" --no-git-tag-version
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
@@ -32,7 +32,7 @@ jobs:
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Build [DEV]
         if: github.ref_name == 'develop'
         run: npm run build-prod
