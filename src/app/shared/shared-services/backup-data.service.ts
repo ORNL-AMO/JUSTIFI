@@ -1,4 +1,4 @@
-import { Injectable, Version } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { CompanyIdbService } from 'src/app/indexed-db/company-idb.service';
 import { ContactIdbService } from 'src/app/indexed-db/contact-idb.service';
@@ -8,7 +8,7 @@ import { KeyPerformanceIndicatorsIdbService } from 'src/app/indexed-db/key-perfo
 import { NonEnergyBenefitsIdbService } from 'src/app/indexed-db/non-energy-benefits-idb.service';
 import { OnSiteVisitIdbService } from 'src/app/indexed-db/on-site-visit-idb.service';
 import { UserIdbService } from 'src/app/indexed-db/user-idb.service';
-import { IdbUser, getNewIdbUser } from 'src/app/models/user';
+import { IdbUser } from 'src/app/models/user';
 import { getGUID, getNewId } from '../helpFunctions';
 import { IdbCompany } from 'src/app/models/company';
 import { IdbFacility } from 'src/app/models/facility';
@@ -18,7 +18,7 @@ import { IdbAssessment } from 'src/app/models/assessment';
 import { IdbKeyPerformanceIndicator } from 'src/app/models/keyPerformanceIndicator';
 import { IdbNonEnergyBenefit } from 'src/app/models/nonEnergyBenefit';
 import { IdbOnSiteVisit } from 'src/app/models/onSiteVisit';
-import { Observable, first, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { LoadingService } from 'src/app/core-components/loading/loading.service';
 import { environment } from 'src/environments/environment';
 import * as semver from 'semver';
@@ -29,6 +29,8 @@ import { EnergyEquipmentIdbService } from 'src/app/indexed-db/energy-equipment-i
 import { KeyPerformanceMetricImpactsIdbService } from 'src/app/indexed-db/key-performance-metric-impacts-idb.service';
 import { IdbKeyPerformanceMetricImpact } from 'src/app/models/keyPerformanceMetricImpact';
 import { ExportTreeNode, getSelectedExportGuids, SelectedExportGuids } from 'src/app/core-components/backup-modal/export-backup-modal/exportTree';
+import { ReportIdbService } from 'src/app/indexed-db/report-idb.service';
+import { IdbReport, ReportOption } from 'src/app/models/report';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +50,8 @@ export class BackupDataService {
     private loadingService: LoadingService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
-    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService
+    private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
+    private reportIdbService: ReportIdbService
   ) { }
 
   backupData(exportFileName: string, exportTree: ExportTreeNode[]): void {
@@ -78,8 +81,13 @@ export class BackupDataService {
     const selectedFacilities: Array<IdbFacility> = facilities.filter(facility =>
       selectedExportGuids.facilityGuids.includes(facility.guid));
     const onSiteVisits: Array<IdbOnSiteVisit> = this.onSiteVisitIdbService.onSiteVisits.getValue();
-    const selectedOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits.filter(visit =>
-      selectedExportGuids.visitGuids.includes(visit.guid));
+    const selectedOnSiteVisits: Array<IdbOnSiteVisit> = onSiteVisits
+      .filter(visit => selectedExportGuids.visitGuids.includes(visit.guid))
+      .map(visit => ({
+        ...visit,
+        assessmentIds: visit.assessmentIds.filter(assessmentId =>
+          selectedExportGuids.assessmentGuids.includes(assessmentId))
+      }));
     const assessments: Array<IdbAssessment> = this.assessmentIdbService.assessments.getValue();
     const selectedAssessments: Array<IdbAssessment> = assessments.filter(assessment =>
       selectedExportGuids.assessmentGuids.includes(assessment.guid));
@@ -94,15 +102,29 @@ export class BackupDataService {
     const selectedKeyPerformanceIndicators: Array<IdbKeyPerformanceIndicator> = this.keyPerformanceIndicatorsIdbService.keyPerformanceIndicators.getValue()
       .filter(kpi => kpi.facilityId && selectedExportGuids.facilityGuids.includes(kpi.facilityId));
     // 3. related to assessment
-    selectedOnSiteVisits.forEach(visit => {
-      visit.assessmentIds = visit.assessmentIds.filter(assessmentId => selectedExportGuids.assessmentGuids.includes(assessmentId));
-    });
     const selectedEnergyOpportunities: Array<IdbEnergyOpportunity> = this.energyOpportunityIdbService.energyOpportunities.getValue()
       .filter(energyOpportunity => energyOpportunity.assessmentId && selectedExportGuids.assessmentGuids.includes(energyOpportunity.assessmentId));
     const selectedNonEnergyBenefits: Array<IdbNonEnergyBenefit> = this.nonEnergyBenefitsIdbService.nonEnergyBenefits.getValue()
       .filter(nonEnergyBenefit => nonEnergyBenefit.assessmentId && selectedExportGuids.assessmentGuids.includes(nonEnergyBenefit.assessmentId));
     const selectedKeyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact> = this.keyPerformanceMetricImpactIdbService.keyPerformanceMetricImpacts.getValue()
       .filter(kpmImpact => kpmImpact.assessmentId && selectedExportGuids.assessmentGuids.includes(kpmImpact.assessmentId));
+    const selectedEnergyOpportunityGuids = new Set(selectedEnergyOpportunities.map(energyOpportunity => energyOpportunity.guid));
+    const selectedNonEnergyBenefitGuids = new Set(selectedNonEnergyBenefits.map(nonEnergyBenefit => nonEnergyBenefit.guid));
+    const selectedKpmImpactGuids = new Set(selectedKeyPerformanceMetricImpacts.map(kpmImpact => kpmImpact.guid));
+    const selectedReports: Array<IdbReport> = this.reportIdbService.reports.getValue()
+      .filter(report => selectedExportGuids.visitGuids.includes(report.onSiteVisitId))
+      .map(report => ({
+        ...report,
+        assessmentOptions: this.filterReportOptions(report.assessmentOptions,
+          option => selectedExportGuids.assessmentGuids.includes(option.assessmentId)),
+        energyOpportunityOptions: this.filterReportOptions(report.energyOpportunityOptions,
+          option => selectedEnergyOpportunityGuids.has(option.energyOpportunityId)),
+        nonEnergyBenefitOptions: this.filterReportOptions(report.nonEnergyBenefitOptions,
+          option => selectedNonEnergyBenefitGuids.has(option.nonEnergyBenefitId)),
+        kpmImpactOptions: this.filterReportOptions(report.kpmImpactOptions,
+          option => selectedKpmImpactGuids.has(option.kpmImpactId)),
+        assessmentReportOptions: { ...report.assessmentReportOptions }
+      }));
 
     let backupFile: BackupFile = {
       user: selectedUser,
@@ -117,6 +139,7 @@ export class BackupDataService {
       energyEquipment: selectedEnergyEquipment,
       processEquipment: selectedProcessEquipment,
       keyPerformanceMetricImpacts: selectedKeyPerformanceMetricImpacts,
+      reports: selectedReports,
       origin: "JUSTIFI",
       version: environment.version,
       backupFileType: "User",
@@ -124,6 +147,12 @@ export class BackupDataService {
       dataBackupId: getGUID()
     }
     return backupFile;
+  }
+
+  private filterReportOptions(options: Array<ReportOption>, includeOption: (option: ReportOption) => boolean): Array<ReportOption> {
+    return (options ?? [])
+      .filter(includeOption)
+      .map(option => ({ ...option }));
   }
 
   // Add backup file data to the userGuid
@@ -450,6 +479,49 @@ export class BackupDataService {
 
       await firstValueFrom(this.keyPerformanceMetricImpactIdbService.addWithObservable(keyPerformanceMetricImpact));
     }
+
+    // Add reports after all entities referenced by report options have been assigned new GUIDs.
+    this.loadingService.setLoadingMessage('Adding Reports...');
+    const reports: Array<IdbReport> = backupFile.reports ?? [];
+    for (let i = 0; i < reports.length; i++) {
+      const report: IdbReport = reports[i];
+      report.guid = getGUID();
+      delete report.id;
+      report.userId = userGUIDs.newId;
+      report.companyId = getNewId(report.companyId, companyGUIDs);
+      report.facilityId = getNewId(report.facilityId, facilityGUIDs);
+      report.onSiteVisitId = getNewId(report.onSiteVisitId, onSiteVisitGUIDs);
+      report.assessmentOptions = (report.assessmentOptions ?? []).map(option => ({
+        ...option,
+        assessmentId: getNewId(option.assessmentId, assessmentGUIDs)
+      }));
+      report.energyOpportunityOptions = (report.energyOpportunityOptions ?? []).map(option => ({
+        ...option,
+        assessmentId: getNewId(option.assessmentId, assessmentGUIDs),
+        energyOpportunityId: getNewId(option.energyOpportunityId, energyOpportunityGUIDs)
+      }));
+      report.nonEnergyBenefitOptions = (report.nonEnergyBenefitOptions ?? []).map(option => ({
+        ...option,
+        assessmentId: getNewId(option.assessmentId, assessmentGUIDs),
+        energyOpportunityId: option.energyOpportunityId
+          ? getNewId(option.energyOpportunityId, energyOpportunityGUIDs)
+          : undefined,
+        nonEnergyBenefitId: getNewId(option.nonEnergyBenefitId, nonEnergyBenefitGUIDs)
+      }));
+      report.kpmImpactOptions = (report.kpmImpactOptions ?? []).map(option => ({
+        ...option,
+        assessmentId: getNewId(option.assessmentId, assessmentGUIDs),
+        energyOpportunityId: option.energyOpportunityId
+          ? getNewId(option.energyOpportunityId, energyOpportunityGUIDs)
+          : undefined,
+        nonEnergyBenefitId: option.nonEnergyBenefitId
+          ? getNewId(option.nonEnergyBenefitId, nonEnergyBenefitGUIDs)
+          : undefined,
+        kpmImpactId: getNewId(option.kpmImpactId, kpmImpactGUIDs)
+      }));
+      await firstValueFrom(this.reportIdbService.addWithObservable(report));
+    }
+    await this.reportIdbService.setReports();
     return backupFile;
   }
 
@@ -734,7 +806,7 @@ export interface BackupFile {
   energyEquipment: Array<IdbEnergyEquipment>,
   processEquipment: Array<IdbProcessEquipment>,
   keyPerformanceMetricImpacts: Array<IdbKeyPerformanceMetricImpact>,
-  //TODO: Backup Reports..
+  reports?: Array<IdbReport>,
   origin: "JUSTIFI",
   version: string,
   backupFileType: "User" | "Company" | "Facility",
