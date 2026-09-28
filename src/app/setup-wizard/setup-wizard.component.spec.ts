@@ -10,6 +10,7 @@ import { NavItemActivePipe } from './setup-wizard-sidebar/nav-item-active.pipe';
 import { AssociatedContactsModule } from '../shared/associated-contacts/associated-contacts.module';
 import { SetupWizardSidePanelModule } from './setup-wizard-side-panel/setup-wizard-side-panel.module';
 import { FormsModule } from '@angular/forms';
+import { OnSiteVisitActivityService } from '../indexed-db/on-site-visit-activity.service';
 
 describe('SetupWizardComponent', () => {
   let component: SetupWizardComponent;
@@ -31,5 +32,14 @@ describe('SetupWizardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should clear active visit tracking when destroyed', () => {
+    const activityService = TestBed.inject(OnSiteVisitActivityService);
+    const clearActiveVisitSpy = spyOn(activityService, 'clearActiveVisit');
+
+    component.ngOnDestroy();
+
+    expect(clearActiveVisitSpy).toHaveBeenCalled();
   });
 });

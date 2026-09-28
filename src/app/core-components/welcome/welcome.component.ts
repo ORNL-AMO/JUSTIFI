@@ -20,6 +20,9 @@ import { UpdateDbEntriesService } from 'src/app/indexed-db/update-db-entries.ser
 import { AssessmentIdbService } from 'src/app/indexed-db/assessment-idb.service';
 import { IdbAssessment } from 'src/app/models/assessment';
 
+type VisitSortColumn = 'company' | 'facility' | 'assessments' | 'visitDate' | 'modifiedDate';
+type SortDirection = 'asc' | 'desc';
+
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -58,6 +61,11 @@ export class WelcomeComponent {
   assessments: Array<IdbAssessment>;
   assessmentsSub: Subscription;
 
+  readonly itemsPerPage: number = 5;
+  currentPageNumber: number = 1;
+  sortColumn: VisitSortColumn = 'modifiedDate';
+  sortDirection: SortDirection = 'desc';
+
   showAddExampleModal: boolean = false;
   showAddCanopyModal: boolean = false;
   constructor(private userIdbService: UserIdbService,
@@ -81,21 +89,23 @@ export class WelcomeComponent {
       this.user = user;
     });
     this.onSiteVisitSub = this.onSiteVisitIdbService.onSiteVisits.subscribe(visits => {
-      this.onSiteVisits = _.orderBy(visits, (visit: IdbOnSiteVisit) => {
-        return new Date(visit.modifiedDate);
-      }, 'desc').slice(0, 5);
+      this.onSiteVisits = [...visits];
+      this.sortVisits();
     });
 
     this.facilitiesSub = this.facilityIdbService.facilities.subscribe(facilities => {
       this.facilities = facilities;
+      this.sortVisits();
     });
 
     this.companiesSub = this.companyIdbService.companies.subscribe(companies => {
       this.companies = companies;
+      this.sortVisits();
     });
 
     this.assessmentsSub = this.assessmentIdbService.assessments.subscribe(assessments => {
       this.assessments = assessments;
+      this.sortVisits();
     });
   }
 
@@ -120,6 +130,72 @@ export class WelcomeComponent {
     this.facilityIdbService.setSelectedFromGUID(visit.facilityId);
     this.onSiteVisitIdbService.setSelectedFromGUID(visit.guid);
     this.router.navigateByUrl('/setup-wizard/pre-visit/' + visit.guid);
+  }
+
+  setCurrentPageNumber(pageNumber: number) {
+    this.currentPageNumber = pageNumber;
+  }
+
+  setSortColumn(sortColumn: VisitSortColumn) {
+    if (this.sortColumn === sortColumn) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = sortColumn;
+      this.sortDirection = 'asc';
+    }
+
+    this.sortVisits();
+  }
+
+  sortVisits() {
+    if (!this.onSiteVisits) {
+      return;
+    }
+
+    this.onSiteVisits = _.orderBy(
+      this.onSiteVisits,
+      (visit: IdbOnSiteVisit) => this.getVisitSortValue(visit),
+      this.sortDirection
+    );
+    this.currentPageNumber = 1;
+  }
+
+  getAriaSort(sortColumn: VisitSortColumn): 'ascending' | 'descending' | null {
+    if (this.sortColumn !== sortColumn) {
+      return null;
+    }
+
+    return this.sortDirection === 'asc' ? 'ascending' : 'descending';
+  }
+
+  getSortButtonLabel(label: string, sortColumn: VisitSortColumn): string {
+    const nextDirection = this.sortColumn === sortColumn && this.sortDirection === 'asc'
+      ? 'descending'
+      : 'ascending';
+    return `Sort by ${label}, ${nextDirection}`;
+  }
+
+  private getVisitSortValue(visit: IdbOnSiteVisit): string | number {
+    if (this.sortColumn === 'company') {
+      const company = this.companies?.find(item => item.guid === visit.companyId);
+      return company?.generalInformation.name.toLocaleLowerCase() || '';
+    }
+
+    if (this.sortColumn === 'facility') {
+      const facility = this.facilities?.find(item => item.guid === visit.facilityId);
+      return facility?.generalInformation.name.toLocaleLowerCase() || '';
+    }
+
+    if (this.sortColumn === 'assessments') {
+      return visit.assessmentIds
+        .map(assessmentId => this.assessments?.find(assessment => assessment.guid === assessmentId)?.name || '')
+        .sort()
+        .join(' ')
+        .toLocaleLowerCase();
+    }
+
+    const dateValue = this.sortColumn === 'visitDate' ? visit.visitDate : visit.modifiedDate;
+    return new Date(dateValue).getTime();
   }
 
   openAddExampleModal() {

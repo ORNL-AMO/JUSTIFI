@@ -18,6 +18,7 @@ import {
   EmailListSubscribeService,
   EmailSubscriptionStatus
 } from '../email-list-subscribe/email-list-subscribe.service';
+import { TablePaginationModule } from 'src/app/shared/table-pagination/table-pagination.module';
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
@@ -32,7 +33,7 @@ describe('WelcomeComponent', () => {
     );
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FontAwesomeModule, FormsModule, HelperPipesModule],
+      imports: [RouterTestingModule, FontAwesomeModule, FormsModule, HelperPipesModule, TablePaginationModule],
       declarations: [WelcomeComponent, EmailListSubscribeComponent],
       providers: [
         ...stubServiceProviders,
@@ -108,6 +109,20 @@ describe('WelcomeComponent', () => {
 
     expect(onSiteVisitIdbService.setSelectedFromGUID).toHaveBeenCalledOnceWith('woodruff-visit');
     expect(navigateSpy).toHaveBeenCalledOnceWith('/setup-wizard/pre-visit/woodruff-visit');
+  });
+
+  it('should move the most recently modified visit to the first page', () => {
+    const olderVisit = getVisit('older-visit', []);
+    olderVisit.modifiedDate = new Date('2025-01-01T00:00:00Z');
+    const updatedVisit = getVisit('updated-visit', []);
+    updatedVisit.modifiedDate = new Date('2025-02-01T00:00:00Z');
+    component.onSiteVisits = [olderVisit, updatedVisit];
+    component.currentPageNumber = 2;
+
+    component.sortVisits();
+
+    expect(component.onSiteVisits[0].guid).toBe('updated-visit');
+    expect(component.currentPageNumber).toBe(1);
   });
 
   function getVisit(guid: string, assessmentIds: Array<string>): IdbOnSiteVisit {

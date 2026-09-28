@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IdbContact } from '../models/contact';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class ContactIdbService {
 
   contacts: BehaviorSubject<Array<IdbContact>>;
   constructor(private dbService: NgxIndexedDBService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.contacts = new BehaviorSubject<Array<IdbContact>>([]);
   }
@@ -31,16 +33,16 @@ export class ContactIdbService {
 
   addWithObservable(contact: IdbContact): Observable<IdbContact> {
     this.analyticsService.sendEvent('add_contact', undefined);
-    return this.dbService.add('contact', contact);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.add('contact', contact));
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    return this.dbService.delete('contact', id);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.delete('contact', id));
   }
 
   updateWithObservable(contact: IdbContact): Observable<IdbContact> {
     contact.modifiedDate = new Date();
-    return this.dbService.update('contact', contact);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.update('contact', contact));
   }
 
   async asyncUpdate(contact: IdbContact) {

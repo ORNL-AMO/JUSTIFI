@@ -6,6 +6,7 @@ import { IdbEnergyOpportunity } from '../models/energyOpportunity';
 import { IdbKeyPerformanceMetricImpact } from '../models/keyPerformanceMetricImpact';
 import { IdbNonEnergyBenefit } from '../models/nonEnergyBenefit';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class ReportIdbService {
   reports: BehaviorSubject<Array<IdbReport>>;
   selectedReport: BehaviorSubject<IdbReport>;
   constructor(private dbService: NgxIndexedDBService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.reports = new BehaviorSubject<Array<IdbReport>>([]);
     this.selectedReport = new BehaviorSubject<IdbReport>(undefined);
@@ -36,11 +38,11 @@ export class ReportIdbService {
 
   addWithObservable(report: IdbReport): Observable<IdbReport> {
     this.analyticsService.sendEvent('add_report', undefined);
-    return this.dbService.add('report', report);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.add('report', report));
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    return this.dbService.delete('report', id);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.delete('report', id));
   }
 
   updateWithObservable(report: IdbReport): Observable<IdbReport> {

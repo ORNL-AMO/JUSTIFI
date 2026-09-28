@@ -33,6 +33,7 @@ import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-upda
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { UpdateCheckComponent } from './core-components/update-check/update-check.component';
 import { EmailListSubscribeComponent } from './core-components/email-list-subscribe/email-list-subscribe.component';
+import { TablePaginationModule } from './shared/table-pagination/table-pagination.module';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { EmailListSubscribeComponent } from './core-components/email-list-subscr
     FormsModule,
     SetupWizardModule,
     HelperPipesModule,
+    TablePaginationModule,
     UserPortfolioModule,
     PlotlyViaWindowModule,
     PlotlyViaWindowModule,

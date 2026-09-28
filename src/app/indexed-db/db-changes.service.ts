@@ -26,6 +26,7 @@ import { KeyPerformanceMetricImpactsIdbService } from './key-performance-metric-
 import { IdbKeyPerformanceMetricImpact } from '../models/keyPerformanceMetricImpact';
 import { ReportIdbService } from './report-idb.service';
 import { IdbReport } from '../models/report';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,8 @@ export class DbChangesService {
     private energyEquipmentIdbService: EnergyEquipmentIdbService,
     private processEquipmentIdbService: ProcessEquipmentIdbService,
     private keyPerformanceMetricImpactsIdbService: KeyPerformanceMetricImpactsIdbService,
-    private reportIdbService: ReportIdbService) { }
+    private reportIdbService: ReportIdbService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService) { }
 
 
   //TODO: loading service messaging and success toast notification
@@ -564,11 +566,13 @@ export class DbChangesService {
   selectOnSiteVisit(onSiteGUID: string): boolean {
     let onSiteExists: boolean = this.onSiteVisitIdbService.setSelectedFromGUID(onSiteGUID);
     if (onSiteExists) {
+      this.onSiteVisitActivityService.setActiveVisit(onSiteGUID);
       let onSiteVisit: IdbOnSiteVisit = this.onSiteVisitIdbService.selectedVisit.getValue();
       this.companyIdbService.setSelectedFromGUID(onSiteVisit.companyId);
       this.facilityIdbService.setSelectedFromGUID(onSiteVisit.facilityId);
       return true;
     } else {
+      this.onSiteVisitActivityService.clearActiveVisit();
       return false;
     }
   }

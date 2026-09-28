@@ -4,6 +4,7 @@ import { IdbFacility, getNewIdbFacility } from '../models/facility';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { guidType } from '../shared/constants/guidTypes';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class FacilityIdbService {
   facilities: BehaviorSubject<Array<IdbFacility>>;
   selectedFacility: BehaviorSubject<IdbFacility>;
   constructor(private dbService: NgxIndexedDBService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.facilities = new BehaviorSubject<Array<IdbFacility>>([]);
     this.selectedFacility = new BehaviorSubject<IdbFacility>(undefined);
@@ -35,16 +37,16 @@ export class FacilityIdbService {
 
   addWithObservable(facility: IdbFacility): Observable<IdbFacility> {
     this.analyticsService.sendEvent('add_facility', undefined);
-    return this.dbService.add('facility', facility);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.add('facility', facility));
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    return this.dbService.delete('facility', id);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.delete('facility', id));
   }
 
   updateWithObservable(facility: IdbFacility): Observable<IdbFacility> {
     facility.modifiedDate = new Date();
-    return this.dbService.update('facility', facility);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.update('facility', facility));
   }
   
   setSelectedFromGUID(guid: string): boolean {

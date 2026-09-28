@@ -308,7 +308,9 @@ export class SetupWizardSidebarComponent implements OnInit, OnDestroy {
   }
 
   async toggleReportsSidebarOpen() {
-    this.onSiteVisit.sidebarReportsOpen = !this.onSiteVisit.sidebarReportsOpen;
-    await this.onSiteVisitIdbService.asyncUpdate(this.onSiteVisit);
+    await this.onSiteVisitIdbService.updateSidebarReportsOpen(
+      this.onSiteVisit.guid,
+      !this.onSiteVisit.sidebarReportsOpen
+    );
   }
 }
