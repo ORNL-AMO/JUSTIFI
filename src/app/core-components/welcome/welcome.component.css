@@ -25,3 +25,21 @@
 .resource-header{
     font-size: 16px;
 }
+
+.sort-button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  display: inline-flex;
+  font: inherit;
+  font-weight: inherit;
+  padding: 0;
+  text-align: left;
+}
+
+.sort-button:focus-visible {
+  border-radius: 0.2rem;
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}

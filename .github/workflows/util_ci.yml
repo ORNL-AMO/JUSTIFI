@@ -9,18 +9,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        NODE_VERSION: [20.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Setup node ${{ matrix.NODE_VERSION }}
+      - name: Get Node version
+        run: echo "BUILD_NODE_VERSION=$(grep -o -P -m 1 '(?<=node":\s").*(?=")' package.json)" >> $GITHUB_ENV
+      - name: Setup node ${{ env.BUILD_NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.NODE_VERSION }}
+          node-version: ${{ env.BUILD_NODE_VERSION }}
           cache: 'npm'
       - name: Install dependencies
         run: npm install

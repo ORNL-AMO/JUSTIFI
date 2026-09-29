@@ -76,6 +76,51 @@ export class OnSiteVisitIdbService {
     this.selectedVisit.next(onSiteVisit);
   }
 
+  async touchModifiedDate(visitGuid: string): Promise<void> {
+    let onSiteVisit: IdbOnSiteVisit = this.getByGuid(visitGuid);
+    if (!onSiteVisit) {
+      return;
+    }
+
+    if (onSiteVisit.id != undefined) {
+      const storedVisit: IdbOnSiteVisit = await firstValueFrom(this.getById(onSiteVisit.id));
+      if (storedVisit?.guid == visitGuid) {
+        onSiteVisit = storedVisit;
+      }
+    }
+
+    await firstValueFrom(this.updateWithObservable(onSiteVisit));
+    await this.setOnSiteVisits();
+
+    const selectedVisit: IdbOnSiteVisit = this.selectedVisit.getValue();
+    if (selectedVisit?.guid == visitGuid) {
+      this.selectedVisit.next(this.getByGuid(visitGuid));
+    }
+  }
+
+  async updateSidebarReportsOpen(visitGuid: string, sidebarReportsOpen: boolean): Promise<void> {
+    let onSiteVisit: IdbOnSiteVisit = this.getByGuid(visitGuid);
+    if (!onSiteVisit) {
+      return;
+    }
+
+    if (onSiteVisit.id != undefined) {
+      const storedVisit: IdbOnSiteVisit = await firstValueFrom(this.getById(onSiteVisit.id));
+      if (storedVisit?.guid == visitGuid) {
+        onSiteVisit = storedVisit;
+      }
+    }
+
+    onSiteVisit.sidebarReportsOpen = sidebarReportsOpen;
+    await firstValueFrom(this.dbService.update('onSiteVisit', onSiteVisit));
+    await this.setOnSiteVisits();
+
+    const selectedVisit: IdbOnSiteVisit = this.selectedVisit.getValue();
+    if (selectedVisit?.guid == visitGuid) {
+      this.selectedVisit.next(this.getByGuid(visitGuid));
+    }
+  }
+
 
   async addNewOnSiteVisit(userGuid: string, companyGuid: string, facilityGuid: string): Promise<string> {
     let visit: IdbOnSiteVisit = getNewIdbOnSiteVisit(userGuid, companyGuid, facilityGuid);

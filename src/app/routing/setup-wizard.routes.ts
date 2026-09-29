@@ -33,11 +33,15 @@ import { CustomReportOptionsComponent } from "../shared/reports/custom-reports/c
 import { CustomReportComponent } from "../shared/reports/custom-reports/custom-report/custom-report.component";
 import { ExecutiveSummaryEvaluationComponent } from "../setup-wizard/data-evaluation/executive-summary-evaluation/executive-summary-evaluation.component";
 import { UploadTemplateComponent } from "../setup-wizard/upload-template/upload-template.component";
+import { NO_INDEX_SEO_ROUTE_DATA } from "../shared/constants/seoRouteData";
 
 
 export const SetupWizardRoutes: Route = {
     path: 'setup-wizard',
     component: SetupWizardComponent,
+    data: {
+        seo: NO_INDEX_SEO_ROUTE_DATA
+    },
     children: [
         {
             path: 'pre-visit/:id',

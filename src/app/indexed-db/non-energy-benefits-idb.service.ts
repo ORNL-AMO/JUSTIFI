@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IdbNonEnergyBenefit } from '../models/nonEnergyBenefit';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class NonEnergyBenefitsIdbService {
 
   nonEnergyBenefits: BehaviorSubject<Array<IdbNonEnergyBenefit>>;
   constructor(private dbService: NgxIndexedDBService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.nonEnergyBenefits = new BehaviorSubject<Array<IdbNonEnergyBenefit>>([]);
   }
@@ -35,16 +37,20 @@ export class NonEnergyBenefitsIdbService {
       nebName = 'Custom NEB';
     }
     this.analyticsService.sendEvent('add_neb', { neb_name: nebName });
-    return this.dbService.add('nonEnergyBenefit', nonEnergyBenefit);
+    return this.onSiteVisitActivityService.trackActivity(
+      this.dbService.add('nonEnergyBenefit', nonEnergyBenefit)
+    );
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    return this.dbService.delete('nonEnergyBenefit', id);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.delete('nonEnergyBenefit', id));
   }
 
   updateWithObservable(nonEnergyBenefit: IdbNonEnergyBenefit): Observable<IdbNonEnergyBenefit> {
     nonEnergyBenefit.modifiedDate = new Date();
-    return this.dbService.update('nonEnergyBenefit', nonEnergyBenefit);
+    return this.onSiteVisitActivityService.trackActivity(
+      this.dbService.update('nonEnergyBenefit', nonEnergyBenefit)
+    );
   }
 
   async asyncUpdate(nonEnergyBenefit: IdbNonEnergyBenefit) {

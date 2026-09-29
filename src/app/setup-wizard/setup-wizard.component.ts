@@ -1,10 +1,10 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { SharedDataService } from '../shared/shared-services/shared-data.service';
 import { Subscription } from 'rxjs';
-import { ContactContext, IdbContact } from '../models/contact';
 import { SetupWizardService } from './setup-wizard.service';
 import { faChevronCircleLeft, faChevronCircleRight, faGripLinesVertical, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { OnSiteVisitActivityService } from '../indexed-db/on-site-visit-activity.service';
 
 @Component({
   selector: 'app-setup-wizard',
@@ -35,7 +35,8 @@ export class SetupWizardComponent {
   helpPanelCanvasOpen: boolean = false;
   constructor(private sharedDataService: SharedDataService,
     private setupWizardService: SetupWizardService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.breakpointObserver.observe([Breakpoints.Handset])
       .subscribe(result => {
@@ -54,6 +55,7 @@ export class SetupWizardComponent {
   }
 
   ngOnDestroy() {
+    this.onSiteVisitActivityService.clearActiveVisit();
     this.setupWizardService.sidebarWidth = this.sidebarWidth;
     this.setupWizardService.helpWidth = this.helpWidth;
     this.printSub.unsubscribe();

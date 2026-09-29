@@ -4,6 +4,7 @@ import { IdbEnergyEquipment } from '../models/energyEquipment';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { guidType } from '../shared/constants/guidTypes';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class EnergyEquipmentIdbService {
   energyEquipments: BehaviorSubject<Array<IdbEnergyEquipment>>;
   selectedEnergyEquipment: BehaviorSubject<IdbEnergyEquipment>;
   constructor(private dbService: NgxIndexedDBService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.energyEquipments = new BehaviorSubject<Array<IdbEnergyEquipment>>([]);
     this.selectedEnergyEquipment = new BehaviorSubject<IdbEnergyEquipment>(undefined);
@@ -34,16 +36,16 @@ export class EnergyEquipmentIdbService {
 
   addWithObservable(energyEquipment: IdbEnergyEquipment): Observable<IdbEnergyEquipment> {
     this.analyticsService.sendEvent('add_energy_equipment', undefined);
-    return this.dbService.add('energyEquipment', energyEquipment);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.add('energyEquipment', energyEquipment));
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    return this.dbService.delete('energyEquipment', id);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.delete('energyEquipment', id));
   }
 
   updateWithObservable(energyEquipment: IdbEnergyEquipment): Observable<IdbEnergyEquipment> {
     energyEquipment.modifiedDate = new Date();
-    return this.dbService.update('energyEquipment', energyEquipment);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.update('energyEquipment', energyEquipment));
   }
 
   setSelectedFromGUID(guid: string): boolean {

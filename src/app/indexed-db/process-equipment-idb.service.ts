@@ -3,6 +3,7 @@ import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { IdbProcessEquipment } from '../models/processEquipment';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { OnSiteVisitActivityService } from './on-site-visit-activity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class ProcessEquipmentIdbService {
   processEquipments: BehaviorSubject<Array<IdbProcessEquipment>>;
   selectedProcessEquipment: BehaviorSubject<IdbProcessEquipment>;
   constructor(private dbService: NgxIndexedDBService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private onSiteVisitActivityService: OnSiteVisitActivityService
   ) {
     this.processEquipments = new BehaviorSubject<Array<IdbProcessEquipment>>([]);
     this.selectedProcessEquipment = new BehaviorSubject<IdbProcessEquipment>(undefined);
@@ -33,16 +35,16 @@ export class ProcessEquipmentIdbService {
 
   addWithObservable(processEquipment: IdbProcessEquipment): Observable<IdbProcessEquipment> {
     this.analyticsService.sendEvent('add_process_equipment', undefined);
-    return this.dbService.add('processEquipment', processEquipment);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.add('processEquipment', processEquipment));
   }
 
   deleteWithObservable(id: number): Observable<any> {
-    return this.dbService.delete('processEquipment', id);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.delete('processEquipment', id));
   }
 
   updateWithObservable(processEquipment: IdbProcessEquipment): Observable<IdbProcessEquipment> {
     processEquipment.modifiedDate = new Date();
-    return this.dbService.update('processEquipment', processEquipment);
+    return this.onSiteVisitActivityService.trackActivity(this.dbService.update('processEquipment', processEquipment));
   }
 
   setSelectedFromGUID(guid: string): boolean {

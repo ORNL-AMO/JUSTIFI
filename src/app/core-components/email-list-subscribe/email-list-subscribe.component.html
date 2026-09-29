@@ -1,0 +1,60 @@
+@let status = submittedStatus();
+
+<section class="email-list-subscribe" aria-labelledby="email-list-subscribe-title">
+  <div id="email-list-subscribe-title" class="resource-header mb-2">
+    Stay Up to Date!
+  </div>
+
+  @if (status !== 'success') {
+    <p class="card-text fw-light">
+      Subscribe for JUSTIFI news on releases, webinars, and training events. Your email address will only be used
+      for JUSTIFI communications and will not be shared with third parties. You can unsubscribe through the link
+      included in each email.
+    </p>
+
+    <form aria-label="Email list signup" (ngSubmit)="submitSubscriber()">
+      <label class="form-label" for="subscriberEmail">Email address</label>
+      <div class="subscribe-row">
+        <input
+          id="subscriberEmail"
+          name="subscriberEmail"
+          class="form-control"
+          type="email"
+          autocomplete="email"
+          placeholder="name@company.com"
+          [(ngModel)]="subscriberEmail"
+          [disabled]="status === 'sending'"
+          [attr.aria-invalid]="invalidEmailMessage ? 'true' : 'false'"
+          [attr.aria-describedby]="invalidEmailMessage ? 'email-validation-message' : null"
+          (input)="checkValid()">
+        <button class="btn btn-outline-success" type="submit" [disabled]="status === 'sending'">
+          Subscribe
+        </button>
+      </div>
+    </form>
+
+    @if (invalidEmailMessage) {
+      <div id="email-validation-message" class="alert alert-danger mt-2 mb-0 py-2" role="alert">
+        {{ invalidEmailMessage }}
+      </div>
+    }
+
+    @if (status === 'error') {
+      <div class="alert alert-danger mt-2 mb-0 py-2" role="alert">
+        The subscription could not be completed. Please verify your network connection and try again.
+      </div>
+    }
+
+    @if (status === 'sending') {
+      <div class="sending-status mt-2" role="status" aria-live="polite">
+        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        Sending subscription request...
+      </div>
+    }
+  } @else {
+    <div class="alert alert-success mb-0" role="status" aria-live="polite">
+      A confirmation email has been sent to {{ subscriberEmail }}. Click the opt-in link in the email to complete
+      your subscription. If it does not arrive within a few minutes, check your spam or junk folder.
+    </div>
+  }
+</section>

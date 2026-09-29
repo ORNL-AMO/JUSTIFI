@@ -32,6 +32,8 @@ import { PerformanceMetricsTablePipe } from './shared/reports/performance-metric
 import { AutoUpdateToastComponent } from './electron/auto-update-toast/auto-update-toast.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { UpdateCheckComponent } from './core-components/update-check/update-check.component';
+import { EmailListSubscribeComponent } from './core-components/email-list-subscribe/email-list-subscribe.component';
+import { TablePaginationModule } from './shared/table-pagination/table-pagination.module';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { UpdateCheckComponent } from './core-components/update-check/update-chec
     ExportBackupTreeComponent,
     AutoUpdateToastComponent,
     WelcomeSlideshowComponent,
-    UpdateCheckComponent
+    UpdateCheckComponent,
+    EmailListSubscribeComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,7 @@ import { UpdateCheckComponent } from './core-components/update-check/update-chec
     FormsModule,
     SetupWizardModule,
     HelperPipesModule,
+    TablePaginationModule,
     UserPortfolioModule,
     PlotlyViaWindowModule,
     PlotlyViaWindowModule,

@@ -1,0 +1,43 @@
+:host {
+  display: block;
+}
+
+.email-list-subscribe,
+.email-list-subscribe form {
+  display: grid;
+  gap: .5rem;
+}
+
+.resource-header {
+  font-size: 16px;
+}
+
+.email-list-subscribe p,
+.email-list-subscribe label,
+.email-list-subscribe button,
+.email-list-subscribe input,
+.email-list-subscribe .alert,
+.sending-status {
+  font-size: 14px;
+}
+
+.subscribe-row {
+  display: flex;
+  gap: .5rem;
+}
+
+.subscribe-row .form-control {
+  min-width: 0;
+}
+
+.sending-status {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+@media (max-width: 575.98px) {
+  .subscribe-row {
+    flex-direction: column;
+  }
+}

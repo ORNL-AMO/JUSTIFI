@@ -19,6 +19,7 @@ import { Subscription } from 'rxjs';
 import { ReportIdbService } from './indexed-db/report-idb.service';
 import { environment } from 'src/environments/environment';
 import { AnalyticsService } from './analytics/analytics.service';
+import { SeoService } from './shared/shared-services/seo.service';
 declare let gtag: Function;
 @Component({
   selector: 'app-root',
@@ -45,19 +46,24 @@ export class AppComponent {
     private keyPerformanceMetricImpactIdbService: KeyPerformanceMetricImpactsIdbService,
     private updateDbEntriesService: UpdateDbEntriesService,
     private reportIdbService: ReportIdbService,
-    private analyticsService: AnalyticsService) {
+    private analyticsService: AnalyticsService,
+    private seoService: SeoService) {
   }
 
   async ngOnInit() {
-    if (environment.production) {
-      gtag('config', 'G-TLLVV7DWV0');
-      this.analyticsService.sendEvent('justifi_app_open', undefined);
-      this.router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
+    this.seoService.updateSeoTags(this.router.routerState.snapshot.root);
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.seoService.updateSeoTags(this.router.routerState.snapshot.root);
+        if (environment.production) {
           let page_path: string = this.analyticsService.getPageWithoutId(event.urlAfterRedirects);
           this.analyticsService.sendEvent('page_view', { path: page_path });
         }
-      });
+      }
+    });
+    if (environment.production) {
+      gtag('config', 'G-TLLVV7DWV0');
+      this.analyticsService.sendEvent('justifi_app_open', undefined);
     }
     this.printSub = this.sharedDataService.print.subscribe(print => {
       this.print = print;
@@ -117,7 +123,7 @@ export class AppComponent {
 
   checkRouter() {
     //on init check if initialized on welcome screen
-    if (this.router.url == '/welcome') {
+    if (this.router.url == '/' || this.router.url == '/welcome') {
       let user: IdbUser = this.userIdbService.user.getValue();
       if (user.skipSplashScreen) {
         //if user skips the home screen navigate to dashboard.
